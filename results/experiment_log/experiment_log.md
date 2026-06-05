@@ -1,6 +1,6 @@
 # Stage D Experiment Log
 
-Generated at: 2026-06-05T11:09:22.181475+00:00
+Generated at: 2026-06-05T12:57:23.396588+00:00
 
 Scope: consolidated log for oracle-trace scaffold outputs. These are not trained-model evaluations.
 
@@ -27,6 +27,7 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 | module1_capacity_diagnostic_full_shards | results/module1_capacity_diagnostic_full_shards/results.json |
 | module1_capacity_perdepth_shards | results/module1_capacity_perdepth_shards/results.json |
 | module1_gru_smoke | results/gru_stack_smoke/results.json |
+| module1_gru_grid_full | results/gru_stack_grid_full/results.json |
 | learned_wiring | results/learned_wiring/results.json |
 | two_by_two | results/two_by_two/results.json |
 | d_stage_0 | results/d_stage_0/results.json |
@@ -96,8 +97,9 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 | 14 | module 1 diagnostic full | Ran fixed-depth diagnostic benchmark with joint/var/val K-direction metrics. | results/module1_capacity_diagnostic_full_shards/results.json | decision=k_direction_open_or_inverted, open=True |
 | 15 | module 1 per-depth full | Ran ceiling-free per-depth benchmark with with/without replacement and K_eff fits. | results/module1_capacity_perdepth_shards/results.json | decision=k_direction_negative, open=False |
 | 16 | gru tuned smoke | Implemented tuned GRUStack and ran a val-selected checkpoint smoke. | results/gru_stack_smoke/results.json | converged=True, frontier=0.0 |
-| 17 | scaffold gates | Ran D.3, D-stage 0/1/2/3, verifier, and TTT scaffold gates. | results/*/results.json | validation=True |
-| 18 | validation | Validated required files, schemas, gate expectations, and Module 1 comparisons. | results/validation/validation.json | checks=48, passed=True |
+| 17 | gru tuned full grid | Ran tuned GRUStack full grid and compared against structured capacity. | results/gru_stack_grid_full/results.json | all_converged=True, below_structured=True |
+| 18 | scaffold gates | Ran D.3, D-stage 0/1/2/3, verifier, and TTT scaffold gates. | results/*/results.json | validation=True |
+| 19 | validation | Validated required files, schemas, gate expectations, and Module 1 comparisons. | results/validation/validation.json | checks=50, passed=True |
 
 ## Detailed Itemized Run Log
 
@@ -587,7 +589,40 @@ Smoke result:
 
 Decision: GRU smoke interface pass. This is not yet the closeout GRU grid; the full tuned GRU per-depth grid still needs to run before the GRU negative headline is final.
 
-### 013. Ran scaffold gates and centralized validation
+### 013. Ran tuned GRUStack full grid and structured comparison
+
+Purpose: complete the clean labeled negative baseline. This full grid trains GRUStack cells with val-selected checkpoints and compares each matched D/K/replacement cell against the best structured register capacity from the per-depth benchmark.
+
+Code added/used:
+
+- `register/gru_stack.py`
+- `experiments/train_gru_stack.py`
+- `experiments/train_gru_stack_grid.py`
+- `analysis/merge_gru_grid.py`
+
+Command:
+
+```bash
+cd /home/aiscuser/stage_d_llm && for i in 0 1 2 3 4 5 6 7; do CUDA_VISIBLE_DEVICES=$i ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.train_gru_stack_grid --mode full --device cuda:0 --num-shards 8 --shard-index $i --max-depth 32 --steps 600 --batch-size 1024 --eval-every 50 --patience 6 --output-dir results/gru_stack_grid_full/shard_$i & done; wait; ~/.local/bin/uv run --python .venv/bin/python python -m analysis.merge_gru_grid
+```
+
+Artifacts:
+
+- `results/gru_stack_grid_full/results.json`
+- `results/gru_stack_grid_full/curves.json`
+- `results/gru_stack_grid_full/shard_*/cell_*/results.json`
+- `results/gru_stack_grid_full/shard_*/cell_*/gru_stack_best.pt`
+
+Result summary:
+
+- cells: 144
+- summary rows: 48
+- all_converged: True
+- all_gru_below_structured: True
+
+Decision: tuned GRU negative baseline passes closeout checks. At every matched D/K/replacement cell, val-selected GRU capacity is below the best structured register capacity.
+
+### 014. Ran scaffold gates and centralized validation
 
 Purpose: keep the older scaffold gates auditable while the build pivots toward the three-module design. Validation records whether required files, schemas, and comparison checks pass.
 
@@ -620,7 +655,7 @@ Artifacts:
 
 Validation summary:
 
-- checks: 48
+- checks: 50
 - passed: True
 
 Decision: centralized validation pass. Continue using this log as the top-level experiment ledger, but treat scaffold gates as legacy/supporting evidence rather than the new Module 1 core claim.
@@ -922,6 +957,8 @@ These figures summarize oracle-trace scaffold outputs, not trained-model evaluat
 | module1_perdepth_keff_fit_recorded | PASS | best={('bound_single', 'with_replacement'): 'D_over_ln_product', ('bound_single', 'without_replacement'): 'D_over_ln_product', ('factored', 'with_replacement'): 'D_over_ln_Kvar', ('factored', 'without_replacement'): 'D_over_ln_Kvar'} |
 | module1_batching_recorded | PASS | best_batches=[8192, 8192, 8192, 16384] |
 | module1_gru_smoke_converged | PASS | frontier=0.0, checkpoint=results/gru_stack_smoke/gru_stack_best.pt |
+| module1_gru_converged | PASS | cells=144, summary=48 |
+| module1_gru_below_structured | PASS | GRU capacity below best structured capacity at every matched cell |
 | learned_wiring_example_count | PASS | learned=2456, cache=2456 |
 | learned_wiring_model_exists | PASS | results/learned_wiring/heads.pt |
 | learned_wiring_action_accuracy | PASS | action_accuracy=0.9855 |

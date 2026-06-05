@@ -24,6 +24,9 @@ results/**
 !results/module1_capacity_batching_large/results.json
 !results/gru_stack_smoke/
 !results/gru_stack_smoke/results.json
+!results/gru_stack_grid_full/
+!results/gru_stack_grid_full/results.json
+!results/gru_stack_grid_full/curves.json
 figures/
 .env
 .venv/

@@ -1,6 +1,6 @@
 # Stage D Validation Report
 
-Generated at: 2026-06-05T11:09:21.890223+00:00
+Generated at: 2026-06-05T12:57:23.110792+00:00
 
 ## Checks
 
@@ -40,6 +40,8 @@ Generated at: 2026-06-05T11:09:21.890223+00:00
 | module1_perdepth_keff_fit_recorded | PASS | best={('bound_single', 'with_replacement'): 'D_over_ln_product', ('bound_single', 'without_replacement'): 'D_over_ln_product', ('factored', 'with_replacement'): 'D_over_ln_Kvar', ('factored', 'without_replacement'): 'D_over_ln_Kvar'} |
 | module1_batching_recorded | PASS | best_batches=[8192, 8192, 8192, 16384] |
 | module1_gru_smoke_converged | PASS | frontier=0.0, checkpoint=results/gru_stack_smoke/gru_stack_best.pt |
+| module1_gru_converged | PASS | cells=144, summary=48 |
+| module1_gru_below_structured | PASS | GRU capacity below best structured capacity at every matched cell |
 | learned_wiring_example_count | PASS | learned=2456, cache=2456 |
 | learned_wiring_model_exists | PASS | results/learned_wiring/heads.pt |
 | learned_wiring_action_accuracy | PASS | action_accuracy=0.9855 |

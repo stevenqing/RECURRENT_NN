@@ -31,6 +31,7 @@ REQUIRED_FILES = {
     "module1_capacity_perdepth_shards": "results/module1_capacity_perdepth_shards/results.json",
     "module1_capacity_batching_large": "results/module1_capacity_batching_large/results.json",
     "module1_gru_smoke": "results/gru_stack_smoke/results.json",
+    "module1_gru_grid_full": "results/gru_stack_grid_full/results.json",
     "learned_wiring": "results/learned_wiring/results.json",
     "two_by_two": "results/two_by_two/results.json",
     "d_stage_0": "results/d_stage_0/results.json",
@@ -189,6 +190,9 @@ def validate_outputs(output_dir: str = "results/validation") -> dict[str, Any]:
         _check(max(row["trials_per_sec"] for row in batching["rows"]) > 0 and any(row["batch_size"] >= 8192 for row in batching["best_by_case"]), "module1_batching_recorded", f"best_batches={[row['batch_size'] for row in batching['best_by_case']]}", checks)
         gru_smoke = data["module1_gru_smoke"]
         _check(gru_smoke["converged"] is True and gru_smoke["selection"] == "val_loss_min" and os.path.exists(gru_smoke["checkpoint"]), "module1_gru_smoke_converged", f"frontier={gru_smoke['frontier_joint_095']}, checkpoint={gru_smoke['checkpoint']}", checks)
+        gru_grid = data["module1_gru_grid_full"]
+        _check(gru_grid["all_converged"] is True and gru_grid["n_cells"] == 144, "module1_gru_converged", f"cells={gru_grid['n_cells']}, summary={len(gru_grid['summary'])}", checks)
+        _check(gru_grid["all_gru_below_structured"] is True, "module1_gru_below_structured", "GRU capacity below best structured capacity at every matched cell", checks)
         _check(data["learned_wiring"]["n_examples"] == data["operator_cache"]["n_examples"], "learned_wiring_example_count", f"learned={data['learned_wiring']['n_examples']}, cache={data['operator_cache']['n_examples']}", checks)
         _check(os.path.exists(data["learned_wiring"]["model"]), "learned_wiring_model_exists", data["learned_wiring"]["model"], checks)
         _check(data["learned_wiring"]["action_accuracy"] >= 0.95, "learned_wiring_action_accuracy", f"action_accuracy={data['learned_wiring']['action_accuracy']:.4f}", checks)

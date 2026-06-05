@@ -171,6 +171,16 @@
       "status": "PASS"
     },
     {
+      "detail": "cells=144, summary=48",
+      "name": "module1_gru_converged",
+      "status": "PASS"
+    },
+    {
+      "detail": "GRU capacity below best structured capacity at every matched cell",
+      "name": "module1_gru_below_structured",
+      "status": "PASS"
+    },
+    {
       "detail": "learned=2456, cache=2456",
       "name": "learned_wiring_example_count",
       "status": "PASS"
@@ -250,6 +260,6 @@
     },
     "n_examples_seen": 2456
   },
-  "generated_at": "2026-06-05T11:09:21.890223+00:00",
+  "generated_at": "2026-06-05T12:57:23.110792+00:00",
   "passed": true
 }
