@@ -99,6 +99,7 @@ def train_one(D: int, K_var: int, K_val: int, replacement: str, output_dir: str,
                                     val_losses.append(float(model.loss(eval_vars, eval_vals).detach().item()))
                             val_loss = sum(val_losses) / len(val_losses)
                             history.append({"step": step, "train_loss": float(loss.detach().item()), "val_loss": val_loss})
+                            print(json.dumps({"event": "gru_train_eval", "D": D, "K_var": K_var, "K_val": K_val, "replacement": replacement, "seed": seed, "cell_type": cell_type, "decoder_type": decoder_type, "decoder_layers": decoder_layers, "step": step, "steps": steps, "train_loss": float(loss.detach().item()), "val_loss": val_loss, "bad": bad}), flush=True)
                             if val_loss < best_val - 1e-4:
                                 best_val = val_loss
                                 best_state = {key: value.detach().cpu() for key, value in model.state_dict().items()}

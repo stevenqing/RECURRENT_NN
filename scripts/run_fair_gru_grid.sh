@@ -5,7 +5,7 @@ cd "$(dirname "$0")/.."
 
 PY="${PY:-$HOME/.local/bin/uv run --python .venv/bin/python python}"
 OUT="${OUT:-results/gru_stack_grid_fair}"
-ARCH_GRID="${ARCH_GRID:-gru:mlp:3,gru:replay:2,lstm:mlp:3}"
+ARCH_GRID="${ARCH_GRID:-gru:replay:2}"
 MAX_DEPTH="${MAX_DEPTH:-64}"
 STEPS="${STEPS:-5000}"
 BATCH_SIZE="${BATCH_SIZE:-4096}"
