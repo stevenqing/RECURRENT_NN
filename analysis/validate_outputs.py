@@ -32,6 +32,9 @@ REQUIRED_FILES = {
     "module1_capacity_batching_large": "results/module1_capacity_batching_large/results.json",
     "module1_gru_smoke": "results/gru_stack_smoke/results.json",
     "module1_gru_grid_full": "results/gru_stack_grid_full/results.json",
+    "module1_gru_degeneracy_diagnostic": "results/gru_degeneracy_diagnostic/results.json",
+    "module1_gru_grid_fair": "results/gru_stack_grid_fair/results.json",
+    "module1_gru_vs_structured_closeout": "results/gru_vs_structured_closeout/results.json",
     "learned_wiring": "results/learned_wiring/results.json",
     "two_by_two": "results/two_by_two/results.json",
     "d_stage_0": "results/d_stage_0/results.json",
@@ -191,8 +194,21 @@ def validate_outputs(output_dir: str = "results/validation") -> dict[str, Any]:
         gru_smoke = data["module1_gru_smoke"]
         _check(gru_smoke["converged"] is True and gru_smoke["selection"] == "val_loss_min" and os.path.exists(gru_smoke["checkpoint"]), "module1_gru_smoke_converged", f"frontier={gru_smoke['frontier_joint_095']}, checkpoint={gru_smoke['checkpoint']}", checks)
         gru_grid = data["module1_gru_grid_full"]
-        _check(gru_grid["all_converged"] is True and gru_grid["n_cells"] == 144, "module1_gru_converged", f"cells={gru_grid['n_cells']}, summary={len(gru_grid['summary'])}", checks)
-        _check(gru_grid["all_gru_below_structured"] is True, "module1_gru_below_structured", "GRU capacity below best structured capacity at every matched cell", checks)
+        _check(gru_grid["all_converged"] is True and gru_grid["n_cells"] == 144, "module1_gru_light_run_recorded", f"cells={gru_grid['n_cells']}, summary={len(gru_grid['summary'])}, light run is not headline evidence", checks)
+        diagnostic_gru = data["module1_gru_degeneracy_diagnostic"]
+        _check(diagnostic_gru["verdict"] in {"degenerate_recency", "undertrained", "genuine_limit_candidate"}, "module1_gru_diagnostic_verdict_recorded", f"verdict={diagnostic_gru['verdict']}, proceed_to_task_b={diagnostic_gru['proceed_to_task_b']}", checks)
+        fair_gru = data["module1_gru_grid_fair"]
+        fair_scaling = fair_gru.get("capacity_vs_D", [])
+        fair_slope_recorded = bool(fair_scaling) and all("slope" in row and "slope_positive" in row for row in fair_scaling)
+        _check(fair_slope_recorded, "module1_gru_D_scaling_recorded", f"groups={len(fair_scaling)}, slopes={[row.get('slope') for row in fair_scaling]}", checks)
+        fair_shallow = fair_gru.get("shallow_sanity_D1024", {})
+        _check(fair_shallow.get("depth2_passes_095") is True, "module1_gru_shallow_sanity", f"min_depth2={fair_shallow.get('min_depth2_joint_accuracy')}, min_depth3={fair_shallow.get('min_depth3_joint_accuracy')}", checks)
+        fair_training = fair_gru.get("training_sufficiency", {})
+        _check(fair_training.get("all_training_sufficient") is True, "module1_gru_training_sufficient", f"min_steps={fair_training.get('min_steps_requested')}, min_patience={fair_training.get('min_patience_requested')}, min_train_depth={fair_training.get('min_train_max_depth')}, required={fair_training.get('eval_depth_required')}", checks)
+        _check(fair_gru.get("all_converged") is True and fair_gru.get("n_cells") == 144, "module1_gru_fair_grid_converged", f"cells={fair_gru.get('n_cells')}, summary={len(fair_gru.get('summary', []))}", checks)
+        _check(fair_gru.get("all_gru_below_structured") is True and fair_training.get("all_training_sufficient") is True and fair_shallow.get("depth2_passes_095") is True, "module1_gru_below_structured_demoted", "ordering contributes only after fair training and shallow sanity pass", checks)
+        closeout = data["module1_gru_vs_structured_closeout"]
+        _check(closeout.get("classification") in {"CLEAN_NEGATIVE_SUBLINEAR", "RECENCY_COLLAPSE", "GRU_RISES"}, "module1_gru_closeout_classified", f"classification={closeout.get('classification')}, lock={closeout.get('lock_structured_headline')}", checks)
         _check(data["learned_wiring"]["n_examples"] == data["operator_cache"]["n_examples"], "learned_wiring_example_count", f"learned={data['learned_wiring']['n_examples']}, cache={data['operator_cache']['n_examples']}", checks)
         _check(os.path.exists(data["learned_wiring"]["model"]), "learned_wiring_model_exists", data["learned_wiring"]["model"], checks)
         _check(data["learned_wiring"]["action_accuracy"] >= 0.95, "learned_wiring_action_accuracy", f"action_accuracy={data['learned_wiring']['action_accuracy']:.4f}", checks)

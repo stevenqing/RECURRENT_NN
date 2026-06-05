@@ -1,6 +1,6 @@
 # Stage D Experiment Log
 
-Generated at: 2026-06-05T13:19:31.007802+00:00
+Generated at: 2026-06-05T13:35:20.799279+00:00
 
 Scope: consolidated log for oracle-trace scaffold outputs. These are not trained-model evaluations.
 
@@ -28,6 +28,7 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 | module1_capacity_perdepth_shards | results/module1_capacity_perdepth_shards/results.json |
 | module1_gru_smoke | results/gru_stack_smoke/results.json |
 | module1_gru_grid_full | results/gru_stack_grid_full/results.json |
+| module1_gru_degeneracy_diagnostic | results/gru_degeneracy_diagnostic/results.json |
 | learned_wiring | results/learned_wiring/results.json |
 | two_by_two | results/two_by_two/results.json |
 | d_stage_0 | results/d_stage_0/results.json |
@@ -66,7 +67,7 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 - Learned wiring holdout action accuracy: 0.4724
 - Learned wiring train verifier accuracy: 0.9865
 - Learned wiring holdout verifier accuracy: 0.9010
-- Validation passed: True
+- Validation passed: False
 
 ## Gate Status
 
@@ -97,9 +98,10 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 | 14 | module 1 diagnostic full | Ran fixed-depth diagnostic benchmark with joint/var/val K-direction metrics. | results/module1_capacity_diagnostic_full_shards/results.json | decision=k_direction_open_or_inverted, open=True |
 | 15 | module 1 per-depth full | Ran ceiling-free per-depth benchmark with with/without replacement and K_eff fits. | results/module1_capacity_perdepth_shards/results.json | decision=k_direction_negative, open=False |
 | 16 | gru tuned smoke | Implemented tuned GRUStack and ran a val-selected checkpoint smoke. | results/gru_stack_smoke/results.json | converged=True, frontier=0.0 |
-| 17 | gru tuned full grid | Ran tuned GRUStack full grid and compared against structured capacity. | results/gru_stack_grid_full/results.json | all_converged=True, below_structured=True |
-| 18 | scaffold gates | Ran D.3, D-stage 0/1/2/3, verifier, and TTT scaffold gates. | results/*/results.json | validation=True |
-| 19 | validation | Validated required files, schemas, gate expectations, and Module 1 comparisons. | results/validation/validation.json | checks=50, passed=True |
+| 17 | gru tuned light grid | Ran the first tuned GRUStack grid; now treated as diagnostic, not headline evidence. | results/gru_stack_grid_full/results.json | all_converged=True, below_structured=True |
+| 18 | gru degeneracy diagnostic | Measured old GRU capacity-vs-D and shallow D=1024 depth accuracy. | results/gru_degeneracy_diagnostic/results.json | verdict=degenerate_recency, proceed_task_b=True |
+| 19 | scaffold gates | Ran D.3, D-stage 0/1/2/3, verifier, and TTT scaffold gates. | results/*/results.json | validation=False |
+| 20 | validation | Validated required files, schemas, gate expectations, and Module 1 comparisons. | results/validation/validation.json | checks=1, passed=False |
 
 ## Detailed Itemized Run Log
 
@@ -589,9 +591,9 @@ Smoke result:
 
 Decision: GRU smoke interface pass. This is not yet the closeout GRU grid; the full tuned GRU per-depth grid still needs to run before the GRU negative headline is final.
 
-### 017. Ran tuned GRUStack full grid and structured comparison
+### 017. Ran first tuned GRUStack light grid and structured comparison
 
-Purpose: complete the clean labeled negative baseline. This full grid trains GRUStack cells with val-selected checkpoints and compares each matched D/K/replacement cell against the best structured register capacity from the per-depth benchmark.
+Purpose: this was the first tuned GRUStack grid. It is retained as a diagnostic artifact, but it is no longer sufficient headline evidence because capacity is flat near depth 1 across D.
 
 Code added/used:
 
@@ -673,9 +675,47 @@ Matched-cell numeric comparison:
 | 1024 | 729 | 9 | with_replacement | bound_single | 34.38 | 0 | 34.38 | True |
 | 1024 | 729 | 9 | without_replacement | bound_single | 34.39 | 0 | 34.39 | True |
 
-Decision: tuned GRU negative baseline passes closeout checks. At every matched D/K/replacement cell, val-selected GRU capacity is below the best structured register capacity.
+Decision: demoted. This light run cannot lock the structured > GRU headline because it shows recency collapse rather than a fair bounded-memory capacity limit. Use item 018 and the pending fair-GRU grid/closeout instead.
 
-### 018-019. Ran scaffold gates and centralized validation
+### 018. Diagnosed the light GRU grid as degenerate/undertrained
+
+Purpose: distinguish a real bounded-capacity limit from a recency-only readout or undertrained decoder before locking any structured > GRU claim.
+
+Code added:
+
+- `analysis/gru_degeneracy_diagnostic.py`
+
+Command:
+
+```bash
+cd /home/aiscuser/stage_d_llm && ~/.local/bin/uv run --python .venv/bin/python python -m analysis.gru_degeneracy_diagnostic --device cuda:0 --batch-size 1024 --batches 2
+```
+
+Artifacts:
+
+- `results/gru_degeneracy_diagnostic/results.json`
+
+Diagnostic summary:
+
+- verdict: `degenerate_recency`
+- proceed_to_task_b: True
+- flat_or_not_positive_D_scaling_groups: 16 / 16
+- D1024 depth2_fail_rate: 1
+- D1024 depth3_fail_rate: 1
+- mean_D1024_frontier_joint_095: 0.9407638189159363
+
+Capacity-vs-D examples:
+
+| K_var | K_val | replacement | Ds | capacities | slope | slope_positive |
+| --- | --- | --- | --- | --- | --- | --- |
+| 60 | 2 | with_replacement | [256.0, 512.0, 1024.0] | [1.0805220924407921, 1.0810958549638052, 1.079681484183403] | -1.333e-06 | False |
+| 60 | 2 | without_replacement | [256.0, 512.0, 1024.0] | [1.081620518191101, 1.0798736598349865, 1.0802421932975108] | -1.435e-06 | False |
+| 60 | 9 | with_replacement | [256.0, 512.0, 1024.0] | [1.0705840542446696, 1.0704393626749416, 1.069846369605406] | -9.888e-07 | False |
+| 60 | 9 | without_replacement | [256.0, 512.0, 1024.0] | [1.0694003522120163, 1.0696690899476056, 1.0690746257687709] | -5.294e-07 | False |
+
+Decision: old GRU grid is not fair headline evidence. Task B fair bounded-GRU grid must run with longer training, train-depth >= eval-depth, and bounded final-state decoders before any structured > GRU claim locks.
+
+### 019-020. Ran scaffold gates and centralized validation
 
 Purpose: keep the older scaffold gates auditable while the build pivots toward the three-module design. Validation records whether required files, schemas, and comparison checks pass.
 
@@ -708,8 +748,8 @@ Artifacts:
 
 Validation summary:
 
-- checks: 50
-- passed: True
+- checks: 1
+- passed: False
 
 Decision: centralized validation pass. Continue using this log as the top-level experiment ledger, but treat scaffold gates as legacy/supporting evidence rather than the new Module 1 core claim.
 

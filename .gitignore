@@ -28,6 +28,13 @@ results/**
 !results/gru_stack_grid_full/
 !results/gru_stack_grid_full/results.json
 !results/gru_stack_grid_full/curves.json
+!results/gru_degeneracy_diagnostic/
+!results/gru_degeneracy_diagnostic/results.json
+!results/gru_stack_grid_fair/
+!results/gru_stack_grid_fair/results.json
+!results/gru_stack_grid_fair/curves.json
+!results/gru_vs_structured_closeout/
+!results/gru_vs_structured_closeout/results.json
 figures/
 .env
 .venv/

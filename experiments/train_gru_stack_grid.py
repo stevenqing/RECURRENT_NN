@@ -39,11 +39,12 @@ def run_grid(
     device: str = "cuda:0",
     shard_index: int = 0,
     num_shards: int = 1,
-    max_depth: int = 32,
-    steps: int = 600,
+    max_depth: int = 64,
+    steps: int = 5000,
     batch_size: int = 1024,
-    eval_every: int = 50,
-    patience: int = 6,
+    eval_every: int = 100,
+    patience: int = 20,
+    arch_grid: str = "gru:mlp:3,gru:replay:2,lstm:mlp:3",
 ) -> dict[str, Any]:
     if shard_index < 0 or shard_index >= num_shards:
         raise ValueError("shard_index must be in [0, num_shards)")
@@ -69,6 +70,7 @@ def run_grid(
             eval_every=eval_every,
             patience=patience,
             seed=spec["seed"],
+            arch_grid=arch_grid,
         )
         result_summary = {key: value for key, value in result.items() if key not in {"trials"}}
         cells.append({"global_index": global_index, "result_path": str(cell_dir / "results.json"), **result_summary})
@@ -86,10 +88,11 @@ if __name__ == "__main__":
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--shard-index", type=int, default=0)
     parser.add_argument("--num-shards", type=int, default=1)
-    parser.add_argument("--max-depth", type=int, default=32)
-    parser.add_argument("--steps", type=int, default=600)
+    parser.add_argument("--max-depth", type=int, default=64)
+    parser.add_argument("--steps", type=int, default=5000)
     parser.add_argument("--batch-size", type=int, default=1024)
-    parser.add_argument("--eval-every", type=int, default=50)
-    parser.add_argument("--patience", type=int, default=6)
+    parser.add_argument("--eval-every", type=int, default=100)
+    parser.add_argument("--patience", type=int, default=20)
+    parser.add_argument("--arch-grid", default="gru:mlp:3,gru:replay:2,lstm:mlp:3")
     args = parser.parse_args()
-    print(json.dumps(run_grid(args.output_dir, args.mode, args.device, args.shard_index, args.num_shards, args.max_depth, args.steps, args.batch_size, args.eval_every, args.patience), indent=2, sort_keys=True))
+    print(json.dumps(run_grid(args.output_dir, args.mode, args.device, args.shard_index, args.num_shards, args.max_depth, args.steps, args.batch_size, args.eval_every, args.patience, args.arch_grid), indent=2, sort_keys=True))
