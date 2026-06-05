@@ -1,0 +1,255 @@
+{
+  "checks": [
+    {
+      "detail": "missing=[]",
+      "name": "required_files_present",
+      "status": "PASS"
+    },
+    {
+      "detail": "jsonl=2456, summary=2456",
+      "name": "oracle_dataset_line_count",
+      "status": "PASS"
+    },
+    {
+      "detail": "invalid={}",
+      "name": "oracle_dataset_actions_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "counts={'propagate': 1392, 'done': 184, 'branch': 680, 'revert': 200}",
+      "name": "oracle_dataset_has_all_actions",
+      "status": "PASS"
+    },
+    {
+      "detail": "supervision=symbolic_oracle_trace",
+      "name": "oracle_dataset_supervision",
+      "status": "PASS"
+    },
+    {
+      "detail": "cache=2456, dataset=2456",
+      "name": "operator_cache_example_count",
+      "status": "PASS"
+    },
+    {
+      "detail": "results/operator_cache/operator_cache.pt",
+      "name": "operator_cache_file_exists",
+      "status": "PASS"
+    },
+    {
+      "detail": "transformers_available=True, cuda_available=True",
+      "name": "model_readiness_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "transformers available in uv environment",
+      "name": "uv_transformers_available",
+      "status": "PASS"
+    },
+    {
+      "detail": "path=/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3-4B-Instruct-2507/snapshots/cdbee75f17c01a7cc42f958dc650907174af0554",
+      "name": "qwen_instruct_downloaded",
+      "status": "PASS"
+    },
+    {
+      "detail": "path=/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3-4B-Thinking-2507/snapshots/768f209d9ea81521153ed38c47d515654e938aea",
+      "name": "qwen_thinking_downloaded",
+      "status": "PASS"
+    },
+    {
+      "detail": "hidden_dim=2560, n_examples=8",
+      "name": "qwen_probe_cache_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "hidden_dim=2560, n_examples=128",
+      "name": "qwen_128_cache_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "action_accuracy=0.5703, verifier_accuracy=0.8359",
+      "name": "qwen_128_learned_wiring_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "seed_counts={'42': 64, '137': 64, '256': 64, '314': 64, '999': 64}",
+      "name": "qwen_balanced_320_cache_valid",
+      "status": "PASS"
+    },
+    {
+      "detail": "holdout_action_accuracy=0.8906",
+      "name": "qwen_balanced_320_holdout_action",
+      "status": "PASS"
+    },
+    {
+      "detail": "rows=84, summary=18",
+      "name": "module1_quick_result_present",
+      "status": "PASS"
+    },
+    {
+      "detail": "frontiers=[3, 3, 15, 1, 4, 9]",
+      "name": "module1_rotation_nonzero_frontier",
+      "status": "PASS"
+    },
+    {
+      "detail": "rotation frontier >= matched GRU proxy frontier",
+      "name": "module1_rotation_beats_gru_proxy",
+      "status": "PASS"
+    },
+    {
+      "detail": "tape frontier >= rotation frontier",
+      "name": "module1_tape_upper_bound",
+      "status": "PASS"
+    },
+    {
+      "detail": "rows=432, summary=30, seeds=[42, 137, 256]",
+      "name": "module1_full_gpu_result_present",
+      "status": "PASS"
+    },
+    {
+      "detail": "rotation frontier >= matched GRU proxy frontier",
+      "name": "module1_full_rotation_beats_gru_proxy",
+      "status": "PASS"
+    },
+    {
+      "detail": "tape frontier >= rotation frontier",
+      "name": "module1_full_tape_upper_bound",
+      "status": "PASS"
+    },
+    {
+      "detail": "rows=1476, summary=100",
+      "name": "module1_capacity_benchmark_full_sharded_present",
+      "status": "PASS"
+    },
+    {
+      "detail": "c=8.545489937800552",
+      "name": "module1_constant_calibrated",
+      "status": "PASS"
+    },
+    {
+      "detail": "decision=k_inversion_or_nonmonotonic_open, open=True",
+      "name": "module1_k_direction_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "target=theory_consistent, dropped=[(9, 9), (20, 20)]",
+      "name": "module1_k_direction_ceiling_corrected",
+      "status": "PASS"
+    },
+    {
+      "detail": "rows=648, summary=36",
+      "name": "module1_diagnostic_full_sharded_present",
+      "status": "PASS"
+    },
+    {
+      "detail": "decision=k_direction_open_or_inverted, open=True",
+      "name": "module1_diagnostic_k_direction_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "decision=k_direction_negative, open=False",
+      "name": "module1_perdepth_k_direction_negative",
+      "status": "PASS"
+    },
+    {
+      "detail": "all joint/var/val directions are non-increasing for with/without replacement",
+      "name": "module1_perdepth_with_without_agree",
+      "status": "PASS"
+    },
+    {
+      "detail": "best={('bound_single', 'with_replacement'): 'D_over_ln_product', ('bound_single', 'without_replacement'): 'D_over_ln_product', ('factored', 'with_replacement'): 'D_over_ln_Kvar', ('factored', 'without_replacement'): 'D_over_ln_Kvar'}",
+      "name": "module1_perdepth_keff_fit_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "best_batches=[8192, 8192, 8192, 16384]",
+      "name": "module1_batching_recorded",
+      "status": "PASS"
+    },
+    {
+      "detail": "frontier=0.0, checkpoint=results/gru_stack_smoke/gru_stack_best.pt",
+      "name": "module1_gru_smoke_converged",
+      "status": "PASS"
+    },
+    {
+      "detail": "learned=2456, cache=2456",
+      "name": "learned_wiring_example_count",
+      "status": "PASS"
+    },
+    {
+      "detail": "results/learned_wiring/heads.pt",
+      "name": "learned_wiring_model_exists",
+      "status": "PASS"
+    },
+    {
+      "detail": "action_accuracy=0.9855",
+      "name": "learned_wiring_action_accuracy",
+      "status": "PASS"
+    },
+    {
+      "detail": "verifier_accuracy=0.9865",
+      "name": "learned_wiring_verifier_accuracy",
+      "status": "PASS"
+    },
+    {
+      "detail": "required metric fields non-null",
+      "name": "two_by_two_schema",
+      "status": "PASS"
+    },
+    {
+      "detail": "required metric fields non-null",
+      "name": "d_stage_1_schema",
+      "status": "PASS"
+    },
+    {
+      "detail": "required metric fields non-null",
+      "name": "d_stage_2_schema",
+      "status": "PASS"
+    },
+    {
+      "detail": "required metric fields non-null",
+      "name": "d_stage_3_schema",
+      "status": "PASS"
+    },
+    {
+      "detail": "required metric fields non-null",
+      "name": "verifier_schema",
+      "status": "PASS"
+    },
+    {
+      "detail": "structured helps only backtracking column",
+      "name": "d3_two_by_two_gate",
+      "status": "PASS"
+    },
+    {
+      "detail": "structured reverts; GRU/no-revert collapse",
+      "name": "d_stage_1_gate",
+      "status": "PASS"
+    },
+    {
+      "detail": "latent_structured >= CoT >= naive last solved depth",
+      "name": "d_stage_3_ordering",
+      "status": "PASS"
+    },
+    {
+      "detail": "oracle >= learned >= noisy >= disabled",
+      "name": "d5_verifier_monotonic",
+      "status": "PASS"
+    },
+    {
+      "detail": "TTT restore error greater than structured",
+      "name": "d6_ttt_reversibility",
+      "status": "PASS"
+    }
+  ],
+  "dataset_stats": {
+    "action_counts": {
+      "branch": 680,
+      "done": 184,
+      "propagate": 1392,
+      "revert": 200
+    },
+    "n_examples_seen": 2456
+  },
+  "generated_at": "2026-06-05T11:09:21.890223+00:00",
+  "passed": true
+}

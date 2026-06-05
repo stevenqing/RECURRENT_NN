@@ -1,0 +1,24 @@
+operator:
+  model_id: Qwen/Qwen3-4B-Instruct-2507
+  role: frozen_per_step_propagation_operator
+  thinking_mode: false
+  frozen: true
+  lora_allowed_only_as_recorded_deviation: true
+
+cot_baseline:
+  model_id: Qwen/Qwen3-4B-Thinking-2507
+  role: token_cot_external_stack_baseline
+  thinking_mode: true
+
+qwen3_4b_expected:
+  hidden_size: 2560  # confirm from config.json at runtime
+  num_layers: 36
+  q_heads: 32
+  kv_heads: 8
+  max_context: 262144
+
+io_discipline:
+  prompt: bounded_current_node_rendering_only
+  prompt_is_append_only: false
+  stack_location: structured_register_h_only
+  revert: pop_register_then_rerender_prompt

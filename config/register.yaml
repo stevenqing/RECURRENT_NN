@@ -1,0 +1,17 @@
+formula: d_star_dyn = D / (2 * ln(K))
+
+registers:
+  structured:
+    type: rotation_vsa
+    dimensions: [64, 128, 256, 512, 1024, 4096]
+  negative_baseline:
+    type: gru
+    dimensions: [64, 128, 256, 512, 1024]
+
+preregistered_ceilings:
+  - {D: 256, K: 729, predicted_d_star: 19}
+  - {D: 512, K: 729, predicted_d_star: 39}
+  - {D: 256, K: 60, predicted_d_star: 31}
+  - {D: 512, K: 60, predicted_d_star: 63}
+  - {D: 1024, K: 729, predicted_d_star: 78}
+  - {D: 4096, K: 60, predicted_d_star: 500, use: large_D_offscreen_control}

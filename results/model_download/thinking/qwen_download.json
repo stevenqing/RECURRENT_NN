@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-06-05T07:30:54.067371+00:00",
+  "model_id": "Qwen/Qwen3-4B-Thinking-2507",
+  "n_files": 13,
+  "revision": null,
+  "snapshot_path": "/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3-4B-Thinking-2507/snapshots/768f209d9ea81521153ed38c47d515654e938aea",
+  "total_bytes": 8060920921,
+  "total_gib": 7.507317625917494
+}

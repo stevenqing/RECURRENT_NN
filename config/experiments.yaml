@@ -1,0 +1,79 @@
+run_order:
+  - preregistration
+  - oracle_dataset
+  - model_readiness
+  - operator_cache
+  - learned_wiring_baseline
+  - two_by_two_falsification
+  - d_stage_0_propagation_extrapolation
+  - d_stage_1_depth1_gate
+  - d_stage_2_capacity_frontier
+  - d_stage_3_vs_cot
+  - verifier_verification
+  - ttt_reversibility
+  - analysis_summary
+  - validate_outputs
+  - experiment_log
+
+evaluation_mode: oracle_trace_scaffold
+
+backbone:
+  operator: Qwen/Qwen3-4B-Instruct-2507
+  token_cot_baseline: Qwen/Qwen3-4B-Thinking-2507
+  frozen_operator: true
+  lora_policy: recorded_deviation_only
+
+two_by_two_falsification:
+  factors:
+    methods: [latent_only, latent_plus_structured_register]
+    task_columns: [propagation_only, backtracking_required]
+  prediction: register helps only in the backtracking column
+
+d_stage_0:
+  claim: frozen operator extrapolates propagation depth with more steps
+  kill_test: train to d_train, test to d_train_plus_k
+  d_train: 8
+  d_test_max: 16
+
+d_stage_1:
+  claims:
+    - latent_only does not solve backtracking_required tasks no matter pass count
+    - structured_register passes depth_1 with applied_reverts > 0
+  mandatory_ablations: [gru_register, no_revert]
+
+d_stage_2:
+  claim: structured depth frontier linear in D; gru sublinear
+  depth_range: [1, 80]
+  branching_factors: [3, 9, 60, 729]
+
+d_stage_3:
+  claim: structured wins over token_CoT inside preregistered d_star region
+  curves: [latent_structured, qwen_thinking_cot, naive_pass_scaling]
+  matched_compute: flops_or_token_budget
+
+d_stage_5_verifier:
+  modes: [oracle, learned, noisy, disabled]
+  metrics: [solve_rate, false_positive_reverts, false_negative_misses]
+  constraint: answer_free
+
+d_stage_6_ttt:
+  diagnostic: compare push_pop_restore_error
+  prediction: ttt_error_much_greater_than_rotation_error
+
+d_stage_7_preregistration:
+  formula: D / (2 * ln(K))
+  bands:
+    - {D: 256, K: 729, use: small_D_large_K}
+    - {D: 512, K: 729, use: medium_D_large_K}
+    - {D: 256, K: 60, use: small_D_medium_K}
+    - {D: 512, K: 60, use: medium_D_medium_K}
+    - {D: 1024, K: 729, use: large_D_large_K}
+    - {D: 4096, K: 60, use: offscreen_large_D_control}
+
+substrates:
+  core: [sudoku_4x4, horn_sat, general_sat, graph_coloring, logic_grid]
+  external_anchor_only: [sudoku_9x9, sudoku_bench_classic_subset]
+  demo_agentic: [blocksworld, sokoban, countdown]
+  excluded: [browsergym, gui_agents_with_irreversible_side_effects]
+
+seeds: [42, 137, 256, 314, 999]

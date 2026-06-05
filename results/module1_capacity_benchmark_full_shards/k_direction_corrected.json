@@ -1,0 +1,2452 @@
+{
+  "benchmark_path": "results/module1_capacity_benchmark_full_shards/results.json",
+  "benchmark_reanalysis": [
+    {
+      "D": 64,
+      "K_val": 2,
+      "changed_after_ceiling_drop": false,
+      "classification": "nonmonotonic",
+      "dropped_points": [],
+      "full_classification": "nonmonotonic",
+      "full_signs": [
+        -1,
+        -1,
+        0,
+        0,
+        1
+      ],
+      "kept_points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 14,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 14
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 11,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 11
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 10,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 10
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 8,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 8
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 7,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 7
+        }
+      ],
+      "points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 14,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 14
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 11,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 11
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 10,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 10
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 8,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 8
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 7,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 7
+        }
+      ],
+      "signs": [
+        -1,
+        -1,
+        0,
+        0,
+        1
+      ],
+      "variant": "bound_single"
+    },
+    {
+      "D": 64,
+      "K_val": 3,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 12,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 12
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 9
+        }
+      ],
+      "points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 12,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 12
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 9
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 64,
+      "K_val": 5,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 8,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 8
+        }
+      ],
+      "points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 8,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 8
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 64,
+      "K_val": 9,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 8,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 8
+        }
+      ],
+      "points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 8,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 8
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 128,
+      "K_val": 2,
+      "changed_after_ceiling_drop": false,
+      "classification": "theory_consistent",
+      "dropped_points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        }
+      ],
+      "full_classification": "theory_consistent",
+      "full_signs": [
+        -1,
+        0,
+        -1,
+        0,
+        -1
+      ],
+      "kept_points": [
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 21,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 21
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 19,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 19
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 16,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 16
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 14,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 14
+        }
+      ],
+      "points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 21,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 21
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 19,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 19
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 16,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 16
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 14,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 14
+        }
+      ],
+      "signs": [
+        0,
+        -1,
+        0,
+        -1
+      ],
+      "variant": "bound_single"
+    },
+    {
+      "D": 128,
+      "K_val": 3,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 18,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 18
+        }
+      ],
+      "points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 18,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 18
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 128,
+      "K_val": 5,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 16,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 16
+        }
+      ],
+      "points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 16,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 16
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 128,
+      "K_val": 9,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 15,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 15
+        }
+      ],
+      "points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 15,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 15
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 256,
+      "K_val": 2,
+      "changed_after_ceiling_drop": true,
+      "classification": "theory_consistent",
+      "dropped_points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        }
+      ],
+      "full_classification": "nonmonotonic",
+      "full_signs": [
+        1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "kept_points": [
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 15,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 41,
+          "ceiling_bound": false,
+          "frontier": 10,
+          "sweep_max_depth": 41
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 38,
+          "ceiling_bound": false,
+          "frontier": 9,
+          "sweep_max_depth": 38
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 31,
+          "ceiling_bound": false,
+          "frontier": 7,
+          "sweep_max_depth": 31
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 27,
+          "ceiling_bound": false,
+          "frontier": 6,
+          "sweep_max_depth": 27
+        }
+      ],
+      "points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 15,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 41,
+          "ceiling_bound": false,
+          "frontier": 10,
+          "sweep_max_depth": 41
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 38,
+          "ceiling_bound": false,
+          "frontier": 9,
+          "sweep_max_depth": 38
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 31,
+          "ceiling_bound": false,
+          "frontier": 7,
+          "sweep_max_depth": 31
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 27,
+          "ceiling_bound": false,
+          "frontier": 6,
+          "sweep_max_depth": 27
+        }
+      ],
+      "signs": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "variant": "bound_single"
+    },
+    {
+      "D": 256,
+      "K_val": 3,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 10,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 35,
+          "ceiling_bound": false,
+          "frontier": 8,
+          "sweep_max_depth": 35
+        }
+      ],
+      "points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 10,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 35,
+          "ceiling_bound": false,
+          "frontier": 8,
+          "sweep_max_depth": 35
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 256,
+      "K_val": 5,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 32,
+          "ceiling_bound": false,
+          "frontier": 8,
+          "sweep_max_depth": 32
+        }
+      ],
+      "points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 32,
+          "ceiling_bound": false,
+          "frontier": 8,
+          "sweep_max_depth": 32
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 256,
+      "K_val": 9,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 30,
+          "ceiling_bound": false,
+          "frontier": 7,
+          "sweep_max_depth": 30
+        }
+      ],
+      "points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 30,
+          "ceiling_bound": false,
+          "frontier": 7,
+          "sweep_max_depth": 30
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 512,
+      "K_val": 2,
+      "changed_after_ceiling_drop": false,
+      "classification": "nonmonotonic",
+      "dropped_points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": true,
+          "frontier": 20,
+          "sweep_max_depth": 20
+        }
+      ],
+      "full_classification": "nonmonotonic",
+      "full_signs": [
+        1,
+        -1,
+        1,
+        -1,
+        -1
+      ],
+      "kept_points": [
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 60,
+          "ceiling_bound": false,
+          "frontier": 15,
+          "sweep_max_depth": 60
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 76,
+          "ceiling_bound": false,
+          "frontier": 19,
+          "sweep_max_depth": 76
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 62,
+          "ceiling_bound": false,
+          "frontier": 15,
+          "sweep_max_depth": 62
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 53,
+          "ceiling_bound": false,
+          "frontier": 13,
+          "sweep_max_depth": 53
+        }
+      ],
+      "points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": true,
+          "frontier": 20,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 60,
+          "ceiling_bound": false,
+          "frontier": 15,
+          "sweep_max_depth": 60
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 76,
+          "ceiling_bound": false,
+          "frontier": 19,
+          "sweep_max_depth": 76
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 62,
+          "ceiling_bound": false,
+          "frontier": 15,
+          "sweep_max_depth": 62
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 53,
+          "ceiling_bound": false,
+          "frontier": 13,
+          "sweep_max_depth": 53
+        }
+      ],
+      "signs": [
+        1,
+        -1,
+        -1
+      ],
+      "variant": "bound_single"
+    },
+    {
+      "D": 512,
+      "K_val": 3,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": true,
+          "frontier": 20,
+          "sweep_max_depth": 20
+        }
+      ],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 70,
+          "ceiling_bound": false,
+          "frontier": 17,
+          "sweep_max_depth": 70
+        }
+      ],
+      "points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": true,
+          "frontier": 20,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 70,
+          "ceiling_bound": false,
+          "frontier": 17,
+          "sweep_max_depth": 70
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 512,
+      "K_val": 5,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 64,
+          "ceiling_bound": false,
+          "frontier": 16,
+          "sweep_max_depth": 64
+        }
+      ],
+      "points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 64,
+          "ceiling_bound": false,
+          "frontier": 16,
+          "sweep_max_depth": 64
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 512,
+      "K_val": 9,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 59,
+          "ceiling_bound": false,
+          "frontier": 14,
+          "sweep_max_depth": 59
+        }
+      ],
+      "points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 59,
+          "ceiling_bound": false,
+          "frontier": 14,
+          "sweep_max_depth": 59
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 1024,
+      "K_val": 2,
+      "changed_after_ceiling_drop": true,
+      "classification": "theory_consistent",
+      "dropped_points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": true,
+          "frontier": 20,
+          "sweep_max_depth": 20
+        }
+      ],
+      "full_classification": "nonmonotonic",
+      "full_signs": [
+        1,
+        1,
+        -1,
+        -1,
+        -1
+      ],
+      "kept_points": [
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 60,
+          "ceiling_bound": false,
+          "frontier": 45,
+          "sweep_max_depth": 60
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 40,
+          "sweep_max_depth": 81
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 124,
+          "ceiling_bound": false,
+          "frontier": 31,
+          "sweep_max_depth": 124
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 106,
+          "ceiling_bound": false,
+          "frontier": 26,
+          "sweep_max_depth": 106
+        }
+      ],
+      "points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": true,
+          "frontier": 20,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 60,
+          "ceiling_bound": false,
+          "frontier": 45,
+          "sweep_max_depth": 60
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 40,
+          "sweep_max_depth": 81
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 124,
+          "ceiling_bound": false,
+          "frontier": 31,
+          "sweep_max_depth": 124
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 106,
+          "ceiling_bound": false,
+          "frontier": 26,
+          "sweep_max_depth": 106
+        }
+      ],
+      "signs": [
+        -1,
+        -1,
+        -1
+      ],
+      "variant": "bound_single"
+    },
+    {
+      "D": 1024,
+      "K_val": 3,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": true,
+          "frontier": 20,
+          "sweep_max_depth": 20
+        }
+      ],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 40,
+          "sweep_max_depth": 81
+        }
+      ],
+      "points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": true,
+          "frontier": 20,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 40,
+          "sweep_max_depth": 81
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 1024,
+      "K_val": 5,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 40,
+          "sweep_max_depth": 81
+        }
+      ],
+      "points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 40,
+          "sweep_max_depth": 81
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 1024,
+      "K_val": 9,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 40,
+          "sweep_max_depth": 81
+        }
+      ],
+      "points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 40,
+          "sweep_max_depth": 81
+        }
+      ],
+      "signs": [],
+      "variant": "bound_single"
+    },
+    {
+      "D": 64,
+      "K_val": 2,
+      "changed_after_ceiling_drop": false,
+      "classification": "nonmonotonic",
+      "dropped_points": [],
+      "full_classification": "nonmonotonic",
+      "full_signs": [
+        0,
+        -1,
+        0,
+        1,
+        -1
+      ],
+      "kept_points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 6,
+          "ceiling_bound": false,
+          "frontier": 1,
+          "sweep_max_depth": 6
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 6,
+          "ceiling_bound": false,
+          "frontier": 1,
+          "sweep_max_depth": 6
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 5,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 5
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 4,
+          "ceiling_bound": false,
+          "frontier": 1,
+          "sweep_max_depth": 4
+        }
+      ],
+      "points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 6,
+          "ceiling_bound": false,
+          "frontier": 1,
+          "sweep_max_depth": 6
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 6,
+          "ceiling_bound": false,
+          "frontier": 1,
+          "sweep_max_depth": 6
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 5,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 5
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 4,
+          "ceiling_bound": false,
+          "frontier": 1,
+          "sweep_max_depth": 4
+        }
+      ],
+      "signs": [
+        0,
+        -1,
+        0,
+        1,
+        -1
+      ],
+      "variant": "factored"
+    },
+    {
+      "D": 64,
+      "K_val": 3,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 6,
+          "ceiling_bound": false,
+          "frontier": 1,
+          "sweep_max_depth": 6
+        }
+      ],
+      "points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 6,
+          "ceiling_bound": false,
+          "frontier": 1,
+          "sweep_max_depth": 6
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 64,
+      "K_val": 5,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 6,
+          "ceiling_bound": false,
+          "frontier": 1,
+          "sweep_max_depth": 6
+        }
+      ],
+      "points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 6,
+          "ceiling_bound": false,
+          "frontier": 1,
+          "sweep_max_depth": 6
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 64,
+      "K_val": 9,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 6,
+          "ceiling_bound": false,
+          "frontier": 1,
+          "sweep_max_depth": 6
+        }
+      ],
+      "points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 6,
+          "ceiling_bound": false,
+          "frontier": 1,
+          "sweep_max_depth": 6
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 128,
+      "K_val": 2,
+      "changed_after_ceiling_drop": false,
+      "classification": "theory_consistent",
+      "dropped_points": [],
+      "full_classification": "theory_consistent",
+      "full_signs": [
+        0,
+        -1,
+        -1,
+        0,
+        0
+      ],
+      "kept_points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 17,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 17
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 12,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 12
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 11,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 11
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 8,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 8
+        }
+      ],
+      "points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 17,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 17
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 12,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 12
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 11,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 11
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 9,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 8,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 8
+        }
+      ],
+      "signs": [
+        0,
+        -1,
+        -1,
+        0,
+        0
+      ],
+      "variant": "factored"
+    },
+    {
+      "D": 128,
+      "K_val": 3,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 17,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 17
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 11,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 11
+        }
+      ],
+      "points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 17,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 17
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 11,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 11
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 128,
+      "K_val": 5,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 11,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 11
+        }
+      ],
+      "points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 11,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 11
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 128,
+      "K_val": 9,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 11,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 11
+        }
+      ],
+      "points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 11,
+          "ceiling_bound": false,
+          "frontier": 2,
+          "sweep_max_depth": 11
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 256,
+      "K_val": 2,
+      "changed_after_ceiling_drop": false,
+      "classification": "nonmonotonic",
+      "dropped_points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        }
+      ],
+      "full_classification": "nonmonotonic",
+      "full_signs": [
+        -1,
+        1,
+        -1,
+        -1,
+        -1
+      ],
+      "kept_points": [
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 24,
+          "ceiling_bound": false,
+          "frontier": 6,
+          "sweep_max_depth": 24
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 22,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 22
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 18,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 18
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 15,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 15
+        }
+      ],
+      "points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 24,
+          "ceiling_bound": false,
+          "frontier": 6,
+          "sweep_max_depth": 24
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 22,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 22
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 18,
+          "ceiling_bound": false,
+          "frontier": 4,
+          "sweep_max_depth": 18
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 15,
+          "ceiling_bound": false,
+          "frontier": 3,
+          "sweep_max_depth": 15
+        }
+      ],
+      "signs": [
+        1,
+        -1,
+        -1,
+        -1
+      ],
+      "variant": "factored"
+    },
+    {
+      "D": 256,
+      "K_val": 3,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 22,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 22
+        }
+      ],
+      "points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 22,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 22
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 256,
+      "K_val": 5,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 22,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 22
+        }
+      ],
+      "points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 22,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 22
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 256,
+      "K_val": 9,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 22,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 22
+        }
+      ],
+      "points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 22,
+          "ceiling_bound": false,
+          "frontier": 5,
+          "sweep_max_depth": 22
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 512,
+      "K_val": 2,
+      "changed_after_ceiling_drop": true,
+      "classification": "theory_consistent",
+      "dropped_points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        }
+      ],
+      "full_classification": "nonmonotonic",
+      "full_signs": [
+        1,
+        -1,
+        0,
+        -1,
+        -1
+      ],
+      "kept_points": [
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 15,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 47,
+          "ceiling_bound": false,
+          "frontier": 11,
+          "sweep_max_depth": 47
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 44,
+          "ceiling_bound": false,
+          "frontier": 11,
+          "sweep_max_depth": 44
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 35,
+          "ceiling_bound": false,
+          "frontier": 8,
+          "sweep_max_depth": 35
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 30,
+          "ceiling_bound": false,
+          "frontier": 7,
+          "sweep_max_depth": 30
+        }
+      ],
+      "points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 15,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 47,
+          "ceiling_bound": false,
+          "frontier": 11,
+          "sweep_max_depth": 47
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 44,
+          "ceiling_bound": false,
+          "frontier": 11,
+          "sweep_max_depth": 44
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 35,
+          "ceiling_bound": false,
+          "frontier": 8,
+          "sweep_max_depth": 35
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 30,
+          "ceiling_bound": false,
+          "frontier": 7,
+          "sweep_max_depth": 30
+        }
+      ],
+      "signs": [
+        -1,
+        0,
+        -1,
+        -1
+      ],
+      "variant": "factored"
+    },
+    {
+      "D": 512,
+      "K_val": 3,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 15,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 44,
+          "ceiling_bound": false,
+          "frontier": 11,
+          "sweep_max_depth": 44
+        }
+      ],
+      "points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": false,
+          "frontier": 15,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 44,
+          "ceiling_bound": false,
+          "frontier": 11,
+          "sweep_max_depth": 44
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 512,
+      "K_val": 5,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 44,
+          "ceiling_bound": false,
+          "frontier": 11,
+          "sweep_max_depth": 44
+        }
+      ],
+      "points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 44,
+          "ceiling_bound": false,
+          "frontier": 11,
+          "sweep_max_depth": 44
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 512,
+      "K_val": 9,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 44,
+          "ceiling_bound": false,
+          "frontier": 11,
+          "sweep_max_depth": 44
+        }
+      ],
+      "points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 44,
+          "ceiling_bound": false,
+          "frontier": 11,
+          "sweep_max_depth": 44
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 1024,
+      "K_val": 2,
+      "changed_after_ceiling_drop": false,
+      "classification": "nonmonotonic",
+      "dropped_points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": true,
+          "frontier": 20,
+          "sweep_max_depth": 20
+        }
+      ],
+      "full_classification": "nonmonotonic",
+      "full_signs": [
+        1,
+        -1,
+        1,
+        -1,
+        -1
+      ],
+      "kept_points": [
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 60,
+          "ceiling_bound": false,
+          "frontier": 15,
+          "sweep_max_depth": 60
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 20,
+          "sweep_max_depth": 81
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 70,
+          "ceiling_bound": false,
+          "frontier": 17,
+          "sweep_max_depth": 70
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 59,
+          "ceiling_bound": false,
+          "frontier": 14,
+          "sweep_max_depth": 59
+        }
+      ],
+      "points": [
+        {
+          "K_val": 2,
+          "K_var": 9,
+          "ceiling": 9,
+          "ceiling_bound": true,
+          "frontier": 9,
+          "sweep_max_depth": 9
+        },
+        {
+          "K_val": 2,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": true,
+          "frontier": 20,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "ceiling": 60,
+          "ceiling_bound": false,
+          "frontier": 15,
+          "sweep_max_depth": 60
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 20,
+          "sweep_max_depth": 81
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "ceiling": 70,
+          "ceiling_bound": false,
+          "frontier": 17,
+          "sweep_max_depth": 70
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "ceiling": 59,
+          "ceiling_bound": false,
+          "frontier": 14,
+          "sweep_max_depth": 59
+        }
+      ],
+      "signs": [
+        1,
+        -1,
+        -1
+      ],
+      "variant": "factored"
+    },
+    {
+      "D": 1024,
+      "K_val": 3,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": true,
+          "frontier": 20,
+          "sweep_max_depth": 20
+        }
+      ],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 20,
+          "sweep_max_depth": 81
+        }
+      ],
+      "points": [
+        {
+          "K_val": 3,
+          "K_var": 20,
+          "ceiling": 20,
+          "ceiling_bound": true,
+          "frontier": 20,
+          "sweep_max_depth": 20
+        },
+        {
+          "K_val": 3,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 20,
+          "sweep_max_depth": 81
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 1024,
+      "K_val": 5,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 20,
+          "sweep_max_depth": 81
+        }
+      ],
+      "points": [
+        {
+          "K_val": 5,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 20,
+          "sweep_max_depth": 81
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    },
+    {
+      "D": 1024,
+      "K_val": 9,
+      "changed_after_ceiling_drop": false,
+      "classification": "insufficient",
+      "dropped_points": [],
+      "full_classification": "insufficient",
+      "full_signs": [],
+      "kept_points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 20,
+          "sweep_max_depth": 81
+        }
+      ],
+      "points": [
+        {
+          "K_val": 9,
+          "K_var": 81,
+          "ceiling": 81,
+          "ceiling_bound": false,
+          "frontier": 20,
+          "sweep_max_depth": 81
+        }
+      ],
+      "signs": [],
+      "variant": "factored"
+    }
+  ],
+  "decision": "ceiling_aware_reanalysis_complete",
+  "diagnostic_decision": "k_direction_open_or_inverted",
+  "diagnostic_path": "results/module1_capacity_diagnostic_full_shards/results.json",
+  "expected_target": {
+    "D": 1024,
+    "K_val": 2,
+    "changed_after_ceiling_drop": true,
+    "classification": "theory_consistent",
+    "dropped_points": [
+      {
+        "K_val": 2,
+        "K_var": 9,
+        "ceiling": 9,
+        "ceiling_bound": true,
+        "frontier": 9,
+        "sweep_max_depth": 9
+      },
+      {
+        "K_val": 2,
+        "K_var": 20,
+        "ceiling": 20,
+        "ceiling_bound": true,
+        "frontier": 20,
+        "sweep_max_depth": 20
+      }
+    ],
+    "full_classification": "nonmonotonic",
+    "full_signs": [
+      1,
+      1,
+      -1,
+      -1,
+      -1
+    ],
+    "kept_points": [
+      {
+        "K_val": 2,
+        "K_var": 60,
+        "ceiling": 60,
+        "ceiling_bound": false,
+        "frontier": 45,
+        "sweep_max_depth": 60
+      },
+      {
+        "K_val": 2,
+        "K_var": 81,
+        "ceiling": 81,
+        "ceiling_bound": false,
+        "frontier": 40,
+        "sweep_max_depth": 81
+      },
+      {
+        "K_val": 2,
+        "K_var": 256,
+        "ceiling": 124,
+        "ceiling_bound": false,
+        "frontier": 31,
+        "sweep_max_depth": 124
+      },
+      {
+        "K_val": 2,
+        "K_var": 729,
+        "ceiling": 106,
+        "ceiling_bound": false,
+        "frontier": 26,
+        "sweep_max_depth": 106
+      }
+    ],
+    "points": [
+      {
+        "K_val": 2,
+        "K_var": 9,
+        "ceiling": 9,
+        "ceiling_bound": true,
+        "frontier": 9,
+        "sweep_max_depth": 9
+      },
+      {
+        "K_val": 2,
+        "K_var": 20,
+        "ceiling": 20,
+        "ceiling_bound": true,
+        "frontier": 20,
+        "sweep_max_depth": 20
+      },
+      {
+        "K_val": 2,
+        "K_var": 60,
+        "ceiling": 60,
+        "ceiling_bound": false,
+        "frontier": 45,
+        "sweep_max_depth": 60
+      },
+      {
+        "K_val": 2,
+        "K_var": 81,
+        "ceiling": 81,
+        "ceiling_bound": false,
+        "frontier": 40,
+        "sweep_max_depth": 81
+      },
+      {
+        "K_val": 2,
+        "K_var": 256,
+        "ceiling": 124,
+        "ceiling_bound": false,
+        "frontier": 31,
+        "sweep_max_depth": 124
+      },
+      {
+        "K_val": 2,
+        "K_var": 729,
+        "ceiling": 106,
+        "ceiling_bound": false,
+        "frontier": 26,
+        "sweep_max_depth": 106
+      }
+    ],
+    "signs": [
+      -1,
+      -1,
+      -1
+    ],
+    "variant": "bound_single"
+  },
+  "expected_target_passed": true,
+  "margin": 1
+}
