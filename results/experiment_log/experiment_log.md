@@ -1,6 +1,6 @@
 # Stage D Experiment Log
 
-Generated at: 2026-06-05T13:16:28.864489+00:00
+Generated at: 2026-06-05T13:19:31.007802+00:00
 
 Scope: consolidated log for oracle-trace scaffold outputs. These are not trained-model evaluations.
 
@@ -100,90 +100,6 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 | 17 | gru tuned full grid | Ran tuned GRUStack full grid and compared against structured capacity. | results/gru_stack_grid_full/results.json | all_converged=True, below_structured=True |
 | 18 | scaffold gates | Ran D.3, D-stage 0/1/2/3, verifier, and TTT scaffold gates. | results/*/results.json | validation=True |
 | 19 | validation | Validated required files, schemas, gate expectations, and Module 1 comparisons. | results/validation/validation.json | checks=50, passed=True |
-
-## Core Sweep Numeric Summaries
-
-These are the concrete values from the decisive Module 1 sweeps. Full curves and per-cell records remain in the JSON artifacts listed above.
-
-### Per-depth K-direction, D=1024, K_val=2, joint accuracy capacity@0.95
-
-| variant | replacement | K_vars | capacity_joint_095 | signs |
-| --- | --- | --- | --- | --- |
-| bound_single | with_replacement | [60, 81, 256, 729] | [53.77160462334458, 51.60739471070541, 44.47761734267629, 39.61899179230261] | [-1, -1, -1] |
-| bound_single | without_replacement | [60, 81, 256, 729] | [53.74540981430042, 51.574336450365955, 44.37440405290796, 39.637738786003396] | [-1, -1, -1] |
-| factored | with_replacement | [60, 81, 256, 729] | [29.309168449817616, 28.898829257094782, 24.681460344196214, 21.787743755793446] | [-1, -1, -1] |
-| factored | without_replacement | [60, 81, 256, 729] | [29.25273964234934, 29.005177933570298, 24.695724521669185, 21.78257553309042] | [-1, -1, -1] |
-
-### K_eff fit summary, joint metric
-
-| variant | replacement | best_k_eff | n_points | product_slope | product_r2 | Kvar_slope | Kvar_r2 | max_factor_slope | max_factor_r2 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| bound_single | with_replacement | D_over_ln_product | 24 | 0.2688 | 0.9888 | 0.2094 | 0.9443 | 0.4187 | 0.9443 |
-| bound_single | without_replacement | D_over_ln_product | 24 | 0.2687 | 0.9884 | 0.2093 | 0.9448 | 0.4187 | 0.9448 |
-| factored | with_replacement | D_over_ln_Kvar | 24 | 0.1596 | 0.9376 | 0.1255 | 0.9775 | 0.251 | 0.9775 |
-| factored | without_replacement | D_over_ln_Kvar | 24 | 0.1595 | 0.9386 | 0.1254 | 0.9774 | 0.2509 | 0.9774 |
-
-### Tuned GRU grid vs structured register, matched cells
-
-| D | K_var | K_val | replacement | structured_variant | structured_capacity | gru_capacity | gap | gru_below |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 256 | 60 | 2 | with_replacement | bound_single | 13.6 | 1.081 | 12.52 | True |
-| 256 | 60 | 2 | without_replacement | bound_single | 13.68 | 1.082 | 12.59 | True |
-| 256 | 60 | 9 | with_replacement | bound_single | 11.29 | 1.071 | 10.22 | True |
-| 256 | 60 | 9 | without_replacement | bound_single | 11.31 | 1.069 | 10.25 | True |
-| 256 | 81 | 2 | with_replacement | bound_single | 13.12 | 1.08 | 12.04 | True |
-| 256 | 81 | 2 | without_replacement | bound_single | 13.13 | 1.08 | 12.05 | True |
-| 256 | 81 | 9 | with_replacement | bound_single | 10.95 | 1.068 | 9.878 | True |
-| 256 | 81 | 9 | without_replacement | bound_single | 10.9 | 1.069 | 9.835 | True |
-| 256 | 256 | 2 | with_replacement | bound_single | 11.38 | 1.079 | 10.3 | True |
-| 256 | 256 | 2 | without_replacement | bound_single | 11.36 | 1.075 | 10.28 | True |
-| 256 | 256 | 9 | with_replacement | bound_single | 9.637 | 0 | 9.637 | True |
-| 256 | 256 | 9 | without_replacement | bound_single | 9.672 | 0 | 9.672 | True |
-| 256 | 729 | 2 | with_replacement | bound_single | 10.1 | 1.043 | 9.059 | True |
-| 256 | 729 | 2 | without_replacement | bound_single | 10.06 | 0.6933 | 9.363 | True |
-| 256 | 729 | 9 | with_replacement | bound_single | 8.733 | 0 | 8.733 | True |
-| 256 | 729 | 9 | without_replacement | bound_single | 8.737 | 0 | 8.737 | True |
-| 512 | 60 | 2 | with_replacement | bound_single | 27 | 1.081 | 25.91 | True |
-| 512 | 60 | 2 | without_replacement | bound_single | 26.83 | 1.08 | 25.75 | True |
-| 512 | 60 | 9 | with_replacement | bound_single | 22.33 | 1.07 | 21.25 | True |
-| 512 | 60 | 9 | without_replacement | bound_single | 22.32 | 1.07 | 21.25 | True |
-| 512 | 81 | 2 | with_replacement | bound_single | 25.78 | 1.081 | 24.7 | True |
-| 512 | 81 | 2 | without_replacement | bound_single | 25.74 | 1.08 | 24.66 | True |
-| 512 | 81 | 9 | with_replacement | bound_single | 21.55 | 1.071 | 20.48 | True |
-| 512 | 81 | 9 | without_replacement | bound_single | 21.56 | 1.07 | 20.49 | True |
-| 512 | 256 | 2 | with_replacement | bound_single | 22.36 | 1.08 | 21.28 | True |
-| 512 | 256 | 2 | without_replacement | bound_single | 22.34 | 1.08 | 21.26 | True |
-| 512 | 256 | 9 | with_replacement | bound_single | 19.09 | 1.06 | 18.03 | True |
-| 512 | 256 | 9 | without_replacement | bound_single | 19.1 | 1.063 | 18.04 | True |
-| 512 | 729 | 2 | with_replacement | bound_single | 19.91 | 1.075 | 18.84 | True |
-| 512 | 729 | 2 | without_replacement | bound_single | 19.9 | 1.075 | 18.83 | True |
-| 512 | 729 | 9 | with_replacement | bound_single | 17.33 | 0 | 17.33 | True |
-| 512 | 729 | 9 | without_replacement | bound_single | 17.34 | 0 | 17.34 | True |
-| 1024 | 60 | 2 | with_replacement | bound_single | 53.77 | 1.08 | 52.69 | True |
-| 1024 | 60 | 2 | without_replacement | bound_single | 53.75 | 1.08 | 52.67 | True |
-| 1024 | 60 | 9 | with_replacement | bound_single | 44.05 | 1.07 | 42.98 | True |
-| 1024 | 60 | 9 | without_replacement | bound_single | 44.08 | 1.069 | 43.02 | True |
-| 1024 | 81 | 2 | with_replacement | bound_single | 51.61 | 1.08 | 50.53 | True |
-| 1024 | 81 | 2 | without_replacement | bound_single | 51.57 | 1.079 | 50.5 | True |
-| 1024 | 81 | 9 | with_replacement | bound_single | 42.79 | 1.071 | 41.72 | True |
-| 1024 | 81 | 9 | without_replacement | bound_single | 42.8 | 1.069 | 41.73 | True |
-| 1024 | 256 | 2 | with_replacement | bound_single | 44.48 | 1.079 | 43.4 | True |
-| 1024 | 256 | 2 | without_replacement | bound_single | 44.37 | 1.079 | 43.3 | True |
-| 1024 | 256 | 9 | with_replacement | bound_single | 37.88 | 1.068 | 36.82 | True |
-| 1024 | 256 | 9 | without_replacement | bound_single | 37.98 | 1.069 | 36.91 | True |
-| 1024 | 729 | 2 | with_replacement | bound_single | 39.62 | 1.079 | 38.54 | True |
-| 1024 | 729 | 2 | without_replacement | bound_single | 39.64 | 1.08 | 38.56 | True |
-| 1024 | 729 | 9 | with_replacement | bound_single | 34.38 | 0 | 34.38 | True |
-| 1024 | 729 | 9 | without_replacement | bound_single | 34.39 | 0 | 34.39 | True |
-
-### Batching sweep best cases
-
-| variant | D | K_var | K_val | depth | best_batch | trials_per_sec | elapsed_sec | peak_gib |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| bound_single | 512 | 81 | 9 | 32 | 8192 | 7.065e+04 | 0.116 | 0.1072 |
-| factored | 512 | 81 | 9 | 32 | 8192 | 2.499e+05 | 0.03278 | 0.06256 |
-| bound_single | 1024 | 729 | 2 | 32 | 8192 | 3.343e+04 | 0.2451 | 0.2271 |
-| factored | 1024 | 729 | 2 | 32 | 16384 | 9.898e+04 | 0.08277 | 0.1765 |
 
 ## Detailed Itemized Run Log
 
@@ -396,7 +312,7 @@ Result summary:
 
 Decision: fallback baseline is useful as a sanity check, but weak for seed-holdout action generalization. Do not use it for the Qwen claim.
 
-### 007. Ran Module 1 operator-free stack capacity quick and full GPU sweeps
+### 009-010. Ran Module 1 operator-free stack capacity quick and full GPU sweeps
 
 Purpose: start the new three-module design at Module 1, isolating the bounded reversible stack from Qwen. This compares rotation/VSA, GRU bounded vector proxy, and explicit tape.
 
@@ -457,7 +373,7 @@ Full GPU frontier summary:
 
 Decision: Module 1 full GPU run passes the current validation checks: rotation frontier is above matched GRU sequence proxy, and tape remains the upper bound. Scientific caveat: current rotation implementation is still a random level-key/Hadamard proxy, not the stronger orthogonal rotation + HRR cleanup implementation from the design note, and observed frontiers are below the d*(D) line.
 
-### 008. Benchmarked Module 1 capacity batch sizes
+### 011. Benchmarked Module 1 capacity batch sizes
 
 Purpose: find a faster single-GPU batch size before launching sharded full capacity runs. The first batched implementation still used a conservative default; this item measures throughput and peak memory directly on `cuda:0`.
 
@@ -479,16 +395,16 @@ Artifacts:
 
 Best batch by case:
 
-| variant | D | K_var | K_val | best_batch | trials_per_sec | peak_gib |
-| --- | --- | --- | --- | --- | --- | --- |
-| bound_single | 512 | 81 | 9 | 8192 | 7.065e+04 | 0.1072 |
-| factored | 512 | 81 | 9 | 8192 | 2.499e+05 | 0.06256 |
-| bound_single | 1024 | 729 | 2 | 8192 | 3.343e+04 | 0.2271 |
-| factored | 1024 | 729 | 2 | 16384 | 9.898e+04 | 0.1765 |
+| variant | D | K_var | K_val | depth | best_batch | trials_per_sec | elapsed_sec | peak_gib |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bound_single | 512 | 81 | 9 | 32 | 8192 | 7.065e+04 | 0.116 | 0.1072 |
+| factored | 512 | 81 | 9 | 32 | 8192 | 2.499e+05 | 0.03278 | 0.06256 |
+| bound_single | 1024 | 729 | 2 | 32 | 8192 | 3.343e+04 | 0.2451 | 0.2271 |
+| factored | 1024 | 729 | 2 | 32 | 16384 | 9.898e+04 | 0.08277 | 0.1765 |
 
 Decision: use `--batch-size 8192` as the robust default for Module 1 capacity benchmark shards. It is near-best across cases and uses far below available A100 memory; 16384 can be faster for some factored cases but is less uniformly best.
 
-### 009. Ran 8-shard task-free Module 1 capacity benchmark
+### 012. Ran 8-shard task-free Module 1 capacity benchmark
 
 Purpose: resolve whether the earlier K-inversion was a proxy artifact by using the proper HRR/permutation bound-single and factored registers over a task-free storage stress benchmark. This is the decisive K-direction test before any d* claim.
 
@@ -526,7 +442,7 @@ K-direction result:
 
 Decision: K-direction remains open/nonmonotonic under the proper HRR/permutation benchmark. Do not claim d* = D/(2 ln K). The safe current claim is linear-in-D improvement for the measured construction plus GRU/tape comparison, with K-scaling unresolved.
 
-### 010. Recomputed K-direction after excluding ceiling-bound points
+### 013. Recomputed K-direction after excluding ceiling-bound points
 
 Purpose: correct the initial K-direction decision logic. Since variables are sampled without replacement, small K_var runs cannot exceed K_var stack levels; those points must be excluded before judging K monotonicity.
 
@@ -552,7 +468,7 @@ Corrected target result:
 
 Decision: the bound_single D=1024 K_val=2 group is theory-consistent after dropping ceiling-bound K_var=9 and K_var=20. The earlier open flag was confounded by finite variable count at low K.
 
-### 011. Ran fixed-depth Module 1 K-direction diagnostic benchmark
+### 014. Ran fixed-depth Module 1 K-direction diagnostic benchmark
 
 Purpose: test whether the K-direction issue is caused by variable depth grids or by joint `(var,val)` aggregation. This run uses a fixed depth grid and reports joint, var-only, and val-only frontiers separately.
 
@@ -590,7 +506,7 @@ K-direction diagnostic:
 
 Decision: fixed-depth diagnostic still records K-direction as open/inverted. Important caveat: small `K_var` values cap possible depth because vars are sampled without replacement, so low-K frontiers are partly ceiling-limited. This strengthens the conclusion that no d* claim should be made yet from frontier buckets alone; the next per-depth benchmark resolves this directly.
 
-### 011. Ran ceiling-free per-depth Module 1 capacity benchmark
+### 015. Ran ceiling-free per-depth Module 1 capacity benchmark
 
 Purpose: remove the K_var ceiling and coarse frontier-bucket artifacts by measuring accuracy at every fixed depth, with both without-replacement and with-replacement var sampling. This is the clean K-direction and K_eff fit test.
 
@@ -632,19 +548,19 @@ Per-depth K-direction:
 
 K_eff fits:
 
-| variant | replacement | metric | best_k_eff | n_points | r2_product | r2_Kvar | r2_max_factor |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| bound_single | with_replacement | joint | D_over_ln_product | 24 | 0.9888 | 0.9443 | 0.9443 |
-| bound_single | without_replacement | joint | D_over_ln_product | 24 | 0.9884 | 0.9448 | 0.9448 |
-| factored | with_replacement | joint | D_over_ln_Kvar | 24 | 0.9376 | 0.9775 | 0.9775 |
-| factored | without_replacement | joint | D_over_ln_Kvar | 24 | 0.9386 | 0.9774 | 0.9774 |
+| variant | replacement | metric | best_k_eff | n_points | product_slope | product_r2 | Kvar_slope | Kvar_r2 | max_factor_slope | max_factor_r2 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bound_single | with_replacement | joint | D_over_ln_product | 24 | 0.2688 | 0.9888 | 0.2094 | 0.9443 | 0.4187 | 0.9443 |
+| bound_single | without_replacement | joint | D_over_ln_product | 24 | 0.2687 | 0.9884 | 0.2093 | 0.9448 | 0.4187 | 0.9448 |
+| factored | with_replacement | joint | D_over_ln_Kvar | 24 | 0.1596 | 0.9376 | 0.1255 | 0.9775 | 0.251 | 0.9775 |
+| factored | without_replacement | joint | D_over_ln_Kvar | 24 | 0.1595 | 0.9386 | 0.1254 | 0.9774 | 0.2509 | 0.9774 |
 
 - decision: `k_direction_negative`
 - open: False
 
 Decision: per-depth benchmark resolves the K-direction for the measured construction. With- and without-replacement agree: capacity is non-increasing in K on ceiling-free points. Bound-single is best fit by product codebook size, while factored is best fit by K_var / max-factor scaling. This upgrades the safe claim to linear in D and decreasing in effective codebook size, with a fitted constant rather than the raw D/(2 ln K) constant.
 
-### 012. Implemented tuned GRUStack smoke with val-selected checkpoint
+### 016. Implemented tuned GRUStack smoke with val-selected checkpoint
 
 Purpose: start the clean labeled negative baseline required for Module 1 closeout. This smoke verifies the GRUStack interface, val-loss checkpoint selection, convergence metadata, and per-depth eval curve before launching the full GRU grid.
 
@@ -673,7 +589,7 @@ Smoke result:
 
 Decision: GRU smoke interface pass. This is not yet the closeout GRU grid; the full tuned GRU per-depth grid still needs to run before the GRU negative headline is final.
 
-### 013. Ran tuned GRUStack full grid and structured comparison
+### 017. Ran tuned GRUStack full grid and structured comparison
 
 Purpose: complete the clean labeled negative baseline. This full grid trains GRUStack cells with val-selected checkpoints and compares each matched D/K/replacement cell against the best structured register capacity from the per-depth benchmark.
 
@@ -704,9 +620,62 @@ Result summary:
 - all_converged: True
 - all_gru_below_structured: True
 
+Matched-cell numeric comparison:
+
+| D | K_var | K_val | replacement | structured_variant | structured_capacity | gru_capacity | gap | gru_below |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 256 | 60 | 2 | with_replacement | bound_single | 13.6 | 1.081 | 12.52 | True |
+| 256 | 60 | 2 | without_replacement | bound_single | 13.68 | 1.082 | 12.59 | True |
+| 256 | 60 | 9 | with_replacement | bound_single | 11.29 | 1.071 | 10.22 | True |
+| 256 | 60 | 9 | without_replacement | bound_single | 11.31 | 1.069 | 10.25 | True |
+| 256 | 81 | 2 | with_replacement | bound_single | 13.12 | 1.08 | 12.04 | True |
+| 256 | 81 | 2 | without_replacement | bound_single | 13.13 | 1.08 | 12.05 | True |
+| 256 | 81 | 9 | with_replacement | bound_single | 10.95 | 1.068 | 9.878 | True |
+| 256 | 81 | 9 | without_replacement | bound_single | 10.9 | 1.069 | 9.835 | True |
+| 256 | 256 | 2 | with_replacement | bound_single | 11.38 | 1.079 | 10.3 | True |
+| 256 | 256 | 2 | without_replacement | bound_single | 11.36 | 1.075 | 10.28 | True |
+| 256 | 256 | 9 | with_replacement | bound_single | 9.637 | 0 | 9.637 | True |
+| 256 | 256 | 9 | without_replacement | bound_single | 9.672 | 0 | 9.672 | True |
+| 256 | 729 | 2 | with_replacement | bound_single | 10.1 | 1.043 | 9.059 | True |
+| 256 | 729 | 2 | without_replacement | bound_single | 10.06 | 0.6933 | 9.363 | True |
+| 256 | 729 | 9 | with_replacement | bound_single | 8.733 | 0 | 8.733 | True |
+| 256 | 729 | 9 | without_replacement | bound_single | 8.737 | 0 | 8.737 | True |
+| 512 | 60 | 2 | with_replacement | bound_single | 27 | 1.081 | 25.91 | True |
+| 512 | 60 | 2 | without_replacement | bound_single | 26.83 | 1.08 | 25.75 | True |
+| 512 | 60 | 9 | with_replacement | bound_single | 22.33 | 1.07 | 21.25 | True |
+| 512 | 60 | 9 | without_replacement | bound_single | 22.32 | 1.07 | 21.25 | True |
+| 512 | 81 | 2 | with_replacement | bound_single | 25.78 | 1.081 | 24.7 | True |
+| 512 | 81 | 2 | without_replacement | bound_single | 25.74 | 1.08 | 24.66 | True |
+| 512 | 81 | 9 | with_replacement | bound_single | 21.55 | 1.071 | 20.48 | True |
+| 512 | 81 | 9 | without_replacement | bound_single | 21.56 | 1.07 | 20.49 | True |
+| 512 | 256 | 2 | with_replacement | bound_single | 22.36 | 1.08 | 21.28 | True |
+| 512 | 256 | 2 | without_replacement | bound_single | 22.34 | 1.08 | 21.26 | True |
+| 512 | 256 | 9 | with_replacement | bound_single | 19.09 | 1.06 | 18.03 | True |
+| 512 | 256 | 9 | without_replacement | bound_single | 19.1 | 1.063 | 18.04 | True |
+| 512 | 729 | 2 | with_replacement | bound_single | 19.91 | 1.075 | 18.84 | True |
+| 512 | 729 | 2 | without_replacement | bound_single | 19.9 | 1.075 | 18.83 | True |
+| 512 | 729 | 9 | with_replacement | bound_single | 17.33 | 0 | 17.33 | True |
+| 512 | 729 | 9 | without_replacement | bound_single | 17.34 | 0 | 17.34 | True |
+| 1024 | 60 | 2 | with_replacement | bound_single | 53.77 | 1.08 | 52.69 | True |
+| 1024 | 60 | 2 | without_replacement | bound_single | 53.75 | 1.08 | 52.67 | True |
+| 1024 | 60 | 9 | with_replacement | bound_single | 44.05 | 1.07 | 42.98 | True |
+| 1024 | 60 | 9 | without_replacement | bound_single | 44.08 | 1.069 | 43.02 | True |
+| 1024 | 81 | 2 | with_replacement | bound_single | 51.61 | 1.08 | 50.53 | True |
+| 1024 | 81 | 2 | without_replacement | bound_single | 51.57 | 1.079 | 50.5 | True |
+| 1024 | 81 | 9 | with_replacement | bound_single | 42.79 | 1.071 | 41.72 | True |
+| 1024 | 81 | 9 | without_replacement | bound_single | 42.8 | 1.069 | 41.73 | True |
+| 1024 | 256 | 2 | with_replacement | bound_single | 44.48 | 1.079 | 43.4 | True |
+| 1024 | 256 | 2 | without_replacement | bound_single | 44.37 | 1.079 | 43.3 | True |
+| 1024 | 256 | 9 | with_replacement | bound_single | 37.88 | 1.068 | 36.82 | True |
+| 1024 | 256 | 9 | without_replacement | bound_single | 37.98 | 1.069 | 36.91 | True |
+| 1024 | 729 | 2 | with_replacement | bound_single | 39.62 | 1.079 | 38.54 | True |
+| 1024 | 729 | 2 | without_replacement | bound_single | 39.64 | 1.08 | 38.56 | True |
+| 1024 | 729 | 9 | with_replacement | bound_single | 34.38 | 0 | 34.38 | True |
+| 1024 | 729 | 9 | without_replacement | bound_single | 34.39 | 0 | 34.39 | True |
+
 Decision: tuned GRU negative baseline passes closeout checks. At every matched D/K/replacement cell, val-selected GRU capacity is below the best structured register capacity.
 
-### 014. Ran scaffold gates and centralized validation
+### 018-019. Ran scaffold gates and centralized validation
 
 Purpose: keep the older scaffold gates auditable while the build pivots toward the three-module design. Validation records whether required files, schemas, and comparison checks pass.
 

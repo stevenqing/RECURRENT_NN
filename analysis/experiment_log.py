@@ -144,55 +144,9 @@ def _module1_full_table(data: dict[str, Any]) -> list[str]:
     return _table(["method", "D", "K", "predicted_d_star", "frontier_decode_095"], rows)
 
 
-def _core_sweep_numeric_summaries(data: dict[str, Any]) -> list[str]:
-    perdepth = data["module1_capacity_perdepth_shards"]
-    gru = data["module1_gru_grid_full"]
-    lines: list[str] = [
-        "",
-        "## Core Sweep Numeric Summaries",
-        "",
-        "These are the concrete values from the decisive Module 1 sweeps. Full curves and per-cell records remain in the JSON artifacts listed above.",
-        "",
-        "### Per-depth K-direction, D=1024, K_val=2, joint accuracy capacity@0.95",
-        "",
-    ]
-    direction_rows = [
-        item
-        for item in perdepth["directions"]
-        if item["D"] == 1024 and item["K_val"] == 2 and item["metric"] == "joint"
-    ]
-    lines.extend(_table(
-        ["variant", "replacement", "K_vars", "capacity_joint_095", "signs"],
-        [[row["variant"], row["replacement"], row["K_vars"], row["capacities"], row["signs"]] for row in direction_rows],
-    ))
-    lines.extend([
-        "",
-        "### K_eff fit summary, joint metric",
-        "",
-    ])
-    fit_rows = [fit for fit in perdepth["fits"] if fit["metric"] == "joint"]
-    lines.extend(_table(
-        ["variant", "replacement", "best_k_eff", "n_points", "product_slope", "product_r2", "Kvar_slope", "Kvar_r2", "max_factor_slope", "max_factor_r2"],
-        [[
-            fit["variant"],
-            fit["replacement"],
-            fit["best_k_eff"],
-            fit["n_points"],
-            fit["fits"].get("D_over_ln_product", {}).get("slope"),
-            fit["fits"].get("D_over_ln_product", {}).get("r2"),
-            fit["fits"].get("D_over_ln_Kvar", {}).get("slope"),
-            fit["fits"].get("D_over_ln_Kvar", {}).get("r2"),
-            fit["fits"].get("halfD_over_ln_max_factor", {}).get("slope"),
-            fit["fits"].get("halfD_over_ln_max_factor", {}).get("r2"),
-        ] for fit in fit_rows],
-    ))
-    lines.extend([
-        "",
-        "### Tuned GRU grid vs structured register, matched cells",
-        "",
-    ])
-    comparison_rows = sorted(gru["comparisons"], key=lambda row: (row["D"], row["K_var"], row["K_val"], row["replacement"]))
-    lines.extend(_table(
+def _gru_comparison_table(data: dict[str, Any]) -> list[str]:
+    rows = sorted(data["module1_gru_grid_full"]["comparisons"], key=lambda row: (row["D"], row["K_var"], row["K_val"], row["replacement"]))
+    return _table(
         ["D", "K_var", "K_val", "replacement", "structured_variant", "structured_capacity", "gru_capacity", "gap", "gru_below"],
         [[
             row["D"],
@@ -204,18 +158,8 @@ def _core_sweep_numeric_summaries(data: dict[str, Any]) -> list[str]:
             row["gru_capacity_joint_095"],
             row["structured_capacity_joint_095"] - row["gru_capacity_joint_095"],
             row["gru_below_structured"],
-        ] for row in comparison_rows],
-    ))
-    lines.extend([
-        "",
-        "### Batching sweep best cases",
-        "",
-    ])
-    lines.extend(_table(
-        ["variant", "D", "K_var", "K_val", "depth", "best_batch", "trials_per_sec", "elapsed_sec", "peak_gib"],
-        [[row["variant"], row["D"], row["K_var"], row["K_val"], row["depth"], row["batch_size"], row["trials_per_sec"], row["elapsed_sec"], row["peak_gib"]] for row in data["module1_capacity_batching_large"]["best_by_case"]],
-    ))
-    return lines
+        ] for row in rows],
+    )
 
 
 def _detailed_run_items(data: dict[str, Any]) -> list[str]:
@@ -426,7 +370,7 @@ def _detailed_run_items(data: dict[str, Any]) -> list[str]:
         "",
         "Decision: fallback baseline is useful as a sanity check, but weak for seed-holdout action generalization. Do not use it for the Qwen claim.",
         "",
-        "### 007. Ran Module 1 operator-free stack capacity quick and full GPU sweeps",
+        "### 009-010. Ran Module 1 operator-free stack capacity quick and full GPU sweeps",
         "",
         "Purpose: start the new three-module design at Module 1, isolating the bounded reversible stack from Qwen. This compares rotation/VSA, GRU bounded vector proxy, and explicit tape.",
         "",
@@ -458,7 +402,7 @@ def _detailed_run_items(data: dict[str, Any]) -> list[str]:
         "",
         "Decision: Module 1 full GPU run passes the current validation checks: rotation frontier is above matched GRU sequence proxy, and tape remains the upper bound. Scientific caveat: current rotation implementation is still a random level-key/Hadamard proxy, not the stronger orthogonal rotation + HRR cleanup implementation from the design note, and observed frontiers are below the d*(D) line.",
         "",
-        "### 008. Benchmarked Module 1 capacity batch sizes",
+        "### 011. Benchmarked Module 1 capacity batch sizes",
         "",
         "Purpose: find a faster single-GPU batch size before launching sharded full capacity runs. The first batched implementation still used a conservative default; this item measures throughput and peak memory directly on `cuda:0`.",
         "",
@@ -481,12 +425,12 @@ def _detailed_run_items(data: dict[str, Any]) -> list[str]:
         "Best batch by case:",
         "",
     ])
-    lines.extend(_table(["variant", "D", "K_var", "K_val", "best_batch", "trials_per_sec", "peak_gib"], [[row["variant"], row["D"], row["K_var"], row["K_val"], row["batch_size"], row["trials_per_sec"], row["peak_gib"]] for row in data["module1_capacity_batching_large"]["best_by_case"]]))
+    lines.extend(_table(["variant", "D", "K_var", "K_val", "depth", "best_batch", "trials_per_sec", "elapsed_sec", "peak_gib"], [[row["variant"], row["D"], row["K_var"], row["K_val"], row["depth"], row["batch_size"], row["trials_per_sec"], row["elapsed_sec"], row["peak_gib"]] for row in data["module1_capacity_batching_large"]["best_by_case"]]))
     lines.extend([
         "",
         "Decision: use `--batch-size 8192` as the robust default for Module 1 capacity benchmark shards. It is near-best across cases and uses far below available A100 memory; 16384 can be faster for some factored cases but is less uniformly best.",
         "",
-        "### 009. Ran 8-shard task-free Module 1 capacity benchmark",
+        "### 012. Ran 8-shard task-free Module 1 capacity benchmark",
         "",
         "Purpose: resolve whether the earlier K-inversion was a proxy artifact by using the proper HRR/permutation bound-single and factored registers over a task-free storage stress benchmark. This is the decisive K-direction test before any d* claim.",
         "",
@@ -523,7 +467,7 @@ def _detailed_run_items(data: dict[str, Any]) -> list[str]:
         "",
         "Decision: K-direction remains open/nonmonotonic under the proper HRR/permutation benchmark. Do not claim d* = D/(2 ln K). The safe current claim is linear-in-D improvement for the measured construction plus GRU/tape comparison, with K-scaling unresolved.",
         "",
-        "### 010. Recomputed K-direction after excluding ceiling-bound points",
+        "### 013. Recomputed K-direction after excluding ceiling-bound points",
         "",
         "Purpose: correct the initial K-direction decision logic. Since variables are sampled without replacement, small K_var runs cannot exceed K_var stack levels; those points must be excluded before judging K monotonicity.",
         "",
@@ -550,7 +494,7 @@ def _detailed_run_items(data: dict[str, Any]) -> list[str]:
         "",
         "Decision: the bound_single D=1024 K_val=2 group is theory-consistent after dropping ceiling-bound K_var=9 and K_var=20. The earlier open flag was confounded by finite variable count at low K.",
         "",
-        "### 011. Ran fixed-depth Module 1 K-direction diagnostic benchmark",
+        "### 014. Ran fixed-depth Module 1 K-direction diagnostic benchmark",
         "",
         "Purpose: test whether the K-direction issue is caused by variable depth grids or by joint `(var,val)` aggregation. This run uses a fixed depth grid and reports joint, var-only, and val-only frontiers separately.",
         "",
@@ -583,7 +527,7 @@ def _detailed_run_items(data: dict[str, Any]) -> list[str]:
         "",
         "Decision: fixed-depth diagnostic still records K-direction as open/inverted. Important caveat: small `K_var` values cap possible depth because vars are sampled without replacement, so low-K frontiers are partly ceiling-limited. This strengthens the conclusion that no d* claim should be made yet from frontier buckets alone; the next per-depth benchmark resolves this directly.",
         "",
-        "### 011. Ran ceiling-free per-depth Module 1 capacity benchmark",
+        "### 015. Ran ceiling-free per-depth Module 1 capacity benchmark",
         "",
         "Purpose: remove the K_var ceiling and coarse frontier-bucket artifacts by measuring accuracy at every fixed depth, with both without-replacement and with-replacement var sampling. This is the clean K-direction and K_eff fit test.",
         "",
@@ -611,7 +555,7 @@ def _detailed_run_items(data: dict[str, Any]) -> list[str]:
     ])
     lines.extend(_table(["variant", "replacement", "metric", "D", "K_val", "K_vars", "capacities", "signs"], [[item["variant"], item["replacement"], item["metric"], item["D"], item["K_val"], item["K_vars"], item["capacities"], item["signs"]] for item in data["module1_capacity_perdepth_shards"]["directions"]]))
     lines.extend(["", "K_eff fits:", ""])
-    lines.extend(_table(["variant", "replacement", "metric", "best_k_eff", "n_points", "r2_product", "r2_Kvar", "r2_max_factor"], [[fit["variant"], fit["replacement"], fit["metric"], fit["best_k_eff"], fit["n_points"], fit["fits"].get("D_over_ln_product", {}).get("r2"), fit["fits"].get("D_over_ln_Kvar", {}).get("r2"), fit["fits"].get("halfD_over_ln_max_factor", {}).get("r2")] for fit in data["module1_capacity_perdepth_shards"]["fits"]]))
+    lines.extend(_table(["variant", "replacement", "metric", "best_k_eff", "n_points", "product_slope", "product_r2", "Kvar_slope", "Kvar_r2", "max_factor_slope", "max_factor_r2"], [[fit["variant"], fit["replacement"], fit["metric"], fit["best_k_eff"], fit["n_points"], fit["fits"].get("D_over_ln_product", {}).get("slope"), fit["fits"].get("D_over_ln_product", {}).get("r2"), fit["fits"].get("D_over_ln_Kvar", {}).get("slope"), fit["fits"].get("D_over_ln_Kvar", {}).get("r2"), fit["fits"].get("halfD_over_ln_max_factor", {}).get("slope"), fit["fits"].get("halfD_over_ln_max_factor", {}).get("r2")] for fit in data["module1_capacity_perdepth_shards"]["fits"]]))
     lines.extend([
         "",
         f"- decision: `{data['module1_capacity_perdepth_shards']['decision']}`",
@@ -619,7 +563,7 @@ def _detailed_run_items(data: dict[str, Any]) -> list[str]:
         "",
         "Decision: per-depth benchmark resolves the K-direction for the measured construction. With- and without-replacement agree: capacity is non-increasing in K on ceiling-free points. Bound-single is best fit by product codebook size, while factored is best fit by K_var / max-factor scaling. This upgrades the safe claim to linear in D and decreasing in effective codebook size, with a fitted constant rather than the raw D/(2 ln K) constant.",
         "",
-        "### 012. Implemented tuned GRUStack smoke with val-selected checkpoint",
+        "### 016. Implemented tuned GRUStack smoke with val-selected checkpoint",
         "",
         "Purpose: start the clean labeled negative baseline required for Module 1 closeout. This smoke verifies the GRUStack interface, val-loss checkpoint selection, convergence metadata, and per-depth eval curve before launching the full GRU grid.",
         "",
@@ -648,7 +592,7 @@ def _detailed_run_items(data: dict[str, Any]) -> list[str]:
         "",
         "Decision: GRU smoke interface pass. This is not yet the closeout GRU grid; the full tuned GRU per-depth grid still needs to run before the GRU negative headline is final.",
         "",
-        "### 013. Ran tuned GRUStack full grid and structured comparison",
+        "### 017. Ran tuned GRUStack full grid and structured comparison",
         "",
         "Purpose: complete the clean labeled negative baseline. This full grid trains GRUStack cells with val-selected checkpoints and compares each matched D/K/replacement cell against the best structured register capacity from the per-depth benchmark.",
         "",
@@ -679,9 +623,15 @@ def _detailed_run_items(data: dict[str, Any]) -> list[str]:
         f"- all_converged: {data['module1_gru_grid_full']['all_converged']}",
         f"- all_gru_below_structured: {data['module1_gru_grid_full']['all_gru_below_structured']}",
         "",
+        "Matched-cell numeric comparison:",
+        "",
+    ])
+    lines.extend(_gru_comparison_table(data))
+    lines.extend([
+        "",
         "Decision: tuned GRU negative baseline passes closeout checks. At every matched D/K/replacement cell, val-selected GRU capacity is below the best structured register capacity.",
         "",
-        "### 014. Ran scaffold gates and centralized validation",
+        "### 018-019. Ran scaffold gates and centralized validation",
         "",
         "Purpose: keep the older scaffold gates auditable while the build pivots toward the three-module design. Validation records whether required files, schemas, and comparison checks pass.",
         "",
@@ -780,7 +730,6 @@ def _markdown(data: dict[str, Any], artifacts: dict[str, str]) -> str:
     ))
     lines.extend(["", "## Incremental Run Items", ""])
     lines.extend(_table(["item", "name", "what changed", "artifact", "key result"], _incremental_items(data)))
-    lines.extend(_core_sweep_numeric_summaries(data))
     lines.extend(_detailed_run_items(data))
     lines.extend([
         "",
