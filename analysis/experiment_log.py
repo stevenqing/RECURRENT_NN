@@ -144,6 +144,80 @@ def _module1_full_table(data: dict[str, Any]) -> list[str]:
     return _table(["method", "D", "K", "predicted_d_star", "frontier_decode_095"], rows)
 
 
+def _core_sweep_numeric_summaries(data: dict[str, Any]) -> list[str]:
+    perdepth = data["module1_capacity_perdepth_shards"]
+    gru = data["module1_gru_grid_full"]
+    lines: list[str] = [
+        "",
+        "## Core Sweep Numeric Summaries",
+        "",
+        "These are the concrete values from the decisive Module 1 sweeps. Full curves and per-cell records remain in the JSON artifacts listed above.",
+        "",
+        "### Per-depth K-direction, D=1024, K_val=2, joint accuracy capacity@0.95",
+        "",
+    ]
+    direction_rows = [
+        item
+        for item in perdepth["directions"]
+        if item["D"] == 1024 and item["K_val"] == 2 and item["metric"] == "joint"
+    ]
+    lines.extend(_table(
+        ["variant", "replacement", "K_vars", "capacity_joint_095", "signs"],
+        [[row["variant"], row["replacement"], row["K_vars"], row["capacities"], row["signs"]] for row in direction_rows],
+    ))
+    lines.extend([
+        "",
+        "### K_eff fit summary, joint metric",
+        "",
+    ])
+    fit_rows = [fit for fit in perdepth["fits"] if fit["metric"] == "joint"]
+    lines.extend(_table(
+        ["variant", "replacement", "best_k_eff", "n_points", "product_slope", "product_r2", "Kvar_slope", "Kvar_r2", "max_factor_slope", "max_factor_r2"],
+        [[
+            fit["variant"],
+            fit["replacement"],
+            fit["best_k_eff"],
+            fit["n_points"],
+            fit["fits"].get("D_over_ln_product", {}).get("slope"),
+            fit["fits"].get("D_over_ln_product", {}).get("r2"),
+            fit["fits"].get("D_over_ln_Kvar", {}).get("slope"),
+            fit["fits"].get("D_over_ln_Kvar", {}).get("r2"),
+            fit["fits"].get("halfD_over_ln_max_factor", {}).get("slope"),
+            fit["fits"].get("halfD_over_ln_max_factor", {}).get("r2"),
+        ] for fit in fit_rows],
+    ))
+    lines.extend([
+        "",
+        "### Tuned GRU grid vs structured register, matched cells",
+        "",
+    ])
+    comparison_rows = sorted(gru["comparisons"], key=lambda row: (row["D"], row["K_var"], row["K_val"], row["replacement"]))
+    lines.extend(_table(
+        ["D", "K_var", "K_val", "replacement", "structured_variant", "structured_capacity", "gru_capacity", "gap", "gru_below"],
+        [[
+            row["D"],
+            row["K_var"],
+            row["K_val"],
+            row["replacement"],
+            row["structured_variant"],
+            row["structured_capacity_joint_095"],
+            row["gru_capacity_joint_095"],
+            row["structured_capacity_joint_095"] - row["gru_capacity_joint_095"],
+            row["gru_below_structured"],
+        ] for row in comparison_rows],
+    ))
+    lines.extend([
+        "",
+        "### Batching sweep best cases",
+        "",
+    ])
+    lines.extend(_table(
+        ["variant", "D", "K_var", "K_val", "depth", "best_batch", "trials_per_sec", "elapsed_sec", "peak_gib"],
+        [[row["variant"], row["D"], row["K_var"], row["K_val"], row["depth"], row["batch_size"], row["trials_per_sec"], row["elapsed_sec"], row["peak_gib"]] for row in data["module1_capacity_batching_large"]["best_by_case"]],
+    ))
+    return lines
+
+
 def _detailed_run_items(data: dict[str, Any]) -> list[str]:
     lines: list[str] = ["", "## Detailed Itemized Run Log", ""]
     lines.extend([
@@ -706,6 +780,7 @@ def _markdown(data: dict[str, Any], artifacts: dict[str, str]) -> str:
     ))
     lines.extend(["", "## Incremental Run Items", ""])
     lines.extend(_table(["item", "name", "what changed", "artifact", "key result"], _incremental_items(data)))
+    lines.extend(_core_sweep_numeric_summaries(data))
     lines.extend(_detailed_run_items(data))
     lines.extend([
         "",

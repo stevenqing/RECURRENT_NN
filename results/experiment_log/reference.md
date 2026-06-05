@@ -1,6 +1,6 @@
 # Stage D Reference Archive
 
-Generated at: 2026-06-05T13:11:56.361902+00:00
+Generated at: 2026-06-05T13:16:28.864489+00:00
 
 This file holds stable/reference tables that are useful for audit but noisy during incremental review. The main log is `results/experiment_log/experiment_log.md`.
 
