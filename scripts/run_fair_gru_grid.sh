@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+PY="${PY:-$HOME/.local/bin/uv run --python .venv/bin/python python}"
+OUT="${OUT:-results/gru_stack_grid_fair}"
+ARCH_GRID="${ARCH_GRID:-gru:mlp:3,gru:replay:2,lstm:mlp:3}"
+MAX_DEPTH="${MAX_DEPTH:-64}"
+STEPS="${STEPS:-5000}"
+BATCH_SIZE="${BATCH_SIZE:-1024}"
+EVAL_EVERY="${EVAL_EVERY:-100}"
+PATIENCE="${PATIENCE:-20}"
+NUM_SHARDS="${NUM_SHARDS:-8}"
+
+mkdir -p "$OUT"
+
+for i in $(seq 0 $((NUM_SHARDS - 1))); do
+  shard_dir="$OUT/shard_$i"
+  mkdir -p "$shard_dir"
+  CUDA_VISIBLE_DEVICES="$i" $PY -u -m experiments.train_gru_stack_grid \
+    --mode full \
+    --device cuda:0 \
+    --num-shards "$NUM_SHARDS" \
+    --shard-index "$i" \
+    --max-depth "$MAX_DEPTH" \
+    --steps "$STEPS" \
+    --batch-size "$BATCH_SIZE" \
+    --eval-every "$EVAL_EVERY" \
+    --patience "$PATIENCE" \
+    --arch-grid "$ARCH_GRID" \
+    --output-dir "$shard_dir" \
+    > "$shard_dir/run.log" 2>&1 &
+done
+
+wait
+
+$PY -m analysis.merge_gru_grid --input-dir "$OUT"
+$PY -m analysis.gru_vs_structured_closeout --gru-path "$OUT/results.json"
+$PY -m analysis.validate_outputs
+$PY -m analysis.experiment_log
