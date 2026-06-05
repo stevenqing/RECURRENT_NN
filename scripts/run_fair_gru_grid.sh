@@ -12,6 +12,9 @@ BATCH_SIZE="${BATCH_SIZE:-1024}"
 EVAL_EVERY="${EVAL_EVERY:-100}"
 PATIENCE="${PATIENCE:-20}"
 NUM_SHARDS="${NUM_SHARDS:-8}"
+VAL_DEPTHS="${VAL_DEPTHS:-1,2,3,4,8,16,32,48,64}"
+EVAL_BATCHES="${EVAL_BATCHES:-1}"
+FINAL_EVAL_BATCHES="${FINAL_EVAL_BATCHES:-2}"
 
 mkdir -p "$OUT"
 
@@ -29,6 +32,9 @@ for i in $(seq 0 $((NUM_SHARDS - 1))); do
     --eval-every "$EVAL_EVERY" \
     --patience "$PATIENCE" \
     --arch-grid "$ARCH_GRID" \
+    --val-depths "$VAL_DEPTHS" \
+    --eval-batches "$EVAL_BATCHES" \
+    --final-eval-batches "$FINAL_EVAL_BATCHES" \
     --output-dir "$shard_dir" \
     > "$shard_dir/run.log" 2>&1 &
 done

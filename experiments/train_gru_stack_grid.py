@@ -45,6 +45,9 @@ def run_grid(
     eval_every: int = 100,
     patience: int = 20,
     arch_grid: str = "gru:mlp:3,gru:replay:2,lstm:mlp:3",
+    val_depths: str = "1,2,3,4,8,16,32,48,64",
+    eval_batches: int = 1,
+    final_eval_batches: int = 2,
 ) -> dict[str, Any]:
     if shard_index < 0 or shard_index >= num_shards:
         raise ValueError("shard_index must be in [0, num_shards)")
@@ -71,6 +74,9 @@ def run_grid(
             patience=patience,
             seed=spec["seed"],
             arch_grid=arch_grid,
+            val_depths=val_depths,
+            eval_batches=eval_batches,
+            final_eval_batches=final_eval_batches,
         )
         result_summary = {key: value for key, value in result.items() if key not in {"trials"}}
         cells.append({"global_index": global_index, "result_path": str(cell_dir / "results.json"), **result_summary})
@@ -94,5 +100,8 @@ if __name__ == "__main__":
     parser.add_argument("--eval-every", type=int, default=100)
     parser.add_argument("--patience", type=int, default=20)
     parser.add_argument("--arch-grid", default="gru:mlp:3,gru:replay:2,lstm:mlp:3")
+    parser.add_argument("--val-depths", default="1,2,3,4,8,16,32,48,64")
+    parser.add_argument("--eval-batches", type=int, default=1)
+    parser.add_argument("--final-eval-batches", type=int, default=2)
     args = parser.parse_args()
-    print(json.dumps(run_grid(args.output_dir, args.mode, args.device, args.shard_index, args.num_shards, args.max_depth, args.steps, args.batch_size, args.eval_every, args.patience, args.arch_grid), indent=2, sort_keys=True))
+    print(json.dumps(run_grid(args.output_dir, args.mode, args.device, args.shard_index, args.num_shards, args.max_depth, args.steps, args.batch_size, args.eval_every, args.patience, args.arch_grid, args.val_depths, args.eval_batches, args.final_eval_batches), indent=2, sort_keys=True))

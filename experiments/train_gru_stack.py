@@ -44,7 +44,14 @@ def _parse_arch_grid(arch_grid: str) -> list[tuple[str, str, int]]:
     return parsed
 
 
-def train_one(D: int, K_var: int, K_val: int, replacement: str, output_dir: str, device: str, max_depth: int, steps: int, batch_size: int, eval_every: int, patience: int, seed: int, arch_grid: str = "gru:mlp:3,gru:replay:2,lstm:mlp:3") -> dict[str, Any]:
+def _parse_depths(depths: str | None, max_depth: int) -> list[int]:
+    if not depths:
+        return list(range(1, max_depth + 1))
+    parsed = sorted({int(depth) for depth in depths.split(",") if depth.strip()})
+    return [depth for depth in parsed if 1 <= depth <= max_depth]
+
+
+def train_one(D: int, K_var: int, K_val: int, replacement: str, output_dir: str, device: str, max_depth: int, steps: int, batch_size: int, eval_every: int, patience: int, seed: int, arch_grid: str = "gru:mlp:3,gru:replay:2,lstm:mlp:3", val_depths: str | None = "1,2,3,4,8,16,32,48,64", eval_batches: int = 1, final_eval_batches: int = 2) -> dict[str, Any]:
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
     lrs = [8e-4]
@@ -54,6 +61,7 @@ def train_one(D: int, K_var: int, K_val: int, replacement: str, output_dir: str,
     best: dict[str, Any] | None = None
     trials = []
     depths = list(range(1, max_depth + 1))
+    validation_depths = _parse_depths(val_depths, max_depth)
     for cell_type, decoder_type, decoder_layers in architectures:
         for lr in lrs:
             for num_layers in layers:
@@ -85,9 +93,10 @@ def train_one(D: int, K_var: int, K_val: int, replacement: str, output_dir: str,
                         optimizer.step()
                         if step % eval_every == 0 or step == steps:
                             val_losses = []
-                            for eval_depth in depths:
-                                eval_vars, eval_vals = sample_batch(K_var, K_val, eval_depth, batch_size, seed * 200000 + step * 37 + eval_depth, device, replacement)
-                                val_losses.append(float(model.loss(eval_vars, eval_vals).detach().item()))
+                            for eval_depth in validation_depths:
+                                for eval_batch in range(eval_batches):
+                                    eval_vars, eval_vals = sample_batch(K_var, K_val, eval_depth, batch_size, seed * 200000 + step * 37 + eval_depth * 1009 + eval_batch, device, replacement)
+                                    val_losses.append(float(model.loss(eval_vars, eval_vals).detach().item()))
                             val_loss = sum(val_losses) / len(val_losses)
                             history.append({"step": step, "train_loss": float(loss.detach().item()), "val_loss": val_loss})
                             if val_loss < best_val - 1e-4:
@@ -100,7 +109,7 @@ def train_one(D: int, K_var: int, K_val: int, replacement: str, output_dir: str,
                                 break
                     if best_state is not None:
                         model.load_state_dict(best_state)
-                    curve = _eval_curve(model, K_var, K_val, depths, batch_size, batches=2, seed=seed * 300000 + 7, device=device, replacement=replacement)
+                    curve = _eval_curve(model, K_var, K_val, depths, batch_size, batches=final_eval_batches, seed=seed * 300000 + 7, device=device, replacement=replacement)
                     frontier = interpolated_frontier(curve)
                     trial = {"lr": lr, "num_layers": num_layers, "learned_init": learned_init, "cell_type": cell_type, "decoder_type": decoder_type, "decoder_layers": decoder_layers, "best_val_loss": best_val, "history": history, "frontier_joint_095": frontier, "curve": curve, "state_dict": best_state}
                     trials.append({key: value for key, value in trial.items() if key != "state_dict"})
@@ -123,6 +132,9 @@ def train_one(D: int, K_var: int, K_val: int, replacement: str, output_dir: str,
         "steps_requested": steps,
         "patience_requested": patience,
         "eval_every": eval_every,
+        "val_depths": validation_depths,
+        "eval_batches": eval_batches,
+        "final_eval_batches": final_eval_batches,
         "batch_size": batch_size,
         "bounded_state_only": True,
         "converged": True,
@@ -153,5 +165,8 @@ if __name__ == "__main__":
     parser.add_argument("--patience", type=int, default=20)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--arch-grid", default="gru:mlp:3,gru:replay:2,lstm:mlp:3")
+    parser.add_argument("--val-depths", default="1,2,3,4,8,16,32,48,64")
+    parser.add_argument("--eval-batches", type=int, default=1)
+    parser.add_argument("--final-eval-batches", type=int, default=2)
     args = parser.parse_args()
-    print(json.dumps(train_one(args.D, args.K_var, args.K_val, args.replacement, args.output_dir, args.device, args.max_depth, args.steps, args.batch_size, args.eval_every, args.patience, args.seed, args.arch_grid), indent=2, sort_keys=True))
+    print(json.dumps(train_one(args.D, args.K_var, args.K_val, args.replacement, args.output_dir, args.device, args.max_depth, args.steps, args.batch_size, args.eval_every, args.patience, args.seed, args.arch_grid, args.val_depths, args.eval_batches, args.final_eval_batches), indent=2, sort_keys=True))
