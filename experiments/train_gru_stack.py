@@ -160,7 +160,7 @@ if __name__ == "__main__":
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--max-depth", type=int, default=64)
     parser.add_argument("--steps", type=int, default=5000)
-    parser.add_argument("--batch-size", type=int, default=1024)
+    parser.add_argument("--batch-size", type=int, default=4096)
     parser.add_argument("--eval-every", type=int, default=100)
     parser.add_argument("--patience", type=int, default=20)
     parser.add_argument("--seed", type=int, default=42)

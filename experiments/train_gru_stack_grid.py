@@ -41,7 +41,7 @@ def run_grid(
     num_shards: int = 1,
     max_depth: int = 64,
     steps: int = 5000,
-    batch_size: int = 1024,
+    batch_size: int = 4096,
     eval_every: int = 100,
     patience: int = 20,
     arch_grid: str = "gru:mlp:3,gru:replay:2,lstm:mlp:3",
@@ -96,7 +96,7 @@ if __name__ == "__main__":
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--max-depth", type=int, default=64)
     parser.add_argument("--steps", type=int, default=5000)
-    parser.add_argument("--batch-size", type=int, default=1024)
+    parser.add_argument("--batch-size", type=int, default=4096)
     parser.add_argument("--eval-every", type=int, default=100)
     parser.add_argument("--patience", type=int, default=20)
     parser.add_argument("--arch-grid", default="gru:mlp:3,gru:replay:2,lstm:mlp:3")
