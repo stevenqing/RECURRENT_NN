@@ -707,6 +707,24 @@ def _markdown(data: dict[str, Any], artifacts: dict[str, str]) -> str:
     lines.extend(["", "## Incremental Run Items", ""])
     lines.extend(_table(["item", "name", "what changed", "artifact", "key result"], _incremental_items(data)))
     lines.extend(_detailed_run_items(data))
+    lines.extend([
+        "",
+        "## Reference Archive",
+        "",
+        "Static/reference tables are kept out of the main review path. See `results/experiment_log/reference.md` for preregistration bands, dataset summaries, legacy scaffold tables, model download metadata, and validation details.",
+        "",
+    ])
+    return "\n".join(lines)
+
+
+def _reference_markdown(data: dict[str, Any], generated_at: str) -> str:
+    lines: list[str] = [
+        "# Stage D Reference Archive",
+        "",
+        f"Generated at: {generated_at}",
+        "",
+        "This file holds stable/reference tables that are useful for audit but noisy during incremental review. The main log is `results/experiment_log/experiment_log.md`.",
+    ]
     lines.extend(["", "## Preregistration Bands", ""])
     lines.extend(_table(["label", "D", "K", "predicted d*_dyn"], [[row["label"], row["D"], row["K"], row["predicted_d_star"]] for row in data["preregistration"]["bands"]]))
     lines.extend(["", "## Oracle Dataset", ""])
@@ -763,6 +781,7 @@ def generate_experiment_log(output_dir: str = "results/experiment_log") -> dict[
     artifacts = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "markdown": str(out / "experiment_log.md"),
+        "reference": str(out / "reference.md"),
         "json": str(out / "experiment_log.json"),
     }
     payload = {
@@ -778,6 +797,7 @@ def generate_experiment_log(output_dir: str = "results/experiment_log") -> dict[
         "results": data,
     }
     Path(artifacts["markdown"]).write_text(_markdown(data, artifacts) + "\n", encoding="utf-8")
+    Path(artifacts["reference"]).write_text(_reference_markdown(data, artifacts["generated_at"]) + "\n", encoding="utf-8")
     Path(artifacts["json"]).write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return artifacts
 
