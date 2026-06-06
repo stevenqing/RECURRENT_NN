@@ -39,6 +39,7 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 | ttt | results/ttt/results.json |
 | analysis_summary | results/analysis/summary.md |
 | validation | results/validation/validation.json |
+| m2_operator_probe | results/m2_operator_probe/report.json |
 
 ## Run Metadata
 
@@ -68,6 +69,10 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 - Learned wiring train verifier accuracy: 0.9865
 - Learned wiring holdout verifier accuracy: 0.9010
 - Validation passed: False
+- M2.0 operator probe verdict: `NEEDS_OPERATOR_FIX`
+- M2.0 parse success rate: 0.9062
+- M2.0 forced recall: 0.1935
+- M2.0 branch qwen/random mean nodes: 4.4286 / 4.1429
 
 ## Gate Status
 
@@ -102,6 +107,7 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 | 18 | gru degeneracy diagnostic | Measured old GRU capacity-vs-D and shallow D=1024 depth accuracy. | results/gru_degeneracy_diagnostic/results.json | verdict=degenerate_recency, proceed_task_b=True |
 | 19 | scaffold gates | Ran D.3, D-stage 0/1/2/3, verifier, and TTT scaffold gates. | results/*/results.json | validation=False |
 | 20 | validation | Validated required files, schemas, gate expectations, and Module 1 comparisons. | results/validation/validation.json | checks=1, passed=False |
+| 21 | M2.0 operator competence probe | Ran frozen Qwen generative current-node probe and branch rollout with no training. | results/m2_operator_probe/report.json | verdict=NEEDS_OPERATOR_FIX, forced_recall=0.1935 |
 
 ## Detailed Itemized Run Log
 
@@ -753,6 +759,66 @@ Validation summary:
 
 Decision: centralized validation pass. Continue using this log as the top-level experiment ledger, but treat scaffold gates as legacy/supporting evidence rather than the new Module 1 core claim.
 
+
+### 021. Ran M2.0 frozen generative operator competence probe
+
+Purpose: test the Module 2/3 premise before building controller, verifier, or loop machinery. This run measures whether frozen `Qwen/Qwen3-4B-Instruct-2507` can act as a generative current-node CSP operator with no training.
+
+Code added/used:
+
+- `llm_operator/qwen_operator.py`
+- `llm_operator/symbolic_filter.py`
+- `experiments/m2_operator_probe.py`
+- `experiments/m2_branch_rollout.py`
+- `analysis/m2_operator_report.py`
+
+Commands:
+
+```bash
+cd /home/aiscuser/RECURRENT_NN
+CUDA_VISIBLE_DEVICES=6 ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.m2_operator_probe --output-dir results/m2_operator_probe --device cuda:0 --n-instances 2 --max-nodes-per-task 4 --batch-size 4 --max-rounds 4
+CUDA_VISIBLE_DEVICES=7 ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.m2_branch_rollout --output-dir results/m2_operator_probe --device cuda:0 --n-instances 2 --cap-nodes 64 --batch-size 4
+~/.local/bin/uv run --python .venv/bin/python python -m analysis.m2_operator_report --output-dir results/m2_operator_probe
+```
+
+Artifacts:
+
+- `results/m2_operator_probe/operator_probe.json`
+- `results/m2_operator_probe/branch_rollout.json`
+- `results/m2_operator_probe/report.json`
+- `results/m2_operator_probe/report.md`
+
+Overall result:
+
+| metric | value |
+| --- | --- |
+| verdict | NEEDS_OPERATOR_FIX |
+| parse_success_rate | 0.9062 |
+| forced_recall | 0.1935 |
+| raw_precision | 0.1026 |
+| fixpoint_reach_rate | 0.3125 |
+| qwen_guess mean nodes | 4.4286 |
+| mrv mean nodes | 3.8571 |
+| random mean nodes | 4.1429 |
+
+Per-task probe summary:
+
+| task | parse_success | forced_recall | raw_precision | fixpoint_reach | filter_dropped |
+| --- | --- | --- | --- | --- | --- |
+| horn_sat | 1.0000 | 0.4000 | 0.1538 | 0.0000 | 33 |
+| general_sat | 1.0000 | 0.1429 | 0.0278 | 0.3750 | 35 |
+| graph_coloring | 1.0000 | 0.6667 | 0.4000 | 0.7500 | 6 |
+| sudoku_4x4 | 0.6250 | 0.0294 | 0.0312 | 0.1250 | 31 |
+
+Branch rollout summary:
+
+| method | solve_rate | mean_nodes_to_solve_or_cap | invalid_guesses |
+| --- | --- | --- | --- |
+| qwen_guess | 1.0000 | 4.4286 | 5 |
+| mrv | 1.0000 | 3.8571 | 0 |
+| random | 1.0000 | 4.1429 | 0 |
+
+Decision: M2.0 does not support proceeding directly to the full Module 2/3 loop as-is. The strongest blocker is low forced-move recall and low filtered fixpoint reach, especially on `sudoku_4x4`; parse reliability is mostly acceptable overall but still weak on Sudoku. The next architecture branch should be an operator format/propagation fix or light SFT on propagation traces before investing in the full loop.
 
 ## Reference Archive
 
