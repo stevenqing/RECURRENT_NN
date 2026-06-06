@@ -169,9 +169,72 @@ def run_shard(
     raise SystemExit(3)
 
 
+def smoke(
+    output_dir: str,
+    operator_ckpt: str,
+    bridge_decoder: str,
+    teacher_trace: str,
+    num_shards: int,
+    shard_index: int,
+    device: str,
+) -> dict[str, Any]:
+    import torch
+
+    from register.vsa_stack import BoundSingleRegister, FactoredRegister, RotationVSAStack, TapeStack
+
+    root = Path(output_dir)
+    root.mkdir(parents=True, exist_ok=True)
+    selected = shard_grid(num_shards, shard_index)
+    pre = preflight(operator_ckpt, bridge_decoder, teacher_trace, str(root), Path.cwd())
+    torch_device = torch.device(device)
+    if torch_device.type == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("CUDA smoke requested but torch.cuda.is_available() is false")
+    probe = torch.ones(8, device=torch_device)
+    gpu_checksum = float((probe * 2).sum().item())
+
+    bound = BoundSingleRegister(D=128, K_var=81, K_val=9, max_depth=8, seed=123, device=torch_device)
+    bound.push(0, 10, 4)
+    bound_var, bound_val, bound_margin = bound.decode_level(0)
+    factored = FactoredRegister(D=128, K_var=81, K_val=9, max_depth=8, seed=123, device=torch_device)
+    factored.push(0, 10, 4)
+    factored_var, factored_val, factored_margin = factored.decode_level(0)
+    rot = RotationVSAStack(D=128, K=81 * 9, max_depth=8, seed=123, device=torch_device)
+    symbols = torch.tensor([10 * 9 + 4], device=torch_device)
+    rot_h = rot.encode(symbols)
+    rot_pred, rot_margin = rot.decode(rot_h, 1)
+    tape = TapeStack()
+    tape_pred, tape_margin = tape.decode(tape.encode(symbols), 1)
+
+    register_checks = {
+        "bound_single": {"ok": bound_var == 10 and bound_val == 4, "var": bound_var, "val": bound_val, "margin": bound_margin},
+        "factored": {"ok": factored_var == 10 and factored_val == 4, "var": factored_var, "val": factored_val, "margin": factored_margin},
+        "rot_symbol": {"ok": int(rot_pred[0].item()) == int(symbols[0].item()), "symbol": int(rot_pred[0].item()), "margin": float(rot_margin[0].item())},
+        "tape": {"ok": int(tape_pred[0].item()) == int(symbols[0].item()), "symbol": int(tape_pred[0].item()), "margin": float(tape_margin[0].item())},
+    }
+    payload = {
+        "module": "stage_a_backtrack_smoke",
+        "status": "SMOKE_PASS" if all(row["ok"] for row in register_checks.values()) else "SMOKE_FAIL",
+        "device": device,
+        "cuda_visible": torch.cuda.is_available(),
+        "cuda_device_name": torch.cuda.get_device_name(0) if torch_device.type == "cuda" and torch.cuda.is_available() else "",
+        "gpu_checksum": gpu_checksum,
+        "shard_index": shard_index,
+        "num_shards": num_shards,
+        "selected_cells": len(selected),
+        "selected_cell_indices": [cell.cell_index for cell in selected],
+        "total_cells": len(build_grid()),
+        "register_checks": register_checks,
+        "preflight_status": pre["status"],
+        "preflight_missing": [row["name"] for row in pre["missing"]],
+    }
+    (root / "smoke.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2, sort_keys=True))
+    return payload
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Stage A latent backtracking overnight grid.")
-    parser.add_argument("--mode", choices=["preflight", "overnight", "list-grid"], default="preflight")
+    parser.add_argument("--mode", choices=["preflight", "overnight", "list-grid", "smoke"], default="preflight")
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
     parser.add_argument("--operator-ckpt", required=False, default="/recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt")
@@ -188,6 +251,11 @@ def main() -> None:
         print(json.dumps(payload, indent=2, sort_keys=True))
         if payload["status"] != "READY":
             raise SystemExit(2)
+        return
+    if args.mode == "smoke":
+        payload = smoke(args.output_dir, args.operator_ckpt, args.bridge_decoder, args.teacher_trace, args.num_shards, args.shard_index, args.device)
+        if payload["status"] != "SMOKE_PASS":
+            raise SystemExit(4)
         return
     payload = run_shard(args.output_dir, args.operator_ckpt, args.bridge_decoder, args.teacher_trace, args.num_shards, args.shard_index, args.device)
     print(json.dumps(payload, indent=2, sort_keys=True))
