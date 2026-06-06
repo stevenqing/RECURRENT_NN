@@ -1,0 +1,566 @@
+{
+  "branch_decision": "qwen_guess_beats_mrv_reconsider",
+  "branch_rollout_path": "results/m2_operator_probe/branch_rollout_fix_rescale.json",
+  "by_task": {
+    "general_sat": {
+      "branch": {
+        "mrv": {
+          "invalid_guess_rate": 0.0,
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 7.29,
+          "n": 100,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "qwen_guess": {
+          "invalid_guess_rate": 0.16897506925207756,
+          "invalid_guesses": 122,
+          "mean_nodes_to_solve_or_cap": 7.22,
+          "n": 100,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "random": {
+          "invalid_guess_rate": 0.0,
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 7.34,
+          "n": 100,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        }
+      },
+      "list_all": {
+        "filter_dropped": {
+          "mean": 1105.5,
+          "std": 15.5
+        },
+        "forced_recall": {
+          "mean": 0.39027584732171494,
+          "std": 0.0033411739548807884
+        },
+        "n": {
+          "mean": 300.0,
+          "std": 0.0
+        },
+        "parse_success_rate": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "raw_precision": {
+          "mean": 0.06395291721791382,
+          "std": 0.0020282310254452138
+        }
+      },
+      "single_iterated": {
+        "accepted_moves": {
+          "mean": 28.0,
+          "std": 1.0
+        },
+        "calls": {
+          "mean": 144.5,
+          "std": 7.5
+        },
+        "fixpoint_reach_rate": {
+          "mean": 0.605,
+          "std": 0.025000000000000022
+        },
+        "mean_rounds_to_fixpoint": {
+          "mean": 0.07151979565772669,
+          "std": 0.0025542784163473803
+        },
+        "n": {
+          "mean": 300.0,
+          "std": 0.0
+        },
+        "parse_success_rate": {
+          "mean": 0.8619381482904341,
+          "std": 0.0066749903956973
+        },
+        "per_call_precision": {
+          "mean": 0.22569489334195217,
+          "std": 0.018002585649644465
+        },
+        "rejected_moves": {
+          "mean": 96.5,
+          "std": 6.5
+        }
+      },
+      "verdict": "NEEDS_OPERATOR_FIX"
+    },
+    "graph_coloring": {
+      "branch": {
+        "mrv": {
+          "invalid_guess_rate": 0.0,
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 7.1,
+          "n": 100,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "qwen_guess": {
+          "invalid_guess_rate": 0.16903633491311215,
+          "invalid_guesses": 107,
+          "mean_nodes_to_solve_or_cap": 6.33,
+          "n": 100,
+          "parse_failures": 8,
+          "solve_rate": 1.0
+        },
+        "random": {
+          "invalid_guess_rate": 0.0,
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 6.4,
+          "n": 100,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        }
+      },
+      "list_all": {
+        "filter_dropped": {
+          "mean": 624.5,
+          "std": 4.5
+        },
+        "forced_recall": {
+          "mean": 0.41059773273789074,
+          "std": 0.016231535554792176
+        },
+        "n": {
+          "mean": 300.0,
+          "std": 0.0
+        },
+        "parse_success_rate": {
+          "mean": 0.99,
+          "std": 0.0033333333333332993
+        },
+        "raw_precision": {
+          "mean": 0.04796035995835193,
+          "std": 0.0047504834151420525
+        }
+      },
+      "single_iterated": {
+        "accepted_moves": {
+          "mean": 18.5,
+          "std": 2.5
+        },
+        "calls": {
+          "mean": 72.5,
+          "std": 7.5
+        },
+        "fixpoint_reach_rate": {
+          "mean": 0.8166666666666667,
+          "std": 0.020000000000000018
+        },
+        "mean_rounds_to_fixpoint": {
+          "mean": 0.05309306706229476,
+          "std": 0.0013002383770357902
+        },
+        "n": {
+          "mean": 300.0,
+          "std": 0.0
+        },
+        "parse_success_rate": {
+          "mean": 0.5951923076923077,
+          "std": 0.02019230769230773
+        },
+        "per_call_precision": {
+          "mean": 0.42826086956521736,
+          "std": 0.028260869565217367
+        },
+        "rejected_moves": {
+          "mean": 24.5,
+          "std": 0.5
+        }
+      },
+      "verdict": "NEEDS_OPERATOR_FIX"
+    },
+    "horn_sat": {
+      "branch": {
+        "mrv": {
+          "invalid_guess_rate": 0.0,
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1,
+          "n": 45,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "qwen_guess": {
+          "invalid_guess_rate": 0.0,
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1,
+          "n": 45,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "random": {
+          "invalid_guess_rate": 0.0,
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1,
+          "n": 45,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        }
+      },
+      "list_all": {
+        "filter_dropped": {
+          "mean": 297.5,
+          "std": 55.5
+        },
+        "forced_recall": {
+          "mean": 0.3931725187934152,
+          "std": 0.028656389761157114
+        },
+        "n": {
+          "mean": 135.0,
+          "std": 15.0
+        },
+        "parse_success_rate": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "raw_precision": {
+          "mean": 0.3033081553839164,
+          "std": 0.015001703771013175
+        }
+      },
+      "single_iterated": {
+        "accepted_moves": {
+          "mean": 88.0,
+          "std": 9.0
+        },
+        "calls": {
+          "mean": 191.5,
+          "std": 23.5
+        },
+        "fixpoint_reach_rate": {
+          "mean": 0.17333333333333334,
+          "std": 0.006666666666666668
+        },
+        "mean_rounds_to_fixpoint": {
+          "mean": 0.47870370370370374,
+          "std": 0.07129629629629633
+        },
+        "n": {
+          "mean": 135.0,
+          "std": 15.0
+        },
+        "parse_success_rate": {
+          "mean": 0.8866140642303433,
+          "std": 0.012195459579180501
+        },
+        "per_call_precision": {
+          "mean": 0.5195681273777653,
+          "std": 0.0036106805692546207
+        },
+        "rejected_moves": {
+          "mean": 81.5,
+          "std": 9.5
+        }
+      },
+      "verdict": "NEEDS_OPERATOR_FIX"
+    },
+    "logic_grid": {
+      "branch": {
+        "mrv": {
+          "invalid_guess_rate": 0.0,
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 6.43,
+          "n": 100,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "qwen_guess": {
+          "invalid_guess_rate": 0.4068554396423249,
+          "invalid_guesses": 273,
+          "mean_nodes_to_solve_or_cap": 6.71,
+          "n": 100,
+          "parse_failures": 136,
+          "solve_rate": 1.0
+        },
+        "random": {
+          "invalid_guess_rate": 0.0,
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 6.97,
+          "n": 100,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        }
+      },
+      "list_all": {
+        "filter_dropped": {
+          "mean": 1060.0,
+          "std": 39.0
+        },
+        "forced_recall": {
+          "mean": 0.03845507623808123,
+          "std": 0.021695299701768388
+        },
+        "n": {
+          "mean": 300.0,
+          "std": 0.0
+        },
+        "parse_success_rate": {
+          "mean": 0.8200000000000001,
+          "std": 0.013333333333333364
+        },
+        "raw_precision": {
+          "mean": 0.005078213217028003,
+          "std": 0.0021485257170280035
+        }
+      },
+      "single_iterated": {
+        "accepted_moves": {
+          "mean": 14.0,
+          "std": 0.0
+        },
+        "calls": {
+          "mean": 123.5,
+          "std": 14.5
+        },
+        "fixpoint_reach_rate": {
+          "mean": 0.63,
+          "std": 0.050000000000000044
+        },
+        "mean_rounds_to_fixpoint": {
+          "mean": 0.03600405679513184,
+          "std": 0.013015551048005409
+        },
+        "n": {
+          "mean": 300.0,
+          "std": 0.0
+        },
+        "parse_success_rate": {
+          "mean": 0.649581172716394,
+          "std": 0.08436378141204631
+        },
+        "per_call_precision": {
+          "mean": 0.17724358974358972,
+          "std": 0.0022435897435897495
+        },
+        "rejected_moves": {
+          "mean": 65.0,
+          "std": 1.0
+        }
+      },
+      "verdict": "NEEDS_OPERATOR_FIX"
+    },
+    "sudoku_4x4": {
+      "branch": {
+        "mrv": {
+          "invalid_guess_rate": 0.0,
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1.28,
+          "n": 100,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "qwen_guess": {
+          "invalid_guess_rate": 0.05511811023622047,
+          "invalid_guesses": 7,
+          "mean_nodes_to_solve_or_cap": 1.27,
+          "n": 100,
+          "parse_failures": 2,
+          "solve_rate": 1.0
+        },
+        "random": {
+          "invalid_guess_rate": 0.0,
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1.24,
+          "n": 100,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        }
+      },
+      "list_all": {
+        "filter_dropped": {
+          "mean": 534.5,
+          "std": 8.5
+        },
+        "forced_recall": {
+          "mean": 0.4092088934360228,
+          "std": 0.06161129583842517
+        },
+        "n": {
+          "mean": 300.0,
+          "std": 0.0
+        },
+        "parse_success_rate": {
+          "mean": 0.6816666666666666,
+          "std": 0.02833333333333332
+        },
+        "raw_precision": {
+          "mean": 0.4959251614091055,
+          "std": 0.03568659282063627
+        }
+      },
+      "single_iterated": {
+        "accepted_moves": {
+          "mean": 194.5,
+          "std": 9.5
+        },
+        "calls": {
+          "mean": 419.5,
+          "std": 13.5
+        },
+        "fixpoint_reach_rate": {
+          "mean": 0.15833333333333333,
+          "std": 0.0050000000000000044
+        },
+        "mean_rounds_to_fixpoint": {
+          "mean": 0.8258651286601597,
+          "std": 0.1523957409050577
+        },
+        "n": {
+          "mean": 300.0,
+          "std": 0.0
+        },
+        "parse_success_rate": {
+          "mean": 0.9331846778689177,
+          "std": 0.0021501951102970707
+        },
+        "per_call_precision": {
+          "mean": 0.5149430373523256,
+          "std": 0.009478556478008604
+        },
+        "rejected_moves": {
+          "mean": 183.0,
+          "std": 2.0
+        }
+      },
+      "verdict": "NEEDS_OPERATOR_FIX"
+    }
+  },
+  "module": "m2_operator_report_fix_rescale",
+  "n_instances": 50,
+  "overall": {
+    "branch": {
+      "mrv": {
+        "invalid_guess_rate": 0.0,
+        "invalid_guesses": 0,
+        "mean_nodes_to_solve_or_cap": 5.067415730337078,
+        "n": 445,
+        "parse_failures": 0,
+        "solve_rate": 1.0
+      },
+      "qwen_guess": {
+        "invalid_guess_rate": 0.23157415832575068,
+        "invalid_guesses": 509,
+        "mean_nodes_to_solve_or_cap": 4.939325842696629,
+        "n": 445,
+        "parse_failures": 146,
+        "solve_rate": 1.0
+      },
+      "random": {
+        "invalid_guess_rate": 0.0,
+        "invalid_guesses": 0,
+        "mean_nodes_to_solve_or_cap": 5.033707865168539,
+        "n": 445,
+        "parse_failures": 0,
+        "solve_rate": 1.0
+      }
+    },
+    "list_all": {
+      "filter_dropped": {
+        "mean": 3622.0,
+        "std": 5.0
+      },
+      "forced_recall": {
+        "mean": 0.3771291895650186,
+        "std": 0.04033673673482996
+      },
+      "n": {
+        "mean": 1335.0,
+        "std": 15.0
+      },
+      "parse_success_rate": {
+        "mean": 0.8858501683501683,
+        "std": 0.007331649831649856
+      },
+      "raw_precision": {
+        "mean": 0.1752859200916636,
+        "std": 0.01080768926927246
+      }
+    },
+    "single_iterated": {
+      "accepted_moves": {
+        "mean": 343.0,
+        "std": 15.0
+      },
+      "calls": {
+        "mean": 951.5,
+        "std": 51.5
+      },
+      "fixpoint_reach_rate": {
+        "mean": 0.5144191919191918,
+        "std": 0.016641414141414124
+      },
+      "mean_rounds_to_fixpoint": {
+        "mean": 0.12101865532232864,
+        "std": 0.005469439915766587
+      },
+      "n": {
+        "mean": 1335.0,
+        "std": 15.0
+      },
+      "parse_success_rate": {
+        "mean": 0.8492422731804586,
+        "std": 0.010757726819541347
+      },
+      "per_call_precision": {
+        "mean": 0.43219279408255784,
+        "std": 0.0017465998568360896
+      },
+      "rejected_moves": {
+        "mean": 450.5,
+        "std": 16.5
+      }
+    }
+  },
+  "probe_path": "results/m2_operator_probe/operator_probe_fix_rescale.json",
+  "rendering_comparison": {
+    "by_rendering": {
+      "candidates": {
+        "accepted": 240,
+        "n": 600,
+        "parse_success_rate": 0.9333333333333333,
+        "per_call_precision": 0.46875,
+        "rejected": 272
+      },
+      "cells": {
+        "accepted": 114,
+        "n": 600,
+        "parse_success_rate": 0.9166666666666666,
+        "per_call_precision": 0.21714285714285714,
+        "rejected": 411
+      },
+      "grid": {
+        "accepted": 191,
+        "n": 600,
+        "parse_success_rate": 0.9633333333333334,
+        "per_call_precision": 0.35567970204841715,
+        "rejected": 346
+      }
+    },
+    "selected": "grid"
+  },
+  "routing": {
+    "fix_tasks": [
+      "general_sat",
+      "graph_coloring",
+      "horn_sat",
+      "logic_grid",
+      "sudoku_4x4"
+    ],
+    "pass_tasks": []
+  },
+  "seeds": [
+    42,
+    137
+  ],
+  "task_types": [
+    "horn_sat",
+    "general_sat",
+    "graph_coloring",
+    "sudoku_4x4",
+    "logic_grid"
+  ],
+  "verdict": "PER_TASK_ROUTING"
+}

@@ -40,6 +40,10 @@ results/**
 !results/m2_operator_probe/branch_rollout.json
 !results/m2_operator_probe/report.json
 !results/m2_operator_probe/report.md
+!results/m2_operator_probe/operator_probe_fix_rescale.json
+!results/m2_operator_probe/branch_rollout_fix_rescale.json
+!results/m2_operator_probe/report_fix_rescale.json
+!results/m2_operator_probe/report_fix_rescale.md
 figures/
 .env
 .venv/

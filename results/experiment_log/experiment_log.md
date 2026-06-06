@@ -40,6 +40,7 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 | analysis_summary | results/analysis/summary.md |
 | validation | results/validation/validation.json |
 | m2_operator_probe | results/m2_operator_probe/report.json |
+| m2_operator_fix_rescale | results/m2_operator_probe/report_fix_rescale.json |
 
 ## Run Metadata
 
@@ -73,6 +74,10 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 - M2.0 parse success rate: 0.9062
 - M2.0 forced recall: 0.1935
 - M2.0 branch qwen/random mean nodes: 4.4286 / 4.1429
+- M2.0 fix-rescale verdict: `PER_TASK_ROUTING`
+- M2.0 fix-rescale pass/fix tasks: 0 / 5
+- M2.0 fix-rescale single-iterated precision: 0.4322
+- M2.0 fix-rescale branch qwen/mrv mean nodes: 4.9393 / 5.0674
 
 ## Gate Status
 
@@ -108,6 +113,7 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 | 19 | scaffold gates | Ran D.3, D-stage 0/1/2/3, verifier, and TTT scaffold gates. | results/*/results.json | validation=False |
 | 20 | validation | Validated required files, schemas, gate expectations, and Module 1 comparisons. | results/validation/validation.json | checks=1, passed=False |
 | 21 | M2.0 operator competence probe | Ran frozen Qwen generative current-node probe and branch rollout with no training. | results/m2_operator_probe/report.json | verdict=NEEDS_OPERATOR_FIX, forced_recall=0.1935 |
+| 22 | M2.0 fix-rescale operator probe | Ran single-move iterated propagation, list-all ablation, Sudoku rendering variants, logic_grid, and 2-seed branch rollout. | results/m2_operator_probe/report_fix_rescale.json | verdict=PER_TASK_ROUTING, fix_tasks=5/5 |
 
 ## Detailed Itemized Run Log
 
@@ -819,6 +825,70 @@ Branch rollout summary:
 | random | 1.0000 | 4.1429 | 0 |
 
 Decision: M2.0 does not support proceeding directly to the full Module 2/3 loop as-is. The strongest blocker is low forced-move recall and low filtered fixpoint reach, especially on `sudoku_4x4`; parse reliability is mostly acceptable overall but still weak on Sudoku. The next architecture branch should be an operator format/propagation fix or light SFT on propagation traces before investing in the full loop.
+
+### 022. Ran M2.0 fix-rescale operator probe
+
+Purpose: test cheap operator fixes before any SFT or full Module 2/3 loop. This run compares list-all propagation against single-move iterated propagation, adds `logic_grid`, evaluates Sudoku rendering variants, and runs a real-scale branch rollout over two seeds.
+
+Code added/used:
+
+- `llm_operator/qwen_operator.py`
+- `llm_operator/symbolic_filter.py`
+- `experiments/m2_operator_probe.py`
+- `experiments/m2_branch_rollout.py`
+- `analysis/m2_operator_report.py`
+- `analysis/validate_outputs.py`
+
+Commands:
+
+```bash
+cd /home/aiscuser/RECURRENT_NN
+CUDA_VISIBLE_DEVICES=6 ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.m2_operator_probe --output-dir results/m2_operator_probe --device cuda:0 --n-instances 50 --max-nodes-per-task 6 --seeds 42,137 --batch-size 4 --sudoku-rendering candidates
+CUDA_VISIBLE_DEVICES=7 ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.m2_branch_rollout --output-dir results/m2_operator_probe --device cuda:0 --n-instances 50 --seeds 42,137 --cap-nodes 64 --batch-size 4
+~/.local/bin/uv run --python .venv/bin/python python -m analysis.m2_operator_report --output-dir results/m2_operator_probe
+```
+
+Artifacts:
+
+- `results/m2_operator_probe/operator_probe_fix_rescale.json`
+- `results/m2_operator_probe/branch_rollout_fix_rescale.json`
+- `results/m2_operator_probe/report_fix_rescale.json`
+- `results/m2_operator_probe/report_fix_rescale.md`
+
+Overall result:
+
+| metric | value |
+| --- | --- |
+| verdict | PER_TASK_ROUTING |
+| pass tasks | 0 / 5 |
+| fix tasks | 5 / 5 |
+| list-all forced recall | 0.3771 |
+| list-all raw precision | 0.1753 |
+| single-iterated fixpoint reach | 0.5144 |
+| single-iterated per-call precision | 0.4322 |
+| qwen_guess mean nodes | 4.9393 |
+| mrv mean nodes | 5.0674 |
+| qwen_guess invalid guess rate | 0.2316 |
+
+Per-task verdicts:
+
+| task | verdict | list-all recall | single fixpoint reach | single precision |
+| --- | --- | --- | --- | --- |
+| general_sat | NEEDS_OPERATOR_FIX | 0.3903 | 0.6050 | 0.2257 |
+| graph_coloring | NEEDS_OPERATOR_FIX | 0.4106 | 0.8167 | 0.4283 |
+| horn_sat | NEEDS_OPERATOR_FIX | 0.3932 | 0.1733 | 0.5196 |
+| logic_grid | NEEDS_OPERATOR_FIX | 0.0385 | 0.6300 | 0.1772 |
+| sudoku_4x4 | NEEDS_OPERATOR_FIX | 0.4092 | 0.1583 | 0.5149 |
+
+Branch rollout summary:
+
+| method | solve_rate | mean_nodes_to_solve_or_cap | invalid_guesses | parse_failures |
+| --- | --- | --- | --- | --- |
+| qwen_guess | 1.0000 | 4.9393 | 509 | 146 |
+| mrv | 1.0000 | 5.0674 | 0 | 0 |
+| random | 1.0000 | 5.0337 | 0 | 0 |
+
+Decision: the prompt/rendering fixes improve usable signal but do not make the frozen Qwen operator reliable enough to treat the operator premise as passed. All five tasks route to `NEEDS_OPERATOR_FIX`; `qwen_guess` is slightly shallower than MRV on mean nodes, but its high invalid-guess and parse-failure rates mean MRV remains the safer default branch policy until an operator fix or light SFT reduces invalid moves.
 
 ## Reference Archive
 
