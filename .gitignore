@@ -35,6 +35,11 @@ results/**
 !results/gru_stack_grid_fair/curves.json
 !results/gru_vs_structured_closeout/
 !results/gru_vs_structured_closeout/results.json
+!results/m2_operator_probe/
+!results/m2_operator_probe/operator_probe.json
+!results/m2_operator_probe/branch_rollout.json
+!results/m2_operator_probe/report.json
+!results/m2_operator_probe/report.md
 figures/
 .env
 .venv/

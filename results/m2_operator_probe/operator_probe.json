@@ -1,0 +1,1138 @@
+{
+  "device": "cuda:0",
+  "max_nodes_per_task": 4,
+  "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+  "module": "m2_operator_probe",
+  "n_instances": 2,
+  "n_nodes": 32,
+  "rows": [
+    {
+      "depth": 0,
+      "failure_modes": [],
+      "filter_dropped": 3,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 0,
+      "oracle_fixpoint_rounds": 2,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "1": 1,
+        "5": 0,
+        "7": 0
+      },
+      "proposed_forced_n": 3,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 5=0,1=1,7=0\nGUESS: 8=1\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "horn_sat_0",
+      "task_type": "horn_sat",
+      "truly_forced": {
+        "6": 1,
+        "7": 1,
+        "8": 0
+      },
+      "truly_forced_n": 3
+    },
+    {
+      "depth": 0,
+      "failure_modes": [],
+      "filter_dropped": 6,
+      "filtered_forced": {
+        "1": 1
+      },
+      "forced_hits": 1,
+      "node_index": 1,
+      "oracle_fixpoint_rounds": 1,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "1": 1,
+        "3": 0,
+        "4": 1,
+        "5": 0,
+        "6": 1,
+        "7": 1,
+        "8": 0
+      },
+      "proposed_forced_n": 7,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 1,
+      "raw_text": "FORCED: 5=0,1=1,7=1,4=1,3=0,6=1,8=0\nGUESS: 2=1\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "horn_sat_0",
+      "task_type": "horn_sat",
+      "truly_forced": {
+        "1": 1,
+        "2": 0
+      },
+      "truly_forced_n": 2
+    },
+    {
+      "depth": 0,
+      "failure_modes": [],
+      "filter_dropped": 7,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 2,
+      "oracle_fixpoint_rounds": 1,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "1": 1,
+        "3": 0,
+        "4": 1,
+        "5": 0,
+        "6": 1,
+        "7": 1,
+        "8": 0
+      },
+      "proposed_forced_n": 7,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 5=0,1=1,3=0,4=1,6=1,7=1,8=0\nGUESS: 2=1\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "horn_sat_0",
+      "task_type": "horn_sat",
+      "truly_forced": {
+        "2": 0
+      },
+      "truly_forced_n": 1
+    },
+    {
+      "depth": 0,
+      "failure_modes": [],
+      "filter_dropped": 2,
+      "filtered_forced": {
+        "7": 1
+      },
+      "forced_hits": 1,
+      "node_index": 3,
+      "oracle_fixpoint_rounds": 2,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "1": 1,
+        "5": 0,
+        "7": 1
+      },
+      "proposed_forced_n": 3,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 2,
+      "raw_text": "FORCED: 5=0,1=1,7=1\nGUESS: 8=0\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "horn_sat_0",
+      "task_type": "horn_sat",
+      "truly_forced": {
+        "2": 0,
+        "7": 1,
+        "8": 0
+      },
+      "truly_forced_n": 3
+    },
+    {
+      "depth": 0,
+      "failure_modes": [],
+      "filter_dropped": 8,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 4,
+      "oracle_fixpoint_rounds": 1,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "SOLVED",
+      "proposed_forced": {
+        "1": 0,
+        "2": 1,
+        "3": 1,
+        "4": 0,
+        "5": 1,
+        "6": 0,
+        "7": 0,
+        "8": 1
+      },
+      "proposed_forced_n": 8,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 1=0,2=1,3=1,4=0,5=1,6=0,7=0,8=1  \nGUESS: NONE  \nSTATUS: SOLVED",
+      "reprompted": false,
+      "task_id": "horn_sat_1",
+      "task_type": "horn_sat",
+      "truly_forced": {
+        "4": 1
+      },
+      "truly_forced_n": 1
+    },
+    {
+      "depth": 0,
+      "failure_modes": [],
+      "filter_dropped": 0,
+      "filtered_forced": {
+        "5": 1,
+        "7": 0
+      },
+      "forced_hits": 2,
+      "node_index": 5,
+      "oracle_fixpoint_rounds": 4,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "5": 1,
+        "7": 0
+      },
+      "proposed_forced_n": 2,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 4,
+      "raw_text": "FORCED: 5=1,7=0\nGUESS: 3=1\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "horn_sat_1",
+      "task_type": "horn_sat",
+      "truly_forced": {
+        "5": 1,
+        "6": 0,
+        "7": 0
+      },
+      "truly_forced_n": 3
+    },
+    {
+      "depth": 0,
+      "failure_modes": [],
+      "filter_dropped": 2,
+      "filtered_forced": {
+        "8": 1
+      },
+      "forced_hits": 1,
+      "node_index": 6,
+      "oracle_fixpoint_rounds": 3,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "3": 1,
+        "4": 1,
+        "8": 1
+      },
+      "proposed_forced_n": 3,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 2,
+      "raw_text": "FORCED: 3=1,4=1,8=1\nGUESS: 3=0\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "horn_sat_1",
+      "task_type": "horn_sat",
+      "truly_forced": {
+        "8": 1
+      },
+      "truly_forced_n": 1
+    },
+    {
+      "depth": 0,
+      "failure_modes": [],
+      "filter_dropped": 5,
+      "filtered_forced": {
+        "3": 1
+      },
+      "forced_hits": 1,
+      "node_index": 7,
+      "oracle_fixpoint_rounds": 2,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "3": 1,
+        "4": 1,
+        "5": 1,
+        "6": 0,
+        "7": 0,
+        "8": 1
+      },
+      "proposed_forced_n": 6,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 1,
+      "raw_text": "FORCED: 3=1,4=1,5=1,6=0,7=0,8=1\nGUESS: 3=0\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "horn_sat_1",
+      "task_type": "horn_sat",
+      "truly_forced": {
+        "3": 1
+      },
+      "truly_forced_n": 1
+    },
+    {
+      "depth": 2,
+      "failure_modes": [],
+      "filter_dropped": 6,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 8,
+      "oracle_fixpoint_rounds": 3,
+      "oracle_fixpoint_status": "OPEN",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "3": 1,
+        "4": 0,
+        "5": 1,
+        "6": 0,
+        "7": 0,
+        "8": 1
+      },
+      "proposed_forced_n": 6,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 3=1,4=0,5=1,6=0,7=0,8=1  \nGUESS: 3=0  \nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "general_sat_0",
+      "task_type": "general_sat",
+      "truly_forced": {
+        "8": 0
+      },
+      "truly_forced_n": 1
+    },
+    {
+      "depth": 2,
+      "failure_modes": [],
+      "filter_dropped": 2,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 9,
+      "oracle_fixpoint_rounds": 1,
+      "oracle_fixpoint_status": "OPEN",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "4": 1,
+        "5": 1
+      },
+      "proposed_forced_n": 2,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 4=1,5=1\nGUESS: 7=1\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "general_sat_0",
+      "task_type": "general_sat",
+      "truly_forced": {
+        "4": 0
+      },
+      "truly_forced_n": 1
+    },
+    {
+      "depth": 3,
+      "failure_modes": [],
+      "filter_dropped": 4,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 10,
+      "oracle_fixpoint_rounds": 1,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "3": 1,
+        "4": 0,
+        "5": 0,
+        "7": 0
+      },
+      "proposed_forced_n": 4,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 3=1,5=0,4=0,7=0\nGUESS: 6=1\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "general_sat_0",
+      "task_type": "general_sat",
+      "truly_forced": {
+        "7": 1
+      },
+      "truly_forced_n": 1
+    },
+    {
+      "depth": 3,
+      "failure_modes": [],
+      "filter_dropped": 8,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 11,
+      "oracle_fixpoint_rounds": 0,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "SOLVED",
+      "parse_success": true,
+      "predicted_status": "CONTRADICTION",
+      "proposed_forced": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0,
+        "5": 1,
+        "6": 1,
+        "7": 1,
+        "8": 1
+      },
+      "proposed_forced_n": 8,
+      "qwen_filter_reached_fixpoint": true,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 1=1,2=1,3=1,4=0,5=1,6=1,7=1,8=1  \nGUESS: NONE  \nSTATUS: CONTRADICTION",
+      "reprompted": false,
+      "task_id": "general_sat_0",
+      "task_type": "general_sat",
+      "truly_forced": {},
+      "truly_forced_n": 0
+    },
+    {
+      "depth": 3,
+      "failure_modes": [],
+      "filter_dropped": 5,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 12,
+      "oracle_fixpoint_rounds": 0,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "SOLVED",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "4": 1,
+        "5": 1,
+        "6": 1,
+        "7": 1,
+        "8": 1
+      },
+      "proposed_forced_n": 5,
+      "qwen_filter_reached_fixpoint": true,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 4=1,5=1,6=1,7=1,8=1\nGUESS: 3=1\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "general_sat_1",
+      "task_type": "general_sat",
+      "truly_forced": {},
+      "truly_forced_n": 0
+    },
+    {
+      "depth": 2,
+      "failure_modes": [],
+      "filter_dropped": 3,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 13,
+      "oracle_fixpoint_rounds": 0,
+      "oracle_fixpoint_status": "OPEN",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "2": 1,
+        "3": 1,
+        "5": 1
+      },
+      "proposed_forced_n": 3,
+      "qwen_filter_reached_fixpoint": true,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 5=1,3=1,2=1\nGUESS: 4=0\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "general_sat_1",
+      "task_type": "general_sat",
+      "truly_forced": {},
+      "truly_forced_n": 0
+    },
+    {
+      "depth": 2,
+      "failure_modes": [],
+      "filter_dropped": 2,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 14,
+      "oracle_fixpoint_rounds": 1,
+      "oracle_fixpoint_status": "OPEN",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "3": 1,
+        "5": 1
+      },
+      "proposed_forced_n": 2,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 3=1,5=1\nGUESS: 7=0\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "general_sat_1",
+      "task_type": "general_sat",
+      "truly_forced": {
+        "3": 0,
+        "7": 1
+      },
+      "truly_forced_n": 2
+    },
+    {
+      "depth": 2,
+      "failure_modes": [],
+      "filter_dropped": 5,
+      "filtered_forced": {
+        "4": 0
+      },
+      "forced_hits": 1,
+      "node_index": 15,
+      "oracle_fixpoint_rounds": 3,
+      "oracle_fixpoint_status": "OPEN",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "3": 1,
+        "4": 0,
+        "5": 1,
+        "6": 0,
+        "7": 0,
+        "8": 1
+      },
+      "proposed_forced_n": 6,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 2,
+      "raw_text": "FORCED: 3=1,4=0,5=1,6=0,7=0,8=1\nGUESS: 2=1\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "general_sat_1",
+      "task_type": "general_sat",
+      "truly_forced": {
+        "4": 0,
+        "6": 1
+      },
+      "truly_forced_n": 2
+    },
+    {
+      "depth": 3,
+      "failure_modes": [],
+      "filter_dropped": 3,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 16,
+      "oracle_fixpoint_rounds": 3,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "4": 2,
+        "5": 1,
+        "6": 2
+      },
+      "proposed_forced_n": 3,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 4=2,5=1,6=2\nGUESS: 7=2\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "graph_coloring_0",
+      "task_type": "graph_coloring",
+      "truly_forced": {
+        "5": 2
+      },
+      "truly_forced_n": 1
+    },
+    {
+      "depth": 2,
+      "failure_modes": [],
+      "filter_dropped": 3,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 17,
+      "oracle_fixpoint_rounds": 1,
+      "oracle_fixpoint_status": "OPEN",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "3": 1,
+        "4": 2,
+        "6": 1
+      },
+      "proposed_forced_n": 3,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 3=1,4=2,6=1\nGUESS: 7=2\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "graph_coloring_0",
+      "task_type": "graph_coloring",
+      "truly_forced": {
+        "3": 3
+      },
+      "truly_forced_n": 1
+    },
+    {
+      "depth": 1,
+      "failure_modes": [],
+      "filter_dropped": 0,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 18,
+      "oracle_fixpoint_rounds": 0,
+      "oracle_fixpoint_status": "OPEN",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {},
+      "proposed_forced_n": 0,
+      "qwen_filter_reached_fixpoint": true,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: NONE  \nGUESS: 1=2  \nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "graph_coloring_0",
+      "task_type": "graph_coloring",
+      "truly_forced": {},
+      "truly_forced_n": 0
+    },
+    {
+      "depth": 3,
+      "failure_modes": [],
+      "filter_dropped": 0,
+      "filtered_forced": {
+        "6": 1
+      },
+      "forced_hits": 1,
+      "node_index": 19,
+      "oracle_fixpoint_rounds": 1,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "6": 1
+      },
+      "proposed_forced_n": 1,
+      "qwen_filter_reached_fixpoint": true,
+      "qwen_filter_rounds": 1,
+      "raw_text": "FORCED: 6=1\nGUESS: 7=2\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "graph_coloring_0",
+      "task_type": "graph_coloring",
+      "truly_forced": {
+        "6": 1
+      },
+      "truly_forced_n": 1
+    },
+    {
+      "depth": 2,
+      "failure_modes": [],
+      "filter_dropped": 0,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 20,
+      "oracle_fixpoint_rounds": 0,
+      "oracle_fixpoint_status": "OPEN",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {},
+      "proposed_forced_n": 0,
+      "qwen_filter_reached_fixpoint": true,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: NONE  \nGUESS: 3=2  \nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "graph_coloring_1",
+      "task_type": "graph_coloring",
+      "truly_forced": {},
+      "truly_forced_n": 0
+    },
+    {
+      "depth": 4,
+      "failure_modes": [],
+      "filter_dropped": 0,
+      "filtered_forced": {
+        "6": 2,
+        "7": 2
+      },
+      "forced_hits": 2,
+      "node_index": 21,
+      "oracle_fixpoint_rounds": 1,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "6": 2,
+        "7": 2
+      },
+      "proposed_forced_n": 2,
+      "qwen_filter_reached_fixpoint": true,
+      "qwen_filter_rounds": 1,
+      "raw_text": "FORCED: 6=2,7=2\nGUESS: 6=3\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "graph_coloring_1",
+      "task_type": "graph_coloring",
+      "truly_forced": {
+        "6": 2,
+        "7": 2
+      },
+      "truly_forced_n": 2
+    },
+    {
+      "depth": 1,
+      "failure_modes": [],
+      "filter_dropped": 0,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 22,
+      "oracle_fixpoint_rounds": 0,
+      "oracle_fixpoint_status": "OPEN",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {},
+      "proposed_forced_n": 0,
+      "qwen_filter_reached_fixpoint": true,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: NONE  \nGUESS: 1=2  \nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "graph_coloring_1",
+      "task_type": "graph_coloring",
+      "truly_forced": {},
+      "truly_forced_n": 0
+    },
+    {
+      "depth": 4,
+      "failure_modes": [],
+      "filter_dropped": 0,
+      "filtered_forced": {
+        "7": 2
+      },
+      "forced_hits": 1,
+      "node_index": 23,
+      "oracle_fixpoint_rounds": 1,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "7": 2
+      },
+      "proposed_forced_n": 1,
+      "qwen_filter_reached_fixpoint": true,
+      "qwen_filter_rounds": 1,
+      "raw_text": "FORCED: 7=2\nGUESS: 0=2\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "graph_coloring_1",
+      "task_type": "graph_coloring",
+      "truly_forced": {
+        "7": 2
+      },
+      "truly_forced_n": 1
+    },
+    {
+      "depth": 0,
+      "failure_modes": [],
+      "filter_dropped": 8,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 24,
+      "oracle_fixpoint_rounds": 2,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "0": 3,
+        "3": 1,
+        "7": 2,
+        "8": 2,
+        "11": 4,
+        "12": 1,
+        "14": 2,
+        "15": 3
+      },
+      "proposed_forced_n": 8,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 0=3,3=1,7=2,8=2,11=4,12=1,14=2,15=3  \nGUESS: 1=1  \nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "sudoku_4x4_0",
+      "task_type": "sudoku_4x4",
+      "truly_forced": {
+        "2": 4,
+        "4": 4,
+        "9": 3,
+        "10": 1,
+        "13": 4
+      },
+      "truly_forced_n": 5
+    },
+    {
+      "depth": 0,
+      "failure_modes": [],
+      "filter_dropped": 2,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 25,
+      "oracle_fixpoint_rounds": 3,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "0": 3,
+        "7": 2
+      },
+      "proposed_forced_n": 2,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 0=3,7=2  \nGUESS: 1=1  \nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "sudoku_4x4_0",
+      "task_type": "sudoku_4x4",
+      "truly_forced": {
+        "8": 2,
+        "11": 4,
+        "12": 1,
+        "14": 2
+      },
+      "truly_forced_n": 4
+    },
+    {
+      "depth": 0,
+      "failure_modes": [],
+      "filter_dropped": 5,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 26,
+      "oracle_fixpoint_rounds": 2,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "0": 3,
+        "7": 2,
+        "8": 2,
+        "11": 4,
+        "12": 1
+      },
+      "proposed_forced_n": 5,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 0=3,7=2,8=2,11=4,12=1  \nGUESS: 1=1  \nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "sudoku_4x4_0",
+      "task_type": "sudoku_4x4",
+      "truly_forced": {
+        "3": 1,
+        "4": 4,
+        "9": 3,
+        "14": 2,
+        "15": 3
+      },
+      "truly_forced_n": 5
+    },
+    {
+      "depth": 0,
+      "failure_modes": [
+        "missing_guess_line",
+        "missing_status_line",
+        "malformed_var_val",
+        "bad_status"
+      ],
+      "filter_dropped": 0,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 27,
+      "oracle_fixpoint_rounds": 1,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": false,
+      "predicted_status": null,
+      "proposed_forced": {},
+      "proposed_forced_n": 0,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 0=3,1=1,2=2,3=1,4=4,5=1,6=3,7=2,8=2,9=3,10=1,11=4,12=1,13=4,",
+      "reprompted": true,
+      "task_id": "sudoku_4x4_0",
+      "task_type": "sudoku_4x4",
+      "truly_forced": {
+        "1": 2,
+        "2": 4
+      },
+      "truly_forced_n": 2
+    },
+    {
+      "depth": 0,
+      "failure_modes": [],
+      "filter_dropped": 9,
+      "filtered_forced": {
+        "14": 4
+      },
+      "forced_hits": 1,
+      "node_index": 28,
+      "oracle_fixpoint_rounds": 3,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "3": 2,
+        "4": 1,
+        "5": 3,
+        "6": 2,
+        "7": 3,
+        "8": 1,
+        "10": 3,
+        "12": 2,
+        "13": 1,
+        "14": 4
+      },
+      "proposed_forced_n": 10,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 1,
+      "raw_text": "FORCED: 3=2,4=1,5=3,6=2,7=3,8=1,10=3,12=2,13=1,14=4\nGUESS: 15=2\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "sudoku_4x4_1",
+      "task_type": "sudoku_4x4",
+      "truly_forced": {
+        "5": 1,
+        "8": 3,
+        "12": 1,
+        "13": 2,
+        "14": 4
+      },
+      "truly_forced_n": 5
+    },
+    {
+      "depth": 0,
+      "failure_modes": [
+        "malformed_var_val",
+        "malformed_var_val"
+      ],
+      "filter_dropped": 0,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 29,
+      "oracle_fixpoint_rounds": 4,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": false,
+      "predicted_status": "OPEN",
+      "proposed_forced": {},
+      "proposed_forced_n": 0,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 3,3=4\nGUESS: 1,0=1\nSTATUS: OPEN",
+      "reprompted": true,
+      "task_id": "sudoku_4x4_1",
+      "task_type": "sudoku_4x4",
+      "truly_forced": {
+        "0": 2,
+        "1": 3,
+        "2": 1,
+        "9": 4,
+        "11": 1,
+        "12": 1,
+        "13": 2,
+        "14": 4
+      },
+      "truly_forced_n": 8
+    },
+    {
+      "depth": 0,
+      "failure_modes": [
+        "missing_guess_line",
+        "missing_status_line",
+        "extra_prose",
+        "bad_status"
+      ],
+      "filter_dropped": 0,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 30,
+      "oracle_fixpoint_rounds": 0,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "SOLVED",
+      "parse_success": false,
+      "predicted_status": null,
+      "proposed_forced": {},
+      "proposed_forced_n": 0,
+      "qwen_filter_reached_fixpoint": true,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 3=1,4=2,5=3,6=1,7=4,8=2,9=3,10=1,11=4,12=2,13=3,14=1,15=4  \nGUE",
+      "reprompted": true,
+      "task_id": "sudoku_4x4_1",
+      "task_type": "sudoku_4x4",
+      "truly_forced": {},
+      "truly_forced_n": 0
+    },
+    {
+      "depth": 0,
+      "failure_modes": [],
+      "filter_dropped": 7,
+      "filtered_forced": {},
+      "forced_hits": 0,
+      "node_index": 31,
+      "oracle_fixpoint_rounds": 3,
+      "oracle_fixpoint_status": "SOLVED",
+      "oracle_status": "OPEN",
+      "parse_success": true,
+      "predicted_status": "OPEN",
+      "proposed_forced": {
+        "4": 1,
+        "5": 2,
+        "6": 3,
+        "7": 1,
+        "8": 2,
+        "10": 3,
+        "14": 2
+      },
+      "proposed_forced_n": 7,
+      "qwen_filter_reached_fixpoint": false,
+      "qwen_filter_rounds": 0,
+      "raw_text": "FORCED: 4=1, 5=2, 6=3, 7=1, 8=2, 10=3, 14=2\nGUESS: 15=3\nSTATUS: OPEN",
+      "reprompted": false,
+      "task_id": "sudoku_4x4_1",
+      "task_type": "sudoku_4x4",
+      "truly_forced": {
+        "4": 4,
+        "5": 1,
+        "8": 3,
+        "14": 4,
+        "15": 3
+      },
+      "truly_forced_n": 5
+    }
+  ],
+  "summary": {
+    "by_depth": {
+      "0": {
+        "filter_dropped": 64,
+        "fixpoint_reach_rate": 0.0625,
+        "forced_recall": 0.14285714285714285,
+        "mean_fixpoint_rounds": 0.6875,
+        "n": 16,
+        "parse_success_rate": 0.8125,
+        "raw_precision": 0.09859154929577464,
+        "status_contradiction_recall": null
+      },
+      "1": {
+        "filter_dropped": 0,
+        "fixpoint_reach_rate": 1.0,
+        "forced_recall": null,
+        "mean_fixpoint_rounds": 0.0,
+        "n": 2,
+        "parse_success_rate": 1.0,
+        "raw_precision": null,
+        "status_contradiction_recall": null
+      },
+      "2": {
+        "filter_dropped": 21,
+        "fixpoint_reach_rate": 0.2857142857142857,
+        "forced_recall": 0.14285714285714285,
+        "mean_fixpoint_rounds": 0.2857142857142857,
+        "n": 7,
+        "parse_success_rate": 1.0,
+        "raw_precision": 0.045454545454545456,
+        "status_contradiction_recall": null
+      },
+      "3": {
+        "filter_dropped": 20,
+        "fixpoint_reach_rate": 0.6,
+        "forced_recall": 0.3333333333333333,
+        "mean_fixpoint_rounds": 0.2,
+        "n": 5,
+        "parse_success_rate": 1.0,
+        "raw_precision": 0.047619047619047616,
+        "status_contradiction_recall": null
+      },
+      "4": {
+        "filter_dropped": 0,
+        "fixpoint_reach_rate": 1.0,
+        "forced_recall": 1.0,
+        "mean_fixpoint_rounds": 1.0,
+        "n": 2,
+        "parse_success_rate": 1.0,
+        "raw_precision": 1.0,
+        "status_contradiction_recall": null
+      }
+    },
+    "by_task": {
+      "general_sat": {
+        "filter_dropped": 35,
+        "fixpoint_reach_rate": 0.375,
+        "forced_recall": 0.14285714285714285,
+        "mean_fixpoint_rounds": 0.25,
+        "n": 8,
+        "parse_success_rate": 1.0,
+        "raw_precision": 0.027777777777777776,
+        "status_contradiction_recall": null
+      },
+      "graph_coloring": {
+        "filter_dropped": 6,
+        "fixpoint_reach_rate": 0.75,
+        "forced_recall": 0.6666666666666666,
+        "mean_fixpoint_rounds": 0.375,
+        "n": 8,
+        "parse_success_rate": 1.0,
+        "raw_precision": 0.4,
+        "status_contradiction_recall": null
+      },
+      "horn_sat": {
+        "filter_dropped": 33,
+        "fixpoint_reach_rate": 0.0,
+        "forced_recall": 0.4,
+        "mean_fixpoint_rounds": 1.25,
+        "n": 8,
+        "parse_success_rate": 1.0,
+        "raw_precision": 0.15384615384615385,
+        "status_contradiction_recall": null
+      },
+      "sudoku_4x4": {
+        "filter_dropped": 31,
+        "fixpoint_reach_rate": 0.125,
+        "forced_recall": 0.029411764705882353,
+        "mean_fixpoint_rounds": 0.125,
+        "n": 8,
+        "parse_success_rate": 0.625,
+        "raw_precision": 0.03125,
+        "status_contradiction_recall": null
+      }
+    },
+    "failure_modes": {
+      "bad_status": 2,
+      "extra_prose": 1,
+      "malformed_var_val": 3,
+      "missing_guess_line": 2,
+      "missing_status_line": 2
+    },
+    "overall": {
+      "filter_dropped": 105,
+      "fixpoint_reach_rate": 0.3125,
+      "forced_recall": 0.1935483870967742,
+      "mean_fixpoint_rounds": 0.5,
+      "n": 32,
+      "parse_success_rate": 0.90625,
+      "raw_precision": 0.10256410256410256,
+      "status_contradiction_recall": null
+    },
+    "status_confusion": {
+      "OPEN->OPEN": 27,
+      "OPEN->PARSE_FAIL": 1,
+      "OPEN->SOLVED": 1,
+      "SOLVED->CONTRADICTION": 1,
+      "SOLVED->OPEN": 1,
+      "SOLVED->PARSE_FAIL": 1
+    }
+  },
+  "task_types": [
+    "horn_sat",
+    "general_sat",
+    "graph_coloring",
+    "sudoku_4x4"
+  ]
+}

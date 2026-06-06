@@ -1,0 +1,194 @@
+{
+  "branch_rollout_path": "results/m2_operator_probe/branch_rollout.json",
+  "by_task": {
+    "general_sat": {
+      "branch": {
+        "mrv": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 5.5,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "qwen_guess": {
+          "invalid_guesses": 4,
+          "mean_nodes_to_solve_or_cap": 7.5,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "random": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 8,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        }
+      },
+      "probe": {
+        "filter_dropped": 35,
+        "fixpoint_reach_rate": 0.375,
+        "forced_recall": 0.14285714285714285,
+        "mean_fixpoint_rounds": 0.25,
+        "n": 8,
+        "parse_success_rate": 1.0,
+        "raw_precision": 0.027777777777777776,
+        "status_contradiction_recall": null
+      }
+    },
+    "graph_coloring": {
+      "branch": {
+        "mrv": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 6,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "qwen_guess": {
+          "invalid_guesses": 1,
+          "mean_nodes_to_solve_or_cap": 6,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "random": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 4.5,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        }
+      },
+      "probe": {
+        "filter_dropped": 6,
+        "fixpoint_reach_rate": 0.75,
+        "forced_recall": 0.6666666666666666,
+        "mean_fixpoint_rounds": 0.375,
+        "n": 8,
+        "parse_success_rate": 1.0,
+        "raw_precision": 0.4,
+        "status_contradiction_recall": null
+      }
+    },
+    "horn_sat": {
+      "branch": {
+        "mrv": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1,
+          "n": 1,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "qwen_guess": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1,
+          "n": 1,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "random": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1,
+          "n": 1,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        }
+      },
+      "probe": {
+        "filter_dropped": 33,
+        "fixpoint_reach_rate": 0.0,
+        "forced_recall": 0.4,
+        "mean_fixpoint_rounds": 1.25,
+        "n": 8,
+        "parse_success_rate": 1.0,
+        "raw_precision": 0.15384615384615385,
+        "status_contradiction_recall": null
+      }
+    },
+    "sudoku_4x4": {
+      "branch": {
+        "mrv": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1.5,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "qwen_guess": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1.5,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "random": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1.5,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        }
+      },
+      "probe": {
+        "filter_dropped": 31,
+        "fixpoint_reach_rate": 0.125,
+        "forced_recall": 0.029411764705882353,
+        "mean_fixpoint_rounds": 0.125,
+        "n": 8,
+        "parse_success_rate": 0.625,
+        "raw_precision": 0.03125,
+        "status_contradiction_recall": null
+      }
+    }
+  },
+  "module": "m2_operator_report",
+  "overall": {
+    "branch": {
+      "mrv": {
+        "invalid_guesses": 0,
+        "mean_nodes_to_solve_or_cap": 3.857142857142857,
+        "n": 7,
+        "parse_failures": 0,
+        "solve_rate": 1.0
+      },
+      "qwen_guess": {
+        "invalid_guesses": 5,
+        "mean_nodes_to_solve_or_cap": 4.428571428571429,
+        "n": 7,
+        "parse_failures": 0,
+        "solve_rate": 1.0
+      },
+      "random": {
+        "invalid_guesses": 0,
+        "mean_nodes_to_solve_or_cap": 4.142857142857143,
+        "n": 7,
+        "parse_failures": 0,
+        "solve_rate": 1.0
+      }
+    },
+    "fixpoint_reach_rate": 0.3125,
+    "fixpoint_rounds": 0.5,
+    "forced_recall": 0.1935483870967742,
+    "parse_success_rate": 0.90625,
+    "raw_precision": 0.10256410256410256,
+    "status_contradiction_recall": null
+  },
+  "parse_failure_modes": {
+    "bad_status": 2,
+    "extra_prose": 1,
+    "malformed_var_val": 3,
+    "missing_guess_line": 2,
+    "missing_status_line": 2
+  },
+  "probe_path": "results/m2_operator_probe/operator_probe.json",
+  "status_confusion": {
+    "OPEN->OPEN": 27,
+    "OPEN->PARSE_FAIL": 1,
+    "OPEN->SOLVED": 1,
+    "SOLVED->CONTRADICTION": 1,
+    "SOLVED->OPEN": 1,
+    "SOLVED->PARSE_FAIL": 1
+  },
+  "verdict": "NEEDS_OPERATOR_FIX"
+}

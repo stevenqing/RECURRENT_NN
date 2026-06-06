@@ -1,0 +1,344 @@
+{
+  "cap_nodes": 64,
+  "device": "cuda:0",
+  "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+  "module": "m2_branch_rollout",
+  "n_instances": 2,
+  "rows": [
+    {
+      "cap_nodes": 64,
+      "chooser": "qwen_guess",
+      "invalid_guesses": 0,
+      "nodes": 1,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "horn_sat_0",
+      "task_type": "horn_sat"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "mrv",
+      "invalid_guesses": 0,
+      "nodes": 1,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "horn_sat_0",
+      "task_type": "horn_sat"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "random",
+      "invalid_guesses": 0,
+      "nodes": 1,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "horn_sat_0",
+      "task_type": "horn_sat"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "qwen_guess",
+      "invalid_guesses": 3,
+      "nodes": 7,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "general_sat_0",
+      "task_type": "general_sat"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "mrv",
+      "invalid_guesses": 0,
+      "nodes": 6,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "general_sat_0",
+      "task_type": "general_sat"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "random",
+      "invalid_guesses": 0,
+      "nodes": 7,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "general_sat_0",
+      "task_type": "general_sat"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "qwen_guess",
+      "invalid_guesses": 1,
+      "nodes": 8,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "general_sat_1",
+      "task_type": "general_sat"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "mrv",
+      "invalid_guesses": 0,
+      "nodes": 5,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "general_sat_1",
+      "task_type": "general_sat"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "random",
+      "invalid_guesses": 0,
+      "nodes": 9,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "general_sat_1",
+      "task_type": "general_sat"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "qwen_guess",
+      "invalid_guesses": 0,
+      "nodes": 3,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "graph_coloring_0",
+      "task_type": "graph_coloring"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "mrv",
+      "invalid_guesses": 0,
+      "nodes": 3,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "graph_coloring_0",
+      "task_type": "graph_coloring"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "random",
+      "invalid_guesses": 0,
+      "nodes": 3,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "graph_coloring_0",
+      "task_type": "graph_coloring"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "qwen_guess",
+      "invalid_guesses": 1,
+      "nodes": 9,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "graph_coloring_1",
+      "task_type": "graph_coloring"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "mrv",
+      "invalid_guesses": 0,
+      "nodes": 9,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "graph_coloring_1",
+      "task_type": "graph_coloring"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "random",
+      "invalid_guesses": 0,
+      "nodes": 6,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "graph_coloring_1",
+      "task_type": "graph_coloring"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "qwen_guess",
+      "invalid_guesses": 0,
+      "nodes": 1,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "sudoku_4x4_0",
+      "task_type": "sudoku_4x4"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "mrv",
+      "invalid_guesses": 0,
+      "nodes": 1,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "sudoku_4x4_0",
+      "task_type": "sudoku_4x4"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "random",
+      "invalid_guesses": 0,
+      "nodes": 1,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "sudoku_4x4_0",
+      "task_type": "sudoku_4x4"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "qwen_guess",
+      "invalid_guesses": 0,
+      "nodes": 2,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "sudoku_4x4_1",
+      "task_type": "sudoku_4x4"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "mrv",
+      "invalid_guesses": 0,
+      "nodes": 2,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "sudoku_4x4_1",
+      "task_type": "sudoku_4x4"
+    },
+    {
+      "cap_nodes": 64,
+      "chooser": "random",
+      "invalid_guesses": 0,
+      "nodes": 2,
+      "parse_failures": 0,
+      "solved": true,
+      "task_id": "sudoku_4x4_1",
+      "task_type": "sudoku_4x4"
+    }
+  ],
+  "summary": {
+    "by_task": {
+      "general_sat": {
+        "mrv": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 5.5,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "qwen_guess": {
+          "invalid_guesses": 4,
+          "mean_nodes_to_solve_or_cap": 7.5,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "random": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 8,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        }
+      },
+      "graph_coloring": {
+        "mrv": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 6,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "qwen_guess": {
+          "invalid_guesses": 1,
+          "mean_nodes_to_solve_or_cap": 6,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "random": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 4.5,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        }
+      },
+      "horn_sat": {
+        "mrv": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1,
+          "n": 1,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "qwen_guess": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1,
+          "n": 1,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "random": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1,
+          "n": 1,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        }
+      },
+      "sudoku_4x4": {
+        "mrv": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1.5,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "qwen_guess": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1.5,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        },
+        "random": {
+          "invalid_guesses": 0,
+          "mean_nodes_to_solve_or_cap": 1.5,
+          "n": 2,
+          "parse_failures": 0,
+          "solve_rate": 1.0
+        }
+      }
+    },
+    "overall": {
+      "mrv": {
+        "invalid_guesses": 0,
+        "mean_nodes_to_solve_or_cap": 3.857142857142857,
+        "n": 7,
+        "parse_failures": 0,
+        "solve_rate": 1.0
+      },
+      "qwen_guess": {
+        "invalid_guesses": 5,
+        "mean_nodes_to_solve_or_cap": 4.428571428571429,
+        "n": 7,
+        "parse_failures": 0,
+        "solve_rate": 1.0
+      },
+      "random": {
+        "invalid_guesses": 0,
+        "mean_nodes_to_solve_or_cap": 4.142857142857143,
+        "n": 7,
+        "parse_failures": 0,
+        "solve_rate": 1.0
+      }
+    }
+  },
+  "task_types": [
+    "horn_sat",
+    "general_sat",
+    "graph_coloring",
+    "sudoku_4x4"
+  ]
+}
