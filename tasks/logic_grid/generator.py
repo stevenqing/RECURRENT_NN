@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional
 import random
 
@@ -15,6 +15,7 @@ class LogicGridInstance:
     clues: list[str]
     dpll_backtrack_depth: int
     oracle_trace: OracleTrace
+    constraints: list[Constraint] = field(default_factory=list)
 
 
 def _not_equal(scope: tuple[int, int]) -> Constraint:
@@ -80,5 +81,5 @@ def generate_logic_grid(target_depth: Optional[int] = None, n_instances: int = 2
         trace = DPLLOracle().solve(variables, domains, constraints)
         depth = trace.max_backtrack_depth
         if trace.solved and (target_depth is None or depth == target_depth):
-            out.append(LogicGridInstance(["person", "color", "pet"], clues, depth, trace))
+            out.append(LogicGridInstance(["person", "color", "pet"], clues, depth, trace, constraints))
     return out

@@ -8,7 +8,7 @@ import re
 
 import torch
 
-from llm_operator.symbolic_filter import CSPTask
+from llm_operator.symbolic_filter import CSPTask, valid_values
 
 
 STATUS_VALUES = {"OPEN", "CONTRADICTION", "SOLVED"}
@@ -23,9 +23,71 @@ class OperatorPrediction:
     parse_success: bool
     failure_modes: list[str]
     reprompted: bool = False
+    reason: str | None = None
 
 
-def render_current_node_prompt(task: CSPTask, assignment: dict[int, int], reprompt: bool = False) -> str:
+def _task_body(task: CSPTask, assignment: dict[int, int], sudoku_rendering: str = "grid") -> list[str]:
+    body = [f"TASK: {task.task_type}", f"VARIABLES: {task.variables}"]
+    body.append(f"DOMAINS: { {var: sorted(values) for var, values in task.domains.items()} }")
+    body.append(f"GIVENS: {task.givens}")
+    body.append(f"CURRENT_ASSIGNMENT: {dict(sorted(assignment.items()))}")
+    if task.task_type in {"horn_sat", "general_sat"}:
+        body.append(f"CLAUSES: {task.givens.get('clauses', [])}")
+        body.append("SAT values use 1=true, 0=false. A positive literal v is satisfied by v=1; a negative literal -v by v=0.")
+    elif task.task_type == "graph_coloring":
+        body.append(f"EDGES: {task.givens.get('edges', [])}; adjacent nodes must have different colors.")
+    elif task.task_type == "logic_grid":
+        body.append(f"CATEGORIES: {task.givens.get('categories', [])}")
+        body.append("VARIABLE MAP: vars 0-3 are person_0..person_3 colors; vars 4-7 are person_0..person_3 pets. Values are numbered 1..4.")
+        body.append("CLUES:\n" + "\n".join(str(clue) for clue in task.givens.get("clues", [])))
+    elif task.task_type == "sudoku_4x4":
+        body.append("SUDOKU_CELL_IDS: var = row*4+col for rows/cols 0..3; values are 1..4.")
+        if sudoku_rendering == "cells":
+            cells = []
+            for row in range(4):
+                for col in range(4):
+                    var = row * 4 + col
+                    value = assignment.get(var, task.givens.get(f"{row},{col}", "."))
+                    cells.append(f"r{row}c{col}(var{var})={value}")
+            body.append("CELLS: " + "; ".join(cells))
+        elif sudoku_rendering == "candidates":
+            candidates = []
+            for row in range(4):
+                for col in range(4):
+                    var = row * 4 + col
+                    if var in assignment:
+                        candidates.append(f"r{row}c{col}(var{var}) fixed={assignment[var]}")
+                    elif f"{row},{col}" in task.givens:
+                        candidates.append(f"r{row}c{col}(var{var}) given={task.givens[f'{row},{col}']}")
+                    else:
+                        candidates.append(f"r{row}c{col}(var{var}) candidates={sorted(valid_values(task, assignment, var))}")
+            body.append("CELL_CANDIDATES: " + "; ".join(candidates))
+        else:
+            grid = []
+            for row in range(4):
+                cells = []
+                for col in range(4):
+                    var = row * 4 + col
+                    cells.append(str(assignment.get(var, task.givens.get(f"{row},{col}", "."))))
+                grid.append(" ".join(cells))
+            body.append("GRID:\n" + "\n".join(grid))
+    return body
+
+
+def render_current_node_prompt(task: CSPTask, assignment: dict[int, int], reprompt: bool = False, mode: str = "list_all", sudoku_rendering: str = "grid") -> str:
+    if mode == "single":
+        header = [
+            "You are a frozen non-thinking CSP node operator.",
+            "Use only the CURRENT NODE below. Do not use search history. Do not explain beyond the requested one-line reason.",
+            "Return exactly these three lines and nothing else:",
+            "NEXT: <one var=val that is forced now, or NONE>",
+            "REASON: <brief one-line reason, or NONE>",
+            "STATUS: OPEN | CONTRADICTION | SOLVED",
+        ]
+        if reprompt:
+            header.append("Your previous answer was not parseable. Return only NEXT, REASON, and STATUS lines.")
+        return "\n".join(header + [""] + _task_body(task, assignment, sudoku_rendering))
+
     header = [
         "You are a frozen non-thinking CSP node operator.",
         "Use only the CURRENT NODE below. Do not use search history. Do not explain.",
@@ -36,26 +98,7 @@ def render_current_node_prompt(task: CSPTask, assignment: dict[int, int], reprom
     ]
     if reprompt:
         header.append("Your previous answer was not parseable. Return only the three required lines.")
-    body = [f"TASK: {task.task_type}", f"VARIABLES: {task.variables}", f"DOMAINS: {{var: sorted(values) for var, values in domains}}"]
-    body.append(f"DOMAINS_EXPANDED: { {var: sorted(values) for var, values in task.domains.items()} }")
-    body.append(f"GIVENS: {task.givens}")
-    body.append(f"CURRENT_ASSIGNMENT: {dict(sorted(assignment.items()))}")
-    if task.task_type in {"horn_sat", "general_sat"}:
-        body.append(f"CLAUSES: {task.givens.get('clauses', [])}")
-        body.append("SAT values use 1=true, 0=false. A positive literal v is satisfied by v=1; a negative literal -v by v=0.")
-    elif task.task_type == "graph_coloring":
-        body.append(f"EDGES: {task.givens.get('edges', [])}; adjacent nodes must have different colors.")
-    elif task.task_type == "sudoku_4x4":
-        grid = []
-        for row in range(4):
-            cells = []
-            for col in range(4):
-                var = row * 4 + col
-                cells.append(str(assignment.get(var, task.givens.get(f"{row},{col}", "."))))
-            grid.append(" ".join(cells))
-        body.append("SUDOKU_CELL_IDS: var = row*4+col for rows/cols 0..3.")
-        body.append("GRID:\n" + "\n".join(grid))
-    return "\n".join(header + [""] + body)
+    return "\n".join(header + [""] + _task_body(task, assignment, sudoku_rendering))
 
 
 def _parse_assignments(text: str) -> tuple[dict[int, int], list[str]]:
@@ -103,6 +146,32 @@ def parse_operator_output(text: str) -> OperatorPrediction:
     return OperatorPrediction(forced, guess, status_value, text, not failures, failures)
 
 
+def parse_single_output(text: str) -> OperatorPrediction:
+    lines = [line.strip() for line in text.strip().splitlines() if line.strip()]
+    fields: dict[str, str] = {}
+    failures: list[str] = []
+    for label in ["NEXT", "REASON", "STATUS"]:
+        matches = [line for line in lines if re.match(rf"^{label}\s*:", line, flags=re.IGNORECASE)]
+        if not matches:
+            failures.append(f"missing_{label.lower()}_line")
+            continue
+        fields[label] = re.sub(rf"^{label}\s*:\s*", "", matches[-1], flags=re.IGNORECASE).strip()
+    extra = [line for line in lines if not re.match(r"^(NEXT|REASON|STATUS)\s*:", line, flags=re.IGNORECASE)]
+    if extra:
+        failures.append("extra_prose")
+    forced, next_failures = _parse_assignments(fields.get("NEXT", "NONE"))
+    failures.extend(next_failures)
+    if len(forced) > 1:
+        failures.append("multiple_next_moves")
+    status = fields.get("STATUS", "").upper()
+    if status not in STATUS_VALUES:
+        failures.append("bad_status")
+        status_value = None
+    else:
+        status_value = status
+    return OperatorPrediction(forced, None, status_value, text, not failures, failures, reason=fields.get("REASON"))
+
+
 class QwenGenerativeOperator:
     def __init__(self, model_id: str = "Qwen/Qwen3-4B-Instruct-2507", device: str = "cuda:0", dtype: str = "bfloat16", max_new_tokens: int = 64):
         from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -140,13 +209,14 @@ class QwenGenerativeOperator:
             outputs.extend(self.tokenizer.batch_decode(new_tokens, skip_special_tokens=True))
         return outputs
 
-    def predict(self, task: CSPTask, assignment: dict[int, int], batch_size: int = 4) -> OperatorPrediction:
-        prompt = render_current_node_prompt(task, assignment, reprompt=False)
+    def predict(self, task: CSPTask, assignment: dict[int, int], batch_size: int = 4, mode: str = "list_all", sudoku_rendering: str = "grid") -> OperatorPrediction:
+        parser = parse_single_output if mode == "single" else parse_operator_output
+        prompt = render_current_node_prompt(task, assignment, reprompt=False, mode=mode, sudoku_rendering=sudoku_rendering)
         first = self.generate_texts([prompt], batch_size=batch_size)[0]
-        parsed = parse_operator_output(first)
+        parsed = parser(first)
         if parsed.parse_success:
             return parsed
-        retry_prompt = render_current_node_prompt(task, assignment, reprompt=True)
+        retry_prompt = render_current_node_prompt(task, assignment, reprompt=True, mode=mode, sudoku_rendering=sudoku_rendering)
         retry = self.generate_texts([retry_prompt], batch_size=batch_size)[0]
-        reparsed = parse_operator_output(retry)
-        return OperatorPrediction(reparsed.forced, reparsed.guess, reparsed.status, retry, reparsed.parse_success, reparsed.failure_modes, reprompted=True)
+        reparsed = parser(retry)
+        return OperatorPrediction(reparsed.forced, reparsed.guess, reparsed.status, retry, reparsed.parse_success, reparsed.failure_modes, reprompted=True, reason=reparsed.reason)

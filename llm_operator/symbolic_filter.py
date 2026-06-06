@@ -7,6 +7,7 @@ from typing import Any, Callable
 import random
 
 from tasks.graph_coloring.generator import generate_graph_coloring
+from tasks.logic_grid.generator import generate_logic_grid
 from tasks.oracle.dpll_oracle import Constraint
 from tasks.oracle.trace_generator import trace_to_examples
 from tasks.sat.generators import generate_general_sat, generate_horn_sat
@@ -149,6 +150,12 @@ def build_tasks(task_types: list[str], n_instances: int, seed: int) -> list[CSPT
                 domains[row * 4 + col] = {value}
             givens = {f"{row},{col}": value for (row, col), value in task.givens.items()}
             tasks.append(CSPTask(f"sudoku_4x4_{index}", "sudoku_4x4", givens, variables, domains, constraints_4x4(), task.oracle_trace, task.dpll_backtrack_depth))
+    if "logic_grid" in task_types:
+        for index, task in enumerate(generate_logic_grid(n_instances=n_instances, seed=seed)):
+            variables = list(range(8))
+            domains = {var: set(range(1, 5)) for var in variables}
+            givens = {"categories": task.categories, "clues": task.clues}
+            tasks.append(CSPTask(f"logic_grid_{index}", "logic_grid", givens, variables, domains, task.constraints, task.oracle_trace, task.dpll_backtrack_depth))
     return tasks
 
 

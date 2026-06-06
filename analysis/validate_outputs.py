@@ -224,6 +224,17 @@ def validate_outputs(output_dir: str = "results/validation") -> dict[str, Any]:
         _check(_verifier_status(data["verifier"]), "d5_verifier_monotonic", "oracle >= learned >= noisy >= disabled", checks)
         _check(data["ttt"]["ttt_restore_error"] > data["ttt"]["structured_restore_error"], "d6_ttt_reversibility", "TTT restore error greater than structured", checks)
 
+    m2_report_path = "results/m2_operator_probe/report_fix_rescale.json"
+    if os.path.exists(m2_report_path):
+        m2 = _read_json(m2_report_path)
+        verdicts = {task: row.get("verdict") for task, row in m2.get("by_task", {}).items()}
+        valid_verdicts = {"PREMISE_HOLDS", "VERIFIER_LOAD_BEARING", "NEEDS_OPERATOR_FIX"}
+        _check(bool(verdicts) and all(verdict in valid_verdicts for verdict in verdicts.values()), "m2_per_task_verdicts_recorded", f"verdicts={verdicts}", checks)
+        single = m2.get("overall", {}).get("single_iterated", {})
+        list_all = m2.get("overall", {}).get("list_all", {})
+        _check(bool(single) and bool(list_all), "m2_iterated_ablation_recorded", f"single_keys={list(single)}, list_all_keys={list(list_all)}", checks)
+        _check(m2.get("branch_decision") in {"symbolic_mrv_default", "qwen_guess_beats_mrv_reconsider"}, "m2_branch_decision_recorded", f"branch_decision={m2.get('branch_decision')}", checks)
+
     passed = all(check["status"] == "PASS" for check in checks)
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)

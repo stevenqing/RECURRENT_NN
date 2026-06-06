@@ -14,7 +14,7 @@ from llm_operator.qwen_operator import QwenGenerativeOperator
 from llm_operator.symbolic_filter import build_tasks, mrv_guess, propagation_fixpoint, random_guess, status, valid_values
 
 
-TASK_TYPES = ["horn_sat", "general_sat", "graph_coloring", "sudoku_4x4"]
+TASK_TYPES = ["horn_sat", "general_sat", "graph_coloring", "sudoku_4x4", "logic_grid"]
 
 
 def _valid_guess(task: Any, assignment: dict[int, int], guess: tuple[int, int] | None) -> tuple[int, int] | None:
@@ -76,6 +76,7 @@ def _summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
                 "n": len(chosen),
                 "solve_rate": sum(1 for row in chosen if row["solved"]) / len(chosen) if chosen else None,
                 "mean_nodes_to_solve_or_cap": mean(row["nodes"] for row in chosen) if chosen else None,
+                "invalid_guess_rate": (sum(row["invalid_guesses"] for row in chosen) / sum(row["nodes"] for row in chosen)) if chosen and sum(row["nodes"] for row in chosen) else None,
                 "parse_failures": sum(row["parse_failures"] for row in chosen),
                 "invalid_guesses": sum(row["invalid_guesses"] for row in chosen),
             }
@@ -84,20 +85,21 @@ def _summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
     return {"overall": subset_summary(rows), "by_task": {task: subset_summary(subset) for task, subset in sorted(by_task.items())}}
 
 
-def run_rollout(output_dir: str, model_id: str, device: str, n_instances: int, seed: int, cap_nodes: int, batch_size: int) -> dict[str, Any]:
+def run_rollout(output_dir: str, model_id: str, device: str, n_instances: int, seeds: list[int], cap_nodes: int, batch_size: int) -> dict[str, Any]:
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
-    tasks = build_tasks(TASK_TYPES, n_instances=n_instances, seed=seed)
     operator = QwenGenerativeOperator(model_id=model_id, device=device)
     rows = []
-    for task_index, task in enumerate(tasks):
-        for chooser in ["qwen_guess", "mrv", "random"]:
-            result = _search(task, chooser, operator if chooser == "qwen_guess" else None, cap_nodes, seed + task_index * 1009, batch_size)
-            row = {"task_id": task.task_id, "task_type": task.task_type, "chooser": chooser, "cap_nodes": cap_nodes, **result}
-            rows.append(row)
-            print(json.dumps({"event": "m2_branch_rollout", **row}), flush=True)
-    payload = {"module": "m2_branch_rollout", "model_id": model_id, "device": device, "task_types": TASK_TYPES, "n_instances": n_instances, "cap_nodes": cap_nodes, "rows": rows, "summary": _summarize(rows)}
-    (out / "branch_rollout.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    for seed in seeds:
+        tasks = build_tasks(TASK_TYPES, n_instances=n_instances, seed=seed)
+        for task_index, task in enumerate(tasks):
+            for chooser in ["qwen_guess", "mrv", "random"]:
+                result = _search(task, chooser, operator if chooser == "qwen_guess" else None, cap_nodes, seed + task_index * 1009, batch_size)
+                row = {"seed": seed, "task_id": task.task_id, "task_type": task.task_type, "chooser": chooser, "cap_nodes": cap_nodes, **result}
+                rows.append(row)
+                print(json.dumps({"event": "m2_branch_rollout", **row}), flush=True)
+    payload = {"module": "m2_branch_rollout_fix_rescale", "model_id": model_id, "device": device, "task_types": TASK_TYPES, "n_instances": n_instances, "seeds": seeds, "cap_nodes": cap_nodes, "rows": rows, "summary": _summarize(rows)}
+    (out / "branch_rollout_fix_rescale.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return payload
 
 
@@ -106,9 +108,10 @@ if __name__ == "__main__":
     parser.add_argument("--output-dir", default="results/m2_operator_probe")
     parser.add_argument("--model-id", default="Qwen/Qwen3-4B-Instruct-2507")
     parser.add_argument("--device", default="cuda:0")
-    parser.add_argument("--n-instances", type=int, default=2)
-    parser.add_argument("--seed", type=int, default=314)
+    parser.add_argument("--n-instances", type=int, default=50)
+    parser.add_argument("--seeds", default="42,137")
     parser.add_argument("--cap-nodes", type=int, default=64)
     parser.add_argument("--batch-size", type=int, default=4)
     args = parser.parse_args()
-    print(json.dumps(run_rollout(args.output_dir, args.model_id, args.device, args.n_instances, args.seed, args.cap_nodes, args.batch_size), indent=2, sort_keys=True))
+    seeds = [int(seed) for seed in args.seeds.split(",") if seed.strip()]
+    print(json.dumps(run_rollout(args.output_dir, args.model_id, args.device, args.n_instances, seeds, args.cap_nodes, args.batch_size), indent=2, sort_keys=True))
