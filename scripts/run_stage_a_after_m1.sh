@@ -21,6 +21,31 @@ count_m1_cells() {
   find results/gru_stack_grid_fair -path '*/cell_*/results.json' 2>/dev/null | wc -l
 }
 
+first_match() {
+  find /home/aiscuser -path /home/aiscuser/RECURRENT_NN/.venv -prune -o -type f "$@" -print 2>/dev/null | head -n 1
+}
+
+resolve_artifacts() {
+  if [[ ! -f "$operator_ckpt" ]]; then
+    found="$(first_match -name 'recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt')"
+    if [[ -n "$found" ]]; then
+      operator_ckpt="$found"
+    fi
+  fi
+  if [[ -z "$bridge_decoder" || ! -f "$bridge_decoder" ]]; then
+    found="$(first_match '(' -iname '*item*142*decoder*.pt' -o -iname '*bridge*decoder*.pt' -o -iname '*decoder*.pt' ')')"
+    if [[ -n "$found" ]]; then
+      bridge_decoder="$found"
+    fi
+  fi
+  if [[ ! -f "$teacher_trace" && ! -f "$repo/$teacher_trace" ]]; then
+    found="$(first_match -name 'internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl')"
+    if [[ -n "$found" ]]; then
+      teacher_trace="$found"
+    fi
+  fi
+}
+
 m1_pid="${M1_PID:-}"
 if [[ -z "$m1_pid" ]]; then
   m1_pid="$(pgrep -f 'bash /tmp/continue_fair_gru_6gpu_and_commit.sh' | head -n 1 || true)"
@@ -45,6 +70,11 @@ if [[ "$m1_cells" -lt "$expected_m1_cells" ]]; then
   log "M1 incomplete; refusing to start Stage A"
   exit 10
 fi
+
+resolve_artifacts
+log "resolved_operator_ckpt=$operator_ckpt"
+log "resolved_bridge_decoder=$bridge_decoder"
+log "resolved_teacher_trace=$teacher_trace"
 
 log "running Stage A preflight"
 if ! ~/.local/bin/uv run --python .venv/bin/python python -m experiments.stage_a_backtrack_loop \
