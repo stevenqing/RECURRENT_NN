@@ -8,11 +8,13 @@ log_dir="${STAGE_A_LOG_DIR:-/tmp/stage_a_backtrack}"
 mkdir -p "$log_dir"
 main_log="$log_dir/run.log"
 
-operator_ckpt="${STAGE_A_OPERATOR_CKPT:-/recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt}"
-bridge_decoder="${STAGE_A_BRIDGE_DECODER:-}"
-teacher_trace="${STAGE_A_TEACHER_TRACE:-internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl}"
+artifact_dir="${STAGE_A_ARTIFACT_DIR:-artifacts/stage_a}"
+operator_ckpt="${STAGE_A_OPERATOR_CKPT:-$artifact_dir/recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt}"
+bridge_decoder="${STAGE_A_BRIDGE_DECODER:-$artifact_dir/item142_factored_cell_digit_decoder_depth8_D128.pt}"
+teacher_trace="${STAGE_A_TEACHER_TRACE:-$artifact_dir/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl}"
 output_dir="${STAGE_A_OUTPUT_DIR:-results/stage_a_backtrack}"
 expected_m1_cells="${M1_EXPECTED_CELLS:-144}"
+reconstruct_missing="${STAGE_A_RECONSTRUCT_MISSING:-1}"
 
 timestamp() { date -Iseconds; }
 log() { printf '%s %s\n' "$(timestamp)" "$*" | tee -a "$main_log"; }
@@ -56,6 +58,7 @@ log "operator_ckpt=$operator_ckpt"
 log "bridge_decoder=$bridge_decoder"
 log "teacher_trace=$teacher_trace"
 log "output_dir=$output_dir"
+log "artifact_dir=$artifact_dir"
 log "current_m1_cells=$(count_m1_cells)/$expected_m1_cells"
 
 if [[ -n "$m1_pid" ]]; then
@@ -69,6 +72,28 @@ log "post-wait M1 cells=$m1_cells/$expected_m1_cells"
 if [[ "$m1_cells" -lt "$expected_m1_cells" ]]; then
   log "M1 incomplete; refusing to start Stage A"
   exit 10
+fi
+
+if [[ "$reconstruct_missing" == "1" && ( ! -f "$operator_ckpt" || ! -f "$bridge_decoder" || ! -f "$teacher_trace" ) ]]; then
+  log "reconstructing missing Stage A artifacts"
+  reconstruct_device="${STAGE_A_RECONSTRUCT_DEVICE:-cpu}"
+  if [[ "$reconstruct_device" == cuda:* ]]; then
+    CUDA_VISIBLE_DEVICES="${STAGE_A_RECONSTRUCT_GPU:-6}" ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.reconstruct_stage_a_artifacts \
+      --output-dir "$artifact_dir" \
+      --n-instances "${STAGE_A_RECONSTRUCT_INSTANCES:-1024}" \
+      --operator-steps "${STAGE_A_RECONSTRUCT_OPERATOR_STEPS:-300}" \
+      --bridge-steps "${STAGE_A_RECONSTRUCT_BRIDGE_STEPS:-500}" \
+      --batch-size "${STAGE_A_RECONSTRUCT_BATCH_SIZE:-256}" \
+      --device "$reconstruct_device" >"$log_dir/reconstruct.log" 2>&1
+  else
+    ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.reconstruct_stage_a_artifacts \
+    --output-dir "$artifact_dir" \
+    --n-instances "${STAGE_A_RECONSTRUCT_INSTANCES:-1024}" \
+    --operator-steps "${STAGE_A_RECONSTRUCT_OPERATOR_STEPS:-300}" \
+    --bridge-steps "${STAGE_A_RECONSTRUCT_BRIDGE_STEPS:-500}" \
+    --batch-size "${STAGE_A_RECONSTRUCT_BATCH_SIZE:-256}" \
+      --device "$reconstruct_device" >"$log_dir/reconstruct.log" 2>&1
+  fi
 fi
 
 resolve_artifacts

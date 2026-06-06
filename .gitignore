@@ -49,8 +49,12 @@ results/**
 !results/m2_operator_probe/branch_rollout_fix_rescale.json
 !results/m2_operator_probe/report_fix_rescale.json
 !results/m2_operator_probe/report_fix_rescale.md
+artifacts/stage_a/*
+!artifacts/stage_a/manifest.json
 figures/
 .env
 .venv/
 *.pt
 *.safetensors
+artifacts/stage_a/*.jsonl
+artifacts/stage_a/*.pt
