@@ -1,0 +1,9 @@
+{
+  "module": "stage_a_backtrack_report",
+  "n_cells": 0,
+  "source": "results/stage_a_backtrack/results.json",
+  "statuses": [
+    "PARENT_ADAPTER_REQUIRED"
+  ],
+  "verdict": "NEEDS_REVIEW"
+}
