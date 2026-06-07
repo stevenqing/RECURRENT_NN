@@ -403,22 +403,40 @@
       "tier": "tier_b"
     },
     {
-      "detail": "expected to fail until P1 fixes bridge G1",
-      "name": "stage_a_sudoku6_g1_pass",
+      "detail": "operator_type=symbolic_baseline; G1=1.0; required_operator_type=learned_recurrent; required_G1>=0.95",
+      "name": "stage_a_g1_pass",
+      "status": "FAIL",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "operator_type=symbolic_baseline; G1=1.0",
+      "name": "stage_a_symbolic_control_pass",
       "status": "PASS",
       "tier": "tier_b"
     },
     {
-      "detail": "expected restored registry check",
+      "detail": "source=fixture; run_id=deterministic_l4_fixture; real_grid_cells=0; required_source=autonomous_stage_a_run",
       "name": "stage_a_reverts_nonzero_on_L4",
+      "status": "FAIL",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "source=fixture; run_id=deterministic_l4_fixture; real_grid_cells=0; required_source=autonomous_stage_a_run",
+      "name": "stage_a_forward_floor_on_L4",
+      "status": "FAIL",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "source=fixture; reverts=True; forward=True",
+      "name": "stage_a_l4_harness_fixture_pass",
       "status": "PASS",
       "tier": "tier_b"
     },
     {
-      "detail": "expected restored registry check",
-      "name": "stage_a_forward_floor_on_L4",
-      "status": "PASS",
-      "tier": "tier_b"
+      "detail": "stage_a_autonomous_cells=0; validation must not be all-green without autonomous Stage A cells",
+      "name": "all_green_requires_core_evidence",
+      "status": "FAIL",
+      "tier": "meta"
     },
     {
       "detail": "specs/w3_qwen35_probe_spec.md",
@@ -445,33 +463,39 @@
       "tier": "tier_c"
     },
     {
-      "detail": "integration_grade=alongside_only_measured_not_in_state",
-      "name": "w3_integration_grade_not_overclaimed",
-      "status": "PASS",
+      "detail": "measured_object=prompt_hidden; reason=wrong_object",
+      "name": "w3_measured_object_cached_gdn_state",
+      "status": "FAIL",
       "tier": "tier_c"
     },
     {
-      "detail": "hidden_dim=2560; config=2560",
-      "name": "w3_hidden_hook_dim_matches_config",
-      "status": "PASS",
+      "detail": "integration_grade=alongside_only_measured_not_in_state; measured_object=prompt_hidden",
+      "name": "w3_integration_grade_reissued_on_true_state",
+      "status": "FAIL",
       "tier": "tier_c"
     },
     {
-      "detail": "round_trip={'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764}",
-      "name": "w3_state_hook_perturbable",
-      "status": "PASS",
+      "detail": "verdict=PLANNING_ESTIMATE_ONLY; measured_object=prompt_hidden",
+      "name": "w3_capacity_true_state_dims_measured",
+      "status": "FAIL",
       "tier": "tier_c"
     },
     {
-      "detail": "rows=15",
-      "name": "w3_survival_curve_measured",
-      "status": "PASS",
+      "detail": "round_trip={'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764}; measured_object=prompt_hidden",
+      "name": "w3_cached_state_round_trip",
+      "status": "FAIL",
       "tier": "tier_c"
     },
     {
-      "detail": "rows=3",
-      "name": "w3_native_delta_gap_measured",
-      "status": "PASS",
+      "detail": "verdict=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; rows=15; measured_object=prompt_hidden",
+      "name": "w3_cached_state_survival_measured",
+      "status": "FAIL",
+      "tier": "tier_c"
+    },
+    {
+      "detail": "verdict=MEASURED_NATIVE_HIDDEN_DELTA_GAP; rows=3; measured_object=prompt_hidden",
+      "name": "w3_cached_state_native_rule_gap_measured",
+      "status": "FAIL",
       "tier": "tier_c"
     },
     {
@@ -487,7 +511,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=5",
+      "detail": "count=6",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -511,7 +535,7 @@
       "tier": "contract"
     },
     {
-      "detail": "missing=[]",
+      "detail": "missing=[]; archived_or_absent_ok=[]",
       "name": "log_item_028_artifacts_exist",
       "status": "PASS",
       "tier": "contract"
@@ -547,7 +571,7 @@
       "tier": "contract"
     },
     {
-      "detail": "missing=[]",
+      "detail": "missing=[]; archived_or_absent_ok=[]",
       "name": "log_item_029_artifacts_exist",
       "status": "PASS",
       "tier": "contract"
@@ -583,7 +607,7 @@
       "tier": "contract"
     },
     {
-      "detail": "missing=[]",
+      "detail": "missing=[]; archived_or_absent_ok=[]",
       "name": "log_item_030_artifacts_exist",
       "status": "PASS",
       "tier": "contract"
@@ -619,7 +643,7 @@
       "tier": "contract"
     },
     {
-      "detail": "missing=[]",
+      "detail": "missing=[]; archived_or_absent_ok=[]",
       "name": "log_item_031_artifacts_exist",
       "status": "PASS",
       "tier": "contract"
@@ -655,7 +679,7 @@
       "tier": "contract"
     },
     {
-      "detail": "missing=[]",
+      "detail": "missing=[]; archived_or_absent_ok=['results/two_by_two/results.json', 'results/d_stage_1/results.json', 'results/d_stage_2/results.json', 'results/d_stage_3/results.json', 'results/verifier/results.json']",
       "name": "log_item_032_artifacts_exist",
       "status": "PASS",
       "tier": "contract"
@@ -669,6 +693,42 @@
     {
       "detail": "gates=4; routing=Proceed to learned recurrent Stage A bridge/autonomous grid work; validation is green, but the core claim still needs full autonomous Stage A evidence.",
       "name": "log_item_032_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_033_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_033_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=033",
+      "name": "log_item_033_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_033_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent stat",
+      "name": "log_item_033_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=3; routing=Proceed to T2 learned recurrent operator/data/trainer and T3 cached GDN recurrent-state probe; do not treat validation red as environment failure.",
+      "name": "log_item_033_decision_numbers_and_routing",
       "status": "PASS",
       "tier": "contract"
     },
@@ -859,32 +919,32 @@
       "tier": "legacy"
     },
     {
-      "detail": "results/two_by_two/results.json",
-      "name": "legacy_two_by_two_present",
+      "detail": "state=absent_ok; path=results/two_by_two/results.json",
+      "name": "legacy_two_by_two_archived_or_absent_ok",
       "status": "PASS",
       "tier": "legacy"
     },
     {
-      "detail": "results/d_stage_1/results.json",
-      "name": "legacy_d_stage_1_present",
+      "detail": "state=absent_ok; path=results/d_stage_1/results.json",
+      "name": "legacy_d_stage_1_archived_or_absent_ok",
       "status": "PASS",
       "tier": "legacy"
     },
     {
-      "detail": "results/d_stage_2/results.json",
-      "name": "legacy_d_stage_2_present",
+      "detail": "state=absent_ok; path=results/d_stage_2/results.json",
+      "name": "legacy_d_stage_2_archived_or_absent_ok",
       "status": "PASS",
       "tier": "legacy"
     },
     {
-      "detail": "results/d_stage_3/results.json",
-      "name": "legacy_d_stage_3_present",
+      "detail": "state=absent_ok; path=results/d_stage_3/results.json",
+      "name": "legacy_d_stage_3_archived_or_absent_ok",
       "status": "PASS",
       "tier": "legacy"
     },
     {
-      "detail": "results/verifier/results.json",
-      "name": "legacy_verifier_present",
+      "detail": "state=absent_ok; path=results/verifier/results.json",
+      "name": "legacy_verifier_archived_or_absent_ok",
       "status": "PASS",
       "tier": "legacy"
     },
@@ -895,11 +955,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-07T11:36:43.183642+00:00",
-  "passed": true,
+  "generated_at": "2026-06-07T12:14:22.885382+00:00",
+  "passed": false,
   "summary": {
-    "n_checks": 149,
-    "n_fail": 0,
+    "n_checks": 159,
+    "n_fail": 10,
     "n_pass": 149
   }
 }

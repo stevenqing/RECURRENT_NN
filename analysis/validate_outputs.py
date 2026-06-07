@@ -53,6 +53,16 @@ PATHS = {
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
+LEGACY_SCAFFOLD_NAMES = (
+    "legacy_two_by_two",
+    "legacy_d_stage_1",
+    "legacy_d_stage_2",
+    "legacy_d_stage_3",
+    "legacy_verifier",
+)
+
+ARCHIVED_OR_ABSENT_OK_ARTIFACTS = {PATHS[name] for name in LEGACY_SCAFFOLD_NAMES}
+
 
 def _path(name: str) -> Path:
     return REPO_ROOT / PATHS[name]
@@ -74,6 +84,14 @@ def _exists(checks: list[dict[str, Any]], name: str, tier: str = "artifact") -> 
     path = _path(name)
     ok = path.exists()
     _check(checks, ok, f"{name}_present", str(path.relative_to(REPO_ROOT)), tier)
+    return ok
+
+
+def _archived_or_absent_ok(checks: list[dict[str, Any]], name: str, tier: str = "legacy") -> bool:
+    path = _path(name)
+    ok = not path.exists()
+    detail = f"state={'absent_ok' if ok else 'regenerated_present_wrong_object'}; path={path.relative_to(REPO_ROOT)}"
+    _check(checks, ok, f"{name}_archived_or_absent_ok", detail, tier)
     return ok
 
 
@@ -215,9 +233,56 @@ def _stage_a_checks(checks: list[dict[str, Any]]) -> None:
         cases = refusal.get("fail_closed_cases", [])
         _check(checks, refusal.get("status") == "PASS" and cases and all(row.get("refused") for row in cases), "post026_gate_refusal_pass", f"status={refusal.get('status')}; cases={len(cases)}", "tier_b")
     sudoku6 = _read_json("post027_sudoku6_bridge")
-    _check(checks, bool(sudoku6) and float(sudoku6.get("G1", 0.0)) > 0.0, "stage_a_sudoku6_g1_pass", "expected to fail until P1 fixes bridge G1", "tier_b")
-    _check(checks, bool(sudoku6) and sudoku6.get("reverts_nonzero_on_L4") is True, "stage_a_reverts_nonzero_on_L4", "expected restored registry check", "tier_b")
-    _check(checks, bool(sudoku6) and sudoku6.get("forward_floor_on_L4") is True, "stage_a_forward_floor_on_L4", "expected restored registry check", "tier_b")
+    operator_type = sudoku6.get("operator_type") if sudoku6 else None
+    g1 = float(sudoku6.get("G1", 0.0)) if sudoku6 else 0.0
+    _check(
+        checks,
+        bool(sudoku6) and operator_type == "learned_recurrent" and g1 >= 0.95,
+        "stage_a_g1_pass",
+        f"operator_type={operator_type}; G1={g1}; required_operator_type=learned_recurrent; required_G1>=0.95",
+        "tier_b",
+    )
+    _check(
+        checks,
+        bool(sudoku6) and operator_type == "symbolic_baseline" and g1 > 0.0,
+        "stage_a_symbolic_control_pass",
+        f"operator_type={operator_type}; G1={g1}",
+        "tier_b",
+    )
+    l4_probe = sudoku6.get("l4_structural_probe", {}) if sudoku6 else {}
+    l4_source = l4_probe.get("source") or sudoku6.get("source") if sudoku6 else None
+    l4_run_id = l4_probe.get("run_id") or sudoku6.get("run_id") if sudoku6 else None
+    real_grid_cells = int(l4_probe.get("real_grid_cells") or sudoku6.get("stage_a_autonomous_cells") or 0) if sudoku6 else 0
+    autonomous_l4_source = l4_source == "autonomous_stage_a_run" and bool(l4_run_id) and real_grid_cells > 0
+    _check(
+        checks,
+        bool(sudoku6) and sudoku6.get("reverts_nonzero_on_L4") is True and autonomous_l4_source,
+        "stage_a_reverts_nonzero_on_L4",
+        f"source={l4_source}; run_id={l4_run_id}; real_grid_cells={real_grid_cells}; required_source=autonomous_stage_a_run",
+        "tier_b",
+    )
+    _check(
+        checks,
+        bool(sudoku6) and sudoku6.get("forward_floor_on_L4") is True and autonomous_l4_source,
+        "stage_a_forward_floor_on_L4",
+        f"source={l4_source}; run_id={l4_run_id}; real_grid_cells={real_grid_cells}; required_source=autonomous_stage_a_run",
+        "tier_b",
+    )
+    _check(
+        checks,
+        bool(sudoku6) and l4_source == "fixture" and sudoku6.get("reverts_nonzero_on_L4") is True and sudoku6.get("forward_floor_on_L4") is True,
+        "stage_a_l4_harness_fixture_pass",
+        f"source={l4_source}; reverts={sudoku6.get('reverts_nonzero_on_L4') if sudoku6 else None}; forward={sudoku6.get('forward_floor_on_L4') if sudoku6 else None}",
+        "tier_b",
+    )
+    stage_a_autonomous_cells = int(results.get("n_cells", 0)) if results else 0
+    _check(
+        checks,
+        stage_a_autonomous_cells > 0,
+        "all_green_requires_core_evidence",
+        f"stage_a_autonomous_cells={stage_a_autonomous_cells}; validation must not be all-green without autonomous Stage A cells",
+        "meta",
+    )
 
 
 def _w3_checks(checks: list[dict[str, Any]]) -> None:
@@ -226,22 +291,22 @@ def _w3_checks(checks: list[dict[str, Any]]) -> None:
     probe = _read_json("w3_qwen35_probe")
     if probe:
         verdicts = probe.get("verdicts", {})
+        measured_object = probe.get("measured_object")
+        true_object = measured_object == "cached_gdn_recurrent_state"
+        wrong_object_reason = "wrong_object" if measured_object == "prompt_hidden" else "missing_or_unrecognized_measured_object"
         _check(checks, probe.get("model_id") == "Qwen/Qwen3.5-4B", "w3_qwen35_model_id", f"model_id={probe.get('model_id')}", "tier_c")
         _check(checks, verdicts.get("W3.0_checkpoint_pin") == "PASS", "w3_checkpoint_pin_pass", f"verdict={verdicts.get('W3.0_checkpoint_pin')}", "tier_c")
-        allowed_grades = {"do_not_integrate_yet", "alongside_candidate_pending_survival_and_delta_probes", "alongside_only_measured_not_in_state"}
-        _check(checks, probe.get("integration_grade") in allowed_grades, "w3_integration_grade_not_overclaimed", f"integration_grade={probe.get('integration_grade')}", "tier_c")
+        _check(checks, true_object, "w3_measured_object_cached_gdn_state", f"measured_object={measured_object}; reason={wrong_object_reason}", "tier_c")
+        _check(checks, true_object and probe.get("integration_grade") != "alongside_only_measured_not_in_state", "w3_integration_grade_reissued_on_true_state", f"integration_grade={probe.get('integration_grade')}; measured_object={measured_object}", "tier_c")
         hook = probe.get("hidden_hook_probe", {})
-        if hook.get("load_model"):
-            _check(checks, hook.get("hidden_dim") == probe.get("config", {}).get("hidden_size"), "w3_hidden_hook_dim_matches_config", f"hidden_dim={hook.get('hidden_dim')}; config={probe.get('config', {}).get('hidden_size')}", "tier_c")
-            _check(checks, hook.get("state_hook_round_trip", {}).get("perturbation_affected_next_step") is True, "w3_state_hook_perturbable", f"round_trip={hook.get('state_hook_round_trip')}", "tier_c")
         tables = probe.get("p2_tables", {})
         survival_rows = tables.get("decay_survival", {}).get("rows", [])
         native_rows = tables.get("native_rule_gap", {}).get("rows", [])
         propagation_rows = tables.get("propagation_per_task_delta", {}).get("rows", [])
-        if verdicts.get("W3.1_gating_decay_stack_survival") == "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE":
-            _check(checks, bool(survival_rows), "w3_survival_curve_measured", f"rows={len(survival_rows)}", "tier_c")
-        if verdicts.get("W3.1_native_delta_rule_as_stack_gap") == "MEASURED_NATIVE_HIDDEN_DELTA_GAP":
-            _check(checks, bool(native_rows) and all("native_delta_restore_error" in row for row in native_rows), "w3_native_delta_gap_measured", f"rows={len(native_rows)}", "tier_c")
+        _check(checks, true_object and verdicts.get("W3.1_capacity_at_real_gdn_dims") not in {"PLANNING_ESTIMATE_ONLY", "FAIL", "NOT_RUN", None}, "w3_capacity_true_state_dims_measured", f"verdict={verdicts.get('W3.1_capacity_at_real_gdn_dims')}; measured_object={measured_object}", "tier_c")
+        _check(checks, true_object and hook.get("state_hook_round_trip", {}).get("perturbation_affected_next_step") is True, "w3_cached_state_round_trip", f"round_trip={hook.get('state_hook_round_trip')}; measured_object={measured_object}", "tier_c")
+        _check(checks, true_object and bool(survival_rows) and verdicts.get("W3.1_gating_decay_stack_survival") != "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE", "w3_cached_state_survival_measured", f"verdict={verdicts.get('W3.1_gating_decay_stack_survival')}; rows={len(survival_rows)}; measured_object={measured_object}", "tier_c")
+        _check(checks, true_object and bool(native_rows) and verdicts.get("W3.1_native_delta_rule_as_stack_gap") != "MEASURED_NATIVE_HIDDEN_DELTA_GAP", "w3_cached_state_native_rule_gap_measured", f"verdict={verdicts.get('W3.1_native_delta_rule_as_stack_gap')}; rows={len(native_rows)}; measured_object={measured_object}", "tier_c")
         if verdicts.get("W3.2_qwen3_4b_delta_table") == "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED":
             _check(checks, bool(propagation_rows) and all(row.get("qwen35_verdict") for row in propagation_rows), "w3_propagation_per_task_delta_measured", f"rows={len(propagation_rows)}", "tier_c")
 
@@ -277,8 +342,9 @@ def _item_contract_checks(checks: list[dict[str, Any]]) -> None:
             number_ok = False
         _check(checks, number_ok, f"log_item_{item_number}_number_continues_from_028", f"item_number={item_number}", "contract")
         artifact_paths = item.get("artifacts", [])
-        missing_artifacts = [artifact for artifact in artifact_paths if not (REPO_ROOT / artifact).exists()]
-        _check(checks, not missing_artifacts, f"log_item_{item_number}_artifacts_exist", f"missing={missing_artifacts}", "contract")
+        missing_artifacts = [artifact for artifact in artifact_paths if not (REPO_ROOT / artifact).exists() and artifact not in ARCHIVED_OR_ABSENT_OK_ARTIFACTS]
+        archived_or_absent = [artifact for artifact in artifact_paths if not (REPO_ROOT / artifact).exists() and artifact in ARCHIVED_OR_ABSENT_OK_ARTIFACTS]
+        _check(checks, not missing_artifacts, f"log_item_{item_number}_artifacts_exist", f"missing={missing_artifacts}; archived_or_absent_ok={archived_or_absent}", "contract")
         honesty = item.get("honesty", {})
         _check(checks, bool(honesty.get("does_not_establish")), f"log_item_{item_number}_honesty_does_not_establish", str(honesty.get("does_not_establish", ""))[:160], "contract")
         decision = item.get("decision", {})
@@ -337,8 +403,9 @@ def _item_contract_checks(checks: list[dict[str, Any]]) -> None:
 
 
 def _legacy_checks(checks: list[dict[str, Any]]) -> None:
-    for name in ["ttt_legacy", "legacy_two_by_two", "legacy_d_stage_1", "legacy_d_stage_2", "legacy_d_stage_3", "legacy_verifier"]:
-        _exists(checks, name, "legacy")
+    _exists(checks, "ttt_legacy", "legacy")
+    for name in LEGACY_SCAFFOLD_NAMES:
+        _archived_or_absent_ok(checks, name, "legacy")
     ttt = _read_json("ttt_legacy")
     if ttt:
         _check(checks, ttt.get("ttt_restore_error", 0) > ttt.get("structured_restore_error", 0), "ttt_irreversibility_real", f"ttt={ttt.get('ttt_restore_error')}, structured={ttt.get('structured_restore_error')}", "legacy")

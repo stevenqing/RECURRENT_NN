@@ -122,6 +122,9 @@ def _l4_structural_probe(tasks: list[CSPTask]) -> dict[str, Any]:
         forward_rows.append({"task_id": task.task_id, "rounds": rounds, "status": node_status, "assigned": len(assignment)})
     forward_floor = any(row["assigned"] > 0 and row["status"] in {"OPEN", "SOLVED"} for row in forward_rows)
     return {
+        "source": "fixture",
+        "run_id": "deterministic_l4_fixture",
+        "real_grid_cells": 0,
         "reverts_nonzero_on_L4": reverts_nonzero,
         "forward_floor_on_L4": forward_floor,
         "stack_before_revert": before_revert,
@@ -175,6 +178,9 @@ def run_diagnosis(
         "seed": seed,
         "device": device,
         "status": "DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER" if g1 > 0.0 else "BLOCKED_G1_ZERO",
+        "operator_type": "symbolic_baseline",
+        "source": "diagnostic_symbolic_control",
+        "stage_a_autonomous_cells": 0,
         "G1": g1,
         "single_step_forced_accuracy": single_step_accuracy,
         "n_sudoku6_tasks": len(tasks),

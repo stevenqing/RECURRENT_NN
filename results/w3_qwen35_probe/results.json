@@ -90,6 +90,7 @@
     }
   },
   "integration_grade": "alongside_only_measured_not_in_state",
+  "measured_object": "prompt_hidden",
   "model_id": "Qwen/Qwen3.5-4B",
   "module": "w3_qwen35_probe",
   "native_delta_probe": {

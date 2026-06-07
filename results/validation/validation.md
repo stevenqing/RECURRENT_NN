@@ -1,10 +1,10 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-07T11:36:43.183642+00:00
+Generated at: 2026-06-07T12:14:22.885382+00:00
 
-Summary: 149 PASS / 0 FAIL / 149 total.
+Summary: 149 PASS / 10 FAIL / 159 total.
 
-All registered checks pass.
+The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
 ## Checks
 
@@ -77,51 +77,61 @@ All registered checks pass.
 | tier_b | post027_sudoku6_bridge_present | PASS | results/stage_a_sudoku6_bridge/results.json |
 | tier_b | post025_adapter_wiring_pass | PASS | status=PASS |
 | tier_b | post026_gate_refusal_pass | PASS | status=PASS; cases=3 |
-| tier_b | stage_a_sudoku6_g1_pass | PASS | expected to fail until P1 fixes bridge G1 |
-| tier_b | stage_a_reverts_nonzero_on_L4 | PASS | expected restored registry check |
-| tier_b | stage_a_forward_floor_on_L4 | PASS | expected restored registry check |
+| tier_b | stage_a_g1_pass | FAIL | operator_type=symbolic_baseline; G1=1.0; required_operator_type=learned_recurrent; required_G1>=0.95 |
+| tier_b | stage_a_symbolic_control_pass | PASS | operator_type=symbolic_baseline; G1=1.0 |
+| tier_b | stage_a_reverts_nonzero_on_L4 | FAIL | source=fixture; run_id=deterministic_l4_fixture; real_grid_cells=0; required_source=autonomous_stage_a_run |
+| tier_b | stage_a_forward_floor_on_L4 | FAIL | source=fixture; run_id=deterministic_l4_fixture; real_grid_cells=0; required_source=autonomous_stage_a_run |
+| tier_b | stage_a_l4_harness_fixture_pass | PASS | source=fixture; reverts=True; forward=True |
+| meta | all_green_requires_core_evidence | FAIL | stage_a_autonomous_cells=0; validation must not be all-green without autonomous Stage A cells |
 | tier_c | w3_qwen35_probe_spec_present | PASS | specs/w3_qwen35_probe_spec.md |
 | tier_c | w3_qwen35_probe_present | PASS | results/w3_qwen35_probe/results.json |
 | tier_c | w3_qwen35_model_id | PASS | model_id=Qwen/Qwen3.5-4B |
 | tier_c | w3_checkpoint_pin_pass | PASS | verdict=PASS |
-| tier_c | w3_integration_grade_not_overclaimed | PASS | integration_grade=alongside_only_measured_not_in_state |
-| tier_c | w3_hidden_hook_dim_matches_config | PASS | hidden_dim=2560; config=2560 |
-| tier_c | w3_state_hook_perturbable | PASS | round_trip={'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764} |
-| tier_c | w3_survival_curve_measured | PASS | rows=15 |
-| tier_c | w3_native_delta_gap_measured | PASS | rows=3 |
+| tier_c | w3_measured_object_cached_gdn_state | FAIL | measured_object=prompt_hidden; reason=wrong_object |
+| tier_c | w3_integration_grade_reissued_on_true_state | FAIL | integration_grade=alongside_only_measured_not_in_state; measured_object=prompt_hidden |
+| tier_c | w3_capacity_true_state_dims_measured | FAIL | verdict=PLANNING_ESTIMATE_ONLY; measured_object=prompt_hidden |
+| tier_c | w3_cached_state_round_trip | FAIL | round_trip={'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764}; measured_object=prompt_hidden |
+| tier_c | w3_cached_state_survival_measured | FAIL | verdict=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; rows=15; measured_object=prompt_hidden |
+| tier_c | w3_cached_state_native_rule_gap_measured | FAIL | verdict=MEASURED_NATIVE_HIDDEN_DELTA_GAP; rows=3; measured_object=prompt_hidden |
 | tier_c | w3_propagation_per_task_delta_measured | PASS | rows=5 |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=5 |
+| contract | log_item_artifacts_present | PASS | count=6 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
-| contract | log_item_028_artifacts_exist | PASS | missing=[] |
+| contract | log_item_028_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_028_honesty_does_not_establish | PASS | this item does NOT establish that the Stage A bridge solves autonomously, that G1 passes, that L4 separation is restored, or that Qwen3.5 integration is viable. |
 | contract | log_item_028_decision_numbers_and_routing | PASS | gates=4; routing=P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract. |
 | contract | log_item_029_required_fields | PASS | missing=[] |
 | contract | log_item_029_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_029_number_continues_from_028 | PASS | item_number=029 |
-| contract | log_item_029_artifacts_exist | PASS | missing=[] |
+| contract | log_item_029_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_029_honesty_does_not_establish | PASS | this item does NOT establish that the bridge objective is correct, that G1 can be fixed by longer training, or that any autonomous Sudoku6 solve works. |
 | contract | log_item_029_decision_numbers_and_routing | PASS | gates=3; routing=Implement Sudoku6 dataset/encoding artifacts and parent adapter wiring before P1.1b retrain; route to objective_wiring rather than budget-only. |
 | contract | log_item_030_required_fields | PASS | missing=[] |
 | contract | log_item_030_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_030_number_continues_from_028 | PASS | item_number=030 |
-| contract | log_item_030_artifacts_exist | PASS | missing=[] |
+| contract | log_item_030_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_030_honesty_does_not_establish | PASS | this item does NOT establish that Qwen3.5 has stable in-state stack memory, that native hidden deltas implement keyed register operations, or that propagation i |
 | contract | log_item_030_decision_numbers_and_routing | PASS | gates=5; routing=Continue P2 with decay survival, native-delta gap, and W3.2 propagation delta probes; current grade is alongside_candidate_pending_survival_and_delta_probes, not accepted P2 completion. |
 | contract | log_item_031_required_fields | PASS | missing=[] |
 | contract | log_item_031_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_031_number_continues_from_028 | PASS | item_number=031 |
-| contract | log_item_031_artifacts_exist | PASS | missing=[] |
+| contract | log_item_031_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_031_honesty_does_not_establish | PASS | This item does not establish stable cached recurrent stack memory in Qwen3.5, does not establish native hidden deltas as keyed register push/pop, does not show  |
 | contract | log_item_031_decision_numbers_and_routing | PASS | gates=4; routing=Treat Qwen3.5 as alongside-only measured evidence, not in-state integration. If P2 continues, scale propagation or design a true cached-state intervention; do not integrate Qwen3.5 into the structured state path from this item. |
 | contract | log_item_032_required_fields | PASS | missing=[] |
 | contract | log_item_032_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_032_number_continues_from_028 | PASS | item_number=032 |
-| contract | log_item_032_artifacts_exist | PASS | missing=[] |
+| contract | log_item_032_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=['results/two_by_two/results.json', 'results/d_stage_1/results.json', 'results/d_stage_2/results.json', 'results/d_stage_3/results.json', 'results/verifier/results.json'] |
 | contract | log_item_032_honesty_does_not_establish | PASS | This item does not establish the full learned recurrent Stage A autonomous grid, does not run G2, and does not turn scaffold legacy artifacts into front-page pr |
 | contract | log_item_032_decision_numbers_and_routing | PASS | gates=4; routing=Proceed to learned recurrent Stage A bridge/autonomous grid work; validation is green, but the core claim still needs full autonomous Stage A evidence. |
+| contract | log_item_033_required_fields | PASS | missing=[] |
+| contract | log_item_033_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_033_number_continues_from_028 | PASS | item_number=033 |
+| contract | log_item_033_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_033_honesty_does_not_establish | PASS | This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent stat |
+| contract | log_item_033_decision_numbers_and_routing | PASS | gates=3; routing=Proceed to T2 learned recurrent operator/data/trainer and T3 cached GDN recurrent-state probe; do not treat validation red as environment failure. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |
@@ -153,9 +163,9 @@ All registered checks pass.
 | contract | item_031_no_in_state_overclaim | PASS | integration_grade=alongside_only_measured_not_in_state |
 | contract | item_031_marked_measured_not_accepted | PASS | status=MEASURED_NOT_ACCEPTED |
 | legacy | ttt_legacy_present | PASS | results/ttt/results.json |
-| legacy | legacy_two_by_two_present | PASS | results/two_by_two/results.json |
-| legacy | legacy_d_stage_1_present | PASS | results/d_stage_1/results.json |
-| legacy | legacy_d_stage_2_present | PASS | results/d_stage_2/results.json |
-| legacy | legacy_d_stage_3_present | PASS | results/d_stage_3/results.json |
-| legacy | legacy_verifier_present | PASS | results/verifier/results.json |
+| legacy | legacy_two_by_two_archived_or_absent_ok | PASS | state=absent_ok; path=results/two_by_two/results.json |
+| legacy | legacy_d_stage_1_archived_or_absent_ok | PASS | state=absent_ok; path=results/d_stage_1/results.json |
+| legacy | legacy_d_stage_2_archived_or_absent_ok | PASS | state=absent_ok; path=results/d_stage_2/results.json |
+| legacy | legacy_d_stage_3_archived_or_absent_ok | PASS | state=absent_ok; path=results/d_stage_3/results.json |
+| legacy | legacy_verifier_archived_or_absent_ok | PASS | state=absent_ok; path=results/verifier/results.json |
 | legacy | ttt_irreversibility_real | PASS | ttt=0.1013166606426239, structured=3.0798228181083687e-06 |

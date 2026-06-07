@@ -129,6 +129,7 @@ def _hidden_hook_probe_from_model(model: Any, tokenizer: Any) -> dict[str, Any]:
     perturbation_norm = float((perturbed_last - last_token).float().norm(dim=-1).mean().item())
     next_step_changed = perturbation_norm > 0.0
     return {
+        "measured_object": "prompt_hidden",
         "load_model": True,
         "device": model_device,
         "hidden_shape": [1, int(last_token.shape[-1])],
@@ -163,6 +164,7 @@ def _survival_probe_from_model(model: Any, tokenizer: Any, intervening_steps: li
                 "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
             })
     return {
+        "measured_object": "prompt_hidden",
         "columns": ["level", "intervening_steps", "survival", "half_life", "provenance"],
         "rows": rows,
         "status": "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE",
@@ -197,6 +199,7 @@ def _native_delta_probe_from_model(model: Any, tokenizer: Any) -> dict[str, Any]
             "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target",
         })
     return {
+        "measured_object": "prompt_hidden",
         "columns": ["depth", "intervening_updates", "native_delta_restore_error", "keyed_register_restore_error", "delta_inverse_cosine", "failure_modes", "provenance"],
         "rows": rows,
         "status": "MEASURED_NATIVE_HIDDEN_DELTA_GAP",
@@ -456,10 +459,12 @@ def run_probe(
         integration_grade = "alongside_candidate_pending_survival_and_delta_probes"
     if survival and native_gap and propagation:
         integration_grade = "alongside_only_measured_not_in_state"
+    measured_object = "prompt_hidden" if load_model else "metadata_only"
     payload = {
         "module": "w3_qwen35_probe",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "model_id": model_id,
+        "measured_object": measured_object,
         "download_record": record,
         "config": config,
         "capacity_estimates": estimates,
@@ -477,7 +482,7 @@ def run_probe(
         },
     }
     (out / "results.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    (out / "verdicts.json").write_text(json.dumps({"generated_at": payload["generated_at"], "model_id": model_id, "verdicts": verdicts, "integration_grade": integration_grade}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    (out / "verdicts.json").write_text(json.dumps({"generated_at": payload["generated_at"], "model_id": model_id, "measured_object": measured_object, "verdicts": verdicts, "integration_grade": integration_grade}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(payload, indent=2, sort_keys=True))
     return payload
 

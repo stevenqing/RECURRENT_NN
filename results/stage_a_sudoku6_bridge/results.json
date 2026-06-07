@@ -87,6 +87,9 @@
     ],
     "provenance": "measured:deterministic L4 register revert fixture plus Sudoku6 propagation floor probe",
     "reverts_nonzero_on_L4": true,
+    "real_grid_cells": 0,
+    "run_id": "deterministic_l4_fixture",
+    "source": "fixture",
     "stack_after_revert": [
       {
         "level": 0,
@@ -131,8 +134,11 @@
   "module": "stage_a_sudoku6_bridge",
   "n_sudoku6_tasks": 32,
   "next_action": "Train/verify the learned recurrent bridge on the generated Sudoku6 diagnostic states, then run the autonomous Stage A grid.",
+  "operator_type": "symbolic_baseline",
   "reverts_nonzero_on_L4": true,
   "seed": 102,
+  "source": "diagnostic_symbolic_control",
+  "stage_a_autonomous_cells": 0,
   "single_step_forced_accuracy": 1.0,
   "single_step_forced_precision_recall_by_depth": [
     {

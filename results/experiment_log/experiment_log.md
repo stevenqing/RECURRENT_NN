@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-07T11:36:43.344074+00:00
+Generated at: 2026-06-07T12:14:23.062692+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,7 +17,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 pre-fix record | BLOCKER | historical_continuation_G1=0.0; current_diagnostic_G1=1.0 |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=149; validation_passed=True |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=159; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Diagnostic pass, autonomous grid not proven | Sudoku6 diagnostic G1=1.0; L4_reverts=True; L4_forward=True |
 | P2 | W3 Qwen3.5 probe | alongside_only_measured_not_in_state | W3.0=PASS; survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; native_delta=MEASURED_NATIVE_HIDDEN_DELTA_GAP; propagation=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
@@ -28,6 +28,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 030 | P2 W3 Qwen3.5 hook and capacity probe | PARTIAL_NOT_ACCEPTED | Continue P2 with decay survival, native-delta gap, and W3.2 propagation delta probes; current grade is alongside_candidate_pending_survival_and_delta_probes, not accepted P2 completion. |
 | 031 | P2 W3 Qwen3.5 survival, native-delta, and propagation shards | MEASURED_NOT_ACCEPTED | Treat Qwen3.5 as alongside-only measured evidence, not in-state integration. If P2 continues, scale propagation or design a true cached-state intervention; do not integrate Qwen3.5 into the structured state path from this item. |
 | 032 | Validation green closeout for nine failing checks | VALIDATION_GREEN | Proceed to learned recurrent Stage A bridge/autonomous grid work; validation is green, but the core claim still needs full autonomous Stage A evidence. |
+| 033 | Validation object binding corrective pass | VALIDATION_RE_REDDENED | Proceed to T2 learned recurrent operator/data/trainer and T3 cached GDN recurrent-state probe; do not treat validation red as environment failure. |
 
 ## Item Details
 
@@ -47,12 +48,12 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/learned_wiring_qwen_128/results.json (missing)
   - results/operator_cache/qwen_balanced_320_cache_summary.json (missing)
   - results/learned_wiring_qwen_balanced_320/results.json (missing)
-  - results/two_by_two/results.json (yes)
+  - results/two_by_two/results.json (missing)
   - results/d_stage_0/results.json (missing)
-  - results/d_stage_1/results.json (yes)
-  - results/d_stage_2/results.json (yes)
-  - results/d_stage_3/results.json (yes)
-  - results/verifier/results.json (yes)
+  - results/d_stage_1/results.json (missing)
+  - results/d_stage_2/results.json (missing)
+  - results/d_stage_3/results.json (missing)
+  - results/verifier/results.json (missing)
   - results/ttt/results.json (yes)
 - Detail data:
   - results/preregistration/preregistration.json: missing
@@ -63,12 +64,12 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/learned_wiring_qwen_128/results.json: missing
   - results/operator_cache/qwen_balanced_320_cache_summary.json: missing
   - results/learned_wiring_qwen_balanced_320/results.json: missing
-  - results/two_by_two/results.json: embedded json (915 bytes)
+  - results/two_by_two/results.json: missing
   - results/d_stage_0/results.json: missing
-  - results/d_stage_1/results.json: embedded json (747 bytes)
-  - results/d_stage_2/results.json: embedded json (7192 bytes)
-  - results/d_stage_3/results.json: embedded json (3241 bytes)
-  - results/verifier/results.json: embedded json (746 bytes)
+  - results/d_stage_1/results.json: missing
+  - results/d_stage_2/results.json: missing
+  - results/d_stage_3/results.json: missing
+  - results/verifier/results.json: missing
   - results/ttt/results.json: embedded json (129 bytes)
 #### Artifact JSON Results
 
@@ -94,18 +95,18 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/validation/validation.json (yes)
   - results/validation/validation.md (yes)
 - Detail data:
-  - analysis/validate_outputs.py: embedded py (26324 bytes)
-  - results/validation/validation.json: embedded json (25464 bytes)
-  - results/validation/validation.md: embedded md (14493 bytes)
+  - analysis/validate_outputs.py: embedded py (29692 bytes)
+  - results/validation/validation.json: embedded json (28383 bytes)
+  - results/validation/validation.md: embedded md (16799 bytes)
 #### Artifact JSON Results
 
 ##### results/validation/validation.json
 
 | field | value |
 | --- | --- |
-| passed | True |
-| generated_at | 2026-06-07T11:36:43.183642+00:00 |
-| summary | n_checks=149; n_fail=0; n_pass=149 |
+| passed | False |
+| generated_at | 2026-06-07T12:14:22.885382+00:00 |
+| summary | n_checks=159; n_fail=10; n_pass=149 |
 
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
@@ -361,7 +362,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - specs/g1_fix_spec.md (yes)
 - Detail data:
   - results/continuation_state/post_027.json: embedded json (1453 bytes)
-  - results/stage_a_sudoku6_bridge/results.json: embedded json (4681 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (4890 bytes)
   - specs/g1_fix_spec.md: embedded md (2587 bytes)
 #### Artifact JSON Results
 
@@ -391,11 +392,11 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | gates | G1_depth1_bridge=PASS; G2_depth_frontier=NOT_RUN; L4_forward_floor=PASS; L4_reverts_nonzero=PASS |
 | generated_at | 2026-06-07T11:00:23.032986+00:00 |
 | honesty | does_not_establish=This diagnostic does not establish learned bridge training, full recurrent autonomous solving, G2, or the final Stage A in-loop proof.; uses_sudoku_extreme=False; uses_teacher_action_injection_at_eval=False; uses_token_scratchpad=False |
-| l4_structural_probe | 6 keys: forward_floor_on_L4, forward_rows, provenance, reverts_nonzero_on_L4, stack_after_revert, stack_before_revert |
+| l4_structural_probe | 9 keys: forward_floor_on_L4, forward_rows, provenance, reverts_nonzero_on_L4, real_grid_cells, run_id, source, stack_after_revert |
 | mode | diagnose |
 | next_action | Train/verify the learned recurrent bridge on the generated Sudoku6 diagnostic states, then run the autonomous Stage A grid. |
+| operator_type | symbolic_baseline |
 | seed | 102 |
-| training_curve_summary | final_loss=0; initial_loss=0; moved=True; provenance=symbolic bridge baseline has no learned loss; records data/encoding path availability |
 
 ##### single_step_forced_precision_recall_by_depth
 
@@ -409,10 +410,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=149; validation_passed=True
+- Key result: validation_checks=159; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=149; validation_fail=0
+  - validation_pass=149; validation_fail=10
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifacts:
   - CANONICAL_REPO.md (yes)
@@ -421,8 +422,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/experiment_log/experiment_log.json (yes)
 - Detail data:
   - CANONICAL_REPO.md: embedded md (532 bytes)
-  - analysis/validate_outputs.py: embedded py (26324 bytes)
-  - results/validation/validation.json: embedded json (25464 bytes)
+  - analysis/validate_outputs.py: embedded py (29692 bytes)
+  - results/validation/validation.json: embedded json (28383 bytes)
   - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
 #### Artifact JSON Results
 
@@ -430,9 +431,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 
 | field | value |
 | --- | --- |
-| passed | True |
-| generated_at | 2026-06-07T11:36:43.183642+00:00 |
-| summary | n_checks=149; n_fail=0; n_pass=149 |
+| passed | False |
+| generated_at | 2026-06-07T12:14:22.885382+00:00 |
+| summary | n_checks=159; n_fail=10; n_pass=149 |
 
 - Next action: Keep future reports item-first and preserve explicit red checks.
 
@@ -481,7 +482,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - specs/g1_fix_spec.md: embedded md (2587 bytes)
   - results/stage_a_adapter_wiring/results.json: embedded json (2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json: embedded json (3431 bytes)
-  - results/stage_a_sudoku6_bridge/results.json: embedded json (4681 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (4890 bytes)
 #### Artifact JSON Results
 
 ##### results/stage_a_adapter_wiring/results.json
@@ -532,11 +533,11 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | gates | G1_depth1_bridge=PASS; G2_depth_frontier=NOT_RUN; L4_forward_floor=PASS; L4_reverts_nonzero=PASS |
 | generated_at | 2026-06-07T11:00:23.032986+00:00 |
 | honesty | does_not_establish=This diagnostic does not establish learned bridge training, full recurrent autonomous solving, G2, or the final Stage A in-loop proof.; uses_sudoku_extreme=False; uses_teacher_action_injection_at_eval=False; uses_token_scratchpad=False |
-| l4_structural_probe | 6 keys: forward_floor_on_L4, forward_rows, provenance, reverts_nonzero_on_L4, stack_after_revert, stack_before_revert |
+| l4_structural_probe | 9 keys: forward_floor_on_L4, forward_rows, provenance, reverts_nonzero_on_L4, real_grid_cells, run_id, source, stack_after_revert |
 | mode | diagnose |
 | next_action | Train/verify the learned recurrent bridge on the generated Sudoku6 diagnostic states, then run the autonomous Stage A grid. |
+| operator_type | symbolic_baseline |
 | seed | 102 |
-| training_curve_summary | final_loss=0; initial_loss=0; moved=True; provenance=symbolic bridge baseline has no learned loss; records data/encoding path availability |
 
 ##### single_step_forced_precision_recall_by_depth
 
@@ -561,8 +562,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/w3_qwen35_probe/verdicts.json (yes)
 - Detail data:
   - specs/w3_qwen35_probe_spec.md: embedded md (2204 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (36009 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (525 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (36047 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (563 bytes)
 #### Artifact JSON Results
 
 ##### results/w3_qwen35_probe/results.json
@@ -573,6 +574,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | integration_grade | alongside_only_measured_not_in_state |
 | model_id | Qwen/Qwen3.5-4B |
 | generated_at | 2026-06-07T10:46:45.660823+00:00 |
+| measured_object | prompt_hidden |
 | verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
 
 ##### capacity_estimates
@@ -665,6 +667,7 @@ No rows recorded.
 | integration_grade | alongside_only_measured_not_in_state |
 | model_id | Qwen/Qwen3.5-4B |
 | generated_at | 2026-06-07T10:46:45.660823+00:00 |
+| measured_object | prompt_hidden |
 | verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
 
 - Next action: Treat Qwen3.5 as alongside-only measured evidence unless future cached-state or larger propagation probes overturn this result.
@@ -766,16 +769,16 @@ No rows recorded.
   - REPRODUCIBILITY.md: embedded md (3478 bytes)
   - scripts/reproduce_continuation_state.sh: embedded sh (1972 bytes)
   - results/continuation_state/post_027.json: embedded json (1453 bytes)
-  - results/validation/validation.json: embedded json (25464 bytes)
-  - results/validation/validation.md: embedded md (14493 bytes)
+  - results/validation/validation.json: embedded json (28383 bytes)
+  - results/validation/validation.md: embedded md (16799 bytes)
   - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
   - results/experiment_log/experiment_log.md: not embedded (self_output_not_embedded)
   - specs/log_item_contract.md: embedded md (3662 bytes)
   - results/stage_a_adapter_wiring/results.json: embedded json (2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json: embedded json (3431 bytes)
-  - results/stage_a_sudoku6_bridge/results.json: embedded json (4681 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (36009 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (525 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (4890 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (36047 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (563 bytes)
 #### Contract Result Tables
 
 ##### validation_registry_before_after
@@ -819,9 +822,9 @@ No rows recorded.
 
 | field | value |
 | --- | --- |
-| passed | True |
-| generated_at | 2026-06-07T11:36:43.183642+00:00 |
-| summary | n_checks=149; n_fail=0; n_pass=149 |
+| passed | False |
+| generated_at | 2026-06-07T12:14:22.885382+00:00 |
+| summary | n_checks=159; n_fail=10; n_pass=149 |
 
 ##### results/stage_a_adapter_wiring/results.json
 
@@ -871,11 +874,11 @@ No rows recorded.
 | gates | G1_depth1_bridge=PASS; G2_depth_frontier=NOT_RUN; L4_forward_floor=PASS; L4_reverts_nonzero=PASS |
 | generated_at | 2026-06-07T11:00:23.032986+00:00 |
 | honesty | does_not_establish=This diagnostic does not establish learned bridge training, full recurrent autonomous solving, G2, or the final Stage A in-loop proof.; uses_sudoku_extreme=False; uses_teacher_action_injection_at_eval=False; uses_token_scratchpad=False |
-| l4_structural_probe | 6 keys: forward_floor_on_L4, forward_rows, provenance, reverts_nonzero_on_L4, stack_after_revert, stack_before_revert |
+| l4_structural_probe | 9 keys: forward_floor_on_L4, forward_rows, provenance, reverts_nonzero_on_L4, real_grid_cells, run_id, source, stack_after_revert |
 | mode | diagnose |
 | next_action | Train/verify the learned recurrent bridge on the generated Sudoku6 diagnostic states, then run the autonomous Stage A grid. |
+| operator_type | symbolic_baseline |
 | seed | 102 |
-| training_curve_summary | final_loss=0; initial_loss=0; moved=True; provenance=symbolic bridge baseline has no learned loss; records data/encoding path availability |
 
 ##### single_step_forced_precision_recall_by_depth
 
@@ -892,6 +895,7 @@ No rows recorded.
 | integration_grade | alongside_only_measured_not_in_state |
 | model_id | Qwen/Qwen3.5-4B |
 | generated_at | 2026-06-07T10:46:45.660823+00:00 |
+| measured_object | prompt_hidden |
 | verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
 
 ##### capacity_estimates
@@ -984,6 +988,7 @@ No rows recorded.
 | integration_grade | alongside_only_measured_not_in_state |
 | model_id | Qwen/Qwen3.5-4B |
 | generated_at | 2026-06-07T10:46:45.660823+00:00 |
+| measured_object | prompt_hidden |
 | verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
 
 - Next action: P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract.
@@ -1005,9 +1010,9 @@ No rows recorded.
   - experiments/stage_a_sudoku6_bridge.py (yes)
 - Detail data:
   - results/experiment_items/item_029_p1_1a_g1_diagnosis.json: embedded json (5525 bytes)
-  - results/stage_a_sudoku6_bridge/results.json: embedded json (4681 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (4890 bytes)
   - specs/g1_fix_spec.md: embedded md (2587 bytes)
-  - experiments/stage_a_sudoku6_bridge.py: embedded py (10683 bytes)
+  - experiments/stage_a_sudoku6_bridge.py: embedded py (10922 bytes)
 #### Contract Result Tables
 
 ##### training_curve_summary
@@ -1065,11 +1070,11 @@ No rows recorded.
 | gates | G1_depth1_bridge=PASS; G2_depth_frontier=NOT_RUN; L4_forward_floor=PASS; L4_reverts_nonzero=PASS |
 | generated_at | 2026-06-07T11:00:23.032986+00:00 |
 | honesty | does_not_establish=This diagnostic does not establish learned bridge training, full recurrent autonomous solving, G2, or the final Stage A in-loop proof.; uses_sudoku_extreme=False; uses_teacher_action_injection_at_eval=False; uses_token_scratchpad=False |
-| l4_structural_probe | 6 keys: forward_floor_on_L4, forward_rows, provenance, reverts_nonzero_on_L4, stack_after_revert, stack_before_revert |
+| l4_structural_probe | 9 keys: forward_floor_on_L4, forward_rows, provenance, reverts_nonzero_on_L4, real_grid_cells, run_id, source, stack_after_revert |
 | mode | diagnose |
 | next_action | Train/verify the learned recurrent bridge on the generated Sudoku6 diagnostic states, then run the autonomous Stage A grid. |
+| operator_type | symbolic_baseline |
 | seed | 102 |
-| training_curve_summary | final_loss=0; initial_loss=0; moved=True; provenance=symbolic bridge baseline has no learned loss; records data/encoding path availability |
 
 ##### single_step_forced_precision_recall_by_depth
 
@@ -1100,10 +1105,10 @@ No rows recorded.
   - results/module1_capacity_perdepth_shards/results.json (yes)
 - Detail data:
   - results/experiment_items/item_030_p2_w3_hook_capacity.json: embedded json (7570 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (36009 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (525 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (36047 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (563 bytes)
   - specs/w3_qwen35_probe_spec.md: embedded md (2204 bytes)
-  - experiments/w3_qwen35_probe.py: embedded py (28023 bytes)
+  - experiments/w3_qwen35_probe.py: embedded py (28308 bytes)
   - results/model_download/qwen3_5_4b/qwen_download.json: embedded json (326 bytes)
   - results/module1_capacity_perdepth_shards/results.json: embedded json (7251562 bytes)
 #### Contract Result Tables
@@ -1165,6 +1170,7 @@ No rows recorded.
 | integration_grade | alongside_only_measured_not_in_state |
 | model_id | Qwen/Qwen3.5-4B |
 | generated_at | 2026-06-07T10:46:45.660823+00:00 |
+| measured_object | prompt_hidden |
 | verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
 
 ##### capacity_estimates
@@ -1257,6 +1263,7 @@ No rows recorded.
 | integration_grade | alongside_only_measured_not_in_state |
 | model_id | Qwen/Qwen3.5-4B |
 | generated_at | 2026-06-07T10:46:45.660823+00:00 |
+| measured_object | prompt_hidden |
 | verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
 
 ##### results/model_download/qwen3_5_4b/qwen_download.json
@@ -1308,14 +1315,14 @@ No rows recorded.
   - specs/w3_qwen35_probe_spec.md (yes)
 - Detail data:
   - results/experiment_items/item_031_p2_w3_survival_delta_propagation.json: embedded json (14827 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (36009 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (525 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (36047 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (563 bytes)
   - results/w3_qwen35_probe/propagation_shards/horn_sat/results.json: embedded json (25083 bytes)
   - results/w3_qwen35_probe/propagation_shards/general_sat/results.json: embedded json (25323 bytes)
   - results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json: embedded json (25405 bytes)
   - results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json: embedded json (25103 bytes)
   - results/w3_qwen35_probe/propagation_shards/logic_grid/results.json: embedded json (25387 bytes)
-  - experiments/w3_qwen35_probe.py: embedded py (28023 bytes)
+  - experiments/w3_qwen35_probe.py: embedded py (28308 bytes)
   - scripts/run_w3_qwen35_sharded.sh: embedded sh (1576 bytes)
   - specs/w3_qwen35_probe_spec.md: embedded md (2204 bytes)
 #### Contract Result Tables
@@ -1377,6 +1384,7 @@ No rows recorded.
 | integration_grade | alongside_only_measured_not_in_state |
 | model_id | Qwen/Qwen3.5-4B |
 | generated_at | 2026-06-07T10:46:45.660823+00:00 |
+| measured_object | prompt_hidden |
 | verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
 
 ##### capacity_estimates
@@ -1469,6 +1477,7 @@ No rows recorded.
 | integration_grade | alongside_only_measured_not_in_state |
 | model_id | Qwen/Qwen3.5-4B |
 | generated_at | 2026-06-07T10:46:45.660823+00:00 |
+| measured_object | prompt_hidden |
 | verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
 
 ##### results/w3_qwen35_probe/propagation_shards/horn_sat/results.json
@@ -1864,26 +1873,26 @@ No rows recorded.
   - experiments/stage_a_sudoku6_bridge.py (yes)
   - results/stage_a_sudoku6_bridge/results.json (yes)
   - results/ttt/results.json (yes)
-  - results/two_by_two/results.json (yes)
-  - results/d_stage_1/results.json (yes)
-  - results/d_stage_2/results.json (yes)
-  - results/d_stage_3/results.json (yes)
-  - results/verifier/results.json (yes)
+  - results/two_by_two/results.json (missing)
+  - results/d_stage_1/results.json (missing)
+  - results/d_stage_2/results.json (missing)
+  - results/d_stage_3/results.json (missing)
+  - results/verifier/results.json (missing)
   - results/validation/validation.json (yes)
   - results/validation/validation.md (yes)
 - Detail data:
   - results/experiment_items/item_032_validation_green_closeout.json: embedded json (7850 bytes)
   - tasks/sudoku/generator_6x6.py: embedded py (3069 bytes)
-  - experiments/stage_a_sudoku6_bridge.py: embedded py (10683 bytes)
-  - results/stage_a_sudoku6_bridge/results.json: embedded json (4681 bytes)
+  - experiments/stage_a_sudoku6_bridge.py: embedded py (10922 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (4890 bytes)
   - results/ttt/results.json: embedded json (129 bytes)
-  - results/two_by_two/results.json: embedded json (915 bytes)
-  - results/d_stage_1/results.json: embedded json (747 bytes)
-  - results/d_stage_2/results.json: embedded json (7192 bytes)
-  - results/d_stage_3/results.json: embedded json (3241 bytes)
-  - results/verifier/results.json: embedded json (746 bytes)
-  - results/validation/validation.json: embedded json (25464 bytes)
-  - results/validation/validation.md: embedded md (14493 bytes)
+  - results/two_by_two/results.json: missing
+  - results/d_stage_1/results.json: missing
+  - results/d_stage_2/results.json: missing
+  - results/d_stage_3/results.json: missing
+  - results/verifier/results.json: missing
+  - results/validation/validation.json: embedded json (28383 bytes)
+  - results/validation/validation.md: embedded md (16799 bytes)
 #### Contract Result Tables
 
 ##### failure_before_after
@@ -1949,11 +1958,11 @@ No rows recorded.
 | gates | G1_depth1_bridge=PASS; G2_depth_frontier=NOT_RUN; L4_forward_floor=PASS; L4_reverts_nonzero=PASS |
 | generated_at | 2026-06-07T11:00:23.032986+00:00 |
 | honesty | does_not_establish=This diagnostic does not establish learned bridge training, full recurrent autonomous solving, G2, or the final Stage A in-loop proof.; uses_sudoku_extreme=False; uses_teacher_action_injection_at_eval=False; uses_token_scratchpad=False |
-| l4_structural_probe | 6 keys: forward_floor_on_L4, forward_rows, provenance, reverts_nonzero_on_L4, stack_after_revert, stack_before_revert |
+| l4_structural_probe | 9 keys: forward_floor_on_L4, forward_rows, provenance, reverts_nonzero_on_L4, real_grid_cells, run_id, source, stack_after_revert |
 | mode | diagnose |
 | next_action | Train/verify the learned recurrent bridge on the generated Sudoku6 diagnostic states, then run the autonomous Stage A grid. |
+| operator_type | symbolic_baseline |
 | seed | 102 |
-| training_curve_summary | final_loss=0; initial_loss=0; moved=True; provenance=symbolic bridge baseline has no learned loss; records data/encoding path availability |
 
 ##### single_step_forced_precision_recall_by_depth
 
@@ -1974,11 +1983,219 @@ No rows recorded.
 
 | field | value |
 | --- | --- |
-| passed | True |
-| generated_at | 2026-06-07T11:36:43.183642+00:00 |
-| summary | n_checks=149; n_fail=0; n_pass=149 |
+| passed | False |
+| generated_at | 2026-06-07T12:14:22.885382+00:00 |
+| summary | n_checks=159; n_fail=10; n_pass=149 |
 
 - Next action: Proceed to learned recurrent Stage A bridge/autonomous grid work; validation is green, but the core claim still needs full autonomous Stage A evidence.
+
+### Item 033 - Validation object binding corrective pass
+
+- Status: VALIDATION_RE_REDDENED
+- Key result: Proceed to T2 learned recurrent operator/data/trainer and T3 cached GDN recurrent-state probe; do not treat validation red as environment failure.
+- Purpose: Bind validation checks to the object and source labels in their artifacts so symbolic baselines, deterministic fixtures, prompt-hidden probes, and regenerated legacy scaffolds cannot substitute for core evidence.
+- Details:
+  - purpose=Bind validation checks to the object and source labels in their artifacts so symbolic baselines, deterministic fixtures, prompt-hidden probes, and regenerated legacy scaffolds cannot substitute for core evidence.
+  - commands=1
+  - result_tables=['validation_registry_before_after', 're_reddened_checks', 'harness_controls_retained']
+  - honesty=This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent state. It deliberately turns the registry red until those objects exist.
+- Artifacts:
+  - results/experiment_items/item_033_validation_object_binding.json (yes)
+  - analysis/validate_outputs.py (yes)
+  - experiments/stage_a_sudoku6_bridge.py (yes)
+  - experiments/w3_qwen35_probe.py (yes)
+  - results/stage_a_sudoku6_bridge/results.json (yes)
+  - results/w3_qwen35_probe/results.json (yes)
+  - results/w3_qwen35_probe/verdicts.json (yes)
+  - results/validation/validation.json (yes)
+  - results/validation/validation.md (yes)
+- Detail data:
+  - results/experiment_items/item_033_validation_object_binding.json: embedded json (7073 bytes)
+  - analysis/validate_outputs.py: embedded py (29692 bytes)
+  - experiments/stage_a_sudoku6_bridge.py: embedded py (10922 bytes)
+  - experiments/w3_qwen35_probe.py: embedded py (28308 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (4890 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (36047 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (563 bytes)
+  - results/validation/validation.json: embedded json (28383 bytes)
+  - results/validation/validation.md: embedded md (16799 bytes)
+#### Contract Result Tables
+
+##### validation_registry_before_after
+
+| phase | total_check_count | pass | fail | passed |
+| --- | --- | --- | --- | --- |
+| before_object_binding | 149 | 149 | 0 | True |
+| after_object_binding | 159 | 149 | 10 | False |
+
+##### re_reddened_checks
+
+| check | required_object_or_source | observed | status |
+| --- | --- | --- | --- |
+| stage_a_g1_pass | operator_type=learned_recurrent and G1>=0.95 | operator_type=symbolic_baseline; G1=1.0 | FAIL |
+| stage_a_reverts_nonzero_on_L4 | source=autonomous_stage_a_run with run_id and real_grid_cells>0 | source=fixture; run_id=deterministic_l4_fixture; real_grid_cells=0 | FAIL |
+| stage_a_forward_floor_on_L4 | source=autonomous_stage_a_run with run_id and real_grid_cells>0 | source=fixture; run_id=deterministic_l4_fixture; real_grid_cells=0 | FAIL |
+| all_green_requires_core_evidence | stage_a_autonomous_cells>0 | stage_a_autonomous_cells=0 | FAIL |
+| w3_measured_object_cached_gdn_state | measured_object=cached_gdn_recurrent_state | measured_object=prompt_hidden | FAIL |
+| w3_integration_grade_reissued_on_true_state | fresh integration grade on cached_gdn_recurrent_state | alongside_only_measured_not_in_state on prompt_hidden | FAIL |
+| w3_capacity_true_state_dims_measured | capacity table uses true recurrent-state matrix dims | PLANNING_ESTIMATE_ONLY using hidden_size_as_D=2560 | FAIL |
+| w3_cached_state_round_trip | read/write/restore cached GDN recurrent state | last-token prompt-hidden perturbability | FAIL |
+| w3_cached_state_survival_measured | survival measured after pushing into cached GDN recurrent state | prompt-hidden cosine survival | FAIL |
+| w3_cached_state_native_rule_gap_measured | native-rule gap measured on cached GDN recurrent state | prompt-hidden delta gap | FAIL |
+
+##### harness_controls_retained
+
+| check | observed | status | meaning |
+| --- | --- | --- | --- |
+| stage_a_symbolic_control_pass | operator_type=symbolic_baseline; G1=1.0 | PASS | harness upper-reference, not G1 evidence |
+| stage_a_l4_harness_fixture_pass | source=fixture; reverts=true; forward=true | PASS | L4 harness fixture, not autonomous Stage A evidence |
+| legacy_*_archived_or_absent_ok | regenerated scaffold result files absent | PASS | falsified constructed-true scaffold artifacts are not required evidence |
+
+#### Artifact JSON Results
+
+##### results/stage_a_sudoku6_bridge/results.json
+
+| field | value |
+| --- | --- |
+| module | stage_a_sudoku6_bridge |
+| status | DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER |
+| G1 | 1 |
+| single_step_forced_accuracy | 1 |
+| n_sudoku6_tasks | 32 |
+| reverts_nonzero_on_L4 | True |
+| forward_floor_on_L4 | True |
+| device | cpu |
+| decision_branch | 3 keys: branch, deciding_numbers, reason |
+| encoding_byte_diff_status | PASS_IDENTICAL_SYMBOLIC_ENCODING |
+| gates | G1_depth1_bridge=PASS; G2_depth_frontier=NOT_RUN; L4_forward_floor=PASS; L4_reverts_nonzero=PASS |
+| generated_at | 2026-06-07T11:00:23.032986+00:00 |
+| honesty | does_not_establish=This diagnostic does not establish learned bridge training, full recurrent autonomous solving, G2, or the final Stage A in-loop proof.; uses_sudoku_extreme=False; uses_teacher_action_injection_at_eval=False; uses_token_scratchpad=False |
+| l4_structural_probe | 9 keys: forward_floor_on_L4, forward_rows, provenance, reverts_nonzero_on_L4, real_grid_cells, run_id, source, stack_after_revert |
+| mode | diagnose |
+| next_action | Train/verify the learned recurrent bridge on the generated Sudoku6 diagnostic states, then run the autonomous Stage A grid. |
+| operator_type | symbolic_baseline |
+| seed | 102 |
+
+##### single_step_forced_precision_recall_by_depth
+
+| depth_into_solution | forced_precision | forced_recall | n_states | provenance |
+| --- | --- | --- | --- | --- |
+| 1 | 1 | 1 | 1056 | measured:exact symbolic Sudoku6 forced-move bridge baseline |
+| 2 | 1 | 1 | 59 | measured:exact symbolic Sudoku6 forced-move bridge baseline |
+
+##### results/w3_qwen35_probe/results.json
+
+| field | value |
+| --- | --- |
+| module | w3_qwen35_probe |
+| integration_grade | alongside_only_measured_not_in_state |
+| model_id | Qwen/Qwen3.5-4B |
+| generated_at | 2026-06-07T10:46:45.660823+00:00 |
+| measured_object | prompt_hidden |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+
+##### capacity_estimates
+
+| K_val | K_var | bound_single_estimated_capacity | factored_estimated_capacity | hidden_size_as_D | source |
+| --- | --- | --- | --- | --- | --- |
+| 2 | 60 | 143.7 | 78.48 | 2560 | Module1 fitted slopes; planning estimate only, not native Qwen stack evidence |
+| 9 | 60 | 109.4 | 78.48 | 2560 | Module1 fitted slopes; planning estimate only, not native Qwen stack evidence |
+| 2 | 81 | 135.3 | 73.12 | 2560 | Module1 fitted slopes; planning estimate only, not native Qwen stack evidence |
+| 2 | 256 | 110.3 | 57.95 | 2560 | Module1 fitted slopes; planning estimate only, not native Qwen stack evidence |
+| 2 | 729 | 94.47 | 48.75 | 2560 | Module1 fitted slopes; planning estimate only, not native Qwen stack evidence |
+| 9 | 729 | 78.3 | 48.75 | 2560 | Module1 fitted slopes; planning estimate only, not native Qwen stack evidence |
+
+##### capacity_at_real_gdn_dims
+
+| K_var | K_val | hidden_size_as_D | bound_single_estimated_capacity | factored_estimated_capacity | provenance |
+| --- | --- | --- | --- | --- | --- |
+| 60 | 2 | 2560 | 143.7 | 78.48 | derived_from_module1_capacity_law |
+| 60 | 9 | 2560 | 109.4 | 78.48 | derived_from_module1_capacity_law |
+| 81 | 2 | 2560 | 135.3 | 73.12 | derived_from_module1_capacity_law |
+| 256 | 2 | 2560 | 110.3 | 57.95 | derived_from_module1_capacity_law |
+| 729 | 2 | 2560 | 94.47 | 48.75 | derived_from_module1_capacity_law |
+| 729 | 9 | 2560 | 78.3 | 48.75 | derived_from_module1_capacity_law |
+
+##### decay_survival
+
+| level | intervening_steps | survival | half_life | provenance |
+| --- | --- | --- | --- | --- |
+| 1 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 1 | 1 | 0.3906 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 1 | 2 | 0.3868 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 1 | 4 | 0.3886 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 1 | 8 | 0.3558 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 2 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 2 | 1 | 0.4027 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 2 | 2 | 0.4016 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 2 | 4 | 0.4137 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 2 | 8 | 0.3659 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 4 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 4 | 1 | 0.3971 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 4 | 2 | 0.3858 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 4 | 4 | 0.4003 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 4 | 8 | 0.3591 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+
+##### model_card
+
+| field | value | provenance |
+| --- | --- | --- |
+| model_type | qwen3_5 | read_from_hf_snapshot |
+| text_model_type | qwen3_5_text | read_from_hf_snapshot |
+| hidden_size | 2560 | read_from_hf_snapshot |
+| num_hidden_layers | 32 | read_from_hf_snapshot |
+| num_attention_heads | 16 | read_from_hf_snapshot |
+| num_key_value_heads | 4 | read_from_hf_snapshot |
+| full_attention_interval | 4 | read_from_hf_snapshot |
+| linear_layers | 24 | read_from_hf_snapshot |
+| full_attention_layers | 8 | read_from_hf_snapshot |
+| snapshot_path | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | read_from_download_record |
+
+##### native_rule_gap
+
+| depth | intervening_updates | native_delta_restore_error | keyed_register_restore_error | delta_inverse_cosine | failure_modes | provenance |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | 1 | 0.8641 | 0 | 0.5204 | ["push_pop_does_not_restore_hidden_state"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
+| 2 | 1 | 1.011 | 0 | 0.4312 | ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
+| 3 | 1 | 1.039 | 0 | 0.3023 | ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
+
+##### propagation_per_task_delta
+
+| task | qwen35_verdict | qwen3_4b_delta | branch_rollout | parse_failure_rate | invalid_guess_rate | provenance |
+| --- | --- | --- | --- | --- | --- | --- |
+| general_sat | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=0.06167; mean_nodes_delta=-2.22; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.7333 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
+| graph_coloring | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.15; mean_nodes_delta=-0.9967; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.8125 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
+| horn_sat | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.1733; mean_nodes_delta=0; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
+| logic_grid | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.13; mean_nodes_delta=-2.043; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.7857 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
+| sudoku_4x4 | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.1583; mean_nodes_delta=-0.27; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
+
+##### state_hook_round_trip
+
+No rows recorded.
+
+##### verdicts_echo
+
+No rows recorded.
+
+##### results/w3_qwen35_probe/verdicts.json
+
+| field | value |
+| --- | --- |
+| integration_grade | alongside_only_measured_not_in_state |
+| model_id | Qwen/Qwen3.5-4B |
+| generated_at | 2026-06-07T10:46:45.660823+00:00 |
+| measured_object | prompt_hidden |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+
+##### results/validation/validation.json
+
+| field | value |
+| --- | --- |
+| passed | False |
+| generated_at | 2026-06-07T12:14:22.885382+00:00 |
+| summary | n_checks=159; n_fail=10; n_pass=149 |
+
+- Next action: Proceed to T2 learned recurrent operator/data/trainer and T3 cached GDN recurrent-state probe; do not treat validation red as environment failure.
 
 
 ## Canonical Repo Decision
@@ -2018,7 +2235,7 @@ No rows recorded.
 | Branch policy | YELLOW | qwen_nodes=4.939; mrv_nodes=5.067; qwen_invalid_rate=0.2316 |
 | Stage A in-loop proof | YELLOW | diagnostic_G1=1.0; L4_reverts=True; autonomous_cells=0; statuses=['PARENT_ADAPTER_REQUIRED'] |
 | W3 Qwen3.5 | YELLOW | integration_grade=alongside_only_measured_not_in_state; W3.0=PASS |
-| Validation | GREEN | checks=149; pass=149; fail=0 |
+| Validation | RED | checks=159; pass=149; fail=10 |
 
 ## Artifact Index
 
@@ -2061,13 +2278,14 @@ No rows recorded.
 
 | tier | pass | fail |
 | --- | --- | --- |
-| contract | 62 | 0 |
+| contract | 68 | 0 |
 | env | 13 | 0 |
 | legacy | 7 | 0 |
+| meta | 0 | 1 |
 | p0 | 2 | 0 |
 | tier_a | 35 | 0 |
-| tier_b | 20 | 0 |
-| tier_c | 10 | 0 |
+| tier_b | 19 | 3 |
+| tier_c | 5 | 6 |
 
 ## P0/P1/P2/P3 Execution Notes
 
@@ -2092,12 +2310,12 @@ The older 2x2, D-stage, verifier, and scaffold TTT entries are no longer front-p
 | learned_wiring_qwen_128 | results/learned_wiring_qwen_128/results.json | missing |
 | qwen_balanced_320_cache | results/operator_cache/qwen_balanced_320_cache_summary.json | missing |
 | learned_wiring_qwen_balanced_320 | results/learned_wiring_qwen_balanced_320/results.json | missing |
-| two_by_two | results/two_by_two/results.json | yes |
+| two_by_two | results/two_by_two/results.json | missing |
 | d_stage_0 | results/d_stage_0/results.json | missing |
-| d_stage_1 | results/d_stage_1/results.json | yes |
-| d_stage_2 | results/d_stage_2/results.json | yes |
-| d_stage_3 | results/d_stage_3/results.json | yes |
-| verifier | results/verifier/results.json | yes |
+| d_stage_1 | results/d_stage_1/results.json | missing |
+| d_stage_2 | results/d_stage_2/results.json | missing |
+| d_stage_3 | results/d_stage_3/results.json | missing |
+| verifier | results/verifier/results.json | missing |
 | ttt_scaffold | results/ttt/results.json | yes |
 
 ## Standing Rules

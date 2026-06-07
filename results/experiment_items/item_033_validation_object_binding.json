@@ -1,0 +1,96 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "033",
+  "name": "Validation object binding corrective pass",
+  "status": "VALIDATION_RE_REDDENED",
+  "purpose": "Bind validation checks to the object and source labels in their artifacts so symbolic baselines, deterministic fixtures, prompt-hidden probes, and regenerated legacy scaffolds cannot substitute for core evidence.",
+  "code_added_used": [
+    {
+      "path": "analysis/validate_outputs.py",
+      "change": "Stage A G1 now requires operator_type=learned_recurrent; symbolic_baseline is a separate harness-control check. L4 checks require source=autonomous_stage_a_run with run_id and real grid cells. W3.1 checks require measured_object=cached_gdn_recurrent_state. Legacy scaffold files are archived_or_absent_ok instead of required-present evidence. A meta-check fails validation while autonomous Stage A cells are zero."
+    },
+    {
+      "path": "experiments/stage_a_sudoku6_bridge.py",
+      "change": "Added explicit operator_type=string labels and fixture source metadata for future Sudoku6 diagnostic artifacts."
+    },
+    {
+      "path": "experiments/w3_qwen35_probe.py",
+      "change": "Added explicit measured_object labels for prompt-hidden W3 probes so validation can reject them as the wrong object."
+    },
+    {
+      "path": ".gitignore",
+      "change": "Removed whitelisting for regenerated legacy scaffold result JSON files while keeping the real TTT diagnostic."
+    }
+  ],
+  "commands": [
+    {
+      "command": "~/.local/bin/uv run --python .venv/bin/python python -m analysis.validate_outputs || true",
+      "purpose": "Confirmed the validation registry re-reddens the wrong-object checks instead of reporting all-green."
+    }
+  ],
+  "artifacts": [
+    "results/experiment_items/item_033_validation_object_binding.json",
+    "analysis/validate_outputs.py",
+    "experiments/stage_a_sudoku6_bridge.py",
+    "experiments/w3_qwen35_probe.py",
+    "results/stage_a_sudoku6_bridge/results.json",
+    "results/w3_qwen35_probe/results.json",
+    "results/w3_qwen35_probe/verdicts.json",
+    "results/validation/validation.json",
+    "results/validation/validation.md"
+  ],
+  "provenance": {
+    "generated_at": "2026-06-07",
+    "validation_summary_before": "149 checks, 149 pass, 0 fail",
+    "validation_summary_after_t1": "159 checks, 149 pass, 10 fail",
+    "legacy_scaffold_policy": "results/two_by_two, results/d_stage_1, results/d_stage_2, results/d_stage_3, and results/verifier regenerated scaffold outputs deleted; results/ttt retained"
+  },
+  "result_tables": {
+    "validation_registry_before_after": {
+      "columns": ["phase", "total_check_count", "pass", "fail", "passed"],
+      "rows": [
+        {"phase": "before_object_binding", "total_check_count": 149, "pass": 149, "fail": 0, "passed": true},
+        {"phase": "after_object_binding", "total_check_count": 159, "pass": 149, "fail": 10, "passed": false}
+      ]
+    },
+    "re_reddened_checks": {
+      "columns": ["check", "required_object_or_source", "observed", "status"],
+      "rows": [
+        {"check": "stage_a_g1_pass", "required_object_or_source": "operator_type=learned_recurrent and G1>=0.95", "observed": "operator_type=symbolic_baseline; G1=1.0", "status": "FAIL"},
+        {"check": "stage_a_reverts_nonzero_on_L4", "required_object_or_source": "source=autonomous_stage_a_run with run_id and real_grid_cells>0", "observed": "source=fixture; run_id=deterministic_l4_fixture; real_grid_cells=0", "status": "FAIL"},
+        {"check": "stage_a_forward_floor_on_L4", "required_object_or_source": "source=autonomous_stage_a_run with run_id and real_grid_cells>0", "observed": "source=fixture; run_id=deterministic_l4_fixture; real_grid_cells=0", "status": "FAIL"},
+        {"check": "all_green_requires_core_evidence", "required_object_or_source": "stage_a_autonomous_cells>0", "observed": "stage_a_autonomous_cells=0", "status": "FAIL"},
+        {"check": "w3_measured_object_cached_gdn_state", "required_object_or_source": "measured_object=cached_gdn_recurrent_state", "observed": "measured_object=prompt_hidden", "status": "FAIL"},
+        {"check": "w3_integration_grade_reissued_on_true_state", "required_object_or_source": "fresh integration grade on cached_gdn_recurrent_state", "observed": "alongside_only_measured_not_in_state on prompt_hidden", "status": "FAIL"},
+        {"check": "w3_capacity_true_state_dims_measured", "required_object_or_source": "capacity table uses true recurrent-state matrix dims", "observed": "PLANNING_ESTIMATE_ONLY using hidden_size_as_D=2560", "status": "FAIL"},
+        {"check": "w3_cached_state_round_trip", "required_object_or_source": "read/write/restore cached GDN recurrent state", "observed": "last-token prompt-hidden perturbability", "status": "FAIL"},
+        {"check": "w3_cached_state_survival_measured", "required_object_or_source": "survival measured after pushing into cached GDN recurrent state", "observed": "prompt-hidden cosine survival", "status": "FAIL"},
+        {"check": "w3_cached_state_native_rule_gap_measured", "required_object_or_source": "native-rule gap measured on cached GDN recurrent state", "observed": "prompt-hidden delta gap", "status": "FAIL"}
+      ]
+    },
+    "harness_controls_retained": {
+      "columns": ["check", "observed", "status", "meaning"],
+      "rows": [
+        {"check": "stage_a_symbolic_control_pass", "observed": "operator_type=symbolic_baseline; G1=1.0", "status": "PASS", "meaning": "harness upper-reference, not G1 evidence"},
+        {"check": "stage_a_l4_harness_fixture_pass", "observed": "source=fixture; reverts=true; forward=true", "status": "PASS", "meaning": "L4 harness fixture, not autonomous Stage A evidence"},
+        {"check": "legacy_*_archived_or_absent_ok", "observed": "regenerated scaffold result files absent", "status": "PASS", "meaning": "falsified constructed-true scaffold artifacts are not required evidence"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent state. It deliberately turns the registry red until those objects exist.",
+    "limitations": [
+      "T2 learned recurrent training remains future work.",
+      "T3 true cached recurrent-state probing remains future work.",
+      "Validation counts may change as later checks are added, but the object-binding failures are intentional."
+    ]
+  },
+  "decision": {
+    "gate_outcomes": [
+      {"gate": "T1_validation_semantics", "outcome": "PASS", "number": "10 intentional FAIL checks after object binding"},
+      {"gate": "legacy_scaffold_policy", "outcome": "PASS", "number": "5 regenerated scaffold JSON files deleted; TTT retained"},
+      {"gate": "all_green_meta_check", "outcome": "ACTIVE", "number": "fails while stage_a_autonomous_cells=0"}
+    ],
+    "next_step_routing": "Proceed to T2 learned recurrent operator/data/trainer and T3 cached GDN recurrent-state probe; do not treat validation red as environment failure."
+  }
+}
