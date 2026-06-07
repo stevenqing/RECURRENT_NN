@@ -41,6 +41,10 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 | validation | results/validation/validation.json |
 | m2_operator_probe | results/m2_operator_probe/report.json |
 | m2_operator_fix_rescale | results/m2_operator_probe/report_fix_rescale.json |
+| module1_gru_grid_fair | results/gru_stack_grid_fair/results.json |
+| module1_gru_vs_structured_closeout | results/gru_vs_structured_closeout/results.json |
+| stage_a_reconstructed_artifacts | artifacts/stage_a/manifest.json |
+| stage_a_backtrack | results/stage_a_backtrack/report.json |
 
 ## Run Metadata
 
@@ -78,6 +82,13 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 - M2.0 fix-rescale pass/fix tasks: 0 / 5
 - M2.0 fix-rescale single-iterated precision: 0.4322
 - M2.0 fix-rescale branch qwen/mrv mean nodes: 4.9393 / 5.0674
+- Module 1 fair GRU cells: 144 / 144
+- Module 1 fair GRU all converged: True
+- Module 1 fair GRU below structured: True
+- Module 1 fair GRU closeout classification: `NOT_READY`
+- Stage A artifact policy: `reconstructed_in_repo_not_inherited`
+- Stage A artifact manifest status: `READY`
+- Stage A overnight status: `PARENT_ADAPTER_REQUIRED`
 
 ## Gate Status
 
@@ -114,6 +125,8 @@ Scope: consolidated log for oracle-trace scaffold outputs. These are not trained
 | 20 | validation | Validated required files, schemas, gate expectations, and Module 1 comparisons. | results/validation/validation.json | checks=1, passed=False |
 | 21 | M2.0 operator competence probe | Ran frozen Qwen generative current-node probe and branch rollout with no training. | results/m2_operator_probe/report.json | verdict=NEEDS_OPERATOR_FIX, forced_recall=0.1935 |
 | 22 | M2.0 fix-rescale operator probe | Ran single-move iterated propagation, list-all ablation, Sudoku rendering variants, logic_grid, and 2-seed branch rollout. | results/m2_operator_probe/report_fix_rescale.json | verdict=PER_TASK_ROUTING, fix_tasks=5/5 |
+| 23 | Module 1 fair GRU closeout | Completed the fair 144-cell bounded-GRU grid and closeout against structured capacity. | results/gru_vs_structured_closeout/results.json | cells=144, all_converged=True, classification=NOT_READY |
+| 24 | Stage A reconstructed overnight handoff | Reconstructed missing parent artifacts, passed preflight, and launched the 8-shard Stage A handoff after M1. | results/stage_a_backtrack/report.json | artifacts=READY, stage_a=PARENT_ADAPTER_REQUIRED |
 
 ## Detailed Itemized Run Log
 
@@ -889,6 +902,70 @@ Branch rollout summary:
 | random | 1.0000 | 5.0337 | 0 | 0 |
 
 Decision: the prompt/rendering fixes improve usable signal but do not make the frozen Qwen operator reliable enough to treat the operator premise as passed. All five tasks route to `NEEDS_OPERATOR_FIX`; `qwen_guess` is slightly shallower than MRV on mean nodes, but its high invalid-guess and parse-failure rates mean MRV remains the safer default branch policy until an operator fix or light SFT reduces invalid moves.
+
+### 023. Completed Module 1 fair GRU closeout
+
+Purpose: close the fair bounded-GRU baseline with the same long training budget used for the revised Module 1 comparison, so the structured-register claim is not based on the earlier degenerate GRU grid.
+
+Artifacts:
+
+- `results/gru_stack_grid_fair/results.json`
+- `results/gru_stack_grid_fair/curves.json`
+- `results/gru_vs_structured_closeout/results.json`
+
+Result summary:
+
+| metric | value |
+| --- | --- |
+| cells | 144 / 144 |
+| summary groups | 48 |
+| all_converged | True |
+| all_training_sufficient | True |
+| all_gru_below_structured | True |
+| max_gru_to_structured_ratio | 0.9025 |
+| diagnostic_verdict | degenerate_recency |
+| closeout_classification | NOT_READY |
+| lock_structured_headline | False |
+
+Decision: the fair GRU baseline completed and remained below structured capacity, but the closeout classification is `NOT_READY`. Do not lock the headline as structured >> unstructured solely from this closeout; keep the claim framed around completed fair baseline evidence plus the still-needed Stage A in-loop test.
+
+### 024. Reconstructed Stage A artifacts and ran overnight handoff
+
+Purpose: unblock Stage A after the original parent recurrent-depth artifacts were unavailable in the workspace, while keeping provenance explicit. The generated artifacts are reconstructed replacements, not recovered inherited originals.
+
+Artifacts:
+
+- `artifacts/stage_a/manifest.json`
+- `artifacts/stage_a/recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt` (local, ignored)
+- `artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt` (local, ignored)
+- `artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl` (local, ignored)
+- `results/stage_a_backtrack/results.json`
+- `results/stage_a_backtrack/report.json`
+- `results/stage_a_backtrack/report.md`
+
+Artifact reconstruction summary:
+
+| metric | value |
+| --- | --- |
+| policy | reconstructed_in_repo_not_inherited |
+| status | READY |
+| solved teacher tasks | 1024 |
+| device | cpu |
+| operator train exact candidate-cell accuracy | 0.7675 |
+| bridge decoder last-batch var accuracy | 0.6309 |
+| bridge decoder last-batch val accuracy | 0.9873 |
+
+Stage A handoff summary:
+
+| metric | value |
+| --- | --- |
+| preflight | PASS |
+| M1 wait condition | 144 / 144 cells |
+| shard statuses | PARENT_ADAPTER_REQUIRED |
+| merged report verdict | NEEDS_REVIEW |
+| cells with autonomous results | 0 |
+
+Decision: the missing artifact problem is resolved for the local reconstructed path, and the overnight orchestration works end-to-end through M1 completion and Stage A preflight. The Stage A scientific result is still blocked by the parent operator/bridge adapter implementation in `experiments.stage_a_backtrack_loop`; no autonomous solve-depth evidence has been produced yet.
 
 ## Reference Archive
 

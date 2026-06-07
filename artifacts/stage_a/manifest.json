@@ -1,0 +1,135 @@
+{
+  "artifact_policy": "reconstructed_in_repo_not_inherited",
+  "bridge_decoder": {
+    "last_batch_val_accuracy": 0.9873046875,
+    "last_batch_var_accuracy": 0.630859375,
+    "losses": [
+      {
+        "loss": 6.560023307800293,
+        "step": 1
+      },
+      {
+        "loss": 4.042757987976074,
+        "step": 50
+      },
+      {
+        "loss": 3.747251033782959,
+        "step": 100
+      },
+      {
+        "loss": 2.7894036769866943,
+        "step": 150
+      },
+      {
+        "loss": 2.8802926540374756,
+        "step": 200
+      },
+      {
+        "loss": 2.3785977363586426,
+        "step": 250
+      },
+      {
+        "loss": 2.511960983276367,
+        "step": 300
+      },
+      {
+        "loss": 2.284811496734619,
+        "step": 350
+      },
+      {
+        "loss": 1.9969407320022583,
+        "step": 400
+      },
+      {
+        "loss": 1.8120386600494385,
+        "step": 450
+      },
+      {
+        "loss": 1.6419143676757812,
+        "step": 500
+      }
+    ],
+    "path": "artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt",
+    "sha256": "cbcd6988aefa6a7afbaf04365ce4643d5785dc2422ff29c47db24fd2de96222d"
+  },
+  "device": "cpu",
+  "module": "stage_a_reconstructed_artifacts",
+  "n_requested_instances": 1024,
+  "n_solved_tasks": 1024,
+  "note": "Original parent recurrent-depth artifacts were not present; these replacements are generated from current RECURRENT_NN code and must be reported as reconstructed artifacts.",
+  "operator_ckpt": {
+    "dataset_examples": 7484,
+    "losses": [
+      {
+        "loss": 0.7016778588294983,
+        "step": 1
+      },
+      {
+        "loss": 0.2747855484485626,
+        "step": 25
+      },
+      {
+        "loss": 0.21312746405601501,
+        "step": 50
+      },
+      {
+        "loss": 0.1974235326051712,
+        "step": 75
+      },
+      {
+        "loss": 0.20223474502563477,
+        "step": 100
+      },
+      {
+        "loss": 0.1873093694448471,
+        "step": 125
+      },
+      {
+        "loss": 0.1851760596036911,
+        "step": 150
+      },
+      {
+        "loss": 0.19690006971359253,
+        "step": 175
+      },
+      {
+        "loss": 0.19845251739025116,
+        "step": 200
+      },
+      {
+        "loss": 0.18818533420562744,
+        "step": 225
+      },
+      {
+        "loss": 0.17844392359256744,
+        "step": 250
+      },
+      {
+        "loss": 0.17990832030773163,
+        "step": 275
+      },
+      {
+        "loss": 0.18182052671909332,
+        "step": 300
+      }
+    ],
+    "path": "artifacts/stage_a/recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt",
+    "sha256": "516eecafd90df9e28ba2169f586125a755ae1f24e3c3d02912870a9ed8d7faff",
+    "train_exact_candidate_cell_accuracy": 0.7674872875213623
+  },
+  "output_dir": "artifacts/stage_a",
+  "stage_a_env": {
+    "STAGE_A_BRIDGE_DECODER": "artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt",
+    "STAGE_A_OPERATOR_CKPT": "artifacts/stage_a/recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt",
+    "STAGE_A_TEACHER_TRACE": "artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl"
+  },
+  "status": "READY",
+  "task_source": "tasks.sudoku.generator_4x4 + tasks.oracle.DPLLOracle",
+  "teacher_trace": {
+    "examples": 17416,
+    "max_backtrack_depth": 3,
+    "path": "artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl",
+    "sha256": "9c9a66e2d2ae870c20fbd1c2b62267b23298a85f6d06ac1b2a6a34fb793ffed2",
+    "tasks": 1024
+  }
+}
