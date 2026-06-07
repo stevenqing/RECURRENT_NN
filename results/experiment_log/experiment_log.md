@@ -1,8 +1,242 @@
-# RECURRENT_NN Controlled Backtracking Ledger
+# RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-07T10:03:49.264160+00:00
+Generated at: 2026-06-07T10:17:05.814863+00:00
 
-Scope: canonical continuation ledger for `/home/aiscuser/RECURRENT_NN`. This replaces the older Stage D oracle-trace scaffold front page; legacy constructed scaffold gates are archived below.
+Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
+
+## Items
+
+| item | name | status | key result |
+| --- | --- | --- | --- |
+| 001-018 | legacy scaffold and early Module 1 setup | Archived | Retained in reference archive; not front-page gate evidence. |
+| 019-020 | scaffold gates and old validation | Demoted | Constructed-true 2x2/D-stage/verifier gates moved to legacy archive. |
+| 021 | M2.0 frozen operator probe | Done | verdict=NEEDS_OPERATOR_FIX; low forced recall/precision blocks direct loop. |
+| 022 | M2.0 fix-rescale probe | Done | verdict=PER_TASK_ROUTING; branch_decision=qwen_guess_beats_mrv_reconsider |
+| 023 | Module 1 fair GRU closeout | Done, not locked | classification=NOT_READY; max_ratio=0.9025; lock=False |
+| 024 | Stage A reconstructed handoff | Blocked | verdict=NEEDS_REVIEW; statuses=['PARENT_ADAPTER_REQUIRED']; n_cells=0 |
+| 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
+| 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
+| 027 | Sudoku6 bridge G1 | BLOCKER | G1=0.0; The Stage A critical blocker is G1 = 0.0 on the Sudoku6 bridge operator. |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=81; validation_passed=False |
+| W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
+| P1 | G1 fix spec and diagnostics | Specified | g1_fix_spec plus Stage A adapter/gate/Sudoku6 diagnostic artifacts are present; retraining not launched. |
+| P2 | W3 Qwen3.5 probe | do_not_integrate_yet | W3.0=PASS; W3.1/W3.2 heavy probes not launched. |
+| P3 | TRM defensive analysis | Not launched | No TRM checkpoint/test-set grading code is present in this repo yet. |
+| Module1 law | per-depth capacity | Writable now | decision=k_direction_negative; open=False; shards=8 |
+
+## Item Details
+
+### Item 001-018 - legacy scaffold and early Module 1 setup
+
+- Status: Archived
+- Key result: Retained in reference archive; not front-page gate evidence.
+- Details:
+  - These items belong to the old scaffold/oracle-trace era and are no longer the current front-page gate evidence.
+  - Missing legacy files remain visible in validation as legacy failures rather than being silently treated as current blockers.
+- Artifacts:
+  - results/preregistration/preregistration.json (missing)
+  - results/oracle_dataset/summary.json (missing)
+  - results/operator_cache/summary.json (missing)
+  - results/operator_cache/qwen_probe_cache_summary.json (missing)
+  - results/operator_cache/qwen_128_cache_summary.json (missing)
+  - results/learned_wiring_qwen_128/results.json (missing)
+  - results/operator_cache/qwen_balanced_320_cache_summary.json (missing)
+  - results/learned_wiring_qwen_balanced_320/results.json (missing)
+  - results/two_by_two/results.json (missing)
+  - results/d_stage_0/results.json (missing)
+  - results/d_stage_1/results.json (missing)
+  - results/d_stage_2/results.json (missing)
+  - results/d_stage_3/results.json (missing)
+  - results/verifier/results.json (missing)
+  - results/ttt/results.json (missing)
+- Next action: Do not use these archived scaffold rows as proof of the current Stage A claim.
+
+### Item 019-020 - scaffold gates and old validation
+
+- Status: Demoted
+- Key result: Constructed-true 2x2/D-stage/verifier gates moved to legacy archive.
+- Details:
+  - The validator now reports missing legacy artifacts individually.
+  - Current validation is registry-style and does not collapse missing history into one opaque required-files failure.
+- Artifacts:
+  - analysis/validate_outputs.py (yes)
+  - results/validation/validation.json (yes)
+  - results/validation/validation.md (yes)
+- Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
+
+### Item 021 - M2.0 frozen operator probe
+
+- Status: Done
+- Key result: verdict=NEEDS_OPERATOR_FIX; low forced recall/precision blocks direct loop.
+- Details:
+  - original_verdict=NEEDS_OPERATOR_FIX
+  - Frozen Qwen current-node operator was not accepted as a direct solver component.
+  - Per-task routing discipline remains required; no ordering-only pass is accepted.
+- Artifacts:
+  - results/m2_operator_probe/report.json (yes)
+- Next action: Use this as negative evidence when deciding whether Qwen can carry structured propagation unaided.
+
+### Item 022 - M2.0 fix-rescale probe
+
+- Status: Done
+- Key result: verdict=PER_TASK_ROUTING; branch_decision=qwen_guess_beats_mrv_reconsider
+- Details:
+  - qwen_guess mean_nodes=4.939; invalid_guess_rate=0.2316
+  - mrv mean_nodes=5.067; invalid_guess_rate=0
+  - routing={'fix_tasks': ['general_sat', 'graph_coloring', 'horn_sat', 'logic_grid', 'sudoku_4x4'], 'pass_tasks': []}
+- Artifacts:
+  - results/m2_operator_probe/report_fix_rescale.json (yes)
+  - results/m2_operator_probe/report_fix_rescale.md (yes)
+- Next action: Treat Qwen guess results as routing evidence, not as an autonomous pass.
+
+### Item 023 - Module 1 fair GRU closeout
+
+- Status: Done, not locked
+- Key result: classification=NOT_READY; max_ratio=0.9025; lock=False
+- Details:
+  - Fair GRU grid completed and all GRU cells remained below structured frontier in the recorded closeout.
+  - Headline remains unlocked because the in-loop arbiter/Stage A proof is still unavailable.
+- Artifacts:
+  - results/gru_stack_grid_fair/results.json (yes)
+  - results/gru_vs_structured_closeout/results.json (yes)
+- Next action: Revisit only after Stage A has autonomous cells instead of parent-adapter-required stops.
+
+### Item 024 - Stage A reconstructed handoff
+
+- Status: Blocked
+- Key result: verdict=NEEDS_REVIEW; statuses=['PARENT_ADAPTER_REQUIRED']; n_cells=0
+- Details:
+  - artifact_policy=reconstructed_in_repo_not_inherited; manifest_status=READY
+  - stage_a_statuses=['PARENT_ADAPTER_REQUIRED']; n_cells=0
+  - Parent artifacts are reconstructed in-repo but autonomous Stage A cells are still unavailable.
+- Artifacts:
+  - artifacts/stage_a/manifest.json (yes)
+  - results/stage_a_backtrack/report.json (yes)
+  - results/stage_a_backtrack/results.json (yes)
+- Next action: Wire the parent adapter and keep fail-closed preflight before launching autonomous solve metrics.
+
+### Item 025 - adapter wiring pass
+
+- Status: RECORDED_FROM_RUNBOOK
+- Key result: Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan.
+- Details:
+  - materialized_status=PASS; preflight_status=READY; register_smoke_status=SMOKE_PASS
+  - grid_cells=36; autonomous_solve_status=NOT_RUN
+  - operator_exists=True; bridge_exists=True; teacher_trace_tasks=1024
+- Artifacts:
+  - results/continuation_state/post_027.json (yes)
+  - results/stage_a_adapter_wiring/results.json (yes)
+- Next action: This is a wiring/preflight item only; it does not prove autonomous solving.
+
+### Item 026 - banded Sudoku9 plus gate refusal
+
+- Status: RECORDED_FROM_RUNBOOK
+- Key result: Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth.
+- Details:
+  - materialized_status=PASS; fail_closed_cases=3; refused_all=True
+  - sudoku9_status=READY_STUB_EMPTY; sudoku9_generated_count=0
+  - sudoku6_status=RECORDED_READY_FROM_RUNBOOK_NOT_GENERATED_IN_REPO
+- Artifacts:
+  - results/continuation_state/post_027.json (yes)
+  - results/stage_a_banded_gate_refusal/results.json (yes)
+- Next action: Replace continuation-recorded Sudoku6 readiness with concrete generator/data artifacts during the G1 fix.
+
+### Item 027 - Sudoku6 bridge G1
+
+- Status: BLOCKER
+- Key result: G1=0.0; The Stage A critical blocker is G1 = 0.0 on the Sudoku6 bridge operator.
+- Details:
+  - materialized_status=BLOCKED_G1_ZERO; G1=0.0; single_step_forced_accuracy=0.0
+  - gates={'G1_depth1_bridge': 'FAIL', 'G2_depth_frontier': 'NOT_RUN', 'L4_forward_floor': 'FAIL_NOT_RUN', 'L4_reverts_nonzero': 'FAIL_NOT_RUN'}
+  - stick_reasons={'bridge_trainer_missing': 1, 'parent_adapter_not_integrated': 1, 'sudoku6_dataset_generator_missing': 1}
+  - teacher_trace_probe={'exists': True, 'path': 'artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl', 'sampled_action_counts': {'branch': 76, 'propagate': 4020, 'solved': 256}, 'sampled_max_backtrack_depth': 3, 'sampled_tasks': 256}
+- Artifacts:
+  - results/continuation_state/post_027.json (yes)
+  - results/stage_a_sudoku6_bridge/results.json (yes)
+  - specs/g1_fix_spec.md (yes)
+- Next action: Implement the G1 fix; do not soften G2 or L4 checks.
+
+### Item P0 - ledger and validation housekeeping
+
+- Status: Updated
+- Key result: validation_checks=81; validation_passed=False
+- Details:
+  - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
+  - validation_pass=72; validation_fail=9
+  - Current expected failures are Stage A G1/L4 and missing legacy scaffold artifacts.
+- Artifacts:
+  - CANONICAL_REPO.md (yes)
+  - analysis/validate_outputs.py (yes)
+  - results/validation/validation.json (yes)
+  - results/experiment_log/experiment_log.json (yes)
+- Next action: Keep future reports item-first and preserve explicit red checks.
+
+### Item W3.0 - Qwen3.5 checkpoint pin
+
+- Status: Done
+- Key result: model_id=Qwen/Qwen3.5-4B; total_gib=8.701
+- Details:
+  - snapshot_path=/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a
+  - n_files=14; total_bytes=9342907469
+  - This pins availability of the external model asset but does not run hidden-hook or propagation probes.
+- Artifacts:
+  - results/model_download/qwen3_5_4b/qwen_download.json (yes)
+- Next action: Use W3/P2 records before considering any Qwen3.5 integration route.
+
+### Item P1 - G1 fix spec and diagnostics
+
+- Status: Specified
+- Key result: g1_fix_spec plus Stage A adapter/gate/Sudoku6 diagnostic artifacts are present; retraining not launched.
+- Details:
+  - Task A diagnosis and Task B deep-supervision bridge retrain are specified.
+  - Current diagnostics still record G1=0.0 and L4 checks failing/not-run.
+  - Stage A parent binaries are regenerated workflow artifacts, not tracked binaries.
+- Artifacts:
+  - specs/g1_fix_spec.md (yes)
+  - results/stage_a_adapter_wiring/results.json (yes)
+  - results/stage_a_banded_gate_refusal/results.json (yes)
+  - results/stage_a_sudoku6_bridge/results.json (yes)
+- Next action: Launch the actual bridge retrain only after concrete Sudoku6 data/training entrypoints exist.
+
+### Item P2 - W3 Qwen3.5 probe
+
+- Status: do_not_integrate_yet
+- Key result: W3.0=PASS; W3.1/W3.2 heavy probes not launched.
+- Details:
+  - hidden_size=2560; layers=32; full_attention_layers=8; linear_layers=24
+  - capacity_estimates=6; hidden_hook={'load_model': False, 'status': 'SKIPPED_METADATA_ONLY'}
+  - verdicts={'W3.0_checkpoint_pin': 'PASS', 'W3.1_capacity_at_real_gdn_dims': 'PLANNING_ESTIMATE_ONLY', 'W3.1_gating_decay_stack_survival': 'NOT_RUN', 'W3.1_native_delta_rule_as_stack_gap': 'NOT_RUN', 'W3.2_qwen3_4b_delta_table': 'NOT_RUN'}
+- Artifacts:
+  - specs/w3_qwen35_probe_spec.md (yes)
+  - results/w3_qwen35_probe/results.json (yes)
+  - results/w3_qwen35_probe/verdicts.json (yes)
+- Next action: Run hidden-hook, gating-survival, native-delta, and W3.2 propagation probes before integration.
+
+### Item P3 - TRM defensive analysis
+
+- Status: Not launched
+- Key result: No TRM checkpoint/test-set grading code is present in this repo yet.
+- Details:
+  - TRM is allowed only as recipe guidance, never as a checkpoint inside controlled comparisons.
+  - No defensive depth-ceiling test-set artifact exists in the current workspace.
+- Artifacts:
+  - specs/g1_fix_spec.md (yes)
+- Next action: Create explicit TRM defensive analysis artifacts before reporting P3 evidence.
+
+### Item Module1 law - per-depth capacity
+
+- Status: Writable now
+- Key result: decision=k_direction_negative; open=False; shards=8
+- Details:
+  - Per-depth capacity law is the current Tier A quantitative anchor.
+  - K-direction is negative/nonincreasing in the recorded per-depth artifact.
+  - Bound-single and factored fitted K_eff choices are validated separately in the registry.
+- Artifacts:
+  - results/module1_capacity_perdepth_shards/results.json (yes)
+  - results/module1_capacity_perdepth_shards/curves.json (yes)
+  - results/module1_capacity_benchmark_full_shards/k_direction_corrected.json (yes)
+- Next action: Use this law as support for structured register capacity, not as a substitute for Stage A autonomous proof.
+
 
 ## Canonical Repo Decision
 
@@ -73,26 +307,6 @@ Scope: canonical continuation ledger for `/home/aiscuser/RECURRENT_NN`. This rep
 | w3_qwen35_probe_spec | specs/w3_qwen35_probe_spec.md | yes |
 | w3_qwen35_probe | results/w3_qwen35_probe/results.json | yes |
 | validation | results/validation/validation.json | yes |
-
-## Incremental Run Items
-
-| item | name | status | key result |
-| --- | --- | --- | --- |
-| 001-018 | legacy scaffold and early Module 1 setup | Archived | Retained in reference archive; not front-page gate evidence. |
-| 019-020 | scaffold gates and old validation | Demoted | Constructed-true 2x2/D-stage/verifier gates moved to legacy archive. |
-| 021 | M2.0 frozen operator probe | Done | verdict=NEEDS_OPERATOR_FIX; low forced recall/precision blocks direct loop. |
-| 022 | M2.0 fix-rescale probe | Done | verdict=PER_TASK_ROUTING; branch_decision=qwen_guess_beats_mrv_reconsider |
-| 023 | Module 1 fair GRU closeout | Done, not locked | classification=NOT_READY; max_ratio=0.9025; lock=False |
-| 024 | Stage A reconstructed handoff | Blocked | verdict=NEEDS_REVIEW; statuses=['PARENT_ADAPTER_REQUIRED']; n_cells=0 |
-| 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
-| 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
-| 027 | Sudoku6 bridge G1 | BLOCKER | G1=0.0; The Stage A critical blocker is G1 = 0.0 on the Sudoku6 bridge operator. |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=81; validation_passed=False |
-| W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
-| P1 | G1 fix spec and diagnostics | Specified | g1_fix_spec plus Stage A adapter/gate/Sudoku6 diagnostic artifacts are present; retraining not launched. |
-| P2 | W3 Qwen3.5 probe | do_not_integrate_yet | W3.0=PASS; W3.1/W3.2 heavy probes not launched. |
-| P3 | TRM defensive analysis | Not launched | No TRM checkpoint/test-set grading code is present in this repo yet. |
-| Module1 law | per-depth capacity | Writable now | decision=k_direction_negative; open=False; shards=8 |
 
 ## Validation Summary
 

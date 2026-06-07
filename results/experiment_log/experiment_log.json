@@ -159,7 +159,7 @@
       "S3.1 integration is not started."
     ]
   },
-  "generated_at": "2026-06-07T10:03:49.264160+00:00",
+  "generated_at": "2026-06-07T10:17:05.814863+00:00",
   "incremental_items": [
     [
       "001-018",
@@ -251,6 +251,411 @@
       "Writable now",
       "decision=k_direction_negative; open=False; shards=8"
     ]
+  ],
+  "items": [
+    {
+      "artifacts": [
+        {
+          "path": "results/preregistration/preregistration.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/oracle_dataset/summary.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/operator_cache/summary.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/operator_cache/qwen_probe_cache_summary.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/operator_cache/qwen_128_cache_summary.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/learned_wiring_qwen_128/results.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/operator_cache/qwen_balanced_320_cache_summary.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/learned_wiring_qwen_balanced_320/results.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/two_by_two/results.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/d_stage_0/results.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/d_stage_1/results.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/d_stage_2/results.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/d_stage_3/results.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/verifier/results.json",
+          "present": "missing"
+        },
+        {
+          "path": "results/ttt/results.json",
+          "present": "missing"
+        }
+      ],
+      "details": [
+        "These items belong to the old scaffold/oracle-trace era and are no longer the current front-page gate evidence.",
+        "Missing legacy files remain visible in validation as legacy failures rather than being silently treated as current blockers."
+      ],
+      "item": "001-018",
+      "key_result": "Retained in reference archive; not front-page gate evidence.",
+      "name": "legacy scaffold and early Module 1 setup",
+      "next_action": "Do not use these archived scaffold rows as proof of the current Stage A claim.",
+      "status": "Archived"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "analysis/validate_outputs.py",
+          "present": "yes"
+        },
+        {
+          "path": "results/validation/validation.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/validation/validation.md",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "The validator now reports missing legacy artifacts individually.",
+        "Current validation is registry-style and does not collapse missing history into one opaque required-files failure."
+      ],
+      "item": "019-020",
+      "key_result": "Constructed-true 2x2/D-stage/verifier gates moved to legacy archive.",
+      "name": "scaffold gates and old validation",
+      "next_action": "Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.",
+      "status": "Demoted"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/m2_operator_probe/report.json",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "original_verdict=NEEDS_OPERATOR_FIX",
+        "Frozen Qwen current-node operator was not accepted as a direct solver component.",
+        "Per-task routing discipline remains required; no ordering-only pass is accepted."
+      ],
+      "item": "021",
+      "key_result": "verdict=NEEDS_OPERATOR_FIX; low forced recall/precision blocks direct loop.",
+      "name": "M2.0 frozen operator probe",
+      "next_action": "Use this as negative evidence when deciding whether Qwen can carry structured propagation unaided.",
+      "status": "Done"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/m2_operator_probe/report_fix_rescale.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/m2_operator_probe/report_fix_rescale.md",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "qwen_guess mean_nodes=4.939; invalid_guess_rate=0.2316",
+        "mrv mean_nodes=5.067; invalid_guess_rate=0",
+        "routing={'fix_tasks': ['general_sat', 'graph_coloring', 'horn_sat', 'logic_grid', 'sudoku_4x4'], 'pass_tasks': []}"
+      ],
+      "item": "022",
+      "key_result": "verdict=PER_TASK_ROUTING; branch_decision=qwen_guess_beats_mrv_reconsider",
+      "name": "M2.0 fix-rescale probe",
+      "next_action": "Treat Qwen guess results as routing evidence, not as an autonomous pass.",
+      "status": "Done"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/gru_stack_grid_fair/results.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/gru_vs_structured_closeout/results.json",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "Fair GRU grid completed and all GRU cells remained below structured frontier in the recorded closeout.",
+        "Headline remains unlocked because the in-loop arbiter/Stage A proof is still unavailable."
+      ],
+      "item": "023",
+      "key_result": "classification=NOT_READY; max_ratio=0.9025; lock=False",
+      "name": "Module 1 fair GRU closeout",
+      "next_action": "Revisit only after Stage A has autonomous cells instead of parent-adapter-required stops.",
+      "status": "Done, not locked"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "artifacts/stage_a/manifest.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/stage_a_backtrack/report.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/stage_a_backtrack/results.json",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "artifact_policy=reconstructed_in_repo_not_inherited; manifest_status=READY",
+        "stage_a_statuses=['PARENT_ADAPTER_REQUIRED']; n_cells=0",
+        "Parent artifacts are reconstructed in-repo but autonomous Stage A cells are still unavailable."
+      ],
+      "item": "024",
+      "key_result": "verdict=NEEDS_REVIEW; statuses=['PARENT_ADAPTER_REQUIRED']; n_cells=0",
+      "name": "Stage A reconstructed handoff",
+      "next_action": "Wire the parent adapter and keep fail-closed preflight before launching autonomous solve metrics.",
+      "status": "Blocked"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/continuation_state/post_027.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/stage_a_adapter_wiring/results.json",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "materialized_status=PASS; preflight_status=READY; register_smoke_status=SMOKE_PASS",
+        "grid_cells=36; autonomous_solve_status=NOT_RUN",
+        "operator_exists=True; bridge_exists=True; teacher_trace_tasks=1024"
+      ],
+      "item": "025",
+      "key_result": "Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan.",
+      "name": "adapter wiring pass",
+      "next_action": "This is a wiring/preflight item only; it does not prove autonomous solving.",
+      "status": "RECORDED_FROM_RUNBOOK"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/continuation_state/post_027.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/stage_a_banded_gate_refusal/results.json",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "materialized_status=PASS; fail_closed_cases=3; refused_all=True",
+        "sudoku9_status=READY_STUB_EMPTY; sudoku9_generated_count=0",
+        "sudoku6_status=RECORDED_READY_FROM_RUNBOOK_NOT_GENERATED_IN_REPO"
+      ],
+      "item": "026",
+      "key_result": "Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth.",
+      "name": "banded Sudoku9 plus gate refusal",
+      "next_action": "Replace continuation-recorded Sudoku6 readiness with concrete generator/data artifacts during the G1 fix.",
+      "status": "RECORDED_FROM_RUNBOOK"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/continuation_state/post_027.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/stage_a_sudoku6_bridge/results.json",
+          "present": "yes"
+        },
+        {
+          "path": "specs/g1_fix_spec.md",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "materialized_status=BLOCKED_G1_ZERO; G1=0.0; single_step_forced_accuracy=0.0",
+        "gates={'G1_depth1_bridge': 'FAIL', 'G2_depth_frontier': 'NOT_RUN', 'L4_forward_floor': 'FAIL_NOT_RUN', 'L4_reverts_nonzero': 'FAIL_NOT_RUN'}",
+        "stick_reasons={'bridge_trainer_missing': 1, 'parent_adapter_not_integrated': 1, 'sudoku6_dataset_generator_missing': 1}",
+        "teacher_trace_probe={'exists': True, 'path': 'artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl', 'sampled_action_counts': {'branch': 76, 'propagate': 4020, 'solved': 256}, 'sampled_max_backtrack_depth': 3, 'sampled_tasks': 256}"
+      ],
+      "item": "027",
+      "key_result": "G1=0.0; The Stage A critical blocker is G1 = 0.0 on the Sudoku6 bridge operator.",
+      "name": "Sudoku6 bridge G1",
+      "next_action": "Implement the G1 fix; do not soften G2 or L4 checks.",
+      "status": "BLOCKER"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "CANONICAL_REPO.md",
+          "present": "yes"
+        },
+        {
+          "path": "analysis/validate_outputs.py",
+          "present": "yes"
+        },
+        {
+          "path": "results/validation/validation.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/experiment_log/experiment_log.json",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.",
+        "validation_pass=72; validation_fail=9",
+        "Current expected failures are Stage A G1/L4 and missing legacy scaffold artifacts."
+      ],
+      "item": "P0",
+      "key_result": "validation_checks=81; validation_passed=False",
+      "name": "ledger and validation housekeeping",
+      "next_action": "Keep future reports item-first and preserve explicit red checks.",
+      "status": "Updated"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/model_download/qwen3_5_4b/qwen_download.json",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "snapshot_path=/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+        "n_files=14; total_bytes=9342907469",
+        "This pins availability of the external model asset but does not run hidden-hook or propagation probes."
+      ],
+      "item": "W3.0",
+      "key_result": "model_id=Qwen/Qwen3.5-4B; total_gib=8.701",
+      "name": "Qwen3.5 checkpoint pin",
+      "next_action": "Use W3/P2 records before considering any Qwen3.5 integration route.",
+      "status": "Done"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "specs/g1_fix_spec.md",
+          "present": "yes"
+        },
+        {
+          "path": "results/stage_a_adapter_wiring/results.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/stage_a_banded_gate_refusal/results.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/stage_a_sudoku6_bridge/results.json",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "Task A diagnosis and Task B deep-supervision bridge retrain are specified.",
+        "Current diagnostics still record G1=0.0 and L4 checks failing/not-run.",
+        "Stage A parent binaries are regenerated workflow artifacts, not tracked binaries."
+      ],
+      "item": "P1",
+      "key_result": "g1_fix_spec plus Stage A adapter/gate/Sudoku6 diagnostic artifacts are present; retraining not launched.",
+      "name": "G1 fix spec and diagnostics",
+      "next_action": "Launch the actual bridge retrain only after concrete Sudoku6 data/training entrypoints exist.",
+      "status": "Specified"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "specs/w3_qwen35_probe_spec.md",
+          "present": "yes"
+        },
+        {
+          "path": "results/w3_qwen35_probe/results.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/w3_qwen35_probe/verdicts.json",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "hidden_size=2560; layers=32; full_attention_layers=8; linear_layers=24",
+        "capacity_estimates=6; hidden_hook={'load_model': False, 'status': 'SKIPPED_METADATA_ONLY'}",
+        "verdicts={'W3.0_checkpoint_pin': 'PASS', 'W3.1_capacity_at_real_gdn_dims': 'PLANNING_ESTIMATE_ONLY', 'W3.1_gating_decay_stack_survival': 'NOT_RUN', 'W3.1_native_delta_rule_as_stack_gap': 'NOT_RUN', 'W3.2_qwen3_4b_delta_table': 'NOT_RUN'}"
+      ],
+      "item": "P2",
+      "key_result": "W3.0=PASS; W3.1/W3.2 heavy probes not launched.",
+      "name": "W3 Qwen3.5 probe",
+      "next_action": "Run hidden-hook, gating-survival, native-delta, and W3.2 propagation probes before integration.",
+      "status": "do_not_integrate_yet"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "specs/g1_fix_spec.md",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "TRM is allowed only as recipe guidance, never as a checkpoint inside controlled comparisons.",
+        "No defensive depth-ceiling test-set artifact exists in the current workspace."
+      ],
+      "item": "P3",
+      "key_result": "No TRM checkpoint/test-set grading code is present in this repo yet.",
+      "name": "TRM defensive analysis",
+      "next_action": "Create explicit TRM defensive analysis artifacts before reporting P3 evidence.",
+      "status": "Not launched"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/module1_capacity_perdepth_shards/results.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/module1_capacity_perdepth_shards/curves.json",
+          "present": "yes"
+        },
+        {
+          "path": "results/module1_capacity_benchmark_full_shards/k_direction_corrected.json",
+          "present": "yes"
+        }
+      ],
+      "details": [
+        "Per-depth capacity law is the current Tier A quantitative anchor.",
+        "K-direction is negative/nonincreasing in the recorded per-depth artifact.",
+        "Bound-single and factored fitted K_eff choices are validated separately in the registry."
+      ],
+      "item": "Module1 law",
+      "key_result": "decision=k_direction_negative; open=False; shards=8",
+      "name": "per-depth capacity",
+      "next_action": "Use this law as support for structured register capacity, not as a substitute for Stage A autonomous proof.",
+      "status": "Writable now"
+    }
   ],
   "legacy_archive": {
     "d_stage_0": "results/d_stage_0/results.json",

@@ -104,33 +104,267 @@ def _validation_rows(validation: dict[str, Any]) -> list[list[Any]]:
     return rows
 
 
-def _incremental_rows(data: dict[str, Any]) -> list[list[str]]:
+def _artifact_ref(path: str) -> dict[str, str]:
+    return {"path": path, "present": "yes" if _path(path).exists() else "missing"}
+
+
+def _item_records(data: dict[str, Any]) -> list[dict[str, Any]]:
     continuation = data.get("continuation") or {}
     items = {item.get("item"): item for item in continuation.get("items", [])}
     validation = data.get("validation") or {}
     closeout = data.get("gru_closeout") or {}
     stage_a = data.get("stage_a_report") or {}
+    manifest = data.get("stage_a_manifest") or {}
     perdepth = data.get("perdepth") or {}
+    m2_probe = data.get("m2_probe") or {}
     m2 = data.get("m2_fix") or {}
     qwen35 = data.get("qwen35") or {}
+    adapter = data.get("post025_adapter_wiring") or {}
+    refusal = data.get("post026_banded_gate_refusal") or {}
+    sudoku6 = data.get("post027_sudoku6_bridge") or {}
     w3 = data.get("w3_probe") or {}
+    validation_summary = validation.get("summary", {})
+    m2_overall = m2.get("overall", {})
+    branch = m2_overall.get("branch", {})
+    qwen_branch = branch.get("qwen_guess", {})
+    mrv_branch = branch.get("mrv", {})
+    w3_config = w3.get("config", {})
+    w3_verdicts = w3.get("verdicts", {})
+    refusal_cases = refusal.get("fail_closed_cases", [])
+    sudoku6_gates = sudoku6.get("gates", {})
+
+    def record(item: str, name: str, status: str, key_result: str, details: list[str], artifacts: list[str], next_action: str = "") -> dict[str, Any]:
+        return {
+            "item": item,
+            "name": name,
+            "status": status,
+            "key_result": key_result,
+            "details": details,
+            "artifacts": [_artifact_ref(path) for path in artifacts],
+            "next_action": next_action,
+        }
+
     return [
-        ["001-018", "legacy scaffold and early Module 1 setup", "Archived", "Retained in reference archive; not front-page gate evidence."],
-        ["019-020", "scaffold gates and old validation", "Demoted", "Constructed-true 2x2/D-stage/verifier gates moved to legacy archive."],
-        ["021", "M2.0 frozen operator probe", "Done", "verdict=NEEDS_OPERATOR_FIX; low forced recall/precision blocks direct loop."],
-        ["022", "M2.0 fix-rescale probe", "Done", f"verdict={m2.get('verdict')}; branch_decision={m2.get('branch_decision')}"],
-        ["023", "Module 1 fair GRU closeout", "Done, not locked", f"classification={closeout.get('classification')}; max_ratio={_fmt(closeout.get('max_gru_to_structured_ratio'))}; lock={closeout.get('lock_structured_headline')}"] ,
-        ["024", "Stage A reconstructed handoff", "Blocked", f"verdict={stage_a.get('verdict')}; statuses={stage_a.get('statuses')}; n_cells={stage_a.get('n_cells')}"] ,
-        ["025", "adapter wiring pass", items.get("025", {}).get("status", "missing"), items.get("025", {}).get("summary", "not found in continuation state")],
-        ["026", "banded Sudoku9 plus gate refusal", items.get("026", {}).get("status", "missing"), items.get("026", {}).get("summary", "not found in continuation state")],
-        ["027", "Sudoku6 bridge G1", items.get("027", {}).get("status", "missing"), f"G1={items.get('027', {}).get('g1')}; {items.get('027', {}).get('summary', '')}"],
-        ["P0", "ledger and validation housekeeping", "Updated", f"validation_checks={validation.get('summary', {}).get('n_checks')}; validation_passed={validation.get('passed')}"] ,
-        ["W3.0", "Qwen3.5 checkpoint pin", "Done", f"model_id={qwen35.get('model_id')}; total_gib={_fmt(qwen35.get('total_gib'))}"],
-        ["P1", "G1 fix spec and diagnostics", "Specified", "g1_fix_spec plus Stage A adapter/gate/Sudoku6 diagnostic artifacts are present; retraining not launched."],
-        ["P2", "W3 Qwen3.5 probe", w3.get("integration_grade", "missing"), f"W3.0={w3.get('verdicts', {}).get('W3.0_checkpoint_pin')}; W3.1/W3.2 heavy probes not launched."],
-        ["P3", "TRM defensive analysis", "Not launched", "No TRM checkpoint/test-set grading code is present in this repo yet."],
-        ["Module1 law", "per-depth capacity", "Writable now", f"decision={perdepth.get('decision')}; open={perdepth.get('open')}; shards={perdepth.get('num_shards')}"] ,
+        record(
+            "001-018",
+            "legacy scaffold and early Module 1 setup",
+            "Archived",
+            "Retained in reference archive; not front-page gate evidence.",
+            [
+                "These items belong to the old scaffold/oracle-trace era and are no longer the current front-page gate evidence.",
+                "Missing legacy files remain visible in validation as legacy failures rather than being silently treated as current blockers.",
+            ],
+            list(LEGACY_ARCHIVE.values()),
+            "Do not use these archived scaffold rows as proof of the current Stage A claim.",
+        ),
+        record(
+            "019-020",
+            "scaffold gates and old validation",
+            "Demoted",
+            "Constructed-true 2x2/D-stage/verifier gates moved to legacy archive.",
+            [
+                "The validator now reports missing legacy artifacts individually.",
+                "Current validation is registry-style and does not collapse missing history into one opaque required-files failure.",
+            ],
+            ["analysis/validate_outputs.py", "results/validation/validation.json", "results/validation/validation.md"],
+            "Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.",
+        ),
+        record(
+            "021",
+            "M2.0 frozen operator probe",
+            "Done",
+            "verdict=NEEDS_OPERATOR_FIX; low forced recall/precision blocks direct loop.",
+            [
+                f"original_verdict={m2_probe.get('verdict')}",
+                "Frozen Qwen current-node operator was not accepted as a direct solver component.",
+                "Per-task routing discipline remains required; no ordering-only pass is accepted.",
+            ],
+            ["results/m2_operator_probe/report.json"],
+            "Use this as negative evidence when deciding whether Qwen can carry structured propagation unaided.",
+        ),
+        record(
+            "022",
+            "M2.0 fix-rescale probe",
+            "Done",
+            f"verdict={m2.get('verdict')}; branch_decision={m2.get('branch_decision')}",
+            [
+                f"qwen_guess mean_nodes={_fmt(qwen_branch.get('mean_nodes_to_solve_or_cap'))}; invalid_guess_rate={_fmt(qwen_branch.get('invalid_guess_rate'))}",
+                f"mrv mean_nodes={_fmt(mrv_branch.get('mean_nodes_to_solve_or_cap'))}; invalid_guess_rate={_fmt(mrv_branch.get('invalid_guess_rate'))}",
+                f"routing={m2.get('routing')}",
+            ],
+            ["results/m2_operator_probe/report_fix_rescale.json", "results/m2_operator_probe/report_fix_rescale.md"],
+            "Treat Qwen guess results as routing evidence, not as an autonomous pass.",
+        ),
+        record(
+            "023",
+            "Module 1 fair GRU closeout",
+            "Done, not locked",
+            f"classification={closeout.get('classification')}; max_ratio={_fmt(closeout.get('max_gru_to_structured_ratio'))}; lock={closeout.get('lock_structured_headline')}",
+            [
+                "Fair GRU grid completed and all GRU cells remained below structured frontier in the recorded closeout.",
+                "Headline remains unlocked because the in-loop arbiter/Stage A proof is still unavailable.",
+            ],
+            ["results/gru_stack_grid_fair/results.json", "results/gru_vs_structured_closeout/results.json"],
+            "Revisit only after Stage A has autonomous cells instead of parent-adapter-required stops.",
+        ),
+        record(
+            "024",
+            "Stage A reconstructed handoff",
+            "Blocked",
+            f"verdict={stage_a.get('verdict')}; statuses={stage_a.get('statuses')}; n_cells={stage_a.get('n_cells')}",
+            [
+                f"artifact_policy={manifest.get('artifact_policy')}; manifest_status={manifest.get('status')}",
+                f"stage_a_statuses={stage_a.get('statuses')}; n_cells={stage_a.get('n_cells')}",
+                "Parent artifacts are reconstructed in-repo but autonomous Stage A cells are still unavailable.",
+            ],
+            ["artifacts/stage_a/manifest.json", "results/stage_a_backtrack/report.json", "results/stage_a_backtrack/results.json"],
+            "Wire the parent adapter and keep fail-closed preflight before launching autonomous solve metrics.",
+        ),
+        record(
+            "025",
+            "adapter wiring pass",
+            items.get("025", {}).get("status", "missing"),
+            items.get("025", {}).get("summary", "not found in continuation state"),
+            [
+                f"materialized_status={adapter.get('status')}; preflight_status={adapter.get('preflight_status')}; register_smoke_status={adapter.get('register_smoke_status')}",
+                f"grid_cells={adapter.get('grid_cells')}; autonomous_solve_status={adapter.get('autonomous_solve_status')}",
+                f"operator_exists={adapter.get('operator_ckpt', {}).get('exists')}; bridge_exists={adapter.get('bridge_decoder', {}).get('exists')}; teacher_trace_tasks={adapter.get('teacher_trace', {}).get('tasks')}",
+            ],
+            ["results/continuation_state/post_027.json", "results/stage_a_adapter_wiring/results.json"],
+            "This is a wiring/preflight item only; it does not prove autonomous solving.",
+        ),
+        record(
+            "026",
+            "banded Sudoku9 plus gate refusal",
+            items.get("026", {}).get("status", "missing"),
+            items.get("026", {}).get("summary", "not found in continuation state"),
+            [
+                f"materialized_status={refusal.get('status')}; fail_closed_cases={len(refusal_cases)}; refused_all={bool(refusal_cases) and all(case.get('refused') for case in refusal_cases)}",
+                f"sudoku9_status={refusal.get('banded_datasets', {}).get('sudoku9_status')}; sudoku9_generated_count={refusal.get('banded_datasets', {}).get('sudoku9_generated_count')}",
+                f"sudoku6_status={refusal.get('banded_datasets', {}).get('sudoku6_status')}",
+            ],
+            ["results/continuation_state/post_027.json", "results/stage_a_banded_gate_refusal/results.json"],
+            "Replace continuation-recorded Sudoku6 readiness with concrete generator/data artifacts during the G1 fix.",
+        ),
+        record(
+            "027",
+            "Sudoku6 bridge G1",
+            items.get("027", {}).get("status", "missing"),
+            f"G1={items.get('027', {}).get('g1')}; {items.get('027', {}).get('summary', '')}",
+            [
+                f"materialized_status={sudoku6.get('status')}; G1={sudoku6.get('G1')}; single_step_forced_accuracy={sudoku6.get('single_step_forced_accuracy')}",
+                f"gates={sudoku6_gates}",
+                f"stick_reasons={sudoku6.get('iterative_stick_reason_histogram')}",
+                f"teacher_trace_probe={sudoku6.get('teacher_trace_probe')}",
+            ],
+            ["results/continuation_state/post_027.json", "results/stage_a_sudoku6_bridge/results.json", "specs/g1_fix_spec.md"],
+            "Implement the G1 fix; do not soften G2 or L4 checks.",
+        ),
+        record(
+            "P0",
+            "ledger and validation housekeeping",
+            "Updated",
+            f"validation_checks={validation_summary.get('n_checks')}; validation_passed={validation.get('passed')}",
+            [
+                "Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.",
+                f"validation_pass={validation_summary.get('n_pass')}; validation_fail={validation_summary.get('n_fail')}",
+                "Current expected failures are Stage A G1/L4 and missing legacy scaffold artifacts.",
+            ],
+            ["CANONICAL_REPO.md", "analysis/validate_outputs.py", "results/validation/validation.json", "results/experiment_log/experiment_log.json"],
+            "Keep future reports item-first and preserve explicit red checks.",
+        ),
+        record(
+            "W3.0",
+            "Qwen3.5 checkpoint pin",
+            "Done",
+            f"model_id={qwen35.get('model_id')}; total_gib={_fmt(qwen35.get('total_gib'))}",
+            [
+                f"snapshot_path={qwen35.get('snapshot_path')}",
+                f"n_files={qwen35.get('n_files')}; total_bytes={qwen35.get('total_bytes')}",
+                "This pins availability of the external model asset but does not run hidden-hook or propagation probes.",
+            ],
+            ["results/model_download/qwen3_5_4b/qwen_download.json"],
+            "Use W3/P2 records before considering any Qwen3.5 integration route.",
+        ),
+        record(
+            "P1",
+            "G1 fix spec and diagnostics",
+            "Specified",
+            "g1_fix_spec plus Stage A adapter/gate/Sudoku6 diagnostic artifacts are present; retraining not launched.",
+            [
+                "Task A diagnosis and Task B deep-supervision bridge retrain are specified.",
+                "Current diagnostics still record G1=0.0 and L4 checks failing/not-run.",
+                "Stage A parent binaries are regenerated workflow artifacts, not tracked binaries.",
+            ],
+            ["specs/g1_fix_spec.md", "results/stage_a_adapter_wiring/results.json", "results/stage_a_banded_gate_refusal/results.json", "results/stage_a_sudoku6_bridge/results.json"],
+            "Launch the actual bridge retrain only after concrete Sudoku6 data/training entrypoints exist.",
+        ),
+        record(
+            "P2",
+            "W3 Qwen3.5 probe",
+            w3.get("integration_grade", "missing"),
+            f"W3.0={w3_verdicts.get('W3.0_checkpoint_pin')}; W3.1/W3.2 heavy probes not launched.",
+            [
+                f"hidden_size={w3_config.get('hidden_size')}; layers={w3_config.get('num_hidden_layers')}; full_attention_layers={w3_config.get('full_attention_layers')}; linear_layers={w3_config.get('linear_layers')}",
+                f"capacity_estimates={len(w3.get('capacity_estimates', []))}; hidden_hook={w3.get('hidden_hook_probe')}",
+                f"verdicts={w3_verdicts}",
+            ],
+            ["specs/w3_qwen35_probe_spec.md", "results/w3_qwen35_probe/results.json", "results/w3_qwen35_probe/verdicts.json"],
+            "Run hidden-hook, gating-survival, native-delta, and W3.2 propagation probes before integration.",
+        ),
+        record(
+            "P3",
+            "TRM defensive analysis",
+            "Not launched",
+            "No TRM checkpoint/test-set grading code is present in this repo yet.",
+            [
+                "TRM is allowed only as recipe guidance, never as a checkpoint inside controlled comparisons.",
+                "No defensive depth-ceiling test-set artifact exists in the current workspace.",
+            ],
+            ["specs/g1_fix_spec.md"],
+            "Create explicit TRM defensive analysis artifacts before reporting P3 evidence.",
+        ),
+        record(
+            "Module1 law",
+            "per-depth capacity",
+            "Writable now",
+            f"decision={perdepth.get('decision')}; open={perdepth.get('open')}; shards={perdepth.get('num_shards')}",
+            [
+                "Per-depth capacity law is the current Tier A quantitative anchor.",
+                "K-direction is negative/nonincreasing in the recorded per-depth artifact.",
+                "Bound-single and factored fitted K_eff choices are validated separately in the registry.",
+            ],
+            ["results/module1_capacity_perdepth_shards/results.json", "results/module1_capacity_perdepth_shards/curves.json", "results/module1_capacity_benchmark_full_shards/k_direction_corrected.json"],
+            "Use this law as support for structured register capacity, not as a substitute for Stage A autonomous proof.",
+        ),
     ]
+
+
+def _item_rows(records: list[dict[str, Any]]) -> list[list[str]]:
+    return [[record["item"], record["name"], record["status"], record["key_result"]] for record in records]
+
+
+def _item_detail_lines(records: list[dict[str, Any]]) -> list[str]:
+    lines = ["", "## Item Details", ""]
+    for record in records:
+        lines.extend([
+            f"### Item {record['item']} - {record['name']}",
+            "",
+            f"- Status: {record['status']}",
+            f"- Key result: {record['key_result']}",
+        ])
+        details = record.get("details", [])
+        if details:
+            lines.append("- Details:")
+            lines.extend(f"  - {detail}" for detail in details)
+        artifacts = record.get("artifacts", [])
+        if artifacts:
+            lines.append("- Artifacts:")
+            lines.extend(f"  - {artifact['path']} ({artifact['present']})" for artifact in artifacts)
+        if record.get("next_action"):
+            lines.append(f"- Next action: {record['next_action']}")
+        lines.append("")
+    return lines
 
 
 def generate_experiment_log(output_dir: str = "results/experiment_log") -> dict[str, Any]:
@@ -143,6 +377,7 @@ def generate_experiment_log(output_dir: str = "results/experiment_log") -> dict[
         "qwen35": _read_json("results/model_download/qwen3_5_4b/qwen_download.json"),
         "perdepth": _read_json("results/module1_capacity_perdepth_shards/results.json"),
         "gru_closeout": _read_json("results/gru_vs_structured_closeout/results.json"),
+        "m2_probe": _read_json("results/m2_operator_probe/report.json"),
         "m2_fix": _read_json("results/m2_operator_probe/report_fix_rescale.json"),
         "stage_a_manifest": _read_json("artifacts/stage_a/manifest.json"),
         "stage_a_report": _read_json("results/stage_a_backtrack/report.json"),
@@ -160,6 +395,8 @@ def generate_experiment_log(output_dir: str = "results/experiment_log") -> dict[
     mrv_branch = overall.get("branch", {}).get("mrv", {})
     items = {item.get("item"): item for item in continuation.get("items", [])}
     g1 = items.get("027", {}).get("g1")
+    item_records = _item_records(data)
+    item_rows = _item_rows(item_records)
 
     tier_a = [
         "Module 1 capacity law: per-depth ceiling-free K-direction negative; bound_single best K_eff = D_over_ln_product with R2 about 0.99; factored best K_eff = D_over_ln_Kvar/max-factor with R2 about 0.98; capacity is linear in D for the measured construction.",
@@ -182,11 +419,18 @@ def generate_experiment_log(output_dir: str = "results/experiment_log") -> dict[
     ]
 
     lines: list[str] = [
-        "# RECURRENT_NN Controlled Backtracking Ledger",
+        "# RECURRENT_NN Experiment Log",
         "",
         f"Generated at: {generated_at}",
         "",
-        "Scope: canonical continuation ledger for `/home/aiscuser/RECURRENT_NN`. This replaces the older Stage D oracle-trace scaffold front page; legacy constructed scaffold gates are archived below.",
+        "Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.",
+        "",
+        "## Items",
+        "",
+    ]
+    lines.extend(_table(["item", "name", "status", "key result"], item_rows))
+    lines.extend(_item_detail_lines(item_records))
+    lines.extend([
         "",
         "## Canonical Repo Decision",
         "",
@@ -197,7 +441,7 @@ def generate_experiment_log(output_dir: str = "results/experiment_log") -> dict[
         "## Evidence Tiers",
         "",
         "### Tier A - Writable Now",
-    ]
+    ])
     lines.extend(f"- {item}" for item in tier_a)
     lines.extend(["", "### Tier B - In Flight, Blocks Core Claim"])
     lines.extend(f"- {item}" for item in tier_b)
@@ -217,8 +461,6 @@ def generate_experiment_log(output_dir: str = "results/experiment_log") -> dict[
 
     lines.extend(["", "## Artifact Index", ""])
     lines.extend(_table(["artifact", "path", "present"], _artifact_rows(ARTIFACT_INDEX)))
-    lines.extend(["", "## Incremental Run Items", ""])
-    lines.extend(_table(["item", "name", "status", "key result"], _incremental_rows(data)))
     lines.extend(["", "## Validation Summary", ""])
     lines.extend(_table(["tier", "pass", "fail"], _validation_rows(validation)))
     lines.extend([
@@ -250,7 +492,8 @@ def generate_experiment_log(output_dir: str = "results/experiment_log") -> dict[
         "artifact_index": ARTIFACT_INDEX,
         "legacy_archive": LEGACY_ARCHIVE,
         "evidence_tiers": {"tier_a": tier_a, "tier_b": tier_b, "tier_c": tier_c},
-        "incremental_items": _incremental_rows(data),
+        "items": item_records,
+        "incremental_items": item_rows,
         "validation_summary": validation.get("summary", {}),
         "current_status": {
             "canonical_repo": "/home/aiscuser/RECURRENT_NN",
