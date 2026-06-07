@@ -77,10 +77,20 @@ def _read_json(path_text: str) -> Any | None:
 
 
 def _table(headers: list[str], rows: list[list[Any]]) -> list[str]:
-    lines = ["| " + " | ".join(headers) + " |", "| " + " | ".join("---" for _ in headers) + " |"]
+    lines = ["| " + " | ".join(_cell(header) for header in headers) + " |", "| " + " | ".join("---" for _ in headers) + " |"]
     for row in rows:
-        lines.append("| " + " | ".join(str(value) for value in row) + " |")
+        lines.append("| " + " | ".join(_cell(value) for value in row) + " |")
     return lines
+
+
+def _cell(value: Any) -> str:
+    if isinstance(value, float):
+        text = _fmt(value)
+    elif isinstance(value, (dict, list)):
+        text = _compact_value(value)
+    else:
+        text = str(value)
+    return text.replace("\n", "<br>").replace("|", "\\|")
 
 
 def _fmt(value: Any, digits: int = 4) -> str:
@@ -108,6 +118,156 @@ def _validation_rows(validation: dict[str, Any]) -> list[list[Any]]:
         tier_checks = [check for check in checks if check.get("tier") == tier]
         rows.append([tier, sum(check.get("status") == "PASS" for check in tier_checks), sum(check.get("status") == "FAIL" for check in tier_checks)])
     return rows
+
+
+def _compact_value(value: Any) -> str:
+    if value is None or isinstance(value, (bool, int, float, str)):
+        return _fmt(value)
+    if isinstance(value, list):
+        if len(value) <= 8 and all(item is None or isinstance(item, (bool, int, float, str)) for item in value):
+            return json.dumps(value, sort_keys=True)
+        return f"{len(value)} items"
+    if isinstance(value, dict):
+        scalar_items = [(key, val) for key, val in value.items() if val is None or isinstance(val, (bool, int, float, str))]
+        if 0 < len(scalar_items) <= 8 and len(scalar_items) == len(value):
+            return "; ".join(f"{key}={_fmt(val)}" for key, val in scalar_items)
+        return f"{len(value)} keys: {', '.join(list(value)[:8])}"
+    return str(type(value).__name__)
+
+
+def _infer_columns(rows: list[Any]) -> list[str]:
+    columns: list[str] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        for key in row:
+            if key not in columns:
+                columns.append(key)
+    return columns
+
+
+def _markdown_result_table(name: str, table: dict[str, Any], max_rows: int = 24) -> list[str]:
+    rows = table.get("rows", [])
+    columns = table.get("columns") or _infer_columns(rows)
+    lines = [f"##### {name}", ""]
+    if not columns or not rows:
+        lines.append("No rows recorded.")
+        lines.append("")
+        return lines
+    rendered_rows = []
+    for row in rows[:max_rows]:
+        if isinstance(row, dict):
+            rendered_rows.append([row.get(column, "") for column in columns])
+        else:
+            rendered_rows.append([row])
+    lines.extend(_table(columns, rendered_rows))
+    if len(rows) > max_rows:
+        lines.append("")
+        lines.append(f"Truncated to {max_rows} of {len(rows)} rows.")
+    lines.append("")
+    return lines
+
+
+def _json_summary_rows(data: dict[str, Any]) -> list[list[str]]:
+    skip = {"result_tables", "checks", "items", "steps", "detail_data", "data"}
+    priority = [
+        "module",
+        "status",
+        "verdict",
+        "decision",
+        "classification",
+        "integration_grade",
+        "passed",
+        "G1",
+        "single_step_forced_accuracy",
+        "n_sudoku6_tasks",
+        "reverts_nonzero_on_L4",
+        "forward_floor_on_L4",
+        "n_cells",
+        "preflight_failed",
+        "device",
+        "num_shards",
+        "model_id",
+        "total_gib",
+    ]
+    rows: list[list[str]] = []
+    seen = set()
+    for key in priority:
+        if key in data:
+            rows.append([key, _compact_value(data[key])])
+            seen.add(key)
+    for key, value in data.items():
+        if key in seen or key in skip:
+            continue
+        if value is None or isinstance(value, (bool, int, float, str)):
+            rows.append([key, _compact_value(value)])
+        elif key in {"summary", "gates", "verdicts", "routing", "banded_datasets", "training_curve_summary", "decision_branch", "honesty", "l4_structural_probe"}:
+            rows.append([key, _compact_value(value)])
+        if len(rows) >= 18:
+            break
+    return rows
+
+
+def _list_table_lines(name: str, rows: list[Any], max_rows: int = 12) -> list[str]:
+    if not rows or not all(isinstance(row, dict) for row in rows[:max_rows]):
+        return []
+    columns = _infer_columns(rows[:max_rows])
+    if not columns:
+        return []
+    table = {"columns": columns, "rows": rows}
+    return _markdown_result_table(name, table, max_rows=max_rows)
+
+
+def _artifact_result_lines(path_text: str, payload: dict[str, Any]) -> list[str]:
+    if not payload.get("embedded") or payload.get("format") != "json":
+        return []
+    data = payload.get("data")
+    if not isinstance(data, dict):
+        return []
+    lines = [f"##### {path_text}", ""]
+    summary_rows = _json_summary_rows(data)
+    if summary_rows:
+        lines.extend(_table(["field", "value"], summary_rows))
+        lines.append("")
+    result_tables = data.get("result_tables")
+    if isinstance(result_tables, dict):
+        for table_name, table in result_tables.items():
+            if isinstance(table, dict):
+                lines.extend(_markdown_result_table(table_name, table))
+    for key in ["single_step_forced_precision_recall_by_depth", "fail_closed_cases", "capacity_estimates", "p2_tables"]:
+        value = data.get(key)
+        if isinstance(value, list):
+            lines.extend(_list_table_lines(key, value))
+        elif isinstance(value, dict) and key == "p2_tables":
+            for table_name, table in value.items():
+                if isinstance(table, dict):
+                    lines.extend(_markdown_result_table(table_name, table))
+    return lines if len(lines) > 2 else []
+
+
+def _record_result_lines(record: dict[str, Any]) -> list[str]:
+    lines: list[str] = []
+    contract = record.get("contract_data")
+    contract_item_number = None
+    if isinstance(contract, dict):
+        contract_item_number = str(contract.get("item_number"))
+        result_tables = contract.get("result_tables", {})
+        if isinstance(result_tables, dict) and result_tables:
+            lines.extend(["#### Contract Result Tables", ""])
+            for table_name, table in result_tables.items():
+                if isinstance(table, dict):
+                    lines.extend(_markdown_result_table(table_name, table))
+    detail_data = record.get("detail_data", {})
+    artifact_sections: list[str] = []
+    for path_text, payload in detail_data.items():
+        data = payload.get("data")
+        if contract_item_number and isinstance(data, dict) and str(data.get("item_number")) == contract_item_number:
+            continue
+        artifact_sections.extend(_artifact_result_lines(path_text, payload))
+    if artifact_sections:
+        lines.extend(["#### Artifact JSON Results", ""])
+        lines.extend(artifact_sections)
+    return lines
 
 
 def _artifact_ref(path: str) -> dict[str, str]:
@@ -430,6 +590,9 @@ def _item_detail_lines(records: list[dict[str, Any]]) -> list[str]:
                     lines.append(f"  - {path}: not embedded ({payload.get('reason')})")
                 else:
                     lines.append(f"  - {path}: missing")
+        result_lines = _record_result_lines(record)
+        if result_lines:
+            lines.extend(result_lines)
         if record.get("next_action"):
             lines.append(f"- Next action: {record['next_action']}")
         lines.append("")

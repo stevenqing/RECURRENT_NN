@@ -118,7 +118,7 @@
   },
   "decision": {
     "gate_outcomes": [
-      {"gate": "validation", "outcome": "PASS", "number": "143/143 checks pass"},
+      {"gate": "validation", "outcome": "PASS", "number": "149/149 checks pass"},
       {"gate": "Stage_A_G1_diagnostic", "outcome": "PASS_DIAGNOSTIC", "number": "G1=1.0"},
       {"gate": "Stage_A_L4_diagnostic", "outcome": "PASS_DIAGNOSTIC", "number": "reverts=true; forward=true"},
       {"gate": "legacy_presence", "outcome": "PASS", "number": "6/6 artifacts present"}
