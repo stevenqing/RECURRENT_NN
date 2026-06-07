@@ -1,0 +1,127 @@
+{
+  "G1": 0.03059724992127637,
+  "G2": 0.030201342281879196,
+  "G3": {
+    "depth_histogram": {
+      "1": 21,
+      "2": 11
+    },
+    "n_instances": 32,
+    "status": "generated_for_external_anchor"
+  },
+  "acceptance": {
+    "G1_pass": false,
+    "G1_threshold": 0.95,
+    "autonomous_stage_a_run": false,
+    "operator_type": "learned_recurrent",
+    "stage_a_autonomous_cells": 0
+  },
+  "checkpoint": "results/recurrent_operator/learned_recurrent_operator_seed102.pt",
+  "dataset": {
+    "eval_depth_histogram": {
+      "1": 328,
+      "2": 184
+    },
+    "eval_examples": 19054,
+    "eval_instances_generated": 512,
+    "eval_instances_requested": 512,
+    "l4_depth_histogram": {
+      "4": 56,
+      "5": 42,
+      "6": 20,
+      "7": 7,
+      "8": 3
+    },
+    "l4_examples": 5066,
+    "l4_instances_generated": 128,
+    "l4_instances_requested": 128,
+    "train_depth_histogram": {
+      "1": 2772,
+      "2": 1324
+    },
+    "train_examples": 151871,
+    "train_instances_generated": 4096,
+    "train_instances_requested": 4096
+  },
+  "device": "cuda:0",
+  "generated_at": "2026-06-07T13:07:55.856904+00:00",
+  "honesty": {
+    "does_not_establish": "This trainer produces a learned checkpoint and live bridge metrics, but does not establish autonomous Stage A solving unless a later Stage A run consumes the checkpoint and reports real cells."
+  },
+  "module": "train_recurrent_operator",
+  "operator_type": "learned_recurrent",
+  "recipe": {
+    "band_augmentation": "not_applied_in_smoke_path",
+    "digit_augmentation": true,
+    "ema_recorded": true,
+    "per_step_deep_supervision": true,
+    "tensor_io": true,
+    "trained_on_depths": "L1-L2_only",
+    "weight_tied_recurrent_net": true
+  },
+  "seed": 102,
+  "source": "learned_recurrent_training_run",
+  "status": "G1_NOT_MET",
+  "training_curve_summary": {
+    "batch_size": 512,
+    "history": [
+      {
+        "eval_joint_accuracy": 0.01220703125,
+        "loss": 6.793936729431152,
+        "step": 1
+      },
+      {
+        "eval_joint_accuracy": 0.00244140625,
+        "loss": 5.746440887451172,
+        "step": 30
+      },
+      {
+        "eval_joint_accuracy": 0.0048828125,
+        "loss": 5.627549648284912,
+        "step": 60
+      },
+      {
+        "eval_joint_accuracy": 0.00732421875,
+        "loss": 5.608119487762451,
+        "step": 90
+      },
+      {
+        "eval_joint_accuracy": 0.00439453125,
+        "loss": 5.616403579711914,
+        "step": 120
+      },
+      {
+        "eval_joint_accuracy": 0.00390625,
+        "loss": 5.590563774108887,
+        "step": 150
+      },
+      {
+        "eval_joint_accuracy": 0.005859375,
+        "loss": 5.507100582122803,
+        "step": 180
+      },
+      {
+        "eval_joint_accuracy": 0.0078125,
+        "loss": 5.6162567138671875,
+        "step": 210
+      },
+      {
+        "eval_joint_accuracy": 0.0126953125,
+        "loss": 5.55249547958374,
+        "step": 240
+      },
+      {
+        "eval_joint_accuracy": 0.021484375,
+        "loss": 5.605774879455566,
+        "step": 270
+      },
+      {
+        "eval_joint_accuracy": 0.03271484375,
+        "loss": 5.55826473236084,
+        "step": 300
+      }
+    ],
+    "lr": 0.0003,
+    "steps": 300
+  }
+}

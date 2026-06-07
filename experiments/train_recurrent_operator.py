@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 import json
@@ -116,29 +117,74 @@ def _task_examples(instances: list[Sudoku6x6Instance]) -> list[TrainingExample]:
     return examples
 
 
-def _generate_band(min_depth: int, max_depth: int, n_instances: int, seed: int) -> tuple[list[Sudoku6x6Instance], list[TrainingExample]]:
+def _generate_chunk(args: tuple[int, int, int, int]) -> list[Sudoku6x6Instance]:
+    min_depth, max_depth, n_instances, seed = args
+    return generate_6x6_by_depth_band(min_depth=min_depth, max_depth=max_depth, n_instances=n_instances, seed=seed)
+
+
+def _generate_band(min_depth: int, max_depth: int, n_instances: int, seed: int, generation_workers: int = 1) -> tuple[list[Sudoku6x6Instance], list[TrainingExample]]:
     print(json.dumps({"event": "generate_6x6_start", "min_depth": min_depth, "max_depth": max_depth, "n_instances": n_instances, "seed": seed}), flush=True)
     instances = []
     chunk_size = 256
-    while len(instances) < n_instances:
-        remaining = n_instances - len(instances)
-        chunk_target = min(chunk_size, remaining)
-        chunk_seed = seed + len(instances) * 17
-        chunk = generate_6x6_by_depth_band(min_depth=min_depth, max_depth=max_depth, n_instances=chunk_target, seed=chunk_seed)
-        instances.extend(chunk)
-        print(
-            json.dumps({
-                "event": "generate_6x6_progress",
-                "min_depth": min_depth,
-                "max_depth": max_depth,
-                "instances": len(instances),
-                "target": n_instances,
-                "last_chunk": len(chunk),
-            }),
-            flush=True,
-        )
-        if not chunk:
-            break
+    generation_workers = max(1, generation_workers)
+    if generation_workers == 1:
+        while len(instances) < n_instances:
+            remaining = n_instances - len(instances)
+            chunk_target = min(chunk_size, remaining)
+            chunk_seed = seed + len(instances) * 17
+            chunk = _generate_chunk((min_depth, max_depth, chunk_target, chunk_seed))
+            instances.extend(chunk)
+            print(
+                json.dumps({
+                    "event": "generate_6x6_progress",
+                    "min_depth": min_depth,
+                    "max_depth": max_depth,
+                    "instances": len(instances),
+                    "target": n_instances,
+                    "last_chunk": len(chunk),
+                    "generation_workers": generation_workers,
+                }),
+                flush=True,
+            )
+            if not chunk:
+                break
+    else:
+        next_seed_offset = 0
+        with ProcessPoolExecutor(max_workers=generation_workers) as executor:
+            while len(instances) < n_instances:
+                remaining = n_instances - len(instances)
+                n_jobs = min(generation_workers, (remaining + chunk_size - 1) // chunk_size)
+                futures = []
+                for job_index in range(n_jobs):
+                    chunk_target = min(chunk_size, remaining - job_index * chunk_size)
+                    if chunk_target <= 0:
+                        continue
+                    chunk_seed = seed + (next_seed_offset * chunk_size) * 17
+                    next_seed_offset += 1
+                    futures.append(executor.submit(_generate_chunk, (min_depth, max_depth, chunk_target, chunk_seed)))
+                made_progress = False
+                for future in as_completed(futures):
+                    chunk = future.result()
+                    instances.extend(chunk)
+                    if len(instances) > n_instances:
+                        instances = instances[:n_instances]
+                    made_progress = made_progress or bool(chunk)
+                    print(
+                        json.dumps({
+                            "event": "generate_6x6_progress",
+                            "min_depth": min_depth,
+                            "max_depth": max_depth,
+                            "instances": len(instances),
+                            "target": n_instances,
+                            "last_chunk": len(chunk),
+                            "generation_workers": generation_workers,
+                        }),
+                        flush=True,
+                    )
+                    if len(instances) >= n_instances:
+                        break
+                if not made_progress:
+                    break
     examples = _task_examples(instances)
     print(json.dumps({"event": "generate_6x6_done", "min_depth": min_depth, "max_depth": max_depth, "instances": len(instances), "examples": len(examples)}), flush=True)
     return instances, examples
@@ -210,6 +256,25 @@ def _evaluate(model: WeightTiedRecurrentOperator, rows: list[TensorExample], dev
     }
 
 
+def _cuda_device_ids(devices: str) -> list[int]:
+    ids = []
+    for item in devices.split(","):
+        item = item.strip()
+        if not item:
+            continue
+        if item == "cuda":
+            ids.append(0)
+        elif item.startswith("cuda:"):
+            ids.append(int(item.split(":", 1)[1]))
+        else:
+            raise ValueError(f"unsupported CUDA device specifier: {item}")
+    return ids
+
+
+def _base_model(model: torch.nn.Module) -> torch.nn.Module:
+    return model.module if isinstance(model, torch.nn.DataParallel) else model
+
+
 def train_recurrent_operator(
     output_dir: str = "results/recurrent_operator",
     seed: int = 102,
@@ -222,24 +287,32 @@ def train_recurrent_operator(
     hidden_dim: int = 128,
     recurrence_steps: int = 6,
     lr: float = 3e-4,
+    devices: str = "",
+    generation_workers: int = 1,
 ) -> dict[str, Any]:
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
     torch.manual_seed(seed)
+    device_ids = _cuda_device_ids(devices) if devices else []
     if device.startswith("cuda") and not torch.cuda.is_available():
         device = "cpu"
-    train_instances_rows, train_examples = _generate_band(1, 2, train_instances, seed)
-    eval_instances_rows, eval_examples = _generate_band(1, 2, eval_instances, seed + 1000)
-    l4_rows_raw, l4_examples = _generate_band(4, 8, l4_instances, seed + 2000)
+        device_ids = []
+    if device_ids:
+        device = f"cuda:{device_ids[0]}"
+    train_instances_rows, train_examples = _generate_band(1, 2, train_instances, seed, generation_workers)
+    eval_instances_rows, eval_examples = _generate_band(1, 2, eval_instances, seed + 1000, generation_workers)
+    l4_rows_raw, l4_examples = _generate_band(4, 8, l4_instances, seed + 2000, generation_workers)
     print(json.dumps({"event": "generate_9x9_start", "n_instances": min(32, max(1, eval_instances // 16)), "seed": seed + 3000}), flush=True)
     sudoku9_probe = generate_9x9_by_depth_band(1, 8, min(32, max(1, eval_instances // 16)), seed + 3000)
     print(json.dumps({"event": "generate_9x9_done", "instances": len(sudoku9_probe)}), flush=True)
     train_rows = _tensorize(train_examples, augment_digits=True, seed=seed + 10)
     eval_rows = _tensorize(eval_examples, augment_digits=False, seed=seed + 20)
     l4_rows = _tensorize(l4_examples, augment_digits=False, seed=seed + 30)
-    model = WeightTiedRecurrentOperator(hidden_dim=hidden_dim, recurrence_steps=recurrence_steps).to(device)
+    model: torch.nn.Module = WeightTiedRecurrentOperator(hidden_dim=hidden_dim, recurrence_steps=recurrence_steps).to(device)
+    if len(device_ids) > 1:
+        model = torch.nn.DataParallel(model, device_ids=device_ids)
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
-    ema_state = {key: value.detach().clone() for key, value in model.state_dict().items()}
+    ema_state = {key: value.detach().clone() for key, value in _base_model(model).state_dict().items()}
     ema_decay = 0.995
     history = []
     for step in range(1, steps + 1):
@@ -252,7 +325,7 @@ def train_recurrent_operator(
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
         optimizer.step()
         with torch.no_grad():
-            for key, value in model.state_dict().items():
+            for key, value in _base_model(model).state_dict().items():
                 ema_state[key].mul_(ema_decay).add_(value.detach(), alpha=1.0 - ema_decay)
         if step == 1 or step == steps or step % max(1, steps // 10) == 0:
             eval_metrics = _evaluate(model, eval_rows[: min(len(eval_rows), 2048)], device)
@@ -262,9 +335,9 @@ def train_recurrent_operator(
     torch.save({
         "model_class": "WeightTiedRecurrentOperator",
         "operator_type": "learned_recurrent",
-        "state_dict": model.state_dict(),
+        "state_dict": _base_model(model).state_dict(),
         "ema_state_dict": ema_state,
-        "config": {"input_dim": INPUT_DIM, "hidden_dim": hidden_dim, "recurrence_steps": recurrence_steps, "max_vars": MAX_VARS, "max_vals": MAX_VALS, "seed": seed},
+        "config": {"input_dim": INPUT_DIM, "hidden_dim": hidden_dim, "recurrence_steps": recurrence_steps, "max_vars": MAX_VARS, "max_vals": MAX_VALS, "seed": seed, "devices": device_ids},
     }, checkpoint_path)
     g1 = _evaluate(model, eval_rows, device)
     g2 = _evaluate(model, l4_rows, device)
@@ -282,6 +355,7 @@ def train_recurrent_operator(
         "status": "G1_PASS" if passed else "G1_NOT_MET",
         "seed": seed,
         "device": device,
+        "devices": [f"cuda:{index}" for index in device_ids] if device_ids else [device],
         "checkpoint": str(checkpoint_path),
         "dataset": {
             "train_instances_requested": train_instances,
@@ -306,7 +380,7 @@ def train_recurrent_operator(
             "band_augmentation": "not_applied_in_smoke_path",
             "trained_on_depths": "L1-L2_only",
         },
-        "training_curve_summary": {"history": history, "steps": steps, "batch_size": batch_size, "lr": lr},
+        "training_curve_summary": {"history": history, "steps": steps, "batch_size": batch_size, "lr": lr, "data_parallel_devices": [f"cuda:{index}" for index in device_ids], "generation_workers": generation_workers},
         "G1": g1["joint_accuracy"],
         "G2": g2["joint_accuracy"],
         "G3": g3,
@@ -339,5 +413,7 @@ if __name__ == "__main__":
     parser.add_argument("--hidden-dim", type=int, default=128)
     parser.add_argument("--recurrence-steps", type=int, default=6)
     parser.add_argument("--lr", type=float, default=3e-4)
+    parser.add_argument("--devices", default="", help="Comma-separated CUDA devices for DataParallel training, e.g. cuda:0,cuda:1,...,cuda:7")
+    parser.add_argument("--generation-workers", type=int, default=1)
     args = parser.parse_args()
-    train_recurrent_operator(args.output_dir, args.seed, args.device, args.train_instances, args.eval_instances, args.l4_instances, args.steps, args.batch_size, args.hidden_dim, args.recurrence_steps, args.lr)
+    train_recurrent_operator(args.output_dir, args.seed, args.device, args.train_instances, args.eval_instances, args.l4_instances, args.steps, args.batch_size, args.hidden_dim, args.recurrence_steps, args.lr, args.devices, args.generation_workers)

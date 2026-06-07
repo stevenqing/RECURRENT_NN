@@ -469,7 +469,7 @@
       "tier": "tier_c"
     },
     {
-      "detail": "integration_grade=cached_gdn_state_measured_pending_propagation_delta; measured_object=cached_gdn_recurrent_state",
+      "detail": "integration_grade=cached_gdn_state_measured_with_propagation_delta; measured_object=cached_gdn_recurrent_state",
       "name": "w3_integration_grade_reissued_on_true_state",
       "status": "PASS",
       "tier": "tier_c"
@@ -495,6 +495,12 @@
     {
       "detail": "verdict=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; rows=3; measured_object=cached_gdn_recurrent_state",
       "name": "w3_cached_state_native_rule_gap_measured",
+      "status": "PASS",
+      "tier": "tier_c"
+    },
+    {
+      "detail": "rows=5",
+      "name": "w3_propagation_per_task_delta_measured",
       "status": "PASS",
       "tier": "tier_c"
     },
@@ -751,13 +757,13 @@
       "tier": "contract"
     },
     {
-      "detail": "The T2 smoke checkpoint does not meet G1>=0.95 and does not produce autonomous Stage A cells. The formal T2 run was launched but final metrics were not availabl",
+      "detail": "The T2 smoke checkpoint and the formal single-GPU checkpoint do not meet G1>=0.95 and do not produce autonomous Stage A cells. The accelerated 8-GPU T2 run was ",
       "name": "log_item_034_honesty_does_not_establish",
       "status": "PASS",
       "tier": "contract"
     },
     {
-      "detail": "gates=5; routing=Wait for the formal T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Then run W3.2 propagation delta on cached-state-linked outputs.",
+      "detail": "gates=7; routing=Wait for the accelerated 8-GPU T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims.",
       "name": "log_item_034_decision_numbers_and_routing",
       "status": "PASS",
       "tier": "contract"
@@ -985,11 +991,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-07T12:55:28.115227+00:00",
+  "generated_at": "2026-06-07T13:13:53.374002+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 164,
+    "n_checks": 165,
     "n_fail": 4,
-    "n_pass": 160
+    "n_pass": 161
   }
 }

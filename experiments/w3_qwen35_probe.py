@@ -474,7 +474,9 @@ def _merge_propagation_shards(output_dir: str, shard_dirs: list[str]) -> dict[st
     }
     payload["propagation_probe"] = merged
     payload.setdefault("verdicts", {})["W3.2_qwen3_4b_delta_table"] = merged["status"]
-    if payload.get("survival_probe") and payload.get("native_delta_probe") and rows:
+    if payload.get("measured_object") == "cached_gdn_recurrent_state" and payload.get("survival_probe") and payload.get("native_delta_probe") and rows:
+        payload["integration_grade"] = "cached_gdn_state_measured_with_propagation_delta"
+    elif payload.get("survival_probe") and payload.get("native_delta_probe") and rows:
         payload["integration_grade"] = "alongside_only_measured_not_in_state"
     payload["p2_tables"] = _p2_tables(
         payload.get("config", {}),
@@ -486,7 +488,7 @@ def _merge_propagation_shards(output_dir: str, shard_dirs: list[str]) -> dict[st
         merged,
     )
     (out / "results.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    (out / "verdicts.json").write_text(json.dumps({"generated_at": payload.get("generated_at"), "model_id": payload.get("model_id"), "verdicts": payload.get("verdicts"), "integration_grade": payload.get("integration_grade")}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    (out / "verdicts.json").write_text(json.dumps({"generated_at": payload.get("generated_at"), "model_id": payload.get("model_id"), "measured_object": payload.get("measured_object"), "verdicts": payload.get("verdicts"), "integration_grade": payload.get("integration_grade")}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(payload, indent=2, sort_keys=True))
     return payload
 

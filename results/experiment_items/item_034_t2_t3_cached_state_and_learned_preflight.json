@@ -7,7 +7,7 @@
   "code_added_used": [
     {
       "path": "experiments/train_recurrent_operator.py",
-      "change": "Added a weight-tied recurrent operator trainer that generates real Sudoku6 L1-L2 train/eval examples, evaluates held-out G1/G2, samples L4 and 9x9 anchor bins, writes a learned_recurrent checkpoint, and emits acceptance.json with explicit object/source labels."
+      "change": "Added a weight-tied recurrent operator trainer that generates real Sudoku6 L1-L2 train/eval examples, evaluates held-out G1/G2, samples L4 and 9x9 anchor bins, writes a learned_recurrent checkpoint, emits acceptance.json with explicit object/source labels, and now supports multi-process generation plus DataParallel multi-GPU training via --generation-workers and --devices."
     },
     {
       "path": "tasks/sudoku/generator_9x9.py",
@@ -42,6 +42,14 @@
     {
       "command": "~/.local/bin/uv run --python .venv/bin/python python -m experiments.w3_qwen35_probe --output-dir results/w3_qwen35_probe --load-model --run-cached-state --device cuda:1",
       "purpose": "Regenerated canonical W3 artifact on the actual Qwen3.5 cached GDN recurrent state."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.train_recurrent_operator --output-dir results/recurrent_operator --device cuda:0 --train-instances 4096 --eval-instances 512 --l4-instances 128 --steps 300 --batch-size 512 --hidden-dim 128 --recurrence-steps 6",
+      "purpose": "Ran formal-size single-GPU T2 acceptance on 4096 train instances, 512 eval instances, and 128 L4 instances; recorded that G1 remains below threshold."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.train_recurrent_operator --output-dir results/recurrent_operator_8gpu --device cuda:0 --devices cuda:0,cuda:1,cuda:2,cuda:3,cuda:4,cuda:5,cuda:6,cuda:7 --generation-workers 16 --train-instances 4096 --eval-instances 512 --l4-instances 128 --steps 3000 --batch-size 4096 --hidden-dim 256 --recurrence-steps 8 --lr 5e-4",
+      "purpose": "Started the accelerated 16-worker data generation plus 8-GPU DataParallel T2 run; in progress at log time."
     }
   ],
   "artifacts": [
@@ -52,13 +60,15 @@
     "artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl",
     "results/stage_a_backtrack_learned_smoke/preflight.json",
     "results/w3_qwen35_probe/results.json",
-    "results/w3_qwen35_probe/verdicts.json"
+    "results/w3_qwen35_probe/verdicts.json",
+    "results/recurrent_operator/acceptance.json"
   ],
   "provenance": {
     "generated_at": "2026-06-07",
     "model_id": "Qwen/Qwen3.5-4B",
     "qwen35_snapshot_verified": "models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
-    "formal_t2_run": "started with train_instances=4096 eval_instances=512 l4_instances=128 steps=300 on cuda:0; final metrics pending while this item was drafted"
+    "formal_t2_run": "completed with train_instances=4096 eval_instances=512 l4_instances=128 steps=300 on cuda:0; G1=0.03059724992127637 and G2=0.030201342281879196, so G1_pass=false",
+    "accelerated_8gpu_run": "started with --devices cuda:0,cuda:1,cuda:2,cuda:3,cuda:4,cuda:5,cuda:6,cuda:7 and --generation-workers 16; acceptance pending at commit time"
   },
   "result_tables": {
     "stage_a_preflight_learned_smoke": {
@@ -82,37 +92,70 @@
         {"metric": "stage_a_autonomous_cells", "value": 0}
       ]
     },
+    "t2_formal_single_gpu_acceptance": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "operator_type", "value": "learned_recurrent"},
+        {"metric": "status", "value": "G1_NOT_MET"},
+        {"metric": "G1", "value": 0.03059724992127637},
+        {"metric": "G2", "value": 0.030201342281879196},
+        {"metric": "G1_pass", "value": false},
+        {"metric": "train_instances_generated", "value": 4096},
+        {"metric": "train_examples", "value": 151871},
+        {"metric": "eval_instances_generated", "value": 512},
+        {"metric": "eval_examples", "value": 19054},
+        {"metric": "l4_instances_generated", "value": 128},
+        {"metric": "l4_examples", "value": 5066},
+        {"metric": "g3_9x9_anchor_instances", "value": 32}
+      ]
+    },
+    "t2_accelerated_8gpu_run": {
+      "columns": ["field", "value"],
+      "rows": [
+        {"field": "status_at_commit", "value": "RUNNING"},
+        {"field": "generation_workers", "value": 16},
+        {"field": "devices", "value": ["cuda:0", "cuda:1", "cuda:2", "cuda:3", "cuda:4", "cuda:5", "cuda:6", "cuda:7"]},
+        {"field": "train_instances_generated", "value": 4096},
+        {"field": "eval_instances_generated", "value": 512},
+        {"field": "l4_instances_generated", "value": 128},
+        {"field": "acceptance", "value": "pending"}
+      ]
+    },
     "w3_cached_gdn_probe": {
       "columns": ["metric", "value"],
       "rows": [
         {"metric": "measured_object", "value": "cached_gdn_recurrent_state"},
-        {"metric": "integration_grade", "value": "cached_gdn_state_measured_pending_propagation_delta"},
+        {"metric": "integration_grade", "value": "cached_gdn_state_measured_with_propagation_delta"},
         {"metric": "recurrent_state_rows", "value": 24},
         {"metric": "conv_state_rows", "value": 24},
         {"metric": "recurrent_state_shape", "value": [1, 32, 128, 128]},
         {"metric": "perturbation_max_logit_delta", "value": 0.15625},
         {"metric": "restore_max_logit_delta", "value": 0.0},
         {"metric": "survival_rows", "value": 5},
-        {"metric": "native_rule_gap_rows", "value": 3}
+        {"metric": "native_rule_gap_rows", "value": 3},
+        {"metric": "propagation_delta_rows", "value": 5},
+        {"metric": "propagation_delta_status", "value": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"}
       ]
     }
   },
   "honesty": {
-    "does_not_establish": "The T2 smoke checkpoint does not meet G1>=0.95 and does not produce autonomous Stage A cells. The formal T2 run was launched but final metrics were not available at item creation time. W3 now measures the right cached object for round-trip, survival, and native-rule gap, but W3.2 propagation delta remains NOT_RUN.",
+    "does_not_establish": "The T2 smoke checkpoint and the formal single-GPU checkpoint do not meet G1>=0.95 and do not produce autonomous Stage A cells. The accelerated 8-GPU T2 run was started but had not emitted acceptance at commit time. W3 now measures the right cached object for round-trip, survival, native-rule gap, and a small W3.2 propagation delta, but the W3.2 verdict remains NOT_ACCEPTED.",
     "limitations": [
       "Stage A run_shard still records learned-operator availability but does not execute a full autonomous backtracking loop.",
-      "T2 G1 remains unaccepted until a formal run reaches threshold.",
-      "W3.2 qwen3-vs-qwen3.5 propagation delta still needs per-task execution before final integration claims."
+      "T2 G1 remains unaccepted: the completed formal single-GPU run reached G1=0.03059724992127637, and the accelerated 8-GPU run remains pending.",
+      "W3.2 qwen3-vs-qwen3.5 propagation delta was measured on a small n=1/task shard and should be broadened before final integration claims."
     ]
   },
   "decision": {
     "gate_outcomes": [
       {"gate": "T2_trainer_smoke", "outcome": "RUN", "number": "G1=0.0045045045045045045; G1_pass=false"},
+      {"gate": "T2_formal_single_gpu", "outcome": "G1_NOT_MET", "number": "G1=0.03059724992127637; G2=0.030201342281879196; train=4096; eval=512; L4=128"},
+      {"gate": "T2_accelerated_8gpu", "outcome": "RUNNING", "number": "devices=8; generation_workers=16; acceptance=pending"},
       {"gate": "Stage_A_learned_preflight", "outcome": "READY", "number": "operator, bridge decoder, teacher trace, and module1 capacity present"},
       {"gate": "T3_cached_state_round_trip", "outcome": "PASS", "number": "perturb_delta=0.15625; restore_delta=0.0"},
       {"gate": "T3_cached_state_survival_native_gap", "outcome": "MEASURED", "number": "survival_rows=5; native_rule_gap_rows=3"},
-      {"gate": "T3_propagation_delta", "outcome": "PENDING", "number": "W3.2_qwen3_4b_delta_table=NOT_RUN"}
+      {"gate": "T3_propagation_delta", "outcome": "MEASURED_NOT_ACCEPTED", "number": "W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED; rows=5"}
     ],
-    "next_step_routing": "Wait for the formal T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Then run W3.2 propagation delta on cached-state-linked outputs."
+    "next_step_routing": "Wait for the accelerated 8-GPU T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims."
   }
 }
