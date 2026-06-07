@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-07T13:13:53.528279+00:00
+Generated at: 2026-06-07T13:21:34.160095+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -29,7 +29,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 031 | P2 W3 Qwen3.5 survival, native-delta, and propagation shards | MEASURED_NOT_ACCEPTED | Treat Qwen3.5 as alongside-only measured evidence, not in-state integration. If P2 continues, scale propagation or design a true cached-state intervention; do not integrate Qwen3.5 into the structured state path from this item. |
 | 032 | Validation green closeout for nine failing checks | VALIDATION_GREEN | Proceed to learned recurrent Stage A bridge/autonomous grid work; validation is green, but the core claim still needs full autonomous Stage A evidence. |
 | 033 | Validation object binding corrective pass | VALIDATION_RE_REDDENED | Proceed to T2 learned recurrent operator/data/trainer and T3 cached GDN recurrent-state probe; do not treat validation red as environment failure. |
-| 034 | T2 learned-operator preflight and T3 cached GDN state probe | PARTIAL_EVIDENCE_RECORDED | Wait for the accelerated 8-GPU T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims. |
+| 034 | T2 learned-operator preflight and T3 cached GDN state probe | PARTIAL_EVIDENCE_RECORDED | T2 should shift from simply adding steps/GPUs to correcting the learned target/interface or architecture, because the accelerated 8-GPU run still plateaus far below G1>=0.95. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims. |
 
 ## Item Details
 
@@ -97,8 +97,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/validation/validation.md (yes)
 - Detail data:
   - analysis/validate_outputs.py: embedded py (29692 bytes)
-  - results/validation/validation.json: embedded json (29800 bytes)
-  - results/validation/validation.md: embedded md (17772 bytes)
+  - results/validation/validation.json: embedded json (29829 bytes)
+  - results/validation/validation.md: embedded md (17801 bytes)
 #### Artifact JSON Results
 
 ##### results/validation/validation.json
@@ -106,7 +106,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | field | value |
 | --- | --- |
 | passed | False |
-| generated_at | 2026-06-07T13:13:53.374002+00:00 |
+| generated_at | 2026-06-07T13:21:34.006078+00:00 |
 | summary | n_checks=165; n_fail=4; n_pass=161 |
 
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
@@ -424,7 +424,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 - Detail data:
   - CANONICAL_REPO.md: embedded md (532 bytes)
   - analysis/validate_outputs.py: embedded py (29692 bytes)
-  - results/validation/validation.json: embedded json (29800 bytes)
+  - results/validation/validation.json: embedded json (29829 bytes)
   - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
 #### Artifact JSON Results
 
@@ -433,7 +433,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | field | value |
 | --- | --- |
 | passed | False |
-| generated_at | 2026-06-07T13:13:53.374002+00:00 |
+| generated_at | 2026-06-07T13:21:34.006078+00:00 |
 | summary | n_checks=165; n_fail=4; n_pass=161 |
 
 - Next action: Keep future reports item-first and preserve explicit red checks.
@@ -776,8 +776,8 @@ No rows recorded.
   - REPRODUCIBILITY.md: embedded md (3478 bytes)
   - scripts/reproduce_continuation_state.sh: embedded sh (1972 bytes)
   - results/continuation_state/post_027.json: embedded json (1453 bytes)
-  - results/validation/validation.json: embedded json (29800 bytes)
-  - results/validation/validation.md: embedded md (17772 bytes)
+  - results/validation/validation.json: embedded json (29829 bytes)
+  - results/validation/validation.md: embedded md (17801 bytes)
   - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
   - results/experiment_log/experiment_log.md: not embedded (self_output_not_embedded)
   - specs/log_item_contract.md: embedded md (3662 bytes)
@@ -830,7 +830,7 @@ No rows recorded.
 | field | value |
 | --- | --- |
 | passed | False |
-| generated_at | 2026-06-07T13:13:53.374002+00:00 |
+| generated_at | 2026-06-07T13:21:34.006078+00:00 |
 | summary | n_checks=165; n_fail=4; n_pass=161 |
 
 ##### results/stage_a_adapter_wiring/results.json
@@ -1916,8 +1916,8 @@ No rows recorded.
   - results/d_stage_2/results.json: missing
   - results/d_stage_3/results.json: missing
   - results/verifier/results.json: missing
-  - results/validation/validation.json: embedded json (29800 bytes)
-  - results/validation/validation.md: embedded md (17772 bytes)
+  - results/validation/validation.json: embedded json (29829 bytes)
+  - results/validation/validation.md: embedded md (17801 bytes)
 #### Contract Result Tables
 
 ##### failure_before_after
@@ -2009,7 +2009,7 @@ No rows recorded.
 | field | value |
 | --- | --- |
 | passed | False |
-| generated_at | 2026-06-07T13:13:53.374002+00:00 |
+| generated_at | 2026-06-07T13:21:34.006078+00:00 |
 | summary | n_checks=165; n_fail=4; n_pass=161 |
 
 - Next action: Proceed to learned recurrent Stage A bridge/autonomous grid work; validation is green, but the core claim still needs full autonomous Stage A evidence.
@@ -2042,8 +2042,8 @@ No rows recorded.
   - results/stage_a_sudoku6_bridge/results.json: embedded json (4890 bytes)
   - results/w3_qwen35_probe/results.json: embedded json (56478 bytes)
   - results/w3_qwen35_probe/verdicts.json: embedded json (664 bytes)
-  - results/validation/validation.json: embedded json (29800 bytes)
-  - results/validation/validation.md: embedded md (17772 bytes)
+  - results/validation/validation.json: embedded json (29829 bytes)
+  - results/validation/validation.md: embedded md (17801 bytes)
 #### Contract Result Tables
 
 ##### validation_registry_before_after
@@ -2223,7 +2223,7 @@ No rows recorded.
 | field | value |
 | --- | --- |
 | passed | False |
-| generated_at | 2026-06-07T13:13:53.374002+00:00 |
+| generated_at | 2026-06-07T13:21:34.006078+00:00 |
 | summary | n_checks=165; n_fail=4; n_pass=161 |
 
 - Next action: Proceed to T2 learned recurrent operator/data/trainer and T3 cached GDN recurrent-state probe; do not treat validation red as environment failure.
@@ -2231,13 +2231,13 @@ No rows recorded.
 ### Item 034 - T2 learned-operator preflight and T3 cached GDN state probe
 
 - Status: PARTIAL_EVIDENCE_RECORDED
-- Key result: Wait for the accelerated 8-GPU T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims.
+- Key result: T2 should shift from simply adding steps/GPUs to correcting the learned target/interface or architecture, because the accelerated 8-GPU run still plateaus far below G1>=0.95. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims.
 - Purpose: Continue T2/T3 after validation object binding by producing real learned-operator artifacts for preflight wiring and measuring W3 on the actual Qwen3.5 cached GDN recurrent state.
 - Details:
   - purpose=Continue T2/T3 after validation object binding by producing real learned-operator artifacts for preflight wiring and measuring W3 on the actual Qwen3.5 cached GDN recurrent state.
   - commands=6
   - result_tables=['stage_a_preflight_learned_smoke', 't2_smoke_acceptance', 't2_formal_single_gpu_acceptance', 't2_accelerated_8gpu_run', 'w3_cached_gdn_probe']
-  - honesty=The T2 smoke checkpoint and the formal single-GPU checkpoint do not meet G1>=0.95 and do not produce autonomous Stage A cells. The accelerated 8-GPU T2 run was started but had not emitted acceptance at commit time. W3 now measures the right cached object for round-trip, survival, native-rule gap, and a small W3.2 propagation delta, but the W3.2 verdict remains NOT_ACCEPTED.
+  - honesty=The T2 smoke checkpoint, the formal single-GPU checkpoint, and the accelerated 8-GPU checkpoint do not meet G1>=0.95 and do not produce autonomous Stage A cells. W3 now measures the right cached object for round-trip, survival, native-rule gap, and a small W3.2 propagation delta, but the W3.2 verdict remains NOT_ACCEPTED.
 - Artifacts:
   - results/experiment_items/item_034_t2_t3_cached_state_and_learned_preflight.json (yes)
   - results/recurrent_operator_smoke/acceptance.json (yes)
@@ -2250,7 +2250,7 @@ No rows recorded.
   - results/w3_qwen35_probe/verdicts.json (yes)
   - results/recurrent_operator/acceptance.json (yes)
 - Detail data:
-  - results/experiment_items/item_034_t2_t3_cached_state_and_learned_preflight.json: embedded json (10658 bytes)
+  - results/experiment_items/item_034_t2_t3_cached_state_and_learned_preflight.json: embedded json (11267 bytes)
   - results/recurrent_operator_smoke/acceptance.json: embedded json (2433 bytes)
   - results/recurrent_operator_smoke/learned_recurrent_operator_seed102.pt: not embedded (unsupported_format)
   - artifacts/stage_a/manifest.json: embedded json (3486 bytes)
@@ -2304,13 +2304,23 @@ No rows recorded.
 
 | field | value |
 | --- | --- |
-| status_at_commit | RUNNING |
+| status | G1_NOT_MET |
 | generation_workers | 16 |
 | devices | ["cuda:0", "cuda:1", "cuda:2", "cuda:3", "cuda:4", "cuda:5", "cuda:6", "cuda:7"] |
 | train_instances_generated | 4096 |
 | eval_instances_generated | 512 |
 | l4_instances_generated | 128 |
-| acceptance | pending |
+| train_examples | 151871 |
+| eval_examples | 19054 |
+| l4_examples | 5066 |
+| steps | 3000 |
+| batch_size | 4096 |
+| hidden_dim | 256 |
+| recurrence_steps | 8 |
+| G1 | 0.1509 |
+| G2 | 0.1492 |
+| G1_pass | False |
+| checkpoint | results/recurrent_operator_8gpu/learned_recurrent_operator_seed102.pt |
 
 ##### w3_cached_gdn_probe
 
@@ -2496,7 +2506,7 @@ No rows recorded.
 | source | learned_recurrent_training_run |
 | training_curve_summary | 4 keys: batch_size, history, lr, steps |
 
-- Next action: Wait for the accelerated 8-GPU T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims.
+- Next action: T2 should shift from simply adding steps/GPUs to correcting the learned target/interface or architecture, because the accelerated 8-GPU run still plateaus far below G1>=0.95. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims.
 
 
 ## Canonical Repo Decision

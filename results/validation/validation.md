@@ -1,6 +1,6 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-07T13:13:53.374002+00:00
+Generated at: 2026-06-07T13:21:34.006078+00:00
 
 Summary: 161 PASS / 4 FAIL / 165 total.
 
@@ -136,8 +136,8 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_034_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_034_number_continues_from_028 | PASS | item_number=034 |
 | contract | log_item_034_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
-| contract | log_item_034_honesty_does_not_establish | PASS | The T2 smoke checkpoint and the formal single-GPU checkpoint do not meet G1>=0.95 and do not produce autonomous Stage A cells. The accelerated 8-GPU T2 run was  |
-| contract | log_item_034_decision_numbers_and_routing | PASS | gates=7; routing=Wait for the accelerated 8-GPU T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims. |
+| contract | log_item_034_honesty_does_not_establish | PASS | The T2 smoke checkpoint, the formal single-GPU checkpoint, and the accelerated 8-GPU checkpoint do not meet G1>=0.95 and do not produce autonomous Stage A cells |
+| contract | log_item_034_decision_numbers_and_routing | PASS | gates=7; routing=T2 should shift from simply adding steps/GPUs to correcting the learned target/interface or architecture, because the accelerated 8-GPU run still plateaus far below G1>=0.95. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |

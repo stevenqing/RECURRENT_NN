@@ -68,7 +68,7 @@
     "model_id": "Qwen/Qwen3.5-4B",
     "qwen35_snapshot_verified": "models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
     "formal_t2_run": "completed with train_instances=4096 eval_instances=512 l4_instances=128 steps=300 on cuda:0; G1=0.03059724992127637 and G2=0.030201342281879196, so G1_pass=false",
-    "accelerated_8gpu_run": "started with --devices cuda:0,cuda:1,cuda:2,cuda:3,cuda:4,cuda:5,cuda:6,cuda:7 and --generation-workers 16; acceptance pending at commit time"
+    "accelerated_8gpu_run": "completed with --devices cuda:0,cuda:1,cuda:2,cuda:3,cuda:4,cuda:5,cuda:6,cuda:7 and --generation-workers 16; G1=0.1508869528707883 and G2=0.14923016186340307, so G1_pass=false"
   },
   "result_tables": {
     "stage_a_preflight_learned_smoke": {
@@ -112,13 +112,23 @@
     "t2_accelerated_8gpu_run": {
       "columns": ["field", "value"],
       "rows": [
-        {"field": "status_at_commit", "value": "RUNNING"},
+        {"field": "status", "value": "G1_NOT_MET"},
         {"field": "generation_workers", "value": 16},
         {"field": "devices", "value": ["cuda:0", "cuda:1", "cuda:2", "cuda:3", "cuda:4", "cuda:5", "cuda:6", "cuda:7"]},
         {"field": "train_instances_generated", "value": 4096},
         {"field": "eval_instances_generated", "value": 512},
         {"field": "l4_instances_generated", "value": 128},
-        {"field": "acceptance", "value": "pending"}
+        {"field": "train_examples", "value": 151871},
+        {"field": "eval_examples", "value": 19054},
+        {"field": "l4_examples", "value": 5066},
+        {"field": "steps", "value": 3000},
+        {"field": "batch_size", "value": 4096},
+        {"field": "hidden_dim", "value": 256},
+        {"field": "recurrence_steps", "value": 8},
+        {"field": "G1", "value": 0.1508869528707883},
+        {"field": "G2", "value": 0.14923016186340307},
+        {"field": "G1_pass", "value": false},
+        {"field": "checkpoint", "value": "results/recurrent_operator_8gpu/learned_recurrent_operator_seed102.pt"}
       ]
     },
     "w3_cached_gdn_probe": {
@@ -139,10 +149,10 @@
     }
   },
   "honesty": {
-    "does_not_establish": "The T2 smoke checkpoint and the formal single-GPU checkpoint do not meet G1>=0.95 and do not produce autonomous Stage A cells. The accelerated 8-GPU T2 run was started but had not emitted acceptance at commit time. W3 now measures the right cached object for round-trip, survival, native-rule gap, and a small W3.2 propagation delta, but the W3.2 verdict remains NOT_ACCEPTED.",
+    "does_not_establish": "The T2 smoke checkpoint, the formal single-GPU checkpoint, and the accelerated 8-GPU checkpoint do not meet G1>=0.95 and do not produce autonomous Stage A cells. W3 now measures the right cached object for round-trip, survival, native-rule gap, and a small W3.2 propagation delta, but the W3.2 verdict remains NOT_ACCEPTED.",
     "limitations": [
       "Stage A run_shard still records learned-operator availability but does not execute a full autonomous backtracking loop.",
-      "T2 G1 remains unaccepted: the completed formal single-GPU run reached G1=0.03059724992127637, and the accelerated 8-GPU run remains pending.",
+      "T2 G1 remains unaccepted: the completed formal single-GPU run reached G1=0.03059724992127637, and the accelerated 8-GPU run reached G1=0.1508869528707883.",
       "W3.2 qwen3-vs-qwen3.5 propagation delta was measured on a small n=1/task shard and should be broadened before final integration claims."
     ]
   },
@@ -150,12 +160,12 @@
     "gate_outcomes": [
       {"gate": "T2_trainer_smoke", "outcome": "RUN", "number": "G1=0.0045045045045045045; G1_pass=false"},
       {"gate": "T2_formal_single_gpu", "outcome": "G1_NOT_MET", "number": "G1=0.03059724992127637; G2=0.030201342281879196; train=4096; eval=512; L4=128"},
-      {"gate": "T2_accelerated_8gpu", "outcome": "RUNNING", "number": "devices=8; generation_workers=16; acceptance=pending"},
+      {"gate": "T2_accelerated_8gpu", "outcome": "G1_NOT_MET", "number": "devices=8; generation_workers=16; G1=0.1508869528707883; G2=0.14923016186340307"},
       {"gate": "Stage_A_learned_preflight", "outcome": "READY", "number": "operator, bridge decoder, teacher trace, and module1 capacity present"},
       {"gate": "T3_cached_state_round_trip", "outcome": "PASS", "number": "perturb_delta=0.15625; restore_delta=0.0"},
       {"gate": "T3_cached_state_survival_native_gap", "outcome": "MEASURED", "number": "survival_rows=5; native_rule_gap_rows=3"},
       {"gate": "T3_propagation_delta", "outcome": "MEASURED_NOT_ACCEPTED", "number": "W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED; rows=5"}
     ],
-    "next_step_routing": "Wait for the accelerated 8-GPU T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims."
+    "next_step_routing": "T2 should shift from simply adding steps/GPUs to correcting the learned target/interface or architecture, because the accelerated 8-GPU run still plateaus far below G1>=0.95. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims."
   }
 }

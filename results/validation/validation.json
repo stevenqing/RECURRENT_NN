@@ -757,13 +757,13 @@
       "tier": "contract"
     },
     {
-      "detail": "The T2 smoke checkpoint and the formal single-GPU checkpoint do not meet G1>=0.95 and do not produce autonomous Stage A cells. The accelerated 8-GPU T2 run was ",
+      "detail": "The T2 smoke checkpoint, the formal single-GPU checkpoint, and the accelerated 8-GPU checkpoint do not meet G1>=0.95 and do not produce autonomous Stage A cells",
       "name": "log_item_034_honesty_does_not_establish",
       "status": "PASS",
       "tier": "contract"
     },
     {
-      "detail": "gates=7; routing=Wait for the accelerated 8-GPU T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims.",
+      "detail": "gates=7; routing=T2 should shift from simply adding steps/GPUs to correcting the learned target/interface or architecture, because the accelerated 8-GPU run still plateaus far below G1>=0.95. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims.",
       "name": "log_item_034_decision_numbers_and_routing",
       "status": "PASS",
       "tier": "contract"
@@ -991,7 +991,7 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-07T13:13:53.374002+00:00",
+  "generated_at": "2026-06-07T13:21:34.006078+00:00",
   "passed": false,
   "summary": {
     "n_checks": 165,

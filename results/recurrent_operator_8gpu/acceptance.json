@@ -1,0 +1,148 @@
+{
+  "G1": 0.1508869528707883,
+  "G2": 0.14923016186340307,
+  "G3": {
+    "depth_histogram": {
+      "1": 21,
+      "2": 11
+    },
+    "n_instances": 32,
+    "status": "generated_for_external_anchor"
+  },
+  "acceptance": {
+    "G1_pass": false,
+    "G1_threshold": 0.95,
+    "autonomous_stage_a_run": false,
+    "operator_type": "learned_recurrent",
+    "stage_a_autonomous_cells": 0
+  },
+  "checkpoint": "results/recurrent_operator_8gpu/learned_recurrent_operator_seed102.pt",
+  "dataset": {
+    "eval_depth_histogram": {
+      "1": 328,
+      "2": 184
+    },
+    "eval_examples": 19054,
+    "eval_instances_generated": 512,
+    "eval_instances_requested": 512,
+    "l4_depth_histogram": {
+      "4": 56,
+      "5": 42,
+      "6": 20,
+      "7": 7,
+      "8": 3
+    },
+    "l4_examples": 5066,
+    "l4_instances_generated": 128,
+    "l4_instances_requested": 128,
+    "train_depth_histogram": {
+      "1": 2772,
+      "2": 1324
+    },
+    "train_examples": 151871,
+    "train_instances_generated": 4096,
+    "train_instances_requested": 4096
+  },
+  "device": "cuda:0",
+  "devices": [
+    "cuda:0",
+    "cuda:1",
+    "cuda:2",
+    "cuda:3",
+    "cuda:4",
+    "cuda:5",
+    "cuda:6",
+    "cuda:7"
+  ],
+  "generated_at": "2026-06-07T13:20:42.831656+00:00",
+  "honesty": {
+    "does_not_establish": "This trainer produces a learned checkpoint and live bridge metrics, but does not establish autonomous Stage A solving unless a later Stage A run consumes the checkpoint and reports real cells."
+  },
+  "module": "train_recurrent_operator",
+  "operator_type": "learned_recurrent",
+  "recipe": {
+    "band_augmentation": "not_applied_in_smoke_path",
+    "digit_augmentation": true,
+    "ema_recorded": true,
+    "per_step_deep_supervision": true,
+    "tensor_io": true,
+    "trained_on_depths": "L1-L2_only",
+    "weight_tied_recurrent_net": true
+  },
+  "seed": 102,
+  "source": "learned_recurrent_training_run",
+  "status": "G1_NOT_MET",
+  "training_curve_summary": {
+    "batch_size": 4096,
+    "data_parallel_devices": [
+      "cuda:0",
+      "cuda:1",
+      "cuda:2",
+      "cuda:3",
+      "cuda:4",
+      "cuda:5",
+      "cuda:6",
+      "cuda:7"
+    ],
+    "generation_workers": 16,
+    "history": [
+      {
+        "eval_joint_accuracy": 0.00390625,
+        "loss": 6.714434623718262,
+        "step": 1
+      },
+      {
+        "eval_joint_accuracy": 0.07421875,
+        "loss": 4.9334917068481445,
+        "step": 300
+      },
+      {
+        "eval_joint_accuracy": 0.134765625,
+        "loss": 4.470118522644043,
+        "step": 600
+      },
+      {
+        "eval_joint_accuracy": 0.13623046875,
+        "loss": 4.125515937805176,
+        "step": 900
+      },
+      {
+        "eval_joint_accuracy": 0.13916015625,
+        "loss": 3.974865198135376,
+        "step": 1200
+      },
+      {
+        "eval_joint_accuracy": 0.1455078125,
+        "loss": 3.9033102989196777,
+        "step": 1500
+      },
+      {
+        "eval_joint_accuracy": 0.1513671875,
+        "loss": 3.7668614387512207,
+        "step": 1800
+      },
+      {
+        "eval_joint_accuracy": 0.14990234375,
+        "loss": 3.6789937019348145,
+        "step": 2100
+      },
+      {
+        "eval_joint_accuracy": 0.15234375,
+        "loss": 3.517955780029297,
+        "step": 2400
+      },
+      {
+        "eval_joint_accuracy": 0.15576171875,
+        "loss": 3.5134289264678955,
+        "step": 2700
+      },
+      {
+        "eval_joint_accuracy": 0.15576171875,
+        "loss": 3.3747029304504395,
+        "step": 3000
+      }
+    ],
+    "lr": 0.0005,
+    "steps": 3000
+  }
+}
