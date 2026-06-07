@@ -1,0 +1,34 @@
+[
+  {
+    "method": "latent_only",
+    "n_tasks": 10,
+    "solve_rate": 0.0,
+    "applied_reverts": 0,
+    "max_required_depth": 1,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "method": "structured_register",
+    "n_tasks": 10,
+    "solve_rate": 1.0,
+    "applied_reverts": 10,
+    "max_required_depth": 1,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "method": "gru_register",
+    "n_tasks": 10,
+    "solve_rate": 0.0,
+    "applied_reverts": 0,
+    "max_required_depth": 1,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "method": "no_revert_ablation",
+    "n_tasks": 10,
+    "solve_rate": 0.0,
+    "applied_reverts": 0,
+    "max_required_depth": 1,
+    "evaluation_mode": "oracle_trace_scaffold"
+  }
+]

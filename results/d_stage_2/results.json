@@ -1,0 +1,322 @@
+[
+  {
+    "register_type": "structured",
+    "D": 64,
+    "K": 3,
+    "predicted_d_star": 29.127655252058794,
+    "observed_frontier": 29,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 64,
+    "K": 9,
+    "predicted_d_star": 14.563827626029397,
+    "observed_frontier": 14,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 64,
+    "K": 60,
+    "predicted_d_star": 7.815658773631114,
+    "observed_frontier": 7,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 64,
+    "K": 729,
+    "predicted_d_star": 4.854609208676466,
+    "observed_frontier": 4,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 128,
+    "K": 3,
+    "predicted_d_star": 58.25531050411759,
+    "observed_frontier": 58,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 128,
+    "K": 9,
+    "predicted_d_star": 29.127655252058794,
+    "observed_frontier": 29,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 128,
+    "K": 60,
+    "predicted_d_star": 15.631317547262228,
+    "observed_frontier": 15,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 128,
+    "K": 729,
+    "predicted_d_star": 9.709218417352933,
+    "observed_frontier": 9,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 256,
+    "K": 3,
+    "predicted_d_star": 116.51062100823518,
+    "observed_frontier": 116,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 256,
+    "K": 9,
+    "predicted_d_star": 58.25531050411759,
+    "observed_frontier": 58,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 256,
+    "K": 60,
+    "predicted_d_star": 31.262635094524455,
+    "observed_frontier": 31,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 256,
+    "K": 729,
+    "predicted_d_star": 19.418436834705865,
+    "observed_frontier": 19,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 512,
+    "K": 3,
+    "predicted_d_star": 233.02124201647035,
+    "observed_frontier": 233,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 512,
+    "K": 9,
+    "predicted_d_star": 116.51062100823518,
+    "observed_frontier": 116,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 512,
+    "K": 60,
+    "predicted_d_star": 62.52527018904891,
+    "observed_frontier": 62,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 512,
+    "K": 729,
+    "predicted_d_star": 38.83687366941173,
+    "observed_frontier": 38,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 1024,
+    "K": 3,
+    "predicted_d_star": 466.0424840329407,
+    "observed_frontier": 466,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 1024,
+    "K": 9,
+    "predicted_d_star": 233.02124201647035,
+    "observed_frontier": 233,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 1024,
+    "K": 60,
+    "predicted_d_star": 125.05054037809782,
+    "observed_frontier": 125,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "structured",
+    "D": 1024,
+    "K": 729,
+    "predicted_d_star": 77.67374733882346,
+    "observed_frontier": 77,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 64,
+    "K": 3,
+    "predicted_d_star": null,
+    "observed_frontier": 5,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 64,
+    "K": 9,
+    "predicted_d_star": null,
+    "observed_frontier": 3,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 64,
+    "K": 60,
+    "predicted_d_star": null,
+    "observed_frontier": 2,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 64,
+    "K": 729,
+    "predicted_d_star": null,
+    "observed_frontier": 2,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 128,
+    "K": 3,
+    "predicted_d_star": null,
+    "observed_frontier": 7,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 128,
+    "K": 9,
+    "predicted_d_star": null,
+    "observed_frontier": 5,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 128,
+    "K": 60,
+    "predicted_d_star": null,
+    "observed_frontier": 3,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 128,
+    "K": 729,
+    "predicted_d_star": null,
+    "observed_frontier": 3,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 256,
+    "K": 3,
+    "predicted_d_star": null,
+    "observed_frontier": 10,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 256,
+    "K": 9,
+    "predicted_d_star": null,
+    "observed_frontier": 7,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 256,
+    "K": 60,
+    "predicted_d_star": null,
+    "observed_frontier": 5,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 256,
+    "K": 729,
+    "predicted_d_star": null,
+    "observed_frontier": 4,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 512,
+    "K": 3,
+    "predicted_d_star": null,
+    "observed_frontier": 15,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 512,
+    "K": 9,
+    "predicted_d_star": null,
+    "observed_frontier": 10,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 512,
+    "K": 60,
+    "predicted_d_star": null,
+    "observed_frontier": 7,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 512,
+    "K": 729,
+    "predicted_d_star": null,
+    "observed_frontier": 6,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 1024,
+    "K": 3,
+    "predicted_d_star": null,
+    "observed_frontier": 21,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 1024,
+    "K": 9,
+    "predicted_d_star": null,
+    "observed_frontier": 15,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 1024,
+    "K": 60,
+    "predicted_d_star": null,
+    "observed_frontier": 11,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "register_type": "gru",
+    "D": 1024,
+    "K": 729,
+    "predicted_d_star": null,
+    "observed_frontier": 8,
+    "evaluation_mode": "oracle_trace_scaffold"
+  }
+]

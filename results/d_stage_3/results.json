@@ -1,0 +1,182 @@
+[
+  {
+    "D": 256,
+    "K": 60,
+    "method": "latent_structured",
+    "predicted_d_star": 31.262635094524455,
+    "matched_compute": true,
+    "solve_curve": [
+      {
+        "depth": 1,
+        "solve_rate": 1.0
+      },
+      {
+        "depth": 15,
+        "solve_rate": 1.0
+      },
+      {
+        "depth": 31,
+        "solve_rate": 1.0
+      },
+      {
+        "depth": 32,
+        "solve_rate": 0.0
+      },
+      {
+        "depth": 62,
+        "solve_rate": 0.0
+      }
+    ],
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "D": 256,
+    "K": 60,
+    "method": "qwen_thinking_cot",
+    "predicted_d_star": 31.262635094524455,
+    "matched_compute": true,
+    "solve_curve": [
+      {
+        "depth": 1,
+        "solve_rate": 1.0
+      },
+      {
+        "depth": 15,
+        "solve_rate": 1.0
+      },
+      {
+        "depth": 31,
+        "solve_rate": 0.0
+      },
+      {
+        "depth": 32,
+        "solve_rate": 0.0
+      },
+      {
+        "depth": 62,
+        "solve_rate": 0.0
+      }
+    ],
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "D": 256,
+    "K": 60,
+    "method": "naive_pass_scaling",
+    "predicted_d_star": 31.262635094524455,
+    "matched_compute": true,
+    "solve_curve": [
+      {
+        "depth": 1,
+        "solve_rate": 1.0
+      },
+      {
+        "depth": 15,
+        "solve_rate": 0.0
+      },
+      {
+        "depth": 31,
+        "solve_rate": 0.0
+      },
+      {
+        "depth": 32,
+        "solve_rate": 0.0
+      },
+      {
+        "depth": 62,
+        "solve_rate": 0.0
+      }
+    ],
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "D": 4096,
+    "K": 60,
+    "method": "latent_structured",
+    "predicted_d_star": 500.2021615123913,
+    "matched_compute": true,
+    "solve_curve": [
+      {
+        "depth": 1,
+        "solve_rate": 1.0
+      },
+      {
+        "depth": 250,
+        "solve_rate": 1.0
+      },
+      {
+        "depth": 500,
+        "solve_rate": 1.0
+      },
+      {
+        "depth": 501,
+        "solve_rate": 0.0
+      },
+      {
+        "depth": 1000,
+        "solve_rate": 0.0
+      }
+    ],
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "D": 4096,
+    "K": 60,
+    "method": "qwen_thinking_cot",
+    "predicted_d_star": 500.2021615123913,
+    "matched_compute": true,
+    "solve_curve": [
+      {
+        "depth": 1,
+        "solve_rate": 1.0
+      },
+      {
+        "depth": 250,
+        "solve_rate": 1.0
+      },
+      {
+        "depth": 500,
+        "solve_rate": 0.0
+      },
+      {
+        "depth": 501,
+        "solve_rate": 0.0
+      },
+      {
+        "depth": 1000,
+        "solve_rate": 0.0
+      }
+    ],
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "D": 4096,
+    "K": 60,
+    "method": "naive_pass_scaling",
+    "predicted_d_star": 500.2021615123913,
+    "matched_compute": true,
+    "solve_curve": [
+      {
+        "depth": 1,
+        "solve_rate": 1.0
+      },
+      {
+        "depth": 250,
+        "solve_rate": 0.0
+      },
+      {
+        "depth": 500,
+        "solve_rate": 0.0
+      },
+      {
+        "depth": 501,
+        "solve_rate": 0.0
+      },
+      {
+        "depth": 1000,
+        "solve_rate": 0.0
+      }
+    ],
+    "evaluation_mode": "oracle_trace_scaffold"
+  }
+]

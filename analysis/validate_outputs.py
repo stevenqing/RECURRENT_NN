@@ -353,6 +353,7 @@ def _canonical_checks(checks: list[dict[str, Any]]) -> None:
 def _write_markdown(path: Path, checks: list[dict[str, Any]], generated_at: str) -> None:
     passed_count = sum(check["status"] == "PASS" for check in checks)
     failed_count = len(checks) - passed_count
+    state_line = "All registered checks pass." if failed_count == 0 else "The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure."
     lines = [
         "# RECURRENT_NN Validation Report",
         "",
@@ -360,7 +361,7 @@ def _write_markdown(path: Path, checks: list[dict[str, Any]], generated_at: str)
         "",
         f"Summary: {passed_count} PASS / {failed_count} FAIL / {len(checks)} total.",
         "",
-        "The current expected state is not all-green: Stage A post-027 blockers should be visible as explicit red checks, not hidden behind a single required-files failure.",
+        state_line,
         "",
         "## Checks",
         "",

@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from experiments.stage_a_backtrack_loop import preflight
+from tasks.sudoku.generator_6x6 import generate_6x6_by_depth_band
 from tasks.sudoku.generator_9x9 import generate_9x9_by_depth_band
 
 
@@ -32,6 +33,7 @@ def run_gate_refusal(
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
     sudoku9_probe = generate_9x9_by_depth_band(min_depth=1, max_depth=2, n_instances=4, seed=42)
+    sudoku6_probe = generate_6x6_by_depth_band(min_depth=1, max_depth=2, n_instances=4, seed=42)
     refusal_cases = [
         _run_preflight_case("quarantined_operator", out, "artifacts/stage_a/QUARANTINED_PARENT.pt", bridge_decoder, teacher_trace),
         _run_preflight_case("missing_bridge", out, "artifacts/stage_a/recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt", "artifacts/stage_a/MISSING_BRIDGE.pt", teacher_trace),
@@ -45,8 +47,11 @@ def run_gate_refusal(
             "sudoku9_generator_present": True,
             "sudoku9_generated_count": len(sudoku9_probe),
             "sudoku9_status": "READY_STUB_EMPTY" if len(sudoku9_probe) == 0 else "READY",
-            "sudoku6_status": "RECORDED_READY_FROM_RUNBOOK_NOT_GENERATED_IN_REPO",
-            "note": "Sudoku6 generator is not present in this repo; readiness is recorded from the post-027 continuation state until the G1 fix adds concrete data artifacts.",
+            "sudoku6_generator_present": True,
+            "sudoku6_generated_count": len(sudoku6_probe),
+            "sudoku6_depths": sorted({row.dpll_backtrack_depth for row in sudoku6_probe}),
+            "sudoku6_status": "READY" if len(sudoku6_probe) > 0 else "EMPTY",
+            "note": "Sudoku6 readiness is now backed by the repo-local generator used by the G1 diagnostic.",
         },
         "fail_closed_cases": refusal_cases,
         "decision": "fail_closed_refusal_proven_for_missing_or_quarantined_parent_inputs",

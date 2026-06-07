@@ -405,19 +405,19 @@
     {
       "detail": "expected to fail until P1 fixes bridge G1",
       "name": "stage_a_sudoku6_g1_pass",
-      "status": "FAIL",
+      "status": "PASS",
       "tier": "tier_b"
     },
     {
       "detail": "expected restored registry check",
       "name": "stage_a_reverts_nonzero_on_L4",
-      "status": "FAIL",
+      "status": "PASS",
       "tier": "tier_b"
     },
     {
       "detail": "expected restored registry check",
       "name": "stage_a_forward_floor_on_L4",
-      "status": "FAIL",
+      "status": "PASS",
       "tier": "tier_b"
     },
     {
@@ -487,7 +487,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=4",
+      "detail": "count=5",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -637,6 +637,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_032_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_032_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=032",
+      "name": "log_item_032_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_032_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish the full learned recurrent Stage A autonomous grid, does not run G2, and does not turn scaffold legacy artifacts into front-page pr",
+      "name": "log_item_032_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=Proceed to learned recurrent Stage A bridge/autonomous grid work; validation is green, but the core claim still needs full autonomous Stage A evidence.",
+      "name": "log_item_032_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -661,7 +697,7 @@
       "tier": "contract"
     },
     {
-      "detail": "after={'phase': 'after_restored_registry', 'total_check_count': 142, 'passed': 133, 'failed': 9, 'provenance': 'measured:results/validation/validation.json::summary'}",
+      "detail": "after={'phase': 'after_restored_registry', 'total_check_count': 149, 'passed': 149, 'failed': 0, 'provenance': 'measured:results/validation/validation.json::summary'}",
       "name": "item_028_validation_registry_many_checks",
       "status": "PASS",
       "tier": "contract"
@@ -819,45 +855,51 @@
     {
       "detail": "results/ttt/results.json",
       "name": "ttt_legacy_present",
-      "status": "FAIL",
+      "status": "PASS",
       "tier": "legacy"
     },
     {
       "detail": "results/two_by_two/results.json",
       "name": "legacy_two_by_two_present",
-      "status": "FAIL",
+      "status": "PASS",
       "tier": "legacy"
     },
     {
       "detail": "results/d_stage_1/results.json",
       "name": "legacy_d_stage_1_present",
-      "status": "FAIL",
+      "status": "PASS",
       "tier": "legacy"
     },
     {
       "detail": "results/d_stage_2/results.json",
       "name": "legacy_d_stage_2_present",
-      "status": "FAIL",
+      "status": "PASS",
       "tier": "legacy"
     },
     {
       "detail": "results/d_stage_3/results.json",
       "name": "legacy_d_stage_3_present",
-      "status": "FAIL",
+      "status": "PASS",
       "tier": "legacy"
     },
     {
       "detail": "results/verifier/results.json",
       "name": "legacy_verifier_present",
-      "status": "FAIL",
+      "status": "PASS",
+      "tier": "legacy"
+    },
+    {
+      "detail": "ttt=0.1013166606426239, structured=3.0798228181083687e-06",
+      "name": "ttt_irreversibility_real",
+      "status": "PASS",
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-07T10:53:31.254014+00:00",
-  "passed": false,
+  "generated_at": "2026-06-07T11:04:06.061689+00:00",
+  "passed": true,
   "summary": {
-    "n_checks": 142,
-    "n_fail": 9,
-    "n_pass": 133
+    "n_checks": 149,
+    "n_fail": 0,
+    "n_pass": 149
   }
 }

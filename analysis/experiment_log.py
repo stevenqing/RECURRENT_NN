@@ -18,6 +18,7 @@ ARTIFACT_INDEX = {
     "item_029_p1_1a_g1_diagnosis": "results/experiment_items/item_029_p1_1a_g1_diagnosis.json",
     "item_030_p2_w3_hook_capacity": "results/experiment_items/item_030_p2_w3_hook_capacity.json",
     "item_031_p2_w3_survival_delta_propagation": "results/experiment_items/item_031_p2_w3_survival_delta_propagation.json",
+    "item_032_validation_green_closeout": "results/experiment_items/item_032_validation_green_closeout.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "model_readiness": "results/model_readiness/readiness.json",
     "qwen3_4b_instruct_download": "results/model_download/qwen_download.json",
@@ -302,9 +303,9 @@ def _item_records(data: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         record(
             "027",
-            "Sudoku6 bridge G1",
+            "Sudoku6 bridge G1 pre-fix record",
             items.get("027", {}).get("status", "missing"),
-            f"G1={items.get('027', {}).get('g1')}; {items.get('027', {}).get('summary', '')}",
+            f"historical_continuation_G1={items.get('027', {}).get('g1')}; current_diagnostic_G1={sudoku6.get('G1')}",
             [
                 f"materialized_status={sudoku6.get('status')}; G1={sudoku6.get('G1')}; single_step_forced_accuracy={sudoku6.get('single_step_forced_accuracy')}",
                 f"gates={sudoku6_gates}",
@@ -312,7 +313,7 @@ def _item_records(data: dict[str, Any]) -> list[dict[str, Any]]:
                 f"teacher_trace_probe={sudoku6.get('teacher_trace_probe')}",
             ],
             ["results/continuation_state/post_027.json", "results/stage_a_sudoku6_bridge/results.json", "specs/g1_fix_spec.md"],
-            "Implement the G1 fix; do not soften G2 or L4 checks.",
+            "Item 032 closes the validation G1/L4 diagnostic failures; do not treat this as full autonomous Stage A proof.",
         ),
         record(
             "P0",
@@ -322,7 +323,7 @@ def _item_records(data: dict[str, Any]) -> list[dict[str, Any]]:
             [
                 "Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.",
                 f"validation_pass={validation_summary.get('n_pass')}; validation_fail={validation_summary.get('n_fail')}",
-                "Current expected failures are Stage A G1/L4 and missing legacy scaffold artifacts.",
+                "Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.",
             ],
             ["CANONICAL_REPO.md", "analysis/validate_outputs.py", "results/validation/validation.json", "results/experiment_log/experiment_log.json"],
             "Keep future reports item-first and preserve explicit red checks.",
@@ -343,15 +344,15 @@ def _item_records(data: dict[str, Any]) -> list[dict[str, Any]]:
         record(
             "P1",
             "G1 fix spec and diagnostics",
-            "Specified",
-            "g1_fix_spec plus Stage A adapter/gate/Sudoku6 diagnostic artifacts are present; retraining not launched.",
+            "Diagnostic pass, autonomous grid not proven",
+            f"Sudoku6 diagnostic G1={sudoku6.get('G1')}; L4_reverts={sudoku6.get('reverts_nonzero_on_L4')}; L4_forward={sudoku6.get('forward_floor_on_L4')}",
             [
                 "Task A diagnosis and Task B deep-supervision bridge retrain are specified.",
-                "Current diagnostics still record G1=0.0 and L4 checks failing/not-run.",
+                f"Current diagnostic status={sudoku6.get('status')}; single_step_forced_accuracy={sudoku6.get('single_step_forced_accuracy')}; n_sudoku6_tasks={sudoku6.get('n_sudoku6_tasks')}",
                 "Stage A parent binaries are regenerated workflow artifacts, not tracked binaries.",
             ],
             ["specs/g1_fix_spec.md", "results/stage_a_adapter_wiring/results.json", "results/stage_a_banded_gate_refusal/results.json", "results/stage_a_sudoku6_bridge/results.json"],
-            "Launch the actual bridge retrain only after concrete Sudoku6 data/training entrypoints exist.",
+            "Use the generated Sudoku6 diagnostic states to train/verify the learned bridge before claiming full autonomous Stage A.",
         ),
         record(
             "P2",
@@ -474,10 +475,10 @@ def generate_experiment_log(output_dir: str = "results/experiment_log") -> dict[
         "M2.0 negatives: frozen Qwen operator still needs a fix; invalid qwen_guess rate and spike precision/recall asymmetry block direct loop use.",
     ]
     tier_b = [
-        "Stage A in-loop proof blocks the core claim.",
-        "Banded Sudoku9/6 readiness and fail-closed refusal are materialized in post-026 artifacts, with Sudoku6 data still recorded as continuation-state readiness rather than generated in-repo data.",
+        "Stage A diagnostic G1/L4 checks are green, but the full autonomous in-loop grid still blocks the core claim.",
+        "Banded Sudoku9/6 readiness and fail-closed refusal are materialized in post-026 artifacts; Sudoku6 diagnostic data is now generated in-repo.",
         "Fail-closed preflight is proven for missing/quarantined parent paths; unsafe paths are refused.",
-        "Current blocker: G1 = 0.0 on the Sudoku6 bridge operator.",
+        "Current blocker: learned recurrent bridge/autonomous Stage A cells are not yet proven.",
     ]
     tier_c = [
         "W3 Qwen3.5 probe: checkpoint and metadata/capacity estimate are implemented; hidden-hook, gating-survival, native-delta, and W3.2 propagation probes are not launched.",
@@ -522,7 +523,7 @@ def generate_experiment_log(output_dir: str = "results/experiment_log") -> dict[
         ["Fair GRU closeout", "YELLOW", f"classification={data.get('gru_closeout', {}).get('classification')}; max_ratio={_fmt(data.get('gru_closeout', {}).get('max_gru_to_structured_ratio'))}; headline_locked={data.get('gru_closeout', {}).get('lock_structured_headline')}"] ,
         ["M2.0 frozen Qwen operator", "RED", f"verdict={m2.get('verdict')}; list_all_recall={_fmt(_mean(overall.get('list_all', {}), 'forced_recall'))}; single_precision={_fmt(_mean(overall.get('single_iterated', {}), 'per_call_precision'))}"],
         ["Branch policy", "YELLOW", f"qwen_nodes={_fmt(qwen_branch.get('mean_nodes_to_solve_or_cap'))}; mrv_nodes={_fmt(mrv_branch.get('mean_nodes_to_solve_or_cap'))}; qwen_invalid_rate={_fmt(qwen_branch.get('invalid_guess_rate'))}"],
-        ["Stage A in-loop proof", "RED", f"n_cells={data.get('stage_a_report', {}).get('n_cells')}; statuses={data.get('stage_a_report', {}).get('statuses')}; G1={data.get('post027_sudoku6_bridge', {}).get('G1', g1)}"],
+        ["Stage A in-loop proof", "YELLOW", f"diagnostic_G1={data.get('post027_sudoku6_bridge', {}).get('G1', g1)}; L4_reverts={data.get('post027_sudoku6_bridge', {}).get('reverts_nonzero_on_L4')}; autonomous_cells={data.get('stage_a_report', {}).get('n_cells')}; statuses={data.get('stage_a_report', {}).get('statuses')}"],
         ["W3 Qwen3.5", "YELLOW", f"integration_grade={data.get('w3_probe', {}).get('integration_grade')}; W3.0={data.get('w3_probe', {}).get('verdicts', {}).get('W3.0_checkpoint_pin')}"],
         ["Validation", "RED" if not validation.get("passed") else "GREEN", f"checks={validation.get('summary', {}).get('n_checks')}; pass={validation.get('summary', {}).get('n_pass')}; fail={validation.get('summary', {}).get('n_fail')}"] ,
     ]))
@@ -538,7 +539,7 @@ def generate_experiment_log(output_dir: str = "results/experiment_log") -> dict[
         "- P0.1: `RECURRENT_NN` is declared canonical in `CANONICAL_REPO.md`; the old `stage_d_llm` path is not present locally.",
         "- P0.2: validation now emits many checks, including explicit red Stage A blockers, rather than one collapsed required-files failure.",
         "- P0.3: the front page now leads with evidence tiers and current blockers; constructed scaffold gates are demoted to the legacy archive.",
-        "- P1: `specs/g1_fix_spec.md` plus adapter wiring, gate refusal, and Sudoku6 bridge diagnostic artifacts are present; the actual bridge retrain is not launched and G1 remains 0.0.",
+        "- P1: `specs/g1_fix_spec.md` plus adapter wiring, gate refusal, and Sudoku6 bridge diagnostic artifacts are present; diagnostic G1/L4 checks pass, while learned autonomous Stage A remains unproven.",
         "- P2: `specs/w3_qwen35_probe_spec.md` and W3 Qwen3.5 measured probes are present; current result is alongside-only measured evidence, not in-state acceptance.",
         "- P3: TRM defensive analysis is not launched; no TRM checkpoint/test-set grading code is present in this repo yet.",
         "",
@@ -565,7 +566,7 @@ def generate_experiment_log(output_dir: str = "results/experiment_log") -> dict[
         "validation_summary": validation.get("summary", {}),
         "current_status": {
             "canonical_repo": "/home/aiscuser/RECURRENT_NN",
-            "stage_a_blocker": "G1=0.0 on Sudoku6 bridge operator; autonomous Stage A cells unavailable",
+            "stage_a_blocker": "diagnostic G1/L4 pass; learned autonomous Stage A cells remain unavailable",
             "w3_qwen35_checkpoint": data.get("qwen35", {}),
             "w3_qwen35_probe": data.get("w3_probe", {}),
             "p1_launched": False,

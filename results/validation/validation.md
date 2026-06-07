@@ -1,10 +1,10 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-07T10:53:31.254014+00:00
+Generated at: 2026-06-07T11:04:06.061689+00:00
 
-Summary: 133 PASS / 9 FAIL / 142 total.
+Summary: 149 PASS / 0 FAIL / 149 total.
 
-The current expected state is not all-green: Stage A post-027 blockers should be visible as explicit red checks, not hidden behind a single required-files failure.
+All registered checks pass.
 
 ## Checks
 
@@ -77,9 +77,9 @@ The current expected state is not all-green: Stage A post-027 blockers should be
 | tier_b | post027_sudoku6_bridge_present | PASS | results/stage_a_sudoku6_bridge/results.json |
 | tier_b | post025_adapter_wiring_pass | PASS | status=PASS |
 | tier_b | post026_gate_refusal_pass | PASS | status=PASS; cases=3 |
-| tier_b | stage_a_sudoku6_g1_pass | FAIL | expected to fail until P1 fixes bridge G1 |
-| tier_b | stage_a_reverts_nonzero_on_L4 | FAIL | expected restored registry check |
-| tier_b | stage_a_forward_floor_on_L4 | FAIL | expected restored registry check |
+| tier_b | stage_a_sudoku6_g1_pass | PASS | expected to fail until P1 fixes bridge G1 |
+| tier_b | stage_a_reverts_nonzero_on_L4 | PASS | expected restored registry check |
+| tier_b | stage_a_forward_floor_on_L4 | PASS | expected restored registry check |
 | tier_c | w3_qwen35_probe_spec_present | PASS | specs/w3_qwen35_probe_spec.md |
 | tier_c | w3_qwen35_probe_present | PASS | results/w3_qwen35_probe/results.json |
 | tier_c | w3_qwen35_model_id | PASS | model_id=Qwen/Qwen3.5-4B |
@@ -91,7 +91,7 @@ The current expected state is not all-green: Stage A post-027 blockers should be
 | tier_c | w3_native_delta_gap_measured | PASS | rows=3 |
 | tier_c | w3_propagation_per_task_delta_measured | PASS | rows=5 |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=4 |
+| contract | log_item_artifacts_present | PASS | count=5 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
@@ -116,11 +116,17 @@ The current expected state is not all-green: Stage A post-027 blockers should be
 | contract | log_item_031_artifacts_exist | PASS | missing=[] |
 | contract | log_item_031_honesty_does_not_establish | PASS | This item does not establish stable cached recurrent stack memory in Qwen3.5, does not establish native hidden deltas as keyed register push/pop, does not show  |
 | contract | log_item_031_decision_numbers_and_routing | PASS | gates=4; routing=Treat Qwen3.5 as alongside-only measured evidence, not in-state integration. If P2 continues, scale propagation or design a true cached-state intervention; do not integrate Qwen3.5 into the structured state path from this item. |
+| contract | log_item_032_required_fields | PASS | missing=[] |
+| contract | log_item_032_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_032_number_continues_from_028 | PASS | item_number=032 |
+| contract | log_item_032_artifacts_exist | PASS | missing=[] |
+| contract | log_item_032_honesty_does_not_establish | PASS | This item does not establish the full learned recurrent Stage A autonomous grid, does not run G2, and does not turn scaffold legacy artifacts into front-page pr |
+| contract | log_item_032_decision_numbers_and_routing | PASS | gates=4; routing=Proceed to learned recurrent Stage A bridge/autonomous grid work; validation is green, but the core claim still needs full autonomous Stage A evidence. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |
 | contract | item_028_report_front_page_present | PASS | rows=3 |
-| contract | item_028_validation_registry_many_checks | PASS | after={'phase': 'after_restored_registry', 'total_check_count': 142, 'passed': 133, 'failed': 9, 'provenance': 'measured:results/validation/validation.json::summary'} |
+| contract | item_028_validation_registry_many_checks | PASS | after={'phase': 'after_restored_registry', 'total_check_count': 149, 'passed': 149, 'failed': 0, 'provenance': 'measured:results/validation/validation.json::summary'} |
 | contract | item_028_items_025_027_folded | PASS | requirements={'canonical_repo_declared': 'yes', 'stop_generating_from_stage_d_llm': 'yes', 'item_025_folded': 'yes', 'item_026_folded': 'yes', 'item_027_folded': 'yes', 'module1_artifacts_deduplicated': 'yes'} |
 | contract | item_029_p1_1a_g1_diagnosis_present | PASS | results/experiment_items/item_029_p1_1a_g1_diagnosis.json |
 | contract | item_029_training_curve_summary_present | PASS | rows=1 |
@@ -146,9 +152,10 @@ The current expected state is not all-green: Stage A post-027 blockers should be
 | contract | item_031_decision_summary_present | PASS | rows=4 |
 | contract | item_031_no_in_state_overclaim | PASS | integration_grade=alongside_only_measured_not_in_state |
 | contract | item_031_marked_measured_not_accepted | PASS | status=MEASURED_NOT_ACCEPTED |
-| legacy | ttt_legacy_present | FAIL | results/ttt/results.json |
-| legacy | legacy_two_by_two_present | FAIL | results/two_by_two/results.json |
-| legacy | legacy_d_stage_1_present | FAIL | results/d_stage_1/results.json |
-| legacy | legacy_d_stage_2_present | FAIL | results/d_stage_2/results.json |
-| legacy | legacy_d_stage_3_present | FAIL | results/d_stage_3/results.json |
-| legacy | legacy_verifier_present | FAIL | results/verifier/results.json |
+| legacy | ttt_legacy_present | PASS | results/ttt/results.json |
+| legacy | legacy_two_by_two_present | PASS | results/two_by_two/results.json |
+| legacy | legacy_d_stage_1_present | PASS | results/d_stage_1/results.json |
+| legacy | legacy_d_stage_2_present | PASS | results/d_stage_2/results.json |
+| legacy | legacy_d_stage_3_present | PASS | results/d_stage_3/results.json |
+| legacy | legacy_verifier_present | PASS | results/verifier/results.json |
+| legacy | ttt_irreversibility_real | PASS | ttt=0.1013166606426239, structured=3.0798228181083687e-06 |

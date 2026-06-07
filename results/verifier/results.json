@@ -1,0 +1,34 @@
+[
+  {
+    "mode": "oracle",
+    "n_tasks": 20,
+    "solve_rate": 1.0,
+    "false_positive_reverts": 0,
+    "false_negative_misses": 0,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "mode": "learned",
+    "n_tasks": 20,
+    "solve_rate": 0.7,
+    "false_positive_reverts": 1,
+    "false_negative_misses": 6,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "mode": "noisy",
+    "n_tasks": 20,
+    "solve_rate": 0.3,
+    "false_positive_reverts": 3,
+    "false_negative_misses": 14,
+    "evaluation_mode": "oracle_trace_scaffold"
+  },
+  {
+    "mode": "disabled",
+    "n_tasks": 20,
+    "solve_rate": 0.0,
+    "false_positive_reverts": 0,
+    "false_negative_misses": 54,
+    "evaluation_mode": "oracle_trace_scaffold"
+  }
+]

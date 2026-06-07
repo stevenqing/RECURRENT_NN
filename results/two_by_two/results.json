@@ -1,0 +1,38 @@
+[
+  {
+    "method": "latent_only",
+    "n_tasks": 8,
+    "solve_rate": 1.0,
+    "applied_reverts": 0,
+    "max_required_depth": 0,
+    "evaluation_mode": "oracle_trace_scaffold",
+    "column": "propagation_only"
+  },
+  {
+    "method": "latent_only",
+    "n_tasks": 15,
+    "solve_rate": 0.0,
+    "applied_reverts": 0,
+    "max_required_depth": 5,
+    "evaluation_mode": "oracle_trace_scaffold",
+    "column": "backtracking_required"
+  },
+  {
+    "method": "latent_plus_structured_register",
+    "n_tasks": 8,
+    "solve_rate": 1.0,
+    "applied_reverts": 0,
+    "max_required_depth": 0,
+    "evaluation_mode": "oracle_trace_scaffold",
+    "column": "propagation_only"
+  },
+  {
+    "method": "latent_plus_structured_register",
+    "n_tasks": 15,
+    "solve_rate": 1.0,
+    "applied_reverts": 31,
+    "max_required_depth": 5,
+    "evaluation_mode": "oracle_trace_scaffold",
+    "column": "backtracking_required"
+  }
+]

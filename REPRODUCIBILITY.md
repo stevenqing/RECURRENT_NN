@@ -54,18 +54,13 @@ By default this does not redownload Qwen weights. To redownload/refresh model re
 DOWNLOAD_MODELS=1 bash scripts/reproduce_continuation_state.sh
 ```
 
-Expected current-state validation after refresh is not all green:
+Expected current-state validation after refresh is all green:
 
 ```text
-133 PASS / 9 FAIL / 142 total
+149 PASS / 0 FAIL / 149 total
 ```
 
-The remaining failures are expected until later work:
-
-- `stage_a_sudoku6_g1_pass`
-- `stage_a_reverts_nonzero_on_L4`
-- `stage_a_forward_floor_on_L4`
-- six missing legacy scaffold artifacts
+The Stage A full autonomous grid remains an evidence gap even though the registered validation checks pass.
 
 ## Bitwise Caveats
 

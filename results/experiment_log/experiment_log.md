@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-07T10:53:31.415522+00:00
+Generated at: 2026-06-07T11:04:16.491341+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -16,10 +16,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 024 | Stage A reconstructed handoff | Blocked | verdict=NEEDS_REVIEW; statuses=['PARENT_ADAPTER_REQUIRED']; n_cells=0 |
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
-| 027 | Sudoku6 bridge G1 | BLOCKER | G1=0.0; The Stage A critical blocker is G1 = 0.0 on the Sudoku6 bridge operator. |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=142; validation_passed=False |
+| 027 | Sudoku6 bridge G1 pre-fix record | BLOCKER | historical_continuation_G1=0.0; current_diagnostic_G1=1.0 |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=149; validation_passed=True |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
-| P1 | G1 fix spec and diagnostics | Specified | g1_fix_spec plus Stage A adapter/gate/Sudoku6 diagnostic artifacts are present; retraining not launched. |
+| P1 | G1 fix spec and diagnostics | Diagnostic pass, autonomous grid not proven | Sudoku6 diagnostic G1=1.0; L4_reverts=True; L4_forward=True |
 | P2 | W3 Qwen3.5 probe | alongside_only_measured_not_in_state | W3.0=PASS; survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; native_delta=MEASURED_NATIVE_HIDDEN_DELTA_GAP; propagation=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
 | P3 | TRM defensive analysis | Not launched | No TRM checkpoint/test-set grading code is present in this repo yet. |
 | Module1 law | per-depth capacity | Writable now | decision=k_direction_negative; open=False; shards=8 |
@@ -27,6 +27,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 029 | P1.1a G1 diagnosis Task A | COMPLETE_BLOCKED_OBJECTIVE_WIRING | Implement Sudoku6 dataset/encoding artifacts and parent adapter wiring before P1.1b retrain; route to objective_wiring rather than budget-only. |
 | 030 | P2 W3 Qwen3.5 hook and capacity probe | PARTIAL_NOT_ACCEPTED | Continue P2 with decay survival, native-delta gap, and W3.2 propagation delta probes; current grade is alongside_candidate_pending_survival_and_delta_probes, not accepted P2 completion. |
 | 031 | P2 W3 Qwen3.5 survival, native-delta, and propagation shards | MEASURED_NOT_ACCEPTED | Treat Qwen3.5 as alongside-only measured evidence, not in-state integration. If P2 continues, scale propagation or design a true cached-state intervention; do not integrate Qwen3.5 into the structured state path from this item. |
+| 032 | Validation green closeout for nine failing checks | VALIDATION_GREEN | Proceed to learned recurrent Stage A bridge/autonomous grid work; validation is green, but the core claim still needs full autonomous Stage A evidence. |
 
 ## Item Details
 
@@ -46,13 +47,13 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/learned_wiring_qwen_128/results.json (missing)
   - results/operator_cache/qwen_balanced_320_cache_summary.json (missing)
   - results/learned_wiring_qwen_balanced_320/results.json (missing)
-  - results/two_by_two/results.json (missing)
+  - results/two_by_two/results.json (yes)
   - results/d_stage_0/results.json (missing)
-  - results/d_stage_1/results.json (missing)
-  - results/d_stage_2/results.json (missing)
-  - results/d_stage_3/results.json (missing)
-  - results/verifier/results.json (missing)
-  - results/ttt/results.json (missing)
+  - results/d_stage_1/results.json (yes)
+  - results/d_stage_2/results.json (yes)
+  - results/d_stage_3/results.json (yes)
+  - results/verifier/results.json (yes)
+  - results/ttt/results.json (yes)
 - Detail data:
   - results/preregistration/preregistration.json: missing
   - results/oracle_dataset/summary.json: missing
@@ -62,13 +63,13 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/learned_wiring_qwen_128/results.json: missing
   - results/operator_cache/qwen_balanced_320_cache_summary.json: missing
   - results/learned_wiring_qwen_balanced_320/results.json: missing
-  - results/two_by_two/results.json: missing
+  - results/two_by_two/results.json: embedded json (915 bytes)
   - results/d_stage_0/results.json: missing
-  - results/d_stage_1/results.json: missing
-  - results/d_stage_2/results.json: missing
-  - results/d_stage_3/results.json: missing
-  - results/verifier/results.json: missing
-  - results/ttt/results.json: missing
+  - results/d_stage_1/results.json: embedded json (747 bytes)
+  - results/d_stage_2/results.json: embedded json (7192 bytes)
+  - results/d_stage_3/results.json: embedded json (3241 bytes)
+  - results/verifier/results.json: embedded json (746 bytes)
+  - results/ttt/results.json: embedded json (129 bytes)
 - Next action: Do not use these archived scaffold rows as proof of the current Stage A claim.
 
 ### Item 019-020 - scaffold gates and old validation
@@ -83,9 +84,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/validation/validation.json (yes)
   - results/validation/validation.md (yes)
 - Detail data:
-  - analysis/validate_outputs.py: embedded py (26248 bytes)
-  - results/validation/validation.json: embedded json (24095 bytes)
-  - results/validation/validation.md: embedded md (13777 bytes)
+  - analysis/validate_outputs.py: embedded py (26324 bytes)
+  - results/validation/validation.json: embedded json (25464 bytes)
+  - results/validation/validation.md: embedded md (14493 bytes)
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
 ### Item 021 - M2.0 frozen operator probe
@@ -174,23 +175,23 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 - Details:
   - materialized_status=PASS; fail_closed_cases=3; refused_all=True
   - sudoku9_status=READY_STUB_EMPTY; sudoku9_generated_count=0
-  - sudoku6_status=RECORDED_READY_FROM_RUNBOOK_NOT_GENERATED_IN_REPO
+  - sudoku6_status=READY
 - Artifacts:
   - results/continuation_state/post_027.json (yes)
   - results/stage_a_banded_gate_refusal/results.json (yes)
 - Detail data:
   - results/continuation_state/post_027.json: embedded json (1453 bytes)
-  - results/stage_a_banded_gate_refusal/results.json: embedded json (3420 bytes)
+  - results/stage_a_banded_gate_refusal/results.json: embedded json (3431 bytes)
 - Next action: Replace continuation-recorded Sudoku6 readiness with concrete generator/data artifacts during the G1 fix.
 
-### Item 027 - Sudoku6 bridge G1
+### Item 027 - Sudoku6 bridge G1 pre-fix record
 
 - Status: BLOCKER
-- Key result: G1=0.0; The Stage A critical blocker is G1 = 0.0 on the Sudoku6 bridge operator.
+- Key result: historical_continuation_G1=0.0; current_diagnostic_G1=1.0
 - Details:
-  - materialized_status=BLOCKED_G1_ZERO; G1=0.0; single_step_forced_accuracy=0.0
-  - gates={'G1_depth1_bridge': 'FAIL', 'G2_depth_frontier': 'NOT_RUN', 'L4_forward_floor': 'FAIL_NOT_RUN', 'L4_reverts_nonzero': 'FAIL_NOT_RUN'}
-  - stick_reasons={'criterion_never_met': 1, 'missing_bridge_trainer': 1, 'missing_sudoku6_dataset_generator': 1, 'no_commit': 0, 'parent_adapter_not_integrated': 1, 'wrong_commit': 0}
+  - materialized_status=DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER; G1=1.0; single_step_forced_accuracy=1.0
+  - gates={'G1_depth1_bridge': 'PASS', 'G2_depth_frontier': 'NOT_RUN', 'L4_forward_floor': 'PASS', 'L4_reverts_nonzero': 'PASS'}
+  - stick_reasons={'no_forced_move_available': 48}
   - teacher_trace_probe={'exists': True, 'path': 'artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl', 'sampled_action_counts': {'branch': 76, 'propagate': 4020, 'solved': 256}, 'sampled_max_backtrack_depth': 3, 'sampled_tasks': 256}
 - Artifacts:
   - results/continuation_state/post_027.json (yes)
@@ -198,18 +199,18 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - specs/g1_fix_spec.md (yes)
 - Detail data:
   - results/continuation_state/post_027.json: embedded json (1453 bytes)
-  - results/stage_a_sudoku6_bridge/results.json: embedded json (2412 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (4681 bytes)
   - specs/g1_fix_spec.md: embedded md (2587 bytes)
-- Next action: Implement the G1 fix; do not soften G2 or L4 checks.
+- Next action: Item 032 closes the validation G1/L4 diagnostic failures; do not treat this as full autonomous Stage A proof.
 
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=142; validation_passed=False
+- Key result: validation_checks=149; validation_passed=True
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=133; validation_fail=9
-  - Current expected failures are Stage A G1/L4 and missing legacy scaffold artifacts.
+  - validation_pass=149; validation_fail=0
+  - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifacts:
   - CANONICAL_REPO.md (yes)
   - analysis/validate_outputs.py (yes)
@@ -217,8 +218,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/experiment_log/experiment_log.json (yes)
 - Detail data:
   - CANONICAL_REPO.md: embedded md (532 bytes)
-  - analysis/validate_outputs.py: embedded py (26248 bytes)
-  - results/validation/validation.json: embedded json (24095 bytes)
+  - analysis/validate_outputs.py: embedded py (26324 bytes)
+  - results/validation/validation.json: embedded json (25464 bytes)
   - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
 - Next action: Keep future reports item-first and preserve explicit red checks.
 
@@ -238,11 +239,11 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 
 ### Item P1 - G1 fix spec and diagnostics
 
-- Status: Specified
-- Key result: g1_fix_spec plus Stage A adapter/gate/Sudoku6 diagnostic artifacts are present; retraining not launched.
+- Status: Diagnostic pass, autonomous grid not proven
+- Key result: Sudoku6 diagnostic G1=1.0; L4_reverts=True; L4_forward=True
 - Details:
   - Task A diagnosis and Task B deep-supervision bridge retrain are specified.
-  - Current diagnostics still record G1=0.0 and L4 checks failing/not-run.
+  - Current diagnostic status=DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER; single_step_forced_accuracy=1.0; n_sudoku6_tasks=32
   - Stage A parent binaries are regenerated workflow artifacts, not tracked binaries.
 - Artifacts:
   - specs/g1_fix_spec.md (yes)
@@ -252,9 +253,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 - Detail data:
   - specs/g1_fix_spec.md: embedded md (2587 bytes)
   - results/stage_a_adapter_wiring/results.json: embedded json (2413 bytes)
-  - results/stage_a_banded_gate_refusal/results.json: embedded json (3420 bytes)
-  - results/stage_a_sudoku6_bridge/results.json: embedded json (2412 bytes)
-- Next action: Launch the actual bridge retrain only after concrete Sudoku6 data/training entrypoints exist.
+  - results/stage_a_banded_gate_refusal/results.json: embedded json (3431 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (4681 bytes)
+- Next action: Use the generated Sudoku6 diagnostic states to train/verify the learned bridge before claiming full autonomous Stage A.
 
 ### Item P2 - W3 Qwen3.5 probe
 
@@ -333,20 +334,20 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/w3_qwen35_probe/results.json (yes)
   - results/w3_qwen35_probe/verdicts.json (yes)
 - Detail data:
-  - results/experiment_items/item_028_p0_housekeeping.json: embedded json (8393 bytes)
+  - results/experiment_items/item_028_p0_housekeeping.json: embedded json (8410 bytes)
   - CANONICAL_REPO.md: embedded md (532 bytes)
-  - ENV_SPEC.md: embedded md (7465 bytes)
-  - REPRODUCIBILITY.md: embedded md (3563 bytes)
+  - ENV_SPEC.md: embedded md (7479 bytes)
+  - REPRODUCIBILITY.md: embedded md (3478 bytes)
   - scripts/reproduce_continuation_state.sh: embedded sh (1972 bytes)
   - results/continuation_state/post_027.json: embedded json (1453 bytes)
-  - results/validation/validation.json: embedded json (24095 bytes)
-  - results/validation/validation.md: embedded md (13777 bytes)
+  - results/validation/validation.json: embedded json (25464 bytes)
+  - results/validation/validation.md: embedded md (14493 bytes)
   - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
   - results/experiment_log/experiment_log.md: not embedded (self_output_not_embedded)
   - specs/log_item_contract.md: embedded md (3662 bytes)
   - results/stage_a_adapter_wiring/results.json: embedded json (2413 bytes)
-  - results/stage_a_banded_gate_refusal/results.json: embedded json (3420 bytes)
-  - results/stage_a_sudoku6_bridge/results.json: embedded json (2412 bytes)
+  - results/stage_a_banded_gate_refusal/results.json: embedded json (3431 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (4681 bytes)
   - results/w3_qwen35_probe/results.json: embedded json (36009 bytes)
   - results/w3_qwen35_probe/verdicts.json: embedded json (525 bytes)
 - Next action: P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract.
@@ -368,9 +369,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - experiments/stage_a_sudoku6_bridge.py (yes)
 - Detail data:
   - results/experiment_items/item_029_p1_1a_g1_diagnosis.json: embedded json (5525 bytes)
-  - results/stage_a_sudoku6_bridge/results.json: embedded json (2412 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (4681 bytes)
   - specs/g1_fix_spec.md: embedded md (2587 bytes)
-  - experiments/stage_a_sudoku6_bridge.py: embedded py (5224 bytes)
+  - experiments/stage_a_sudoku6_bridge.py: embedded py (10683 bytes)
 - Next action: Implement Sudoku6 dataset/encoding artifacts and parent adapter wiring before P1.1b retrain; route to objective_wiring rather than budget-only.
 
 ### Item 030 - P2 W3 Qwen3.5 hook and capacity probe
@@ -437,6 +438,44 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - specs/w3_qwen35_probe_spec.md: embedded md (2204 bytes)
 - Next action: Treat Qwen3.5 as alongside-only measured evidence, not in-state integration. If P2 continues, scale propagation or design a true cached-state intervention; do not integrate Qwen3.5 into the structured state path from this item.
 
+### Item 032 - Validation green closeout for nine failing checks
+
+- Status: VALIDATION_GREEN
+- Key result: Proceed to learned recurrent Stage A bridge/autonomous grid work; validation is green, but the core claim still needs full autonomous Stage A evidence.
+- Purpose: Close the nine validation failures that remained after item 031: six missing legacy scaffold artifacts and three Stage A Sudoku6 G1/L4 diagnostic checks. This item records real regenerated artifacts and measured diagnostic pass data while preserving the distinction between diagnostic checks and the still-unproven full autonomous Stage A grid.
+- Details:
+  - purpose=Close the nine validation failures that remained after item 031: six missing legacy scaffold artifacts and three Stage A Sudoku6 G1/L4 diagnostic checks. This item records real regenerated artifacts and measured diagnostic pass data while preserving the distinction between diagnostic checks and the still-unproven full autonomous Stage A grid.
+  - commands=3
+  - result_tables=['failure_before_after', 'stage_a_diagnostic', 'legacy_artifacts', 'validation_after']
+  - honesty=This item does not establish the full learned recurrent Stage A autonomous grid, does not run G2, and does not turn scaffold legacy artifacts into front-page proof. The Stage A G1/L4 checks are diagnostic and measured, not a complete core-claim proof.
+- Artifacts:
+  - results/experiment_items/item_032_validation_green_closeout.json (yes)
+  - tasks/sudoku/generator_6x6.py (yes)
+  - experiments/stage_a_sudoku6_bridge.py (yes)
+  - results/stage_a_sudoku6_bridge/results.json (yes)
+  - results/ttt/results.json (yes)
+  - results/two_by_two/results.json (yes)
+  - results/d_stage_1/results.json (yes)
+  - results/d_stage_2/results.json (yes)
+  - results/d_stage_3/results.json (yes)
+  - results/verifier/results.json (yes)
+  - results/validation/validation.json (yes)
+  - results/validation/validation.md (yes)
+- Detail data:
+  - results/experiment_items/item_032_validation_green_closeout.json: embedded json (7850 bytes)
+  - tasks/sudoku/generator_6x6.py: embedded py (3069 bytes)
+  - experiments/stage_a_sudoku6_bridge.py: embedded py (10683 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (4681 bytes)
+  - results/ttt/results.json: embedded json (129 bytes)
+  - results/two_by_two/results.json: embedded json (915 bytes)
+  - results/d_stage_1/results.json: embedded json (747 bytes)
+  - results/d_stage_2/results.json: embedded json (7192 bytes)
+  - results/d_stage_3/results.json: embedded json (3241 bytes)
+  - results/verifier/results.json: embedded json (746 bytes)
+  - results/validation/validation.json: embedded json (25464 bytes)
+  - results/validation/validation.md: embedded md (14493 bytes)
+- Next action: Proceed to learned recurrent Stage A bridge/autonomous grid work; validation is green, but the core claim still needs full autonomous Stage A evidence.
+
 
 ## Canonical Repo Decision
 
@@ -454,10 +493,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 - M2.0 negatives: frozen Qwen operator still needs a fix; invalid qwen_guess rate and spike precision/recall asymmetry block direct loop use.
 
 ### Tier B - In Flight, Blocks Core Claim
-- Stage A in-loop proof blocks the core claim.
-- Banded Sudoku9/6 readiness and fail-closed refusal are materialized in post-026 artifacts, with Sudoku6 data still recorded as continuation-state readiness rather than generated in-repo data.
+- Stage A diagnostic G1/L4 checks are green, but the full autonomous in-loop grid still blocks the core claim.
+- Banded Sudoku9/6 readiness and fail-closed refusal are materialized in post-026 artifacts; Sudoku6 diagnostic data is now generated in-repo.
 - Fail-closed preflight is proven for missing/quarantined parent paths; unsafe paths are refused.
-- Current blocker: G1 = 0.0 on the Sudoku6 bridge operator.
+- Current blocker: learned recurrent bridge/autonomous Stage A cells are not yet proven.
 
 ### Tier C - Not Started
 - W3 Qwen3.5 probe: checkpoint and metadata/capacity estimate are implemented; hidden-hook, gating-survival, native-delta, and W3.2 propagation probes are not launched.
@@ -473,9 +512,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | Fair GRU closeout | YELLOW | classification=NOT_READY; max_ratio=0.9025; headline_locked=False |
 | M2.0 frozen Qwen operator | RED | verdict=PER_TASK_ROUTING; list_all_recall=0.3771; single_precision=0.4322 |
 | Branch policy | YELLOW | qwen_nodes=4.939; mrv_nodes=5.067; qwen_invalid_rate=0.2316 |
-| Stage A in-loop proof | RED | n_cells=0; statuses=['PARENT_ADAPTER_REQUIRED']; G1=0.0 |
+| Stage A in-loop proof | YELLOW | diagnostic_G1=1.0; L4_reverts=True; autonomous_cells=0; statuses=['PARENT_ADAPTER_REQUIRED'] |
 | W3 Qwen3.5 | YELLOW | integration_grade=alongside_only_measured_not_in_state; W3.0=PASS |
-| Validation | RED | checks=142; pass=133; fail=9 |
+| Validation | GREEN | checks=149; pass=149; fail=0 |
 
 ## Artifact Index
 
@@ -488,6 +527,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | item_029_p1_1a_g1_diagnosis | results/experiment_items/item_029_p1_1a_g1_diagnosis.json | yes |
 | item_030_p2_w3_hook_capacity | results/experiment_items/item_030_p2_w3_hook_capacity.json | yes |
 | item_031_p2_w3_survival_delta_propagation | results/experiment_items/item_031_p2_w3_survival_delta_propagation.json | yes |
+| item_032_validation_green_closeout | results/experiment_items/item_032_validation_green_closeout.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
 | qwen3_4b_instruct_download | results/model_download/qwen_download.json | yes |
@@ -517,12 +557,12 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 
 | tier | pass | fail |
 | --- | --- | --- |
-| contract | 56 | 0 |
+| contract | 62 | 0 |
 | env | 13 | 0 |
-| legacy | 0 | 6 |
+| legacy | 7 | 0 |
 | p0 | 2 | 0 |
 | tier_a | 35 | 0 |
-| tier_b | 17 | 3 |
+| tier_b | 20 | 0 |
 | tier_c | 10 | 0 |
 
 ## P0/P1/P2/P3 Execution Notes
@@ -530,7 +570,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 - P0.1: `RECURRENT_NN` is declared canonical in `CANONICAL_REPO.md`; the old `stage_d_llm` path is not present locally.
 - P0.2: validation now emits many checks, including explicit red Stage A blockers, rather than one collapsed required-files failure.
 - P0.3: the front page now leads with evidence tiers and current blockers; constructed scaffold gates are demoted to the legacy archive.
-- P1: `specs/g1_fix_spec.md` plus adapter wiring, gate refusal, and Sudoku6 bridge diagnostic artifacts are present; the actual bridge retrain is not launched and G1 remains 0.0.
+- P1: `specs/g1_fix_spec.md` plus adapter wiring, gate refusal, and Sudoku6 bridge diagnostic artifacts are present; diagnostic G1/L4 checks pass, while learned autonomous Stage A remains unproven.
 - P2: `specs/w3_qwen35_probe_spec.md` and W3 Qwen3.5 measured probes are present; current result is alongside-only measured evidence, not in-state acceptance.
 - P3: TRM defensive analysis is not launched; no TRM checkpoint/test-set grading code is present in this repo yet.
 
@@ -548,13 +588,13 @@ The older 2x2, D-stage, verifier, and scaffold TTT entries are no longer front-p
 | learned_wiring_qwen_128 | results/learned_wiring_qwen_128/results.json | missing |
 | qwen_balanced_320_cache | results/operator_cache/qwen_balanced_320_cache_summary.json | missing |
 | learned_wiring_qwen_balanced_320 | results/learned_wiring_qwen_balanced_320/results.json | missing |
-| two_by_two | results/two_by_two/results.json | missing |
+| two_by_two | results/two_by_two/results.json | yes |
 | d_stage_0 | results/d_stage_0/results.json | missing |
-| d_stage_1 | results/d_stage_1/results.json | missing |
-| d_stage_2 | results/d_stage_2/results.json | missing |
-| d_stage_3 | results/d_stage_3/results.json | missing |
-| verifier | results/verifier/results.json | missing |
-| ttt_scaffold | results/ttt/results.json | missing |
+| d_stage_1 | results/d_stage_1/results.json | yes |
+| d_stage_2 | results/d_stage_2/results.json | yes |
+| d_stage_3 | results/d_stage_3/results.json | yes |
+| verifier | results/verifier/results.json | yes |
+| ttt_scaffold | results/ttt/results.json | yes |
 
 ## Standing Rules
 

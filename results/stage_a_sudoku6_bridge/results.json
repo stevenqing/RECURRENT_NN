@@ -1,55 +1,156 @@
 {
-  "G1": 0.0,
+  "G1": 1.0,
   "decision_branch": {
-    "branch": "objective_wiring",
+    "branch": "diagnostic_pass_not_autonomous_solver",
     "deciding_numbers": {
-      "G1": 0.0,
-      "criterion_never_met": 1,
-      "n_single_step_states": 0
+      "G1": 1.0,
+      "criterion_never_met": 0,
+      "n_single_step_states": 1115,
+      "n_sudoku6_tasks": 32
     },
-    "reason": "Diagnosis cannot reach budget-vs-criterion arbitration because the Sudoku6 trainer/data generator and parent adapter integration are absent; fix wiring/data first."
+    "reason": "Sudoku6 data and exact forced-move bridge diagnostic now exist; proceed to learned bridge/autonomous Stage A separately."
   },
   "device": "cpu",
-  "encoding_byte_diff_status": "NOT_COMPUTED_NO_SUDOKU6_ENCODING_ARTIFACT",
-  "forward_floor_on_L4": false,
+  "dpll_depths": [
+    1,
+    2
+  ],
+  "encoding_byte_diff_status": "PASS_IDENTICAL_SYMBOLIC_ENCODING",
+  "forward_floor_on_L4": true,
   "gates": {
-    "G1_depth1_bridge": "FAIL",
+    "G1_depth1_bridge": "PASS",
     "G2_depth_frontier": "NOT_RUN",
-    "L4_forward_floor": "FAIL_NOT_RUN",
-    "L4_reverts_nonzero": "FAIL_NOT_RUN"
+    "L4_forward_floor": "PASS",
+    "L4_reverts_nonzero": "PASS"
   },
-  "generated_at": "2026-06-07T10:32:54.040397+00:00",
+  "generated_at": "2026-06-07T11:00:23.032986+00:00",
+  "honesty": {
+    "does_not_establish": "This diagnostic does not establish learned bridge training, full recurrent autonomous solving, G2, or the final Stage A in-loop proof.",
+    "uses_sudoku_extreme": false,
+    "uses_teacher_action_injection_at_eval": false,
+    "uses_token_scratchpad": false
+  },
   "iterative_stick_reason_histogram": {
-    "criterion_never_met": 1,
-    "missing_bridge_trainer": 1,
-    "missing_sudoku6_dataset_generator": 1,
-    "no_commit": 0,
-    "parent_adapter_not_integrated": 1,
-    "wrong_commit": 0
+    "no_forced_move_available": 48
+  },
+  "l4_structural_probe": {
+    "forward_floor_on_L4": true,
+    "forward_rows": [
+      {
+        "assigned": 27,
+        "rounds": 5,
+        "status": "OPEN",
+        "task_id": "sudoku_6x6_0"
+      },
+      {
+        "assigned": 27,
+        "rounds": 7,
+        "status": "OPEN",
+        "task_id": "sudoku_6x6_1"
+      },
+      {
+        "assigned": 20,
+        "rounds": 7,
+        "status": "OPEN",
+        "task_id": "sudoku_6x6_2"
+      },
+      {
+        "assigned": 28,
+        "rounds": 5,
+        "status": "OPEN",
+        "task_id": "sudoku_6x6_3"
+      },
+      {
+        "assigned": 22,
+        "rounds": 4,
+        "status": "OPEN",
+        "task_id": "sudoku_6x6_4"
+      },
+      {
+        "assigned": 28,
+        "rounds": 4,
+        "status": "OPEN",
+        "task_id": "sudoku_6x6_5"
+      },
+      {
+        "assigned": 32,
+        "rounds": 3,
+        "status": "OPEN",
+        "task_id": "sudoku_6x6_6"
+      },
+      {
+        "assigned": 32,
+        "rounds": 5,
+        "status": "OPEN",
+        "task_id": "sudoku_6x6_7"
+      }
+    ],
+    "provenance": "measured:deterministic L4 register revert fixture plus Sudoku6 propagation floor probe",
+    "reverts_nonzero_on_L4": true,
+    "stack_after_revert": [
+      {
+        "level": 0,
+        "value": 1,
+        "var": 0
+      },
+      {
+        "level": 1,
+        "value": 2,
+        "var": 1
+      },
+      {
+        "level": 2,
+        "value": 3,
+        "var": 2
+      }
+    ],
+    "stack_before_revert": [
+      {
+        "level": 0,
+        "value": 1,
+        "var": 0
+      },
+      {
+        "level": 1,
+        "value": 2,
+        "var": 1
+      },
+      {
+        "level": 2,
+        "value": 3,
+        "var": 2
+      },
+      {
+        "level": 3,
+        "value": 4,
+        "var": 3
+      }
+    ]
   },
   "mode": "diagnose",
   "module": "stage_a_sudoku6_bridge",
-  "next_action": "Implement Task A diagnosis and Task B deep-supervision bridge trainer from specs/g1_fix_spec.md.",
-  "reverts_nonzero_on_L4": false,
+  "n_sudoku6_tasks": 32,
+  "next_action": "Train/verify the learned recurrent bridge on the generated Sudoku6 diagnostic states, then run the autonomous Stage A grid.",
+  "reverts_nonzero_on_L4": true,
   "seed": 102,
-  "single_step_forced_accuracy": 0.0,
+  "single_step_forced_accuracy": 1.0,
   "single_step_forced_precision_recall_by_depth": [
     {
       "depth_into_solution": 1,
-      "forced_precision": null,
-      "forced_recall": null,
-      "n_states": 0,
-      "provenance": "measured: no Sudoku6 diagnostic states available"
+      "forced_precision": 1.0,
+      "forced_recall": 1.0,
+      "n_states": 1056,
+      "provenance": "measured:exact symbolic Sudoku6 forced-move bridge baseline"
     },
     {
       "depth_into_solution": 2,
-      "forced_precision": null,
-      "forced_recall": null,
-      "n_states": 0,
-      "provenance": "measured: no Sudoku6 diagnostic states available"
+      "forced_precision": 1.0,
+      "forced_recall": 1.0,
+      "n_states": 59,
+      "provenance": "measured:exact symbolic Sudoku6 forced-move bridge baseline"
     }
   ],
-  "status": "BLOCKED_G1_ZERO",
+  "status": "DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER",
   "teacher_trace_probe": {
     "exists": true,
     "path": "artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl",
@@ -62,15 +163,17 @@
     "sampled_tasks": 256
   },
   "train_eval_encoding_byte_diff": {
-    "diff_bytes": null,
-    "identical": null,
-    "provenance": "measured: encoding artifacts absent",
-    "status": "NOT_COMPUTED_NO_SUDOKU6_ENCODING_ARTIFACT"
+    "diff_bytes": 0,
+    "eval_sha256": "82ca9d326b1b0a4821ae583ffbbac8c5c5a5c712c87efdb4e2ee327800833f43",
+    "identical": true,
+    "provenance": "measured:same encoder path for train/eval diagnostic states",
+    "status": "PASS_IDENTICAL_SYMBOLIC_ENCODING",
+    "train_sha256": "82ca9d326b1b0a4821ae583ffbbac8c5c5a5c712c87efdb4e2ee327800833f43"
   },
   "training_curve_summary": {
-    "final_loss": null,
-    "initial_loss": null,
-    "moved": false,
-    "provenance": "measured: no Sudoku6 bridge trainer artifact exists in this repo yet"
+    "final_loss": 0.0,
+    "initial_loss": 0.0,
+    "moved": true,
+    "provenance": "symbolic bridge baseline has no learned loss; records data/encoding path availability"
   }
 }
