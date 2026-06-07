@@ -1,0 +1,95 @@
+{
+  "capacity_estimates": [
+    {
+      "K_val": 2,
+      "K_var": 60,
+      "bound_single_estimated_capacity": 143.7463401750108,
+      "factored_estimated_capacity": 78.48245783777612,
+      "hidden_size_as_D": 2560,
+      "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+    },
+    {
+      "K_val": 9,
+      "K_var": 60,
+      "bound_single_estimated_capacity": 109.38200016209551,
+      "factored_estimated_capacity": 78.48245783777612,
+      "hidden_size_as_D": 2560,
+      "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+    },
+    {
+      "K_val": 2,
+      "K_var": 81,
+      "bound_single_estimated_capacity": 135.2671028314925,
+      "factored_estimated_capacity": 73.12275399438,
+      "hidden_size_as_D": 2560,
+      "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+    },
+    {
+      "K_val": 2,
+      "K_var": 256,
+      "bound_single_estimated_capacity": 110.31558278976945,
+      "factored_estimated_capacity": 57.94841151527523,
+      "hidden_size_as_D": 2560,
+      "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+    },
+    {
+      "K_val": 2,
+      "K_var": 729,
+      "bound_single_estimated_capacity": 94.46826832155462,
+      "factored_estimated_capacity": 48.74850266292001,
+      "hidden_size_as_D": 2560,
+      "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+    },
+    {
+      "K_val": 9,
+      "K_var": 729,
+      "bound_single_estimated_capacity": 78.30155639772106,
+      "factored_estimated_capacity": 48.74850266292001,
+      "hidden_size_as_D": 2560,
+      "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+    }
+  ],
+  "config": {
+    "full_attention_interval": 4,
+    "full_attention_layers": 8,
+    "hidden_size": 2560,
+    "linear_layers": 24,
+    "model_type": "qwen3_5",
+    "num_attention_heads": 16,
+    "num_hidden_layers": 32,
+    "num_key_value_heads": 4,
+    "rope_theta": 10000000,
+    "source": "/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "text_model_type": "qwen3_5_text",
+    "vocab_size": 248320
+  },
+  "download_record": {
+    "generated_at": "2026-06-07T09:42:34.867563+00:00",
+    "model_id": "Qwen/Qwen3.5-4B",
+    "n_files": 14,
+    "revision": null,
+    "snapshot_path": "/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "total_bytes": 9342907469,
+    "total_gib": 8.701260638423264
+  },
+  "generated_at": "2026-06-07T10:03:40.181057+00:00",
+  "hidden_hook_probe": {
+    "load_model": false,
+    "status": "SKIPPED_METADATA_ONLY"
+  },
+  "integration_grade": "do_not_integrate_yet",
+  "model_id": "Qwen/Qwen3.5-4B",
+  "module": "w3_qwen35_probe",
+  "red_lines": {
+    "different_family_fallback_used": false,
+    "ordering_only_pass": false,
+    "per_task_verdicts_required_for_W3_2": true
+  },
+  "verdicts": {
+    "W3.0_checkpoint_pin": "PASS",
+    "W3.1_capacity_at_real_gdn_dims": "PLANNING_ESTIMATE_ONLY",
+    "W3.1_gating_decay_stack_survival": "NOT_RUN",
+    "W3.1_native_delta_rule_as_stack_gap": "NOT_RUN",
+    "W3.2_qwen3_4b_delta_table": "NOT_RUN"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "autonomous_solve_status": "NOT_RUN",
+  "bridge_decoder": {
+    "config": {
+      "D": 128,
+      "K_val": 9,
+      "K_var": 81,
+      "max_depth": 8,
+      "seed": 142,
+      "training_steps": 500
+    },
+    "exists": true,
+    "kind": "reconstructed_item142_factored_cell_digit_decoder",
+    "model_class": "FactoredBridgeDecoder",
+    "path": "artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt"
+  },
+  "decision": "adapter_contract_wired_but_autonomous_loop_not_proven",
+  "generated_at": "2026-06-07T10:02:40.190342+00:00",
+  "grid_cells": 36,
+  "module": "stage_a_adapter_wiring",
+  "operator_ckpt": {
+    "config": {
+      "board_cells": 16,
+      "hidden_dim": 96,
+      "layers": 2,
+      "seed": 102,
+      "training_steps": 300,
+      "values": 4
+    },
+    "exists": true,
+    "kind": "reconstructed_parent_operator",
+    "model_class": "ReconstructedRecurrentSolver",
+    "path": "artifacts/stage_a/recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt"
+  },
+  "preflight_checks": [
+    {
+      "name": "operator_ckpt",
+      "ok": true,
+      "path": "/home/aiscuser/RECURRENT_NN/artifacts/stage_a/recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt"
+    },
+    {
+      "name": "bridge_decoder",
+      "ok": true,
+      "path": "/home/aiscuser/RECURRENT_NN/artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt"
+    },
+    {
+      "name": "teacher_trace",
+      "ok": true,
+      "path": "/home/aiscuser/RECURRENT_NN/artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl"
+    },
+    {
+      "name": "module1_capacity",
+      "ok": true,
+      "path": "/home/aiscuser/RECURRENT_NN/results/module1_capacity_perdepth_shards/results.json"
+    }
+  ],
+  "preflight_status": "READY",
+  "register_checks": {
+    "bound_single": {
+      "margin": 0.6533583402633667,
+      "ok": true,
+      "val": 4,
+      "var": 10
+    },
+    "factored": {
+      "margin": 0.6881270408630371,
+      "ok": true,
+      "val": 4,
+      "var": 10
+    },
+    "rot_symbol": {
+      "margin": 0.004808320663869381,
+      "ok": true,
+      "symbol": 94
+    },
+    "tape": {
+      "margin": 1.0,
+      "ok": true,
+      "symbol": 94
+    }
+  },
+  "register_smoke_status": "SMOKE_PASS",
+  "status": "PASS",
+  "teacher_trace": {
+    "exists": true,
+    "path": "artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl",
+    "tasks": 1024
+  }
+}

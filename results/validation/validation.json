@@ -1,27 +1,497 @@
 {
   "checks": [
     {
-      "detail": "missing=['results/preregistration/preregistration.json', 'results/oracle_dataset/summary.json', 'results/oracle_dataset/examples.jsonl', 'results/operator_cache/summary.json', 'results/operator_cache/qwen_probe_cache_summary.json', 'results/operator_cache/qwen_128_cache_summary.json', 'results/learned_wiring_qwen_128/results.json', 'results/operator_cache/qwen_balanced_320_cache_summary.json', 'results/learned_wiring_qwen_balanced_320/results.json', 'results/module1_stack_capacity/results.json', 'results/module1_stack_capacity_full/results.json', 'results/module1_capacity_benchmark_full_shards/results.json', 'results/module1_capacity_diagnostic_full_shards/results.json', 'results/learned_wiring/results.json', 'results/two_by_two/results.json', 'results/d_stage_0/results.json', 'results/d_stage_1/results.json', 'results/d_stage_2/results.json', 'results/d_stage_3/results.json', 'results/verifier/results.json', 'results/ttt/results.json', 'results/analysis/summary.md']",
-      "name": "required_files_present",
-      "status": "FAIL"
+      "detail": "repo_root=/home/aiscuser/RECURRENT_NN",
+      "name": "canonical_repo_is_recurrent_nn",
+      "status": "PASS",
+      "tier": "p0"
+    },
+    {
+      "detail": "exists=False",
+      "name": "old_stage_d_llm_not_present",
+      "status": "PASS",
+      "tier": "p0"
+    },
+    {
+      "detail": "results/model_readiness/readiness.json",
+      "name": "model_readiness_present",
+      "status": "PASS",
+      "tier": "env"
+    },
+    {
+      "detail": "value=True",
+      "name": "env_transformers_available",
+      "status": "PASS",
+      "tier": "env"
+    },
+    {
+      "detail": "count=8",
+      "name": "env_cuda_available",
+      "status": "PASS",
+      "tier": "env"
+    },
+    {
+      "detail": "count=8",
+      "name": "env_cuda_device_count_nonzero",
+      "status": "PASS",
+      "tier": "env"
+    },
+    {
+      "detail": "results/model_download/qwen_download.json",
+      "name": "qwen3_instruct_present",
+      "status": "PASS",
+      "tier": "env"
+    },
+    {
+      "detail": "model_id=Qwen/Qwen3-4B-Instruct-2507",
+      "name": "qwen3_instruct_model_id",
+      "status": "PASS",
+      "tier": "env"
+    },
+    {
+      "detail": "total_gib=7.507314503192902",
+      "name": "qwen3_instruct_download_size",
+      "status": "PASS",
+      "tier": "env"
+    },
+    {
+      "detail": "results/model_download/thinking/qwen_download.json",
+      "name": "qwen3_thinking_present",
+      "status": "PASS",
+      "tier": "env"
+    },
+    {
+      "detail": "model_id=Qwen/Qwen3-4B-Thinking-2507",
+      "name": "qwen3_thinking_model_id",
+      "status": "PASS",
+      "tier": "env"
+    },
+    {
+      "detail": "total_gib=7.507317625917494",
+      "name": "qwen3_thinking_download_size",
+      "status": "PASS",
+      "tier": "env"
+    },
+    {
+      "detail": "results/model_download/qwen3_5_4b/qwen_download.json",
+      "name": "qwen35_4b_present",
+      "status": "PASS",
+      "tier": "env"
+    },
+    {
+      "detail": "model_id=Qwen/Qwen3.5-4B",
+      "name": "qwen35_4b_model_id",
+      "status": "PASS",
+      "tier": "env"
+    },
+    {
+      "detail": "total_gib=8.701260638423264",
+      "name": "qwen35_4b_download_size",
+      "status": "PASS",
+      "tier": "env"
+    },
+    {
+      "detail": "results/module1_capacity_perdepth_shards/results.json",
+      "name": "module1_perdepth_present",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "device=8x_cuda_sharded",
+      "name": "module1_perdepth_sharded",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "num_shards=8",
+      "name": "module1_perdepth_num_shards",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "decision=k_direction_negative, open=False",
+      "name": "module1_k_direction_negative",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "joint/var/val signs are <= 0",
+      "name": "module1_all_k_signs_nonincreasing",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "best=D_over_ln_product",
+      "name": "module1_bound_single_keff_product",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "r2=0.9887660263260115",
+      "name": "module1_bound_single_product_r2",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "best=D_over_ln_Kvar",
+      "name": "module1_factored_keff_kvar",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "r2=0.9775493597694338",
+      "name": "module1_factored_kvar_r2",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "results/module1_capacity_benchmark_full_shards/k_direction_corrected.json",
+      "name": "module1_k_corrected_present",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "passed=True",
+      "name": "module1_ceiling_artifact_corrected",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "results/module1_capacity_batching_large/results.json",
+      "name": "module1_batching_present",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "best_batches=[8192, 8192, 8192, 16384]",
+      "name": "module1_batching_large_recorded",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "results/gru_stack_smoke/results.json",
+      "name": "gru_smoke_present",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "results/gru_stack_grid_full/results.json",
+      "name": "gru_light_present",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "results/gru_degeneracy_diagnostic/results.json",
+      "name": "gru_degeneracy_present",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "results/gru_stack_grid_fair/results.json",
+      "name": "gru_fair_present",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "results/gru_vs_structured_closeout/results.json",
+      "name": "gru_closeout_present",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "frontier=0.0",
+      "name": "gru_smoke_converged",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "n_cells=144",
+      "name": "gru_fair_144_cells",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "all_converged=True",
+      "name": "gru_fair_all_converged",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "training=True",
+      "name": "gru_fair_training_sufficient",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "below=True",
+      "name": "gru_fair_below_structured",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "classification=NOT_READY",
+      "name": "gru_closeout_not_ready_honest",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "lock=False",
+      "name": "gru_headline_not_locked",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "ratio=0.9025382093725324",
+      "name": "gru_max_ratio_below_one",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "results/m2_operator_probe/report.json",
+      "name": "m2_probe_present",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "results/m2_operator_probe/report_fix_rescale.json",
+      "name": "m2_fix_rescale_present",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "verdict=NEEDS_OPERATOR_FIX",
+      "name": "m2_probe_negative",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "forced_recall=0.1935483870967742",
+      "name": "m2_probe_forced_recall_low",
+      "status": "PASS",
+      "tier": "tier_a"
     },
     {
       "detail": "verdicts={'general_sat': 'NEEDS_OPERATOR_FIX', 'graph_coloring': 'NEEDS_OPERATOR_FIX', 'horn_sat': 'NEEDS_OPERATOR_FIX', 'logic_grid': 'NEEDS_OPERATOR_FIX', 'sudoku_4x4': 'NEEDS_OPERATOR_FIX'}",
-      "name": "m2_per_task_verdicts_recorded",
-      "status": "PASS"
+      "name": "m2_fix_all_tasks_need_fix",
+      "status": "PASS",
+      "tier": "tier_a"
     },
     {
-      "detail": "single_keys=['accepted_moves', 'calls', 'fixpoint_reach_rate', 'mean_rounds_to_fixpoint', 'n', 'parse_success_rate', 'per_call_precision', 'rejected_moves'], list_all_keys=['filter_dropped', 'forced_recall', 'n', 'parse_success_rate', 'raw_precision']",
-      "name": "m2_iterated_ablation_recorded",
-      "status": "PASS"
+      "detail": "routing={'fix_tasks': ['general_sat', 'graph_coloring', 'horn_sat', 'logic_grid', 'sudoku_4x4'], 'pass_tasks': []}",
+      "name": "m2_fix_rescale_routes_all_to_fix",
+      "status": "PASS",
+      "tier": "tier_a"
     },
     {
-      "detail": "branch_decision=qwen_guess_beats_mrv_reconsider",
-      "name": "m2_branch_decision_recorded",
-      "status": "PASS"
+      "detail": "invalid_guess_rate=0.23157415832575068",
+      "name": "m2_qwen_guess_invalid_rate_high",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "invalid_guess_rate=0.0",
+      "name": "m2_mrv_invalid_rate_zero",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "overall_keys=['branch', 'list_all', 'single_iterated']",
+      "name": "m2_iterated_and_list_all_recorded",
+      "status": "PASS",
+      "tier": "tier_a"
+    },
+    {
+      "detail": "artifacts/stage_a/manifest.json",
+      "name": "stage_a_manifest_present",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "results/stage_a_backtrack/results.json",
+      "name": "stage_a_results_present",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "results/stage_a_backtrack/report.json",
+      "name": "stage_a_report_present",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "results/continuation_state/post_027.json",
+      "name": "continuation_post_027_present",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "status=READY",
+      "name": "stage_a_reconstructed_artifacts_ready",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "policy=reconstructed_in_repo_not_inherited",
+      "name": "stage_a_provenance_recorded",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "preflight_failed=False",
+      "name": "stage_a_preflight_passed",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "statuses=['PARENT_ADAPTER_REQUIRED']",
+      "name": "stage_a_parent_adapter_blocker_present",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "n_cells=0",
+      "name": "stage_a_no_autonomous_cells_yet",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "verdict=NEEDS_REVIEW",
+      "name": "stage_a_report_needs_review",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "g1=0.0",
+      "name": "stage_a_sudoku6_g1_zero_recorded",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "specs/g1_fix_spec.md",
+      "name": "g1_fix_spec_present",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "results/stage_a_adapter_wiring/results.json",
+      "name": "post025_adapter_wiring_present",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "results/stage_a_banded_gate_refusal/results.json",
+      "name": "post026_banded_gate_refusal_present",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "results/stage_a_sudoku6_bridge/results.json",
+      "name": "post027_sudoku6_bridge_present",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "status=PASS",
+      "name": "post025_adapter_wiring_pass",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "status=PASS; cases=3",
+      "name": "post026_gate_refusal_pass",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "expected to fail until P1 fixes bridge G1",
+      "name": "stage_a_sudoku6_g1_pass",
+      "status": "FAIL",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "expected restored registry check",
+      "name": "stage_a_reverts_nonzero_on_L4",
+      "status": "FAIL",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "expected restored registry check",
+      "name": "stage_a_forward_floor_on_L4",
+      "status": "FAIL",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "specs/w3_qwen35_probe_spec.md",
+      "name": "w3_qwen35_probe_spec_present",
+      "status": "PASS",
+      "tier": "tier_c"
+    },
+    {
+      "detail": "results/w3_qwen35_probe/results.json",
+      "name": "w3_qwen35_probe_present",
+      "status": "PASS",
+      "tier": "tier_c"
+    },
+    {
+      "detail": "model_id=Qwen/Qwen3.5-4B",
+      "name": "w3_qwen35_model_id",
+      "status": "PASS",
+      "tier": "tier_c"
+    },
+    {
+      "detail": "verdict=PASS",
+      "name": "w3_checkpoint_pin_pass",
+      "status": "PASS",
+      "tier": "tier_c"
+    },
+    {
+      "detail": "integration_grade=do_not_integrate_yet",
+      "name": "w3_metadata_only_not_overclaimed",
+      "status": "PASS",
+      "tier": "tier_c"
+    },
+    {
+      "detail": "results/ttt/results.json",
+      "name": "ttt_legacy_present",
+      "status": "FAIL",
+      "tier": "legacy"
+    },
+    {
+      "detail": "results/two_by_two/results.json",
+      "name": "legacy_two_by_two_present",
+      "status": "FAIL",
+      "tier": "legacy"
+    },
+    {
+      "detail": "results/d_stage_1/results.json",
+      "name": "legacy_d_stage_1_present",
+      "status": "FAIL",
+      "tier": "legacy"
+    },
+    {
+      "detail": "results/d_stage_2/results.json",
+      "name": "legacy_d_stage_2_present",
+      "status": "FAIL",
+      "tier": "legacy"
+    },
+    {
+      "detail": "results/d_stage_3/results.json",
+      "name": "legacy_d_stage_3_present",
+      "status": "FAIL",
+      "tier": "legacy"
+    },
+    {
+      "detail": "results/verifier/results.json",
+      "name": "legacy_verifier_present",
+      "status": "FAIL",
+      "tier": "legacy"
     }
   ],
-  "dataset_stats": {},
-  "generated_at": "2026-06-07T00:55:23.322930+00:00",
-  "passed": false
+  "generated_at": "2026-06-07T10:03:49.107590+00:00",
+  "passed": false,
+  "summary": {
+    "n_checks": 81,
+    "n_fail": 9,
+    "n_pass": 72
+  }
 }

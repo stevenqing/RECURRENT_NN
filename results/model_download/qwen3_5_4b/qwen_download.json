@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-06-07T09:42:34.867563+00:00",
+  "model_id": "Qwen/Qwen3.5-4B",
+  "n_files": 14,
+  "revision": null,
+  "snapshot_path": "/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+  "total_bytes": 9342907469,
+  "total_gib": 8.701260638423264
+}

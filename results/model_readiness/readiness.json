@@ -12,7 +12,7 @@
     "NVIDIA A100-SXM4-80GB",
     "NVIDIA A100-SXM4-80GB"
   ],
-  "generated_at": "2026-06-05T07:29:37.242483+00:00",
+  "generated_at": "2026-06-07T09:37:37.037943+00:00",
   "hf_home": "/home/aiscuser/.cache/huggingface",
   "model_id": "Qwen/Qwen3-4B-Instruct-2507",
   "recommended_cache_command": "python -m analysis.operator_cache --load-model --limit 8 --output-name qwen_probe_cache",

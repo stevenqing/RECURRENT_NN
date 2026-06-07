@@ -1,58 +1,58 @@
 {
   "artifact_policy": "reconstructed_in_repo_not_inherited",
   "bridge_decoder": {
-    "last_batch_val_accuracy": 0.9873046875,
-    "last_batch_var_accuracy": 0.630859375,
+    "last_batch_val_accuracy": 0.986328125,
+    "last_batch_var_accuracy": 0.6240234375,
     "losses": [
       {
-        "loss": 6.560023307800293,
+        "loss": 6.557072639465332,
         "step": 1
       },
       {
-        "loss": 4.042757987976074,
+        "loss": 3.9859466552734375,
         "step": 50
       },
       {
-        "loss": 3.747251033782959,
+        "loss": 3.297485113143921,
         "step": 100
       },
       {
-        "loss": 2.7894036769866943,
+        "loss": 2.972196340560913,
         "step": 150
       },
       {
-        "loss": 2.8802926540374756,
+        "loss": 2.9336490631103516,
         "step": 200
       },
       {
-        "loss": 2.3785977363586426,
+        "loss": 2.4491653442382812,
         "step": 250
       },
       {
-        "loss": 2.511960983276367,
+        "loss": 2.2108466625213623,
         "step": 300
       },
       {
-        "loss": 2.284811496734619,
+        "loss": 2.3132622241973877,
         "step": 350
       },
       {
-        "loss": 1.9969407320022583,
+        "loss": 1.8693996667861938,
         "step": 400
       },
       {
-        "loss": 1.8120386600494385,
+        "loss": 1.8652533292770386,
         "step": 450
       },
       {
-        "loss": 1.6419143676757812,
+        "loss": 1.6432147026062012,
         "step": 500
       }
     ],
     "path": "artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt",
-    "sha256": "cbcd6988aefa6a7afbaf04365ce4643d5785dc2422ff29c47db24fd2de96222d"
+    "sha256": "682c2bd72d02bac1b15a96e5baa5a47e3f94de6bd381375a0bb2838fac9405c8"
   },
-  "device": "cpu",
+  "device": "cuda:0",
   "module": "stage_a_reconstructed_artifacts",
   "n_requested_instances": 1024,
   "n_solved_tasks": 1024,
@@ -61,61 +61,61 @@
     "dataset_examples": 7484,
     "losses": [
       {
-        "loss": 0.7016778588294983,
+        "loss": 0.7016777992248535,
         "step": 1
       },
       {
-        "loss": 0.2747855484485626,
+        "loss": 0.2747795879840851,
         "step": 25
       },
       {
-        "loss": 0.21312746405601501,
+        "loss": 0.21312515437602997,
         "step": 50
       },
       {
-        "loss": 0.1974235326051712,
+        "loss": 0.19742155075073242,
         "step": 75
       },
       {
-        "loss": 0.20223474502563477,
+        "loss": 0.20223160088062286,
         "step": 100
       },
       {
-        "loss": 0.1873093694448471,
+        "loss": 0.18731260299682617,
         "step": 125
       },
       {
-        "loss": 0.1851760596036911,
+        "loss": 0.18517056107521057,
         "step": 150
       },
       {
-        "loss": 0.19690006971359253,
+        "loss": 0.19689629971981049,
         "step": 175
       },
       {
-        "loss": 0.19845251739025116,
+        "loss": 0.19845788180828094,
         "step": 200
       },
       {
-        "loss": 0.18818533420562744,
+        "loss": 0.18817958235740662,
         "step": 225
       },
       {
-        "loss": 0.17844392359256744,
+        "loss": 0.17845222353935242,
         "step": 250
       },
       {
-        "loss": 0.17990832030773163,
+        "loss": 0.17991985380649567,
         "step": 275
       },
       {
-        "loss": 0.18182052671909332,
+        "loss": 0.1818128228187561,
         "step": 300
       }
     ],
     "path": "artifacts/stage_a/recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt",
-    "sha256": "516eecafd90df9e28ba2169f586125a755ae1f24e3c3d02912870a9ed8d7faff",
-    "train_exact_candidate_cell_accuracy": 0.7674872875213623
+    "sha256": "f0ea49fb61f9d1ba0394c8a093ff42ad86fcbeeac838aea1cf5a3b7c8cbe7055",
+    "train_exact_candidate_cell_accuracy": 0.7674623131752014
   },
   "output_dir": "artifacts/stage_a",
   "stage_a_env": {

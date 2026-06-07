@@ -1,0 +1,42 @@
+{
+  "generated_at": "2026-06-07T00:00:00+00:00",
+  "module": "post_027_continuation_state",
+  "source": "user_master_runbook_2026_06_07",
+  "canonical_repo": "/home/aiscuser/RECURRENT_NN",
+  "legacy_repo": {
+    "path": "/home/aiscuser/stage_d_llm",
+    "present_locally": false,
+    "action": "stop_generating_from_legacy_path"
+  },
+  "items": [
+    {
+      "item": "025",
+      "name": "adapter wiring pass",
+      "status": "RECORDED_FROM_RUNBOOK",
+      "summary": "Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan."
+    },
+    {
+      "item": "026",
+      "name": "banded Sudoku9 plus gate refusal",
+      "status": "RECORDED_FROM_RUNBOOK",
+      "summary": "Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth."
+    },
+    {
+      "item": "027",
+      "name": "Sudoku6 bridge G1 zero",
+      "status": "BLOCKER",
+      "g1": 0.0,
+      "summary": "The Stage A critical blocker is G1 = 0.0 on the Sudoku6 bridge operator."
+    }
+  ],
+  "standing_rules": [
+    "Fail-closed preflight.",
+    "Autonomous solve only.",
+    "No gate softening.",
+    "Curriculum is training-only.",
+    "Use TRM recipe only; never load a TRM checkpoint into controlled comparisons.",
+    "kv_snapshot must be a true snapshot-and-truncate control.",
+    "Per-task verdicts required.",
+    "No ordering-only passes."
+  ]
+}

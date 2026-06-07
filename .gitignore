@@ -16,6 +16,10 @@ results/**
 !results/model_download/qwen_download.json
 !results/model_download/thinking/
 !results/model_download/thinking/qwen_download.json
+!results/model_download/qwen3_5_4b/
+!results/model_download/qwen3_5_4b/qwen_download.json
+!results/continuation_state/
+!results/continuation_state/post_027.json
 !results/module1_capacity_benchmark_full_shards/
 !results/module1_capacity_benchmark_full_shards/k_direction_corrected.json
 !results/module1_capacity_perdepth_shards/
@@ -40,6 +44,12 @@ results/**
 !results/stage_a_backtrack/curves.json
 !results/stage_a_backtrack/report.json
 !results/stage_a_backtrack/report.md
+!results/stage_a_adapter_wiring/
+!results/stage_a_adapter_wiring/results.json
+!results/stage_a_banded_gate_refusal/
+!results/stage_a_banded_gate_refusal/results.json
+!results/stage_a_sudoku6_bridge/
+!results/stage_a_sudoku6_bridge/results.json
 !results/m2_operator_probe/
 !results/m2_operator_probe/operator_probe.json
 !results/m2_operator_probe/branch_rollout.json
@@ -49,6 +59,9 @@ results/**
 !results/m2_operator_probe/branch_rollout_fix_rescale.json
 !results/m2_operator_probe/report_fix_rescale.json
 !results/m2_operator_probe/report_fix_rescale.md
+!results/w3_qwen35_probe/
+!results/w3_qwen35_probe/results.json
+!results/w3_qwen35_probe/verdicts.json
 artifacts/stage_a/*
 !artifacts/stage_a/manifest.json
 figures/

@@ -1,973 +1,148 @@
-# Stage D Experiment Log
+# RECURRENT_NN Controlled Backtracking Ledger
 
-Generated at: 2026-06-05T13:35:20.799279+00:00
+Generated at: 2026-06-07T10:03:49.264160+00:00
 
-Scope: consolidated log for oracle-trace scaffold outputs. These are not trained-model evaluations.
+Scope: canonical continuation ledger for `/home/aiscuser/RECURRENT_NN`. This replaces the older Stage D oracle-trace scaffold front page; legacy constructed scaffold gates are archived below.
+
+## Canonical Repo Decision
+
+- Canonical repo: `/home/aiscuser/RECURRENT_NN`
+- Legacy path `/home/aiscuser/stage_d_llm`: not present locally; old commands using that path are historical provenance text.
+- Module 1 artifacts are referenced from the current repo only; no local duplicate `stage_d_llm/results/` tree exists to de-duplicate.
+
+## Evidence Tiers
+
+### Tier A - Writable Now
+- Module 1 capacity law: per-depth ceiling-free K-direction negative; bound_single best K_eff = D_over_ln_product with R2 about 0.99; factored best K_eff = D_over_ln_Kvar/max-factor with R2 about 0.98; capacity is linear in D for the measured construction.
+- Ceiling-artifact resolution narrative for low-K frontier artifacts.
+- Fair GRU 144-cell grid completed; all cells below structured; max GRU/structured ratio 0.9025; closeout honestly NOT_READY pending in-loop arbiter.
+- TTT irreversibility remains real mechanism evidence when its non-scaffold artifact is present; the constructed scaffold gate is archived.
+- M2.0 negatives: frozen Qwen operator still needs a fix; invalid qwen_guess rate and spike precision/recall asymmetry block direct loop use.
+
+### Tier B - In Flight, Blocks Core Claim
+- Stage A in-loop proof blocks the core claim.
+- Banded Sudoku9/6 readiness and fail-closed refusal are materialized in post-026 artifacts, with Sudoku6 data still recorded as continuation-state readiness rather than generated in-repo data.
+- Fail-closed preflight is proven for missing/quarantined parent paths; unsafe paths are refused.
+- Current blocker: G1 = 0.0 on the Sudoku6 bridge operator.
+
+### Tier C - Not Started
+- W3 Qwen3.5 probe: checkpoint and metadata/capacity estimate are implemented; hidden-hook, gating-survival, native-delta, and W3.2 propagation probes are not launched.
+- S2 accounting rides on the controlled relaunch.
+- TRM defensive depth-ceiling analysis is not started.
+- S3.1 integration is not started.
+
+## Current Gate And Blocker Status
+
+| area | status | evidence |
+| --- | --- | --- |
+| Module 1 capacity law | GREEN | decision=k_direction_negative; open=False; K_eff fits recorded |
+| Fair GRU closeout | YELLOW | classification=NOT_READY; max_ratio=0.9025; headline_locked=False |
+| M2.0 frozen Qwen operator | RED | verdict=PER_TASK_ROUTING; list_all_recall=0.3771; single_precision=0.4322 |
+| Branch policy | YELLOW | qwen_nodes=4.939; mrv_nodes=5.067; qwen_invalid_rate=0.2316 |
+| Stage A in-loop proof | RED | n_cells=0; statuses=['PARENT_ADAPTER_REQUIRED']; G1=0.0 |
+| W3 Qwen3.5 | YELLOW | integration_grade=do_not_integrate_yet; W3.0=PASS |
+| Validation | RED | checks=81; pass=72; fail=9 |
 
 ## Artifact Index
 
-| artifact | path |
-| --- | --- |
-| preregistration | results/preregistration/preregistration.json |
-| oracle_dataset | results/oracle_dataset/summary.json |
-| operator_cache | results/operator_cache/summary.json |
-| model_readiness | results/model_readiness/readiness.json |
-| qwen_instruct_download | results/model_download/qwen_download.json |
-| qwen_thinking_download | results/model_download/thinking/qwen_download.json |
-| qwen_probe_cache | results/operator_cache/qwen_probe_cache_summary.json |
-| qwen_128_cache | results/operator_cache/qwen_128_cache_summary.json |
-| learned_wiring_qwen_128 | results/learned_wiring_qwen_128/results.json |
-| qwen_balanced_320_cache | results/operator_cache/qwen_balanced_320_cache_summary.json |
-| learned_wiring_qwen_balanced_320 | results/learned_wiring_qwen_balanced_320/results.json |
-| module1_stack_capacity | results/module1_stack_capacity/results.json |
-| module1_stack_capacity_full | results/module1_stack_capacity_full/results.json |
-| module1_capacity_batching_large | results/module1_capacity_batching_large/results.json |
-| module1_capacity_benchmark_full_shards | results/module1_capacity_benchmark_full_shards/results.json |
-| module1_k_direction_corrected | results/module1_capacity_benchmark_full_shards/k_direction_corrected.json |
-| module1_capacity_diagnostic_full_shards | results/module1_capacity_diagnostic_full_shards/results.json |
-| module1_capacity_perdepth_shards | results/module1_capacity_perdepth_shards/results.json |
-| module1_gru_smoke | results/gru_stack_smoke/results.json |
-| module1_gru_grid_full | results/gru_stack_grid_full/results.json |
-| module1_gru_degeneracy_diagnostic | results/gru_degeneracy_diagnostic/results.json |
-| learned_wiring | results/learned_wiring/results.json |
-| two_by_two | results/two_by_two/results.json |
-| d_stage_0 | results/d_stage_0/results.json |
-| d_stage_1 | results/d_stage_1/results.json |
-| d_stage_2 | results/d_stage_2/results.json |
-| d_stage_3 | results/d_stage_3/results.json |
-| verifier | results/verifier/results.json |
-| ttt | results/ttt/results.json |
-| analysis_summary | results/analysis/summary.md |
-| validation | results/validation/validation.json |
-| m2_operator_probe | results/m2_operator_probe/report.json |
-| m2_operator_fix_rescale | results/m2_operator_probe/report_fix_rescale.json |
-| module1_gru_grid_fair | results/gru_stack_grid_fair/results.json |
-| module1_gru_vs_structured_closeout | results/gru_vs_structured_closeout/results.json |
-| stage_a_reconstructed_artifacts | artifacts/stage_a/manifest.json |
-| stage_a_backtrack | results/stage_a_backtrack/report.json |
-
-## Run Metadata
-
-- Evaluation mode: `oracle_trace_scaffold`
-- Oracle dataset supervision: `symbolic_oracle_trace`
-- Oracle dataset tasks: 184
-- Oracle dataset examples: 2456
-- Max oracle backtrack depth in dataset: 8
-- Operator cache feature source: `deterministic_hashed_prompt_fallback`
-- Transformers available for Qwen cache: True
-- CUDA available for Qwen cache: True
-- Qwen Instruct snapshot: `/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3-4B-Instruct-2507/snapshots/cdbee75f17c01a7cc42f958dc650907174af0554`
-- Qwen Thinking snapshot: `/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3-4B-Thinking-2507/snapshots/768f209d9ea81521153ed38c47d515654e938aea`
-- Qwen probe hidden dim: 2560
-- Qwen-128 learned wiring action accuracy: 0.5703
-- Qwen-128 learned wiring verifier accuracy: 0.8359
-- Qwen balanced-320 holdout action accuracy: 0.8906
-- Qwen balanced-320 holdout verifier accuracy: 1.0000
-- Module 1 stack capacity mode: `quick`
-- Module 1 full stack capacity device: `cuda:0`
-- Module 1 per-depth K-direction: `k_direction_negative`
-- Module 1 per-depth open flag: False
-- Module 1 bound-single K_eff: `D_over_ln_product`
-- Module 1 factored K_eff: `D_over_ln_Kvar`
-- Learned wiring train action accuracy: 0.9855
-- Learned wiring holdout action accuracy: 0.4724
-- Learned wiring train verifier accuracy: 0.9865
-- Learned wiring holdout verifier accuracy: 0.9010
-- Validation passed: False
-- M2.0 operator probe verdict: `NEEDS_OPERATOR_FIX`
-- M2.0 parse success rate: 0.9062
-- M2.0 forced recall: 0.1935
-- M2.0 branch qwen/random mean nodes: 4.4286 / 4.1429
-- M2.0 fix-rescale verdict: `PER_TASK_ROUTING`
-- M2.0 fix-rescale pass/fix tasks: 0 / 5
-- M2.0 fix-rescale single-iterated precision: 0.4322
-- M2.0 fix-rescale branch qwen/mrv mean nodes: 4.9393 / 5.0674
-- Module 1 fair GRU cells: 144 / 144
-- Module 1 fair GRU all converged: True
-- Module 1 fair GRU below structured: True
-- Module 1 fair GRU closeout classification: `NOT_READY`
-- Stage A artifact policy: `reconstructed_in_repo_not_inherited`
-- Stage A artifact manifest status: `READY`
-- Stage A overnight status: `PARENT_ADAPTER_REQUIRED`
-
-## Gate Status
-
-| gate | status | criterion |
+| artifact | path | present |
 | --- | --- | --- |
-| D.3 2x2 falsification | PASS | register helps backtracking only |
-| D-stage 1 depth-1 | PASS | structured has reverts and ablations collapse |
-| D.5 verifier | PASS | oracle >= learned >= noisy >= disabled |
-| D.6 TTT diagnostic | PASS | TTT restore error > structured restore error |
+| canonical_repo_note | CANONICAL_REPO.md | yes |
+| environment_spec | ENV_SPEC.md | yes |
+| post_027_continuation_state | results/continuation_state/post_027.json | yes |
+| model_readiness | results/model_readiness/readiness.json | yes |
+| qwen3_4b_instruct_download | results/model_download/qwen_download.json | yes |
+| qwen3_4b_thinking_download | results/model_download/thinking/qwen_download.json | yes |
+| qwen3_5_4b_download | results/model_download/qwen3_5_4b/qwen_download.json | yes |
+| module1_capacity_perdepth | results/module1_capacity_perdepth_shards/results.json | yes |
+| module1_k_direction_corrected | results/module1_capacity_benchmark_full_shards/k_direction_corrected.json | yes |
+| module1_capacity_batching | results/module1_capacity_batching_large/results.json | yes |
+| gru_stack_smoke | results/gru_stack_smoke/results.json | yes |
+| gru_stack_grid_full_legacy | results/gru_stack_grid_full/results.json | yes |
+| gru_degeneracy_diagnostic | results/gru_degeneracy_diagnostic/results.json | yes |
+| gru_stack_grid_fair | results/gru_stack_grid_fair/results.json | yes |
+| gru_vs_structured_closeout | results/gru_vs_structured_closeout/results.json | yes |
+| m2_operator_probe | results/m2_operator_probe/report.json | yes |
+| m2_operator_fix_rescale | results/m2_operator_probe/report_fix_rescale.json | yes |
+| g1_fix_spec | specs/g1_fix_spec.md | yes |
+| stage_a_reconstructed_artifacts | artifacts/stage_a/manifest.json | yes |
+| stage_a_backtrack | results/stage_a_backtrack/report.json | yes |
+| post025_adapter_wiring | results/stage_a_adapter_wiring/results.json | yes |
+| post026_banded_gate_refusal | results/stage_a_banded_gate_refusal/results.json | yes |
+| post027_sudoku6_bridge | results/stage_a_sudoku6_bridge/results.json | yes |
+| w3_qwen35_probe_spec | specs/w3_qwen35_probe_spec.md | yes |
+| w3_qwen35_probe | results/w3_qwen35_probe/results.json | yes |
+| validation | results/validation/validation.json | yes |
 
 ## Incremental Run Items
 
-| item | name | what changed | artifact | key result |
-| --- | --- | --- | --- | --- |
-| 01 | preregistration | Computed d*_dyn bands before D-stage 3. | results/preregistration/preregistration.json | bands=6 |
-| 02 | oracle dataset | Materialized symbolic oracle supervision as JSONL. | results/oracle_dataset/examples.jsonl | tasks=184, examples=2456 |
-| 03 | fallback operator cache | Cached deterministic hashed prompt features for local learned-head checks. | results/operator_cache/operator_cache.pt | hidden_dim=256, examples=2456 |
-| 04 | uv/qwen readiness | Verified uv environment, CUDA, and transformers availability. | results/model_readiness/readiness.json | cuda=True, transformers=True |
-| 05 | qwen downloads | Downloaded frozen Instruct operator and Thinking CoT baseline snapshots. | results/model_download/ | instruct=7.51GiB, thinking=7.51GiB |
-| 06 | qwen probe cache | Confirmed Qwen Instruct loads and emits 2560-d hidden states. | results/operator_cache/qwen_probe_cache.pt | examples=8, hidden_dim=2560 |
-| 07 | qwen 128 smoke | Ran a single-seed Qwen hidden-state wiring smoke test. | results/learned_wiring_qwen_128/results.json | action=0.5703, verifier=0.8359 |
-| 08 | qwen balanced 320 | Ran balanced 5-seed Qwen hidden cache with seed-999 holdout. | results/learned_wiring_qwen_balanced_320/results.json | holdout_action=0.8906, holdout_verifier=1.0000 |
-| 09 | module 1 quick | Ran fast operator-free stack capacity sweep to validate pipeline. | results/module1_stack_capacity/results.json | rows=84, summary=18 |
-| 10 | module 1 full gpu | Ran full GPU stack sweep with rotation, GRU sequence proxy, and tape. | results/module1_stack_capacity_full/results.json | rows=432, device=cuda:0 |
-| 11 | module 1 batching | Benchmarked single-GPU batch sizes and raised default benchmark batch size. | results/module1_capacity_batching_large/results.json | best_batches=[8192, 8192, 8192, 16384] |
-| 12 | module 1 capacity benchmark full | Ran 8-shard task-free HRR/permutation capacity benchmark for K-direction. | results/module1_capacity_benchmark_full_shards/results.json | decision=k_inversion_or_nonmonotonic_open, open=True |
-| 13 | ceiling-aware K reanalysis | Recomputed K-direction after dropping frontier points capped by K_var/sweep ceiling. | results/module1_capacity_benchmark_full_shards/k_direction_corrected.json | target=theory_consistent, passed=True |
-| 14 | module 1 diagnostic full | Ran fixed-depth diagnostic benchmark with joint/var/val K-direction metrics. | results/module1_capacity_diagnostic_full_shards/results.json | decision=k_direction_open_or_inverted, open=True |
-| 15 | module 1 per-depth full | Ran ceiling-free per-depth benchmark with with/without replacement and K_eff fits. | results/module1_capacity_perdepth_shards/results.json | decision=k_direction_negative, open=False |
-| 16 | gru tuned smoke | Implemented tuned GRUStack and ran a val-selected checkpoint smoke. | results/gru_stack_smoke/results.json | converged=True, frontier=0.0 |
-| 17 | gru tuned light grid | Ran the first tuned GRUStack grid; now treated as diagnostic, not headline evidence. | results/gru_stack_grid_full/results.json | all_converged=True, below_structured=True |
-| 18 | gru degeneracy diagnostic | Measured old GRU capacity-vs-D and shallow D=1024 depth accuracy. | results/gru_degeneracy_diagnostic/results.json | verdict=degenerate_recency, proceed_task_b=True |
-| 19 | scaffold gates | Ran D.3, D-stage 0/1/2/3, verifier, and TTT scaffold gates. | results/*/results.json | validation=False |
-| 20 | validation | Validated required files, schemas, gate expectations, and Module 1 comparisons. | results/validation/validation.json | checks=1, passed=False |
-| 21 | M2.0 operator competence probe | Ran frozen Qwen generative current-node probe and branch rollout with no training. | results/m2_operator_probe/report.json | verdict=NEEDS_OPERATOR_FIX, forced_recall=0.1935 |
-| 22 | M2.0 fix-rescale operator probe | Ran single-move iterated propagation, list-all ablation, Sudoku rendering variants, logic_grid, and 2-seed branch rollout. | results/m2_operator_probe/report_fix_rescale.json | verdict=PER_TASK_ROUTING, fix_tasks=5/5 |
-| 23 | Module 1 fair GRU closeout | Completed the fair 144-cell bounded-GRU grid and closeout against structured capacity. | results/gru_vs_structured_closeout/results.json | cells=144, all_converged=True, classification=NOT_READY |
-| 24 | Stage A reconstructed overnight handoff | Reconstructed missing parent artifacts, passed preflight, and launched the 8-shard Stage A handoff after M1. | results/stage_a_backtrack/report.json | artifacts=READY, stage_a=PARENT_ADAPTER_REQUIRED |
-
-## Detailed Itemized Run Log
-
-### 001. Established preregistration bands and scaffold run order
-
-Purpose: make the Stage D ceiling claim auditable before downstream scaffold runs. This records the d*_dyn formula and predeclared D/K bands.
-
-Code used:
-
-- `analysis/preregistration.py`
-- `PLAN.md`
-- `config/experiments.yaml`
-
-Command:
-
-```bash
-cd /home/aiscuser/stage_d_llm && python -m analysis.preregistration
-```
-
-Artifacts:
-
-- `results/preregistration/preregistration.json`
-
-Result summary:
-
-| label | D | K | predicted_d_star |
+| item | name | status | key result |
 | --- | --- | --- | --- |
-| small_D_large_K | 256 | 729 | 19.42 |
-| medium_D_large_K | 512 | 729 | 38.84 |
-| small_D_medium_K | 256 | 60 | 31.26 |
-| medium_D_medium_K | 512 | 60 | 62.53 |
-| large_D_large_K | 1024 | 729 | 77.67 |
-| offscreen_control | 4096 | 60 | 500.2 |
+| 001-018 | legacy scaffold and early Module 1 setup | Archived | Retained in reference archive; not front-page gate evidence. |
+| 019-020 | scaffold gates and old validation | Demoted | Constructed-true 2x2/D-stage/verifier gates moved to legacy archive. |
+| 021 | M2.0 frozen operator probe | Done | verdict=NEEDS_OPERATOR_FIX; low forced recall/precision blocks direct loop. |
+| 022 | M2.0 fix-rescale probe | Done | verdict=PER_TASK_ROUTING; branch_decision=qwen_guess_beats_mrv_reconsider |
+| 023 | Module 1 fair GRU closeout | Done, not locked | classification=NOT_READY; max_ratio=0.9025; lock=False |
+| 024 | Stage A reconstructed handoff | Blocked | verdict=NEEDS_REVIEW; statuses=['PARENT_ADAPTER_REQUIRED']; n_cells=0 |
+| 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
+| 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
+| 027 | Sudoku6 bridge G1 | BLOCKER | G1=0.0; The Stage A critical blocker is G1 = 0.0 on the Sudoku6 bridge operator. |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=81; validation_passed=False |
+| W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
+| P1 | G1 fix spec and diagnostics | Specified | g1_fix_spec plus Stage A adapter/gate/Sudoku6 diagnostic artifacts are present; retraining not launched. |
+| P2 | W3 Qwen3.5 probe | do_not_integrate_yet | W3.0=PASS; W3.1/W3.2 heavy probes not launched. |
+| P3 | TRM defensive analysis | Not launched | No TRM checkpoint/test-set grading code is present in this repo yet. |
+| Module1 law | per-depth capacity | Writable now | decision=k_direction_negative; open=False; shards=8 |
 
-Decision: preregistration pass. These bands are now the fixed reference for later D-stage claims.
+## Validation Summary
 
-### 002. Built symbolic oracle supervision dataset
-
-Purpose: enforce the discipline that supervision comes from symbolic oracle traces, not stronger LLM CoT. This materializes the current-node training examples used by later cache/head experiments.
-
-Code added/used:
-
-- `analysis/oracle_dataset.py`
-- `tasks/oracle/trace_generator.py`
-- `tasks/sat/generators.py`
-- `tasks/sudoku/generator_4x4.py`
-- `tasks/graph_coloring/generator.py`
-- `tasks/logic_grid/generator.py`
-
-Command:
-
-```bash
-cd /home/aiscuser/stage_d_llm && python -m analysis.oracle_dataset
-```
-
-Artifacts:
-
-- `results/oracle_dataset/examples.jsonl`
-- `results/oracle_dataset/summary.json`
-
-Dataset summary:
-
-- tasks: 184
-- examples: 2456
-- max_backtrack_depth: 8
-
-| task_type | tasks | examples |
+| tier | pass | fail |
 | --- | --- | --- |
-| general_sat | 40 | 735 |
-| graph_coloring | 40 | 360 |
-| horn_sat | 24 | 216 |
-| logic_grid | 40 | 465 |
-| sudoku_4x4 | 40 | 680 |
-
-Decision: dataset pass. This is still oracle-supervised scaffold data, but it is now explicit and reusable.
-
-### 003. Set up uv environment and downloaded Qwen3-4B variants
-
-Purpose: move from missing dependencies to a reproducible uv-managed environment, then download both Qwen roles required by the Stage D design.
-
-Code added/used:
-
-- `.venv` created by `uv`
-- `analysis/model_readiness.py`
-- `analysis/download_qwen.py`
-- `config/backbone.yaml`
-
-Validation/setup commands:
-
-```bash
-cd /home/aiscuser/stage_d_llm
-~/.local/bin/uv venv .venv --python 3.10
-~/.local/bin/uv pip install --python .venv/bin/python -r requirements.txt huggingface_hub accelerate
-~/.local/bin/uv run --python .venv/bin/python python -m analysis.model_readiness
-~/.local/bin/uv run --python .venv/bin/python python -m analysis.download_qwen --model-id Qwen/Qwen3-4B-Instruct-2507
-~/.local/bin/uv run --python .venv/bin/python python -m analysis.download_qwen --model-id Qwen/Qwen3-4B-Thinking-2507 --output-dir results/model_download/thinking
-```
-
-Artifacts:
-
-- `results/model_readiness/readiness.json`
-- `results/model_download/qwen_download.json`
-- `results/model_download/thinking/qwen_download.json`
-
-Environment/model summary:
-
-- transformers_available: True
-- cuda_available: True
-- cuda_device_count: 8
-- Instruct snapshot: `/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3-4B-Instruct-2507/snapshots/cdbee75f17c01a7cc42f958dc650907174af0554`
-- Thinking snapshot: `/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3-4B-Thinking-2507/snapshots/768f209d9ea81521153ed38c47d515654e938aea`
-
-Decision: environment pass. Both Qwen3-4B snapshots are local and the uv environment can load transformers with CUDA visible.
-
-### 004. Confirmed real Qwen hidden-state contact with probe cache
-
-Purpose: verify that Qwen3-4B-Instruct actually loads and emits hidden states with the expected hidden dimension, before attempting larger caches.
-
-Code used:
-
-- `analysis/operator_cache.py`
-- `llm_operator/wrapper.py`
-- `llm_operator/prompt_renderer.py`
-
-Command:
-
-```bash
-cd /home/aiscuser/stage_d_llm && ~/.local/bin/uv run --python .venv/bin/python python -m analysis.operator_cache --load-model --limit 8 --output-name qwen_probe_cache
-```
-
-Artifacts:
-
-- `results/operator_cache/qwen_probe_cache.pt`
-- `results/operator_cache/qwen_probe_cache_summary.json`
-
-Probe result:
-
-- feature_source: `Qwen/Qwen3-4B-Instruct-2507`
-- hidden_dim: 2560
-- examples: 8
-
-Decision: Qwen hidden-state probe pass. This validates the frozen operator loading path.
-
-### 005. Ran Qwen hidden-state learned wiring smoke and balanced holdout
-
-Purpose: move beyond deterministic fallback features and test whether frozen Qwen hidden states support supervised controller/verifier heads, including a seed-999 holdout split.
-
-Code added/used:
-
-- `analysis/operator_cache.py`
-- `experiments/learned_wiring_baseline.py`
-- `controller/controller_head.py`
-- `controller/verifier_head.py`
-
-Commands:
-
-```bash
-cd /home/aiscuser/stage_d_llm
-~/.local/bin/uv run --python .venv/bin/python python -m analysis.operator_cache --load-model --limit 128 --output-name qwen_128_cache
-~/.local/bin/uv run --python .venv/bin/python python -m experiments.learned_wiring_baseline --cache-path results/operator_cache/qwen_128_cache.pt --output-dir results/learned_wiring_qwen_128 --epochs 20 --batch-size 32
-~/.local/bin/uv run --python .venv/bin/python python -m analysis.operator_cache --load-model --seeds 42,137,256,314,999 --per-seed-limit 64 --output-name qwen_balanced_320_cache
-~/.local/bin/uv run --python .venv/bin/python python -m experiments.learned_wiring_baseline --cache-path results/operator_cache/qwen_balanced_320_cache.pt --output-dir results/learned_wiring_qwen_balanced_320 --epochs 24 --batch-size 32
-```
-
-Artifacts:
-
-- `results/operator_cache/qwen_128_cache.pt`
-- `results/operator_cache/qwen_128_cache_summary.json`
-- `results/learned_wiring_qwen_128/results.json`
-- `results/learned_wiring_qwen_128/heads.pt`
-- `results/operator_cache/qwen_balanced_320_cache.pt`
-- `results/operator_cache/qwen_balanced_320_cache_summary.json`
-- `results/learned_wiring_qwen_balanced_320/results.json`
-- `results/learned_wiring_qwen_balanced_320/heads.pt`
-
-Result summary:
-
-| run | examples | train_action | holdout_action | train_verifier | holdout_verifier |
-| --- | --- | --- | --- | --- | --- |
-| qwen_128_smoke | 128 | 0.5703 | 0 | 0.8359 | 0 |
-| qwen_balanced_320 | 320 | 0.8398 | 0.8906 | 0.9688 | 1 |
-
-Decision: Qwen hidden-state wiring passes as a small supervised probe. The balanced seed-999 holdout action accuracy is materially higher than the deterministic fallback baseline.
-
-### 006. Ran deterministic fallback learned wiring baseline with seed holdout
-
-Purpose: keep a non-Qwen local baseline for comparison and sanity-check whether the learned-head path can memorize train seeds without real operator features.
-
-Commands:
-
-```bash
-cd /home/aiscuser/stage_d_llm
-python -m analysis.operator_cache
-python -m experiments.learned_wiring_baseline
-```
-
-Artifacts:
-
-- `results/operator_cache/operator_cache.pt`
-- `results/operator_cache/summary.json`
-- `results/learned_wiring/results.json`
-- `results/learned_wiring/heads.pt`
-
-Result summary:
-
-- train_action_accuracy: 0.9855
-- holdout_action_accuracy: 0.4724
-- train_verifier_accuracy: 0.9865
-- holdout_verifier_accuracy: 0.9010
-
-Decision: fallback baseline is useful as a sanity check, but weak for seed-holdout action generalization. Do not use it for the Qwen claim.
-
-### 009-010. Ran Module 1 operator-free stack capacity quick and full GPU sweeps
-
-Purpose: start the new three-module design at Module 1, isolating the bounded reversible stack from Qwen. This compares rotation/VSA, GRU bounded vector proxy, and explicit tape.
-
-Code added/modified:
-
-- `register/vsa_stack.py`
-- `experiments/module1_stack_capacity.py`
-
-Commands:
-
-```bash
-cd /home/aiscuser/stage_d_llm
-~/.local/bin/uv run --python .venv/bin/python python -m experiments.module1_stack_capacity --mode quick --output-dir results/module1_stack_capacity
-~/.local/bin/uv run --python .venv/bin/python python -m experiments.module1_stack_capacity --mode full --device cuda:0 --output-dir results/module1_stack_capacity_full
-```
-
-Artifacts:
-
-- `results/module1_stack_capacity/results.json`
-- `results/module1_stack_capacity/run.log`
-- `results/module1_stack_capacity_full/results.json`
-- `results/module1_stack_capacity_full/run.log`
-
-Full GPU frontier summary:
-
-| method | D | K | predicted_d_star | frontier_decode_095 |
-| --- | --- | --- | --- | --- |
-| gru_proxy_sequence | 64 | 60 | 7.816 | 1 |
-| gru_proxy_sequence | 128 | 60 | 15.63 | 1 |
-| gru_proxy_sequence | 256 | 60 | 31.26 | 1 |
-| gru_proxy_sequence | 512 | 60 | 62.53 | 1 |
-| gru_proxy_sequence | 1024 | 60 | 125.1 | 1 |
-| gru_proxy_sequence | 64 | 729 | 4.855 | 0 |
-| gru_proxy_sequence | 128 | 729 | 9.709 | 0 |
-| gru_proxy_sequence | 256 | 729 | 19.42 | 0 |
-| gru_proxy_sequence | 512 | 729 | 38.84 | 0 |
-| gru_proxy_sequence | 1024 | 729 | 77.67 | 0 |
-| rotation_vsa | 64 | 60 | 7.816 | 1 |
-| rotation_vsa | 128 | 60 | 15.63 | 3 |
-| rotation_vsa | 256 | 60 | 31.26 | 7 |
-| rotation_vsa | 512 | 60 | 62.53 | 15 |
-| rotation_vsa | 1024 | 60 | 125.1 | 31 |
-| rotation_vsa | 64 | 729 | 4.855 | 1 |
-| rotation_vsa | 128 | 729 | 9.709 | 4 |
-| rotation_vsa | 256 | 729 | 19.42 | 9 |
-| rotation_vsa | 512 | 729 | 38.84 | 19 |
-| rotation_vsa | 1024 | 729 | 77.67 | 38 |
-| tape | 64 | 60 | 7.816 | 11 |
-| tape | 128 | 60 | 15.63 | 23 |
-| tape | 256 | 60 | 31.26 | 47 |
-| tape | 512 | 60 | 62.53 | 93 |
-| tape | 1024 | 60 | 125.1 | 188 |
-| tape | 64 | 729 | 4.855 | 6 |
-| tape | 128 | 729 | 9.709 | 14 |
-| tape | 256 | 729 | 19.42 | 29 |
-| tape | 512 | 729 | 38.84 | 57 |
-| tape | 1024 | 729 | 77.67 | 116 |
-
-Decision: Module 1 full GPU run passes the current validation checks: rotation frontier is above matched GRU sequence proxy, and tape remains the upper bound. Scientific caveat: current rotation implementation is still a random level-key/Hadamard proxy, not the stronger orthogonal rotation + HRR cleanup implementation from the design note, and observed frontiers are below the d*(D) line.
-
-### 011. Benchmarked Module 1 capacity batch sizes
-
-Purpose: find a faster single-GPU batch size before launching sharded full capacity runs. The first batched implementation still used a conservative default; this item measures throughput and peak memory directly on `cuda:0`.
-
-Code added/modified:
-
-- `analysis/benchmark_capacity_batching.py`
-- `experiments/module1_capacity_benchmark.py`
-
-Command:
-
-```bash
-cd /home/aiscuser/stage_d_llm && ~/.local/bin/uv run --python .venv/bin/python python -u -m analysis.benchmark_capacity_batching --device cuda:0 --batch-sizes 512,1024,2048,4096,8192,16384 --n-trials 8192 --output-dir results/module1_capacity_batching_large
-```
-
-Artifacts:
-
-- `results/module1_capacity_batching_large/results.json`
-- `results/module1_capacity_batching_large/run.log`
-
-Best batch by case:
-
-| variant | D | K_var | K_val | depth | best_batch | trials_per_sec | elapsed_sec | peak_gib |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| bound_single | 512 | 81 | 9 | 32 | 8192 | 7.065e+04 | 0.116 | 0.1072 |
-| factored | 512 | 81 | 9 | 32 | 8192 | 2.499e+05 | 0.03278 | 0.06256 |
-| bound_single | 1024 | 729 | 2 | 32 | 8192 | 3.343e+04 | 0.2451 | 0.2271 |
-| factored | 1024 | 729 | 2 | 32 | 16384 | 9.898e+04 | 0.08277 | 0.1765 |
-
-Decision: use `--batch-size 8192` as the robust default for Module 1 capacity benchmark shards. It is near-best across cases and uses far below available A100 memory; 16384 can be faster for some factored cases but is less uniformly best.
-
-### 012. Ran 8-shard task-free Module 1 capacity benchmark
-
-Purpose: resolve whether the earlier K-inversion was a proxy artifact by using the proper HRR/permutation bound-single and factored registers over a task-free storage stress benchmark. This is the decisive K-direction test before any d* claim.
-
-Code added/modified:
-
-- `register/vsa_stack.py`
-- `experiments/module1_capacity_benchmark.py`
-- `analysis/capacity_theory.py`
-- `analysis/merge_capacity_shards.py`
-
-Command:
-
-```bash
-cd /home/aiscuser/stage_d_llm && for i in 0 1 2 3 4 5 6 7; do CUDA_VISIBLE_DEVICES=$i ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.module1_capacity_benchmark --mode full --device cuda:0 --num-shards 8 --shard-index $i --batch-size 8192 --output-dir results/module1_capacity_benchmark_full_shards/shard_$i & done; wait; ~/.local/bin/uv run --python .venv/bin/python python -m analysis.merge_capacity_shards --input-dir results/module1_capacity_benchmark_full_shards
-```
-
-Artifacts:
-
-- `results/module1_capacity_benchmark_full_shards/results.json`
-- `results/module1_capacity_benchmark_full_shards/curves.json`
-- `results/module1_capacity_benchmark_full_shards/merge.log`
-- `results/module1_capacity_benchmark_full_shards/shard_*/results.json`
-- `results/module1_capacity_benchmark_full_shards/shard_*/run.log`
-
-K-direction result:
-
-| variant | D | K_val | K_vars | frontiers | signs |
-| --- | --- | --- | --- | --- | --- |
-| bound_single | 1024 | 2 | [9, 20, 60, 81, 256, 729] | [9, 20, 45, 40, 31, 26] | [1, 1, -1, -1, -1] |
-| factored | 1024 | 2 | [9, 20, 60, 81, 256, 729] | [9, 20, 15, 20, 17, 14] | [1, -1, 1, -1, -1] |
-
-- calibrated_c: 8.545489937800552
-- decision: `k_inversion_or_nonmonotonic_open`
-- open: True
-
-Decision: K-direction remains open/nonmonotonic under the proper HRR/permutation benchmark. Do not claim d* = D/(2 ln K). The safe current claim is linear-in-D improvement for the measured construction plus GRU/tape comparison, with K-scaling unresolved.
-
-### 013. Recomputed K-direction after excluding ceiling-bound points
-
-Purpose: correct the initial K-direction decision logic. Since variables are sampled without replacement, small K_var runs cannot exceed K_var stack levels; those points must be excluded before judging K monotonicity.
-
-Code added:
-
-- `analysis/k_direction_recompute.py`
-
-Command:
-
-```bash
-cd /home/aiscuser/stage_d_llm && ~/.local/bin/uv run --python .venv/bin/python python -m analysis.k_direction_recompute
-```
-
-Artifacts:
-
-- `results/module1_capacity_benchmark_full_shards/k_direction_corrected.json`
-
-Corrected target result:
-
-| variant | D | K_val | full_classification | corrected_classification | kept | dropped |
-| --- | --- | --- | --- | --- | --- | --- |
-| bound_single | 1024 | 2 | nonmonotonic | theory_consistent | [(60, 45), (81, 40), (256, 31), (729, 26)] | [(9, 9), (20, 20)] |
-
-Decision: the bound_single D=1024 K_val=2 group is theory-consistent after dropping ceiling-bound K_var=9 and K_var=20. The earlier open flag was confounded by finite variable count at low K.
-
-### 014. Ran fixed-depth Module 1 K-direction diagnostic benchmark
-
-Purpose: test whether the K-direction issue is caused by variable depth grids or by joint `(var,val)` aggregation. This run uses a fixed depth grid and reports joint, var-only, and val-only frontiers separately.
-
-Code added/used:
-
-- `experiments/module1_capacity_diagnostic.py`
-- `analysis/merge_diagnostic_shards.py`
-
-Command:
-
-```bash
-cd /home/aiscuser/stage_d_llm && for i in 0 1 2 3 4 5 6 7; do CUDA_VISIBLE_DEVICES=$i ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.module1_capacity_diagnostic --mode full --device cuda:0 --num-shards 8 --shard-index $i --batch-size 8192 --trials 4096 --output-dir results/module1_capacity_diagnostic_full_shards/shard_$i & done; wait; ~/.local/bin/uv run --python .venv/bin/python python -m analysis.merge_diagnostic_shards --input-dir results/module1_capacity_diagnostic_full_shards
-```
-
-Artifacts:
-
-- `results/module1_capacity_diagnostic_full_shards/results.json`
-- `results/module1_capacity_diagnostic_full_shards/curves.json`
-- `results/module1_capacity_diagnostic_full_shards/shard_*/results.json`
-- `results/module1_capacity_diagnostic_full_shards/shard_*/run.log`
-
-K-direction diagnostic:
-
-| variant | metric | D | K_val | K_vars | frontiers | signs |
-| --- | --- | --- | --- | --- | --- | --- |
-| bound_single | joint | 1024 | 2 | [9, 20, 60, 81, 256, 729] | [8, 16, 32, 32, 32, 32] | [1, 1, 0, 0, 0] |
-| bound_single | var | 1024 | 2 | [9, 20, 60, 81, 256, 729] | [8, 16, 32, 32, 32, 32] | [1, 1, 0, 0, 0] |
-| bound_single | val | 1024 | 2 | [9, 20, 60, 81, 256, 729] | [8, 16, 32, 32, 32, 32] | [1, 1, 0, 0, 0] |
-| factored | joint | 1024 | 2 | [9, 20, 60, 81, 256, 729] | [8, 16, 16, 16, 16, 16] | [1, 0, 0, 0, 0] |
-| factored | var | 1024 | 2 | [9, 20, 60, 81, 256, 729] | [8, 16, 16, 16, 16, 16] | [1, 0, 0, 0, 0] |
-| factored | val | 1024 | 2 | [9, 20, 60, 81, 256, 729] | [8, 16, 32, 64, 64, 64] | [1, 1, 1, 0, 0] |
-
-- decision: `k_direction_open_or_inverted`
-- open: True
-
-Decision: fixed-depth diagnostic still records K-direction as open/inverted. Important caveat: small `K_var` values cap possible depth because vars are sampled without replacement, so low-K frontiers are partly ceiling-limited. This strengthens the conclusion that no d* claim should be made yet from frontier buckets alone; the next per-depth benchmark resolves this directly.
-
-### 015. Ran ceiling-free per-depth Module 1 capacity benchmark
-
-Purpose: remove the K_var ceiling and coarse frontier-bucket artifacts by measuring accuracy at every fixed depth, with both without-replacement and with-replacement var sampling. This is the clean K-direction and K_eff fit test.
-
-Code added/used:
-
-- `experiments/module1_capacity_perdepth.py`
-- `analysis/merge_perdepth_shards.py`
-- `analysis/capacity_theory.py`
-
-Command:
-
-```bash
-cd /home/aiscuser/stage_d_llm && for i in 0 1 2 3 4 5 6 7; do CUDA_VISIBLE_DEVICES=$i ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.module1_capacity_perdepth --mode full --device cuda:0 --num-shards 8 --shard-index $i --batch-size 8192 --trials 4096 --output-dir results/module1_capacity_perdepth_shards/shard_$i & done; wait; ~/.local/bin/uv run --python .venv/bin/python python -m analysis.merge_perdepth_shards --input-dir results/module1_capacity_perdepth_shards
-```
-
-Artifacts:
-
-- `results/module1_capacity_perdepth_shards/results.json`
-- `results/module1_capacity_perdepth_shards/curves.json`
-- `results/module1_capacity_perdepth_shards/shard_*/results.json`
-- `results/module1_capacity_perdepth_shards/shard_*/run.log`
-
-Per-depth K-direction:
-
-| variant | replacement | metric | D | K_val | K_vars | capacities | signs |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| bound_single | with_replacement | joint | 1024 | 2 | [60, 81, 256, 729] | [53.77160462334458, 51.60739471070541, 44.47761734267629, 39.61899179230261] | [-1, -1, -1] |
-| bound_single | with_replacement | var | 1024 | 2 | [60, 81, 256, 729] | [53.85461616531922, 51.674292625552546, 44.50296557188487, 39.627197424441] | [-1, -1, -1] |
-| bound_single | with_replacement | val | 1024 | 2 | [60, 81, 256, 729] | [58.0, 58.0, 52.93291946395077, 46.69630874940104] | [0, -1, -1] |
-| bound_single | without_replacement | joint | 1024 | 2 | [60, 81, 256, 729] | [53.74540981430042, 51.574336450365955, 44.37440405290796, 39.637738786003396] | [-1, -1, -1] |
-| bound_single | without_replacement | var | 1024 | 2 | [60, 81, 256, 729] | [53.845107609505796, 51.633912953570054, 44.399201788556596, 39.64665586980725] | [-1, -1, -1] |
-| bound_single | without_replacement | val | 1024 | 2 | [60, 81, 256, 729] | [58.0, 58.0, 52.87590617856865, 46.750560732639826] | [0, -1, -1] |
-| factored | with_replacement | joint | 1024 | 2 | [60, 81, 256, 729] | [29.309168449817616, 28.898829257094782, 24.681460344196214, 21.787743755793446] | [-1, -1, -1] |
-| factored | with_replacement | var | 1024 | 2 | [60, 81, 256, 729] | [30.53729526138416, 28.98605939281616, 24.709605095870263, 21.787743755793446] | [-1, -1, -1] |
-| factored | with_replacement | val | 1024 | 2 | [60, 81, 256, 729] | [58.0, 58.0, 58.0, 58.0] | [0, 0, 0] |
-| factored | without_replacement | joint | 1024 | 2 | [60, 81, 256, 729] | [29.25273964234934, 29.005177933570298, 24.695724521669185, 21.78257553309042] | [-1, -1, -1] |
-| factored | without_replacement | var | 1024 | 2 | [60, 81, 256, 729] | [30.377934342227434, 29.099249896135696, 24.723131145276533, 21.78257553309042] | [-1, -1, -1] |
-| factored | without_replacement | val | 1024 | 2 | [60, 81, 256, 729] | [58.0, 58.0, 58.0, 58.0] | [0, 0, 0] |
-
-K_eff fits:
-
-| variant | replacement | metric | best_k_eff | n_points | product_slope | product_r2 | Kvar_slope | Kvar_r2 | max_factor_slope | max_factor_r2 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| bound_single | with_replacement | joint | D_over_ln_product | 24 | 0.2688 | 0.9888 | 0.2094 | 0.9443 | 0.4187 | 0.9443 |
-| bound_single | without_replacement | joint | D_over_ln_product | 24 | 0.2687 | 0.9884 | 0.2093 | 0.9448 | 0.4187 | 0.9448 |
-| factored | with_replacement | joint | D_over_ln_Kvar | 24 | 0.1596 | 0.9376 | 0.1255 | 0.9775 | 0.251 | 0.9775 |
-| factored | without_replacement | joint | D_over_ln_Kvar | 24 | 0.1595 | 0.9386 | 0.1254 | 0.9774 | 0.2509 | 0.9774 |
-
-- decision: `k_direction_negative`
-- open: False
-
-Decision: per-depth benchmark resolves the K-direction for the measured construction. With- and without-replacement agree: capacity is non-increasing in K on ceiling-free points. Bound-single is best fit by product codebook size, while factored is best fit by K_var / max-factor scaling. This upgrades the safe claim to linear in D and decreasing in effective codebook size, with a fitted constant rather than the raw D/(2 ln K) constant.
-
-### 016. Implemented tuned GRUStack smoke with val-selected checkpoint
-
-Purpose: start the clean labeled negative baseline required for Module 1 closeout. This smoke verifies the GRUStack interface, val-loss checkpoint selection, convergence metadata, and per-depth eval curve before launching the full GRU grid.
-
-Code added:
-
-- `register/gru_stack.py`
-- `experiments/train_gru_stack.py`
-
-Command:
-
-```bash
-cd /home/aiscuser/stage_d_llm && ~/.local/bin/uv run --python .venv/bin/python python -m experiments.train_gru_stack --D 128 --K-var 60 --K-val 2 --replacement without_replacement --max-depth 8 --steps 80 --batch-size 512 --eval-every 20 --patience 3 --device cuda:0 --output-dir results/gru_stack_smoke
-```
-
-Artifacts:
-
-- `results/gru_stack_smoke/results.json`
-- `results/gru_stack_smoke/gru_stack_best.pt`
-
-Smoke result:
-
-- converged: True
-- selection: `val_loss_min`
-- frontier_joint_095: 0.0
-- best_config: `{'best_val_loss': 3.436839669942856, 'learned_init': True, 'lr': 0.002, 'num_layers': 2}`
-
-Decision: GRU smoke interface pass. This is not yet the closeout GRU grid; the full tuned GRU per-depth grid still needs to run before the GRU negative headline is final.
-
-### 017. Ran first tuned GRUStack light grid and structured comparison
-
-Purpose: this was the first tuned GRUStack grid. It is retained as a diagnostic artifact, but it is no longer sufficient headline evidence because capacity is flat near depth 1 across D.
-
-Code added/used:
-
-- `register/gru_stack.py`
-- `experiments/train_gru_stack.py`
-- `experiments/train_gru_stack_grid.py`
-- `analysis/merge_gru_grid.py`
-
-Command:
-
-```bash
-cd /home/aiscuser/stage_d_llm && for i in 0 1 2 3 4 5 6 7; do CUDA_VISIBLE_DEVICES=$i ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.train_gru_stack_grid --mode full --device cuda:0 --num-shards 8 --shard-index $i --max-depth 32 --steps 600 --batch-size 1024 --eval-every 50 --patience 6 --output-dir results/gru_stack_grid_full/shard_$i & done; wait; ~/.local/bin/uv run --python .venv/bin/python python -m analysis.merge_gru_grid
-```
-
-Artifacts:
-
-- `results/gru_stack_grid_full/results.json`
-- `results/gru_stack_grid_full/curves.json`
-- `results/gru_stack_grid_full/shard_*/cell_*/results.json`
-- `results/gru_stack_grid_full/shard_*/cell_*/gru_stack_best.pt`
-
-Result summary:
-
-- cells: 144
-- summary rows: 48
-- all_converged: True
-- all_gru_below_structured: True
-
-Matched-cell numeric comparison:
-
-| D | K_var | K_val | replacement | structured_variant | structured_capacity | gru_capacity | gap | gru_below |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 256 | 60 | 2 | with_replacement | bound_single | 13.6 | 1.081 | 12.52 | True |
-| 256 | 60 | 2 | without_replacement | bound_single | 13.68 | 1.082 | 12.59 | True |
-| 256 | 60 | 9 | with_replacement | bound_single | 11.29 | 1.071 | 10.22 | True |
-| 256 | 60 | 9 | without_replacement | bound_single | 11.31 | 1.069 | 10.25 | True |
-| 256 | 81 | 2 | with_replacement | bound_single | 13.12 | 1.08 | 12.04 | True |
-| 256 | 81 | 2 | without_replacement | bound_single | 13.13 | 1.08 | 12.05 | True |
-| 256 | 81 | 9 | with_replacement | bound_single | 10.95 | 1.068 | 9.878 | True |
-| 256 | 81 | 9 | without_replacement | bound_single | 10.9 | 1.069 | 9.835 | True |
-| 256 | 256 | 2 | with_replacement | bound_single | 11.38 | 1.079 | 10.3 | True |
-| 256 | 256 | 2 | without_replacement | bound_single | 11.36 | 1.075 | 10.28 | True |
-| 256 | 256 | 9 | with_replacement | bound_single | 9.637 | 0 | 9.637 | True |
-| 256 | 256 | 9 | without_replacement | bound_single | 9.672 | 0 | 9.672 | True |
-| 256 | 729 | 2 | with_replacement | bound_single | 10.1 | 1.043 | 9.059 | True |
-| 256 | 729 | 2 | without_replacement | bound_single | 10.06 | 0.6933 | 9.363 | True |
-| 256 | 729 | 9 | with_replacement | bound_single | 8.733 | 0 | 8.733 | True |
-| 256 | 729 | 9 | without_replacement | bound_single | 8.737 | 0 | 8.737 | True |
-| 512 | 60 | 2 | with_replacement | bound_single | 27 | 1.081 | 25.91 | True |
-| 512 | 60 | 2 | without_replacement | bound_single | 26.83 | 1.08 | 25.75 | True |
-| 512 | 60 | 9 | with_replacement | bound_single | 22.33 | 1.07 | 21.25 | True |
-| 512 | 60 | 9 | without_replacement | bound_single | 22.32 | 1.07 | 21.25 | True |
-| 512 | 81 | 2 | with_replacement | bound_single | 25.78 | 1.081 | 24.7 | True |
-| 512 | 81 | 2 | without_replacement | bound_single | 25.74 | 1.08 | 24.66 | True |
-| 512 | 81 | 9 | with_replacement | bound_single | 21.55 | 1.071 | 20.48 | True |
-| 512 | 81 | 9 | without_replacement | bound_single | 21.56 | 1.07 | 20.49 | True |
-| 512 | 256 | 2 | with_replacement | bound_single | 22.36 | 1.08 | 21.28 | True |
-| 512 | 256 | 2 | without_replacement | bound_single | 22.34 | 1.08 | 21.26 | True |
-| 512 | 256 | 9 | with_replacement | bound_single | 19.09 | 1.06 | 18.03 | True |
-| 512 | 256 | 9 | without_replacement | bound_single | 19.1 | 1.063 | 18.04 | True |
-| 512 | 729 | 2 | with_replacement | bound_single | 19.91 | 1.075 | 18.84 | True |
-| 512 | 729 | 2 | without_replacement | bound_single | 19.9 | 1.075 | 18.83 | True |
-| 512 | 729 | 9 | with_replacement | bound_single | 17.33 | 0 | 17.33 | True |
-| 512 | 729 | 9 | without_replacement | bound_single | 17.34 | 0 | 17.34 | True |
-| 1024 | 60 | 2 | with_replacement | bound_single | 53.77 | 1.08 | 52.69 | True |
-| 1024 | 60 | 2 | without_replacement | bound_single | 53.75 | 1.08 | 52.67 | True |
-| 1024 | 60 | 9 | with_replacement | bound_single | 44.05 | 1.07 | 42.98 | True |
-| 1024 | 60 | 9 | without_replacement | bound_single | 44.08 | 1.069 | 43.02 | True |
-| 1024 | 81 | 2 | with_replacement | bound_single | 51.61 | 1.08 | 50.53 | True |
-| 1024 | 81 | 2 | without_replacement | bound_single | 51.57 | 1.079 | 50.5 | True |
-| 1024 | 81 | 9 | with_replacement | bound_single | 42.79 | 1.071 | 41.72 | True |
-| 1024 | 81 | 9 | without_replacement | bound_single | 42.8 | 1.069 | 41.73 | True |
-| 1024 | 256 | 2 | with_replacement | bound_single | 44.48 | 1.079 | 43.4 | True |
-| 1024 | 256 | 2 | without_replacement | bound_single | 44.37 | 1.079 | 43.3 | True |
-| 1024 | 256 | 9 | with_replacement | bound_single | 37.88 | 1.068 | 36.82 | True |
-| 1024 | 256 | 9 | without_replacement | bound_single | 37.98 | 1.069 | 36.91 | True |
-| 1024 | 729 | 2 | with_replacement | bound_single | 39.62 | 1.079 | 38.54 | True |
-| 1024 | 729 | 2 | without_replacement | bound_single | 39.64 | 1.08 | 38.56 | True |
-| 1024 | 729 | 9 | with_replacement | bound_single | 34.38 | 0 | 34.38 | True |
-| 1024 | 729 | 9 | without_replacement | bound_single | 34.39 | 0 | 34.39 | True |
-
-Decision: demoted. This light run cannot lock the structured > GRU headline because it shows recency collapse rather than a fair bounded-memory capacity limit. Use item 018 and the pending fair-GRU grid/closeout instead.
-
-### 018. Diagnosed the light GRU grid as degenerate/undertrained
-
-Purpose: distinguish a real bounded-capacity limit from a recency-only readout or undertrained decoder before locking any structured > GRU claim.
-
-Code added:
-
-- `analysis/gru_degeneracy_diagnostic.py`
-
-Command:
-
-```bash
-cd /home/aiscuser/stage_d_llm && ~/.local/bin/uv run --python .venv/bin/python python -m analysis.gru_degeneracy_diagnostic --device cuda:0 --batch-size 1024 --batches 2
-```
-
-Artifacts:
-
-- `results/gru_degeneracy_diagnostic/results.json`
-
-Diagnostic summary:
-
-- verdict: `degenerate_recency`
-- proceed_to_task_b: True
-- flat_or_not_positive_D_scaling_groups: 16 / 16
-- D1024 depth2_fail_rate: 1
-- D1024 depth3_fail_rate: 1
-- mean_D1024_frontier_joint_095: 0.9407638189159363
-
-Capacity-vs-D examples:
-
-| K_var | K_val | replacement | Ds | capacities | slope | slope_positive |
-| --- | --- | --- | --- | --- | --- | --- |
-| 60 | 2 | with_replacement | [256.0, 512.0, 1024.0] | [1.0805220924407921, 1.0810958549638052, 1.079681484183403] | -1.333e-06 | False |
-| 60 | 2 | without_replacement | [256.0, 512.0, 1024.0] | [1.081620518191101, 1.0798736598349865, 1.0802421932975108] | -1.435e-06 | False |
-| 60 | 9 | with_replacement | [256.0, 512.0, 1024.0] | [1.0705840542446696, 1.0704393626749416, 1.069846369605406] | -9.888e-07 | False |
-| 60 | 9 | without_replacement | [256.0, 512.0, 1024.0] | [1.0694003522120163, 1.0696690899476056, 1.0690746257687709] | -5.294e-07 | False |
-
-Decision: old GRU grid is not fair headline evidence. Task B fair bounded-GRU grid must run with longer training, train-depth >= eval-depth, and bounded final-state decoders before any structured > GRU claim locks.
-
-### 019-020. Ran scaffold gates and centralized validation
-
-Purpose: keep the older scaffold gates auditable while the build pivots toward the three-module design. Validation records whether required files, schemas, and comparison checks pass.
-
-Commands:
-
-```bash
-cd /home/aiscuser/stage_d_llm
-python -m experiments.two_by_two_falsification
-python -m experiments.d_stage_0_propagation
-python -m experiments.d_stage_1_depth1_gate
-python -m experiments.d_stage_2_capacity
-python -m experiments.d_stage_3_vs_cot
-python -m experiments.verifier_verification
-python -m experiments.ttt_reversibility
-python -m analysis.validate_outputs
-python -m analysis.experiment_log
-```
-
-Artifacts:
-
-- `results/two_by_two/results.json`
-- `results/d_stage_0/results.json`
-- `results/d_stage_1/results.json`
-- `results/d_stage_2/results.json`
-- `results/d_stage_3/results.json`
-- `results/verifier/results.json`
-- `results/ttt/results.json`
-- `results/validation/validation.md`
-- `results/experiment_log/experiment_log.md`
-
-Validation summary:
-
-- checks: 1
-- passed: False
-
-Decision: centralized validation pass. Continue using this log as the top-level experiment ledger, but treat scaffold gates as legacy/supporting evidence rather than the new Module 1 core claim.
-
-
-### 021. Ran M2.0 frozen generative operator competence probe
-
-Purpose: test the Module 2/3 premise before building controller, verifier, or loop machinery. This run measures whether frozen `Qwen/Qwen3-4B-Instruct-2507` can act as a generative current-node CSP operator with no training.
-
-Code added/used:
-
-- `llm_operator/qwen_operator.py`
-- `llm_operator/symbolic_filter.py`
-- `experiments/m2_operator_probe.py`
-- `experiments/m2_branch_rollout.py`
-- `analysis/m2_operator_report.py`
-
-Commands:
-
-```bash
-cd /home/aiscuser/RECURRENT_NN
-CUDA_VISIBLE_DEVICES=6 ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.m2_operator_probe --output-dir results/m2_operator_probe --device cuda:0 --n-instances 2 --max-nodes-per-task 4 --batch-size 4 --max-rounds 4
-CUDA_VISIBLE_DEVICES=7 ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.m2_branch_rollout --output-dir results/m2_operator_probe --device cuda:0 --n-instances 2 --cap-nodes 64 --batch-size 4
-~/.local/bin/uv run --python .venv/bin/python python -m analysis.m2_operator_report --output-dir results/m2_operator_probe
-```
-
-Artifacts:
-
-- `results/m2_operator_probe/operator_probe.json`
-- `results/m2_operator_probe/branch_rollout.json`
-- `results/m2_operator_probe/report.json`
-- `results/m2_operator_probe/report.md`
-
-Overall result:
-
-| metric | value |
-| --- | --- |
-| verdict | NEEDS_OPERATOR_FIX |
-| parse_success_rate | 0.9062 |
-| forced_recall | 0.1935 |
-| raw_precision | 0.1026 |
-| fixpoint_reach_rate | 0.3125 |
-| qwen_guess mean nodes | 4.4286 |
-| mrv mean nodes | 3.8571 |
-| random mean nodes | 4.1429 |
-
-Per-task probe summary:
-
-| task | parse_success | forced_recall | raw_precision | fixpoint_reach | filter_dropped |
-| --- | --- | --- | --- | --- | --- |
-| horn_sat | 1.0000 | 0.4000 | 0.1538 | 0.0000 | 33 |
-| general_sat | 1.0000 | 0.1429 | 0.0278 | 0.3750 | 35 |
-| graph_coloring | 1.0000 | 0.6667 | 0.4000 | 0.7500 | 6 |
-| sudoku_4x4 | 0.6250 | 0.0294 | 0.0312 | 0.1250 | 31 |
-
-Branch rollout summary:
-
-| method | solve_rate | mean_nodes_to_solve_or_cap | invalid_guesses |
-| --- | --- | --- | --- |
-| qwen_guess | 1.0000 | 4.4286 | 5 |
-| mrv | 1.0000 | 3.8571 | 0 |
-| random | 1.0000 | 4.1429 | 0 |
-
-Decision: M2.0 does not support proceeding directly to the full Module 2/3 loop as-is. The strongest blocker is low forced-move recall and low filtered fixpoint reach, especially on `sudoku_4x4`; parse reliability is mostly acceptable overall but still weak on Sudoku. The next architecture branch should be an operator format/propagation fix or light SFT on propagation traces before investing in the full loop.
-
-### 022. Ran M2.0 fix-rescale operator probe
-
-Purpose: test cheap operator fixes before any SFT or full Module 2/3 loop. This run compares list-all propagation against single-move iterated propagation, adds `logic_grid`, evaluates Sudoku rendering variants, and runs a real-scale branch rollout over two seeds.
-
-Code added/used:
-
-- `llm_operator/qwen_operator.py`
-- `llm_operator/symbolic_filter.py`
-- `experiments/m2_operator_probe.py`
-- `experiments/m2_branch_rollout.py`
-- `analysis/m2_operator_report.py`
-- `analysis/validate_outputs.py`
-
-Commands:
-
-```bash
-cd /home/aiscuser/RECURRENT_NN
-CUDA_VISIBLE_DEVICES=6 ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.m2_operator_probe --output-dir results/m2_operator_probe --device cuda:0 --n-instances 50 --max-nodes-per-task 6 --seeds 42,137 --batch-size 4 --sudoku-rendering candidates
-CUDA_VISIBLE_DEVICES=7 ~/.local/bin/uv run --python .venv/bin/python python -u -m experiments.m2_branch_rollout --output-dir results/m2_operator_probe --device cuda:0 --n-instances 50 --seeds 42,137 --cap-nodes 64 --batch-size 4
-~/.local/bin/uv run --python .venv/bin/python python -m analysis.m2_operator_report --output-dir results/m2_operator_probe
-```
-
-Artifacts:
-
-- `results/m2_operator_probe/operator_probe_fix_rescale.json`
-- `results/m2_operator_probe/branch_rollout_fix_rescale.json`
-- `results/m2_operator_probe/report_fix_rescale.json`
-- `results/m2_operator_probe/report_fix_rescale.md`
-
-Overall result:
-
-| metric | value |
-| --- | --- |
-| verdict | PER_TASK_ROUTING |
-| pass tasks | 0 / 5 |
-| fix tasks | 5 / 5 |
-| list-all forced recall | 0.3771 |
-| list-all raw precision | 0.1753 |
-| single-iterated fixpoint reach | 0.5144 |
-| single-iterated per-call precision | 0.4322 |
-| qwen_guess mean nodes | 4.9393 |
-| mrv mean nodes | 5.0674 |
-| qwen_guess invalid guess rate | 0.2316 |
-
-Per-task verdicts:
-
-| task | verdict | list-all recall | single fixpoint reach | single precision |
-| --- | --- | --- | --- | --- |
-| general_sat | NEEDS_OPERATOR_FIX | 0.3903 | 0.6050 | 0.2257 |
-| graph_coloring | NEEDS_OPERATOR_FIX | 0.4106 | 0.8167 | 0.4283 |
-| horn_sat | NEEDS_OPERATOR_FIX | 0.3932 | 0.1733 | 0.5196 |
-| logic_grid | NEEDS_OPERATOR_FIX | 0.0385 | 0.6300 | 0.1772 |
-| sudoku_4x4 | NEEDS_OPERATOR_FIX | 0.4092 | 0.1583 | 0.5149 |
-
-Branch rollout summary:
-
-| method | solve_rate | mean_nodes_to_solve_or_cap | invalid_guesses | parse_failures |
-| --- | --- | --- | --- | --- |
-| qwen_guess | 1.0000 | 4.9393 | 509 | 146 |
-| mrv | 1.0000 | 5.0674 | 0 | 0 |
-| random | 1.0000 | 5.0337 | 0 | 0 |
-
-Decision: the prompt/rendering fixes improve usable signal but do not make the frozen Qwen operator reliable enough to treat the operator premise as passed. All five tasks route to `NEEDS_OPERATOR_FIX`; `qwen_guess` is slightly shallower than MRV on mean nodes, but its high invalid-guess and parse-failure rates mean MRV remains the safer default branch policy until an operator fix or light SFT reduces invalid moves.
-
-### 023. Completed Module 1 fair GRU closeout
-
-Purpose: close the fair bounded-GRU baseline with the same long training budget used for the revised Module 1 comparison, so the structured-register claim is not based on the earlier degenerate GRU grid.
-
-Artifacts:
-
-- `results/gru_stack_grid_fair/results.json`
-- `results/gru_stack_grid_fair/curves.json`
-- `results/gru_vs_structured_closeout/results.json`
-
-Result summary:
-
-| metric | value |
-| --- | --- |
-| cells | 144 / 144 |
-| summary groups | 48 |
-| all_converged | True |
-| all_training_sufficient | True |
-| all_gru_below_structured | True |
-| max_gru_to_structured_ratio | 0.9025 |
-| diagnostic_verdict | degenerate_recency |
-| closeout_classification | NOT_READY |
-| lock_structured_headline | False |
-
-Decision: the fair GRU baseline completed and remained below structured capacity, but the closeout classification is `NOT_READY`. Do not lock the headline as structured >> unstructured solely from this closeout; keep the claim framed around completed fair baseline evidence plus the still-needed Stage A in-loop test.
-
-### 024. Reconstructed Stage A artifacts and ran overnight handoff
-
-Purpose: unblock Stage A after the original parent recurrent-depth artifacts were unavailable in the workspace, while keeping provenance explicit. The generated artifacts are reconstructed replacements, not recovered inherited originals.
-
-Artifacts:
-
-- `artifacts/stage_a/manifest.json`
-- `artifacts/stage_a/recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt` (local, ignored)
-- `artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt` (local, ignored)
-- `artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl` (local, ignored)
-- `results/stage_a_backtrack/results.json`
-- `results/stage_a_backtrack/report.json`
-- `results/stage_a_backtrack/report.md`
-
-Artifact reconstruction summary:
-
-| metric | value |
-| --- | --- |
-| policy | reconstructed_in_repo_not_inherited |
-| status | READY |
-| solved teacher tasks | 1024 |
-| device | cpu |
-| operator train exact candidate-cell accuracy | 0.7675 |
-| bridge decoder last-batch var accuracy | 0.6309 |
-| bridge decoder last-batch val accuracy | 0.9873 |
-
-Stage A handoff summary:
-
-| metric | value |
-| --- | --- |
-| preflight | PASS |
-| M1 wait condition | 144 / 144 cells |
-| shard statuses | PARENT_ADAPTER_REQUIRED |
-| merged report verdict | NEEDS_REVIEW |
-| cells with autonomous results | 0 |
-
-Decision: the missing artifact problem is resolved for the local reconstructed path, and the overnight orchestration works end-to-end through M1 completion and Stage A preflight. The Stage A scientific result is still blocked by the parent operator/bridge adapter implementation in `experiments.stage_a_backtrack_loop`; no autonomous solve-depth evidence has been produced yet.
-
-## Reference Archive
-
-Static/reference tables are kept out of the main review path. See `results/experiment_log/reference.md` for preregistration bands, dataset summaries, legacy scaffold tables, model download metadata, and validation details.
-
+| env | 13 | 0 |
+| legacy | 0 | 6 |
+| p0 | 2 | 0 |
+| tier_a | 35 | 0 |
+| tier_b | 17 | 3 |
+| tier_c | 5 | 0 |
+
+## P0/P1/P2/P3 Execution Notes
+
+- P0.1: `RECURRENT_NN` is declared canonical in `CANONICAL_REPO.md`; the old `stage_d_llm` path is not present locally.
+- P0.2: validation now emits many checks, including explicit red Stage A blockers, rather than one collapsed required-files failure.
+- P0.3: the front page now leads with evidence tiers and current blockers; constructed scaffold gates are demoted to the legacy archive.
+- P1: `specs/g1_fix_spec.md` plus adapter wiring, gate refusal, and Sudoku6 bridge diagnostic artifacts are present; the actual bridge retrain is not launched and G1 remains 0.0.
+- P2: `specs/w3_qwen35_probe_spec.md` and metadata-only W3 probe are present for `Qwen/Qwen3.5-4B`; hidden-hook and heavy propagation probes are still explicit follow-up jobs.
+- P3: TRM defensive analysis is not launched; no TRM checkpoint/test-set grading code is present in this repo yet.
+
+## Legacy Scaffold Archive
+
+The older 2x2, D-stage, verifier, and scaffold TTT entries are no longer front-page gate evidence. They were constructed scaffold outputs and are retained only as historical support/provenance. The real TTT irreversibility diagnostic remains Tier A mechanism evidence when its non-scaffold artifact is present.
+
+| legacy artifact | path | present |
+| --- | --- | --- |
+| preregistration | results/preregistration/preregistration.json | missing |
+| oracle_dataset | results/oracle_dataset/summary.json | missing |
+| operator_cache | results/operator_cache/summary.json | missing |
+| qwen_probe_cache | results/operator_cache/qwen_probe_cache_summary.json | missing |
+| qwen_128_cache | results/operator_cache/qwen_128_cache_summary.json | missing |
+| learned_wiring_qwen_128 | results/learned_wiring_qwen_128/results.json | missing |
+| qwen_balanced_320_cache | results/operator_cache/qwen_balanced_320_cache_summary.json | missing |
+| learned_wiring_qwen_balanced_320 | results/learned_wiring_qwen_balanced_320/results.json | missing |
+| two_by_two | results/two_by_two/results.json | missing |
+| d_stage_0 | results/d_stage_0/results.json | missing |
+| d_stage_1 | results/d_stage_1/results.json | missing |
+| d_stage_2 | results/d_stage_2/results.json | missing |
+| d_stage_3 | results/d_stage_3/results.json | missing |
+| verifier | results/verifier/results.json | missing |
+| ttt_scaffold | results/ttt/results.json | missing |
+
+## Standing Rules
+
+- Fail-closed preflight.
+- Autonomous solve only.
+- No gate softening.
+- Curriculum is training-only.
+- Use TRM recipe only; never load a TRM checkpoint into controlled comparisons.
+- kv_snapshot must be a true snapshot-and-truncate control.
+- Per-task verdicts required.
+- No ordering-only passes.

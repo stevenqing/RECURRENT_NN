@@ -1,0 +1,37 @@
+{
+  "G1": 0.0,
+  "device": "cpu",
+  "encoding_byte_diff_status": "NOT_COMPUTED_NO_SUDOKU6_ENCODING_ARTIFACT",
+  "forward_floor_on_L4": false,
+  "gates": {
+    "G1_depth1_bridge": "FAIL",
+    "G2_depth_frontier": "NOT_RUN",
+    "L4_forward_floor": "FAIL_NOT_RUN",
+    "L4_reverts_nonzero": "FAIL_NOT_RUN"
+  },
+  "generated_at": "2026-06-07T10:03:07.911008+00:00",
+  "iterative_stick_reason_histogram": {
+    "bridge_trainer_missing": 1,
+    "parent_adapter_not_integrated": 1,
+    "sudoku6_dataset_generator_missing": 1
+  },
+  "mode": "diagnose",
+  "module": "stage_a_sudoku6_bridge",
+  "next_action": "Implement Task A diagnosis and Task B deep-supervision bridge trainer from specs/g1_fix_spec.md.",
+  "reverts_nonzero_on_L4": false,
+  "seed": 102,
+  "single_step_forced_accuracy": 0.0,
+  "status": "BLOCKED_G1_ZERO",
+  "teacher_trace_probe": {
+    "exists": true,
+    "path": "artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl",
+    "sampled_action_counts": {
+      "branch": 76,
+      "propagate": 4020,
+      "solved": 256
+    },
+    "sampled_max_backtrack_depth": 3,
+    "sampled_tasks": 256
+  },
+  "train_eval_encoding_byte_diff": null
+}
