@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-07T12:14:23.062692+00:00
+Generated at: 2026-06-07T12:55:28.270540+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,10 +17,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 pre-fix record | BLOCKER | historical_continuation_G1=0.0; current_diagnostic_G1=1.0 |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=159; validation_passed=False |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=164; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Diagnostic pass, autonomous grid not proven | Sudoku6 diagnostic G1=1.0; L4_reverts=True; L4_forward=True |
-| P2 | W3 Qwen3.5 probe | alongside_only_measured_not_in_state | W3.0=PASS; survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; native_delta=MEASURED_NATIVE_HIDDEN_DELTA_GAP; propagation=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+| P2 | W3 Qwen3.5 probe | cached_gdn_state_measured_pending_propagation_delta | W3.0=PASS; survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; native_delta=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; propagation=NOT_RUN |
 | P3 | TRM defensive analysis | Not launched | No TRM checkpoint/test-set grading code is present in this repo yet. |
 | Module1 law | per-depth capacity | Writable now | decision=k_direction_negative; open=False; shards=8 |
 | 028 | P0 ledger and validation housekeeping | COMPLETE_RED_EXPECTED | P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract. |
@@ -29,6 +29,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 031 | P2 W3 Qwen3.5 survival, native-delta, and propagation shards | MEASURED_NOT_ACCEPTED | Treat Qwen3.5 as alongside-only measured evidence, not in-state integration. If P2 continues, scale propagation or design a true cached-state intervention; do not integrate Qwen3.5 into the structured state path from this item. |
 | 032 | Validation green closeout for nine failing checks | VALIDATION_GREEN | Proceed to learned recurrent Stage A bridge/autonomous grid work; validation is green, but the core claim still needs full autonomous Stage A evidence. |
 | 033 | Validation object binding corrective pass | VALIDATION_RE_REDDENED | Proceed to T2 learned recurrent operator/data/trainer and T3 cached GDN recurrent-state probe; do not treat validation red as environment failure. |
+| 034 | T2 learned-operator preflight and T3 cached GDN state probe | PARTIAL_EVIDENCE_RECORDED | Wait for the formal T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Then run W3.2 propagation delta on cached-state-linked outputs. |
 
 ## Item Details
 
@@ -96,8 +97,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/validation/validation.md (yes)
 - Detail data:
   - analysis/validate_outputs.py: embedded py (29692 bytes)
-  - results/validation/validation.json: embedded json (28383 bytes)
-  - results/validation/validation.md: embedded md (16799 bytes)
+  - results/validation/validation.json: embedded json (29624 bytes)
+  - results/validation/validation.md: embedded md (17670 bytes)
 #### Artifact JSON Results
 
 ##### results/validation/validation.json
@@ -105,8 +106,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | field | value |
 | --- | --- |
 | passed | False |
-| generated_at | 2026-06-07T12:14:22.885382+00:00 |
-| summary | n_checks=159; n_fail=10; n_pass=149 |
+| generated_at | 2026-06-07T12:55:28.115227+00:00 |
+| summary | n_checks=164; n_fail=4; n_pass=160 |
 
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
@@ -221,7 +222,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/stage_a_backtrack/report.json (yes)
   - results/stage_a_backtrack/results.json (yes)
 - Detail data:
-  - artifacts/stage_a/manifest.json: embedded json (3488 bytes)
+  - artifacts/stage_a/manifest.json: embedded json (3486 bytes)
   - results/stage_a_backtrack/report.json: embedded json (193 bytes)
   - results/stage_a_backtrack/results.json: embedded json (156488 bytes)
 #### Artifact JSON Results
@@ -232,7 +233,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | --- | --- |
 | module | stage_a_reconstructed_artifacts |
 | status | READY |
-| device | cuda:0 |
+| device | cuda:2 |
 | artifact_policy | reconstructed_in_repo_not_inherited |
 | n_requested_instances | 1024 |
 | n_solved_tasks | 1024 |
@@ -410,10 +411,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=159; validation_passed=False
+- Key result: validation_checks=164; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=149; validation_fail=10
+  - validation_pass=160; validation_fail=4
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifacts:
   - CANONICAL_REPO.md (yes)
@@ -423,7 +424,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 - Detail data:
   - CANONICAL_REPO.md: embedded md (532 bytes)
   - analysis/validate_outputs.py: embedded py (29692 bytes)
-  - results/validation/validation.json: embedded json (28383 bytes)
+  - results/validation/validation.json: embedded json (29624 bytes)
   - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
 #### Artifact JSON Results
 
@@ -432,8 +433,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | field | value |
 | --- | --- |
 | passed | False |
-| generated_at | 2026-06-07T12:14:22.885382+00:00 |
-| summary | n_checks=159; n_fail=10; n_pass=149 |
+| generated_at | 2026-06-07T12:55:28.115227+00:00 |
+| summary | n_checks=164; n_fail=4; n_pass=160 |
 
 - Next action: Keep future reports item-first and preserve explicit red checks.
 
@@ -457,7 +458,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | --- | --- |
 | model_id | Qwen/Qwen3.5-4B |
 | total_gib | 8.701 |
-| generated_at | 2026-06-07T09:42:34.867563+00:00 |
+| generated_at | 2026-06-07T12:23:57.940723+00:00 |
 | n_files | 14 |
 | revision | None |
 | snapshot_path | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a |
@@ -550,20 +551,20 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 
 ### Item P2 - W3 Qwen3.5 probe
 
-- Status: alongside_only_measured_not_in_state
-- Key result: W3.0=PASS; survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; native_delta=MEASURED_NATIVE_HIDDEN_DELTA_GAP; propagation=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED
+- Status: cached_gdn_state_measured_pending_propagation_delta
+- Key result: W3.0=PASS; survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; native_delta=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; propagation=NOT_RUN
 - Details:
   - hidden_size=2560; layers=32; full_attention_layers=8; linear_layers=24
-  - capacity_estimates=6; hidden_hook={'device': 'cuda:0', 'hidden_dim': 2560, 'hidden_shape': [1, 2560], 'last_token_norm': 154.29713439941406, 'load_model': True, 'state_hook_round_trip': {'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764}}
-  - verdicts={'W3.0_checkpoint_pin': 'PASS', 'W3.1_capacity_at_real_gdn_dims': 'PLANNING_ESTIMATE_ONLY', 'W3.1_gating_decay_stack_survival': 'MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE', 'W3.1_native_delta_rule_as_stack_gap': 'MEASURED_NATIVE_HIDDEN_DELTA_GAP', 'W3.2_qwen3_4b_delta_table': 'MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED'}
+  - capacity_estimates=6; hidden_hook={'cached_state_probe': {'decay_survival': {'columns': ['level', 'intervening_steps', 'survival', 'half_life', 'provenance'], 'integration_grade_decision': 'in_state_candidate_pending_native_rule', 'measured_object': 'cached_gdn_recurrent_state', 'rows': [{'half_life': None, 'intervening_steps': 0, 'level': 0, 'provenance': 'measured:cached_gdn_recurrent_state perturb residual after native token updates', 'survival': 0.9997512798685079}, {'half_life': None, 'intervening_steps': 1, 'level': 0, 'provenance': 'measured:cached_gdn_recurrent_state perturb residual after native token updates', 'survival': 0.7434130127574465}, {'half_life': None, 'intervening_steps': 2, 'level': 0, 'provenance': 'measured:cached_gdn_recurrent_state perturb residual after native token updates', 'survival': 0.6905405621848195}, {'half_life': None, 'intervening_steps': 4, 'level': 0, 'provenance': 'measured:cached_gdn_recurrent_state perturb residual after native token updates', 'survival': 0.6627857612051089}, {'half_life': None, 'intervening_steps': 8, 'level': 0, 'provenance': 'measured:cached_gdn_recurrent_state perturb residual after native token updates', 'survival': 0.6469194051041568}], 'status': 'MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL'}, 'inventory': [{'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 0, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 0, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 1, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 1, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 2, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 2, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 4, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 4, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 5, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 5, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 6, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 6, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 8, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 8, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 9, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 9, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 10, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 10, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 12, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 12, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 13, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 13, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 14, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 14, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 16, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 16, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 17, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 17, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 18, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 18, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 20, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 20, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 21, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 21, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 22, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 22, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 24, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 24, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 25, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 25, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 26, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 26, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 28, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 28, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 29, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 29, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 30, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 30, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}], 'measured_object': 'cached_gdn_recurrent_state', 'native_rule_gap': {'columns': ['depth', 'intervening_updates', 'native_delta_restore_error', 'keyed_register_restore_error', 'delta_inverse_cosine', 'failure_modes', 'provenance'], 'measured_object': 'cached_gdn_recurrent_state', 'rows': [{'delta_inverse_cosine': None, 'depth': 0, 'failure_modes': ['native_update_not_explicit_push_pop_inverse'], 'intervening_updates': 1, 'keyed_register_restore_error': 0.0, 'native_delta_restore_error': 0.16277175827047277, 'provenance': 'measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore'}, {'delta_inverse_cosine': None, 'depth': 0, 'failure_modes': ['native_update_not_explicit_push_pop_inverse'], 'intervening_updates': 2, 'keyed_register_restore_error': 0.0, 'native_delta_restore_error': 0.21244177972095904, 'provenance': 'measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore'}, {'delta_inverse_cosine': None, 'depth': 0, 'failure_modes': ['native_update_not_explicit_push_pop_inverse'], 'intervening_updates': 4, 'keyed_register_restore_error': 0.0, 'native_delta_restore_error': 0.2424491150259247, 'provenance': 'measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore'}], 'status': 'MEASURED_CACHED_GDN_NATIVE_RULE_GAP'}, 'selected_layer': 0, 'state_hook_round_trip': {'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_max_logit_delta': 0.15625, 'perturbation_norm': 0.14225000143051147, 'restore_max_logit_delta': 0.0, 'restore_recovered_next_step': True}, 'status': 'MEASURED_CACHED_GDN_RECURRENT_STATE'}, 'device': 'cuda:1', 'hidden_dim': 2560, 'hidden_shape': [1, 2560], 'last_token_norm': 154.29713439941406, 'load_model': True, 'measured_object': 'prompt_hidden', 'state_hook_round_trip': {'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764}}
+  - verdicts={'W3.0_checkpoint_pin': 'PASS', 'W3.1_cached_state_round_trip': 'MEASURED_CACHED_GDN_RECURRENT_STATE', 'W3.1_capacity_at_real_gdn_dims': 'MEASURED_TRUE_STATE_DIMS', 'W3.1_gating_decay_stack_survival': 'MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL', 'W3.1_native_delta_rule_as_stack_gap': 'MEASURED_CACHED_GDN_NATIVE_RULE_GAP', 'W3.2_qwen3_4b_delta_table': 'NOT_RUN'}
 - Artifacts:
   - specs/w3_qwen35_probe_spec.md (yes)
   - results/w3_qwen35_probe/results.json (yes)
   - results/w3_qwen35_probe/verdicts.json (yes)
 - Detail data:
   - specs/w3_qwen35_probe_spec.md: embedded md (2204 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (36047 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (563 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (44131 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (629 bytes)
 #### Artifact JSON Results
 
 ##### results/w3_qwen35_probe/results.json
@@ -571,11 +572,12 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | field | value |
 | --- | --- |
 | module | w3_qwen35_probe |
-| integration_grade | alongside_only_measured_not_in_state |
+| integration_grade | cached_gdn_state_measured_pending_propagation_delta |
 | model_id | Qwen/Qwen3.5-4B |
-| generated_at | 2026-06-07T10:46:45.660823+00:00 |
-| measured_object | prompt_hidden |
-| verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+| generated_at | 2026-06-07T12:33:41.161598+00:00 |
+| measured_object | cached_gdn_recurrent_state |
+| propagation_probe | None |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=NOT_RUN |
 
 ##### capacity_estimates
 
@@ -603,21 +605,11 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 
 | level | intervening_steps | survival | half_life | provenance |
 | --- | --- | --- | --- | --- |
-| 1 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 1 | 0.3906 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 2 | 0.3868 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 4 | 0.3886 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 8 | 0.3558 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 1 | 0.4027 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 2 | 0.4016 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 4 | 0.4137 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 8 | 0.3659 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 1 | 0.3971 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 2 | 0.3858 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 4 | 0.4003 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 8 | 0.3591 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 0 | 0 | 0.9998 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 1 | 0.7434 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 2 | 0.6905 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 4 | 0.6628 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 8 | 0.6469 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
 
 ##### model_card
 
@@ -633,24 +625,34 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | linear_layers | 24 | read_from_hf_snapshot |
 | full_attention_layers | 8 | read_from_hf_snapshot |
 | snapshot_path | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | read_from_download_record |
+| layer_0_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_1_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_2_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_4_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_5_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_6_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_8_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_9_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_10_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_12_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_13_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_14_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_16_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_17_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+
+Truncated to 24 of 34 rows.
 
 ##### native_rule_gap
 
 | depth | intervening_updates | native_delta_restore_error | keyed_register_restore_error | delta_inverse_cosine | failure_modes | provenance |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 1 | 0.8641 | 0 | 0.5204 | ["push_pop_does_not_restore_hidden_state"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
-| 2 | 1 | 1.011 | 0 | 0.4312 | ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
-| 3 | 1 | 1.039 | 0 | 0.3023 | ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
+| 0 | 1 | 0.1628 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
+| 0 | 2 | 0.2124 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
+| 0 | 4 | 0.2424 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
 
 ##### propagation_per_task_delta
 
-| task | qwen35_verdict | qwen3_4b_delta | branch_rollout | parse_failure_rate | invalid_guess_rate | provenance |
-| --- | --- | --- | --- | --- | --- | --- |
-| general_sat | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=0.06167; mean_nodes_delta=-2.22; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.7333 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| graph_coloring | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.15; mean_nodes_delta=-0.9967; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.8125 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| horn_sat | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.1733; mean_nodes_delta=0; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| logic_grid | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.13; mean_nodes_delta=-2.043; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.7857 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| sudoku_4x4 | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.1583; mean_nodes_delta=-0.27; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
+No rows recorded.
 
 ##### state_hook_round_trip
 
@@ -664,11 +666,11 @@ No rows recorded.
 
 | field | value |
 | --- | --- |
-| integration_grade | alongside_only_measured_not_in_state |
+| integration_grade | cached_gdn_state_measured_pending_propagation_delta |
 | model_id | Qwen/Qwen3.5-4B |
-| generated_at | 2026-06-07T10:46:45.660823+00:00 |
-| measured_object | prompt_hidden |
-| verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+| generated_at | 2026-06-07T12:33:41.161598+00:00 |
+| measured_object | cached_gdn_recurrent_state |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=NOT_RUN |
 
 - Next action: Treat Qwen3.5 as alongside-only measured evidence unless future cached-state or larger propagation probes overturn this result.
 
@@ -769,16 +771,16 @@ No rows recorded.
   - REPRODUCIBILITY.md: embedded md (3478 bytes)
   - scripts/reproduce_continuation_state.sh: embedded sh (1972 bytes)
   - results/continuation_state/post_027.json: embedded json (1453 bytes)
-  - results/validation/validation.json: embedded json (28383 bytes)
-  - results/validation/validation.md: embedded md (16799 bytes)
+  - results/validation/validation.json: embedded json (29624 bytes)
+  - results/validation/validation.md: embedded md (17670 bytes)
   - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
   - results/experiment_log/experiment_log.md: not embedded (self_output_not_embedded)
   - specs/log_item_contract.md: embedded md (3662 bytes)
   - results/stage_a_adapter_wiring/results.json: embedded json (2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json: embedded json (3431 bytes)
   - results/stage_a_sudoku6_bridge/results.json: embedded json (4890 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (36047 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (563 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (44131 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (629 bytes)
 #### Contract Result Tables
 
 ##### validation_registry_before_after
@@ -823,8 +825,8 @@ No rows recorded.
 | field | value |
 | --- | --- |
 | passed | False |
-| generated_at | 2026-06-07T12:14:22.885382+00:00 |
-| summary | n_checks=159; n_fail=10; n_pass=149 |
+| generated_at | 2026-06-07T12:55:28.115227+00:00 |
+| summary | n_checks=164; n_fail=4; n_pass=160 |
 
 ##### results/stage_a_adapter_wiring/results.json
 
@@ -892,11 +894,12 @@ No rows recorded.
 | field | value |
 | --- | --- |
 | module | w3_qwen35_probe |
-| integration_grade | alongside_only_measured_not_in_state |
+| integration_grade | cached_gdn_state_measured_pending_propagation_delta |
 | model_id | Qwen/Qwen3.5-4B |
-| generated_at | 2026-06-07T10:46:45.660823+00:00 |
-| measured_object | prompt_hidden |
-| verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+| generated_at | 2026-06-07T12:33:41.161598+00:00 |
+| measured_object | cached_gdn_recurrent_state |
+| propagation_probe | None |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=NOT_RUN |
 
 ##### capacity_estimates
 
@@ -924,21 +927,11 @@ No rows recorded.
 
 | level | intervening_steps | survival | half_life | provenance |
 | --- | --- | --- | --- | --- |
-| 1 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 1 | 0.3906 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 2 | 0.3868 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 4 | 0.3886 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 8 | 0.3558 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 1 | 0.4027 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 2 | 0.4016 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 4 | 0.4137 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 8 | 0.3659 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 1 | 0.3971 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 2 | 0.3858 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 4 | 0.4003 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 8 | 0.3591 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 0 | 0 | 0.9998 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 1 | 0.7434 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 2 | 0.6905 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 4 | 0.6628 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 8 | 0.6469 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
 
 ##### model_card
 
@@ -954,24 +947,34 @@ No rows recorded.
 | linear_layers | 24 | read_from_hf_snapshot |
 | full_attention_layers | 8 | read_from_hf_snapshot |
 | snapshot_path | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | read_from_download_record |
+| layer_0_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_1_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_2_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_4_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_5_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_6_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_8_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_9_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_10_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_12_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_13_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_14_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_16_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_17_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+
+Truncated to 24 of 34 rows.
 
 ##### native_rule_gap
 
 | depth | intervening_updates | native_delta_restore_error | keyed_register_restore_error | delta_inverse_cosine | failure_modes | provenance |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 1 | 0.8641 | 0 | 0.5204 | ["push_pop_does_not_restore_hidden_state"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
-| 2 | 1 | 1.011 | 0 | 0.4312 | ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
-| 3 | 1 | 1.039 | 0 | 0.3023 | ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
+| 0 | 1 | 0.1628 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
+| 0 | 2 | 0.2124 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
+| 0 | 4 | 0.2424 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
 
 ##### propagation_per_task_delta
 
-| task | qwen35_verdict | qwen3_4b_delta | branch_rollout | parse_failure_rate | invalid_guess_rate | provenance |
-| --- | --- | --- | --- | --- | --- | --- |
-| general_sat | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=0.06167; mean_nodes_delta=-2.22; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.7333 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| graph_coloring | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.15; mean_nodes_delta=-0.9967; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.8125 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| horn_sat | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.1733; mean_nodes_delta=0; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| logic_grid | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.13; mean_nodes_delta=-2.043; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.7857 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| sudoku_4x4 | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.1583; mean_nodes_delta=-0.27; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
+No rows recorded.
 
 ##### state_hook_round_trip
 
@@ -985,11 +988,11 @@ No rows recorded.
 
 | field | value |
 | --- | --- |
-| integration_grade | alongside_only_measured_not_in_state |
+| integration_grade | cached_gdn_state_measured_pending_propagation_delta |
 | model_id | Qwen/Qwen3.5-4B |
-| generated_at | 2026-06-07T10:46:45.660823+00:00 |
-| measured_object | prompt_hidden |
-| verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+| generated_at | 2026-06-07T12:33:41.161598+00:00 |
+| measured_object | cached_gdn_recurrent_state |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=NOT_RUN |
 
 - Next action: P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract.
 
@@ -1105,10 +1108,10 @@ No rows recorded.
   - results/module1_capacity_perdepth_shards/results.json (yes)
 - Detail data:
   - results/experiment_items/item_030_p2_w3_hook_capacity.json: embedded json (7570 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (36047 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (563 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (44131 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (629 bytes)
   - specs/w3_qwen35_probe_spec.md: embedded md (2204 bytes)
-  - experiments/w3_qwen35_probe.py: embedded py (28308 bytes)
+  - experiments/w3_qwen35_probe.py: embedded py (37386 bytes)
   - results/model_download/qwen3_5_4b/qwen_download.json: embedded json (326 bytes)
   - results/module1_capacity_perdepth_shards/results.json: embedded json (7251562 bytes)
 #### Contract Result Tables
@@ -1167,11 +1170,12 @@ No rows recorded.
 | field | value |
 | --- | --- |
 | module | w3_qwen35_probe |
-| integration_grade | alongside_only_measured_not_in_state |
+| integration_grade | cached_gdn_state_measured_pending_propagation_delta |
 | model_id | Qwen/Qwen3.5-4B |
-| generated_at | 2026-06-07T10:46:45.660823+00:00 |
-| measured_object | prompt_hidden |
-| verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+| generated_at | 2026-06-07T12:33:41.161598+00:00 |
+| measured_object | cached_gdn_recurrent_state |
+| propagation_probe | None |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=NOT_RUN |
 
 ##### capacity_estimates
 
@@ -1199,21 +1203,11 @@ No rows recorded.
 
 | level | intervening_steps | survival | half_life | provenance |
 | --- | --- | --- | --- | --- |
-| 1 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 1 | 0.3906 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 2 | 0.3868 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 4 | 0.3886 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 8 | 0.3558 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 1 | 0.4027 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 2 | 0.4016 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 4 | 0.4137 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 8 | 0.3659 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 1 | 0.3971 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 2 | 0.3858 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 4 | 0.4003 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 8 | 0.3591 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 0 | 0 | 0.9998 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 1 | 0.7434 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 2 | 0.6905 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 4 | 0.6628 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 8 | 0.6469 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
 
 ##### model_card
 
@@ -1229,24 +1223,34 @@ No rows recorded.
 | linear_layers | 24 | read_from_hf_snapshot |
 | full_attention_layers | 8 | read_from_hf_snapshot |
 | snapshot_path | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | read_from_download_record |
+| layer_0_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_1_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_2_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_4_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_5_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_6_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_8_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_9_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_10_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_12_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_13_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_14_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_16_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_17_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+
+Truncated to 24 of 34 rows.
 
 ##### native_rule_gap
 
 | depth | intervening_updates | native_delta_restore_error | keyed_register_restore_error | delta_inverse_cosine | failure_modes | provenance |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 1 | 0.8641 | 0 | 0.5204 | ["push_pop_does_not_restore_hidden_state"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
-| 2 | 1 | 1.011 | 0 | 0.4312 | ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
-| 3 | 1 | 1.039 | 0 | 0.3023 | ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
+| 0 | 1 | 0.1628 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
+| 0 | 2 | 0.2124 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
+| 0 | 4 | 0.2424 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
 
 ##### propagation_per_task_delta
 
-| task | qwen35_verdict | qwen3_4b_delta | branch_rollout | parse_failure_rate | invalid_guess_rate | provenance |
-| --- | --- | --- | --- | --- | --- | --- |
-| general_sat | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=0.06167; mean_nodes_delta=-2.22; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.7333 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| graph_coloring | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.15; mean_nodes_delta=-0.9967; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.8125 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| horn_sat | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.1733; mean_nodes_delta=0; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| logic_grid | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.13; mean_nodes_delta=-2.043; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.7857 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| sudoku_4x4 | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.1583; mean_nodes_delta=-0.27; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
+No rows recorded.
 
 ##### state_hook_round_trip
 
@@ -1260,11 +1264,11 @@ No rows recorded.
 
 | field | value |
 | --- | --- |
-| integration_grade | alongside_only_measured_not_in_state |
+| integration_grade | cached_gdn_state_measured_pending_propagation_delta |
 | model_id | Qwen/Qwen3.5-4B |
-| generated_at | 2026-06-07T10:46:45.660823+00:00 |
-| measured_object | prompt_hidden |
-| verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+| generated_at | 2026-06-07T12:33:41.161598+00:00 |
+| measured_object | cached_gdn_recurrent_state |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=NOT_RUN |
 
 ##### results/model_download/qwen3_5_4b/qwen_download.json
 
@@ -1272,7 +1276,7 @@ No rows recorded.
 | --- | --- |
 | model_id | Qwen/Qwen3.5-4B |
 | total_gib | 8.701 |
-| generated_at | 2026-06-07T09:42:34.867563+00:00 |
+| generated_at | 2026-06-07T12:23:57.940723+00:00 |
 | n_files | 14 |
 | revision | None |
 | snapshot_path | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a |
@@ -1315,14 +1319,14 @@ No rows recorded.
   - specs/w3_qwen35_probe_spec.md (yes)
 - Detail data:
   - results/experiment_items/item_031_p2_w3_survival_delta_propagation.json: embedded json (14827 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (36047 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (563 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (44131 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (629 bytes)
   - results/w3_qwen35_probe/propagation_shards/horn_sat/results.json: embedded json (25083 bytes)
   - results/w3_qwen35_probe/propagation_shards/general_sat/results.json: embedded json (25323 bytes)
   - results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json: embedded json (25405 bytes)
   - results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json: embedded json (25103 bytes)
   - results/w3_qwen35_probe/propagation_shards/logic_grid/results.json: embedded json (25387 bytes)
-  - experiments/w3_qwen35_probe.py: embedded py (28308 bytes)
+  - experiments/w3_qwen35_probe.py: embedded py (37386 bytes)
   - scripts/run_w3_qwen35_sharded.sh: embedded sh (1576 bytes)
   - specs/w3_qwen35_probe_spec.md: embedded md (2204 bytes)
 #### Contract Result Tables
@@ -1381,11 +1385,12 @@ No rows recorded.
 | field | value |
 | --- | --- |
 | module | w3_qwen35_probe |
-| integration_grade | alongside_only_measured_not_in_state |
+| integration_grade | cached_gdn_state_measured_pending_propagation_delta |
 | model_id | Qwen/Qwen3.5-4B |
-| generated_at | 2026-06-07T10:46:45.660823+00:00 |
-| measured_object | prompt_hidden |
-| verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+| generated_at | 2026-06-07T12:33:41.161598+00:00 |
+| measured_object | cached_gdn_recurrent_state |
+| propagation_probe | None |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=NOT_RUN |
 
 ##### capacity_estimates
 
@@ -1413,21 +1418,11 @@ No rows recorded.
 
 | level | intervening_steps | survival | half_life | provenance |
 | --- | --- | --- | --- | --- |
-| 1 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 1 | 0.3906 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 2 | 0.3868 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 4 | 0.3886 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 8 | 0.3558 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 1 | 0.4027 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 2 | 0.4016 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 4 | 0.4137 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 8 | 0.3659 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 1 | 0.3971 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 2 | 0.3858 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 4 | 0.4003 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 8 | 0.3591 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 0 | 0 | 0.9998 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 1 | 0.7434 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 2 | 0.6905 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 4 | 0.6628 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 8 | 0.6469 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
 
 ##### model_card
 
@@ -1443,24 +1438,34 @@ No rows recorded.
 | linear_layers | 24 | read_from_hf_snapshot |
 | full_attention_layers | 8 | read_from_hf_snapshot |
 | snapshot_path | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | read_from_download_record |
+| layer_0_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_1_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_2_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_4_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_5_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_6_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_8_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_9_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_10_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_12_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_13_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_14_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_16_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_17_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+
+Truncated to 24 of 34 rows.
 
 ##### native_rule_gap
 
 | depth | intervening_updates | native_delta_restore_error | keyed_register_restore_error | delta_inverse_cosine | failure_modes | provenance |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 1 | 0.8641 | 0 | 0.5204 | ["push_pop_does_not_restore_hidden_state"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
-| 2 | 1 | 1.011 | 0 | 0.4312 | ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
-| 3 | 1 | 1.039 | 0 | 0.3023 | ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
+| 0 | 1 | 0.1628 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
+| 0 | 2 | 0.2124 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
+| 0 | 4 | 0.2424 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
 
 ##### propagation_per_task_delta
 
-| task | qwen35_verdict | qwen3_4b_delta | branch_rollout | parse_failure_rate | invalid_guess_rate | provenance |
-| --- | --- | --- | --- | --- | --- | --- |
-| general_sat | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=0.06167; mean_nodes_delta=-2.22; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.7333 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| graph_coloring | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.15; mean_nodes_delta=-0.9967; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.8125 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| horn_sat | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.1733; mean_nodes_delta=0; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| logic_grid | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.13; mean_nodes_delta=-2.043; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.7857 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| sudoku_4x4 | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.1583; mean_nodes_delta=-0.27; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
+No rows recorded.
 
 ##### state_hook_round_trip
 
@@ -1474,11 +1479,11 @@ No rows recorded.
 
 | field | value |
 | --- | --- |
-| integration_grade | alongside_only_measured_not_in_state |
+| integration_grade | cached_gdn_state_measured_pending_propagation_delta |
 | model_id | Qwen/Qwen3.5-4B |
-| generated_at | 2026-06-07T10:46:45.660823+00:00 |
-| measured_object | prompt_hidden |
-| verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+| generated_at | 2026-06-07T12:33:41.161598+00:00 |
+| measured_object | cached_gdn_recurrent_state |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=NOT_RUN |
 
 ##### results/w3_qwen35_probe/propagation_shards/horn_sat/results.json
 
@@ -1882,7 +1887,7 @@ No rows recorded.
   - results/validation/validation.md (yes)
 - Detail data:
   - results/experiment_items/item_032_validation_green_closeout.json: embedded json (7850 bytes)
-  - tasks/sudoku/generator_6x6.py: embedded py (3069 bytes)
+  - tasks/sudoku/generator_6x6.py: embedded py (3068 bytes)
   - experiments/stage_a_sudoku6_bridge.py: embedded py (10922 bytes)
   - results/stage_a_sudoku6_bridge/results.json: embedded json (4890 bytes)
   - results/ttt/results.json: embedded json (129 bytes)
@@ -1891,8 +1896,8 @@ No rows recorded.
   - results/d_stage_2/results.json: missing
   - results/d_stage_3/results.json: missing
   - results/verifier/results.json: missing
-  - results/validation/validation.json: embedded json (28383 bytes)
-  - results/validation/validation.md: embedded md (16799 bytes)
+  - results/validation/validation.json: embedded json (29624 bytes)
+  - results/validation/validation.md: embedded md (17670 bytes)
 #### Contract Result Tables
 
 ##### failure_before_after
@@ -1984,8 +1989,8 @@ No rows recorded.
 | field | value |
 | --- | --- |
 | passed | False |
-| generated_at | 2026-06-07T12:14:22.885382+00:00 |
-| summary | n_checks=159; n_fail=10; n_pass=149 |
+| generated_at | 2026-06-07T12:55:28.115227+00:00 |
+| summary | n_checks=164; n_fail=4; n_pass=160 |
 
 - Next action: Proceed to learned recurrent Stage A bridge/autonomous grid work; validation is green, but the core claim still needs full autonomous Stage A evidence.
 
@@ -2013,12 +2018,12 @@ No rows recorded.
   - results/experiment_items/item_033_validation_object_binding.json: embedded json (7073 bytes)
   - analysis/validate_outputs.py: embedded py (29692 bytes)
   - experiments/stage_a_sudoku6_bridge.py: embedded py (10922 bytes)
-  - experiments/w3_qwen35_probe.py: embedded py (28308 bytes)
+  - experiments/w3_qwen35_probe.py: embedded py (37386 bytes)
   - results/stage_a_sudoku6_bridge/results.json: embedded json (4890 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (36047 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (563 bytes)
-  - results/validation/validation.json: embedded json (28383 bytes)
-  - results/validation/validation.md: embedded md (16799 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (44131 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (629 bytes)
+  - results/validation/validation.json: embedded json (29624 bytes)
+  - results/validation/validation.md: embedded md (17670 bytes)
 #### Contract Result Tables
 
 ##### validation_registry_before_after
@@ -2088,11 +2093,12 @@ No rows recorded.
 | field | value |
 | --- | --- |
 | module | w3_qwen35_probe |
-| integration_grade | alongside_only_measured_not_in_state |
+| integration_grade | cached_gdn_state_measured_pending_propagation_delta |
 | model_id | Qwen/Qwen3.5-4B |
-| generated_at | 2026-06-07T10:46:45.660823+00:00 |
-| measured_object | prompt_hidden |
-| verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+| generated_at | 2026-06-07T12:33:41.161598+00:00 |
+| measured_object | cached_gdn_recurrent_state |
+| propagation_probe | None |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=NOT_RUN |
 
 ##### capacity_estimates
 
@@ -2120,21 +2126,11 @@ No rows recorded.
 
 | level | intervening_steps | survival | half_life | provenance |
 | --- | --- | --- | --- | --- |
-| 1 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 1 | 0.3906 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 2 | 0.3868 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 4 | 0.3886 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 1 | 8 | 0.3558 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 1 | 0.4027 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 2 | 0.4016 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 4 | 0.4137 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 2 | 8 | 0.3659 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 0 | 1 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 1 | 0.3971 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 2 | 0.3858 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 4 | 0.4003 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
-| 4 | 8 | 0.3591 | 1 | measured:last-token prompt-hidden cosine, not a cached recurrent state intervention |
+| 0 | 0 | 0.9998 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 1 | 0.7434 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 2 | 0.6905 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 4 | 0.6628 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 8 | 0.6469 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
 
 ##### model_card
 
@@ -2150,24 +2146,34 @@ No rows recorded.
 | linear_layers | 24 | read_from_hf_snapshot |
 | full_attention_layers | 8 | read_from_hf_snapshot |
 | snapshot_path | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | read_from_download_record |
+| layer_0_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_1_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_2_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_4_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_5_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_6_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_8_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_9_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_10_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_12_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_13_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_14_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_16_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_17_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+
+Truncated to 24 of 34 rows.
 
 ##### native_rule_gap
 
 | depth | intervening_updates | native_delta_restore_error | keyed_register_restore_error | delta_inverse_cosine | failure_modes | provenance |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 1 | 0.8641 | 0 | 0.5204 | ["push_pop_does_not_restore_hidden_state"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
-| 2 | 1 | 1.011 | 0 | 0.4312 | ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
-| 3 | 1 | 1.039 | 0 | 0.3023 | ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"] | measured:last-token prompt-hidden deltas versus exact structured push/pop target |
+| 0 | 1 | 0.1628 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
+| 0 | 2 | 0.2124 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
+| 0 | 4 | 0.2424 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
 
 ##### propagation_per_task_delta
 
-| task | qwen35_verdict | qwen3_4b_delta | branch_rollout | parse_failure_rate | invalid_guess_rate | provenance |
-| --- | --- | --- | --- | --- | --- | --- |
-| general_sat | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=0.06167; mean_nodes_delta=-2.22; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.7333 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| graph_coloring | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.15; mean_nodes_delta=-0.9967; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.8125 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| horn_sat | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.1733; mean_nodes_delta=0; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| logic_grid | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.13; mean_nodes_delta=-2.043; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0.7857 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
-| sudoku_4x4 | NEEDS_OPERATOR_FIX | fixpoint_reach_rate_delta=-0.1583; mean_nodes_delta=-0.27; per_call_precision_delta=None | 2 keys: qwen35_qwen_guess, qwen3_4b_qwen_guess_baseline | 0 | 0 | measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline |
+No rows recorded.
 
 ##### state_hook_round_trip
 
@@ -2181,21 +2187,236 @@ No rows recorded.
 
 | field | value |
 | --- | --- |
-| integration_grade | alongside_only_measured_not_in_state |
+| integration_grade | cached_gdn_state_measured_pending_propagation_delta |
 | model_id | Qwen/Qwen3.5-4B |
-| generated_at | 2026-06-07T10:46:45.660823+00:00 |
-| measured_object | prompt_hidden |
-| verdicts | W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; W3.1_native_delta_rule_as_stack_gap=MEASURED_NATIVE_HIDDEN_DELTA_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+| generated_at | 2026-06-07T12:33:41.161598+00:00 |
+| measured_object | cached_gdn_recurrent_state |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=NOT_RUN |
 
 ##### results/validation/validation.json
 
 | field | value |
 | --- | --- |
 | passed | False |
-| generated_at | 2026-06-07T12:14:22.885382+00:00 |
-| summary | n_checks=159; n_fail=10; n_pass=149 |
+| generated_at | 2026-06-07T12:55:28.115227+00:00 |
+| summary | n_checks=164; n_fail=4; n_pass=160 |
 
 - Next action: Proceed to T2 learned recurrent operator/data/trainer and T3 cached GDN recurrent-state probe; do not treat validation red as environment failure.
+
+### Item 034 - T2 learned-operator preflight and T3 cached GDN state probe
+
+- Status: PARTIAL_EVIDENCE_RECORDED
+- Key result: Wait for the formal T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Then run W3.2 propagation delta on cached-state-linked outputs.
+- Purpose: Continue T2/T3 after validation object binding by producing real learned-operator artifacts for preflight wiring and measuring W3 on the actual Qwen3.5 cached GDN recurrent state.
+- Details:
+  - purpose=Continue T2/T3 after validation object binding by producing real learned-operator artifacts for preflight wiring and measuring W3 on the actual Qwen3.5 cached GDN recurrent state.
+  - commands=4
+  - result_tables=['stage_a_preflight_learned_smoke', 't2_smoke_acceptance', 'w3_cached_gdn_probe']
+  - honesty=The T2 smoke checkpoint does not meet G1>=0.95 and does not produce autonomous Stage A cells. The formal T2 run was launched but final metrics were not available at item creation time. W3 now measures the right cached object for round-trip, survival, and native-rule gap, but W3.2 propagation delta remains NOT_RUN.
+- Artifacts:
+  - results/experiment_items/item_034_t2_t3_cached_state_and_learned_preflight.json (yes)
+  - results/recurrent_operator_smoke/acceptance.json (yes)
+  - results/recurrent_operator_smoke/learned_recurrent_operator_seed102.pt (yes)
+  - artifacts/stage_a/manifest.json (yes)
+  - artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt (yes)
+  - artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl (yes)
+  - results/stage_a_backtrack_learned_smoke/preflight.json (yes)
+  - results/w3_qwen35_probe/results.json (yes)
+  - results/w3_qwen35_probe/verdicts.json (yes)
+- Detail data:
+  - results/experiment_items/item_034_t2_t3_cached_state_and_learned_preflight.json: embedded json (7270 bytes)
+  - results/recurrent_operator_smoke/acceptance.json: embedded json (2433 bytes)
+  - results/recurrent_operator_smoke/learned_recurrent_operator_seed102.pt: not embedded (unsupported_format)
+  - artifacts/stage_a/manifest.json: embedded json (3486 bytes)
+  - artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt: not embedded (unsupported_format)
+  - artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl: not embedded (unsupported_format)
+  - results/stage_a_backtrack_learned_smoke/preflight.json: embedded json (14772 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (44131 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (629 bytes)
+#### Contract Result Tables
+
+##### stage_a_preflight_learned_smoke
+
+| field | value |
+| --- | --- |
+| status | READY |
+| operator_ckpt | results/recurrent_operator_smoke/learned_recurrent_operator_seed102.pt |
+| operator_checkpoint_exists | True |
+| bridge_decoder_exists | True |
+| teacher_trace_exists | True |
+| learned_smoke_G1_pass | False |
+
+##### t2_smoke_acceptance
+
+| metric | value |
+| --- | --- |
+| operator_type | learned_recurrent |
+| status | G1_NOT_MET |
+| G1 | 0.004505 |
+| G2 | 0 |
+| stage_a_autonomous_cells | 0 |
+
+##### w3_cached_gdn_probe
+
+| metric | value |
+| --- | --- |
+| measured_object | cached_gdn_recurrent_state |
+| integration_grade | cached_gdn_state_measured_pending_propagation_delta |
+| recurrent_state_rows | 24 |
+| conv_state_rows | 24 |
+| recurrent_state_shape | [1, 32, 128, 128] |
+| perturbation_max_logit_delta | 0.1562 |
+| restore_max_logit_delta | 0 |
+| survival_rows | 5 |
+| native_rule_gap_rows | 3 |
+
+#### Artifact JSON Results
+
+##### results/recurrent_operator_smoke/acceptance.json
+
+| field | value |
+| --- | --- |
+| module | train_recurrent_operator |
+| status | G1_NOT_MET |
+| G1 | 0.004505 |
+| device | cpu |
+| G2 | 0 |
+| checkpoint | results/recurrent_operator_smoke/learned_recurrent_operator_seed102.pt |
+| generated_at | 2026-06-07T12:27:18.260698+00:00 |
+| honesty | does_not_establish=This trainer produces a learned checkpoint and live bridge metrics, but does not establish autonomous Stage A solving unless a later Stage A run consumes the checkpoint and reports real cells. |
+| operator_type | learned_recurrent |
+| seed | 102 |
+| source | learned_recurrent_training_run |
+| training_curve_summary | 4 keys: batch_size, history, lr, steps |
+
+##### artifacts/stage_a/manifest.json
+
+| field | value |
+| --- | --- |
+| module | stage_a_reconstructed_artifacts |
+| status | READY |
+| device | cuda:2 |
+| artifact_policy | reconstructed_in_repo_not_inherited |
+| n_requested_instances | 1024 |
+| n_solved_tasks | 1024 |
+| note | Original parent recurrent-depth artifacts were not present; these replacements are generated from current RECURRENT_NN code and must be reported as reconstructed artifacts. |
+| output_dir | artifacts/stage_a |
+| task_source | tasks.sudoku.generator_4x4 + tasks.oracle.DPLLOracle |
+
+##### results/stage_a_backtrack_learned_smoke/preflight.json
+
+| field | value |
+| --- | --- |
+| module | stage_a_backtrack_loop |
+| status | READY |
+| total_cells | 36 |
+
+##### results/w3_qwen35_probe/results.json
+
+| field | value |
+| --- | --- |
+| module | w3_qwen35_probe |
+| integration_grade | cached_gdn_state_measured_pending_propagation_delta |
+| model_id | Qwen/Qwen3.5-4B |
+| generated_at | 2026-06-07T12:33:41.161598+00:00 |
+| measured_object | cached_gdn_recurrent_state |
+| propagation_probe | None |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=NOT_RUN |
+
+##### capacity_estimates
+
+| K_val | K_var | bound_single_estimated_capacity | factored_estimated_capacity | hidden_size_as_D | source |
+| --- | --- | --- | --- | --- | --- |
+| 2 | 60 | 143.7 | 78.48 | 2560 | Module1 fitted slopes; planning estimate only, not native Qwen stack evidence |
+| 9 | 60 | 109.4 | 78.48 | 2560 | Module1 fitted slopes; planning estimate only, not native Qwen stack evidence |
+| 2 | 81 | 135.3 | 73.12 | 2560 | Module1 fitted slopes; planning estimate only, not native Qwen stack evidence |
+| 2 | 256 | 110.3 | 57.95 | 2560 | Module1 fitted slopes; planning estimate only, not native Qwen stack evidence |
+| 2 | 729 | 94.47 | 48.75 | 2560 | Module1 fitted slopes; planning estimate only, not native Qwen stack evidence |
+| 9 | 729 | 78.3 | 48.75 | 2560 | Module1 fitted slopes; planning estimate only, not native Qwen stack evidence |
+
+##### capacity_at_real_gdn_dims
+
+| K_var | K_val | hidden_size_as_D | bound_single_estimated_capacity | factored_estimated_capacity | provenance |
+| --- | --- | --- | --- | --- | --- |
+| 60 | 2 | 2560 | 143.7 | 78.48 | derived_from_module1_capacity_law |
+| 60 | 9 | 2560 | 109.4 | 78.48 | derived_from_module1_capacity_law |
+| 81 | 2 | 2560 | 135.3 | 73.12 | derived_from_module1_capacity_law |
+| 256 | 2 | 2560 | 110.3 | 57.95 | derived_from_module1_capacity_law |
+| 729 | 2 | 2560 | 94.47 | 48.75 | derived_from_module1_capacity_law |
+| 729 | 9 | 2560 | 78.3 | 48.75 | derived_from_module1_capacity_law |
+
+##### decay_survival
+
+| level | intervening_steps | survival | half_life | provenance |
+| --- | --- | --- | --- | --- |
+| 0 | 0 | 0.9998 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 1 | 0.7434 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 2 | 0.6905 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 4 | 0.6628 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+| 0 | 8 | 0.6469 | None | measured:cached_gdn_recurrent_state perturb residual after native token updates |
+
+##### model_card
+
+| field | value | provenance |
+| --- | --- | --- |
+| model_type | qwen3_5 | read_from_hf_snapshot |
+| text_model_type | qwen3_5_text | read_from_hf_snapshot |
+| hidden_size | 2560 | read_from_hf_snapshot |
+| num_hidden_layers | 32 | read_from_hf_snapshot |
+| num_attention_heads | 16 | read_from_hf_snapshot |
+| num_key_value_heads | 4 | read_from_hf_snapshot |
+| full_attention_interval | 4 | read_from_hf_snapshot |
+| linear_layers | 24 | read_from_hf_snapshot |
+| full_attention_layers | 8 | read_from_hf_snapshot |
+| snapshot_path | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | read_from_download_record |
+| layer_0_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_1_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_2_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_4_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_5_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_6_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_8_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_9_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_10_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_12_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_13_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_14_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_16_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+| layer_17_recurrent_state_shape | [1, 32, 128, 128] | measured:DynamicCache.cached_gdn_recurrent_state |
+
+Truncated to 24 of 34 rows.
+
+##### native_rule_gap
+
+| depth | intervening_updates | native_delta_restore_error | keyed_register_restore_error | delta_inverse_cosine | failure_modes | provenance |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0 | 1 | 0.1628 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
+| 0 | 2 | 0.2124 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
+| 0 | 4 | 0.2424 | 0 | None | ["native_update_not_explicit_push_pop_inverse"] | measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore |
+
+##### propagation_per_task_delta
+
+No rows recorded.
+
+##### state_hook_round_trip
+
+No rows recorded.
+
+##### verdicts_echo
+
+No rows recorded.
+
+##### results/w3_qwen35_probe/verdicts.json
+
+| field | value |
+| --- | --- |
+| integration_grade | cached_gdn_state_measured_pending_propagation_delta |
+| model_id | Qwen/Qwen3.5-4B |
+| generated_at | 2026-06-07T12:33:41.161598+00:00 |
+| measured_object | cached_gdn_recurrent_state |
+| verdicts | W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=NOT_RUN |
+
+- Next action: Wait for the formal T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Then run W3.2 propagation delta on cached-state-linked outputs.
 
 
 ## Canonical Repo Decision
@@ -2234,8 +2455,8 @@ No rows recorded.
 | M2.0 frozen Qwen operator | RED | verdict=PER_TASK_ROUTING; list_all_recall=0.3771; single_precision=0.4322 |
 | Branch policy | YELLOW | qwen_nodes=4.939; mrv_nodes=5.067; qwen_invalid_rate=0.2316 |
 | Stage A in-loop proof | YELLOW | diagnostic_G1=1.0; L4_reverts=True; autonomous_cells=0; statuses=['PARENT_ADAPTER_REQUIRED'] |
-| W3 Qwen3.5 | YELLOW | integration_grade=alongside_only_measured_not_in_state; W3.0=PASS |
-| Validation | RED | checks=159; pass=149; fail=10 |
+| W3 Qwen3.5 | YELLOW | integration_grade=cached_gdn_state_measured_pending_propagation_delta; W3.0=PASS |
+| Validation | RED | checks=164; pass=160; fail=4 |
 
 ## Artifact Index
 
@@ -2278,14 +2499,14 @@ No rows recorded.
 
 | tier | pass | fail |
 | --- | --- | --- |
-| contract | 68 | 0 |
+| contract | 74 | 0 |
 | env | 13 | 0 |
 | legacy | 7 | 0 |
 | meta | 0 | 1 |
 | p0 | 2 | 0 |
 | tier_a | 35 | 0 |
 | tier_b | 19 | 3 |
-| tier_c | 5 | 6 |
+| tier_c | 10 | 0 |
 
 ## P0/P1/P2/P3 Execution Notes
 

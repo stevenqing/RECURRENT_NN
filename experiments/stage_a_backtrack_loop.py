@@ -98,12 +98,19 @@ def preflight(
     teacher_trace: str,
     output_dir: str,
     repo_root: str | Path = ".",
+    learned_operator_acceptance: str = "",
 ) -> dict[str, Any]:
     repo = Path(repo_root).resolve()
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
+    learned_acceptance_path = _resolve(learned_operator_acceptance, repo) if learned_operator_acceptance else None
+    learned_acceptance = None
+    if learned_acceptance_path and learned_acceptance_path.exists():
+        with learned_acceptance_path.open("r", encoding="utf-8") as handle:
+            learned_acceptance = json.load(handle)
+    learned_checkpoint = _resolve(learned_acceptance.get("checkpoint", ""), repo) if isinstance(learned_acceptance, dict) else None
     paths = {
-        "operator_ckpt": _resolve(operator_ckpt, repo),
+        "operator_ckpt": learned_checkpoint or _resolve(operator_ckpt, repo),
         "bridge_decoder": _resolve(bridge_decoder, repo),
         "teacher_trace": _resolve(teacher_trace, repo),
         "module1_capacity": repo / "results/module1_capacity_perdepth_shards/results.json",
@@ -121,9 +128,18 @@ def preflight(
         "total_cells": len(build_grid()),
         "grid": [asdict(cell) | {"name": cell.name} for cell in build_grid()],
         "discipline": {
-            "operator": "frozen inherited or reconstructed parent checkpoint",
+            "operator": "learned recurrent checkpoint required for core evidence; reconstructed parent is preflight-only unless an acceptance JSON is supplied",
             "trainable": ["controller", "h_work_gru", "non_inherited_register_readout"],
             "forbidden": ["qwen", "token_scratchpad", "teacher_action_injection_at_eval", "prefix_at_eval"],
+        },
+        "learned_operator_acceptance": {
+            "path": str(learned_acceptance_path) if learned_acceptance_path else "",
+            "exists": bool(learned_acceptance_path and learned_acceptance_path.exists()),
+            "operator_type": learned_acceptance.get("operator_type") if isinstance(learned_acceptance, dict) else None,
+            "checkpoint": str(learned_checkpoint) if learned_checkpoint else "",
+            "checkpoint_exists": bool(learned_checkpoint and learned_checkpoint.exists()),
+            "G1": learned_acceptance.get("G1") if isinstance(learned_acceptance, dict) else None,
+            "G1_pass": learned_acceptance.get("acceptance", {}).get("G1_pass") if isinstance(learned_acceptance, dict) else None,
         },
     }
     (output / "preflight.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -138,10 +154,11 @@ def run_shard(
     num_shards: int,
     shard_index: int,
     device: str,
+    learned_operator_acceptance: str = "",
 ) -> dict[str, Any]:
     root = Path(output_dir)
     root.mkdir(parents=True, exist_ok=True)
-    pre = preflight(operator_ckpt, bridge_decoder, teacher_trace, str(root), Path.cwd())
+    pre = preflight(operator_ckpt, bridge_decoder, teacher_trace, str(root), Path.cwd(), learned_operator_acceptance)
     selected = shard_grid(num_shards, shard_index)
     payload: dict[str, Any] = {
         "module": "stage_a_backtrack_loop",
@@ -158,6 +175,16 @@ def run_shard(
         payload["message"] = "Stage A did not start because parent artifacts are missing."
         (root / "results.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         raise SystemExit(2)
+    learned = pre.get("learned_operator_acceptance", {})
+    if learned.get("operator_type") == "learned_recurrent":
+        payload["status"] = "LEARNED_OPERATOR_AVAILABLE_AUTONOMOUS_LOOP_NOT_IMPLEMENTED"
+        payload["operator_type"] = "learned_recurrent"
+        payload["message"] = (
+            "A learned recurrent operator acceptance artifact is wired into preflight, "
+            "but autonomous Stage A cell execution is still not implemented in this entrypoint."
+        )
+        (root / "results.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        raise SystemExit(3)
     payload["status"] = "PARENT_ADAPTER_REQUIRED"
     payload["message"] = (
         "Preflight passed, but the recurrent-depth parent operator/bridge adapter "
@@ -241,12 +268,13 @@ def main() -> None:
     parser.add_argument("--teacher-trace", required=False, default="artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl")
     parser.add_argument("--output-dir", default="results/stage_a_backtrack")
     parser.add_argument("--device", default="cuda:0")
+    parser.add_argument("--learned-operator-acceptance", default="")
     args = parser.parse_args()
     if args.mode == "list-grid":
         print(json.dumps({"total_cells": len(build_grid()), "cells": [asdict(cell) | {"name": cell.name} for cell in build_grid()]}, indent=2, sort_keys=True))
         return
     if args.mode == "preflight":
-        payload = preflight(args.operator_ckpt, args.bridge_decoder, args.teacher_trace, args.output_dir, Path.cwd())
+        payload = preflight(args.operator_ckpt, args.bridge_decoder, args.teacher_trace, args.output_dir, Path.cwd(), args.learned_operator_acceptance)
         print(json.dumps(payload, indent=2, sort_keys=True))
         if payload["status"] != "READY":
             raise SystemExit(2)
@@ -256,7 +284,7 @@ def main() -> None:
         if payload["status"] != "SMOKE_PASS":
             raise SystemExit(4)
         return
-    payload = run_shard(args.output_dir, args.operator_ckpt, args.bridge_decoder, args.teacher_trace, args.num_shards, args.shard_index, args.device)
+    payload = run_shard(args.output_dir, args.operator_ckpt, args.bridge_decoder, args.teacher_trace, args.num_shards, args.shard_index, args.device, args.learned_operator_acceptance)
     print(json.dumps(payload, indent=2, sort_keys=True))
 
 

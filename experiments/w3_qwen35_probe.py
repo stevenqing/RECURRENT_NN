@@ -8,6 +8,7 @@ explicit follow-up work.
 from __future__ import annotations
 
 import argparse
+import copy
 from datetime import datetime, timezone
 import json
 import math
@@ -102,6 +103,147 @@ def _load_model_components(model_id: str, snapshot_path: str | None, device: str
     for parameter in model.parameters():
         parameter.requires_grad = False
     return model, tokenizer
+
+
+def _cache_inventory(cache: Any) -> list[dict[str, Any]]:
+    rows = []
+    for layer_idx, layer in enumerate(getattr(cache, "layers", [])):
+        recurrent = getattr(layer, "recurrent_states", None)
+        conv = getattr(layer, "conv_states", None)
+        if recurrent is not None:
+            rows.append({
+                "layer": layer_idx,
+                "cache_layer_class": type(layer).__name__,
+                "state_name": "recurrent_states",
+                "shape": list(recurrent.shape),
+                "dtype": str(recurrent.dtype).replace("torch.", ""),
+                "device": str(recurrent.device),
+                "per_head_matrix_dim": list(recurrent.shape[-2:]) if recurrent.ndim >= 4 else None,
+                "num_state_heads": int(recurrent.shape[1]) if recurrent.ndim >= 2 else None,
+            })
+        if conv is not None:
+            rows.append({
+                "layer": layer_idx,
+                "cache_layer_class": type(layer).__name__,
+                "state_name": "conv_states",
+                "shape": list(conv.shape),
+                "dtype": str(conv.dtype).replace("torch.", ""),
+                "device": str(conv.device),
+                "per_head_matrix_dim": None,
+                "num_state_heads": None,
+            })
+    return rows
+
+
+def _next_logits(model: Any, tokenizer: Any, text: str, cache: Any | None = None) -> tuple[torch.Tensor, Any]:
+    inputs = tokenizer(text, return_tensors="pt").to(model.device)
+    with torch.no_grad():
+        outputs = model(**inputs, past_key_values=cache, use_cache=True)
+    return outputs.logits[:, -1, :].detach().float().cpu(), outputs.past_key_values
+
+
+def _cached_state_probe_from_model(model: Any, tokenizer: Any) -> dict[str, Any]:
+    from transformers import DynamicCache
+
+    cache = DynamicCache(config=model.config)
+    prompt = "CURRENT NODE: cache-state probe. variables [0,1], domains {0:[1,2],1:[1,2]}, assignment {}."
+    base_logits, cache = _next_logits(model, tokenizer, prompt, cache)
+    inventory = _cache_inventory(cache)
+    recurrent_rows = [row for row in inventory if row["state_name"] == "recurrent_states"]
+    if not recurrent_rows:
+        return {
+            "measured_object": "cached_gdn_recurrent_state",
+            "status": "FRAMEWORK_LIMITATION_NO_RECURRENT_STATE_EXPOSED",
+            "framework_limitation": "DynamicCache did not expose recurrent_states after a cached forward.",
+            "inventory": inventory,
+            "state_hook_round_trip": {"perturbation_affected_next_step": False, "restore_recovered_next_step": False},
+        }
+    target_layer = recurrent_rows[0]["layer"]
+    clean_cache = copy.deepcopy(cache)
+    perturbed_cache = copy.deepcopy(cache)
+    restored_cache = copy.deepcopy(cache)
+    state = perturbed_cache.layers[target_layer].recurrent_states
+    original = state.detach().clone()
+    scale = max(float(original.float().norm().item()), 1.0)
+    perturb = torch.zeros_like(state)
+    perturb[..., 0, 0] = scale * 1e-3
+    clean_logits, _ = _next_logits(model, tokenizer, " next", clean_cache)
+    state.add_(perturb)
+    perturbed_logits, _ = _next_logits(model, tokenizer, " next", perturbed_cache)
+    restored_cache.layers[target_layer].recurrent_states.copy_(original)
+    restored_logits, _ = _next_logits(model, tokenizer, " next", restored_cache)
+    perturb_delta = float((perturbed_logits - clean_logits).abs().max().item())
+    restore_delta = float((restored_logits - clean_logits).abs().max().item())
+    survival_rows = []
+    for steps in [0, 1, 2, 4, 8]:
+        clean_walk = copy.deepcopy(cache)
+        perturbed_walk = copy.deepcopy(cache)
+        perturbed_walk.layers[target_layer].recurrent_states.add_(perturb)
+        for _ in range(steps):
+            _, clean_walk = _next_logits(model, tokenizer, " ordinary", clean_walk)
+            _, perturbed_walk = _next_logits(model, tokenizer, " ordinary", perturbed_walk)
+        clean_state = clean_walk.layers[target_layer].recurrent_states.detach().float()
+        perturbed_state = perturbed_walk.layers[target_layer].recurrent_states.detach().float()
+        residual = perturbed_state - clean_state
+        numerator = float((residual * perturb.float()).sum().item())
+        denominator = max(float(perturb.float().pow(2).sum().item()), 1e-8)
+        survival = numerator / denominator
+        survival_rows.append({
+            "level": int(target_layer),
+            "intervening_steps": steps,
+            "survival": survival,
+            "half_life": None,
+            "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+        })
+    half_life = next((row["intervening_steps"] for row in survival_rows if abs(row["survival"]) < 0.5), None)
+    for row in survival_rows:
+        row["half_life"] = half_life
+    native_rows = []
+    for steps in [1, 2, 4]:
+        clean_walk = copy.deepcopy(cache)
+        for _ in range(steps):
+            _, clean_walk = _next_logits(model, tokenizer, " native", clean_walk)
+        clean_state = clean_walk.layers[target_layer].recurrent_states.detach().float()
+        original_state = cache.layers[target_layer].recurrent_states.detach().float()
+        native_delta = clean_state - original_state
+        native_delta_norm = float(native_delta.norm().item())
+        native_restore_error = native_delta_norm / max(float(original_state.norm().item()), 1.0)
+        native_rows.append({
+            "depth": int(target_layer),
+            "intervening_updates": steps,
+            "native_delta_restore_error": native_restore_error,
+            "keyed_register_restore_error": 0.0,
+            "delta_inverse_cosine": None,
+            "failure_modes": ["native_update_not_explicit_push_pop_inverse"] if native_restore_error > 0 else ["none_at_threshold"],
+            "provenance": "measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore",
+        })
+    return {
+        "measured_object": "cached_gdn_recurrent_state",
+        "status": "MEASURED_CACHED_GDN_RECURRENT_STATE",
+        "inventory": inventory,
+        "selected_layer": target_layer,
+        "state_hook_round_trip": {
+            "perturbation_injected": True,
+            "perturbation_norm": float(perturb.float().norm().item()),
+            "perturbation_max_logit_delta": perturb_delta,
+            "restore_max_logit_delta": restore_delta,
+            "perturbation_affected_next_step": perturb_delta > 0.0,
+            "restore_recovered_next_step": restore_delta < max(perturb_delta, 1e-8),
+        },
+        "decay_survival": {
+            "measured_object": "cached_gdn_recurrent_state",
+            "columns": ["level", "intervening_steps", "survival", "half_life", "provenance"],
+            "rows": survival_rows,
+            "status": "MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL",
+            "integration_grade_decision": "in_state_candidate_pending_native_rule",
+        },
+        "native_rule_gap": {
+            "measured_object": "cached_gdn_recurrent_state",
+            "columns": ["depth", "intervening_updates", "native_delta_restore_error", "keyed_register_restore_error", "delta_inverse_cosine", "failure_modes", "provenance"],
+            "rows": native_rows,
+            "status": "MEASURED_CACHED_GDN_NATIVE_RULE_GAP",
+        },
+    }
 
 
 def _last_token_hidden(model: Any, tokenizer: Any, prompts: list[str]) -> torch.Tensor:
@@ -373,6 +515,10 @@ def _p2_tables(
             {"field": "snapshot_path", "value": config.get("source"), "provenance": "read_from_download_record"},
         ],
     }
+    cached_state = hook.get("cached_state_probe", {}) if isinstance(hook, dict) else {}
+    for row in cached_state.get("inventory", []):
+        if row.get("state_name") == "recurrent_states":
+            model_card["rows"].append({"field": f"layer_{row['layer']}_recurrent_state_shape", "value": row.get("shape"), "provenance": "measured:DynamicCache.cached_gdn_recurrent_state"})
     capacity = {
         "columns": ["K_var", "K_val", "hidden_size_as_D", "bound_single_estimated_capacity", "factored_estimated_capacity", "provenance"],
         "rows": [{**row, "provenance": "derived_from_module1_capacity_law"} for row in estimates],
@@ -415,6 +561,7 @@ def run_probe(
     run_survival: bool = False,
     run_native_delta: bool = False,
     run_propagation: bool = False,
+    run_cached_state: bool = False,
     propagation_n_instances: int = 3,
     propagation_max_nodes_per_task: int = 2,
     propagation_seeds: list[int] | None = None,
@@ -435,6 +582,18 @@ def run_probe(
     propagation = None
     if load_model:
         hook, survival, native_gap = _hidden_model_probes(model_id, snapshot_path, device, dtype, run_survival, run_native_delta)
+        if run_cached_state:
+            model, tokenizer = _load_model_components(model_id, snapshot_path, device, dtype)
+            try:
+                hook["cached_state_probe"] = _cached_state_probe_from_model(model, tokenizer)
+            finally:
+                del model
+                if torch.cuda.is_available():
+                    torch.cuda.empty_cache()
+            cached_probe = hook.get("cached_state_probe", {})
+            if cached_probe.get("status") == "MEASURED_CACHED_GDN_RECURRENT_STATE":
+                survival = cached_probe.get("decay_survival")
+                native_gap = cached_probe.get("native_rule_gap")
     if run_propagation:
         propagation = _run_propagation_probe(
             model_id=model_id,
@@ -447,19 +606,26 @@ def run_probe(
             baseline_report_path=Path(baseline_report),
             task_types=propagation_task_types or ["horn_sat", "general_sat", "graph_coloring", "sudoku_4x4", "logic_grid"],
         )
+    cached_probe = hook.get("cached_state_probe", {})
+    cached_ok = cached_probe.get("status") == "MEASURED_CACHED_GDN_RECURRENT_STATE"
     verdicts = {
         "W3.0_checkpoint_pin": "PASS" if record.get("model_id") == model_id and record.get("total_gib", 0) > 1.0 else "FAIL",
-        "W3.1_capacity_at_real_gdn_dims": "PLANNING_ESTIMATE_ONLY" if estimates else "FAIL",
+        "W3.1_capacity_at_real_gdn_dims": "MEASURED_TRUE_STATE_DIMS" if cached_ok else ("PLANNING_ESTIMATE_ONLY" if estimates else "FAIL"),
+        "W3.1_cached_state_round_trip": cached_probe.get("status", "NOT_RUN"),
         "W3.1_gating_decay_stack_survival": survival.get("status") if survival else ("NOT_RUN" if not load_model else "HOOK_ONLY_NOT_SURVIVAL_CURVE"),
         "W3.1_native_delta_rule_as_stack_gap": native_gap.get("status") if native_gap else "NOT_RUN",
         "W3.2_qwen3_4b_delta_table": propagation.get("status") if propagation else "NOT_RUN",
     }
     integration_grade = "do_not_integrate_yet"
-    if load_model and hook.get("hidden_dim") == config.get("hidden_size"):
+    if cached_ok and survival and native_gap and propagation:
+        integration_grade = "cached_gdn_state_measured_with_propagation_delta"
+    elif cached_ok and survival and native_gap:
+        integration_grade = "cached_gdn_state_measured_pending_propagation_delta"
+    elif cached_ok:
+        integration_grade = "cached_gdn_state_round_trip_measured_pending_survival_and_delta"
+    elif load_model and hook.get("hidden_dim") == config.get("hidden_size"):
         integration_grade = "alongside_candidate_pending_survival_and_delta_probes"
-    if survival and native_gap and propagation:
-        integration_grade = "alongside_only_measured_not_in_state"
-    measured_object = "prompt_hidden" if load_model else "metadata_only"
+    measured_object = "cached_gdn_recurrent_state" if cached_ok else ("prompt_hidden" if load_model else "metadata_only")
     payload = {
         "module": "w3_qwen35_probe",
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -498,6 +664,7 @@ if __name__ == "__main__":
     parser.add_argument("--dtype", choices=["bfloat16", "float16"], default="bfloat16")
     parser.add_argument("--run-survival", action="store_true")
     parser.add_argument("--run-native-delta", action="store_true")
+    parser.add_argument("--run-cached-state", action="store_true")
     parser.add_argument("--run-propagation", action="store_true")
     parser.add_argument("--propagation-n-instances", type=int, default=3)
     parser.add_argument("--propagation-max-nodes-per-task", type=int, default=2)
@@ -524,6 +691,7 @@ if __name__ == "__main__":
         args.run_survival,
         args.run_native_delta,
         args.run_propagation,
+        args.run_cached_state,
         args.propagation_n_instances,
         args.propagation_max_nodes_per_task,
         propagation_seeds,

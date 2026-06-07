@@ -463,44 +463,38 @@
       "tier": "tier_c"
     },
     {
-      "detail": "measured_object=prompt_hidden; reason=wrong_object",
+      "detail": "measured_object=cached_gdn_recurrent_state; reason=missing_or_unrecognized_measured_object",
       "name": "w3_measured_object_cached_gdn_state",
-      "status": "FAIL",
+      "status": "PASS",
       "tier": "tier_c"
     },
     {
-      "detail": "integration_grade=alongside_only_measured_not_in_state; measured_object=prompt_hidden",
+      "detail": "integration_grade=cached_gdn_state_measured_pending_propagation_delta; measured_object=cached_gdn_recurrent_state",
       "name": "w3_integration_grade_reissued_on_true_state",
-      "status": "FAIL",
+      "status": "PASS",
       "tier": "tier_c"
     },
     {
-      "detail": "verdict=PLANNING_ESTIMATE_ONLY; measured_object=prompt_hidden",
+      "detail": "verdict=MEASURED_TRUE_STATE_DIMS; measured_object=cached_gdn_recurrent_state",
       "name": "w3_capacity_true_state_dims_measured",
-      "status": "FAIL",
+      "status": "PASS",
       "tier": "tier_c"
     },
     {
-      "detail": "round_trip={'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764}; measured_object=prompt_hidden",
+      "detail": "round_trip={'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764}; measured_object=cached_gdn_recurrent_state",
       "name": "w3_cached_state_round_trip",
-      "status": "FAIL",
+      "status": "PASS",
       "tier": "tier_c"
     },
     {
-      "detail": "verdict=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; rows=15; measured_object=prompt_hidden",
+      "detail": "verdict=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; rows=5; measured_object=cached_gdn_recurrent_state",
       "name": "w3_cached_state_survival_measured",
-      "status": "FAIL",
+      "status": "PASS",
       "tier": "tier_c"
     },
     {
-      "detail": "verdict=MEASURED_NATIVE_HIDDEN_DELTA_GAP; rows=3; measured_object=prompt_hidden",
+      "detail": "verdict=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; rows=3; measured_object=cached_gdn_recurrent_state",
       "name": "w3_cached_state_native_rule_gap_measured",
-      "status": "FAIL",
-      "tier": "tier_c"
-    },
-    {
-      "detail": "rows=5",
-      "name": "w3_propagation_per_task_delta_measured",
       "status": "PASS",
       "tier": "tier_c"
     },
@@ -511,7 +505,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=6",
+      "detail": "count=7",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -729,6 +723,42 @@
     {
       "detail": "gates=3; routing=Proceed to T2 learned recurrent operator/data/trainer and T3 cached GDN recurrent-state probe; do not treat validation red as environment failure.",
       "name": "log_item_033_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_034_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_034_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=034",
+      "name": "log_item_034_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_034_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "The T2 smoke checkpoint does not meet G1>=0.95 and does not produce autonomous Stage A cells. The formal T2 run was launched but final metrics were not availabl",
+      "name": "log_item_034_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=5; routing=Wait for the formal T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Then run W3.2 propagation delta on cached-state-linked outputs.",
+      "name": "log_item_034_decision_numbers_and_routing",
       "status": "PASS",
       "tier": "contract"
     },
@@ -955,11 +985,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-07T12:14:22.885382+00:00",
+  "generated_at": "2026-06-07T12:55:28.115227+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 159,
-    "n_fail": 10,
-    "n_pass": 149
+    "n_checks": 164,
+    "n_fail": 4,
+    "n_pass": 160
   }
 }

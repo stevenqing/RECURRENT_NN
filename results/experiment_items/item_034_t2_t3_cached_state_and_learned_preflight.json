@@ -1,0 +1,118 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "034",
+  "name": "T2 learned-operator preflight and T3 cached GDN state probe",
+  "status": "PARTIAL_EVIDENCE_RECORDED",
+  "purpose": "Continue T2/T3 after validation object binding by producing real learned-operator artifacts for preflight wiring and measuring W3 on the actual Qwen3.5 cached GDN recurrent state.",
+  "code_added_used": [
+    {
+      "path": "experiments/train_recurrent_operator.py",
+      "change": "Added a weight-tied recurrent operator trainer that generates real Sudoku6 L1-L2 train/eval examples, evaluates held-out G1/G2, samples L4 and 9x9 anchor bins, writes a learned_recurrent checkpoint, and emits acceptance.json with explicit object/source labels."
+    },
+    {
+      "path": "tasks/sudoku/generator_9x9.py",
+      "change": "Implemented a real 9x9 Sudoku generator backed by DPLLOracle instead of an empty stub so T2 can record external-anchor generation."
+    },
+    {
+      "path": "tasks/sudoku/generator_6x6.py",
+      "change": "Reduced oversized sampling attempts for large generated batches while retaining a bounded retry policy."
+    },
+    {
+      "path": "experiments/stage_a_backtrack_loop.py",
+      "change": "Added --learned-operator-acceptance, records learned acceptance metadata in preflight, and uses the acceptance checkpoint as the Stage A operator checkpoint when supplied."
+    },
+    {
+      "path": "experiments/w3_qwen35_probe.py",
+      "change": "Added true DynamicCache cached_gdn_recurrent_state inventory, perturb/restore round trip, cached-state decay survival, cached-state native-rule-gap tables, and cached-state integration-grade verdicts."
+    }
+  ],
+  "commands": [
+    {
+      "command": "~/.local/bin/uv run --python .venv/bin/python python -m experiments.train_recurrent_operator --output-dir results/recurrent_operator_smoke --device cpu --train-instances 24 --eval-instances 16 --l4-instances 4 --steps 5 --batch-size 16",
+      "purpose": "Smoke-tested the T2 trainer and acceptance artifact path."
+    },
+    {
+      "command": "~/.local/bin/uv run --python .venv/bin/python python -m experiments.reconstruct_stage_a_artifacts --output-dir artifacts/stage_a --n-instances 1024 --seed 42 --device cuda:2 --operator-steps 300 --bridge-steps 500 --batch-size 256",
+      "purpose": "Reconstructed Stage A bridge decoder and teacher trace artifacts in this repo so preflight can bind to real local files."
+    },
+    {
+      "command": "~/.local/bin/uv run --python .venv/bin/python python -m experiments.stage_a_backtrack_loop --mode preflight --output-dir results/stage_a_backtrack_learned_smoke --learned-operator-acceptance results/recurrent_operator_smoke/acceptance.json",
+      "purpose": "Verified Stage A preflight uses the learned checkpoint from acceptance and reaches READY once bridge decoder and teacher trace exist."
+    },
+    {
+      "command": "~/.local/bin/uv run --python .venv/bin/python python -m experiments.w3_qwen35_probe --output-dir results/w3_qwen35_probe --load-model --run-cached-state --device cuda:1",
+      "purpose": "Regenerated canonical W3 artifact on the actual Qwen3.5 cached GDN recurrent state."
+    }
+  ],
+  "artifacts": [
+    "results/recurrent_operator_smoke/acceptance.json",
+    "results/recurrent_operator_smoke/learned_recurrent_operator_seed102.pt",
+    "artifacts/stage_a/manifest.json",
+    "artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt",
+    "artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl",
+    "results/stage_a_backtrack_learned_smoke/preflight.json",
+    "results/w3_qwen35_probe/results.json",
+    "results/w3_qwen35_probe/verdicts.json"
+  ],
+  "provenance": {
+    "generated_at": "2026-06-07",
+    "model_id": "Qwen/Qwen3.5-4B",
+    "qwen35_snapshot_verified": "models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "formal_t2_run": "started with train_instances=4096 eval_instances=512 l4_instances=128 steps=300 on cuda:0; final metrics pending while this item was drafted"
+  },
+  "result_tables": {
+    "stage_a_preflight_learned_smoke": {
+      "columns": ["field", "value"],
+      "rows": [
+        {"field": "status", "value": "READY"},
+        {"field": "operator_ckpt", "value": "results/recurrent_operator_smoke/learned_recurrent_operator_seed102.pt"},
+        {"field": "operator_checkpoint_exists", "value": true},
+        {"field": "bridge_decoder_exists", "value": true},
+        {"field": "teacher_trace_exists", "value": true},
+        {"field": "learned_smoke_G1_pass", "value": false}
+      ]
+    },
+    "t2_smoke_acceptance": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "operator_type", "value": "learned_recurrent"},
+        {"metric": "status", "value": "G1_NOT_MET"},
+        {"metric": "G1", "value": 0.0045045045045045045},
+        {"metric": "G2", "value": 0.0},
+        {"metric": "stage_a_autonomous_cells", "value": 0}
+      ]
+    },
+    "w3_cached_gdn_probe": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "measured_object", "value": "cached_gdn_recurrent_state"},
+        {"metric": "integration_grade", "value": "cached_gdn_state_measured_pending_propagation_delta"},
+        {"metric": "recurrent_state_rows", "value": 24},
+        {"metric": "conv_state_rows", "value": 24},
+        {"metric": "recurrent_state_shape", "value": [1, 32, 128, 128]},
+        {"metric": "perturbation_max_logit_delta", "value": 0.15625},
+        {"metric": "restore_max_logit_delta", "value": 0.0},
+        {"metric": "survival_rows", "value": 5},
+        {"metric": "native_rule_gap_rows", "value": 3}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "The T2 smoke checkpoint does not meet G1>=0.95 and does not produce autonomous Stage A cells. The formal T2 run was launched but final metrics were not available at item creation time. W3 now measures the right cached object for round-trip, survival, and native-rule gap, but W3.2 propagation delta remains NOT_RUN.",
+    "limitations": [
+      "Stage A run_shard still records learned-operator availability but does not execute a full autonomous backtracking loop.",
+      "T2 G1 remains unaccepted until a formal run reaches threshold.",
+      "W3.2 qwen3-vs-qwen3.5 propagation delta still needs per-task execution before final integration claims."
+    ]
+  },
+  "decision": {
+    "gate_outcomes": [
+      {"gate": "T2_trainer_smoke", "outcome": "RUN", "number": "G1=0.0045045045045045045; G1_pass=false"},
+      {"gate": "Stage_A_learned_preflight", "outcome": "READY", "number": "operator, bridge decoder, teacher trace, and module1 capacity present"},
+      {"gate": "T3_cached_state_round_trip", "outcome": "PASS", "number": "perturb_delta=0.15625; restore_delta=0.0"},
+      {"gate": "T3_cached_state_survival_native_gap", "outcome": "MEASURED", "number": "survival_rows=5; native_rule_gap_rows=3"},
+      {"gate": "T3_propagation_delta", "outcome": "PENDING", "number": "W3.2_qwen3_4b_delta_table=NOT_RUN"}
+    ],
+    "next_step_routing": "Wait for the formal T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Then run W3.2 propagation delta on cached-state-linked outputs."
+  }
+}

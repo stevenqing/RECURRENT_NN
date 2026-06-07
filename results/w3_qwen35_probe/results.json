@@ -64,7 +64,7 @@
     "vocab_size": 248320
   },
   "download_record": {
-    "generated_at": "2026-06-07T09:42:34.867563+00:00",
+    "generated_at": "2026-06-07T12:23:57.940723+00:00",
     "model_id": "Qwen/Qwen3.5-4B",
     "n_files": 14,
     "revision": null,
@@ -72,9 +72,889 @@
     "total_bytes": 9342907469,
     "total_gib": 8.701260638423264
   },
-  "generated_at": "2026-06-07T10:46:45.660823+00:00",
+  "generated_at": "2026-06-07T12:33:41.161598+00:00",
   "hidden_hook_probe": {
-    "device": "cuda:0",
+    "cached_state_probe": {
+      "decay_survival": {
+        "columns": [
+          "level",
+          "intervening_steps",
+          "survival",
+          "half_life",
+          "provenance"
+        ],
+        "integration_grade_decision": "in_state_candidate_pending_native_rule",
+        "measured_object": "cached_gdn_recurrent_state",
+        "rows": [
+          {
+            "half_life": null,
+            "intervening_steps": 0,
+            "level": 0,
+            "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+            "survival": 0.9997512798685079
+          },
+          {
+            "half_life": null,
+            "intervening_steps": 1,
+            "level": 0,
+            "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+            "survival": 0.7434130127574465
+          },
+          {
+            "half_life": null,
+            "intervening_steps": 2,
+            "level": 0,
+            "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+            "survival": 0.6905405621848195
+          },
+          {
+            "half_life": null,
+            "intervening_steps": 4,
+            "level": 0,
+            "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+            "survival": 0.6627857612051089
+          },
+          {
+            "half_life": null,
+            "intervening_steps": 8,
+            "level": 0,
+            "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+            "survival": 0.6469194051041568
+          }
+        ],
+        "status": "MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL"
+      },
+      "inventory": [
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 0,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 0,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 1,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 1,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 2,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 2,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 4,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 4,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 5,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 5,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 6,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 6,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 8,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 8,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 9,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 9,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 10,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 10,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 12,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 12,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 13,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 13,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 14,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 14,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 16,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 16,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 17,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 17,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 18,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 18,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 20,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 20,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 21,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 21,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 22,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 22,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 24,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 24,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 25,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 25,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 26,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 26,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 28,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 28,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 29,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 29,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 30,
+          "num_state_heads": 32,
+          "per_head_matrix_dim": [
+            128,
+            128
+          ],
+          "shape": [
+            1,
+            32,
+            128,
+            128
+          ],
+          "state_name": "recurrent_states"
+        },
+        {
+          "cache_layer_class": "LinearAttentionLayer",
+          "device": "cuda:1",
+          "dtype": "bfloat16",
+          "layer": 30,
+          "num_state_heads": null,
+          "per_head_matrix_dim": null,
+          "shape": [
+            1,
+            8192,
+            4
+          ],
+          "state_name": "conv_states"
+        }
+      ],
+      "measured_object": "cached_gdn_recurrent_state",
+      "native_rule_gap": {
+        "columns": [
+          "depth",
+          "intervening_updates",
+          "native_delta_restore_error",
+          "keyed_register_restore_error",
+          "delta_inverse_cosine",
+          "failure_modes",
+          "provenance"
+        ],
+        "measured_object": "cached_gdn_recurrent_state",
+        "rows": [
+          {
+            "delta_inverse_cosine": null,
+            "depth": 0,
+            "failure_modes": [
+              "native_update_not_explicit_push_pop_inverse"
+            ],
+            "intervening_updates": 1,
+            "keyed_register_restore_error": 0.0,
+            "native_delta_restore_error": 0.16277175827047277,
+            "provenance": "measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore"
+          },
+          {
+            "delta_inverse_cosine": null,
+            "depth": 0,
+            "failure_modes": [
+              "native_update_not_explicit_push_pop_inverse"
+            ],
+            "intervening_updates": 2,
+            "keyed_register_restore_error": 0.0,
+            "native_delta_restore_error": 0.21244177972095904,
+            "provenance": "measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore"
+          },
+          {
+            "delta_inverse_cosine": null,
+            "depth": 0,
+            "failure_modes": [
+              "native_update_not_explicit_push_pop_inverse"
+            ],
+            "intervening_updates": 4,
+            "keyed_register_restore_error": 0.0,
+            "native_delta_restore_error": 0.2424491150259247,
+            "provenance": "measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore"
+          }
+        ],
+        "status": "MEASURED_CACHED_GDN_NATIVE_RULE_GAP"
+      },
+      "selected_layer": 0,
+      "state_hook_round_trip": {
+        "perturbation_affected_next_step": true,
+        "perturbation_injected": true,
+        "perturbation_max_logit_delta": 0.15625,
+        "perturbation_norm": 0.14225000143051147,
+        "restore_max_logit_delta": 0.0,
+        "restore_recovered_next_step": true
+      },
+      "status": "MEASURED_CACHED_GDN_RECURRENT_STATE"
+    },
+    "device": "cuda:1",
     "hidden_dim": 2560,
     "hidden_shape": [
       1,
@@ -82,6 +962,7 @@
     ],
     "last_token_norm": 154.29713439941406,
     "load_model": true,
+    "measured_object": "prompt_hidden",
     "state_hook_round_trip": {
       "note": "This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.",
       "perturbation_affected_next_step": true,
@@ -89,8 +970,8 @@
       "perturbation_norm": 0.05059561878442764
     }
   },
-  "integration_grade": "alongside_only_measured_not_in_state",
-  "measured_object": "prompt_hidden",
+  "integration_grade": "cached_gdn_state_measured_pending_propagation_delta",
+  "measured_object": "cached_gdn_recurrent_state",
   "model_id": "Qwen/Qwen3.5-4B",
   "module": "w3_qwen35_probe",
   "native_delta_probe": {
@@ -103,44 +984,43 @@
       "failure_modes",
       "provenance"
     ],
+    "measured_object": "cached_gdn_recurrent_state",
     "rows": [
       {
-        "delta_inverse_cosine": 0.520368218421936,
-        "depth": 1,
+        "delta_inverse_cosine": null,
+        "depth": 0,
         "failure_modes": [
-          "push_pop_does_not_restore_hidden_state"
+          "native_update_not_explicit_push_pop_inverse"
         ],
         "intervening_updates": 1,
         "keyed_register_restore_error": 0.0,
-        "native_delta_restore_error": 0.8641370529955307,
-        "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"
+        "native_delta_restore_error": 0.16277175827047277,
+        "provenance": "measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore"
       },
       {
-        "delta_inverse_cosine": 0.4312379062175751,
-        "depth": 2,
+        "delta_inverse_cosine": null,
+        "depth": 0,
         "failure_modes": [
-          "push_pop_does_not_restore_hidden_state",
-          "pop_delta_not_inverse_of_push_delta"
+          "native_update_not_explicit_push_pop_inverse"
         ],
-        "intervening_updates": 1,
+        "intervening_updates": 2,
         "keyed_register_restore_error": 0.0,
-        "native_delta_restore_error": 1.0111409477447246,
-        "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"
+        "native_delta_restore_error": 0.21244177972095904,
+        "provenance": "measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore"
       },
       {
-        "delta_inverse_cosine": 0.30227959156036377,
-        "depth": 3,
+        "delta_inverse_cosine": null,
+        "depth": 0,
         "failure_modes": [
-          "push_pop_does_not_restore_hidden_state",
-          "pop_delta_not_inverse_of_push_delta"
+          "native_update_not_explicit_push_pop_inverse"
         ],
-        "intervening_updates": 1,
+        "intervening_updates": 4,
         "keyed_register_restore_error": 0.0,
-        "native_delta_restore_error": 1.0390494528846526,
-        "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"
+        "native_delta_restore_error": 0.2424491150259247,
+        "provenance": "measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore"
       }
     ],
-    "status": "MEASURED_NATIVE_HIDDEN_DELTA_GAP"
+    "status": "MEASURED_CACHED_GDN_NATIVE_RULE_GAP"
   },
   "p2_tables": {
     "capacity_at_real_gdn_dims": {
@@ -217,115 +1097,46 @@
         "half_life",
         "provenance"
       ],
-      "integration_grade_decision": "alongside_only",
+      "integration_grade_decision": "in_state_candidate_pending_native_rule",
+      "measured_object": "cached_gdn_recurrent_state",
       "rows": [
         {
-          "half_life": 1,
+          "half_life": null,
           "intervening_steps": 0,
-          "level": 1,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 1.0000007152557373
+          "level": 0,
+          "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+          "survival": 0.9997512798685079
         },
         {
-          "half_life": 1,
+          "half_life": null,
           "intervening_steps": 1,
-          "level": 1,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 0.3905624449253082
+          "level": 0,
+          "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+          "survival": 0.7434130127574465
         },
         {
-          "half_life": 1,
+          "half_life": null,
           "intervening_steps": 2,
-          "level": 1,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 0.3868197202682495
+          "level": 0,
+          "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+          "survival": 0.6905405621848195
         },
         {
-          "half_life": 1,
+          "half_life": null,
           "intervening_steps": 4,
-          "level": 1,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 0.38862067461013794
+          "level": 0,
+          "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+          "survival": 0.6627857612051089
         },
         {
-          "half_life": 1,
+          "half_life": null,
           "intervening_steps": 8,
-          "level": 1,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 0.35579007863998413
-        },
-        {
-          "half_life": 1,
-          "intervening_steps": 0,
-          "level": 2,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 1.0000005960464478
-        },
-        {
-          "half_life": 1,
-          "intervening_steps": 1,
-          "level": 2,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 0.40271395444869995
-        },
-        {
-          "half_life": 1,
-          "intervening_steps": 2,
-          "level": 2,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 0.4016258120536804
-        },
-        {
-          "half_life": 1,
-          "intervening_steps": 4,
-          "level": 2,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 0.4137364625930786
-        },
-        {
-          "half_life": 1,
-          "intervening_steps": 8,
-          "level": 2,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 0.36593642830848694
-        },
-        {
-          "half_life": 1,
-          "intervening_steps": 0,
-          "level": 4,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 1.0000007152557373
-        },
-        {
-          "half_life": 1,
-          "intervening_steps": 1,
-          "level": 4,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 0.39714741706848145
-        },
-        {
-          "half_life": 1,
-          "intervening_steps": 2,
-          "level": 4,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 0.38576340675354004
-        },
-        {
-          "half_life": 1,
-          "intervening_steps": 4,
-          "level": 4,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 0.40027013421058655
-        },
-        {
-          "half_life": 1,
-          "intervening_steps": 8,
-          "level": 4,
-          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-          "survival": 0.35914790630340576
+          "level": 0,
+          "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+          "survival": 0.6469194051041568
         }
       ],
-      "status": "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE"
+      "status": "MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL"
     },
     "model_card": {
       "columns": [
@@ -383,6 +1194,246 @@
           "field": "snapshot_path",
           "provenance": "read_from_download_record",
           "value": "/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a"
+        },
+        {
+          "field": "layer_0_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_1_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_2_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_4_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_5_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_6_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_8_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_9_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_10_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_12_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_13_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_14_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_16_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_17_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_18_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_20_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_21_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_22_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_24_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_25_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_26_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_28_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_29_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
+        },
+        {
+          "field": "layer_30_recurrent_state_shape",
+          "provenance": "measured:DynamicCache.cached_gdn_recurrent_state",
+          "value": [
+            1,
+            32,
+            128,
+            128
+          ]
         }
       ]
     },
@@ -396,44 +1447,43 @@
         "failure_modes",
         "provenance"
       ],
+      "measured_object": "cached_gdn_recurrent_state",
       "rows": [
         {
-          "delta_inverse_cosine": 0.520368218421936,
-          "depth": 1,
+          "delta_inverse_cosine": null,
+          "depth": 0,
           "failure_modes": [
-            "push_pop_does_not_restore_hidden_state"
+            "native_update_not_explicit_push_pop_inverse"
           ],
           "intervening_updates": 1,
           "keyed_register_restore_error": 0.0,
-          "native_delta_restore_error": 0.8641370529955307,
-          "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"
+          "native_delta_restore_error": 0.16277175827047277,
+          "provenance": "measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore"
         },
         {
-          "delta_inverse_cosine": 0.4312379062175751,
-          "depth": 2,
+          "delta_inverse_cosine": null,
+          "depth": 0,
           "failure_modes": [
-            "push_pop_does_not_restore_hidden_state",
-            "pop_delta_not_inverse_of_push_delta"
+            "native_update_not_explicit_push_pop_inverse"
           ],
-          "intervening_updates": 1,
+          "intervening_updates": 2,
           "keyed_register_restore_error": 0.0,
-          "native_delta_restore_error": 1.0111409477447246,
-          "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"
+          "native_delta_restore_error": 0.21244177972095904,
+          "provenance": "measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore"
         },
         {
-          "delta_inverse_cosine": 0.30227959156036377,
-          "depth": 3,
+          "delta_inverse_cosine": null,
+          "depth": 0,
           "failure_modes": [
-            "push_pop_does_not_restore_hidden_state",
-            "pop_delta_not_inverse_of_push_delta"
+            "native_update_not_explicit_push_pop_inverse"
           ],
-          "intervening_updates": 1,
+          "intervening_updates": 4,
           "keyed_register_restore_error": 0.0,
-          "native_delta_restore_error": 1.0390494528846526,
-          "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"
+          "native_delta_restore_error": 0.2424491150259247,
+          "provenance": "measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore"
         }
       ],
-      "status": "MEASURED_NATIVE_HIDDEN_DELTA_GAP"
+      "status": "MEASURED_CACHED_GDN_NATIVE_RULE_GAP"
     },
     "propagation_per_task_delta": {
       "columns": [
@@ -441,245 +1491,10 @@
         "qwen35_verdict",
         "qwen3_4b_delta",
         "branch_rollout",
-        "parse_failure_rate",
-        "invalid_guess_rate",
         "provenance"
       ],
-      "rows": [
-        {
-          "branch_rollout": {
-            "qwen35_qwen_guess": {
-              "invalid_guess_rate": 0.7333333333333333,
-              "invalid_guesses": 11,
-              "mean_nodes_to_solve_or_cap": 5,
-              "n": 3,
-              "parse_failures": 11,
-              "solve_rate": 1.0
-            },
-            "qwen3_4b_qwen_guess_baseline": {
-              "invalid_guess_rate": 0.16897506925207756,
-              "invalid_guesses": 122,
-              "mean_nodes_to_solve_or_cap": 7.22,
-              "n": 100,
-              "parse_failures": 0,
-              "solve_rate": 1.0
-            }
-          },
-          "invalid_guess_rate": 0.7333333333333333,
-          "parse_failure_rate": 0.0,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
-          "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": 0.06166666666666665,
-            "mean_nodes_delta": -2.2199999999999998,
-            "per_call_precision_delta": null
-          },
-          "task": "general_sat"
-        },
-        {
-          "branch_rollout": {
-            "qwen35_qwen_guess": {
-              "invalid_guess_rate": 0.8125,
-              "invalid_guesses": 13,
-              "mean_nodes_to_solve_or_cap": 5.333333333333333,
-              "n": 3,
-              "parse_failures": 13,
-              "solve_rate": 1.0
-            },
-            "qwen3_4b_qwen_guess_baseline": {
-              "invalid_guess_rate": 0.16903633491311215,
-              "invalid_guesses": 107,
-              "mean_nodes_to_solve_or_cap": 6.33,
-              "n": 100,
-              "parse_failures": 8,
-              "solve_rate": 1.0
-            }
-          },
-          "invalid_guess_rate": 0.8125,
-          "parse_failure_rate": 0.0,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
-          "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": -0.15000000000000002,
-            "mean_nodes_delta": -0.996666666666667,
-            "per_call_precision_delta": null
-          },
-          "task": "graph_coloring"
-        },
-        {
-          "branch_rollout": {
-            "qwen35_qwen_guess": {
-              "invalid_guess_rate": 0.0,
-              "invalid_guesses": 0,
-              "mean_nodes_to_solve_or_cap": 1,
-              "n": 3,
-              "parse_failures": 0,
-              "solve_rate": 1.0
-            },
-            "qwen3_4b_qwen_guess_baseline": {
-              "invalid_guess_rate": 0.0,
-              "invalid_guesses": 0,
-              "mean_nodes_to_solve_or_cap": 1,
-              "n": 45,
-              "parse_failures": 0,
-              "solve_rate": 1.0
-            }
-          },
-          "invalid_guess_rate": 0.0,
-          "parse_failure_rate": 0.0,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
-          "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": -0.17333333333333334,
-            "mean_nodes_delta": 0,
-            "per_call_precision_delta": null
-          },
-          "task": "horn_sat"
-        },
-        {
-          "branch_rollout": {
-            "qwen35_qwen_guess": {
-              "invalid_guess_rate": 0.7857142857142857,
-              "invalid_guesses": 11,
-              "mean_nodes_to_solve_or_cap": 4.666666666666667,
-              "n": 3,
-              "parse_failures": 11,
-              "solve_rate": 1.0
-            },
-            "qwen3_4b_qwen_guess_baseline": {
-              "invalid_guess_rate": 0.4068554396423249,
-              "invalid_guesses": 273,
-              "mean_nodes_to_solve_or_cap": 6.71,
-              "n": 100,
-              "parse_failures": 136,
-              "solve_rate": 1.0
-            }
-          },
-          "invalid_guess_rate": 0.7857142857142857,
-          "parse_failure_rate": 0.0,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
-          "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": -0.13,
-            "mean_nodes_delta": -2.043333333333333,
-            "per_call_precision_delta": null
-          },
-          "task": "logic_grid"
-        },
-        {
-          "branch_rollout": {
-            "qwen35_qwen_guess": {
-              "invalid_guess_rate": 0.0,
-              "invalid_guesses": 0,
-              "mean_nodes_to_solve_or_cap": 1,
-              "n": 3,
-              "parse_failures": 0,
-              "solve_rate": 1.0
-            },
-            "qwen3_4b_qwen_guess_baseline": {
-              "invalid_guess_rate": 0.05511811023622047,
-              "invalid_guesses": 7,
-              "mean_nodes_to_solve_or_cap": 1.27,
-              "n": 100,
-              "parse_failures": 2,
-              "solve_rate": 1.0
-            }
-          },
-          "invalid_guess_rate": 0.0,
-          "parse_failure_rate": 0.0,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
-          "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": -0.15833333333333333,
-            "mean_nodes_delta": -0.27,
-            "per_call_precision_delta": null
-          },
-          "task": "sudoku_4x4"
-        }
-      ],
-      "settings": {
-        "shards": [
-          {
-            "settings": {
-              "batch_size": 2,
-              "cap_nodes": 32,
-              "max_nodes_per_task": 2,
-              "n_instances": 3,
-              "seeds": [
-                42
-              ],
-              "task_types": [
-                "horn_sat"
-              ]
-            },
-            "shard_dir": "results/w3_qwen35_probe/propagation_shards/horn_sat"
-          },
-          {
-            "settings": {
-              "batch_size": 2,
-              "cap_nodes": 32,
-              "max_nodes_per_task": 2,
-              "n_instances": 3,
-              "seeds": [
-                42
-              ],
-              "task_types": [
-                "general_sat"
-              ]
-            },
-            "shard_dir": "results/w3_qwen35_probe/propagation_shards/general_sat"
-          },
-          {
-            "settings": {
-              "batch_size": 2,
-              "cap_nodes": 32,
-              "max_nodes_per_task": 2,
-              "n_instances": 3,
-              "seeds": [
-                42
-              ],
-              "task_types": [
-                "graph_coloring"
-              ]
-            },
-            "shard_dir": "results/w3_qwen35_probe/propagation_shards/graph_coloring"
-          },
-          {
-            "settings": {
-              "batch_size": 2,
-              "cap_nodes": 32,
-              "max_nodes_per_task": 2,
-              "n_instances": 3,
-              "seeds": [
-                42
-              ],
-              "task_types": [
-                "sudoku_4x4"
-              ]
-            },
-            "shard_dir": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4"
-          },
-          {
-            "settings": {
-              "batch_size": 2,
-              "cap_nodes": 32,
-              "max_nodes_per_task": 2,
-              "n_instances": 3,
-              "seeds": [
-                42
-              ],
-              "task_types": [
-                "logic_grid"
-              ]
-            },
-            "shard_dir": "results/w3_qwen35_probe/propagation_shards/logic_grid"
-          }
-        ]
-      },
-      "status": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED",
-      "summary": {
-        "note": "Merged from per-task-type propagation shards."
-      }
+      "rows": [],
+      "status": "NOT_RUN"
     },
     "state_hook_round_trip": {
       "note": "This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.",
@@ -689,258 +1504,14 @@
     },
     "verdicts_echo": {
       "W3.0_checkpoint_pin": "PASS",
-      "W3.1_capacity_at_real_gdn_dims": "PLANNING_ESTIMATE_ONLY",
-      "W3.1_gating_decay_stack_survival": "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE",
-      "W3.1_native_delta_rule_as_stack_gap": "MEASURED_NATIVE_HIDDEN_DELTA_GAP",
-      "W3.2_qwen3_4b_delta_table": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+      "W3.1_cached_state_round_trip": "MEASURED_CACHED_GDN_RECURRENT_STATE",
+      "W3.1_capacity_at_real_gdn_dims": "MEASURED_TRUE_STATE_DIMS",
+      "W3.1_gating_decay_stack_survival": "MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL",
+      "W3.1_native_delta_rule_as_stack_gap": "MEASURED_CACHED_GDN_NATIVE_RULE_GAP",
+      "W3.2_qwen3_4b_delta_table": "NOT_RUN"
     }
   },
-  "propagation_probe": {
-    "columns": [
-      "task",
-      "qwen35_verdict",
-      "qwen3_4b_delta",
-      "branch_rollout",
-      "parse_failure_rate",
-      "invalid_guess_rate",
-      "provenance"
-    ],
-    "rows": [
-      {
-        "branch_rollout": {
-          "qwen35_qwen_guess": {
-            "invalid_guess_rate": 0.7333333333333333,
-            "invalid_guesses": 11,
-            "mean_nodes_to_solve_or_cap": 5,
-            "n": 3,
-            "parse_failures": 11,
-            "solve_rate": 1.0
-          },
-          "qwen3_4b_qwen_guess_baseline": {
-            "invalid_guess_rate": 0.16897506925207756,
-            "invalid_guesses": 122,
-            "mean_nodes_to_solve_or_cap": 7.22,
-            "n": 100,
-            "parse_failures": 0,
-            "solve_rate": 1.0
-          }
-        },
-        "invalid_guess_rate": 0.7333333333333333,
-        "parse_failure_rate": 0.0,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-        "qwen35_verdict": "NEEDS_OPERATOR_FIX",
-        "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": 0.06166666666666665,
-          "mean_nodes_delta": -2.2199999999999998,
-          "per_call_precision_delta": null
-        },
-        "task": "general_sat"
-      },
-      {
-        "branch_rollout": {
-          "qwen35_qwen_guess": {
-            "invalid_guess_rate": 0.8125,
-            "invalid_guesses": 13,
-            "mean_nodes_to_solve_or_cap": 5.333333333333333,
-            "n": 3,
-            "parse_failures": 13,
-            "solve_rate": 1.0
-          },
-          "qwen3_4b_qwen_guess_baseline": {
-            "invalid_guess_rate": 0.16903633491311215,
-            "invalid_guesses": 107,
-            "mean_nodes_to_solve_or_cap": 6.33,
-            "n": 100,
-            "parse_failures": 8,
-            "solve_rate": 1.0
-          }
-        },
-        "invalid_guess_rate": 0.8125,
-        "parse_failure_rate": 0.0,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-        "qwen35_verdict": "NEEDS_OPERATOR_FIX",
-        "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": -0.15000000000000002,
-          "mean_nodes_delta": -0.996666666666667,
-          "per_call_precision_delta": null
-        },
-        "task": "graph_coloring"
-      },
-      {
-        "branch_rollout": {
-          "qwen35_qwen_guess": {
-            "invalid_guess_rate": 0.0,
-            "invalid_guesses": 0,
-            "mean_nodes_to_solve_or_cap": 1,
-            "n": 3,
-            "parse_failures": 0,
-            "solve_rate": 1.0
-          },
-          "qwen3_4b_qwen_guess_baseline": {
-            "invalid_guess_rate": 0.0,
-            "invalid_guesses": 0,
-            "mean_nodes_to_solve_or_cap": 1,
-            "n": 45,
-            "parse_failures": 0,
-            "solve_rate": 1.0
-          }
-        },
-        "invalid_guess_rate": 0.0,
-        "parse_failure_rate": 0.0,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-        "qwen35_verdict": "NEEDS_OPERATOR_FIX",
-        "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": -0.17333333333333334,
-          "mean_nodes_delta": 0,
-          "per_call_precision_delta": null
-        },
-        "task": "horn_sat"
-      },
-      {
-        "branch_rollout": {
-          "qwen35_qwen_guess": {
-            "invalid_guess_rate": 0.7857142857142857,
-            "invalid_guesses": 11,
-            "mean_nodes_to_solve_or_cap": 4.666666666666667,
-            "n": 3,
-            "parse_failures": 11,
-            "solve_rate": 1.0
-          },
-          "qwen3_4b_qwen_guess_baseline": {
-            "invalid_guess_rate": 0.4068554396423249,
-            "invalid_guesses": 273,
-            "mean_nodes_to_solve_or_cap": 6.71,
-            "n": 100,
-            "parse_failures": 136,
-            "solve_rate": 1.0
-          }
-        },
-        "invalid_guess_rate": 0.7857142857142857,
-        "parse_failure_rate": 0.0,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-        "qwen35_verdict": "NEEDS_OPERATOR_FIX",
-        "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": -0.13,
-          "mean_nodes_delta": -2.043333333333333,
-          "per_call_precision_delta": null
-        },
-        "task": "logic_grid"
-      },
-      {
-        "branch_rollout": {
-          "qwen35_qwen_guess": {
-            "invalid_guess_rate": 0.0,
-            "invalid_guesses": 0,
-            "mean_nodes_to_solve_or_cap": 1,
-            "n": 3,
-            "parse_failures": 0,
-            "solve_rate": 1.0
-          },
-          "qwen3_4b_qwen_guess_baseline": {
-            "invalid_guess_rate": 0.05511811023622047,
-            "invalid_guesses": 7,
-            "mean_nodes_to_solve_or_cap": 1.27,
-            "n": 100,
-            "parse_failures": 2,
-            "solve_rate": 1.0
-          }
-        },
-        "invalid_guess_rate": 0.0,
-        "parse_failure_rate": 0.0,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-        "qwen35_verdict": "NEEDS_OPERATOR_FIX",
-        "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": -0.15833333333333333,
-          "mean_nodes_delta": -0.27,
-          "per_call_precision_delta": null
-        },
-        "task": "sudoku_4x4"
-      }
-    ],
-    "settings": {
-      "shards": [
-        {
-          "settings": {
-            "batch_size": 2,
-            "cap_nodes": 32,
-            "max_nodes_per_task": 2,
-            "n_instances": 3,
-            "seeds": [
-              42
-            ],
-            "task_types": [
-              "horn_sat"
-            ]
-          },
-          "shard_dir": "results/w3_qwen35_probe/propagation_shards/horn_sat"
-        },
-        {
-          "settings": {
-            "batch_size": 2,
-            "cap_nodes": 32,
-            "max_nodes_per_task": 2,
-            "n_instances": 3,
-            "seeds": [
-              42
-            ],
-            "task_types": [
-              "general_sat"
-            ]
-          },
-          "shard_dir": "results/w3_qwen35_probe/propagation_shards/general_sat"
-        },
-        {
-          "settings": {
-            "batch_size": 2,
-            "cap_nodes": 32,
-            "max_nodes_per_task": 2,
-            "n_instances": 3,
-            "seeds": [
-              42
-            ],
-            "task_types": [
-              "graph_coloring"
-            ]
-          },
-          "shard_dir": "results/w3_qwen35_probe/propagation_shards/graph_coloring"
-        },
-        {
-          "settings": {
-            "batch_size": 2,
-            "cap_nodes": 32,
-            "max_nodes_per_task": 2,
-            "n_instances": 3,
-            "seeds": [
-              42
-            ],
-            "task_types": [
-              "sudoku_4x4"
-            ]
-          },
-          "shard_dir": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4"
-        },
-        {
-          "settings": {
-            "batch_size": 2,
-            "cap_nodes": 32,
-            "max_nodes_per_task": 2,
-            "n_instances": 3,
-            "seeds": [
-              42
-            ],
-            "task_types": [
-              "logic_grid"
-            ]
-          },
-          "shard_dir": "results/w3_qwen35_probe/propagation_shards/logic_grid"
-        }
-      ]
-    },
-    "status": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED",
-    "summary": {
-      "note": "Merged from per-task-type propagation shards."
-    }
-  },
+  "propagation_probe": null,
   "red_lines": {
     "different_family_fallback_used": false,
     "ordering_only_pass": false,
@@ -954,121 +1525,53 @@
       "half_life",
       "provenance"
     ],
-    "integration_grade_decision": "alongside_only",
+    "integration_grade_decision": "in_state_candidate_pending_native_rule",
+    "measured_object": "cached_gdn_recurrent_state",
     "rows": [
       {
-        "half_life": 1,
+        "half_life": null,
         "intervening_steps": 0,
-        "level": 1,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 1.0000007152557373
+        "level": 0,
+        "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+        "survival": 0.9997512798685079
       },
       {
-        "half_life": 1,
+        "half_life": null,
         "intervening_steps": 1,
-        "level": 1,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 0.3905624449253082
+        "level": 0,
+        "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+        "survival": 0.7434130127574465
       },
       {
-        "half_life": 1,
+        "half_life": null,
         "intervening_steps": 2,
-        "level": 1,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 0.3868197202682495
+        "level": 0,
+        "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+        "survival": 0.6905405621848195
       },
       {
-        "half_life": 1,
+        "half_life": null,
         "intervening_steps": 4,
-        "level": 1,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 0.38862067461013794
+        "level": 0,
+        "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+        "survival": 0.6627857612051089
       },
       {
-        "half_life": 1,
+        "half_life": null,
         "intervening_steps": 8,
-        "level": 1,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 0.35579007863998413
-      },
-      {
-        "half_life": 1,
-        "intervening_steps": 0,
-        "level": 2,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 1.0000005960464478
-      },
-      {
-        "half_life": 1,
-        "intervening_steps": 1,
-        "level": 2,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 0.40271395444869995
-      },
-      {
-        "half_life": 1,
-        "intervening_steps": 2,
-        "level": 2,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 0.4016258120536804
-      },
-      {
-        "half_life": 1,
-        "intervening_steps": 4,
-        "level": 2,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 0.4137364625930786
-      },
-      {
-        "half_life": 1,
-        "intervening_steps": 8,
-        "level": 2,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 0.36593642830848694
-      },
-      {
-        "half_life": 1,
-        "intervening_steps": 0,
-        "level": 4,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 1.0000007152557373
-      },
-      {
-        "half_life": 1,
-        "intervening_steps": 1,
-        "level": 4,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 0.39714741706848145
-      },
-      {
-        "half_life": 1,
-        "intervening_steps": 2,
-        "level": 4,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 0.38576340675354004
-      },
-      {
-        "half_life": 1,
-        "intervening_steps": 4,
-        "level": 4,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 0.40027013421058655
-      },
-      {
-        "half_life": 1,
-        "intervening_steps": 8,
-        "level": 4,
-        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
-        "survival": 0.35914790630340576
+        "level": 0,
+        "provenance": "measured:cached_gdn_recurrent_state perturb residual after native token updates",
+        "survival": 0.6469194051041568
       }
     ],
-    "status": "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE"
+    "status": "MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL"
   },
   "verdicts": {
     "W3.0_checkpoint_pin": "PASS",
-    "W3.1_capacity_at_real_gdn_dims": "PLANNING_ESTIMATE_ONLY",
-    "W3.1_gating_decay_stack_survival": "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE",
-    "W3.1_native_delta_rule_as_stack_gap": "MEASURED_NATIVE_HIDDEN_DELTA_GAP",
-    "W3.2_qwen3_4b_delta_table": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+    "W3.1_cached_state_round_trip": "MEASURED_CACHED_GDN_RECURRENT_STATE",
+    "W3.1_capacity_at_real_gdn_dims": "MEASURED_TRUE_STATE_DIMS",
+    "W3.1_gating_decay_stack_survival": "MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL",
+    "W3.1_native_delta_rule_as_stack_gap": "MEASURED_CACHED_GDN_NATIVE_RULE_GAP",
+    "W3.2_qwen3_4b_delta_table": "NOT_RUN"
   }
 }

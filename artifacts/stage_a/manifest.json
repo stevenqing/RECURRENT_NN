@@ -52,7 +52,7 @@
     "path": "artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt",
     "sha256": "682c2bd72d02bac1b15a96e5baa5a47e3f94de6bd381375a0bb2838fac9405c8"
   },
-  "device": "cuda:0",
+  "device": "cuda:2",
   "module": "stage_a_reconstructed_artifacts",
   "n_requested_instances": 1024,
   "n_solved_tasks": 1024,
@@ -65,7 +65,7 @@
         "step": 1
       },
       {
-        "loss": 0.2747795879840851,
+        "loss": 0.2747795581817627,
         "step": 25
       },
       {
@@ -73,49 +73,49 @@
         "step": 50
       },
       {
-        "loss": 0.19742155075073242,
+        "loss": 0.19742172956466675,
         "step": 75
       },
       {
-        "loss": 0.20223160088062286,
+        "loss": 0.20223207771778107,
         "step": 100
       },
       {
-        "loss": 0.18731260299682617,
+        "loss": 0.1873134970664978,
         "step": 125
       },
       {
-        "loss": 0.18517056107521057,
+        "loss": 0.18517063558101654,
         "step": 150
       },
       {
-        "loss": 0.19689629971981049,
+        "loss": 0.1968933641910553,
         "step": 175
       },
       {
-        "loss": 0.19845788180828094,
+        "loss": 0.19845683872699738,
         "step": 200
       },
       {
-        "loss": 0.18817958235740662,
+        "loss": 0.18817850947380066,
         "step": 225
       },
       {
-        "loss": 0.17845222353935242,
+        "loss": 0.17845377326011658,
         "step": 250
       },
       {
-        "loss": 0.17991985380649567,
+        "loss": 0.1799211949110031,
         "step": 275
       },
       {
-        "loss": 0.1818128228187561,
+        "loss": 0.18181273341178894,
         "step": 300
       }
     ],
     "path": "artifacts/stage_a/recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt",
-    "sha256": "f0ea49fb61f9d1ba0394c8a093ff42ad86fcbeeac838aea1cf5a3b7c8cbe7055",
-    "train_exact_candidate_cell_accuracy": 0.7674623131752014
+    "sha256": "05e8a481bb184ff2735496e6353363ac69a9927618d075e9e225047576a2a0b0",
+    "train_exact_candidate_cell_accuracy": 0.7674873471260071
   },
   "output_dir": "artifacts/stage_a",
   "stage_a_env": {

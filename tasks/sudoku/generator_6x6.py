@@ -58,7 +58,7 @@ def generate_6x6_by_depth_band(min_depth: int = 1, max_depth: int = 2, n_instanc
     out = []
     variables = list(range(36))
     constraints = constraints_6x6()
-    attempts = max(200, n_instances * 250)
+    attempts = max(200, n_instances * 40)
     for _ in range(attempts):
         if len(out) >= n_instances:
             break

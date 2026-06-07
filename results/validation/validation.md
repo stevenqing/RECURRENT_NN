@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-07T12:14:22.885382+00:00
+Generated at: 2026-06-07T12:55:28.115227+00:00
 
-Summary: 149 PASS / 10 FAIL / 159 total.
+Summary: 160 PASS / 4 FAIL / 164 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -87,15 +87,14 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_c | w3_qwen35_probe_present | PASS | results/w3_qwen35_probe/results.json |
 | tier_c | w3_qwen35_model_id | PASS | model_id=Qwen/Qwen3.5-4B |
 | tier_c | w3_checkpoint_pin_pass | PASS | verdict=PASS |
-| tier_c | w3_measured_object_cached_gdn_state | FAIL | measured_object=prompt_hidden; reason=wrong_object |
-| tier_c | w3_integration_grade_reissued_on_true_state | FAIL | integration_grade=alongside_only_measured_not_in_state; measured_object=prompt_hidden |
-| tier_c | w3_capacity_true_state_dims_measured | FAIL | verdict=PLANNING_ESTIMATE_ONLY; measured_object=prompt_hidden |
-| tier_c | w3_cached_state_round_trip | FAIL | round_trip={'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764}; measured_object=prompt_hidden |
-| tier_c | w3_cached_state_survival_measured | FAIL | verdict=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; rows=15; measured_object=prompt_hidden |
-| tier_c | w3_cached_state_native_rule_gap_measured | FAIL | verdict=MEASURED_NATIVE_HIDDEN_DELTA_GAP; rows=3; measured_object=prompt_hidden |
-| tier_c | w3_propagation_per_task_delta_measured | PASS | rows=5 |
+| tier_c | w3_measured_object_cached_gdn_state | PASS | measured_object=cached_gdn_recurrent_state; reason=missing_or_unrecognized_measured_object |
+| tier_c | w3_integration_grade_reissued_on_true_state | PASS | integration_grade=cached_gdn_state_measured_pending_propagation_delta; measured_object=cached_gdn_recurrent_state |
+| tier_c | w3_capacity_true_state_dims_measured | PASS | verdict=MEASURED_TRUE_STATE_DIMS; measured_object=cached_gdn_recurrent_state |
+| tier_c | w3_cached_state_round_trip | PASS | round_trip={'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764}; measured_object=cached_gdn_recurrent_state |
+| tier_c | w3_cached_state_survival_measured | PASS | verdict=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; rows=5; measured_object=cached_gdn_recurrent_state |
+| tier_c | w3_cached_state_native_rule_gap_measured | PASS | verdict=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; rows=3; measured_object=cached_gdn_recurrent_state |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=6 |
+| contract | log_item_artifacts_present | PASS | count=7 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
@@ -132,6 +131,12 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_033_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_033_honesty_does_not_establish | PASS | This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent stat |
 | contract | log_item_033_decision_numbers_and_routing | PASS | gates=3; routing=Proceed to T2 learned recurrent operator/data/trainer and T3 cached GDN recurrent-state probe; do not treat validation red as environment failure. |
+| contract | log_item_034_required_fields | PASS | missing=[] |
+| contract | log_item_034_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_034_number_continues_from_028 | PASS | item_number=034 |
+| contract | log_item_034_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_034_honesty_does_not_establish | PASS | The T2 smoke checkpoint does not meet G1>=0.95 and does not produce autonomous Stage A cells. The formal T2 run was launched but final metrics were not availabl |
+| contract | log_item_034_decision_numbers_and_routing | PASS | gates=5; routing=Wait for the formal T2 trainer to finish, rerun validation, and only promote T2 if G1>=0.95 and autonomous Stage A cells are produced. Then run W3.2 propagation delta on cached-state-linked outputs. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |
