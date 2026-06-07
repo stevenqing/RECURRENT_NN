@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-07T10:17:05.814863+00:00
+Generated at: 2026-06-07T10:20:48.733768+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -49,6 +49,22 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/d_stage_3/results.json (missing)
   - results/verifier/results.json (missing)
   - results/ttt/results.json (missing)
+- Detail data:
+  - results/preregistration/preregistration.json: missing
+  - results/oracle_dataset/summary.json: missing
+  - results/operator_cache/summary.json: missing
+  - results/operator_cache/qwen_probe_cache_summary.json: missing
+  - results/operator_cache/qwen_128_cache_summary.json: missing
+  - results/learned_wiring_qwen_128/results.json: missing
+  - results/operator_cache/qwen_balanced_320_cache_summary.json: missing
+  - results/learned_wiring_qwen_balanced_320/results.json: missing
+  - results/two_by_two/results.json: missing
+  - results/d_stage_0/results.json: missing
+  - results/d_stage_1/results.json: missing
+  - results/d_stage_2/results.json: missing
+  - results/d_stage_3/results.json: missing
+  - results/verifier/results.json: missing
+  - results/ttt/results.json: missing
 - Next action: Do not use these archived scaffold rows as proof of the current Stage A claim.
 
 ### Item 019-020 - scaffold gates and old validation
@@ -62,6 +78,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - analysis/validate_outputs.py (yes)
   - results/validation/validation.json (yes)
   - results/validation/validation.md (yes)
+- Detail data:
+  - analysis/validate_outputs.py: embedded py (17429 bytes)
+  - results/validation/validation.json: embedded json (12742 bytes)
+  - results/validation/validation.md: embedded md (6938 bytes)
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
 ### Item 021 - M2.0 frozen operator probe
@@ -74,6 +94,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - Per-task routing discipline remains required; no ordering-only pass is accepted.
 - Artifacts:
   - results/m2_operator_probe/report.json (yes)
+- Detail data:
+  - results/m2_operator_probe/report.json: embedded json (5050 bytes)
 - Next action: Use this as negative evidence when deciding whether Qwen can carry structured propagation unaided.
 
 ### Item 022 - M2.0 fix-rescale probe
@@ -87,6 +109,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 - Artifacts:
   - results/m2_operator_probe/report_fix_rescale.json (yes)
   - results/m2_operator_probe/report_fix_rescale.md (yes)
+- Detail data:
+  - results/m2_operator_probe/report_fix_rescale.json: embedded json (13951 bytes)
+  - results/m2_operator_probe/report_fix_rescale.md: embedded md (8821 bytes)
 - Next action: Treat Qwen guess results as routing evidence, not as an autonomous pass.
 
 ### Item 023 - Module 1 fair GRU closeout
@@ -99,6 +124,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 - Artifacts:
   - results/gru_stack_grid_fair/results.json (yes)
   - results/gru_vs_structured_closeout/results.json (yes)
+- Detail data:
+  - results/gru_stack_grid_fair/results.json: embedded json (1885517 bytes)
+  - results/gru_vs_structured_closeout/results.json: embedded json (55526 bytes)
 - Next action: Revisit only after Stage A has autonomous cells instead of parent-adapter-required stops.
 
 ### Item 024 - Stage A reconstructed handoff
@@ -113,6 +141,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - artifacts/stage_a/manifest.json (yes)
   - results/stage_a_backtrack/report.json (yes)
   - results/stage_a_backtrack/results.json (yes)
+- Detail data:
+  - artifacts/stage_a/manifest.json: embedded json (3488 bytes)
+  - results/stage_a_backtrack/report.json: embedded json (193 bytes)
+  - results/stage_a_backtrack/results.json: embedded json (156488 bytes)
 - Next action: Wire the parent adapter and keep fail-closed preflight before launching autonomous solve metrics.
 
 ### Item 025 - adapter wiring pass
@@ -126,6 +158,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 - Artifacts:
   - results/continuation_state/post_027.json (yes)
   - results/stage_a_adapter_wiring/results.json (yes)
+- Detail data:
+  - results/continuation_state/post_027.json: embedded json (1453 bytes)
+  - results/stage_a_adapter_wiring/results.json: embedded json (2413 bytes)
 - Next action: This is a wiring/preflight item only; it does not prove autonomous solving.
 
 ### Item 026 - banded Sudoku9 plus gate refusal
@@ -139,6 +174,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 - Artifacts:
   - results/continuation_state/post_027.json (yes)
   - results/stage_a_banded_gate_refusal/results.json (yes)
+- Detail data:
+  - results/continuation_state/post_027.json: embedded json (1453 bytes)
+  - results/stage_a_banded_gate_refusal/results.json: embedded json (3420 bytes)
 - Next action: Replace continuation-recorded Sudoku6 readiness with concrete generator/data artifacts during the G1 fix.
 
 ### Item 027 - Sudoku6 bridge G1
@@ -154,6 +192,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/continuation_state/post_027.json (yes)
   - results/stage_a_sudoku6_bridge/results.json (yes)
   - specs/g1_fix_spec.md (yes)
+- Detail data:
+  - results/continuation_state/post_027.json: embedded json (1453 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (1174 bytes)
+  - specs/g1_fix_spec.md: embedded md (2587 bytes)
 - Next action: Implement the G1 fix; do not soften G2 or L4 checks.
 
 ### Item P0 - ledger and validation housekeeping
@@ -169,6 +211,11 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - analysis/validate_outputs.py (yes)
   - results/validation/validation.json (yes)
   - results/experiment_log/experiment_log.json (yes)
+- Detail data:
+  - CANONICAL_REPO.md: embedded md (532 bytes)
+  - analysis/validate_outputs.py: embedded py (17429 bytes)
+  - results/validation/validation.json: embedded json (12742 bytes)
+  - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
 - Next action: Keep future reports item-first and preserve explicit red checks.
 
 ### Item W3.0 - Qwen3.5 checkpoint pin
@@ -181,6 +228,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - This pins availability of the external model asset but does not run hidden-hook or propagation probes.
 - Artifacts:
   - results/model_download/qwen3_5_4b/qwen_download.json (yes)
+- Detail data:
+  - results/model_download/qwen3_5_4b/qwen_download.json: embedded json (326 bytes)
 - Next action: Use W3/P2 records before considering any Qwen3.5 integration route.
 
 ### Item P1 - G1 fix spec and diagnostics
@@ -196,6 +245,11 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/stage_a_adapter_wiring/results.json (yes)
   - results/stage_a_banded_gate_refusal/results.json (yes)
   - results/stage_a_sudoku6_bridge/results.json (yes)
+- Detail data:
+  - specs/g1_fix_spec.md: embedded md (2587 bytes)
+  - results/stage_a_adapter_wiring/results.json: embedded json (2413 bytes)
+  - results/stage_a_banded_gate_refusal/results.json: embedded json (3420 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (1174 bytes)
 - Next action: Launch the actual bridge retrain only after concrete Sudoku6 data/training entrypoints exist.
 
 ### Item P2 - W3 Qwen3.5 probe
@@ -210,6 +264,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - specs/w3_qwen35_probe_spec.md (yes)
   - results/w3_qwen35_probe/results.json (yes)
   - results/w3_qwen35_probe/verdicts.json (yes)
+- Detail data:
+  - specs/w3_qwen35_probe_spec.md: embedded md (1807 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (3314 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (405 bytes)
 - Next action: Run hidden-hook, gating-survival, native-delta, and W3.2 propagation probes before integration.
 
 ### Item P3 - TRM defensive analysis
@@ -221,6 +279,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - No defensive depth-ceiling test-set artifact exists in the current workspace.
 - Artifacts:
   - specs/g1_fix_spec.md (yes)
+- Detail data:
+  - specs/g1_fix_spec.md: embedded md (2587 bytes)
 - Next action: Create explicit TRM defensive analysis artifacts before reporting P3 evidence.
 
 ### Item Module1 law - per-depth capacity
@@ -235,6 +295,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/module1_capacity_perdepth_shards/results.json (yes)
   - results/module1_capacity_perdepth_shards/curves.json (yes)
   - results/module1_capacity_benchmark_full_shards/k_direction_corrected.json (yes)
+- Detail data:
+  - results/module1_capacity_perdepth_shards/results.json: embedded json (7251562 bytes)
+  - results/module1_capacity_perdepth_shards/curves.json: embedded json (1568381 bytes)
+  - results/module1_capacity_benchmark_full_shards/k_direction_corrected.json: embedded json (53731 bytes)
 - Next action: Use this law as support for structured register capacity, not as a substitute for Stage A autonomous proof.
 
 

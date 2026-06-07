@@ -108,6 +108,25 @@ def _artifact_ref(path: str) -> dict[str, str]:
     return {"path": path, "present": "yes" if _path(path).exists() else "missing"}
 
 
+def _artifact_payload(path_text: str) -> dict[str, Any]:
+    path = _path(path_text)
+    if not path.exists():
+        return {"present": False, "path": path_text}
+    payload: dict[str, Any] = {"present": True, "path": path_text, "size_bytes": path.stat().st_size}
+    if path_text.startswith("results/experiment_log/"):
+        payload.update({"embedded": False, "reason": "self_output_not_embedded"})
+        return payload
+    if path.suffix == ".json":
+        with path.open("r", encoding="utf-8") as handle:
+            payload.update({"embedded": True, "format": "json", "data": json.load(handle)})
+        return payload
+    if path.suffix in {".md", ".txt", ".py", ".sh", ".yaml", ".yml"}:
+        payload.update({"embedded": True, "format": path.suffix.lstrip("."), "data": path.read_text(encoding="utf-8")})
+        return payload
+    payload.update({"embedded": False, "reason": "unsupported_format"})
+    return payload
+
+
 def _item_records(data: dict[str, Any]) -> list[dict[str, Any]]:
     continuation = data.get("continuation") or {}
     items = {item.get("item"): item for item in continuation.get("items", [])}
@@ -141,6 +160,7 @@ def _item_records(data: dict[str, Any]) -> list[dict[str, Any]]:
             "key_result": key_result,
             "details": details,
             "artifacts": [_artifact_ref(path) for path in artifacts],
+            "detail_data": {path: _artifact_payload(path) for path in artifacts},
             "next_action": next_action,
         }
 
@@ -361,6 +381,16 @@ def _item_detail_lines(records: list[dict[str, Any]]) -> list[str]:
         if artifacts:
             lines.append("- Artifacts:")
             lines.extend(f"  - {artifact['path']} ({artifact['present']})" for artifact in artifacts)
+        detail_data = record.get("detail_data", {})
+        if detail_data:
+            lines.append("- Detail data:")
+            for path, payload in detail_data.items():
+                if payload.get("embedded"):
+                    lines.append(f"  - {path}: embedded {payload.get('format')} ({payload.get('size_bytes')} bytes)")
+                elif payload.get("present"):
+                    lines.append(f"  - {path}: not embedded ({payload.get('reason')})")
+                else:
+                    lines.append(f"  - {path}: missing")
         if record.get("next_action"):
             lines.append(f"- Next action: {record['next_action']}")
         lines.append("")
