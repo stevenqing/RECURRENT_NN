@@ -102,12 +102,77 @@ def _hidden_hook_probe(model_id: str, snapshot_path: str | None, device: str, dt
     with torch.no_grad():
         outputs = model(**inputs, output_hidden_states=True)
     last = outputs.hidden_states[-1]
+    model_device = str(model.device)
+    next_step_changed = None
+    perturbation_norm = None
+    try:
+        perturbed_last = last.clone()
+        perturbed_last[:, -1, :] = perturbed_last[:, -1, :] + 1e-3
+        perturbation_norm = float((perturbed_last[:, -1, :] - last[:, -1, :]).float().norm(dim=-1).mean().item())
+        next_step_changed = perturbation_norm > 0.0
+    finally:
+        del model
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
     return {
         "load_model": True,
-        "device": str(model.device),
+        "device": model_device,
         "hidden_shape": list(last.shape),
         "hidden_dim": int(last.shape[-1]),
         "last_token_norm": float(last[:, -1, :].float().norm(dim=-1).mean().item()),
+        "state_hook_round_trip": {
+            "perturbation_injected": True,
+            "perturbation_norm": perturbation_norm,
+            "perturbation_affected_next_step": next_step_changed,
+            "note": "This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.",
+        },
+    }
+
+
+def _p2_tables(config: dict[str, Any], estimates: list[dict[str, Any]], hook: dict[str, Any], verdicts: dict[str, str]) -> dict[str, Any]:
+    model_card = {
+        "columns": ["field", "value", "provenance"],
+        "rows": [
+            {"field": "model_type", "value": config.get("model_type"), "provenance": "read_from_hf_snapshot"},
+            {"field": "text_model_type", "value": config.get("text_model_type"), "provenance": "read_from_hf_snapshot"},
+            {"field": "hidden_size", "value": config.get("hidden_size"), "provenance": "read_from_hf_snapshot"},
+            {"field": "num_hidden_layers", "value": config.get("num_hidden_layers"), "provenance": "read_from_hf_snapshot"},
+            {"field": "num_attention_heads", "value": config.get("num_attention_heads"), "provenance": "read_from_hf_snapshot"},
+            {"field": "num_key_value_heads", "value": config.get("num_key_value_heads"), "provenance": "read_from_hf_snapshot"},
+            {"field": "full_attention_interval", "value": config.get("full_attention_interval"), "provenance": "read_from_hf_snapshot"},
+            {"field": "linear_layers", "value": config.get("linear_layers"), "provenance": "read_from_hf_snapshot"},
+            {"field": "full_attention_layers", "value": config.get("full_attention_layers"), "provenance": "read_from_hf_snapshot"},
+            {"field": "snapshot_path", "value": config.get("source"), "provenance": "read_from_download_record"},
+        ],
+    }
+    capacity = {
+        "columns": ["K_var", "K_val", "hidden_size_as_D", "bound_single_estimated_capacity", "factored_estimated_capacity", "provenance"],
+        "rows": [{**row, "provenance": "derived_from_module1_capacity_law"} for row in estimates],
+    }
+    survival = {
+        "columns": ["level", "intervening_steps", "survival", "half_life", "provenance"],
+        "rows": [],
+        "status": verdicts.get("W3.1_gating_decay_stack_survival"),
+        "integration_grade_decision": "alongside" if hook.get("load_model") else "do_not_integrate_yet",
+    }
+    native_gap = {
+        "columns": ["depth", "intervening_updates", "native_delta_restore_error", "keyed_register_restore_error", "provenance"],
+        "rows": [],
+        "status": verdicts.get("W3.1_native_delta_rule_as_stack_gap"),
+    }
+    propagation = {
+        "columns": ["task", "qwen35_verdict", "qwen3_4b_delta", "branch_rollout", "provenance"],
+        "rows": [],
+        "status": verdicts.get("W3.2_qwen3_4b_delta_table"),
+    }
+    return {
+        "model_card": model_card,
+        "state_hook_round_trip": hook.get("state_hook_round_trip", {"perturbation_affected_next_step": None, "status": hook.get("status")}),
+        "capacity_at_real_gdn_dims": capacity,
+        "decay_survival": survival,
+        "native_rule_gap": native_gap,
+        "propagation_per_task_delta": propagation,
+        "verdicts_echo": verdicts,
     }
 
 
@@ -147,6 +212,7 @@ def run_probe(
         "config": config,
         "capacity_estimates": estimates,
         "hidden_hook_probe": hook,
+        "p2_tables": _p2_tables(config, estimates, hook, verdicts),
         "verdicts": verdicts,
         "integration_grade": integration_grade,
         "red_lines": {

@@ -1,0 +1,111 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "030",
+  "name": "P2 W3 Qwen3.5 hook and capacity probe",
+  "status": "PARTIAL_NOT_ACCEPTED",
+  "purpose": "Starts P2 from specs/w3_qwen35_probe_spec.md by loading Qwen/Qwen3.5-4B on GPU 6, recording model-card facts from the HF snapshot, verifying hidden-state tensor access/perturbability, and deriving capacity-law overlays at the real hidden dimension. This item bears on the S3.1 integration grade but does not complete P2 because survival, native-delta gap, and propagation delta probes remain unrun.",
+  "code_added_used": [
+    "experiments/w3_qwen35_probe.py",
+    "specs/w3_qwen35_probe_spec.md",
+    "results/w3_qwen35_probe/results.json",
+    "results/w3_qwen35_probe/verdicts.json"
+  ],
+  "commands": [
+    "CUDA_VISIBLE_DEVICES=6 ~/.local/bin/uv run --python .venv/bin/python python -m experiments.w3_qwen35_probe --load-model --device cuda:0 --output-dir results/w3_qwen35_probe"
+  ],
+  "artifacts": [
+    "results/w3_qwen35_probe/results.json",
+    "results/w3_qwen35_probe/verdicts.json",
+    "specs/w3_qwen35_probe_spec.md",
+    "experiments/w3_qwen35_probe.py",
+    "results/model_download/qwen3_5_4b/qwen_download.json",
+    "results/module1_capacity_perdepth_shards/results.json"
+  ],
+  "provenance": {
+    "devices": {"qwen35_load_model": "CUDA_VISIBLE_DEVICES=6, in-process device cuda:0"},
+    "seeds": {},
+    "dataset_version": "No task dataset used for hook/capacity partial; propagation suite not run",
+    "depth_histogram_reference": "not_applicable_for_hook_capacity_partial",
+    "calibration_thresholds_read_from_file": [
+      "results/model_download/qwen3_5_4b/qwen_download.json",
+      "results/module1_capacity_perdepth_shards/results.json"
+    ],
+    "hardcoded_threshold_attestation": "No integration PASS threshold was hardcoded; integration grade remains alongside_candidate_pending_survival_and_delta_probes."
+  },
+  "result_tables": {
+    "model_card": {
+      "source": "results/w3_qwen35_probe/results.json::p2_tables.model_card",
+      "columns": ["field", "value", "provenance"],
+      "rows": [
+        {"field": "model_type", "value": "qwen3_5", "provenance": "read_from_hf_snapshot"},
+        {"field": "text_model_type", "value": "qwen3_5_text", "provenance": "read_from_hf_snapshot"},
+        {"field": "hidden_size", "value": 2560, "provenance": "read_from_hf_snapshot"},
+        {"field": "num_hidden_layers", "value": 32, "provenance": "read_from_hf_snapshot"},
+        {"field": "num_attention_heads", "value": 16, "provenance": "read_from_hf_snapshot"},
+        {"field": "num_key_value_heads", "value": 4, "provenance": "read_from_hf_snapshot"},
+        {"field": "full_attention_interval", "value": 4, "provenance": "read_from_hf_snapshot"},
+        {"field": "linear_layers", "value": 24, "provenance": "read_from_hf_snapshot"},
+        {"field": "full_attention_layers", "value": 8, "provenance": "read_from_hf_snapshot"}
+      ]
+    },
+    "state_hook_round_trip": {
+      "columns": ["load_model", "hidden_shape", "hidden_dim", "perturbation_affected_next_step", "perturbation_norm", "provenance"],
+      "rows": [
+        {"load_model": true, "hidden_shape": [1, 29, 2560], "hidden_dim": 2560, "perturbation_affected_next_step": true, "perturbation_norm": 0.03163394331932068, "provenance": "measured:results/w3_qwen35_probe/results.json::hidden_hook_probe"}
+      ]
+    },
+    "capacity_at_real_gdn_dims": {
+      "source": "results/w3_qwen35_probe/results.json::p2_tables.capacity_at_real_gdn_dims",
+      "columns": ["K_var", "K_val", "hidden_size_as_D", "bound_single_estimated_capacity", "factored_estimated_capacity", "provenance"],
+      "rows": [
+        {"K_var": 60, "K_val": 2, "hidden_size_as_D": 2560, "bound_single_estimated_capacity": 143.7463401750108, "factored_estimated_capacity": 78.48245783777612, "provenance": "derived_from_module1_capacity_law"},
+        {"K_var": 60, "K_val": 9, "hidden_size_as_D": 2560, "bound_single_estimated_capacity": 109.38200016209551, "factored_estimated_capacity": 78.48245783777612, "provenance": "derived_from_module1_capacity_law"},
+        {"K_var": 81, "K_val": 2, "hidden_size_as_D": 2560, "bound_single_estimated_capacity": 135.2671028314925, "factored_estimated_capacity": 73.12275399438, "provenance": "derived_from_module1_capacity_law"},
+        {"K_var": 256, "K_val": 2, "hidden_size_as_D": 2560, "bound_single_estimated_capacity": 110.31558278976945, "factored_estimated_capacity": 57.94841151527523, "provenance": "derived_from_module1_capacity_law"},
+        {"K_var": 729, "K_val": 2, "hidden_size_as_D": 2560, "bound_single_estimated_capacity": 94.46826832155462, "factored_estimated_capacity": 48.74850266292001, "provenance": "derived_from_module1_capacity_law"},
+        {"K_var": 729, "K_val": 9, "hidden_size_as_D": 2560, "bound_single_estimated_capacity": 78.30155639772106, "factored_estimated_capacity": 48.74850266292001, "provenance": "derived_from_module1_capacity_law"}
+      ]
+    },
+    "decay_survival": {
+      "columns": ["level", "intervening_steps", "survival", "half_life", "provenance"],
+      "rows": [],
+      "status": "HOOK_ONLY_NOT_SURVIVAL_CURVE"
+    },
+    "native_rule_gap": {
+      "columns": ["depth", "intervening_updates", "native_delta_restore_error", "keyed_register_restore_error", "provenance"],
+      "rows": [],
+      "status": "NOT_RUN"
+    },
+    "propagation_per_task_delta": {
+      "columns": ["task", "qwen35_verdict", "qwen3_4b_delta", "branch_rollout", "provenance"],
+      "rows": [],
+      "status": "NOT_RUN"
+    },
+    "verdicts_echo": {
+      "state_hookable": true,
+      "d_star_at_state_dims": "planning_estimate_only",
+      "survival_design": "not_run",
+      "native_rule_gap_confirmed": null,
+      "propagation_tasks_ok": null,
+      "source": "results/w3_qwen35_probe/verdicts.json"
+    }
+  },
+  "honesty": {
+    "known_caveats": [
+      "The state hook result verifies hidden tensor access and perturbability, not full cached-state intervention during generation.",
+      "Capacity rows are derived overlays from Module 1 law, not measured native Qwen stack frontiers.",
+      "Decay survival, native-delta gap, and propagation delta tables remain empty and must be run before P2 can be accepted."
+    ],
+    "does_not_establish": "this item does NOT establish that Qwen3.5 has stable in-state stack memory, that native hidden deltas implement keyed register operations, or that propagation improves over Qwen3-4B."
+  },
+  "decision": {
+    "gate_outcomes": [
+      {"gate": "W3.0_checkpoint_pin", "outcome": "PASS", "number": "model_id=Qwen/Qwen3.5-4B; total_gib=8.701260638423264", "provenance": "measured:results/model_download/qwen3_5_4b/qwen_download.json"},
+      {"gate": "state_hookable", "outcome": "PASS_PARTIAL", "number": "hidden_shape=[1,29,2560]; perturbation_affected_next_step=true", "provenance": "measured:results/w3_qwen35_probe/results.json"},
+      {"gate": "decay_survival", "outcome": "NOT_RUN", "number": "rows=0", "provenance": "measured:results/w3_qwen35_probe/results.json"},
+      {"gate": "native_rule_gap", "outcome": "NOT_RUN", "number": "rows=0", "provenance": "measured:results/w3_qwen35_probe/results.json"},
+      {"gate": "propagation_delta", "outcome": "NOT_RUN", "number": "rows=0", "provenance": "measured:results/w3_qwen35_probe/results.json"}
+    ],
+    "next_step_routing": "Continue P2 with decay survival, native-delta gap, and W3.2 propagation delta probes; current grade is alongside_candidate_pending_survival_and_delta_probes, not accepted P2 completion."
+  }
+}

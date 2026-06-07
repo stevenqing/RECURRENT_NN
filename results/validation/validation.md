@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-07T10:29:22.037110+00:00
+Generated at: 2026-06-07T10:36:27.552106+00:00
 
-Summary: 86 PASS / 9 FAIL / 95 total.
+Summary: 117 PASS / 9 FAIL / 126 total.
 
 The current expected state is not all-green: Stage A post-027 blockers should be visible as explicit red checks, not hidden behind a single required-files failure.
 
@@ -84,21 +84,52 @@ The current expected state is not all-green: Stage A post-027 blockers should be
 | tier_c | w3_qwen35_probe_present | PASS | results/w3_qwen35_probe/results.json |
 | tier_c | w3_qwen35_model_id | PASS | model_id=Qwen/Qwen3.5-4B |
 | tier_c | w3_checkpoint_pin_pass | PASS | verdict=PASS |
-| tier_c | w3_metadata_only_not_overclaimed | PASS | integration_grade=do_not_integrate_yet |
+| tier_c | w3_integration_grade_not_overclaimed | PASS | integration_grade=alongside_candidate_pending_survival_and_delta_probes |
+| tier_c | w3_hidden_hook_dim_matches_config | PASS | hidden_dim=2560; config=2560 |
+| tier_c | w3_state_hook_perturbable | PASS | round_trip={'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.03163394331932068} |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=1 |
+| contract | log_item_artifacts_present | PASS | count=3 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
 | contract | log_item_028_artifacts_exist | PASS | missing=[] |
 | contract | log_item_028_honesty_does_not_establish | PASS | this item does NOT establish that the Stage A bridge solves autonomously, that G1 passes, that L4 separation is restored, or that Qwen3.5 integration is viable. |
 | contract | log_item_028_decision_numbers_and_routing | PASS | gates=4; routing=P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract. |
+| contract | log_item_029_required_fields | PASS | missing=[] |
+| contract | log_item_029_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_029_number_continues_from_028 | PASS | item_number=029 |
+| contract | log_item_029_artifacts_exist | PASS | missing=[] |
+| contract | log_item_029_honesty_does_not_establish | PASS | this item does NOT establish that the bridge objective is correct, that G1 can be fixed by longer training, or that any autonomous Sudoku6 solve works. |
+| contract | log_item_029_decision_numbers_and_routing | PASS | gates=3; routing=Implement Sudoku6 dataset/encoding artifacts and parent adapter wiring before P1.1b retrain; route to objective_wiring rather than budget-only. |
+| contract | log_item_030_required_fields | PASS | missing=[] |
+| contract | log_item_030_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_030_number_continues_from_028 | PASS | item_number=030 |
+| contract | log_item_030_artifacts_exist | PASS | missing=[] |
+| contract | log_item_030_honesty_does_not_establish | PASS | this item does NOT establish that Qwen3.5 has stable in-state stack memory, that native hidden deltas implement keyed register operations, or that propagation i |
+| contract | log_item_030_decision_numbers_and_routing | PASS | gates=5; routing=Continue P2 with decay survival, native-delta gap, and W3.2 propagation delta probes; current grade is alongside_candidate_pending_survival_and_delta_probes, not accepted P2 completion. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |
 | contract | item_028_report_front_page_present | PASS | rows=3 |
-| contract | item_028_validation_registry_many_checks | PASS | after={'phase': 'after_restored_registry', 'total_check_count': 95, 'passed': 86, 'failed': 9, 'provenance': 'measured:results/validation/validation.json::summary'} |
+| contract | item_028_validation_registry_many_checks | PASS | after={'phase': 'after_restored_registry', 'total_check_count': 126, 'passed': 117, 'failed': 9, 'provenance': 'measured:results/validation/validation.json::summary'} |
 | contract | item_028_items_025_027_folded | PASS | requirements={'canonical_repo_declared': 'yes', 'stop_generating_from_stage_d_llm': 'yes', 'item_025_folded': 'yes', 'item_026_folded': 'yes', 'item_027_folded': 'yes', 'module1_artifacts_deduplicated': 'yes'} |
+| contract | item_029_p1_1a_g1_diagnosis_present | PASS | results/experiment_items/item_029_p1_1a_g1_diagnosis.json |
+| contract | item_029_training_curve_summary_present | PASS | rows=1 |
+| contract | item_029_single_step_forced_precision_recall_by_depth_present | PASS | rows=2 |
+| contract | item_029_iterative_stick_reason_histogram_present | PASS | rows=6 |
+| contract | item_029_train_vs_eval_encoding_byte_diff_present | PASS | rows=1 |
+| contract | item_029_decision_branch_present | PASS | rows=1 |
+| contract | item_029_decision_branch_valid | PASS | branch=objective_wiring |
+| contract | item_030_p2_w3_hook_capacity_present | PASS | results/experiment_items/item_030_p2_w3_hook_capacity.json |
+| contract | item_030_model_card_present | PASS | keys=['source', 'columns', 'rows'] |
+| contract | item_030_state_hook_round_trip_present | PASS | keys=['columns', 'rows'] |
+| contract | item_030_capacity_at_real_gdn_dims_present | PASS | keys=['source', 'columns', 'rows'] |
+| contract | item_030_decay_survival_present | PASS | keys=['columns', 'rows', 'status'] |
+| contract | item_030_native_rule_gap_present | PASS | keys=['columns', 'rows', 'status'] |
+| contract | item_030_propagation_per_task_delta_present | PASS | keys=['columns', 'rows', 'status'] |
+| contract | item_030_verdicts_echo_present | PASS | keys=['state_hookable', 'd_star_at_state_dims', 'survival_design', 'native_rule_gap_confirmed', 'propagation_tasks_ok', 'source'] |
+| contract | item_030_state_hook_round_trip_positive | PASS | affected=True |
+| contract | item_030_marked_partial_not_complete | PASS | status=PARTIAL_NOT_ACCEPTED |
 | legacy | ttt_legacy_present | FAIL | results/ttt/results.json |
 | legacy | legacy_two_by_two_present | FAIL | results/two_by_two/results.json |
 | legacy | legacy_d_stage_1_present | FAIL | results/d_stage_1/results.json |

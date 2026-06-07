@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-06-07T10:03:40.181057+00:00",
-  "integration_grade": "do_not_integrate_yet",
+  "generated_at": "2026-06-07T10:33:01.710144+00:00",
+  "integration_grade": "alongside_candidate_pending_survival_and_delta_probes",
   "model_id": "Qwen/Qwen3.5-4B",
   "verdicts": {
     "W3.0_checkpoint_pin": "PASS",
     "W3.1_capacity_at_real_gdn_dims": "PLANNING_ESTIMATE_ONLY",
-    "W3.1_gating_decay_stack_survival": "NOT_RUN",
+    "W3.1_gating_decay_stack_survival": "HOOK_ONLY_NOT_SURVIVAL_CURVE",
     "W3.1_native_delta_rule_as_stack_gap": "NOT_RUN",
     "W3.2_qwen3_4b_delta_table": "NOT_RUN"
   }

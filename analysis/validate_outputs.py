@@ -47,6 +47,8 @@ PATHS = {
     "w3_qwen35_probe": "results/w3_qwen35_probe/results.json",
     "continuation_post_027": "results/continuation_state/post_027.json",
     "item_028_p0_housekeeping": "results/experiment_items/item_028_p0_housekeeping.json",
+    "item_029_p1_1a_g1_diagnosis": "results/experiment_items/item_029_p1_1a_g1_diagnosis.json",
+    "item_030_p2_w3_hook_capacity": "results/experiment_items/item_030_p2_w3_hook_capacity.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
@@ -225,7 +227,12 @@ def _w3_checks(checks: list[dict[str, Any]]) -> None:
         verdicts = probe.get("verdicts", {})
         _check(checks, probe.get("model_id") == "Qwen/Qwen3.5-4B", "w3_qwen35_model_id", f"model_id={probe.get('model_id')}", "tier_c")
         _check(checks, verdicts.get("W3.0_checkpoint_pin") == "PASS", "w3_checkpoint_pin_pass", f"verdict={verdicts.get('W3.0_checkpoint_pin')}", "tier_c")
-        _check(checks, probe.get("integration_grade") == "do_not_integrate_yet", "w3_metadata_only_not_overclaimed", f"integration_grade={probe.get('integration_grade')}", "tier_c")
+        allowed_grades = {"do_not_integrate_yet", "alongside_candidate_pending_survival_and_delta_probes"}
+        _check(checks, probe.get("integration_grade") in allowed_grades, "w3_integration_grade_not_overclaimed", f"integration_grade={probe.get('integration_grade')}", "tier_c")
+        hook = probe.get("hidden_hook_probe", {})
+        if hook.get("load_model"):
+            _check(checks, hook.get("hidden_dim") == probe.get("config", {}).get("hidden_size"), "w3_hidden_hook_dim_matches_config", f"hidden_dim={hook.get('hidden_dim')}; config={probe.get('config', {}).get('hidden_size')}", "tier_c")
+            _check(checks, hook.get("state_hook_round_trip", {}).get("perturbation_affected_next_step") is True, "w3_state_hook_perturbable", f"round_trip={hook.get('state_hook_round_trip')}", "tier_c")
 
 
 def _item_contract_checks(checks: list[dict[str, Any]]) -> None:
@@ -280,6 +287,29 @@ def _item_contract_checks(checks: list[dict[str, Any]]) -> None:
         reconciliation = tables.get("ledger_reconciliation", {})
         requirements = {row.get("requirement"): row.get("status") for row in reconciliation.get("rows", [])}
         _check(checks, all(requirements.get(key) == "yes" for key in ["item_025_folded", "item_026_folded", "item_027_folded"]), "item_028_items_025_027_folded", f"requirements={requirements}", "contract")
+
+    item029 = _read_json("item_029_p1_1a_g1_diagnosis")
+    _exists(checks, "item_029_p1_1a_g1_diagnosis", "contract")
+    if item029:
+        tables = item029.get("result_tables", {})
+        for table_name in ["training_curve_summary", "single_step_forced_precision_recall_by_depth", "iterative_stick_reason_histogram", "train_vs_eval_encoding_byte_diff", "decision_branch"]:
+            table = tables.get(table_name, {})
+            _check(checks, bool(table.get("columns")) and bool(table.get("rows")), f"item_029_{table_name}_present", f"rows={len(table.get('rows', []))}", "contract")
+        branch_rows = tables.get("decision_branch", {}).get("rows", [])
+        branch = branch_rows[0].get("branch") if branch_rows else None
+        _check(checks, branch in {"objective_wiring", "commit_criterion", "budget"}, "item_029_decision_branch_valid", f"branch={branch}", "contract")
+
+    item030 = _read_json("item_030_p2_w3_hook_capacity")
+    _exists(checks, "item_030_p2_w3_hook_capacity", "contract")
+    if item030:
+        tables = item030.get("result_tables", {})
+        for table_name in ["model_card", "state_hook_round_trip", "capacity_at_real_gdn_dims", "decay_survival", "native_rule_gap", "propagation_per_task_delta", "verdicts_echo"]:
+            table = tables.get(table_name, {})
+            _check(checks, bool(table), f"item_030_{table_name}_present", f"keys={list(table) if isinstance(table, dict) else type(table)}", "contract")
+        state_rows = tables.get("state_hook_round_trip", {}).get("rows", [])
+        affected = state_rows[0].get("perturbation_affected_next_step") if state_rows else None
+        _check(checks, affected is True, "item_030_state_hook_round_trip_positive", f"affected={affected}", "contract")
+        _check(checks, item030.get("status") == "PARTIAL_NOT_ACCEPTED", "item_030_marked_partial_not_complete", f"status={item030.get('status')}", "contract")
 
 
 def _legacy_checks(checks: list[dict[str, Any]]) -> None:

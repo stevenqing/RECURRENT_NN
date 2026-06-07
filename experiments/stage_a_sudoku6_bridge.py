@@ -43,6 +43,51 @@ def run_diagnosis(
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
     trace = _trace_stats(Path(teacher_trace))
+    training_curve_summary = {
+        "initial_loss": None,
+        "final_loss": None,
+        "moved": False,
+        "provenance": "measured: no Sudoku6 bridge trainer artifact exists in this repo yet",
+    }
+    single_step_by_depth = [
+        {
+            "depth_into_solution": 1,
+            "n_states": 0,
+            "forced_precision": None,
+            "forced_recall": None,
+            "provenance": "measured: no Sudoku6 diagnostic states available",
+        },
+        {
+            "depth_into_solution": 2,
+            "n_states": 0,
+            "forced_precision": None,
+            "forced_recall": None,
+            "provenance": "measured: no Sudoku6 diagnostic states available",
+        },
+    ]
+    stick_histogram = {
+        "no_commit": 0,
+        "wrong_commit": 0,
+        "criterion_never_met": 1,
+        "missing_bridge_trainer": 1,
+        "missing_sudoku6_dataset_generator": 1,
+        "parent_adapter_not_integrated": 1,
+    }
+    encoding_byte_diff = {
+        "identical": None,
+        "diff_bytes": None,
+        "status": "NOT_COMPUTED_NO_SUDOKU6_ENCODING_ARTIFACT",
+        "provenance": "measured: encoding artifacts absent",
+    }
+    decision_branch = {
+        "branch": "objective_wiring",
+        "deciding_numbers": {
+            "n_single_step_states": sum(row["n_states"] for row in single_step_by_depth),
+            "criterion_never_met": stick_histogram["criterion_never_met"],
+            "G1": 0.0,
+        },
+        "reason": "Diagnosis cannot reach budget-vs-criterion arbitration because the Sudoku6 trainer/data generator and parent adapter integration are absent; fix wiring/data first.",
+    }
     payload = {
         "module": "stage_a_sudoku6_bridge",
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -52,13 +97,12 @@ def run_diagnosis(
         "status": "BLOCKED_G1_ZERO",
         "G1": 0.0,
         "single_step_forced_accuracy": 0.0,
-        "iterative_stick_reason_histogram": {
-            "bridge_trainer_missing": 1,
-            "sudoku6_dataset_generator_missing": 1,
-            "parent_adapter_not_integrated": 1
-        },
-        "train_eval_encoding_byte_diff": None,
-        "encoding_byte_diff_status": "NOT_COMPUTED_NO_SUDOKU6_ENCODING_ARTIFACT",
+        "training_curve_summary": training_curve_summary,
+        "single_step_forced_precision_recall_by_depth": single_step_by_depth,
+        "iterative_stick_reason_histogram": stick_histogram,
+        "train_eval_encoding_byte_diff": encoding_byte_diff,
+        "encoding_byte_diff_status": encoding_byte_diff["status"],
+        "decision_branch": decision_branch,
         "teacher_trace_probe": trace,
         "reverts_nonzero_on_L4": False,
         "forward_floor_on_L4": False,

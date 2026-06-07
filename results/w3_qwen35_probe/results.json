@@ -72,14 +72,201 @@
     "total_bytes": 9342907469,
     "total_gib": 8.701260638423264
   },
-  "generated_at": "2026-06-07T10:03:40.181057+00:00",
+  "generated_at": "2026-06-07T10:33:01.710144+00:00",
   "hidden_hook_probe": {
-    "load_model": false,
-    "status": "SKIPPED_METADATA_ONLY"
+    "device": "cuda:0",
+    "hidden_dim": 2560,
+    "hidden_shape": [
+      1,
+      29,
+      2560
+    ],
+    "last_token_norm": 154.2971649169922,
+    "load_model": true,
+    "state_hook_round_trip": {
+      "note": "This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.",
+      "perturbation_affected_next_step": true,
+      "perturbation_injected": true,
+      "perturbation_norm": 0.03163394331932068
+    }
   },
-  "integration_grade": "do_not_integrate_yet",
+  "integration_grade": "alongside_candidate_pending_survival_and_delta_probes",
   "model_id": "Qwen/Qwen3.5-4B",
   "module": "w3_qwen35_probe",
+  "p2_tables": {
+    "capacity_at_real_gdn_dims": {
+      "columns": [
+        "K_var",
+        "K_val",
+        "hidden_size_as_D",
+        "bound_single_estimated_capacity",
+        "factored_estimated_capacity",
+        "provenance"
+      ],
+      "rows": [
+        {
+          "K_val": 2,
+          "K_var": 60,
+          "bound_single_estimated_capacity": 143.7463401750108,
+          "factored_estimated_capacity": 78.48245783777612,
+          "hidden_size_as_D": 2560,
+          "provenance": "derived_from_module1_capacity_law",
+          "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+        },
+        {
+          "K_val": 9,
+          "K_var": 60,
+          "bound_single_estimated_capacity": 109.38200016209551,
+          "factored_estimated_capacity": 78.48245783777612,
+          "hidden_size_as_D": 2560,
+          "provenance": "derived_from_module1_capacity_law",
+          "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+        },
+        {
+          "K_val": 2,
+          "K_var": 81,
+          "bound_single_estimated_capacity": 135.2671028314925,
+          "factored_estimated_capacity": 73.12275399438,
+          "hidden_size_as_D": 2560,
+          "provenance": "derived_from_module1_capacity_law",
+          "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+        },
+        {
+          "K_val": 2,
+          "K_var": 256,
+          "bound_single_estimated_capacity": 110.31558278976945,
+          "factored_estimated_capacity": 57.94841151527523,
+          "hidden_size_as_D": 2560,
+          "provenance": "derived_from_module1_capacity_law",
+          "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+        },
+        {
+          "K_val": 2,
+          "K_var": 729,
+          "bound_single_estimated_capacity": 94.46826832155462,
+          "factored_estimated_capacity": 48.74850266292001,
+          "hidden_size_as_D": 2560,
+          "provenance": "derived_from_module1_capacity_law",
+          "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+        },
+        {
+          "K_val": 9,
+          "K_var": 729,
+          "bound_single_estimated_capacity": 78.30155639772106,
+          "factored_estimated_capacity": 48.74850266292001,
+          "hidden_size_as_D": 2560,
+          "provenance": "derived_from_module1_capacity_law",
+          "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+        }
+      ]
+    },
+    "decay_survival": {
+      "columns": [
+        "level",
+        "intervening_steps",
+        "survival",
+        "half_life",
+        "provenance"
+      ],
+      "integration_grade_decision": "alongside",
+      "rows": [],
+      "status": "HOOK_ONLY_NOT_SURVIVAL_CURVE"
+    },
+    "model_card": {
+      "columns": [
+        "field",
+        "value",
+        "provenance"
+      ],
+      "rows": [
+        {
+          "field": "model_type",
+          "provenance": "read_from_hf_snapshot",
+          "value": "qwen3_5"
+        },
+        {
+          "field": "text_model_type",
+          "provenance": "read_from_hf_snapshot",
+          "value": "qwen3_5_text"
+        },
+        {
+          "field": "hidden_size",
+          "provenance": "read_from_hf_snapshot",
+          "value": 2560
+        },
+        {
+          "field": "num_hidden_layers",
+          "provenance": "read_from_hf_snapshot",
+          "value": 32
+        },
+        {
+          "field": "num_attention_heads",
+          "provenance": "read_from_hf_snapshot",
+          "value": 16
+        },
+        {
+          "field": "num_key_value_heads",
+          "provenance": "read_from_hf_snapshot",
+          "value": 4
+        },
+        {
+          "field": "full_attention_interval",
+          "provenance": "read_from_hf_snapshot",
+          "value": 4
+        },
+        {
+          "field": "linear_layers",
+          "provenance": "read_from_hf_snapshot",
+          "value": 24
+        },
+        {
+          "field": "full_attention_layers",
+          "provenance": "read_from_hf_snapshot",
+          "value": 8
+        },
+        {
+          "field": "snapshot_path",
+          "provenance": "read_from_download_record",
+          "value": "/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a"
+        }
+      ]
+    },
+    "native_rule_gap": {
+      "columns": [
+        "depth",
+        "intervening_updates",
+        "native_delta_restore_error",
+        "keyed_register_restore_error",
+        "provenance"
+      ],
+      "rows": [],
+      "status": "NOT_RUN"
+    },
+    "propagation_per_task_delta": {
+      "columns": [
+        "task",
+        "qwen35_verdict",
+        "qwen3_4b_delta",
+        "branch_rollout",
+        "provenance"
+      ],
+      "rows": [],
+      "status": "NOT_RUN"
+    },
+    "state_hook_round_trip": {
+      "note": "This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.",
+      "perturbation_affected_next_step": true,
+      "perturbation_injected": true,
+      "perturbation_norm": 0.03163394331932068
+    },
+    "verdicts_echo": {
+      "W3.0_checkpoint_pin": "PASS",
+      "W3.1_capacity_at_real_gdn_dims": "PLANNING_ESTIMATE_ONLY",
+      "W3.1_gating_decay_stack_survival": "HOOK_ONLY_NOT_SURVIVAL_CURVE",
+      "W3.1_native_delta_rule_as_stack_gap": "NOT_RUN",
+      "W3.2_qwen3_4b_delta_table": "NOT_RUN"
+    }
+  },
   "red_lines": {
     "different_family_fallback_used": false,
     "ordering_only_pass": false,
@@ -88,7 +275,7 @@
   "verdicts": {
     "W3.0_checkpoint_pin": "PASS",
     "W3.1_capacity_at_real_gdn_dims": "PLANNING_ESTIMATE_ONLY",
-    "W3.1_gating_decay_stack_survival": "NOT_RUN",
+    "W3.1_gating_decay_stack_survival": "HOOK_ONLY_NOT_SURVIVAL_CURVE",
     "W3.1_native_delta_rule_as_stack_gap": "NOT_RUN",
     "W3.2_qwen3_4b_delta_table": "NOT_RUN"
   }

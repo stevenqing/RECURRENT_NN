@@ -1,0 +1,83 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "029",
+  "name": "P1.1a G1 diagnosis Task A",
+  "status": "COMPLETE_BLOCKED_OBJECTIVE_WIRING",
+  "purpose": "Executes P1.1 Task A from specs/g1_fix_spec.md: diagnose why the Sudoku6 bridge G1 is zero before any retraining. This item bears on the Stage A critical path by deciding whether the next fix is objective/wiring, commit criterion, or budget.",
+  "code_added_used": [
+    "experiments/stage_a_sudoku6_bridge.py",
+    "specs/g1_fix_spec.md",
+    "results/stage_a_sudoku6_bridge/results.json"
+  ],
+  "commands": [
+    "~/.local/bin/uv run --python .venv/bin/python python -m py_compile experiments/stage_a_sudoku6_bridge.py experiments/w3_qwen35_probe.py",
+    "~/.local/bin/uv run --python .venv/bin/python python -m experiments.stage_a_sudoku6_bridge --mode diagnose --output-dir results/stage_a_sudoku6_bridge"
+  ],
+  "artifacts": [
+    "results/stage_a_sudoku6_bridge/results.json",
+    "specs/g1_fix_spec.md",
+    "experiments/stage_a_sudoku6_bridge.py"
+  ],
+  "provenance": {
+    "devices": {"diagnosis": "cpu"},
+    "seeds": {"diagnosis_seed": 102},
+    "dataset_version": "Sudoku6 dataset generator absent in repo; teacher trace probe reads reconstructed Stage A 4x4 trace only",
+    "depth_histogram_reference": "results/stage_a_sudoku6_bridge/results.json::teacher_trace_probe",
+    "calibration_thresholds_read_from_file": ["specs/g1_fix_spec.md", "results/stage_a_sudoku6_bridge/results.json"],
+    "hardcoded_threshold_attestation": "No G1 pass threshold was hardcoded; current G1 remains measured/recorded as 0.0 and the item routes to wiring/data fixes."
+  },
+  "result_tables": {
+    "training_curve_summary": {
+      "columns": ["initial_loss", "final_loss", "moved", "provenance"],
+      "rows": [
+        {"initial_loss": null, "final_loss": null, "moved": false, "provenance": "measured:results/stage_a_sudoku6_bridge/results.json::training_curve_summary"}
+      ]
+    },
+    "single_step_forced_precision_recall_by_depth": {
+      "columns": ["depth_into_solution", "n_states", "forced_precision", "forced_recall", "provenance"],
+      "rows": [
+        {"depth_into_solution": 1, "n_states": 0, "forced_precision": null, "forced_recall": null, "provenance": "measured:no Sudoku6 diagnostic states available"},
+        {"depth_into_solution": 2, "n_states": 0, "forced_precision": null, "forced_recall": null, "provenance": "measured:no Sudoku6 diagnostic states available"}
+      ]
+    },
+    "iterative_stick_reason_histogram": {
+      "columns": ["reason", "count", "provenance"],
+      "rows": [
+        {"reason": "no_commit", "count": 0, "provenance": "measured:results/stage_a_sudoku6_bridge/results.json"},
+        {"reason": "wrong_commit", "count": 0, "provenance": "measured:results/stage_a_sudoku6_bridge/results.json"},
+        {"reason": "criterion_never_met", "count": 1, "provenance": "measured:results/stage_a_sudoku6_bridge/results.json"},
+        {"reason": "missing_bridge_trainer", "count": 1, "provenance": "measured:results/stage_a_sudoku6_bridge/results.json"},
+        {"reason": "missing_sudoku6_dataset_generator", "count": 1, "provenance": "measured:results/stage_a_sudoku6_bridge/results.json"},
+        {"reason": "parent_adapter_not_integrated", "count": 1, "provenance": "measured:results/stage_a_sudoku6_bridge/results.json"}
+      ]
+    },
+    "train_vs_eval_encoding_byte_diff": {
+      "columns": ["identical", "diff_bytes", "status", "provenance"],
+      "rows": [
+        {"identical": null, "diff_bytes": null, "status": "NOT_COMPUTED_NO_SUDOKU6_ENCODING_ARTIFACT", "provenance": "measured:results/stage_a_sudoku6_bridge/results.json::train_eval_encoding_byte_diff"}
+      ]
+    },
+    "decision_branch": {
+      "columns": ["branch", "G1", "n_single_step_states", "criterion_never_met", "reason", "provenance"],
+      "rows": [
+        {"branch": "objective_wiring", "G1": 0.0, "n_single_step_states": 0, "criterion_never_met": 1, "reason": "Sudoku6 trainer/data generator and parent adapter integration are absent; fix wiring/data before budget retrain.", "provenance": "derived:results/stage_a_sudoku6_bridge/results.json::decision_branch"}
+      ]
+    }
+  },
+  "honesty": {
+    "known_caveats": [
+      "This diagnosis cannot measure real Sudoku6 forced precision/recall because no Sudoku6 data generator or encoding artifact exists in the repo yet.",
+      "The item completes Task A only as a fail-closed blocker diagnosis; it does not provide evidence that a retrain budget would fix G1.",
+      "Teacher trace probing uses reconstructed 4x4 Stage A parent trace, not Sudoku6 L1-L2 banded data."
+    ],
+    "does_not_establish": "this item does NOT establish that the bridge objective is correct, that G1 can be fixed by longer training, or that any autonomous Sudoku6 solve works."
+  },
+  "decision": {
+    "gate_outcomes": [
+      {"gate": "G1_depth1_bridge", "outcome": "FAIL", "number": "G1=0.0", "provenance": "measured:results/stage_a_sudoku6_bridge/results.json"},
+      {"gate": "single_step_diagnostic_states", "outcome": "FAIL_BLOCKED", "number": "n_states=0", "provenance": "measured:results/stage_a_sudoku6_bridge/results.json"},
+      {"gate": "encoding_byte_diff", "outcome": "NOT_COMPUTED", "number": "diff_bytes=null", "provenance": "measured:results/stage_a_sudoku6_bridge/results.json"}
+    ],
+    "next_step_routing": "Implement Sudoku6 dataset/encoding artifacts and parent adapter wiring before P1.1b retrain; route to objective_wiring rather than budget-only."
+  }
+}

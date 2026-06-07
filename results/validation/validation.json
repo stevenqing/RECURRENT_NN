@@ -445,8 +445,20 @@
       "tier": "tier_c"
     },
     {
-      "detail": "integration_grade=do_not_integrate_yet",
-      "name": "w3_metadata_only_not_overclaimed",
+      "detail": "integration_grade=alongside_candidate_pending_survival_and_delta_probes",
+      "name": "w3_integration_grade_not_overclaimed",
+      "status": "PASS",
+      "tier": "tier_c"
+    },
+    {
+      "detail": "hidden_dim=2560; config=2560",
+      "name": "w3_hidden_hook_dim_matches_config",
+      "status": "PASS",
+      "tier": "tier_c"
+    },
+    {
+      "detail": "round_trip={'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.03163394331932068}",
+      "name": "w3_state_hook_perturbable",
       "status": "PASS",
       "tier": "tier_c"
     },
@@ -457,7 +469,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=1",
+      "detail": "count=3",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -499,6 +511,78 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_029_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_029_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=029",
+      "name": "log_item_029_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_029_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "this item does NOT establish that the bridge objective is correct, that G1 can be fixed by longer training, or that any autonomous Sudoku6 solve works.",
+      "name": "log_item_029_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=3; routing=Implement Sudoku6 dataset/encoding artifacts and parent adapter wiring before P1.1b retrain; route to objective_wiring rather than budget-only.",
+      "name": "log_item_029_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_030_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_030_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=030",
+      "name": "log_item_030_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_030_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "this item does NOT establish that Qwen3.5 has stable in-state stack memory, that native hidden deltas implement keyed register operations, or that propagation i",
+      "name": "log_item_030_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=5; routing=Continue P2 with decay survival, native-delta gap, and W3.2 propagation delta probes; current grade is alongside_candidate_pending_survival_and_delta_probes, not accepted P2 completion.",
+      "name": "log_item_030_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -523,7 +607,7 @@
       "tier": "contract"
     },
     {
-      "detail": "after={'phase': 'after_restored_registry', 'total_check_count': 95, 'passed': 86, 'failed': 9, 'provenance': 'measured:results/validation/validation.json::summary'}",
+      "detail": "after={'phase': 'after_restored_registry', 'total_check_count': 126, 'passed': 117, 'failed': 9, 'provenance': 'measured:results/validation/validation.json::summary'}",
       "name": "item_028_validation_registry_many_checks",
       "status": "PASS",
       "tier": "contract"
@@ -531,6 +615,108 @@
     {
       "detail": "requirements={'canonical_repo_declared': 'yes', 'stop_generating_from_stage_d_llm': 'yes', 'item_025_folded': 'yes', 'item_026_folded': 'yes', 'item_027_folded': 'yes', 'module1_artifacts_deduplicated': 'yes'}",
       "name": "item_028_items_025_027_folded",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "results/experiment_items/item_029_p1_1a_g1_diagnosis.json",
+      "name": "item_029_p1_1a_g1_diagnosis_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "rows=1",
+      "name": "item_029_training_curve_summary_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "rows=2",
+      "name": "item_029_single_step_forced_precision_recall_by_depth_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "rows=6",
+      "name": "item_029_iterative_stick_reason_histogram_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "rows=1",
+      "name": "item_029_train_vs_eval_encoding_byte_diff_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "rows=1",
+      "name": "item_029_decision_branch_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "branch=objective_wiring",
+      "name": "item_029_decision_branch_valid",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "results/experiment_items/item_030_p2_w3_hook_capacity.json",
+      "name": "item_030_p2_w3_hook_capacity_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "keys=['source', 'columns', 'rows']",
+      "name": "item_030_model_card_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "keys=['columns', 'rows']",
+      "name": "item_030_state_hook_round_trip_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "keys=['source', 'columns', 'rows']",
+      "name": "item_030_capacity_at_real_gdn_dims_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "keys=['columns', 'rows', 'status']",
+      "name": "item_030_decay_survival_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "keys=['columns', 'rows', 'status']",
+      "name": "item_030_native_rule_gap_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "keys=['columns', 'rows', 'status']",
+      "name": "item_030_propagation_per_task_delta_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "keys=['state_hookable', 'd_star_at_state_dims', 'survival_design', 'native_rule_gap_confirmed', 'propagation_tasks_ok', 'source']",
+      "name": "item_030_verdicts_echo_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "affected=True",
+      "name": "item_030_state_hook_round_trip_positive",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "status=PARTIAL_NOT_ACCEPTED",
+      "name": "item_030_marked_partial_not_complete",
       "status": "PASS",
       "tier": "contract"
     },
@@ -571,11 +757,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-07T10:29:22.037110+00:00",
+  "generated_at": "2026-06-07T10:36:27.552106+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 95,
+    "n_checks": 126,
     "n_fail": 9,
-    "n_pass": 86
+    "n_pass": 117
   }
 }

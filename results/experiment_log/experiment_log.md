@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-07T10:29:22.194741+00:00
+Generated at: 2026-06-07T10:36:27.711468+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,13 +17,15 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 | BLOCKER | G1=0.0; The Stage A critical blocker is G1 = 0.0 on the Sudoku6 bridge operator. |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=95; validation_passed=False |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=126; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Specified | g1_fix_spec plus Stage A adapter/gate/Sudoku6 diagnostic artifacts are present; retraining not launched. |
-| P2 | W3 Qwen3.5 probe | do_not_integrate_yet | W3.0=PASS; W3.1/W3.2 heavy probes not launched. |
+| P2 | W3 Qwen3.5 probe | alongside_candidate_pending_survival_and_delta_probes | W3.0=PASS; W3.1/W3.2 heavy probes not launched. |
 | P3 | TRM defensive analysis | Not launched | No TRM checkpoint/test-set grading code is present in this repo yet. |
 | Module1 law | per-depth capacity | Writable now | decision=k_direction_negative; open=False; shards=8 |
 | 028 | P0 ledger and validation housekeeping | COMPLETE_RED_EXPECTED | P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract. |
+| 029 | P1.1a G1 diagnosis Task A | COMPLETE_BLOCKED_OBJECTIVE_WIRING | Implement Sudoku6 dataset/encoding artifacts and parent adapter wiring before P1.1b retrain; route to objective_wiring rather than budget-only. |
+| 030 | P2 W3 Qwen3.5 hook and capacity probe | PARTIAL_NOT_ACCEPTED | Continue P2 with decay survival, native-delta gap, and W3.2 propagation delta probes; current grade is alongside_candidate_pending_survival_and_delta_probes, not accepted P2 completion. |
 
 ## Item Details
 
@@ -80,9 +82,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/validation/validation.json (yes)
   - results/validation/validation.md (yes)
 - Detail data:
-  - analysis/validate_outputs.py: embedded py (21138 bytes)
-  - results/validation/validation.json: embedded json (15459 bytes)
-  - results/validation/validation.md: embedded md (8619 bytes)
+  - analysis/validate_outputs.py: embedded py (23867 bytes)
+  - results/validation/validation.json: embedded json (21307 bytes)
+  - results/validation/validation.md: embedded md (12173 bytes)
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
 ### Item 021 - M2.0 frozen operator probe
@@ -187,7 +189,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 - Details:
   - materialized_status=BLOCKED_G1_ZERO; G1=0.0; single_step_forced_accuracy=0.0
   - gates={'G1_depth1_bridge': 'FAIL', 'G2_depth_frontier': 'NOT_RUN', 'L4_forward_floor': 'FAIL_NOT_RUN', 'L4_reverts_nonzero': 'FAIL_NOT_RUN'}
-  - stick_reasons={'bridge_trainer_missing': 1, 'parent_adapter_not_integrated': 1, 'sudoku6_dataset_generator_missing': 1}
+  - stick_reasons={'criterion_never_met': 1, 'missing_bridge_trainer': 1, 'missing_sudoku6_dataset_generator': 1, 'no_commit': 0, 'parent_adapter_not_integrated': 1, 'wrong_commit': 0}
   - teacher_trace_probe={'exists': True, 'path': 'artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl', 'sampled_action_counts': {'branch': 76, 'propagate': 4020, 'solved': 256}, 'sampled_max_backtrack_depth': 3, 'sampled_tasks': 256}
 - Artifacts:
   - results/continuation_state/post_027.json (yes)
@@ -195,17 +197,17 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - specs/g1_fix_spec.md (yes)
 - Detail data:
   - results/continuation_state/post_027.json: embedded json (1453 bytes)
-  - results/stage_a_sudoku6_bridge/results.json: embedded json (1174 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (2412 bytes)
   - specs/g1_fix_spec.md: embedded md (2587 bytes)
 - Next action: Implement the G1 fix; do not soften G2 or L4 checks.
 
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=95; validation_passed=False
+- Key result: validation_checks=126; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=86; validation_fail=9
+  - validation_pass=117; validation_fail=9
   - Current expected failures are Stage A G1/L4 and missing legacy scaffold artifacts.
 - Artifacts:
   - CANONICAL_REPO.md (yes)
@@ -214,8 +216,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/experiment_log/experiment_log.json (yes)
 - Detail data:
   - CANONICAL_REPO.md: embedded md (532 bytes)
-  - analysis/validate_outputs.py: embedded py (21138 bytes)
-  - results/validation/validation.json: embedded json (15459 bytes)
+  - analysis/validate_outputs.py: embedded py (23867 bytes)
+  - results/validation/validation.json: embedded json (21307 bytes)
   - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
 - Next action: Keep future reports item-first and preserve explicit red checks.
 
@@ -250,25 +252,25 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - specs/g1_fix_spec.md: embedded md (2587 bytes)
   - results/stage_a_adapter_wiring/results.json: embedded json (2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json: embedded json (3420 bytes)
-  - results/stage_a_sudoku6_bridge/results.json: embedded json (1174 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (2412 bytes)
 - Next action: Launch the actual bridge retrain only after concrete Sudoku6 data/training entrypoints exist.
 
 ### Item P2 - W3 Qwen3.5 probe
 
-- Status: do_not_integrate_yet
+- Status: alongside_candidate_pending_survival_and_delta_probes
 - Key result: W3.0=PASS; W3.1/W3.2 heavy probes not launched.
 - Details:
   - hidden_size=2560; layers=32; full_attention_layers=8; linear_layers=24
-  - capacity_estimates=6; hidden_hook={'load_model': False, 'status': 'SKIPPED_METADATA_ONLY'}
-  - verdicts={'W3.0_checkpoint_pin': 'PASS', 'W3.1_capacity_at_real_gdn_dims': 'PLANNING_ESTIMATE_ONLY', 'W3.1_gating_decay_stack_survival': 'NOT_RUN', 'W3.1_native_delta_rule_as_stack_gap': 'NOT_RUN', 'W3.2_qwen3_4b_delta_table': 'NOT_RUN'}
+  - capacity_estimates=6; hidden_hook={'device': 'cuda:0', 'hidden_dim': 2560, 'hidden_shape': [1, 29, 2560], 'last_token_norm': 154.2971649169922, 'load_model': True, 'state_hook_round_trip': {'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.03163394331932068}}
+  - verdicts={'W3.0_checkpoint_pin': 'PASS', 'W3.1_capacity_at_real_gdn_dims': 'PLANNING_ESTIMATE_ONLY', 'W3.1_gating_decay_stack_survival': 'HOOK_ONLY_NOT_SURVIVAL_CURVE', 'W3.1_native_delta_rule_as_stack_gap': 'NOT_RUN', 'W3.2_qwen3_4b_delta_table': 'NOT_RUN'}
 - Artifacts:
   - specs/w3_qwen35_probe_spec.md (yes)
   - results/w3_qwen35_probe/results.json (yes)
   - results/w3_qwen35_probe/verdicts.json (yes)
 - Detail data:
   - specs/w3_qwen35_probe_spec.md: embedded md (1807 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (3314 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (405 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (9321 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (459 bytes)
 - Next action: Run hidden-hook, gating-survival, native-delta, and W3.2 propagation probes before integration.
 
 ### Item P3 - TRM defensive analysis
@@ -330,23 +332,73 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/w3_qwen35_probe/results.json (yes)
   - results/w3_qwen35_probe/verdicts.json (yes)
 - Detail data:
-  - results/experiment_items/item_028_p0_housekeeping.json: embedded json (8388 bytes)
+  - results/experiment_items/item_028_p0_housekeeping.json: embedded json (8393 bytes)
   - CANONICAL_REPO.md: embedded md (532 bytes)
-  - ENV_SPEC.md: embedded md (7463 bytes)
-  - REPRODUCIBILITY.md: embedded md (3561 bytes)
+  - ENV_SPEC.md: embedded md (7465 bytes)
+  - REPRODUCIBILITY.md: embedded md (3563 bytes)
   - scripts/reproduce_continuation_state.sh: embedded sh (1972 bytes)
   - results/continuation_state/post_027.json: embedded json (1453 bytes)
-  - results/validation/validation.json: embedded json (15459 bytes)
-  - results/validation/validation.md: embedded md (8619 bytes)
+  - results/validation/validation.json: embedded json (21307 bytes)
+  - results/validation/validation.md: embedded md (12173 bytes)
   - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
   - results/experiment_log/experiment_log.md: not embedded (self_output_not_embedded)
   - specs/log_item_contract.md: embedded md (3662 bytes)
   - results/stage_a_adapter_wiring/results.json: embedded json (2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json: embedded json (3420 bytes)
-  - results/stage_a_sudoku6_bridge/results.json: embedded json (1174 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (3314 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (405 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (2412 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (9321 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (459 bytes)
 - Next action: P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract.
+
+### Item 029 - P1.1a G1 diagnosis Task A
+
+- Status: COMPLETE_BLOCKED_OBJECTIVE_WIRING
+- Key result: Implement Sudoku6 dataset/encoding artifacts and parent adapter wiring before P1.1b retrain; route to objective_wiring rather than budget-only.
+- Purpose: Executes P1.1 Task A from specs/g1_fix_spec.md: diagnose why the Sudoku6 bridge G1 is zero before any retraining. This item bears on the Stage A critical path by deciding whether the next fix is objective/wiring, commit criterion, or budget.
+- Details:
+  - purpose=Executes P1.1 Task A from specs/g1_fix_spec.md: diagnose why the Sudoku6 bridge G1 is zero before any retraining. This item bears on the Stage A critical path by deciding whether the next fix is objective/wiring, commit criterion, or budget.
+  - commands=2
+  - result_tables=['training_curve_summary', 'single_step_forced_precision_recall_by_depth', 'iterative_stick_reason_histogram', 'train_vs_eval_encoding_byte_diff', 'decision_branch']
+  - honesty=this item does NOT establish that the bridge objective is correct, that G1 can be fixed by longer training, or that any autonomous Sudoku6 solve works.
+- Artifacts:
+  - results/experiment_items/item_029_p1_1a_g1_diagnosis.json (yes)
+  - results/stage_a_sudoku6_bridge/results.json (yes)
+  - specs/g1_fix_spec.md (yes)
+  - experiments/stage_a_sudoku6_bridge.py (yes)
+- Detail data:
+  - results/experiment_items/item_029_p1_1a_g1_diagnosis.json: embedded json (5525 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (2412 bytes)
+  - specs/g1_fix_spec.md: embedded md (2587 bytes)
+  - experiments/stage_a_sudoku6_bridge.py: embedded py (5224 bytes)
+- Next action: Implement Sudoku6 dataset/encoding artifacts and parent adapter wiring before P1.1b retrain; route to objective_wiring rather than budget-only.
+
+### Item 030 - P2 W3 Qwen3.5 hook and capacity probe
+
+- Status: PARTIAL_NOT_ACCEPTED
+- Key result: Continue P2 with decay survival, native-delta gap, and W3.2 propagation delta probes; current grade is alongside_candidate_pending_survival_and_delta_probes, not accepted P2 completion.
+- Purpose: Starts P2 from specs/w3_qwen35_probe_spec.md by loading Qwen/Qwen3.5-4B on GPU 6, recording model-card facts from the HF snapshot, verifying hidden-state tensor access/perturbability, and deriving capacity-law overlays at the real hidden dimension. This item bears on the S3.1 integration grade but does not complete P2 because survival, native-delta gap, and propagation delta probes remain unrun.
+- Details:
+  - purpose=Starts P2 from specs/w3_qwen35_probe_spec.md by loading Qwen/Qwen3.5-4B on GPU 6, recording model-card facts from the HF snapshot, verifying hidden-state tensor access/perturbability, and deriving capacity-law overlays at the real hidden dimension. This item bears on the S3.1 integration grade but does not complete P2 because survival, native-delta gap, and propagation delta probes remain unrun.
+  - commands=1
+  - result_tables=['model_card', 'state_hook_round_trip', 'capacity_at_real_gdn_dims', 'decay_survival', 'native_rule_gap', 'propagation_per_task_delta', 'verdicts_echo']
+  - honesty=this item does NOT establish that Qwen3.5 has stable in-state stack memory, that native hidden deltas implement keyed register operations, or that propagation improves over Qwen3-4B.
+- Artifacts:
+  - results/experiment_items/item_030_p2_w3_hook_capacity.json (yes)
+  - results/w3_qwen35_probe/results.json (yes)
+  - results/w3_qwen35_probe/verdicts.json (yes)
+  - specs/w3_qwen35_probe_spec.md (yes)
+  - experiments/w3_qwen35_probe.py (yes)
+  - results/model_download/qwen3_5_4b/qwen_download.json (yes)
+  - results/module1_capacity_perdepth_shards/results.json (yes)
+- Detail data:
+  - results/experiment_items/item_030_p2_w3_hook_capacity.json: embedded json (7570 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (9321 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (459 bytes)
+  - specs/w3_qwen35_probe_spec.md: embedded md (1807 bytes)
+  - experiments/w3_qwen35_probe.py: embedded py (11713 bytes)
+  - results/model_download/qwen3_5_4b/qwen_download.json: embedded json (326 bytes)
+  - results/module1_capacity_perdepth_shards/results.json: embedded json (7251562 bytes)
+- Next action: Continue P2 with decay survival, native-delta gap, and W3.2 propagation delta probes; current grade is alongside_candidate_pending_survival_and_delta_probes, not accepted P2 completion.
 
 
 ## Canonical Repo Decision
@@ -385,8 +437,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | M2.0 frozen Qwen operator | RED | verdict=PER_TASK_ROUTING; list_all_recall=0.3771; single_precision=0.4322 |
 | Branch policy | YELLOW | qwen_nodes=4.939; mrv_nodes=5.067; qwen_invalid_rate=0.2316 |
 | Stage A in-loop proof | RED | n_cells=0; statuses=['PARENT_ADAPTER_REQUIRED']; G1=0.0 |
-| W3 Qwen3.5 | YELLOW | integration_grade=do_not_integrate_yet; W3.0=PASS |
-| Validation | RED | checks=95; pass=86; fail=9 |
+| W3 Qwen3.5 | YELLOW | integration_grade=alongside_candidate_pending_survival_and_delta_probes; W3.0=PASS |
+| Validation | RED | checks=126; pass=117; fail=9 |
 
 ## Artifact Index
 
@@ -396,6 +448,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | environment_spec | ENV_SPEC.md | yes |
 | post_027_continuation_state | results/continuation_state/post_027.json | yes |
 | item_028_p0_housekeeping | results/experiment_items/item_028_p0_housekeeping.json | yes |
+| item_029_p1_1a_g1_diagnosis | results/experiment_items/item_029_p1_1a_g1_diagnosis.json | yes |
+| item_030_p2_w3_hook_capacity | results/experiment_items/item_030_p2_w3_hook_capacity.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
 | qwen3_4b_instruct_download | results/model_download/qwen_download.json | yes |
@@ -425,13 +479,13 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 
 | tier | pass | fail |
 | --- | --- | --- |
-| contract | 14 | 0 |
+| contract | 43 | 0 |
 | env | 13 | 0 |
 | legacy | 0 | 6 |
 | p0 | 2 | 0 |
 | tier_a | 35 | 0 |
 | tier_b | 17 | 3 |
-| tier_c | 5 | 0 |
+| tier_c | 7 | 0 |
 
 ## P0/P1/P2/P3 Execution Notes
 

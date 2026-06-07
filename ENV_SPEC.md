@@ -121,7 +121,7 @@ Then refresh the current continuation artifacts, validation, and ledger:
 bash scripts/reproduce_continuation_state.sh
 ```
 
-The current expected validation state is red, not all green: `86 PASS / 9 FAIL / 95 total`. The remaining red checks are Stage A G1/L4 blockers plus missing legacy scaffold artifacts.
+The current expected validation state is red, not all green: `117 PASS / 9 FAIL / 126 total`. The remaining red checks are Stage A G1/L4 blockers plus missing legacy scaffold artifacts.
 
 ## 7. Full Scaffold Run Order
 

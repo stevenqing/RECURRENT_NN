@@ -15,6 +15,8 @@ ARTIFACT_INDEX = {
     "environment_spec": "ENV_SPEC.md",
     "post_027_continuation_state": "results/continuation_state/post_027.json",
     "item_028_p0_housekeeping": "results/experiment_items/item_028_p0_housekeeping.json",
+    "item_029_p1_1a_g1_diagnosis": "results/experiment_items/item_029_p1_1a_g1_diagnosis.json",
+    "item_030_p2_w3_hook_capacity": "results/experiment_items/item_030_p2_w3_hook_capacity.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "model_readiness": "results/model_readiness/readiness.json",
     "qwen3_4b_instruct_download": "results/model_download/qwen_download.json",
