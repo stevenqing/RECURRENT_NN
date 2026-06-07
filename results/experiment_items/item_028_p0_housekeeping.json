@@ -67,11 +67,11 @@
       "columns": ["phase", "total_check_count", "passed", "failed", "provenance"],
       "rows": [
         {"phase": "before_consolidated_run", "total_check_count": 1, "passed": 0, "failed": 1, "provenance": "measured_from_master_runbook_reported_regression"},
-        {"phase": "after_restored_registry", "total_check_count": 126, "passed": 117, "failed": 9, "provenance": "measured:results/validation/validation.json::summary"}
+        {"phase": "after_restored_registry", "total_check_count": 142, "passed": 133, "failed": 9, "provenance": "measured:results/validation/validation.json::summary"}
       ],
       "restored_checks": {
         "source": "results/validation/validation.json::checks",
-        "count": 126,
+        "count": 142,
         "current_expected_red": [
           "stage_a_sudoku6_g1_pass",
           "stage_a_reverts_nonzero_on_L4",
@@ -116,7 +116,7 @@
   "decision": {
     "gate_outcomes": [
       {"gate": "canonical_repo_is_recurrent_nn", "outcome": "PASS", "number": "/home/aiscuser/RECURRENT_NN", "provenance": "measured:results/validation/validation.json"},
-      {"gate": "validation_registry_restored", "outcome": "PASS", "number": "126 checks, 117 pass, 9 fail", "provenance": "measured:results/validation/validation.json"},
+      {"gate": "validation_registry_restored", "outcome": "PASS", "number": "142 checks, 133 pass, 9 fail", "provenance": "measured:results/validation/validation.json"},
       {"gate": "items_025_027_folded", "outcome": "PASS", "number": "3/3 folded", "provenance": "measured:results/continuation_state/post_027.json plus post025-027 artifacts"},
       {"gate": "stage_a_g1", "outcome": "FAIL_EXPECTED", "number": "G1=0.0", "provenance": "measured:results/stage_a_sudoku6_bridge/results.json"}
     ],

@@ -49,6 +49,7 @@ PATHS = {
     "item_028_p0_housekeeping": "results/experiment_items/item_028_p0_housekeeping.json",
     "item_029_p1_1a_g1_diagnosis": "results/experiment_items/item_029_p1_1a_g1_diagnosis.json",
     "item_030_p2_w3_hook_capacity": "results/experiment_items/item_030_p2_w3_hook_capacity.json",
+    "item_031_p2_w3_survival_delta_propagation": "results/experiment_items/item_031_p2_w3_survival_delta_propagation.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
@@ -227,12 +228,22 @@ def _w3_checks(checks: list[dict[str, Any]]) -> None:
         verdicts = probe.get("verdicts", {})
         _check(checks, probe.get("model_id") == "Qwen/Qwen3.5-4B", "w3_qwen35_model_id", f"model_id={probe.get('model_id')}", "tier_c")
         _check(checks, verdicts.get("W3.0_checkpoint_pin") == "PASS", "w3_checkpoint_pin_pass", f"verdict={verdicts.get('W3.0_checkpoint_pin')}", "tier_c")
-        allowed_grades = {"do_not_integrate_yet", "alongside_candidate_pending_survival_and_delta_probes"}
+        allowed_grades = {"do_not_integrate_yet", "alongside_candidate_pending_survival_and_delta_probes", "alongside_only_measured_not_in_state"}
         _check(checks, probe.get("integration_grade") in allowed_grades, "w3_integration_grade_not_overclaimed", f"integration_grade={probe.get('integration_grade')}", "tier_c")
         hook = probe.get("hidden_hook_probe", {})
         if hook.get("load_model"):
             _check(checks, hook.get("hidden_dim") == probe.get("config", {}).get("hidden_size"), "w3_hidden_hook_dim_matches_config", f"hidden_dim={hook.get('hidden_dim')}; config={probe.get('config', {}).get('hidden_size')}", "tier_c")
             _check(checks, hook.get("state_hook_round_trip", {}).get("perturbation_affected_next_step") is True, "w3_state_hook_perturbable", f"round_trip={hook.get('state_hook_round_trip')}", "tier_c")
+        tables = probe.get("p2_tables", {})
+        survival_rows = tables.get("decay_survival", {}).get("rows", [])
+        native_rows = tables.get("native_rule_gap", {}).get("rows", [])
+        propagation_rows = tables.get("propagation_per_task_delta", {}).get("rows", [])
+        if verdicts.get("W3.1_gating_decay_stack_survival") == "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE":
+            _check(checks, bool(survival_rows), "w3_survival_curve_measured", f"rows={len(survival_rows)}", "tier_c")
+        if verdicts.get("W3.1_native_delta_rule_as_stack_gap") == "MEASURED_NATIVE_HIDDEN_DELTA_GAP":
+            _check(checks, bool(native_rows) and all("native_delta_restore_error" in row for row in native_rows), "w3_native_delta_gap_measured", f"rows={len(native_rows)}", "tier_c")
+        if verdicts.get("W3.2_qwen3_4b_delta_table") == "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED":
+            _check(checks, bool(propagation_rows) and all(row.get("qwen35_verdict") for row in propagation_rows), "w3_propagation_per_task_delta_measured", f"rows={len(propagation_rows)}", "tier_c")
 
 
 def _item_contract_checks(checks: list[dict[str, Any]]) -> None:
@@ -310,6 +321,19 @@ def _item_contract_checks(checks: list[dict[str, Any]]) -> None:
         affected = state_rows[0].get("perturbation_affected_next_step") if state_rows else None
         _check(checks, affected is True, "item_030_state_hook_round_trip_positive", f"affected={affected}", "contract")
         _check(checks, item030.get("status") == "PARTIAL_NOT_ACCEPTED", "item_030_marked_partial_not_complete", f"status={item030.get('status')}", "contract")
+
+    item031 = _read_json("item_031_p2_w3_survival_delta_propagation")
+    _exists(checks, "item_031_p2_w3_survival_delta_propagation", "contract")
+    if item031:
+        tables = item031.get("result_tables", {})
+        for table_name in ["decay_survival", "native_rule_gap", "propagation_per_task_delta", "decision_summary"]:
+            table = tables.get(table_name, {})
+            _check(checks, bool(table.get("columns")) and bool(table.get("rows")), f"item_031_{table_name}_present", f"rows={len(table.get('rows', []))}", "contract")
+        decision_rows = tables.get("decision_summary", {}).get("rows", [])
+        integration_rows = [row for row in decision_rows if row.get("gate") == "integration_grade"]
+        decision = integration_rows[0].get("outcome") if integration_rows else None
+        _check(checks, decision == "alongside_only_measured_not_in_state", "item_031_no_in_state_overclaim", f"integration_grade={decision}", "contract")
+        _check(checks, item031.get("status") == "MEASURED_NOT_ACCEPTED", "item_031_marked_measured_not_accepted", f"status={item031.get('status')}", "contract")
 
 
 def _legacy_checks(checks: list[dict[str, Any]]) -> None:

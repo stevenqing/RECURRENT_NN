@@ -35,6 +35,7 @@ W3.1 gating-decay stack survival:
 - run only with `--load-model`
 - test whether encoded stack probes survive repeated current-node forward passes
 - output a survival curve and an integration-grade recommendation
+- the current implementation measures last-token prompt-hidden survival, not a true cached recurrent state intervention
 
 W3.1 native-delta-rule-as-stack gap:
 
@@ -45,6 +46,14 @@ W3.2 propagation probe with Qwen3-4B delta table:
 
 - reuse the M2.0 task suite and compare `Qwen/Qwen3.5-4B` against `Qwen/Qwen3-4B-Instruct-2507`
 - report per-task verdicts; do not accept ordering-only passes
+
+Small measured continuation run:
+
+```bash
+bash scripts/run_w3_qwen35_sharded.sh
+```
+
+The script runs hidden survival/native-delta on GPU 0 and shards W3.2 propagation by task family across GPUs 1-5 before merging the shard results into `results/w3_qwen35_probe/results.json`.
 
 ## Red Lines
 

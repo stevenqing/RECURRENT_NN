@@ -72,27 +72,75 @@
     "total_bytes": 9342907469,
     "total_gib": 8.701260638423264
   },
-  "generated_at": "2026-06-07T10:33:01.710144+00:00",
+  "generated_at": "2026-06-07T10:46:45.660823+00:00",
   "hidden_hook_probe": {
     "device": "cuda:0",
     "hidden_dim": 2560,
     "hidden_shape": [
       1,
-      29,
       2560
     ],
-    "last_token_norm": 154.2971649169922,
+    "last_token_norm": 154.29713439941406,
     "load_model": true,
     "state_hook_round_trip": {
       "note": "This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.",
       "perturbation_affected_next_step": true,
       "perturbation_injected": true,
-      "perturbation_norm": 0.03163394331932068
+      "perturbation_norm": 0.05059561878442764
     }
   },
-  "integration_grade": "alongside_candidate_pending_survival_and_delta_probes",
+  "integration_grade": "alongside_only_measured_not_in_state",
   "model_id": "Qwen/Qwen3.5-4B",
   "module": "w3_qwen35_probe",
+  "native_delta_probe": {
+    "columns": [
+      "depth",
+      "intervening_updates",
+      "native_delta_restore_error",
+      "keyed_register_restore_error",
+      "delta_inverse_cosine",
+      "failure_modes",
+      "provenance"
+    ],
+    "rows": [
+      {
+        "delta_inverse_cosine": 0.520368218421936,
+        "depth": 1,
+        "failure_modes": [
+          "push_pop_does_not_restore_hidden_state"
+        ],
+        "intervening_updates": 1,
+        "keyed_register_restore_error": 0.0,
+        "native_delta_restore_error": 0.8641370529955307,
+        "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"
+      },
+      {
+        "delta_inverse_cosine": 0.4312379062175751,
+        "depth": 2,
+        "failure_modes": [
+          "push_pop_does_not_restore_hidden_state",
+          "pop_delta_not_inverse_of_push_delta"
+        ],
+        "intervening_updates": 1,
+        "keyed_register_restore_error": 0.0,
+        "native_delta_restore_error": 1.0111409477447246,
+        "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"
+      },
+      {
+        "delta_inverse_cosine": 0.30227959156036377,
+        "depth": 3,
+        "failure_modes": [
+          "push_pop_does_not_restore_hidden_state",
+          "pop_delta_not_inverse_of_push_delta"
+        ],
+        "intervening_updates": 1,
+        "keyed_register_restore_error": 0.0,
+        "native_delta_restore_error": 1.0390494528846526,
+        "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"
+      }
+    ],
+    "status": "MEASURED_NATIVE_HIDDEN_DELTA_GAP"
+  },
   "p2_tables": {
     "capacity_at_real_gdn_dims": {
       "columns": [
@@ -168,9 +216,115 @@
         "half_life",
         "provenance"
       ],
-      "integration_grade_decision": "alongside",
-      "rows": [],
-      "status": "HOOK_ONLY_NOT_SURVIVAL_CURVE"
+      "integration_grade_decision": "alongside_only",
+      "rows": [
+        {
+          "half_life": 1,
+          "intervening_steps": 0,
+          "level": 1,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 1.0000007152557373
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 1,
+          "level": 1,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 0.3905624449253082
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 2,
+          "level": 1,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 0.3868197202682495
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 4,
+          "level": 1,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 0.38862067461013794
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 8,
+          "level": 1,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 0.35579007863998413
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 0,
+          "level": 2,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 1.0000005960464478
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 1,
+          "level": 2,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 0.40271395444869995
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 2,
+          "level": 2,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 0.4016258120536804
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 4,
+          "level": 2,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 0.4137364625930786
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 8,
+          "level": 2,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 0.36593642830848694
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 0,
+          "level": 4,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 1.0000007152557373
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 1,
+          "level": 4,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 0.39714741706848145
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 2,
+          "level": 4,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 0.38576340675354004
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 4,
+          "level": 4,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 0.40027013421058655
+        },
+        {
+          "half_life": 1,
+          "intervening_steps": 8,
+          "level": 4,
+          "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+          "survival": 0.35914790630340576
+        }
+      ],
+      "status": "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE"
     },
     "model_card": {
       "columns": [
@@ -237,10 +391,48 @@
         "intervening_updates",
         "native_delta_restore_error",
         "keyed_register_restore_error",
+        "delta_inverse_cosine",
+        "failure_modes",
         "provenance"
       ],
-      "rows": [],
-      "status": "NOT_RUN"
+      "rows": [
+        {
+          "delta_inverse_cosine": 0.520368218421936,
+          "depth": 1,
+          "failure_modes": [
+            "push_pop_does_not_restore_hidden_state"
+          ],
+          "intervening_updates": 1,
+          "keyed_register_restore_error": 0.0,
+          "native_delta_restore_error": 0.8641370529955307,
+          "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"
+        },
+        {
+          "delta_inverse_cosine": 0.4312379062175751,
+          "depth": 2,
+          "failure_modes": [
+            "push_pop_does_not_restore_hidden_state",
+            "pop_delta_not_inverse_of_push_delta"
+          ],
+          "intervening_updates": 1,
+          "keyed_register_restore_error": 0.0,
+          "native_delta_restore_error": 1.0111409477447246,
+          "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"
+        },
+        {
+          "delta_inverse_cosine": 0.30227959156036377,
+          "depth": 3,
+          "failure_modes": [
+            "push_pop_does_not_restore_hidden_state",
+            "pop_delta_not_inverse_of_push_delta"
+          ],
+          "intervening_updates": 1,
+          "keyed_register_restore_error": 0.0,
+          "native_delta_restore_error": 1.0390494528846526,
+          "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"
+        }
+      ],
+      "status": "MEASURED_NATIVE_HIDDEN_DELTA_GAP"
     },
     "propagation_per_task_delta": {
       "columns": [
@@ -248,23 +440,504 @@
         "qwen35_verdict",
         "qwen3_4b_delta",
         "branch_rollout",
+        "parse_failure_rate",
+        "invalid_guess_rate",
         "provenance"
       ],
-      "rows": [],
-      "status": "NOT_RUN"
+      "rows": [
+        {
+          "branch_rollout": {
+            "qwen35_qwen_guess": {
+              "invalid_guess_rate": 0.7333333333333333,
+              "invalid_guesses": 11,
+              "mean_nodes_to_solve_or_cap": 5,
+              "n": 3,
+              "parse_failures": 11,
+              "solve_rate": 1.0
+            },
+            "qwen3_4b_qwen_guess_baseline": {
+              "invalid_guess_rate": 0.16897506925207756,
+              "invalid_guesses": 122,
+              "mean_nodes_to_solve_or_cap": 7.22,
+              "n": 100,
+              "parse_failures": 0,
+              "solve_rate": 1.0
+            }
+          },
+          "invalid_guess_rate": 0.7333333333333333,
+          "parse_failure_rate": 0.0,
+          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+          "qwen3_4b_delta": {
+            "fixpoint_reach_rate_delta": 0.06166666666666665,
+            "mean_nodes_delta": -2.2199999999999998,
+            "per_call_precision_delta": null
+          },
+          "task": "general_sat"
+        },
+        {
+          "branch_rollout": {
+            "qwen35_qwen_guess": {
+              "invalid_guess_rate": 0.8125,
+              "invalid_guesses": 13,
+              "mean_nodes_to_solve_or_cap": 5.333333333333333,
+              "n": 3,
+              "parse_failures": 13,
+              "solve_rate": 1.0
+            },
+            "qwen3_4b_qwen_guess_baseline": {
+              "invalid_guess_rate": 0.16903633491311215,
+              "invalid_guesses": 107,
+              "mean_nodes_to_solve_or_cap": 6.33,
+              "n": 100,
+              "parse_failures": 8,
+              "solve_rate": 1.0
+            }
+          },
+          "invalid_guess_rate": 0.8125,
+          "parse_failure_rate": 0.0,
+          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+          "qwen3_4b_delta": {
+            "fixpoint_reach_rate_delta": -0.15000000000000002,
+            "mean_nodes_delta": -0.996666666666667,
+            "per_call_precision_delta": null
+          },
+          "task": "graph_coloring"
+        },
+        {
+          "branch_rollout": {
+            "qwen35_qwen_guess": {
+              "invalid_guess_rate": 0.0,
+              "invalid_guesses": 0,
+              "mean_nodes_to_solve_or_cap": 1,
+              "n": 3,
+              "parse_failures": 0,
+              "solve_rate": 1.0
+            },
+            "qwen3_4b_qwen_guess_baseline": {
+              "invalid_guess_rate": 0.0,
+              "invalid_guesses": 0,
+              "mean_nodes_to_solve_or_cap": 1,
+              "n": 45,
+              "parse_failures": 0,
+              "solve_rate": 1.0
+            }
+          },
+          "invalid_guess_rate": 0.0,
+          "parse_failure_rate": 0.0,
+          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+          "qwen3_4b_delta": {
+            "fixpoint_reach_rate_delta": -0.17333333333333334,
+            "mean_nodes_delta": 0,
+            "per_call_precision_delta": null
+          },
+          "task": "horn_sat"
+        },
+        {
+          "branch_rollout": {
+            "qwen35_qwen_guess": {
+              "invalid_guess_rate": 0.7857142857142857,
+              "invalid_guesses": 11,
+              "mean_nodes_to_solve_or_cap": 4.666666666666667,
+              "n": 3,
+              "parse_failures": 11,
+              "solve_rate": 1.0
+            },
+            "qwen3_4b_qwen_guess_baseline": {
+              "invalid_guess_rate": 0.4068554396423249,
+              "invalid_guesses": 273,
+              "mean_nodes_to_solve_or_cap": 6.71,
+              "n": 100,
+              "parse_failures": 136,
+              "solve_rate": 1.0
+            }
+          },
+          "invalid_guess_rate": 0.7857142857142857,
+          "parse_failure_rate": 0.0,
+          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+          "qwen3_4b_delta": {
+            "fixpoint_reach_rate_delta": -0.13,
+            "mean_nodes_delta": -2.043333333333333,
+            "per_call_precision_delta": null
+          },
+          "task": "logic_grid"
+        },
+        {
+          "branch_rollout": {
+            "qwen35_qwen_guess": {
+              "invalid_guess_rate": 0.0,
+              "invalid_guesses": 0,
+              "mean_nodes_to_solve_or_cap": 1,
+              "n": 3,
+              "parse_failures": 0,
+              "solve_rate": 1.0
+            },
+            "qwen3_4b_qwen_guess_baseline": {
+              "invalid_guess_rate": 0.05511811023622047,
+              "invalid_guesses": 7,
+              "mean_nodes_to_solve_or_cap": 1.27,
+              "n": 100,
+              "parse_failures": 2,
+              "solve_rate": 1.0
+            }
+          },
+          "invalid_guess_rate": 0.0,
+          "parse_failure_rate": 0.0,
+          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+          "qwen3_4b_delta": {
+            "fixpoint_reach_rate_delta": -0.15833333333333333,
+            "mean_nodes_delta": -0.27,
+            "per_call_precision_delta": null
+          },
+          "task": "sudoku_4x4"
+        }
+      ],
+      "settings": {
+        "shards": [
+          {
+            "settings": {
+              "batch_size": 2,
+              "cap_nodes": 32,
+              "max_nodes_per_task": 2,
+              "n_instances": 3,
+              "seeds": [
+                42
+              ],
+              "task_types": [
+                "horn_sat"
+              ]
+            },
+            "shard_dir": "results/w3_qwen35_probe/propagation_shards/horn_sat"
+          },
+          {
+            "settings": {
+              "batch_size": 2,
+              "cap_nodes": 32,
+              "max_nodes_per_task": 2,
+              "n_instances": 3,
+              "seeds": [
+                42
+              ],
+              "task_types": [
+                "general_sat"
+              ]
+            },
+            "shard_dir": "results/w3_qwen35_probe/propagation_shards/general_sat"
+          },
+          {
+            "settings": {
+              "batch_size": 2,
+              "cap_nodes": 32,
+              "max_nodes_per_task": 2,
+              "n_instances": 3,
+              "seeds": [
+                42
+              ],
+              "task_types": [
+                "graph_coloring"
+              ]
+            },
+            "shard_dir": "results/w3_qwen35_probe/propagation_shards/graph_coloring"
+          },
+          {
+            "settings": {
+              "batch_size": 2,
+              "cap_nodes": 32,
+              "max_nodes_per_task": 2,
+              "n_instances": 3,
+              "seeds": [
+                42
+              ],
+              "task_types": [
+                "sudoku_4x4"
+              ]
+            },
+            "shard_dir": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4"
+          },
+          {
+            "settings": {
+              "batch_size": 2,
+              "cap_nodes": 32,
+              "max_nodes_per_task": 2,
+              "n_instances": 3,
+              "seeds": [
+                42
+              ],
+              "task_types": [
+                "logic_grid"
+              ]
+            },
+            "shard_dir": "results/w3_qwen35_probe/propagation_shards/logic_grid"
+          }
+        ]
+      },
+      "status": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED",
+      "summary": {
+        "note": "Merged from per-task-type propagation shards."
+      }
     },
     "state_hook_round_trip": {
       "note": "This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.",
       "perturbation_affected_next_step": true,
       "perturbation_injected": true,
-      "perturbation_norm": 0.03163394331932068
+      "perturbation_norm": 0.05059561878442764
     },
     "verdicts_echo": {
       "W3.0_checkpoint_pin": "PASS",
       "W3.1_capacity_at_real_gdn_dims": "PLANNING_ESTIMATE_ONLY",
-      "W3.1_gating_decay_stack_survival": "HOOK_ONLY_NOT_SURVIVAL_CURVE",
-      "W3.1_native_delta_rule_as_stack_gap": "NOT_RUN",
-      "W3.2_qwen3_4b_delta_table": "NOT_RUN"
+      "W3.1_gating_decay_stack_survival": "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE",
+      "W3.1_native_delta_rule_as_stack_gap": "MEASURED_NATIVE_HIDDEN_DELTA_GAP",
+      "W3.2_qwen3_4b_delta_table": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+    }
+  },
+  "propagation_probe": {
+    "columns": [
+      "task",
+      "qwen35_verdict",
+      "qwen3_4b_delta",
+      "branch_rollout",
+      "parse_failure_rate",
+      "invalid_guess_rate",
+      "provenance"
+    ],
+    "rows": [
+      {
+        "branch_rollout": {
+          "qwen35_qwen_guess": {
+            "invalid_guess_rate": 0.7333333333333333,
+            "invalid_guesses": 11,
+            "mean_nodes_to_solve_or_cap": 5,
+            "n": 3,
+            "parse_failures": 11,
+            "solve_rate": 1.0
+          },
+          "qwen3_4b_qwen_guess_baseline": {
+            "invalid_guess_rate": 0.16897506925207756,
+            "invalid_guesses": 122,
+            "mean_nodes_to_solve_or_cap": 7.22,
+            "n": 100,
+            "parse_failures": 0,
+            "solve_rate": 1.0
+          }
+        },
+        "invalid_guess_rate": 0.7333333333333333,
+        "parse_failure_rate": 0.0,
+        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+        "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+        "qwen3_4b_delta": {
+          "fixpoint_reach_rate_delta": 0.06166666666666665,
+          "mean_nodes_delta": -2.2199999999999998,
+          "per_call_precision_delta": null
+        },
+        "task": "general_sat"
+      },
+      {
+        "branch_rollout": {
+          "qwen35_qwen_guess": {
+            "invalid_guess_rate": 0.8125,
+            "invalid_guesses": 13,
+            "mean_nodes_to_solve_or_cap": 5.333333333333333,
+            "n": 3,
+            "parse_failures": 13,
+            "solve_rate": 1.0
+          },
+          "qwen3_4b_qwen_guess_baseline": {
+            "invalid_guess_rate": 0.16903633491311215,
+            "invalid_guesses": 107,
+            "mean_nodes_to_solve_or_cap": 6.33,
+            "n": 100,
+            "parse_failures": 8,
+            "solve_rate": 1.0
+          }
+        },
+        "invalid_guess_rate": 0.8125,
+        "parse_failure_rate": 0.0,
+        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+        "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+        "qwen3_4b_delta": {
+          "fixpoint_reach_rate_delta": -0.15000000000000002,
+          "mean_nodes_delta": -0.996666666666667,
+          "per_call_precision_delta": null
+        },
+        "task": "graph_coloring"
+      },
+      {
+        "branch_rollout": {
+          "qwen35_qwen_guess": {
+            "invalid_guess_rate": 0.0,
+            "invalid_guesses": 0,
+            "mean_nodes_to_solve_or_cap": 1,
+            "n": 3,
+            "parse_failures": 0,
+            "solve_rate": 1.0
+          },
+          "qwen3_4b_qwen_guess_baseline": {
+            "invalid_guess_rate": 0.0,
+            "invalid_guesses": 0,
+            "mean_nodes_to_solve_or_cap": 1,
+            "n": 45,
+            "parse_failures": 0,
+            "solve_rate": 1.0
+          }
+        },
+        "invalid_guess_rate": 0.0,
+        "parse_failure_rate": 0.0,
+        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+        "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+        "qwen3_4b_delta": {
+          "fixpoint_reach_rate_delta": -0.17333333333333334,
+          "mean_nodes_delta": 0,
+          "per_call_precision_delta": null
+        },
+        "task": "horn_sat"
+      },
+      {
+        "branch_rollout": {
+          "qwen35_qwen_guess": {
+            "invalid_guess_rate": 0.7857142857142857,
+            "invalid_guesses": 11,
+            "mean_nodes_to_solve_or_cap": 4.666666666666667,
+            "n": 3,
+            "parse_failures": 11,
+            "solve_rate": 1.0
+          },
+          "qwen3_4b_qwen_guess_baseline": {
+            "invalid_guess_rate": 0.4068554396423249,
+            "invalid_guesses": 273,
+            "mean_nodes_to_solve_or_cap": 6.71,
+            "n": 100,
+            "parse_failures": 136,
+            "solve_rate": 1.0
+          }
+        },
+        "invalid_guess_rate": 0.7857142857142857,
+        "parse_failure_rate": 0.0,
+        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+        "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+        "qwen3_4b_delta": {
+          "fixpoint_reach_rate_delta": -0.13,
+          "mean_nodes_delta": -2.043333333333333,
+          "per_call_precision_delta": null
+        },
+        "task": "logic_grid"
+      },
+      {
+        "branch_rollout": {
+          "qwen35_qwen_guess": {
+            "invalid_guess_rate": 0.0,
+            "invalid_guesses": 0,
+            "mean_nodes_to_solve_or_cap": 1,
+            "n": 3,
+            "parse_failures": 0,
+            "solve_rate": 1.0
+          },
+          "qwen3_4b_qwen_guess_baseline": {
+            "invalid_guess_rate": 0.05511811023622047,
+            "invalid_guesses": 7,
+            "mean_nodes_to_solve_or_cap": 1.27,
+            "n": 100,
+            "parse_failures": 2,
+            "solve_rate": 1.0
+          }
+        },
+        "invalid_guess_rate": 0.0,
+        "parse_failure_rate": 0.0,
+        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+        "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+        "qwen3_4b_delta": {
+          "fixpoint_reach_rate_delta": -0.15833333333333333,
+          "mean_nodes_delta": -0.27,
+          "per_call_precision_delta": null
+        },
+        "task": "sudoku_4x4"
+      }
+    ],
+    "settings": {
+      "shards": [
+        {
+          "settings": {
+            "batch_size": 2,
+            "cap_nodes": 32,
+            "max_nodes_per_task": 2,
+            "n_instances": 3,
+            "seeds": [
+              42
+            ],
+            "task_types": [
+              "horn_sat"
+            ]
+          },
+          "shard_dir": "results/w3_qwen35_probe/propagation_shards/horn_sat"
+        },
+        {
+          "settings": {
+            "batch_size": 2,
+            "cap_nodes": 32,
+            "max_nodes_per_task": 2,
+            "n_instances": 3,
+            "seeds": [
+              42
+            ],
+            "task_types": [
+              "general_sat"
+            ]
+          },
+          "shard_dir": "results/w3_qwen35_probe/propagation_shards/general_sat"
+        },
+        {
+          "settings": {
+            "batch_size": 2,
+            "cap_nodes": 32,
+            "max_nodes_per_task": 2,
+            "n_instances": 3,
+            "seeds": [
+              42
+            ],
+            "task_types": [
+              "graph_coloring"
+            ]
+          },
+          "shard_dir": "results/w3_qwen35_probe/propagation_shards/graph_coloring"
+        },
+        {
+          "settings": {
+            "batch_size": 2,
+            "cap_nodes": 32,
+            "max_nodes_per_task": 2,
+            "n_instances": 3,
+            "seeds": [
+              42
+            ],
+            "task_types": [
+              "sudoku_4x4"
+            ]
+          },
+          "shard_dir": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4"
+        },
+        {
+          "settings": {
+            "batch_size": 2,
+            "cap_nodes": 32,
+            "max_nodes_per_task": 2,
+            "n_instances": 3,
+            "seeds": [
+              42
+            ],
+            "task_types": [
+              "logic_grid"
+            ]
+          },
+          "shard_dir": "results/w3_qwen35_probe/propagation_shards/logic_grid"
+        }
+      ]
+    },
+    "status": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED",
+    "summary": {
+      "note": "Merged from per-task-type propagation shards."
     }
   },
   "red_lines": {
@@ -272,11 +945,129 @@
     "ordering_only_pass": false,
     "per_task_verdicts_required_for_W3_2": true
   },
+  "survival_probe": {
+    "columns": [
+      "level",
+      "intervening_steps",
+      "survival",
+      "half_life",
+      "provenance"
+    ],
+    "integration_grade_decision": "alongside_only",
+    "rows": [
+      {
+        "half_life": 1,
+        "intervening_steps": 0,
+        "level": 1,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 1.0000007152557373
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 1,
+        "level": 1,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 0.3905624449253082
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 2,
+        "level": 1,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 0.3868197202682495
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 4,
+        "level": 1,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 0.38862067461013794
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 8,
+        "level": 1,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 0.35579007863998413
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 0,
+        "level": 2,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 1.0000005960464478
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 1,
+        "level": 2,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 0.40271395444869995
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 2,
+        "level": 2,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 0.4016258120536804
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 4,
+        "level": 2,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 0.4137364625930786
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 8,
+        "level": 2,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 0.36593642830848694
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 0,
+        "level": 4,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 1.0000007152557373
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 1,
+        "level": 4,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 0.39714741706848145
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 2,
+        "level": 4,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 0.38576340675354004
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 4,
+        "level": 4,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 0.40027013421058655
+      },
+      {
+        "half_life": 1,
+        "intervening_steps": 8,
+        "level": 4,
+        "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention",
+        "survival": 0.35914790630340576
+      }
+    ],
+    "status": "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE"
+  },
   "verdicts": {
     "W3.0_checkpoint_pin": "PASS",
     "W3.1_capacity_at_real_gdn_dims": "PLANNING_ESTIMATE_ONLY",
-    "W3.1_gating_decay_stack_survival": "HOOK_ONLY_NOT_SURVIVAL_CURVE",
-    "W3.1_native_delta_rule_as_stack_gap": "NOT_RUN",
-    "W3.2_qwen3_4b_delta_table": "NOT_RUN"
+    "W3.1_gating_decay_stack_survival": "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE",
+    "W3.1_native_delta_rule_as_stack_gap": "MEASURED_NATIVE_HIDDEN_DELTA_GAP",
+    "W3.2_qwen3_4b_delta_table": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
   }
 }

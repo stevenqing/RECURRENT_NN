@@ -1,0 +1,152 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "031",
+  "name": "P2 W3 Qwen3.5 survival, native-delta, and propagation shards",
+  "status": "MEASURED_NOT_ACCEPTED",
+  "purpose": "Continue P2 from item 030 by using multiple GPUs to run the remaining W3.1/W3.2 measurements: prompt-hidden survival curves, native hidden push/pop delta gap, and a small M2 task-suite propagation delta against the stored Qwen3-4B baseline. This item measures the missing probes but does not accept Qwen3.5 as an in-state stack or complete a large-scale propagation proof.",
+  "code_added_used": [
+    {
+      "path": "experiments/w3_qwen35_probe.py",
+      "change": "Added run-survival, run-native-delta, run-propagation, propagation task-type sharding, and shard merge support."
+    },
+    {
+      "path": "scripts/run_w3_qwen35_sharded.sh",
+      "change": "Added reproducible multi-GPU launcher: hidden probes on GPU 0 and propagation shards over GPUs 1-5."
+    },
+    {
+      "path": "specs/w3_qwen35_probe_spec.md",
+      "change": "Documented measured continuation command and limitation that survival is prompt-hidden, not cached recurrent state."
+    },
+    {
+      "path": "analysis/validate_outputs.py",
+      "change": "Added W3 measured-probe validation and item 031 contract checks."
+    },
+    {
+      "path": "analysis/experiment_log.py",
+      "change": "Added item 031 to artifact index for item-first ledger embedding."
+    }
+  ],
+  "commands": [
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 ~/.local/bin/uv run --python .venv/bin/python python -m experiments.w3_qwen35_probe --output-dir results/w3_qwen35_probe --load-model --device cuda:0 --run-survival --run-native-delta > /tmp/w3_hidden.out",
+      "purpose": "Measured hidden hook, prompt-hidden survival, and native delta gap on Qwen/Qwen3.5-4B."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=1 ~/.local/bin/uv run --python .venv/bin/python python -m experiments.w3_qwen35_probe --output-dir results/w3_qwen35_probe/propagation_shards/horn_sat --device cuda:0 --run-propagation --propagation-task-types horn_sat --propagation-n-instances 3 --propagation-max-nodes-per-task 2 --propagation-seeds 42 --propagation-cap-nodes 32 --propagation-batch-size 2 > /tmp/w3_horn_sat.out",
+      "purpose": "Measured W3.2 propagation shard for horn_sat."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=2 ~/.local/bin/uv run --python .venv/bin/python python -m experiments.w3_qwen35_probe --output-dir results/w3_qwen35_probe/propagation_shards/general_sat --device cuda:0 --run-propagation --propagation-task-types general_sat --propagation-n-instances 3 --propagation-max-nodes-per-task 2 --propagation-seeds 42 --propagation-cap-nodes 32 --propagation-batch-size 2 > /tmp/w3_general_sat.out",
+      "purpose": "Measured W3.2 propagation shard for general_sat."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=3 ~/.local/bin/uv run --python .venv/bin/python python -m experiments.w3_qwen35_probe --output-dir results/w3_qwen35_probe/propagation_shards/graph_coloring --device cuda:0 --run-propagation --propagation-task-types graph_coloring --propagation-n-instances 3 --propagation-max-nodes-per-task 2 --propagation-seeds 42 --propagation-cap-nodes 32 --propagation-batch-size 2 > /tmp/w3_graph_coloring.out",
+      "purpose": "Measured W3.2 propagation shard for graph_coloring."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=4 ~/.local/bin/uv run --python .venv/bin/python python -m experiments.w3_qwen35_probe --output-dir results/w3_qwen35_probe/propagation_shards/sudoku_4x4 --device cuda:0 --run-propagation --propagation-task-types sudoku_4x4 --propagation-n-instances 3 --propagation-max-nodes-per-task 2 --propagation-seeds 42 --propagation-cap-nodes 32 --propagation-batch-size 2 > /tmp/w3_sudoku_4x4.out",
+      "purpose": "Measured W3.2 propagation shard for sudoku_4x4."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=5 ~/.local/bin/uv run --python .venv/bin/python python -m experiments.w3_qwen35_probe --output-dir results/w3_qwen35_probe/propagation_shards/logic_grid --device cuda:0 --run-propagation --propagation-task-types logic_grid --propagation-n-instances 3 --propagation-max-nodes-per-task 2 --propagation-seeds 42 --propagation-cap-nodes 32 --propagation-batch-size 2 > /tmp/w3_logic_grid.out",
+      "purpose": "Measured W3.2 propagation shard for logic_grid."
+    },
+    {
+      "command": "~/.local/bin/uv run --python .venv/bin/python python -m experiments.w3_qwen35_probe --output-dir results/w3_qwen35_probe --merge-propagation-shards results/w3_qwen35_probe/propagation_shards/horn_sat,results/w3_qwen35_probe/propagation_shards/general_sat,results/w3_qwen35_probe/propagation_shards/graph_coloring,results/w3_qwen35_probe/propagation_shards/sudoku_4x4,results/w3_qwen35_probe/propagation_shards/logic_grid > /tmp/w3_merge.out",
+      "purpose": "Merged propagation shards into canonical W3 result."
+    }
+  ],
+  "artifacts": [
+    "results/experiment_items/item_031_p2_w3_survival_delta_propagation.json",
+    "results/w3_qwen35_probe/results.json",
+    "results/w3_qwen35_probe/verdicts.json",
+    "results/w3_qwen35_probe/propagation_shards/horn_sat/results.json",
+    "results/w3_qwen35_probe/propagation_shards/general_sat/results.json",
+    "results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json",
+    "results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json",
+    "results/w3_qwen35_probe/propagation_shards/logic_grid/results.json",
+    "experiments/w3_qwen35_probe.py",
+    "scripts/run_w3_qwen35_sharded.sh",
+    "specs/w3_qwen35_probe_spec.md"
+  ],
+  "provenance": {
+    "model_id": "Qwen/Qwen3.5-4B",
+    "snapshot_path": "/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "generated_at": "2026-06-07T10:46:45.660823+00:00",
+    "devices": {
+      "hidden_survival_native_delta": "CUDA_VISIBLE_DEVICES=0",
+      "propagation_shards": "CUDA_VISIBLE_DEVICES=1,2,3,4,5"
+    },
+    "baseline": "results/m2_operator_probe/report_fix_rescale.json",
+    "sample_scale": "propagation_n_instances=3, propagation_max_nodes_per_task=2, propagation_seeds=42, propagation_cap_nodes=32, propagation_batch_size=2"
+  },
+  "result_tables": {
+    "decay_survival": {
+      "columns": ["level", "intervening_steps", "survival", "half_life", "provenance"],
+      "rows": [
+        {"level": 1, "intervening_steps": 0, "survival": 1.0000007152557373, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 1, "intervening_steps": 1, "survival": 0.3905624449253082, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 1, "intervening_steps": 2, "survival": 0.3868197202682495, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 1, "intervening_steps": 4, "survival": 0.38862067461013794, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 1, "intervening_steps": 8, "survival": 0.35579007863998413, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 2, "intervening_steps": 0, "survival": 1.0000005960464478, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 2, "intervening_steps": 1, "survival": 0.40271395444869995, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 2, "intervening_steps": 2, "survival": 0.4016258120536804, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 2, "intervening_steps": 4, "survival": 0.4137364625930786, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 2, "intervening_steps": 8, "survival": 0.36593642830848694, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 4, "intervening_steps": 0, "survival": 1.0000007152557373, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 4, "intervening_steps": 1, "survival": 0.39714741706848145, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 4, "intervening_steps": 2, "survival": 0.38576340675354004, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 4, "intervening_steps": 4, "survival": 0.40027013421058655, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"},
+        {"level": 4, "intervening_steps": 8, "survival": 0.35914790630340576, "half_life": 1, "provenance": "measured:last-token prompt-hidden cosine, not a cached recurrent state intervention"}
+      ],
+      "status": "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE"
+    },
+    "native_rule_gap": {
+      "columns": ["depth", "intervening_updates", "native_delta_restore_error", "keyed_register_restore_error", "delta_inverse_cosine", "failure_modes", "provenance"],
+      "rows": [
+        {"depth": 1, "intervening_updates": 1, "native_delta_restore_error": 0.8641370529955307, "keyed_register_restore_error": 0.0, "delta_inverse_cosine": 0.520368218421936, "failure_modes": ["push_pop_does_not_restore_hidden_state"], "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"},
+        {"depth": 2, "intervening_updates": 1, "native_delta_restore_error": 1.0111409477447246, "keyed_register_restore_error": 0.0, "delta_inverse_cosine": 0.4312379062175751, "failure_modes": ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"], "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"},
+        {"depth": 3, "intervening_updates": 1, "native_delta_restore_error": 1.0390494528846526, "keyed_register_restore_error": 0.0, "delta_inverse_cosine": 0.30227959156036377, "failure_modes": ["push_pop_does_not_restore_hidden_state", "pop_delta_not_inverse_of_push_delta"], "provenance": "measured:last-token prompt-hidden deltas versus exact structured push/pop target"}
+      ],
+      "status": "MEASURED_NATIVE_HIDDEN_DELTA_GAP"
+    },
+    "propagation_per_task_delta": {
+      "columns": ["task", "qwen35_verdict", "fixpoint_reach_rate_delta", "mean_nodes_delta", "invalid_guess_rate", "provenance"],
+      "rows": [
+        {"task": "general_sat", "qwen35_verdict": "NEEDS_OPERATOR_FIX", "fixpoint_reach_rate_delta": 0.06166666666666665, "mean_nodes_delta": -2.2199999999999998, "invalid_guess_rate": 0.7333333333333333, "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline"},
+        {"task": "graph_coloring", "qwen35_verdict": "NEEDS_OPERATOR_FIX", "fixpoint_reach_rate_delta": -0.15000000000000002, "mean_nodes_delta": -0.996666666666667, "invalid_guess_rate": 0.8125, "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline"},
+        {"task": "horn_sat", "qwen35_verdict": "NEEDS_OPERATOR_FIX", "fixpoint_reach_rate_delta": -0.17333333333333334, "mean_nodes_delta": 0, "invalid_guess_rate": 0.0, "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline"},
+        {"task": "logic_grid", "qwen35_verdict": "NEEDS_OPERATOR_FIX", "fixpoint_reach_rate_delta": -0.13, "mean_nodes_delta": -2.043333333333333, "invalid_guess_rate": 0.7857142857142857, "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline"},
+        {"task": "sudoku_4x4", "qwen35_verdict": "NEEDS_OPERATOR_FIX", "fixpoint_reach_rate_delta": -0.15833333333333333, "mean_nodes_delta": -0.27, "invalid_guess_rate": 0.0, "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline"}
+      ],
+      "status": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+    },
+    "decision_summary": {
+      "columns": ["gate", "outcome", "number", "routing"],
+      "rows": [
+        {"gate": "W3.1_gating_decay_stack_survival", "outcome": "MEASURED_NOT_ACCEPTED", "number": "half_life=1 at depths 1,2,4 under prompt-hidden cosine", "routing": "do not use as cached state proof"},
+        {"gate": "W3.1_native_delta_rule_as_stack_gap", "outcome": "MEASURED_NEGATIVE", "number": "restore_error=0.864..1.039; inverse_cosine falls to 0.302 at depth 3", "routing": "do not target native in-state stack integration"},
+        {"gate": "W3.2_qwen3_4b_delta_table", "outcome": "MEASURED_NOT_ACCEPTED", "number": "5/5 tasks NEEDS_OPERATOR_FIX", "routing": "continue as alongside-only candidate; no P2 accept"},
+        {"gate": "integration_grade", "outcome": "alongside_only_measured_not_in_state", "number": "survival/native/propagation measured", "routing": "alongside only; not in-state"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish stable cached recurrent stack memory in Qwen3.5, does not establish native hidden deltas as keyed register push/pop, does not show propagation improvement sufficient for acceptance, and does not complete a large-scale P2 proof.",
+    "limitations": [
+      "Survival uses last-token prompt-hidden cosine and repeated textual current-node passes, not a true kv_snapshot or recurrent hidden-state carry intervention.",
+      "Propagation is a small shard run with n_instances=3 and max_nodes_per_task=2 per task family.",
+      "Per-task propagation verdicts remain NEEDS_OPERATOR_FIX across all five task families."
+    ]
+  },
+  "decision": {
+    "gate_outcomes": [
+      {"gate": "W3.1_gating_decay_stack_survival", "outcome": "MEASURED_NOT_ACCEPTED"},
+      {"gate": "W3.1_native_delta_rule_as_stack_gap", "outcome": "MEASURED_NEGATIVE"},
+      {"gate": "W3.2_qwen3_4b_delta_table", "outcome": "MEASURED_NOT_ACCEPTED"},
+      {"gate": "P2_acceptance", "outcome": "FAIL_CLOSED_NOT_ACCEPTED"}
+    ],
+    "next_step_routing": "Treat Qwen3.5 as alongside-only measured evidence, not in-state integration. If P2 continues, scale propagation or design a true cached-state intervention; do not integrate Qwen3.5 into the structured state path from this item."
+  }
+}

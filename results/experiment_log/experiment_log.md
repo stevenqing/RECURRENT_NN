@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-07T10:36:27.711468+00:00
+Generated at: 2026-06-07T10:53:31.415522+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,15 +17,16 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 | BLOCKER | G1=0.0; The Stage A critical blocker is G1 = 0.0 on the Sudoku6 bridge operator. |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=126; validation_passed=False |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=142; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Specified | g1_fix_spec plus Stage A adapter/gate/Sudoku6 diagnostic artifacts are present; retraining not launched. |
-| P2 | W3 Qwen3.5 probe | alongside_candidate_pending_survival_and_delta_probes | W3.0=PASS; W3.1/W3.2 heavy probes not launched. |
+| P2 | W3 Qwen3.5 probe | alongside_only_measured_not_in_state | W3.0=PASS; survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; native_delta=MEASURED_NATIVE_HIDDEN_DELTA_GAP; propagation=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
 | P3 | TRM defensive analysis | Not launched | No TRM checkpoint/test-set grading code is present in this repo yet. |
 | Module1 law | per-depth capacity | Writable now | decision=k_direction_negative; open=False; shards=8 |
 | 028 | P0 ledger and validation housekeeping | COMPLETE_RED_EXPECTED | P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract. |
 | 029 | P1.1a G1 diagnosis Task A | COMPLETE_BLOCKED_OBJECTIVE_WIRING | Implement Sudoku6 dataset/encoding artifacts and parent adapter wiring before P1.1b retrain; route to objective_wiring rather than budget-only. |
 | 030 | P2 W3 Qwen3.5 hook and capacity probe | PARTIAL_NOT_ACCEPTED | Continue P2 with decay survival, native-delta gap, and W3.2 propagation delta probes; current grade is alongside_candidate_pending_survival_and_delta_probes, not accepted P2 completion. |
+| 031 | P2 W3 Qwen3.5 survival, native-delta, and propagation shards | MEASURED_NOT_ACCEPTED | Treat Qwen3.5 as alongside-only measured evidence, not in-state integration. If P2 continues, scale propagation or design a true cached-state intervention; do not integrate Qwen3.5 into the structured state path from this item. |
 
 ## Item Details
 
@@ -82,9 +83,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/validation/validation.json (yes)
   - results/validation/validation.md (yes)
 - Detail data:
-  - analysis/validate_outputs.py: embedded py (23867 bytes)
-  - results/validation/validation.json: embedded json (21307 bytes)
-  - results/validation/validation.md: embedded md (12173 bytes)
+  - analysis/validate_outputs.py: embedded py (26248 bytes)
+  - results/validation/validation.json: embedded json (24095 bytes)
+  - results/validation/validation.md: embedded md (13777 bytes)
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
 ### Item 021 - M2.0 frozen operator probe
@@ -204,10 +205,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=126; validation_passed=False
+- Key result: validation_checks=142; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=117; validation_fail=9
+  - validation_pass=133; validation_fail=9
   - Current expected failures are Stage A G1/L4 and missing legacy scaffold artifacts.
 - Artifacts:
   - CANONICAL_REPO.md (yes)
@@ -216,8 +217,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/experiment_log/experiment_log.json (yes)
 - Detail data:
   - CANONICAL_REPO.md: embedded md (532 bytes)
-  - analysis/validate_outputs.py: embedded py (23867 bytes)
-  - results/validation/validation.json: embedded json (21307 bytes)
+  - analysis/validate_outputs.py: embedded py (26248 bytes)
+  - results/validation/validation.json: embedded json (24095 bytes)
   - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
 - Next action: Keep future reports item-first and preserve explicit red checks.
 
@@ -257,21 +258,21 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 
 ### Item P2 - W3 Qwen3.5 probe
 
-- Status: alongside_candidate_pending_survival_and_delta_probes
-- Key result: W3.0=PASS; W3.1/W3.2 heavy probes not launched.
+- Status: alongside_only_measured_not_in_state
+- Key result: W3.0=PASS; survival=MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE; native_delta=MEASURED_NATIVE_HIDDEN_DELTA_GAP; propagation=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED
 - Details:
   - hidden_size=2560; layers=32; full_attention_layers=8; linear_layers=24
-  - capacity_estimates=6; hidden_hook={'device': 'cuda:0', 'hidden_dim': 2560, 'hidden_shape': [1, 29, 2560], 'last_token_norm': 154.2971649169922, 'load_model': True, 'state_hook_round_trip': {'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.03163394331932068}}
-  - verdicts={'W3.0_checkpoint_pin': 'PASS', 'W3.1_capacity_at_real_gdn_dims': 'PLANNING_ESTIMATE_ONLY', 'W3.1_gating_decay_stack_survival': 'HOOK_ONLY_NOT_SURVIVAL_CURVE', 'W3.1_native_delta_rule_as_stack_gap': 'NOT_RUN', 'W3.2_qwen3_4b_delta_table': 'NOT_RUN'}
+  - capacity_estimates=6; hidden_hook={'device': 'cuda:0', 'hidden_dim': 2560, 'hidden_shape': [1, 2560], 'last_token_norm': 154.29713439941406, 'load_model': True, 'state_hook_round_trip': {'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764}}
+  - verdicts={'W3.0_checkpoint_pin': 'PASS', 'W3.1_capacity_at_real_gdn_dims': 'PLANNING_ESTIMATE_ONLY', 'W3.1_gating_decay_stack_survival': 'MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE', 'W3.1_native_delta_rule_as_stack_gap': 'MEASURED_NATIVE_HIDDEN_DELTA_GAP', 'W3.2_qwen3_4b_delta_table': 'MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED'}
 - Artifacts:
   - specs/w3_qwen35_probe_spec.md (yes)
   - results/w3_qwen35_probe/results.json (yes)
   - results/w3_qwen35_probe/verdicts.json (yes)
 - Detail data:
-  - specs/w3_qwen35_probe_spec.md: embedded md (1807 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (9321 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (459 bytes)
-- Next action: Run hidden-hook, gating-survival, native-delta, and W3.2 propagation probes before integration.
+  - specs/w3_qwen35_probe_spec.md: embedded md (2204 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (36009 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (525 bytes)
+- Next action: Treat Qwen3.5 as alongside-only measured evidence unless future cached-state or larger propagation probes overturn this result.
 
 ### Item P3 - TRM defensive analysis
 
@@ -338,16 +339,16 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - REPRODUCIBILITY.md: embedded md (3563 bytes)
   - scripts/reproduce_continuation_state.sh: embedded sh (1972 bytes)
   - results/continuation_state/post_027.json: embedded json (1453 bytes)
-  - results/validation/validation.json: embedded json (21307 bytes)
-  - results/validation/validation.md: embedded md (12173 bytes)
+  - results/validation/validation.json: embedded json (24095 bytes)
+  - results/validation/validation.md: embedded md (13777 bytes)
   - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
   - results/experiment_log/experiment_log.md: not embedded (self_output_not_embedded)
   - specs/log_item_contract.md: embedded md (3662 bytes)
   - results/stage_a_adapter_wiring/results.json: embedded json (2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json: embedded json (3420 bytes)
   - results/stage_a_sudoku6_bridge/results.json: embedded json (2412 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (9321 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (459 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (36009 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (525 bytes)
 - Next action: P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract.
 
 ### Item 029 - P1.1a G1 diagnosis Task A
@@ -392,13 +393,49 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/module1_capacity_perdepth_shards/results.json (yes)
 - Detail data:
   - results/experiment_items/item_030_p2_w3_hook_capacity.json: embedded json (7570 bytes)
-  - results/w3_qwen35_probe/results.json: embedded json (9321 bytes)
-  - results/w3_qwen35_probe/verdicts.json: embedded json (459 bytes)
-  - specs/w3_qwen35_probe_spec.md: embedded md (1807 bytes)
-  - experiments/w3_qwen35_probe.py: embedded py (11713 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (36009 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (525 bytes)
+  - specs/w3_qwen35_probe_spec.md: embedded md (2204 bytes)
+  - experiments/w3_qwen35_probe.py: embedded py (28023 bytes)
   - results/model_download/qwen3_5_4b/qwen_download.json: embedded json (326 bytes)
   - results/module1_capacity_perdepth_shards/results.json: embedded json (7251562 bytes)
 - Next action: Continue P2 with decay survival, native-delta gap, and W3.2 propagation delta probes; current grade is alongside_candidate_pending_survival_and_delta_probes, not accepted P2 completion.
+
+### Item 031 - P2 W3 Qwen3.5 survival, native-delta, and propagation shards
+
+- Status: MEASURED_NOT_ACCEPTED
+- Key result: Treat Qwen3.5 as alongside-only measured evidence, not in-state integration. If P2 continues, scale propagation or design a true cached-state intervention; do not integrate Qwen3.5 into the structured state path from this item.
+- Purpose: Continue P2 from item 030 by using multiple GPUs to run the remaining W3.1/W3.2 measurements: prompt-hidden survival curves, native hidden push/pop delta gap, and a small M2 task-suite propagation delta against the stored Qwen3-4B baseline. This item measures the missing probes but does not accept Qwen3.5 as an in-state stack or complete a large-scale propagation proof.
+- Details:
+  - purpose=Continue P2 from item 030 by using multiple GPUs to run the remaining W3.1/W3.2 measurements: prompt-hidden survival curves, native hidden push/pop delta gap, and a small M2 task-suite propagation delta against the stored Qwen3-4B baseline. This item measures the missing probes but does not accept Qwen3.5 as an in-state stack or complete a large-scale propagation proof.
+  - commands=7
+  - result_tables=['decay_survival', 'native_rule_gap', 'propagation_per_task_delta', 'decision_summary']
+  - honesty=This item does not establish stable cached recurrent stack memory in Qwen3.5, does not establish native hidden deltas as keyed register push/pop, does not show propagation improvement sufficient for acceptance, and does not complete a large-scale P2 proof.
+- Artifacts:
+  - results/experiment_items/item_031_p2_w3_survival_delta_propagation.json (yes)
+  - results/w3_qwen35_probe/results.json (yes)
+  - results/w3_qwen35_probe/verdicts.json (yes)
+  - results/w3_qwen35_probe/propagation_shards/horn_sat/results.json (yes)
+  - results/w3_qwen35_probe/propagation_shards/general_sat/results.json (yes)
+  - results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json (yes)
+  - results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json (yes)
+  - results/w3_qwen35_probe/propagation_shards/logic_grid/results.json (yes)
+  - experiments/w3_qwen35_probe.py (yes)
+  - scripts/run_w3_qwen35_sharded.sh (yes)
+  - specs/w3_qwen35_probe_spec.md (yes)
+- Detail data:
+  - results/experiment_items/item_031_p2_w3_survival_delta_propagation.json: embedded json (14827 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (36009 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (525 bytes)
+  - results/w3_qwen35_probe/propagation_shards/horn_sat/results.json: embedded json (25083 bytes)
+  - results/w3_qwen35_probe/propagation_shards/general_sat/results.json: embedded json (25323 bytes)
+  - results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json: embedded json (25405 bytes)
+  - results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json: embedded json (25103 bytes)
+  - results/w3_qwen35_probe/propagation_shards/logic_grid/results.json: embedded json (25387 bytes)
+  - experiments/w3_qwen35_probe.py: embedded py (28023 bytes)
+  - scripts/run_w3_qwen35_sharded.sh: embedded sh (1576 bytes)
+  - specs/w3_qwen35_probe_spec.md: embedded md (2204 bytes)
+- Next action: Treat Qwen3.5 as alongside-only measured evidence, not in-state integration. If P2 continues, scale propagation or design a true cached-state intervention; do not integrate Qwen3.5 into the structured state path from this item.
 
 
 ## Canonical Repo Decision
@@ -437,8 +474,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | M2.0 frozen Qwen operator | RED | verdict=PER_TASK_ROUTING; list_all_recall=0.3771; single_precision=0.4322 |
 | Branch policy | YELLOW | qwen_nodes=4.939; mrv_nodes=5.067; qwen_invalid_rate=0.2316 |
 | Stage A in-loop proof | RED | n_cells=0; statuses=['PARENT_ADAPTER_REQUIRED']; G1=0.0 |
-| W3 Qwen3.5 | YELLOW | integration_grade=alongside_candidate_pending_survival_and_delta_probes; W3.0=PASS |
-| Validation | RED | checks=126; pass=117; fail=9 |
+| W3 Qwen3.5 | YELLOW | integration_grade=alongside_only_measured_not_in_state; W3.0=PASS |
+| Validation | RED | checks=142; pass=133; fail=9 |
 
 ## Artifact Index
 
@@ -450,6 +487,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | item_028_p0_housekeeping | results/experiment_items/item_028_p0_housekeeping.json | yes |
 | item_029_p1_1a_g1_diagnosis | results/experiment_items/item_029_p1_1a_g1_diagnosis.json | yes |
 | item_030_p2_w3_hook_capacity | results/experiment_items/item_030_p2_w3_hook_capacity.json | yes |
+| item_031_p2_w3_survival_delta_propagation | results/experiment_items/item_031_p2_w3_survival_delta_propagation.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
 | qwen3_4b_instruct_download | results/model_download/qwen_download.json | yes |
@@ -479,13 +517,13 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 
 | tier | pass | fail |
 | --- | --- | --- |
-| contract | 43 | 0 |
+| contract | 56 | 0 |
 | env | 13 | 0 |
 | legacy | 0 | 6 |
 | p0 | 2 | 0 |
 | tier_a | 35 | 0 |
 | tier_b | 17 | 3 |
-| tier_c | 7 | 0 |
+| tier_c | 10 | 0 |
 
 ## P0/P1/P2/P3 Execution Notes
 
@@ -493,7 +531,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 - P0.2: validation now emits many checks, including explicit red Stage A blockers, rather than one collapsed required-files failure.
 - P0.3: the front page now leads with evidence tiers and current blockers; constructed scaffold gates are demoted to the legacy archive.
 - P1: `specs/g1_fix_spec.md` plus adapter wiring, gate refusal, and Sudoku6 bridge diagnostic artifacts are present; the actual bridge retrain is not launched and G1 remains 0.0.
-- P2: `specs/w3_qwen35_probe_spec.md` and metadata-only W3 probe are present for `Qwen/Qwen3.5-4B`; hidden-hook and heavy propagation probes are still explicit follow-up jobs.
+- P2: `specs/w3_qwen35_probe_spec.md` and W3 Qwen3.5 measured probes are present; current result is alongside-only measured evidence, not in-state acceptance.
 - P3: TRM defensive analysis is not launched; no TRM checkpoint/test-set grading code is present in this repo yet.
 
 ## Legacy Scaffold Archive

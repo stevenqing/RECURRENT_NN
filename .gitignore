@@ -64,6 +64,9 @@ results/**
 !results/w3_qwen35_probe/
 !results/w3_qwen35_probe/results.json
 !results/w3_qwen35_probe/verdicts.json
+!results/w3_qwen35_probe/propagation_shards/
+!results/w3_qwen35_probe/propagation_shards/*/
+!results/w3_qwen35_probe/propagation_shards/*/results.json
 artifacts/stage_a/*
 !artifacts/stage_a/manifest.json
 figures/

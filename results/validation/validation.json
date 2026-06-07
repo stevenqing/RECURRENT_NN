@@ -445,7 +445,7 @@
       "tier": "tier_c"
     },
     {
-      "detail": "integration_grade=alongside_candidate_pending_survival_and_delta_probes",
+      "detail": "integration_grade=alongside_only_measured_not_in_state",
       "name": "w3_integration_grade_not_overclaimed",
       "status": "PASS",
       "tier": "tier_c"
@@ -457,8 +457,26 @@
       "tier": "tier_c"
     },
     {
-      "detail": "round_trip={'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.03163394331932068}",
+      "detail": "round_trip={'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764}",
       "name": "w3_state_hook_perturbable",
+      "status": "PASS",
+      "tier": "tier_c"
+    },
+    {
+      "detail": "rows=15",
+      "name": "w3_survival_curve_measured",
+      "status": "PASS",
+      "tier": "tier_c"
+    },
+    {
+      "detail": "rows=3",
+      "name": "w3_native_delta_gap_measured",
+      "status": "PASS",
+      "tier": "tier_c"
+    },
+    {
+      "detail": "rows=5",
+      "name": "w3_propagation_per_task_delta_measured",
       "status": "PASS",
       "tier": "tier_c"
     },
@@ -469,7 +487,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=3",
+      "detail": "count=4",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -583,6 +601,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_031_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_031_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=031",
+      "name": "log_item_031_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_031_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish stable cached recurrent stack memory in Qwen3.5, does not establish native hidden deltas as keyed register push/pop, does not show ",
+      "name": "log_item_031_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=Treat Qwen3.5 as alongside-only measured evidence, not in-state integration. If P2 continues, scale propagation or design a true cached-state intervention; do not integrate Qwen3.5 into the structured state path from this item.",
+      "name": "log_item_031_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -607,7 +661,7 @@
       "tier": "contract"
     },
     {
-      "detail": "after={'phase': 'after_restored_registry', 'total_check_count': 126, 'passed': 117, 'failed': 9, 'provenance': 'measured:results/validation/validation.json::summary'}",
+      "detail": "after={'phase': 'after_restored_registry', 'total_check_count': 142, 'passed': 133, 'failed': 9, 'provenance': 'measured:results/validation/validation.json::summary'}",
       "name": "item_028_validation_registry_many_checks",
       "status": "PASS",
       "tier": "contract"
@@ -721,6 +775,48 @@
       "tier": "contract"
     },
     {
+      "detail": "results/experiment_items/item_031_p2_w3_survival_delta_propagation.json",
+      "name": "item_031_p2_w3_survival_delta_propagation_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "rows=15",
+      "name": "item_031_decay_survival_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "rows=3",
+      "name": "item_031_native_rule_gap_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "rows=5",
+      "name": "item_031_propagation_per_task_delta_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "rows=4",
+      "name": "item_031_decision_summary_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "integration_grade=alongside_only_measured_not_in_state",
+      "name": "item_031_no_in_state_overclaim",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "status=MEASURED_NOT_ACCEPTED",
+      "name": "item_031_marked_measured_not_accepted",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/ttt/results.json",
       "name": "ttt_legacy_present",
       "status": "FAIL",
@@ -757,11 +853,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-07T10:36:27.552106+00:00",
+  "generated_at": "2026-06-07T10:53:31.254014+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 126,
+    "n_checks": 142,
     "n_fail": 9,
-    "n_pass": 117
+    "n_pass": 133
   }
 }

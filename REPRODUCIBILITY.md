@@ -57,7 +57,7 @@ DOWNLOAD_MODELS=1 bash scripts/reproduce_continuation_state.sh
 Expected current-state validation after refresh is not all green:
 
 ```text
-117 PASS / 9 FAIL / 126 total
+133 PASS / 9 FAIL / 142 total
 ```
 
 The remaining failures are expected until later work:
