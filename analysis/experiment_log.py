@@ -14,6 +14,8 @@ ARTIFACT_INDEX = {
     "canonical_repo_note": "CANONICAL_REPO.md",
     "environment_spec": "ENV_SPEC.md",
     "post_027_continuation_state": "results/continuation_state/post_027.json",
+    "item_028_p0_housekeeping": "results/experiment_items/item_028_p0_housekeeping.json",
+    "log_item_contract_spec": "specs/log_item_contract.md",
     "model_readiness": "results/model_readiness/readiness.json",
     "qwen3_4b_instruct_download": "results/model_download/qwen_download.json",
     "qwen3_4b_thinking_download": "results/model_download/thinking/qwen_download.json",
@@ -127,6 +129,35 @@ def _artifact_payload(path_text: str) -> dict[str, Any]:
     return payload
 
 
+def _external_item_records() -> list[dict[str, Any]]:
+    records = []
+    for path in sorted((REPO_ROOT / "results/experiment_items").glob("item_*.json")):
+        with path.open("r", encoding="utf-8") as handle:
+            item = json.load(handle)
+        item_number = str(item.get("item_number", path.stem))
+        artifacts = list(dict.fromkeys([str(path.relative_to(REPO_ROOT)), *item.get("artifacts", [])]))
+        details = [
+            f"purpose={item.get('purpose')}",
+            f"commands={len(item.get('commands', []))}",
+            f"result_tables={list((item.get('result_tables') or {}).keys())}",
+            f"honesty={item.get('honesty', {}).get('does_not_establish')}",
+        ]
+        return_record = {
+            "item": item_number,
+            "name": item.get("name", path.stem),
+            "status": item.get("status", "UNKNOWN"),
+            "key_result": item.get("decision", {}).get("next_step_routing", item.get("purpose", "")),
+            "purpose": item.get("purpose", ""),
+            "details": details,
+            "artifacts": [_artifact_ref(artifact) for artifact in artifacts],
+            "detail_data": {artifact: _artifact_payload(artifact) for artifact in artifacts},
+            "contract_data": item,
+            "next_action": item.get("decision", {}).get("next_step_routing", ""),
+        }
+        records.append(return_record)
+    return records
+
+
 def _item_records(data: dict[str, Any]) -> list[dict[str, Any]]:
     continuation = data.get("continuation") or {}
     items = {item.get("item"): item for item in continuation.get("items", [])}
@@ -164,7 +195,7 @@ def _item_records(data: dict[str, Any]) -> list[dict[str, Any]]:
             "next_action": next_action,
         }
 
-    return [
+    records = [
         record(
             "001-018",
             "legacy scaffold and early Module 1 setup",
@@ -358,6 +389,8 @@ def _item_records(data: dict[str, Any]) -> list[dict[str, Any]]:
             "Use this law as support for structured register capacity, not as a substitute for Stage A autonomous proof.",
         ),
     ]
+    records.extend(_external_item_records())
+    return records
 
 
 def _item_rows(records: list[dict[str, Any]]) -> list[list[str]]:
@@ -373,6 +406,8 @@ def _item_detail_lines(records: list[dict[str, Any]]) -> list[str]:
             f"- Status: {record['status']}",
             f"- Key result: {record['key_result']}",
         ])
+        if record.get("purpose"):
+            lines.append(f"- Purpose: {record['purpose']}")
         details = record.get("details", [])
         if details:
             lines.append("- Details:")

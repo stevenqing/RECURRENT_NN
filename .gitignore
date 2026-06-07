@@ -7,6 +7,8 @@ results/**
 !results/experiment_log/experiment_log.md
 !results/experiment_log/experiment_log.json
 !results/experiment_log/reference.md
+!results/experiment_items/
+!results/experiment_items/*.json
 !results/validation/
 !results/validation/validation.md
 !results/validation/validation.json

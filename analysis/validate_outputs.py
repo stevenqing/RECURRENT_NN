@@ -46,6 +46,8 @@ PATHS = {
     "w3_qwen35_probe_spec": "specs/w3_qwen35_probe_spec.md",
     "w3_qwen35_probe": "results/w3_qwen35_probe/results.json",
     "continuation_post_027": "results/continuation_state/post_027.json",
+    "item_028_p0_housekeeping": "results/experiment_items/item_028_p0_housekeeping.json",
+    "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
 
@@ -226,6 +228,60 @@ def _w3_checks(checks: list[dict[str, Any]]) -> None:
         _check(checks, probe.get("integration_grade") == "do_not_integrate_yet", "w3_metadata_only_not_overclaimed", f"integration_grade={probe.get('integration_grade')}", "tier_c")
 
 
+def _item_contract_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "log_item_contract_spec", "contract")
+    item_dir = REPO_ROOT / "results/experiment_items"
+    item_paths = sorted(item_dir.glob("item_*.json")) if item_dir.exists() else []
+    _check(checks, bool(item_paths), "log_item_artifacts_present", f"count={len(item_paths)}", "contract")
+    required_top = [
+        "schema_version",
+        "item_number",
+        "name",
+        "purpose",
+        "code_added_used",
+        "commands",
+        "artifacts",
+        "provenance",
+        "result_tables",
+        "honesty",
+        "decision",
+    ]
+    for path in item_paths:
+        with path.open("r", encoding="utf-8") as handle:
+            item = json.load(handle)
+        item_number = str(item.get("item_number", path.stem))
+        missing = [field for field in required_top if field not in item]
+        _check(checks, not missing, f"log_item_{item_number}_required_fields", f"missing={missing}", "contract")
+        _check(checks, item.get("schema_version") == "log_item_contract_v1", f"log_item_{item_number}_schema_version", f"schema={item.get('schema_version')}", "contract")
+        try:
+            number_ok = int(item_number) >= 28
+        except ValueError:
+            number_ok = False
+        _check(checks, number_ok, f"log_item_{item_number}_number_continues_from_028", f"item_number={item_number}", "contract")
+        artifact_paths = item.get("artifacts", [])
+        missing_artifacts = [artifact for artifact in artifact_paths if not (REPO_ROOT / artifact).exists()]
+        _check(checks, not missing_artifacts, f"log_item_{item_number}_artifacts_exist", f"missing={missing_artifacts}", "contract")
+        honesty = item.get("honesty", {})
+        _check(checks, bool(honesty.get("does_not_establish")), f"log_item_{item_number}_honesty_does_not_establish", str(honesty.get("does_not_establish", ""))[:160], "contract")
+        decision = item.get("decision", {})
+        _check(checks, bool(decision.get("gate_outcomes")) and bool(decision.get("next_step_routing")), f"log_item_{item_number}_decision_numbers_and_routing", f"gates={len(decision.get('gate_outcomes', []))}; routing={decision.get('next_step_routing')}", "contract")
+
+    item028 = _read_json("item_028_p0_housekeeping")
+    _exists(checks, "item_028_p0_housekeeping", "contract")
+    if item028:
+        tables = item028.get("result_tables", {})
+        for table_name in ["validation_registry_before_after", "ledger_reconciliation", "report_front_page"]:
+            table = tables.get(table_name, {})
+            _check(checks, bool(table.get("columns")) and bool(table.get("rows")), f"item_028_{table_name}_present", f"rows={len(table.get('rows', []))}", "contract")
+        validation_table = tables.get("validation_registry_before_after", {})
+        after_rows = [row for row in validation_table.get("rows", []) if row.get("phase") == "after_restored_registry"]
+        after = after_rows[0] if after_rows else {}
+        _check(checks, int(after.get("total_check_count", 0)) >= 80, "item_028_validation_registry_many_checks", f"after={after}", "contract")
+        reconciliation = tables.get("ledger_reconciliation", {})
+        requirements = {row.get("requirement"): row.get("status") for row in reconciliation.get("rows", [])}
+        _check(checks, all(requirements.get(key) == "yes" for key in ["item_025_folded", "item_026_folded", "item_027_folded"]), "item_028_items_025_027_folded", f"requirements={requirements}", "contract")
+
+
 def _legacy_checks(checks: list[dict[str, Any]]) -> None:
     for name in ["ttt_legacy", "legacy_two_by_two", "legacy_d_stage_1", "legacy_d_stage_2", "legacy_d_stage_3", "legacy_verifier"]:
         _exists(checks, name, "legacy")
@@ -271,6 +327,7 @@ def validate_outputs(output_dir: str = "results/validation") -> dict[str, Any]:
     _m2_checks(checks)
     _stage_a_checks(checks)
     _w3_checks(checks)
+    _item_contract_checks(checks)
     _legacy_checks(checks)
 
     passed = all(check["status"] == "PASS" for check in checks)

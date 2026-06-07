@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-07T10:20:48.733768+00:00
+Generated at: 2026-06-07T10:29:22.194741+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,12 +17,13 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 | BLOCKER | G1=0.0; The Stage A critical blocker is G1 = 0.0 on the Sudoku6 bridge operator. |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=81; validation_passed=False |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=95; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Specified | g1_fix_spec plus Stage A adapter/gate/Sudoku6 diagnostic artifacts are present; retraining not launched. |
 | P2 | W3 Qwen3.5 probe | do_not_integrate_yet | W3.0=PASS; W3.1/W3.2 heavy probes not launched. |
 | P3 | TRM defensive analysis | Not launched | No TRM checkpoint/test-set grading code is present in this repo yet. |
 | Module1 law | per-depth capacity | Writable now | decision=k_direction_negative; open=False; shards=8 |
+| 028 | P0 ledger and validation housekeeping | COMPLETE_RED_EXPECTED | P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract. |
 
 ## Item Details
 
@@ -79,9 +80,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/validation/validation.json (yes)
   - results/validation/validation.md (yes)
 - Detail data:
-  - analysis/validate_outputs.py: embedded py (17429 bytes)
-  - results/validation/validation.json: embedded json (12742 bytes)
-  - results/validation/validation.md: embedded md (6938 bytes)
+  - analysis/validate_outputs.py: embedded py (21138 bytes)
+  - results/validation/validation.json: embedded json (15459 bytes)
+  - results/validation/validation.md: embedded md (8619 bytes)
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
 ### Item 021 - M2.0 frozen operator probe
@@ -201,10 +202,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=81; validation_passed=False
+- Key result: validation_checks=95; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=72; validation_fail=9
+  - validation_pass=86; validation_fail=9
   - Current expected failures are Stage A G1/L4 and missing legacy scaffold artifacts.
 - Artifacts:
   - CANONICAL_REPO.md (yes)
@@ -213,8 +214,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/experiment_log/experiment_log.json (yes)
 - Detail data:
   - CANONICAL_REPO.md: embedded md (532 bytes)
-  - analysis/validate_outputs.py: embedded py (17429 bytes)
-  - results/validation/validation.json: embedded json (12742 bytes)
+  - analysis/validate_outputs.py: embedded py (21138 bytes)
+  - results/validation/validation.json: embedded json (15459 bytes)
   - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
 - Next action: Keep future reports item-first and preserve explicit red checks.
 
@@ -301,6 +302,52 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/module1_capacity_benchmark_full_shards/k_direction_corrected.json: embedded json (53731 bytes)
 - Next action: Use this law as support for structured register capacity, not as a substitute for Stage A autonomous proof.
 
+### Item 028 - P0 ledger and validation housekeeping
+
+- Status: COMPLETE_RED_EXPECTED
+- Key result: P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract.
+- Purpose: Executes P0.1-P0.3 from the master runbook: declare RECURRENT_NN canonical, fold post-027 state into the itemized ledger, restore a full validation registry, and demote stale scaffold gates into legacy archive context. This item bears on report correctness and prevents stale stage_d_llm-generated ledgers from masking Stage A blockers.
+- Details:
+  - purpose=Executes P0.1-P0.3 from the master runbook: declare RECURRENT_NN canonical, fold post-027 state into the itemized ledger, restore a full validation registry, and demote stale scaffold gates into legacy archive context. This item bears on report correctness and prevents stale stage_d_llm-generated ledgers from masking Stage A blockers.
+  - commands=8
+  - result_tables=['validation_registry_before_after', 'ledger_reconciliation', 'report_front_page']
+  - honesty=this item does NOT establish that the Stage A bridge solves autonomously, that G1 passes, that L4 separation is restored, or that Qwen3.5 integration is viable.
+- Artifacts:
+  - results/experiment_items/item_028_p0_housekeeping.json (yes)
+  - CANONICAL_REPO.md (yes)
+  - ENV_SPEC.md (yes)
+  - REPRODUCIBILITY.md (yes)
+  - scripts/reproduce_continuation_state.sh (yes)
+  - results/continuation_state/post_027.json (yes)
+  - results/validation/validation.json (yes)
+  - results/validation/validation.md (yes)
+  - results/experiment_log/experiment_log.json (yes)
+  - results/experiment_log/experiment_log.md (yes)
+  - specs/log_item_contract.md (yes)
+  - results/stage_a_adapter_wiring/results.json (yes)
+  - results/stage_a_banded_gate_refusal/results.json (yes)
+  - results/stage_a_sudoku6_bridge/results.json (yes)
+  - results/w3_qwen35_probe/results.json (yes)
+  - results/w3_qwen35_probe/verdicts.json (yes)
+- Detail data:
+  - results/experiment_items/item_028_p0_housekeeping.json: embedded json (8388 bytes)
+  - CANONICAL_REPO.md: embedded md (532 bytes)
+  - ENV_SPEC.md: embedded md (7463 bytes)
+  - REPRODUCIBILITY.md: embedded md (3561 bytes)
+  - scripts/reproduce_continuation_state.sh: embedded sh (1972 bytes)
+  - results/continuation_state/post_027.json: embedded json (1453 bytes)
+  - results/validation/validation.json: embedded json (15459 bytes)
+  - results/validation/validation.md: embedded md (8619 bytes)
+  - results/experiment_log/experiment_log.json: not embedded (self_output_not_embedded)
+  - results/experiment_log/experiment_log.md: not embedded (self_output_not_embedded)
+  - specs/log_item_contract.md: embedded md (3662 bytes)
+  - results/stage_a_adapter_wiring/results.json: embedded json (2413 bytes)
+  - results/stage_a_banded_gate_refusal/results.json: embedded json (3420 bytes)
+  - results/stage_a_sudoku6_bridge/results.json: embedded json (1174 bytes)
+  - results/w3_qwen35_probe/results.json: embedded json (3314 bytes)
+  - results/w3_qwen35_probe/verdicts.json: embedded json (405 bytes)
+- Next action: P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract.
+
 
 ## Canonical Repo Decision
 
@@ -339,7 +386,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | Branch policy | YELLOW | qwen_nodes=4.939; mrv_nodes=5.067; qwen_invalid_rate=0.2316 |
 | Stage A in-loop proof | RED | n_cells=0; statuses=['PARENT_ADAPTER_REQUIRED']; G1=0.0 |
 | W3 Qwen3.5 | YELLOW | integration_grade=do_not_integrate_yet; W3.0=PASS |
-| Validation | RED | checks=81; pass=72; fail=9 |
+| Validation | RED | checks=95; pass=86; fail=9 |
 
 ## Artifact Index
 
@@ -348,6 +395,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | canonical_repo_note | CANONICAL_REPO.md | yes |
 | environment_spec | ENV_SPEC.md | yes |
 | post_027_continuation_state | results/continuation_state/post_027.json | yes |
+| item_028_p0_housekeeping | results/experiment_items/item_028_p0_housekeeping.json | yes |
+| log_item_contract_spec | specs/log_item_contract.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
 | qwen3_4b_instruct_download | results/model_download/qwen_download.json | yes |
 | qwen3_4b_thinking_download | results/model_download/thinking/qwen_download.json | yes |
@@ -376,6 +425,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 
 | tier | pass | fail |
 | --- | --- | --- |
+| contract | 14 | 0 |
 | env | 13 | 0 |
 | legacy | 0 | 6 |
 | p0 | 2 | 0 |

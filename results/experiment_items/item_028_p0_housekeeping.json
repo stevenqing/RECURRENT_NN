@@ -1,0 +1,125 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "028",
+  "name": "P0 ledger and validation housekeeping",
+  "status": "COMPLETE_RED_EXPECTED",
+  "purpose": "Executes P0.1-P0.3 from the master runbook: declare RECURRENT_NN canonical, fold post-027 state into the itemized ledger, restore a full validation registry, and demote stale scaffold gates into legacy archive context. This item bears on report correctness and prevents stale stage_d_llm-generated ledgers from masking Stage A blockers.",
+  "code_added_used": [
+    "analysis/validate_outputs.py",
+    "analysis/experiment_log.py",
+    "CANONICAL_REPO.md",
+    "ENV_SPEC.md",
+    "REPRODUCIBILITY.md",
+    "scripts/reproduce_continuation_state.sh",
+    "results/continuation_state/post_027.json"
+  ],
+  "commands": [
+    "~/.local/bin/uv run --python .venv/bin/python python -m py_compile analysis/validate_outputs.py analysis/experiment_log.py experiments/stage_a_adapter_wiring.py experiments/stage_a_banded_gate_refusal.py experiments/stage_a_sudoku6_bridge.py experiments/w3_qwen35_probe.py",
+    "~/.local/bin/uv run --python .venv/bin/python python -m experiments.reconstruct_stage_a_artifacts --output-dir artifacts/stage_a --n-instances 1024 --seed 42 --device cuda:0 --operator-steps 300 --bridge-steps 500 --batch-size 256",
+    "~/.local/bin/uv run --python .venv/bin/python python -m experiments.stage_a_adapter_wiring --device cpu",
+    "~/.local/bin/uv run --python .venv/bin/python python -m experiments.stage_a_banded_gate_refusal",
+    "~/.local/bin/uv run --python .venv/bin/python python -m experiments.stage_a_sudoku6_bridge --mode diagnose",
+    "~/.local/bin/uv run --python .venv/bin/python python -m experiments.w3_qwen35_probe",
+    "~/.local/bin/uv run --python .venv/bin/python python -m analysis.validate_outputs || true",
+    "~/.local/bin/uv run --python .venv/bin/python python -m analysis.experiment_log"
+  ],
+  "artifacts": [
+    "CANONICAL_REPO.md",
+    "ENV_SPEC.md",
+    "REPRODUCIBILITY.md",
+    "scripts/reproduce_continuation_state.sh",
+    "results/continuation_state/post_027.json",
+    "results/validation/validation.json",
+    "results/validation/validation.md",
+    "results/experiment_log/experiment_log.json",
+    "results/experiment_log/experiment_log.md",
+    "specs/log_item_contract.md",
+    "results/stage_a_adapter_wiring/results.json",
+    "results/stage_a_banded_gate_refusal/results.json",
+    "results/stage_a_sudoku6_bridge/results.json",
+    "results/w3_qwen35_probe/results.json",
+    "results/w3_qwen35_probe/verdicts.json"
+  ],
+  "provenance": {
+    "devices": {
+      "environment": "Linux; CUDA visible; 8 x NVIDIA A100-SXM4-80GB recorded by analysis.model_readiness",
+      "stage_a_reconstruction": "cuda:0",
+      "stage_a_wiring_smoke": "cpu",
+      "w3_probe": "metadata-only; no model load"
+    },
+    "seeds": {
+      "stage_a_reconstruction_task_seed": 42,
+      "stage_a_operator_seed": 102,
+      "stage_a_bridge_seed": 142,
+      "sudoku6_diagnostic_seed": 102
+    },
+    "dataset_version": "post-027 continuation state; Stage A reconstructed 4x4 parent artifacts; Sudoku6 readiness recorded from runbook, not generated in repo",
+    "depth_histogram_reference": "results/stage_a_sudoku6_bridge/results.json::teacher_trace_probe and artifacts/stage_a/manifest.json::teacher_trace.max_backtrack_depth",
+    "calibration_thresholds_read_from_file": [
+      "results/module1_capacity_perdepth_shards/results.json",
+      "results/module1_capacity_benchmark_full_shards/k_direction_corrected.json",
+      "results/validation/validation.json"
+    ],
+    "hardcoded_threshold_attestation": "P0 did not introduce pass thresholds for scientific gates; validation reads existing artifact values and expected red Stage A blockers remain red."
+  },
+  "result_tables": {
+    "validation_registry_before_after": {
+      "columns": ["phase", "total_check_count", "passed", "failed", "provenance"],
+      "rows": [
+        {"phase": "before_consolidated_run", "total_check_count": 1, "passed": 0, "failed": 1, "provenance": "measured_from_master_runbook_reported_regression"},
+        {"phase": "after_restored_registry", "total_check_count": 95, "passed": 86, "failed": 9, "provenance": "measured:results/validation/validation.json::summary"}
+      ],
+      "restored_checks": {
+        "source": "results/validation/validation.json::checks",
+        "count": 95,
+        "current_expected_red": [
+          "stage_a_sudoku6_g1_pass",
+          "stage_a_reverts_nonzero_on_L4",
+          "stage_a_forward_floor_on_L4",
+          "ttt_legacy_present",
+          "legacy_two_by_two_present",
+          "legacy_d_stage_1_present",
+          "legacy_d_stage_2_present",
+          "legacy_d_stage_3_present",
+          "legacy_verifier_present"
+        ]
+      }
+    },
+    "ledger_reconciliation": {
+      "columns": ["requirement", "status", "kept_path", "referenced_path", "provenance"],
+      "rows": [
+        {"requirement": "canonical_repo_declared", "status": "yes", "kept_path": "CANONICAL_REPO.md", "referenced_path": "/home/aiscuser/RECURRENT_NN", "provenance": "measured:file_exists"},
+        {"requirement": "stop_generating_from_stage_d_llm", "status": "yes", "kept_path": "CANONICAL_REPO.md", "referenced_path": "/home/aiscuser/stage_d_llm absent locally", "provenance": "measured:validation canonical check"},
+        {"requirement": "item_025_folded", "status": "yes", "kept_path": "results/continuation_state/post_027.json", "referenced_path": "results/stage_a_adapter_wiring/results.json", "provenance": "measured:file_exists"},
+        {"requirement": "item_026_folded", "status": "yes", "kept_path": "results/continuation_state/post_027.json", "referenced_path": "results/stage_a_banded_gate_refusal/results.json", "provenance": "measured:file_exists"},
+        {"requirement": "item_027_folded", "status": "yes", "kept_path": "results/continuation_state/post_027.json", "referenced_path": "results/stage_a_sudoku6_bridge/results.json", "provenance": "measured:file_exists"},
+        {"requirement": "module1_artifacts_deduplicated", "status": "yes", "kept_path": "results/module1_capacity_perdepth_shards/results.json", "referenced_path": "legacy stage_d_llm path absent locally", "provenance": "measured:file_exists_and_canonical_repo_check"}
+      ]
+    },
+    "report_front_page": {
+      "columns": ["statement", "status", "provenance"],
+      "rows": [
+        {"statement": "front page leads with evidence tiers", "status": "yes", "provenance": "measured:results/experiment_log/experiment_log.md"},
+        {"statement": "four falsified scaffold gates moved to legacy archive", "status": "yes", "provenance": "measured:results/experiment_log/experiment_log.md::Legacy Scaffold Archive"},
+        {"statement": "TTT diagnostic retained and relabeled as mechanism evidence when present", "status": "yes", "provenance": "measured:analysis/experiment_log.py::tier_a"}
+      ]
+    }
+  },
+  "honesty": {
+    "known_caveats": [
+      "Validation remains red by design because Stage A G1/L4 are real blockers and legacy scaffold artifacts are absent.",
+      "Stage A parent .pt and teacher-trace artifacts are regenerated workflow artifacts, not tracked binary assets.",
+      "P0 did not launch P1 bridge retraining, P2 hidden-hook/progression probes, or P3 TRM analysis."
+    ],
+    "does_not_establish": "this item does NOT establish that the Stage A bridge solves autonomously, that G1 passes, that L4 separation is restored, or that Qwen3.5 integration is viable."
+  },
+  "decision": {
+    "gate_outcomes": [
+      {"gate": "canonical_repo_is_recurrent_nn", "outcome": "PASS", "number": "/home/aiscuser/RECURRENT_NN", "provenance": "measured:results/validation/validation.json"},
+      {"gate": "validation_registry_restored", "outcome": "PASS", "number": "95 checks, 86 pass, 9 fail", "provenance": "measured:results/validation/validation.json"},
+      {"gate": "items_025_027_folded", "outcome": "PASS", "number": "3/3 folded", "provenance": "measured:results/continuation_state/post_027.json plus post025-027 artifacts"},
+      {"gate": "stage_a_g1", "outcome": "FAIL_EXPECTED", "number": "G1=0.0", "provenance": "measured:results/stage_a_sudoku6_bridge/results.json"}
+    ],
+    "next_step_routing": "P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract."
+  }
+}

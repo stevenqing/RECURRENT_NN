@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-07T10:03:49.107590+00:00
+Generated at: 2026-06-07T10:29:22.037110+00:00
 
-Summary: 72 PASS / 9 FAIL / 81 total.
+Summary: 86 PASS / 9 FAIL / 95 total.
 
 The current expected state is not all-green: Stage A post-027 blockers should be visible as explicit red checks, not hidden behind a single required-files failure.
 
@@ -85,6 +85,20 @@ The current expected state is not all-green: Stage A post-027 blockers should be
 | tier_c | w3_qwen35_model_id | PASS | model_id=Qwen/Qwen3.5-4B |
 | tier_c | w3_checkpoint_pin_pass | PASS | verdict=PASS |
 | tier_c | w3_metadata_only_not_overclaimed | PASS | integration_grade=do_not_integrate_yet |
+| contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
+| contract | log_item_artifacts_present | PASS | count=1 |
+| contract | log_item_028_required_fields | PASS | missing=[] |
+| contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
+| contract | log_item_028_artifacts_exist | PASS | missing=[] |
+| contract | log_item_028_honesty_does_not_establish | PASS | this item does NOT establish that the Stage A bridge solves autonomously, that G1 passes, that L4 separation is restored, or that Qwen3.5 integration is viable. |
+| contract | log_item_028_decision_numbers_and_routing | PASS | gates=4; routing=P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract. |
+| contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
+| contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
+| contract | item_028_ledger_reconciliation_present | PASS | rows=6 |
+| contract | item_028_report_front_page_present | PASS | rows=3 |
+| contract | item_028_validation_registry_many_checks | PASS | after={'phase': 'after_restored_registry', 'total_check_count': 95, 'passed': 86, 'failed': 9, 'provenance': 'measured:results/validation/validation.json::summary'} |
+| contract | item_028_items_025_027_folded | PASS | requirements={'canonical_repo_declared': 'yes', 'stop_generating_from_stage_d_llm': 'yes', 'item_025_folded': 'yes', 'item_026_folded': 'yes', 'item_027_folded': 'yes', 'module1_artifacts_deduplicated': 'yes'} |
 | legacy | ttt_legacy_present | FAIL | results/ttt/results.json |
 | legacy | legacy_two_by_two_present | FAIL | results/two_by_two/results.json |
 | legacy | legacy_d_stage_1_present | FAIL | results/d_stage_1/results.json |

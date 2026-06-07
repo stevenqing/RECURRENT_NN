@@ -451,6 +451,90 @@
       "tier": "tier_c"
     },
     {
+      "detail": "specs/log_item_contract.md",
+      "name": "log_item_contract_spec_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "count=1",
+      "name": "log_item_artifacts_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_028_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_028_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=028",
+      "name": "log_item_028_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_028_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "this item does NOT establish that the Stage A bridge solves autonomously, that G1 passes, that L4 separation is restored, or that Qwen3.5 integration is viable.",
+      "name": "log_item_028_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=P1.1a Task A diagnosis and P2 W3 hidden-hook/probe work remain next; P1/P2 should produce items 029+ using this contract.",
+      "name": "log_item_028_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "results/experiment_items/item_028_p0_housekeeping.json",
+      "name": "item_028_p0_housekeeping_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "rows=2",
+      "name": "item_028_validation_registry_before_after_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "rows=6",
+      "name": "item_028_ledger_reconciliation_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "rows=3",
+      "name": "item_028_report_front_page_present",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "after={'phase': 'after_restored_registry', 'total_check_count': 95, 'passed': 86, 'failed': 9, 'provenance': 'measured:results/validation/validation.json::summary'}",
+      "name": "item_028_validation_registry_many_checks",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "requirements={'canonical_repo_declared': 'yes', 'stop_generating_from_stage_d_llm': 'yes', 'item_025_folded': 'yes', 'item_026_folded': 'yes', 'item_027_folded': 'yes', 'module1_artifacts_deduplicated': 'yes'}",
+      "name": "item_028_items_025_027_folded",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/ttt/results.json",
       "name": "ttt_legacy_present",
       "status": "FAIL",
@@ -487,11 +571,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-07T10:03:49.107590+00:00",
+  "generated_at": "2026-06-07T10:29:22.037110+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 81,
+    "n_checks": 95,
     "n_fail": 9,
-    "n_pass": 72
+    "n_pass": 86
   }
 }
