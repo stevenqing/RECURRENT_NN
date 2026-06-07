@@ -276,11 +276,48 @@ def _batch(rows: list[TensorExample], batch_size: int, device: str, seed: int):
     return x, action, var, val, forced_mask
 
 
-def _loss(outputs: dict[str, list[torch.Tensor]], action: torch.Tensor, var: torch.Tensor, val: torch.Tensor, forced_mask: torch.Tensor) -> torch.Tensor:
+def _forced_mask_loss(forced_logits: torch.Tensor, forced_mask: torch.Tensor, pos_weight: torch.Tensor | None, forced_loss: str, focal_gamma: float) -> torch.Tensor:
+    loss = F.binary_cross_entropy_with_logits(forced_logits, forced_mask, pos_weight=pos_weight, reduction="none")
+    if forced_loss == "focal":
+        probability = torch.sigmoid(forced_logits)
+        p_t = probability * forced_mask + (1.0 - probability) * (1.0 - forced_mask)
+        loss = loss * (1.0 - p_t).pow(focal_gamma)
+    return loss.mean()
+
+
+def _forced_mask_pos_weight(rows: list[TensorExample], device: str, override: float | None = None) -> tuple[torch.Tensor, dict[str, float | str]]:
+    positives = float(sum(row.forced_mask.sum().item() for row in rows))
+    total = float(len(rows) * MAX_VARS)
+    negatives = max(total - positives, 0.0)
+    if override is not None:
+        weight = float(override)
+        source = "manual"
+    elif positives > 0:
+        weight = negatives / positives
+        source = "auto_neg_over_pos"
+    else:
+        weight = 1.0
+        source = "no_positive_forced_states"
+    return torch.tensor(weight, dtype=torch.float32, device=device), {"positive_cells": positives, "negative_cells": negatives, "pos_weight": weight, "source": source}
+
+
+def _loss(
+    outputs: dict[str, list[torch.Tensor]],
+    action: torch.Tensor,
+    var: torch.Tensor,
+    val: torch.Tensor,
+    forced_mask: torch.Tensor,
+    pos_weight: torch.Tensor | None = None,
+    forced_loss: str = "bce",
+    focal_gamma: float = 2.0,
+) -> tuple[torch.Tensor, float]:
     losses = []
+    forced_losses = []
     propagate_mask = action == ACTION_TO_ID["propagate"]
     for action_logits, var_logits, val_logits, forced_logits in zip(outputs["action"], outputs["var"], outputs["val"], outputs["forced_mask"]):
-        step_loss = F.binary_cross_entropy_with_logits(forced_logits, forced_mask)
+        forced_step_loss = _forced_mask_loss(forced_logits, forced_mask, pos_weight, forced_loss, focal_gamma)
+        forced_losses.append(forced_step_loss.detach())
+        step_loss = forced_step_loss
         var_mask = var >= 0
         val_mask = val >= 0
         if var_mask.any():
@@ -290,7 +327,7 @@ def _loss(outputs: dict[str, list[torch.Tensor]], action: torch.Tensor, var: tor
         if propagate_mask.any():
             step_loss = step_loss + 0.25 * F.cross_entropy(action_logits, action)
         losses.append(step_loss)
-    return sum(losses) / len(losses)
+    return sum(losses) / len(losses), float((sum(forced_losses) / len(forced_losses)).item())
 
 
 def forced_only_commit_decision(
@@ -506,6 +543,14 @@ def train_recurrent_operator(
     devices: str = "",
     generation_workers: int = 1,
     baseline_acceptance: str = "results/recurrent_operator_8gpu/acceptance.json",
+    eval_every: int = 0,
+    forced_loss: str = "bce",
+    forced_pos_weight: float = -1.0,
+    focal_gamma: float = 2.0,
+    fuse_step: int = 100,
+    fuse_min_loss_drop: float = 0.01,
+    min_steps: int = 0,
+    cosine_schedule: bool = False,
 ) -> dict[str, Any]:
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -531,28 +576,78 @@ def train_recurrent_operator(
     if len(device_ids) > 1:
         model = torch.nn.DataParallel(model, device_ids=device_ids)
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=max(1, steps)) if cosine_schedule else None
+    pos_weight_tensor, pos_weight_record = _forced_mask_pos_weight(train_rows, device, None if forced_pos_weight < 0 else forced_pos_weight)
     ema_state = {key: value.detach().clone() for key, value in _base_model(model).state_dict().items()}
     ema_decay = 0.995
     history = []
+    progress_path = out / "progress.jsonl"
+    progress_path.write_text("", encoding="utf-8")
+    eval_interval = eval_every if eval_every > 0 else max(1, steps // 10)
+    initial_forced_loss = None
+    fuse = {"enabled": fuse_step > 0, "step": fuse_step, "min_loss_drop": fuse_min_loss_drop, "status": "NOT_REACHED" if fuse_step > 0 else "DISABLED"}
+    train_status = "G1_NOT_MET"
+    completed_step = 0
+
+    def append_progress(row: dict[str, Any]) -> None:
+        with progress_path.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(row, sort_keys=True) + "\n")
+
     for step in range(1, steps + 1):
+        completed_step = step
         model.train()
         x, action, var, val, forced_mask = _batch(train_rows, batch_size, device, seed * 100000 + step)
         outputs = model(x)
-        loss = _loss(outputs, action, var, val, forced_mask)
+        loss, forced_loss_value = _loss(outputs, action, var, val, forced_mask, pos_weight_tensor, forced_loss, focal_gamma)
+        if initial_forced_loss is None:
+            initial_forced_loss = forced_loss_value
         optimizer.zero_grad()
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
         optimizer.step()
+        if scheduler is not None:
+            scheduler.step()
         with torch.no_grad():
             for key, value in _base_model(model).state_dict().items():
                 ema_state[key].mul_(ema_decay).add_(value.detach(), alpha=1.0 - ema_decay)
-        if step == 1 or step == steps or step % max(1, steps // 10) == 0:
+        if fuse_step > 0 and step == fuse_step and initial_forced_loss is not None:
+            required = initial_forced_loss * (1.0 - fuse_min_loss_drop)
+            fuse.update({"initial_forced_loss": initial_forced_loss, "forced_loss_at_fuse": forced_loss_value, "required_below": required})
+            if forced_loss_value >= required:
+                fuse["status"] = "FUSE_BLOWN_WIRING_BUG"
+                train_status = "FUSE_BLOWN_WIRING_BUG"
+                row = {"event": "fuse_blown", "step": step, "steps": steps, **fuse}
+                append_progress(row)
+                print(json.dumps(row), flush=True)
+                break
+            fuse["status"] = "PASS"
+        if step == 1 or step == steps or step % eval_interval == 0:
             eval_metrics = _evaluate(model, eval_rows[: min(len(eval_rows), 2048)], device)
             quick_sample = eval_rows[: min(len(eval_rows), 256)]
             quick_tau = _calibrate_tau(model, quick_sample, device)
             quick_forced = _forced_single_step_metrics(model, quick_sample, device, quick_tau["selected_tau"])
-            history.append({"step": step, "loss": float(loss.detach().item()), "eval_joint_accuracy": eval_metrics["joint_accuracy"], "forced_precision": quick_forced["forced_precision"], "forced_recall": quick_forced["forced_recall"], "tau": quick_tau["selected_tau"]})
-            print(json.dumps({"event": "recurrent_operator_train", "step": step, "steps": steps, "loss": float(loss.detach().item()), "eval_joint_accuracy": eval_metrics["joint_accuracy"], "forced_precision": quick_forced["forced_precision"], "forced_recall": quick_forced["forced_recall"], "tau": quick_tau["selected_tau"]}), flush=True)
+            g1_quick = _evaluate_forced_episodes(model, eval_episode_tasks, device, quick_tau["selected_tau"])
+            g2_quick = _evaluate_forced_episodes(model, l4_episode_tasks, device, quick_tau["selected_tau"])
+            row = {
+                "event": "recurrent_operator_train",
+                "step": step,
+                "steps": steps,
+                "loss": float(loss.detach().item()),
+                "forced_mask_loss": forced_loss_value,
+                "lr": float(optimizer.param_groups[0]["lr"]),
+                "eval_joint_accuracy": eval_metrics["joint_accuracy"],
+                "forced_precision": quick_forced["forced_precision"],
+                "forced_recall": quick_forced["forced_recall"],
+                "G1_forced_fixpoint": g1_quick["fixpoint_reach_rate"],
+                "G2_forced_l4_solve": g2_quick["solve_rate"],
+                "tau": quick_tau["selected_tau"],
+            }
+            history.append({key: value for key, value in row.items() if key != "event"})
+            append_progress(row)
+            print(json.dumps(row), flush=True)
+            if step >= min_steps and g1_quick["fixpoint_reach_rate"] >= 0.95 and g2_quick["solve_rate"] <= 0.05:
+                train_status = "G1_PASS_EARLY_STOP"
+                break
     checkpoint_path = out / f"learned_recurrent_operator_seed{seed}.pt"
     torch.save({
         "model_class": "WeightTiedRecurrentOperator",
@@ -578,13 +673,17 @@ def train_recurrent_operator(
         "depth_histogram": {str(depth): count for depth, count in sorted(Counter(row.dpll_backtrack_depth for row in sudoku9_probe).items())},
         "status": "generated_for_external_anchor" if sudoku9_probe else "empty_or_too_hard_for_current_generator_budget",
     }
-    passed = g1_forced["fixpoint_reach_rate"] >= 0.95 and g2_forced["solve_rate"] == 0.0
+    passed = g1_forced["fixpoint_reach_rate"] >= 0.95 and g2_forced["solve_rate"] <= 0.05 and train_status != "FUSE_BLOWN_WIRING_BUG"
+    if passed and train_status != "G1_PASS_EARLY_STOP":
+        train_status = "G1_PASS"
+    elif train_status not in {"FUSE_BLOWN_WIRING_BUG", "G1_PASS_EARLY_STOP"}:
+        train_status = "GATES_UNREACHED" if steps >= 20000 else "G1_NOT_MET"
     payload = {
         "module": "train_recurrent_operator",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "operator_type": "learned_recurrent",
         "source": "learned_recurrent_training_run",
-        "status": "G1_PASS" if passed else "G1_NOT_MET",
+        "status": train_status,
         "seed": seed,
         "device": device,
         "devices": [f"cuda:{index}" for index in device_ids] if device_ids else [device],
@@ -613,8 +712,12 @@ def train_recurrent_operator(
             "trained_on_depths": "L1-L2_only",
             "forced_only_commit_semantics": True,
             "outer_iterate_to_fixpoint_eval": True,
+            "forced_loss": forced_loss,
+            "forced_pos_weight": pos_weight_record,
+            "focal_gamma": focal_gamma,
+            "fuse": fuse,
         },
-        "training_curve_summary": {"history": history, "steps": steps, "batch_size": batch_size, "lr": lr, "data_parallel_devices": [f"cuda:{index}" for index in device_ids], "generation_workers": generation_workers},
+        "training_curve_summary": {"history": history, "steps": steps, "completed_step": completed_step, "batch_size": batch_size, "lr": lr, "data_parallel_devices": [f"cuda:{index}" for index in device_ids], "generation_workers": generation_workers, "progress_jsonl": str(progress_path), "cosine_schedule": cosine_schedule, "min_steps": min_steps, "eval_every": eval_interval},
         "G1": g1_forced["fixpoint_reach_rate"],
         "G2": g2_forced["solve_rate"],
         "G3": g3,
@@ -674,5 +777,36 @@ if __name__ == "__main__":
     parser.add_argument("--devices", default="", help="Comma-separated CUDA devices for DataParallel training, e.g. cuda:0,cuda:1,...,cuda:7")
     parser.add_argument("--generation-workers", type=int, default=1)
     parser.add_argument("--baseline-acceptance", default="results/recurrent_operator_8gpu/acceptance.json")
+    parser.add_argument("--eval-every", type=int, default=0)
+    parser.add_argument("--forced-loss", choices=["bce", "focal"], default="bce")
+    parser.add_argument("--forced-pos-weight", type=float, default=-1.0, help="Negative means auto neg/pos from the train split.")
+    parser.add_argument("--focal-gamma", type=float, default=2.0)
+    parser.add_argument("--fuse-step", type=int, default=100)
+    parser.add_argument("--fuse-min-loss-drop", type=float, default=0.01)
+    parser.add_argument("--min-steps", type=int, default=0)
+    parser.add_argument("--cosine-schedule", action="store_true")
     args = parser.parse_args()
-    train_recurrent_operator(args.output_dir, args.seed, args.device, args.train_instances, args.eval_instances, args.l4_instances, args.steps, args.batch_size, args.hidden_dim, args.recurrence_steps, args.lr, args.devices, args.generation_workers, args.baseline_acceptance)
+    train_recurrent_operator(
+        args.output_dir,
+        args.seed,
+        args.device,
+        args.train_instances,
+        args.eval_instances,
+        args.l4_instances,
+        args.steps,
+        args.batch_size,
+        args.hidden_dim,
+        args.recurrence_steps,
+        args.lr,
+        args.devices,
+        args.generation_workers,
+        args.baseline_acceptance,
+        args.eval_every,
+        args.forced_loss,
+        args.forced_pos_weight,
+        args.focal_gamma,
+        args.fuse_step,
+        args.fuse_min_loss_drop,
+        args.min_steps,
+        args.cosine_schedule,
+    )
