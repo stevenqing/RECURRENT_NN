@@ -49,7 +49,7 @@
     },
     {
       "command": ".venv/bin/python -m experiments.train_recurrent_operator --output-dir results/recurrent_operator_8gpu --device cuda:0 --devices cuda:0,cuda:1,cuda:2,cuda:3,cuda:4,cuda:5,cuda:6,cuda:7 --generation-workers 16 --train-instances 4096 --eval-instances 512 --l4-instances 128 --steps 3000 --batch-size 4096 --hidden-dim 256 --recurrence-steps 8 --lr 5e-4",
-      "purpose": "Started the accelerated 16-worker data generation plus 8-GPU DataParallel T2 run; in progress at log time."
+      "purpose": "Completed the accelerated 16-worker data generation plus 8-GPU DataParallel T2 run and recorded final G1/G2 acceptance."
     }
   ],
   "artifacts": [
@@ -61,7 +61,8 @@
     "results/stage_a_backtrack_learned_smoke/preflight.json",
     "results/w3_qwen35_probe/results.json",
     "results/w3_qwen35_probe/verdicts.json",
-    "results/recurrent_operator/acceptance.json"
+    "results/recurrent_operator/acceptance.json",
+    "results/recurrent_operator_8gpu/acceptance.json"
   ],
   "provenance": {
     "generated_at": "2026-06-07",

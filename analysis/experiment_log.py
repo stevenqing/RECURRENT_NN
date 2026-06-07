@@ -19,6 +19,8 @@ ARTIFACT_INDEX = {
     "item_030_p2_w3_hook_capacity": "results/experiment_items/item_030_p2_w3_hook_capacity.json",
     "item_031_p2_w3_survival_delta_propagation": "results/experiment_items/item_031_p2_w3_survival_delta_propagation.json",
     "item_032_validation_green_closeout": "results/experiment_items/item_032_validation_green_closeout.json",
+    "item_033_validation_object_binding": "results/experiment_items/item_033_validation_object_binding.json",
+    "item_034_t2_t3_cached_state_and_learned_preflight": "results/experiment_items/item_034_t2_t3_cached_state_and_learned_preflight.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "model_readiness": "results/model_readiness/readiness.json",
     "qwen3_4b_instruct_download": "results/model_download/qwen_download.json",
@@ -42,6 +44,7 @@ ARTIFACT_INDEX = {
     "post027_sudoku6_bridge": "results/stage_a_sudoku6_bridge/results.json",
     "w3_qwen35_probe_spec": "specs/w3_qwen35_probe_spec.md",
     "w3_qwen35_probe": "results/w3_qwen35_probe/results.json",
+    "t2_recurrent_operator_8gpu_acceptance": "results/recurrent_operator_8gpu/acceptance.json",
     "validation": "results/validation/validation.json",
 }
 
@@ -133,6 +136,13 @@ def _compact_value(value: Any) -> str:
             return "; ".join(f"{key}={_fmt(val)}" for key, val in scalar_items)
         return f"{len(value)} keys: {', '.join(list(value)[:8])}"
     return str(type(value).__name__)
+
+
+def _short_text(value: Any, limit: int = 120) -> str:
+    text = str(value)
+    if len(text) <= limit:
+        return text
+    return text[: limit - 3] + "..."
 
 
 def _infer_columns(rows: list[Any]) -> list[str]:
@@ -248,30 +258,22 @@ def _artifact_result_lines(path_text: str, payload: dict[str, Any]) -> list[str]
 def _record_result_lines(record: dict[str, Any]) -> list[str]:
     lines: list[str] = []
     contract = record.get("contract_data")
-    contract_item_number = None
     if isinstance(contract, dict):
-        contract_item_number = str(contract.get("item_number"))
         result_tables = contract.get("result_tables", {})
         if isinstance(result_tables, dict) and result_tables:
             lines.extend(["#### Contract Result Tables", ""])
             for table_name, table in result_tables.items():
                 if isinstance(table, dict):
                     lines.extend(_markdown_result_table(table_name, table))
-    detail_data = record.get("detail_data", {})
-    artifact_sections: list[str] = []
-    for path_text, payload in detail_data.items():
-        data = payload.get("data")
-        if contract_item_number and isinstance(data, dict) and str(data.get("item_number")) == contract_item_number:
-            continue
-        artifact_sections.extend(_artifact_result_lines(path_text, payload))
-    if artifact_sections:
-        lines.extend(["#### Artifact JSON Results", ""])
-        lines.extend(artifact_sections)
     return lines
 
 
-def _artifact_ref(path: str) -> dict[str, str]:
-    return {"path": path, "present": "yes" if _path(path).exists() else "missing"}
+def _artifact_ref(path: str) -> dict[str, Any]:
+    artifact_path = _path(path)
+    ref: dict[str, Any] = {"path": path, "present": "yes" if artifact_path.exists() else "missing"}
+    if artifact_path.exists():
+        ref["size_bytes"] = artifact_path.stat().st_size
+    return ref
 
 
 def _artifact_payload(path_text: str) -> dict[str, Any]:
@@ -279,18 +281,72 @@ def _artifact_payload(path_text: str) -> dict[str, Any]:
     if not path.exists():
         return {"present": False, "path": path_text}
     payload: dict[str, Any] = {"present": True, "path": path_text, "size_bytes": path.stat().st_size}
-    if path_text.startswith("results/experiment_log/"):
-        payload.update({"embedded": False, "reason": "self_output_not_embedded"})
-        return payload
+    if path.suffix:
+        payload["format"] = path.suffix.lstrip(".")
     if path.suffix == ".json":
         with path.open("r", encoding="utf-8") as handle:
-            payload.update({"embedded": True, "format": "json", "data": json.load(handle)})
-        return payload
-    if path.suffix in {".md", ".txt", ".py", ".sh", ".yaml", ".yml"}:
-        payload.update({"embedded": True, "format": path.suffix.lstrip("."), "data": path.read_text(encoding="utf-8")})
-        return payload
-    payload.update({"embedded": False, "reason": "unsupported_format"})
+            data = json.load(handle)
+        if isinstance(data, dict):
+            payload["json_item_number"] = data.get("item_number")
+            payload["json_summary"] = _json_summary_rows(data)
+            payload["result_table_summaries"] = _result_table_summaries(data)
+    payload.update({"embedded": False, "reason": "ref_only"})
     return payload
+
+
+def _result_table_summaries(data: dict[str, Any]) -> list[dict[str, Any]]:
+    summaries: list[dict[str, Any]] = []
+    result_tables = data.get("result_tables")
+    if isinstance(result_tables, dict):
+        for table_name, table in result_tables.items():
+            if not isinstance(table, dict):
+                continue
+            rows = table.get("rows", [])
+            columns = table.get("columns") or _infer_columns(rows if isinstance(rows, list) else [])
+            summaries.append({"table": table_name, "rows": len(rows) if isinstance(rows, list) else 0, "columns": len(columns)})
+    for key in ["single_step_forced_precision_recall_by_depth", "fail_closed_cases", "capacity_estimates"]:
+        value = data.get(key)
+        if isinstance(value, list):
+            summaries.append({"table": key, "rows": len(value), "columns": len(_infer_columns(value))})
+    p2_tables = data.get("p2_tables")
+    if isinstance(p2_tables, dict):
+        for table_name, table in p2_tables.items():
+            if isinstance(table, dict):
+                rows = table.get("rows", [])
+                columns = table.get("columns") or _infer_columns(rows if isinstance(rows, list) else [])
+                summaries.append({"table": table_name, "rows": len(rows) if isinstance(rows, list) else 0, "columns": len(columns)})
+    return summaries
+
+
+def _referenced_result_rows(record: dict[str, Any], max_refs: int = 16) -> list[list[Any]]:
+    contract = record.get("contract_data")
+    contract_item_number = str(contract.get("item_number")) if isinstance(contract, dict) else None
+    rows: list[list[Any]] = []
+    detail_data = record.get("detail_data", {})
+    for path_text, payload in detail_data.items():
+        if not payload.get("present"):
+            rows.append([path_text, "missing", "", ""])
+            continue
+        if contract_item_number and str(payload.get("json_item_number")) == contract_item_number:
+            continue
+        summary = payload.get("json_summary") or []
+        table_summaries = payload.get("result_table_summaries") or []
+        if not summary and not table_summaries:
+            continue
+        summary_map = {field: value for field, value in summary}
+        status = summary_map.get("status") or summary_map.get("verdict") or summary_map.get("decision") or summary_map.get("integration_grade") or summary_map.get("passed") or "recorded"
+        key_values = []
+        for field, value in summary:
+            if field in {"module", "status", "verdict", "decision", "integration_grade", "passed", "generated_at", "honesty", "note"}:
+                continue
+            key_values.append(f"{field}={_short_text(value)}")
+            if len(key_values) >= 6:
+                break
+        table_values = [f"{table['table']}:{table['rows']}r/{table['columns']}c" for table in table_summaries[:6]]
+        rows.append([path_text, _short_text(status, 80), "; ".join(key_values), "; ".join(table_values)])
+        if len(rows) >= max_refs:
+            break
+    return rows
 
 
 def _external_item_records() -> list[dict[str, Any]]:
@@ -578,18 +634,15 @@ def _item_detail_lines(records: list[dict[str, Any]]) -> list[str]:
             lines.extend(f"  - {detail}" for detail in details)
         artifacts = record.get("artifacts", [])
         if artifacts:
-            lines.append("- Artifacts:")
-            lines.extend(f"  - {artifact['path']} ({artifact['present']})" for artifact in artifacts)
-        detail_data = record.get("detail_data", {})
-        if detail_data:
-            lines.append("- Detail data:")
-            for path, payload in detail_data.items():
-                if payload.get("embedded"):
-                    lines.append(f"  - {path}: embedded {payload.get('format')} ({payload.get('size_bytes')} bytes)")
-                elif payload.get("present"):
-                    lines.append(f"  - {path}: not embedded ({payload.get('reason')})")
-                else:
-                    lines.append(f"  - {path}: missing")
+            lines.append("- Artifact refs:")
+            for artifact in artifacts:
+                size = f", {artifact['size_bytes']} bytes" if artifact.get("size_bytes") is not None else ""
+                lines.append(f"  - {artifact['path']} ({artifact['present']}{size})")
+        referenced_rows = _referenced_result_rows(record)
+        if referenced_rows:
+            lines.extend(["#### Referenced Result Summaries", ""])
+            lines.extend(_table(["artifact", "status", "key values", "tables"], referenced_rows))
+            lines.append("")
         result_lines = _record_result_lines(record)
         if result_lines:
             lines.extend(result_lines)
