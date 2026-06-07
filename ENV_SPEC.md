@@ -98,7 +98,32 @@ Use these after the expected result artifacts already exist:
 
 `analysis.validate_outputs` is strict: it checks many historical result files. A missing old artifact means the experiment record is incomplete, not necessarily that the Python environment is broken.
 
-## 6. Full Scaffold Run Order
+## 6. Rebuild Current Continuation State
+
+The repository is workflow-reproducible, not a fully self-contained binary snapshot. See `REPRODUCIBILITY.md` for the exact contract.
+
+Stage A parent `.pt` files and the teacher trace are generated artifacts and are intentionally ignored by git. Rebuild them before expecting Stage A preflight or adapter wiring to pass:
+
+```bash
+~/.local/bin/uv run --python .venv/bin/python python -m experiments.reconstruct_stage_a_artifacts \
+	--output-dir artifacts/stage_a \
+	--n-instances 1024 \
+	--seed 42 \
+	--device cuda:0 \
+	--operator-steps 300 \
+	--bridge-steps 500 \
+	--batch-size 256
+```
+
+Then refresh the current continuation artifacts, validation, and ledger:
+
+```bash
+bash scripts/reproduce_continuation_state.sh
+```
+
+The current expected validation state is red, not all green: `72 PASS / 9 FAIL / 81 total`. The remaining red checks are Stage A G1/L4 blockers plus missing legacy scaffold artifacts.
+
+## 7. Full Scaffold Run Order
 
 This is the lightweight scaffold order from the repo plan:
 
@@ -120,7 +145,7 @@ This is the lightweight scaffold order from the repo plan:
 ~/.local/bin/uv run --python .venv/bin/python python -m analysis.experiment_log
 ```
 
-## 7. Verified Resolved Packages
+## 8. Verified Resolved Packages
 
 Top-level packages verified by import on 2026-06-07:
 
