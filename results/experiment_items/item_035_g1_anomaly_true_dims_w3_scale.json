@@ -1,0 +1,198 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "035",
+  "name": "G1=G2 anomaly fix, true-dims W3 capacity, and W3.2 50x2 scale",
+  "status": "PARTIAL_EVIDENCE_COMMITTED_W3_50X2_RUNNING",
+  "purpose": "Execute the corrective spec that separates T2 learned propagation from guessing by forcing commits through symbolic singleton evidence, binds W3 capacity to the measured cached GDN recurrent-state matrix geometry, and scales the W3.2 Qwen3.5 propagation comparison toward 50 instances x 2 seeds per task.",
+  "code_added_used": [
+    {
+      "path": "experiments/train_recurrent_operator.py",
+      "change": "Added forced_mask supervision, a shared forced_only_commit_decision function, tau calibration, forced-only episode fixpoint evaluation, anomaly-collapse reporting, and per-depth forced precision/recall rows."
+    },
+    {
+      "path": "experiments/w3_qwen35_probe.py",
+      "change": "Added true-state matrix capacity measurement from cached_state_probe.inventory geometry, 50x2 propagation status labels, mixed-scale-safe shard merge, preservation of true capacity through merge, and parse_failure_rate correction at generation/merge time."
+    },
+    {
+      "path": "analysis/validate_outputs.py",
+      "change": "Strengthened W3 capacity validation to require measured rows from 128x128 cached-state inventory geometry and added a mixed-scale propagation guard."
+    },
+    {
+      "path": "scripts/run_w3_qwen35_sharded.sh",
+      "change": "Made base W3 probes opt-in via RUN_BASE_PROBES so propagation shards do not overwrite the canonical cached-state artifact."
+    },
+    {
+      "path": "analysis/experiment_log.py",
+      "change": "Added item_035 to the canonical artifact index."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m experiments.train_recurrent_operator --output-dir results/recurrent_operator_forced_smoke --device cuda:0 --train-instances 32 --eval-instances 16 --l4-instances 4 --steps 20 --batch-size 64 --hidden-dim 128 --recurrence-steps 8 --generation-workers 4",
+      "purpose": "A1 forced-only smoke: verify that blocking unforced commits collapses G2 instead of preserving the old G1≈G2 anomaly."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.train_recurrent_operator --output-dir results/recurrent_operator_forced_depth8_smoke --device cuda:0 --train-instances 128 --eval-instances 64 --l4-instances 16 --steps 80 --batch-size 256 --hidden-dim 128 --recurrence-steps 8 --generation-workers 4",
+      "purpose": "A2 low-budget recurrence-depth sweep point at recurrence_steps=8."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.train_recurrent_operator --output-dir results/recurrent_operator_forced_depth16_smoke --device cuda:0 --train-instances 128 --eval-instances 64 --l4-instances 16 --steps 80 --batch-size 256 --hidden-dim 128 --recurrence-steps 16 --generation-workers 4",
+      "purpose": "A2 low-budget recurrence-depth sweep point at recurrence_steps=16."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.train_recurrent_operator --output-dir results/recurrent_operator_forced_depth32_smoke --device cuda:0 --train-instances 128 --eval-instances 64 --l4-instances 16 --steps 80 --batch-size 256 --hidden-dim 128 --recurrence-steps 32 --generation-workers 4",
+      "purpose": "A2 low-budget recurrence-depth sweep point at recurrence_steps=32."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.w3_qwen35_probe --output-dir results/w3_qwen35_probe --run-true-dims-capacity-only --true-dims-capacity-trials 32",
+      "purpose": "B2 true-dims capacity measurement on cached GDN recurrent-state inventory geometry."
+    },
+    {
+      "command": "RUN_BASE_PROBES=0 N_INSTANCES=50 SEEDS=42,43 MAX_NODES_PER_TASK=2 CAP_NODES=32 BATCH_SIZE=2 ./scripts/run_w3_qwen35_sharded.sh",
+      "purpose": "C1/C2 W3.2 sharded propagation scale run; in progress at commit time, with partial shard completion recorded honestly."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.validate_outputs > /tmp/validation_after_binding.out || true",
+      "purpose": "Validation after object-binding and mixed-scale guard patches."
+    }
+  ],
+  "artifacts": [
+    "results/recurrent_operator_forced_smoke/acceptance.json",
+    "results/recurrent_operator_forced_depth8_smoke/acceptance.json",
+    "results/recurrent_operator_forced_depth16_smoke/acceptance.json",
+    "results/recurrent_operator_forced_depth32_smoke/acceptance.json",
+    "results/w3_qwen35_probe/results.json",
+    "results/w3_qwen35_probe/verdicts.json",
+    "results/w3_qwen35_probe/propagation_shards/horn_sat/results.json",
+    "results/w3_qwen35_probe/propagation_shards/general_sat/results.json",
+    "results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json",
+    "results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json",
+    "results/w3_qwen35_probe/propagation_shards/logic_grid/results.json",
+    "results/validation/validation.json",
+    "results/validation/validation.md"
+  ],
+  "provenance": {
+    "generated_at": "2026-06-07",
+    "devices": "A2 and W3 used CUDA A100 GPUs; W3 shards run with CUDA_VISIBLE_DEVICES mapping and --device cuda:0 inside each shard process.",
+    "t2_seed": 102,
+    "t2_train_band": "Sudoku6 L1-L2 only for A2 smoke diagnostics; eval depth histogram {1: 41, 2: 23}; L4 histogram {4: 6, 5: 7, 6: 2, 7: 1}.",
+    "forced_commit_function": "experiments.train_recurrent_operator.forced_only_commit_decision",
+    "w3_model_id": "Qwen/Qwen3.5-4B",
+    "w3_snapshot_verified": "models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "w3_capacity_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+    "w3_scale_status_at_commit": "horn_sat and sudoku_4x4 shards completed at 50x2; general_sat, graph_coloring, and logic_grid still running, so canonical W3.2 status must not be promoted yet."
+  },
+  "result_tables": {
+    "g1_g2_before_after_A1": {
+      "columns": ["row", "G1", "G2", "legacy_G1", "legacy_G2", "provenance"],
+      "rows": [
+        {"row": "before_A1_8gpu_unforced", "G1": 0.1508869528707883, "G2": 0.14923016186340307, "legacy_G1": null, "legacy_G2": null, "provenance": "results/recurrent_operator_8gpu/acceptance.json"},
+        {"row": "after_A1_forced_smoke", "G1": 0.0625, "G2": 0.0, "legacy_G1": 0.010135135135135136, "legacy_G2": 0.013513513513513514, "provenance": "results/recurrent_operator_forced_smoke/acceptance.json"}
+      ]
+    },
+    "a2_depth_sweep": {
+      "columns": ["recurrence_steps", "G1_forced_fixpoint", "G2_forced_l4_solve", "single_step_forced_precision", "single_step_forced_recall", "tau", "mean_commits_G1", "mean_commits_G2", "status", "provenance"],
+      "rows": [
+        {"recurrence_steps": 8, "G1_forced_fixpoint": 0.0625, "G2_forced_l4_solve": 0.0, "single_step_forced_precision": 0.0, "single_step_forced_recall": 0.0, "tau": 0.0, "mean_commits_G1": 0.0, "mean_commits_G2": 0.0, "status": "G1_NOT_MET", "provenance": "results/recurrent_operator_forced_depth8_smoke/acceptance.json"},
+        {"recurrence_steps": 16, "G1_forced_fixpoint": 0.0625, "G2_forced_l4_solve": 0.0, "single_step_forced_precision": 0.0, "single_step_forced_recall": 0.0, "tau": 0.0, "mean_commits_G1": 0.0, "mean_commits_G2": 0.0, "status": "G1_NOT_MET", "provenance": "results/recurrent_operator_forced_depth16_smoke/acceptance.json"},
+        {"recurrence_steps": 32, "G1_forced_fixpoint": 0.0625, "G2_forced_l4_solve": 0.0, "single_step_forced_precision": 0.0, "single_step_forced_recall": 0.0, "tau": 0.0, "mean_commits_G1": 0.0, "mean_commits_G2": 0.0, "status": "G1_NOT_MET", "provenance": "results/recurrent_operator_forced_depth32_smoke/acceptance.json"}
+      ]
+    },
+    "stick_reason_histogram": {
+      "columns": ["run", "split", "reason", "count", "provenance"],
+      "rows": [
+        {"run": "depth8", "split": "G1", "reason": "no_forced_mask_fire", "count": 60, "provenance": "results/recurrent_operator_forced_depth8_smoke/acceptance.json"},
+        {"run": "depth8", "split": "G1", "reason": "stuck_no_symbolic_forced_move", "count": 4, "provenance": "results/recurrent_operator_forced_depth8_smoke/acceptance.json"},
+        {"run": "depth8", "split": "G2", "reason": "no_forced_mask_fire", "count": 6, "provenance": "results/recurrent_operator_forced_depth8_smoke/acceptance.json"},
+        {"run": "depth8", "split": "G2", "reason": "stuck_no_symbolic_forced_move", "count": 10, "provenance": "results/recurrent_operator_forced_depth8_smoke/acceptance.json"},
+        {"run": "depth16", "split": "G1", "reason": "no_forced_mask_fire", "count": 60, "provenance": "results/recurrent_operator_forced_depth16_smoke/acceptance.json"},
+        {"run": "depth16", "split": "G1", "reason": "stuck_no_symbolic_forced_move", "count": 4, "provenance": "results/recurrent_operator_forced_depth16_smoke/acceptance.json"},
+        {"run": "depth16", "split": "G2", "reason": "no_forced_mask_fire", "count": 6, "provenance": "results/recurrent_operator_forced_depth16_smoke/acceptance.json"},
+        {"run": "depth16", "split": "G2", "reason": "stuck_no_symbolic_forced_move", "count": 10, "provenance": "results/recurrent_operator_forced_depth16_smoke/acceptance.json"},
+        {"run": "depth32", "split": "G1", "reason": "no_forced_mask_fire", "count": 60, "provenance": "results/recurrent_operator_forced_depth32_smoke/acceptance.json"},
+        {"run": "depth32", "split": "G1", "reason": "stuck_no_symbolic_forced_move", "count": 4, "provenance": "results/recurrent_operator_forced_depth32_smoke/acceptance.json"},
+        {"run": "depth32", "split": "G2", "reason": "no_forced_mask_fire", "count": 6, "provenance": "results/recurrent_operator_forced_depth32_smoke/acceptance.json"},
+        {"run": "depth32", "split": "G2", "reason": "stuck_no_symbolic_forced_move", "count": 10, "provenance": "results/recurrent_operator_forced_depth32_smoke/acceptance.json"}
+      ]
+    },
+    "forced_precision_recall_by_depth_depth32": {
+      "columns": ["depth_into_solution", "forced_precision", "forced_recall", "n_states", "provenance"],
+      "rows": [
+        {"depth_into_solution": 10, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 10, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 11, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 26, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 12, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 29, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 13, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 156, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 14, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 167, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 15, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 163, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 16, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 133, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 17, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 117, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 18, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 96, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 19, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 185, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 20, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 111, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 21, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 97, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 22, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 61, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 23, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 94, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 24, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 69, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 25, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 70, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 26, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 60, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 27, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 58, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 28, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 60, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 29, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 63, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 30, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 62, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 31, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 64, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 32, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 20, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 33, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 64, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 34, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 64, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 35, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 64, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"},
+        {"depth_into_solution": 36, "forced_precision": 0.0, "forced_recall": 0.0, "n_states": 0, "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"}
+      ]
+    },
+    "true_dims_capacity_measured": {
+      "columns": ["task_family", "state_rows", "state_cols", "heads", "decode_frontier", "rank_bound", "matrix_geometry_source", "provenance"],
+      "rows": [
+        {"task_family": "sudoku_6x6", "state_rows": 128, "state_cols": 128, "heads": 1, "decode_frontier": 4, "rank_bound": 128, "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim", "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry"},
+        {"task_family": "sudoku_6x6", "state_rows": 128, "state_cols": 128, "heads": 2, "decode_frontier": 8, "rank_bound": 256, "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim", "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry"},
+        {"task_family": "sudoku_6x6", "state_rows": 128, "state_cols": 128, "heads": 4, "decode_frontier": 16, "rank_bound": 512, "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim", "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry"},
+        {"task_family": "sudoku_6x6", "state_rows": 128, "state_cols": 128, "heads": 8, "decode_frontier": 32, "rank_bound": 1024, "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim", "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry"},
+        {"task_family": "sudoku_9x9", "state_rows": 128, "state_cols": 128, "heads": 1, "decode_frontier": 12, "rank_bound": 128, "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim", "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry"},
+        {"task_family": "sudoku_9x9", "state_rows": 128, "state_cols": 128, "heads": 2, "decode_frontier": 16, "rank_bound": 256, "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim", "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry"},
+        {"task_family": "sudoku_9x9", "state_rows": 128, "state_cols": 128, "heads": 4, "decode_frontier": 32, "rank_bound": 512, "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim", "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry"},
+        {"task_family": "sudoku_9x9", "state_rows": 128, "state_cols": 128, "heads": 8, "decode_frontier": 64, "rank_bound": 1024, "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim", "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry"}
+      ]
+    },
+    "validation_binding_checks": {
+      "columns": ["check", "status", "detail", "provenance"],
+      "rows": [
+        {"check": "w3_capacity_true_state_dims_measured", "status": "PASS", "detail": "measured_rows=8; families=['sudoku_6x6','sudoku_9x9']; rows require cached_state_probe.inventory source", "provenance": "results/validation/validation.json"},
+        {"check": "w3_propagation_scale_not_mixed", "status": "PASS_FOR_CURRENT_CANONICAL_SMALL_STATUS", "detail": "mixed-scale guard added; partial shard completion must not promote canonical status", "provenance": "analysis/validate_outputs.py"}
+      ]
+    },
+    "w3_50x2_shard_status_at_commit": {
+      "columns": ["task", "status", "n_instances", "seeds", "canonicalized", "provenance"],
+      "rows": [
+        {"task": "horn_sat", "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED", "n_instances": 50, "seeds": [42, 43], "canonicalized": false, "provenance": "results/w3_qwen35_probe/propagation_shards/horn_sat/results.json"},
+        {"task": "general_sat", "status": "RUNNING_OR_OLD_SMALL_FILE", "n_instances": null, "seeds": null, "canonicalized": false, "provenance": "results/w3_qwen35_probe/propagation_shards/general_sat/results.json"},
+        {"task": "graph_coloring", "status": "RUNNING_OR_OLD_SMALL_FILE", "n_instances": null, "seeds": null, "canonicalized": false, "provenance": "results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json"},
+        {"task": "sudoku_4x4", "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED", "n_instances": 50, "seeds": [42, 43], "canonicalized": false, "provenance": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json"},
+        {"task": "logic_grid", "status": "RUNNING_OR_OLD_SMALL_FILE", "n_instances": null, "seeds": null, "canonicalized": false, "provenance": "results/w3_qwen35_probe/propagation_shards/logic_grid/results.json"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "T2 forced-only semantics eliminate the unforced-guess G1≈G2 anomaly but do not establish G1>=0.95, autonomous Stage A cells, or useful learned propagation; all A2 depths still have forced recall 0. W3 true-dims capacity is measured on the cached GDN recurrent-state matrix geometry, but it is a synthetic rank-1 keyed-stack capacity probe and not native Qwen rule execution. W3.2 50x2 is still running at this commit and must not be claimed accepted until all shards merge with 50x2 settings.",
+    "limitations": [
+      "A2 training is intentionally low-budget and diagnostic; it routes to target/interface/forced-mask learning repair rather than more budget.",
+      "No forced-only G2 solve was positive; therefore there was no need to stop for harness diagnosis.",
+      "The canonical W3 artifact remains honest if only partial 50x2 shards are available; mixed-scale promotion is now blocked."
+    ]
+  },
+  "decision": {
+    "gate_outcomes": [
+      {"gate": "T-A_A1_forced_only_semantics", "outcome": "PASS_DIAGNOSTIC", "number": "before G1=0.1508869528707883/G2=0.14923016186340307; after forced G2=0.0"},
+      {"gate": "T-A_A2_depth_sweep", "outcome": "G1_NOT_MET_ROUTE_TO_FORCED_MASK_LEARNING", "number": "depths 8/16/32 all G1=0.0625, G2=0.0, forced_precision=0.0, forced_recall=0.0"},
+      {"gate": "T-B_true_dims_capacity", "outcome": "MEASURED_OBJECT_BOUND", "number": "8 rows; state_rows=128; state_cols=128; head_grid=1/2/4/8; geometry_source=cached_state_probe.inventory"},
+      {"gate": "T-C_W3_50x2_scale", "outcome": "PARTIAL_RUNNING", "number": "horn_sat and sudoku_4x4 50x2 completed; general_sat, graph_coloring, and logic_grid still running at commit"}
+    ],
+    "next_step_routing": "Do not scale T2 budget until forced-mask recall is repaired. After this partial-evidence commit, finish all remaining W3.2 50x2 shards, merge only when every shard has n_instances>=50 and at least two seeds, rerun validation/log generation, then make a final W3.2 completion commit."
+  }
+}

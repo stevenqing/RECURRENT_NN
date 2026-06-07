@@ -15,6 +15,7 @@
     "item_032_validation_green_closeout": "results/experiment_items/item_032_validation_green_closeout.json",
     "item_033_validation_object_binding": "results/experiment_items/item_033_validation_object_binding.json",
     "item_034_t2_t3_cached_state_and_learned_preflight": "results/experiment_items/item_034_t2_t3_cached_state_and_learned_preflight.json",
+    "item_035_g1_anomaly_true_dims_w3_scale": "results/experiment_items/item_035_g1_anomaly_true_dims_w3_scale.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "m2_operator_fix_rescale": "results/m2_operator_probe/report_fix_rescale.json",
     "m2_operator_probe": "results/m2_operator_probe/report.json",
@@ -1078,69 +1079,703 @@
       "p2_tables": {
         "capacity_at_real_gdn_dims": {
           "columns": [
+            "task_family",
             "K_var",
             "K_val",
-            "hidden_size_as_D",
-            "bound_single_estimated_capacity",
-            "factored_estimated_capacity",
+            "state_rows",
+            "state_cols",
+            "heads",
+            "striped",
+            "decode_frontier",
+            "rank_bound",
+            "module1_vector_law_D16384_bound_single",
+            "module1_vector_law_D16384_factored",
+            "delta_vs_rank_bound",
             "provenance"
           ],
           "rows": [
             {
-              "K_val": 2,
-              "K_var": 60,
-              "bound_single_estimated_capacity": 143.7463401750108,
-              "factored_estimated_capacity": 78.48245783777612,
-              "hidden_size_as_D": 2560,
-              "provenance": "derived_from_module1_capacity_law",
-              "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+              "K_val": 6,
+              "K_var": 36,
+              "decode_frontier": 4,
+              "decode_threshold": 0.95,
+              "delta_vs_rank_bound": -124,
+              "depth_curve": [
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 1
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 2
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 4
+                },
+                {
+                  "decode_accuracy": 0.921875,
+                  "depth": 8
+                },
+                {
+                  "decode_accuracy": 0.9088541666666666,
+                  "depth": 12
+                },
+                {
+                  "decode_accuracy": 0.84765625,
+                  "depth": 16
+                },
+                {
+                  "decode_accuracy": 0.7786458333333334,
+                  "depth": 24
+                },
+                {
+                  "decode_accuracy": 0.732421875,
+                  "depth": 32
+                },
+                {
+                  "decode_accuracy": 0.642578125,
+                  "depth": 48
+                },
+                {
+                  "decode_accuracy": 0.5751953125,
+                  "depth": 64
+                },
+                {
+                  "decode_accuracy": 0.4993489583333333,
+                  "depth": 96
+                },
+                {
+                  "decode_accuracy": 0.455810546875,
+                  "depth": 128
+                },
+                {
+                  "decode_accuracy": 0.4193359375,
+                  "depth": 160
+                },
+                {
+                  "decode_accuracy": 0.3924153645833333,
+                  "depth": 192
+                },
+                {
+                  "decode_accuracy": 0.3582763671875,
+                  "depth": 256
+                }
+              ],
+              "heads": 1,
+              "matrix_D_flattened": 16384,
+              "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+              "module1_vector_law_D16384_bound_single": 819.3771433715864,
+              "module1_vector_law_D16384_factored": 573.8881451383465,
+              "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+              "rank_bound": 128,
+              "state_cols": 128,
+              "state_rows": 128,
+              "striped": false,
+              "task_family": "sudoku_6x6",
+              "trials": 32
+            },
+            {
+              "K_val": 6,
+              "K_var": 36,
+              "decode_frontier": 8,
+              "decode_threshold": 0.95,
+              "delta_vs_rank_bound": -248,
+              "depth_curve": [
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 1
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 2
+                },
+                {
+                  "decode_accuracy": 0.9921875,
+                  "depth": 4
+                },
+                {
+                  "decode_accuracy": 0.9609375,
+                  "depth": 8
+                },
+                {
+                  "decode_accuracy": 0.9322916666666666,
+                  "depth": 12
+                },
+                {
+                  "decode_accuracy": 0.916015625,
+                  "depth": 16
+                },
+                {
+                  "decode_accuracy": 0.8919270833333334,
+                  "depth": 24
+                },
+                {
+                  "decode_accuracy": 0.8603515625,
+                  "depth": 32
+                },
+                {
+                  "decode_accuracy": 0.7779947916666666,
+                  "depth": 48
+                },
+                {
+                  "decode_accuracy": 0.72998046875,
+                  "depth": 64
+                },
+                {
+                  "decode_accuracy": 0.6510416666666666,
+                  "depth": 96
+                },
+                {
+                  "decode_accuracy": 0.59130859375,
+                  "depth": 128
+                },
+                {
+                  "decode_accuracy": 0.537109375,
+                  "depth": 160
+                },
+                {
+                  "decode_accuracy": 0.4986979166666667,
+                  "depth": 192
+                },
+                {
+                  "decode_accuracy": 0.4461669921875,
+                  "depth": 256
+                }
+              ],
+              "heads": 2,
+              "matrix_D_flattened": 16384,
+              "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+              "module1_vector_law_D16384_bound_single": 819.3771433715864,
+              "module1_vector_law_D16384_factored": 573.8881451383465,
+              "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+              "rank_bound": 256,
+              "state_cols": 128,
+              "state_rows": 128,
+              "striped": true,
+              "task_family": "sudoku_6x6",
+              "trials": 32
+            },
+            {
+              "K_val": 6,
+              "K_var": 36,
+              "decode_frontier": 16,
+              "decode_threshold": 0.95,
+              "delta_vs_rank_bound": -496,
+              "depth_curve": [
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 1
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 2
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 4
+                },
+                {
+                  "decode_accuracy": 0.97265625,
+                  "depth": 8
+                },
+                {
+                  "decode_accuracy": 0.9791666666666666,
+                  "depth": 12
+                },
+                {
+                  "decode_accuracy": 0.9609375,
+                  "depth": 16
+                },
+                {
+                  "decode_accuracy": 0.93359375,
+                  "depth": 24
+                },
+                {
+                  "decode_accuracy": 0.9306640625,
+                  "depth": 32
+                },
+                {
+                  "decode_accuracy": 0.8717447916666666,
+                  "depth": 48
+                },
+                {
+                  "decode_accuracy": 0.83837890625,
+                  "depth": 64
+                },
+                {
+                  "decode_accuracy": 0.7903645833333334,
+                  "depth": 96
+                },
+                {
+                  "decode_accuracy": 0.739013671875,
+                  "depth": 128
+                },
+                {
+                  "decode_accuracy": 0.6830078125,
+                  "depth": 160
+                },
+                {
+                  "decode_accuracy": 0.65185546875,
+                  "depth": 192
+                },
+                {
+                  "decode_accuracy": 0.583984375,
+                  "depth": 256
+                }
+              ],
+              "heads": 4,
+              "matrix_D_flattened": 16384,
+              "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+              "module1_vector_law_D16384_bound_single": 819.3771433715864,
+              "module1_vector_law_D16384_factored": 573.8881451383465,
+              "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+              "rank_bound": 512,
+              "state_cols": 128,
+              "state_rows": 128,
+              "striped": true,
+              "task_family": "sudoku_6x6",
+              "trials": 32
+            },
+            {
+              "K_val": 6,
+              "K_var": 36,
+              "decode_frontier": 32,
+              "decode_threshold": 0.95,
+              "delta_vs_rank_bound": -992,
+              "depth_curve": [
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 1
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 2
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 4
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 8
+                },
+                {
+                  "decode_accuracy": 0.9921875,
+                  "depth": 12
+                },
+                {
+                  "decode_accuracy": 0.9921875,
+                  "depth": 16
+                },
+                {
+                  "decode_accuracy": 0.984375,
+                  "depth": 24
+                },
+                {
+                  "decode_accuracy": 0.962890625,
+                  "depth": 32
+                },
+                {
+                  "decode_accuracy": 0.943359375,
+                  "depth": 48
+                },
+                {
+                  "decode_accuracy": 0.9208984375,
+                  "depth": 64
+                },
+                {
+                  "decode_accuracy": 0.8815104166666666,
+                  "depth": 96
+                },
+                {
+                  "decode_accuracy": 0.85205078125,
+                  "depth": 128
+                },
+                {
+                  "decode_accuracy": 0.8212890625,
+                  "depth": 160
+                },
+                {
+                  "decode_accuracy": 0.7835286458333334,
+                  "depth": 192
+                },
+                {
+                  "decode_accuracy": 0.7354736328125,
+                  "depth": 256
+                }
+              ],
+              "heads": 8,
+              "matrix_D_flattened": 16384,
+              "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+              "module1_vector_law_D16384_bound_single": 819.3771433715864,
+              "module1_vector_law_D16384_factored": 573.8881451383465,
+              "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+              "rank_bound": 1024,
+              "state_cols": 128,
+              "state_rows": 128,
+              "striped": true,
+              "task_family": "sudoku_6x6",
+              "trials": 32
             },
             {
               "K_val": 9,
-              "K_var": 60,
-              "bound_single_estimated_capacity": 109.38200016209551,
-              "factored_estimated_capacity": 78.48245783777612,
-              "hidden_size_as_D": 2560,
-              "provenance": "derived_from_module1_capacity_law",
-              "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
-            },
-            {
-              "K_val": 2,
               "K_var": 81,
-              "bound_single_estimated_capacity": 135.2671028314925,
-              "factored_estimated_capacity": 73.12275399438,
-              "hidden_size_as_D": 2560,
-              "provenance": "derived_from_module1_capacity_law",
-              "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
-            },
-            {
-              "K_val": 2,
-              "K_var": 256,
-              "bound_single_estimated_capacity": 110.31558278976945,
-              "factored_estimated_capacity": 57.94841151527523,
-              "hidden_size_as_D": 2560,
-              "provenance": "derived_from_module1_capacity_law",
-              "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
-            },
-            {
-              "K_val": 2,
-              "K_var": 729,
-              "bound_single_estimated_capacity": 94.46826832155462,
-              "factored_estimated_capacity": 48.74850266292001,
-              "hidden_size_as_D": 2560,
-              "provenance": "derived_from_module1_capacity_law",
-              "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+              "decode_frontier": 12,
+              "decode_threshold": 0.95,
+              "delta_vs_rank_bound": -116,
+              "depth_curve": [
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 1
+                },
+                {
+                  "decode_accuracy": 0.96875,
+                  "depth": 2
+                },
+                {
+                  "decode_accuracy": 0.96875,
+                  "depth": 4
+                },
+                {
+                  "decode_accuracy": 0.98046875,
+                  "depth": 8
+                },
+                {
+                  "decode_accuracy": 0.9557291666666666,
+                  "depth": 12
+                },
+                {
+                  "decode_accuracy": 0.904296875,
+                  "depth": 16
+                },
+                {
+                  "decode_accuracy": 0.890625,
+                  "depth": 24
+                },
+                {
+                  "decode_accuracy": 0.8515625,
+                  "depth": 32
+                },
+                {
+                  "decode_accuracy": 0.783203125,
+                  "depth": 48
+                },
+                {
+                  "decode_accuracy": 0.73291015625,
+                  "depth": 64
+                },
+                {
+                  "decode_accuracy": 0.6236979166666666,
+                  "depth": 96
+                },
+                {
+                  "decode_accuracy": 0.548828125,
+                  "depth": 128
+                },
+                {
+                  "decode_accuracy": 0.5021484375,
+                  "depth": 160
+                },
+                {
+                  "decode_accuracy": 0.4578450520833333,
+                  "depth": 192
+                },
+                {
+                  "decode_accuracy": 0.3953857421875,
+                  "depth": 256
+                }
+              ],
+              "heads": 1,
+              "matrix_D_flattened": 16384,
+              "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+              "module1_vector_law_D16384_bound_single": 668.173281260553,
+              "module1_vector_law_D16384_factored": 467.9856255640321,
+              "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+              "rank_bound": 128,
+              "state_cols": 128,
+              "state_rows": 128,
+              "striped": false,
+              "task_family": "sudoku_9x9",
+              "trials": 32
             },
             {
               "K_val": 9,
-              "K_var": 729,
-              "bound_single_estimated_capacity": 78.30155639772106,
-              "factored_estimated_capacity": 48.74850266292001,
-              "hidden_size_as_D": 2560,
-              "provenance": "derived_from_module1_capacity_law",
-              "source": "Module1 fitted slopes; planning estimate only, not native Qwen stack evidence"
+              "K_var": 81,
+              "decode_frontier": 16,
+              "decode_threshold": 0.95,
+              "delta_vs_rank_bound": -240,
+              "depth_curve": [
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 1
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 2
+                },
+                {
+                  "decode_accuracy": 0.9921875,
+                  "depth": 4
+                },
+                {
+                  "decode_accuracy": 0.98046875,
+                  "depth": 8
+                },
+                {
+                  "decode_accuracy": 0.9635416666666666,
+                  "depth": 12
+                },
+                {
+                  "decode_accuracy": 0.95703125,
+                  "depth": 16
+                },
+                {
+                  "decode_accuracy": 0.9401041666666666,
+                  "depth": 24
+                },
+                {
+                  "decode_accuracy": 0.9208984375,
+                  "depth": 32
+                },
+                {
+                  "decode_accuracy": 0.8795572916666666,
+                  "depth": 48
+                },
+                {
+                  "decode_accuracy": 0.8603515625,
+                  "depth": 64
+                },
+                {
+                  "decode_accuracy": 0.7779947916666666,
+                  "depth": 96
+                },
+                {
+                  "decode_accuracy": 0.72021484375,
+                  "depth": 128
+                },
+                {
+                  "decode_accuracy": 0.6771484375,
+                  "depth": 160
+                },
+                {
+                  "decode_accuracy": 0.6295572916666666,
+                  "depth": 192
+                },
+                {
+                  "decode_accuracy": 0.550537109375,
+                  "depth": 256
+                }
+              ],
+              "heads": 2,
+              "matrix_D_flattened": 16384,
+              "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+              "module1_vector_law_D16384_bound_single": 668.173281260553,
+              "module1_vector_law_D16384_factored": 467.9856255640321,
+              "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+              "rank_bound": 256,
+              "state_cols": 128,
+              "state_rows": 128,
+              "striped": true,
+              "task_family": "sudoku_9x9",
+              "trials": 32
+            },
+            {
+              "K_val": 9,
+              "K_var": 81,
+              "decode_frontier": 32,
+              "decode_threshold": 0.95,
+              "delta_vs_rank_bound": -480,
+              "depth_curve": [
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 1
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 2
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 4
+                },
+                {
+                  "decode_accuracy": 0.98828125,
+                  "depth": 8
+                },
+                {
+                  "decode_accuracy": 0.9895833333333334,
+                  "depth": 12
+                },
+                {
+                  "decode_accuracy": 0.986328125,
+                  "depth": 16
+                },
+                {
+                  "decode_accuracy": 0.9739583333333334,
+                  "depth": 24
+                },
+                {
+                  "decode_accuracy": 0.966796875,
+                  "depth": 32
+                },
+                {
+                  "decode_accuracy": 0.9498697916666666,
+                  "depth": 48
+                },
+                {
+                  "decode_accuracy": 0.916015625,
+                  "depth": 64
+                },
+                {
+                  "decode_accuracy": 0.8883463541666666,
+                  "depth": 96
+                },
+                {
+                  "decode_accuracy": 0.850341796875,
+                  "depth": 128
+                },
+                {
+                  "decode_accuracy": 0.81484375,
+                  "depth": 160
+                },
+                {
+                  "decode_accuracy": 0.7888997395833334,
+                  "depth": 192
+                },
+                {
+                  "decode_accuracy": 0.736572265625,
+                  "depth": 256
+                }
+              ],
+              "heads": 4,
+              "matrix_D_flattened": 16384,
+              "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+              "module1_vector_law_D16384_bound_single": 668.173281260553,
+              "module1_vector_law_D16384_factored": 467.9856255640321,
+              "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+              "rank_bound": 512,
+              "state_cols": 128,
+              "state_rows": 128,
+              "striped": true,
+              "task_family": "sudoku_9x9",
+              "trials": 32
+            },
+            {
+              "K_val": 9,
+              "K_var": 81,
+              "decode_frontier": 64,
+              "decode_threshold": 0.95,
+              "delta_vs_rank_bound": -960,
+              "depth_curve": [
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 1
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 2
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 4
+                },
+                {
+                  "decode_accuracy": 1.0,
+                  "depth": 8
+                },
+                {
+                  "decode_accuracy": 0.9947916666666666,
+                  "depth": 12
+                },
+                {
+                  "decode_accuracy": 0.99609375,
+                  "depth": 16
+                },
+                {
+                  "decode_accuracy": 0.984375,
+                  "depth": 24
+                },
+                {
+                  "decode_accuracy": 0.9794921875,
+                  "depth": 32
+                },
+                {
+                  "decode_accuracy": 0.9700520833333334,
+                  "depth": 48
+                },
+                {
+                  "decode_accuracy": 0.95751953125,
+                  "depth": 64
+                },
+                {
+                  "decode_accuracy": 0.9482421875,
+                  "depth": 96
+                },
+                {
+                  "decode_accuracy": 0.921875,
+                  "depth": 128
+                },
+                {
+                  "decode_accuracy": 0.903125,
+                  "depth": 160
+                },
+                {
+                  "decode_accuracy": 0.88525390625,
+                  "depth": 192
+                },
+                {
+                  "decode_accuracy": 0.8511962890625,
+                  "depth": 256
+                }
+              ],
+              "heads": 8,
+              "matrix_D_flattened": 16384,
+              "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+              "module1_vector_law_D16384_bound_single": 668.173281260553,
+              "module1_vector_law_D16384_factored": 467.9856255640321,
+              "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+              "rank_bound": 1024,
+              "state_cols": 128,
+              "state_rows": 128,
+              "striped": true,
+              "task_family": "sudoku_9x9",
+              "trials": 32
             }
-          ]
+          ],
+          "settings": {
+            "decode_threshold": 0.95,
+            "depth_grid": [
+              1,
+              2,
+              4,
+              8,
+              12,
+              16,
+              24,
+              32,
+              48,
+              64,
+              96,
+              128,
+              160,
+              192,
+              256
+            ],
+            "head_grid": [
+              1,
+              2,
+              4,
+              8
+            ],
+            "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+            "max_state_heads": 32,
+            "seed": 102,
+            "state_cols": 128,
+            "state_rows": 128,
+            "trials": 32
+          },
+          "status": "MEASURED_TRUE_STATE_MATRIX_GEOMETRY"
         },
         "decay_survival": {
           "columns": [
@@ -1737,7 +2372,7 @@
         "verdicts_echo": {
           "W3.0_checkpoint_pin": "PASS",
           "W3.1_cached_state_round_trip": "MEASURED_CACHED_GDN_RECURRENT_STATE",
-          "W3.1_capacity_at_real_gdn_dims": "MEASURED_TRUE_STATE_DIMS",
+          "W3.1_capacity_at_real_gdn_dims": "MEASURED_TRUE_STATE_MATRIX_GEOMETRY",
           "W3.1_gating_decay_stack_survival": "MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL",
           "W3.1_native_delta_rule_as_stack_gap": "MEASURED_CACHED_GDN_NATIVE_RULE_GAP",
           "W3.2_qwen3_4b_delta_table": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
@@ -1987,10 +2622,710 @@
         ],
         "status": "MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL"
       },
+      "true_state_matrix_capacity": {
+        "columns": [
+          "task_family",
+          "K_var",
+          "K_val",
+          "state_rows",
+          "state_cols",
+          "heads",
+          "striped",
+          "decode_frontier",
+          "rank_bound",
+          "module1_vector_law_D16384_bound_single",
+          "module1_vector_law_D16384_factored",
+          "delta_vs_rank_bound",
+          "provenance"
+        ],
+        "rows": [
+          {
+            "K_val": 6,
+            "K_var": 36,
+            "decode_frontier": 4,
+            "decode_threshold": 0.95,
+            "delta_vs_rank_bound": -124,
+            "depth_curve": [
+              {
+                "decode_accuracy": 1.0,
+                "depth": 1
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 2
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 4
+              },
+              {
+                "decode_accuracy": 0.921875,
+                "depth": 8
+              },
+              {
+                "decode_accuracy": 0.9088541666666666,
+                "depth": 12
+              },
+              {
+                "decode_accuracy": 0.84765625,
+                "depth": 16
+              },
+              {
+                "decode_accuracy": 0.7786458333333334,
+                "depth": 24
+              },
+              {
+                "decode_accuracy": 0.732421875,
+                "depth": 32
+              },
+              {
+                "decode_accuracy": 0.642578125,
+                "depth": 48
+              },
+              {
+                "decode_accuracy": 0.5751953125,
+                "depth": 64
+              },
+              {
+                "decode_accuracy": 0.4993489583333333,
+                "depth": 96
+              },
+              {
+                "decode_accuracy": 0.455810546875,
+                "depth": 128
+              },
+              {
+                "decode_accuracy": 0.4193359375,
+                "depth": 160
+              },
+              {
+                "decode_accuracy": 0.3924153645833333,
+                "depth": 192
+              },
+              {
+                "decode_accuracy": 0.3582763671875,
+                "depth": 256
+              }
+            ],
+            "heads": 1,
+            "matrix_D_flattened": 16384,
+            "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+            "module1_vector_law_D16384_bound_single": 819.3771433715864,
+            "module1_vector_law_D16384_factored": 573.8881451383465,
+            "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+            "rank_bound": 128,
+            "state_cols": 128,
+            "state_rows": 128,
+            "striped": false,
+            "task_family": "sudoku_6x6",
+            "trials": 32
+          },
+          {
+            "K_val": 6,
+            "K_var": 36,
+            "decode_frontier": 8,
+            "decode_threshold": 0.95,
+            "delta_vs_rank_bound": -248,
+            "depth_curve": [
+              {
+                "decode_accuracy": 1.0,
+                "depth": 1
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 2
+              },
+              {
+                "decode_accuracy": 0.9921875,
+                "depth": 4
+              },
+              {
+                "decode_accuracy": 0.9609375,
+                "depth": 8
+              },
+              {
+                "decode_accuracy": 0.9322916666666666,
+                "depth": 12
+              },
+              {
+                "decode_accuracy": 0.916015625,
+                "depth": 16
+              },
+              {
+                "decode_accuracy": 0.8919270833333334,
+                "depth": 24
+              },
+              {
+                "decode_accuracy": 0.8603515625,
+                "depth": 32
+              },
+              {
+                "decode_accuracy": 0.7779947916666666,
+                "depth": 48
+              },
+              {
+                "decode_accuracy": 0.72998046875,
+                "depth": 64
+              },
+              {
+                "decode_accuracy": 0.6510416666666666,
+                "depth": 96
+              },
+              {
+                "decode_accuracy": 0.59130859375,
+                "depth": 128
+              },
+              {
+                "decode_accuracy": 0.537109375,
+                "depth": 160
+              },
+              {
+                "decode_accuracy": 0.4986979166666667,
+                "depth": 192
+              },
+              {
+                "decode_accuracy": 0.4461669921875,
+                "depth": 256
+              }
+            ],
+            "heads": 2,
+            "matrix_D_flattened": 16384,
+            "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+            "module1_vector_law_D16384_bound_single": 819.3771433715864,
+            "module1_vector_law_D16384_factored": 573.8881451383465,
+            "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+            "rank_bound": 256,
+            "state_cols": 128,
+            "state_rows": 128,
+            "striped": true,
+            "task_family": "sudoku_6x6",
+            "trials": 32
+          },
+          {
+            "K_val": 6,
+            "K_var": 36,
+            "decode_frontier": 16,
+            "decode_threshold": 0.95,
+            "delta_vs_rank_bound": -496,
+            "depth_curve": [
+              {
+                "decode_accuracy": 1.0,
+                "depth": 1
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 2
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 4
+              },
+              {
+                "decode_accuracy": 0.97265625,
+                "depth": 8
+              },
+              {
+                "decode_accuracy": 0.9791666666666666,
+                "depth": 12
+              },
+              {
+                "decode_accuracy": 0.9609375,
+                "depth": 16
+              },
+              {
+                "decode_accuracy": 0.93359375,
+                "depth": 24
+              },
+              {
+                "decode_accuracy": 0.9306640625,
+                "depth": 32
+              },
+              {
+                "decode_accuracy": 0.8717447916666666,
+                "depth": 48
+              },
+              {
+                "decode_accuracy": 0.83837890625,
+                "depth": 64
+              },
+              {
+                "decode_accuracy": 0.7903645833333334,
+                "depth": 96
+              },
+              {
+                "decode_accuracy": 0.739013671875,
+                "depth": 128
+              },
+              {
+                "decode_accuracy": 0.6830078125,
+                "depth": 160
+              },
+              {
+                "decode_accuracy": 0.65185546875,
+                "depth": 192
+              },
+              {
+                "decode_accuracy": 0.583984375,
+                "depth": 256
+              }
+            ],
+            "heads": 4,
+            "matrix_D_flattened": 16384,
+            "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+            "module1_vector_law_D16384_bound_single": 819.3771433715864,
+            "module1_vector_law_D16384_factored": 573.8881451383465,
+            "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+            "rank_bound": 512,
+            "state_cols": 128,
+            "state_rows": 128,
+            "striped": true,
+            "task_family": "sudoku_6x6",
+            "trials": 32
+          },
+          {
+            "K_val": 6,
+            "K_var": 36,
+            "decode_frontier": 32,
+            "decode_threshold": 0.95,
+            "delta_vs_rank_bound": -992,
+            "depth_curve": [
+              {
+                "decode_accuracy": 1.0,
+                "depth": 1
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 2
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 4
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 8
+              },
+              {
+                "decode_accuracy": 0.9921875,
+                "depth": 12
+              },
+              {
+                "decode_accuracy": 0.9921875,
+                "depth": 16
+              },
+              {
+                "decode_accuracy": 0.984375,
+                "depth": 24
+              },
+              {
+                "decode_accuracy": 0.962890625,
+                "depth": 32
+              },
+              {
+                "decode_accuracy": 0.943359375,
+                "depth": 48
+              },
+              {
+                "decode_accuracy": 0.9208984375,
+                "depth": 64
+              },
+              {
+                "decode_accuracy": 0.8815104166666666,
+                "depth": 96
+              },
+              {
+                "decode_accuracy": 0.85205078125,
+                "depth": 128
+              },
+              {
+                "decode_accuracy": 0.8212890625,
+                "depth": 160
+              },
+              {
+                "decode_accuracy": 0.7835286458333334,
+                "depth": 192
+              },
+              {
+                "decode_accuracy": 0.7354736328125,
+                "depth": 256
+              }
+            ],
+            "heads": 8,
+            "matrix_D_flattened": 16384,
+            "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+            "module1_vector_law_D16384_bound_single": 819.3771433715864,
+            "module1_vector_law_D16384_factored": 573.8881451383465,
+            "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+            "rank_bound": 1024,
+            "state_cols": 128,
+            "state_rows": 128,
+            "striped": true,
+            "task_family": "sudoku_6x6",
+            "trials": 32
+          },
+          {
+            "K_val": 9,
+            "K_var": 81,
+            "decode_frontier": 12,
+            "decode_threshold": 0.95,
+            "delta_vs_rank_bound": -116,
+            "depth_curve": [
+              {
+                "decode_accuracy": 1.0,
+                "depth": 1
+              },
+              {
+                "decode_accuracy": 0.96875,
+                "depth": 2
+              },
+              {
+                "decode_accuracy": 0.96875,
+                "depth": 4
+              },
+              {
+                "decode_accuracy": 0.98046875,
+                "depth": 8
+              },
+              {
+                "decode_accuracy": 0.9557291666666666,
+                "depth": 12
+              },
+              {
+                "decode_accuracy": 0.904296875,
+                "depth": 16
+              },
+              {
+                "decode_accuracy": 0.890625,
+                "depth": 24
+              },
+              {
+                "decode_accuracy": 0.8515625,
+                "depth": 32
+              },
+              {
+                "decode_accuracy": 0.783203125,
+                "depth": 48
+              },
+              {
+                "decode_accuracy": 0.73291015625,
+                "depth": 64
+              },
+              {
+                "decode_accuracy": 0.6236979166666666,
+                "depth": 96
+              },
+              {
+                "decode_accuracy": 0.548828125,
+                "depth": 128
+              },
+              {
+                "decode_accuracy": 0.5021484375,
+                "depth": 160
+              },
+              {
+                "decode_accuracy": 0.4578450520833333,
+                "depth": 192
+              },
+              {
+                "decode_accuracy": 0.3953857421875,
+                "depth": 256
+              }
+            ],
+            "heads": 1,
+            "matrix_D_flattened": 16384,
+            "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+            "module1_vector_law_D16384_bound_single": 668.173281260553,
+            "module1_vector_law_D16384_factored": 467.9856255640321,
+            "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+            "rank_bound": 128,
+            "state_cols": 128,
+            "state_rows": 128,
+            "striped": false,
+            "task_family": "sudoku_9x9",
+            "trials": 32
+          },
+          {
+            "K_val": 9,
+            "K_var": 81,
+            "decode_frontier": 16,
+            "decode_threshold": 0.95,
+            "delta_vs_rank_bound": -240,
+            "depth_curve": [
+              {
+                "decode_accuracy": 1.0,
+                "depth": 1
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 2
+              },
+              {
+                "decode_accuracy": 0.9921875,
+                "depth": 4
+              },
+              {
+                "decode_accuracy": 0.98046875,
+                "depth": 8
+              },
+              {
+                "decode_accuracy": 0.9635416666666666,
+                "depth": 12
+              },
+              {
+                "decode_accuracy": 0.95703125,
+                "depth": 16
+              },
+              {
+                "decode_accuracy": 0.9401041666666666,
+                "depth": 24
+              },
+              {
+                "decode_accuracy": 0.9208984375,
+                "depth": 32
+              },
+              {
+                "decode_accuracy": 0.8795572916666666,
+                "depth": 48
+              },
+              {
+                "decode_accuracy": 0.8603515625,
+                "depth": 64
+              },
+              {
+                "decode_accuracy": 0.7779947916666666,
+                "depth": 96
+              },
+              {
+                "decode_accuracy": 0.72021484375,
+                "depth": 128
+              },
+              {
+                "decode_accuracy": 0.6771484375,
+                "depth": 160
+              },
+              {
+                "decode_accuracy": 0.6295572916666666,
+                "depth": 192
+              },
+              {
+                "decode_accuracy": 0.550537109375,
+                "depth": 256
+              }
+            ],
+            "heads": 2,
+            "matrix_D_flattened": 16384,
+            "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+            "module1_vector_law_D16384_bound_single": 668.173281260553,
+            "module1_vector_law_D16384_factored": 467.9856255640321,
+            "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+            "rank_bound": 256,
+            "state_cols": 128,
+            "state_rows": 128,
+            "striped": true,
+            "task_family": "sudoku_9x9",
+            "trials": 32
+          },
+          {
+            "K_val": 9,
+            "K_var": 81,
+            "decode_frontier": 32,
+            "decode_threshold": 0.95,
+            "delta_vs_rank_bound": -480,
+            "depth_curve": [
+              {
+                "decode_accuracy": 1.0,
+                "depth": 1
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 2
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 4
+              },
+              {
+                "decode_accuracy": 0.98828125,
+                "depth": 8
+              },
+              {
+                "decode_accuracy": 0.9895833333333334,
+                "depth": 12
+              },
+              {
+                "decode_accuracy": 0.986328125,
+                "depth": 16
+              },
+              {
+                "decode_accuracy": 0.9739583333333334,
+                "depth": 24
+              },
+              {
+                "decode_accuracy": 0.966796875,
+                "depth": 32
+              },
+              {
+                "decode_accuracy": 0.9498697916666666,
+                "depth": 48
+              },
+              {
+                "decode_accuracy": 0.916015625,
+                "depth": 64
+              },
+              {
+                "decode_accuracy": 0.8883463541666666,
+                "depth": 96
+              },
+              {
+                "decode_accuracy": 0.850341796875,
+                "depth": 128
+              },
+              {
+                "decode_accuracy": 0.81484375,
+                "depth": 160
+              },
+              {
+                "decode_accuracy": 0.7888997395833334,
+                "depth": 192
+              },
+              {
+                "decode_accuracy": 0.736572265625,
+                "depth": 256
+              }
+            ],
+            "heads": 4,
+            "matrix_D_flattened": 16384,
+            "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+            "module1_vector_law_D16384_bound_single": 668.173281260553,
+            "module1_vector_law_D16384_factored": 467.9856255640321,
+            "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+            "rank_bound": 512,
+            "state_cols": 128,
+            "state_rows": 128,
+            "striped": true,
+            "task_family": "sudoku_9x9",
+            "trials": 32
+          },
+          {
+            "K_val": 9,
+            "K_var": 81,
+            "decode_frontier": 64,
+            "decode_threshold": 0.95,
+            "delta_vs_rank_bound": -960,
+            "depth_curve": [
+              {
+                "decode_accuracy": 1.0,
+                "depth": 1
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 2
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 4
+              },
+              {
+                "decode_accuracy": 1.0,
+                "depth": 8
+              },
+              {
+                "decode_accuracy": 0.9947916666666666,
+                "depth": 12
+              },
+              {
+                "decode_accuracy": 0.99609375,
+                "depth": 16
+              },
+              {
+                "decode_accuracy": 0.984375,
+                "depth": 24
+              },
+              {
+                "decode_accuracy": 0.9794921875,
+                "depth": 32
+              },
+              {
+                "decode_accuracy": 0.9700520833333334,
+                "depth": 48
+              },
+              {
+                "decode_accuracy": 0.95751953125,
+                "depth": 64
+              },
+              {
+                "decode_accuracy": 0.9482421875,
+                "depth": 96
+              },
+              {
+                "decode_accuracy": 0.921875,
+                "depth": 128
+              },
+              {
+                "decode_accuracy": 0.903125,
+                "depth": 160
+              },
+              {
+                "decode_accuracy": 0.88525390625,
+                "depth": 192
+              },
+              {
+                "decode_accuracy": 0.8511962890625,
+                "depth": 256
+              }
+            ],
+            "heads": 8,
+            "matrix_D_flattened": 16384,
+            "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+            "module1_vector_law_D16384_bound_single": 668.173281260553,
+            "module1_vector_law_D16384_factored": 467.9856255640321,
+            "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+            "rank_bound": 1024,
+            "state_cols": 128,
+            "state_rows": 128,
+            "striped": true,
+            "task_family": "sudoku_9x9",
+            "trials": 32
+          }
+        ],
+        "settings": {
+          "decode_threshold": 0.95,
+          "depth_grid": [
+            1,
+            2,
+            4,
+            8,
+            12,
+            16,
+            24,
+            32,
+            48,
+            64,
+            96,
+            128,
+            160,
+            192,
+            256
+          ],
+          "head_grid": [
+            1,
+            2,
+            4,
+            8
+          ],
+          "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+          "max_state_heads": 32,
+          "seed": 102,
+          "state_cols": 128,
+          "state_rows": 128,
+          "trials": 32
+        },
+        "status": "MEASURED_TRUE_STATE_MATRIX_GEOMETRY"
+      },
       "verdicts": {
         "W3.0_checkpoint_pin": "PASS",
         "W3.1_cached_state_round_trip": "MEASURED_CACHED_GDN_RECURRENT_STATE",
-        "W3.1_capacity_at_real_gdn_dims": "MEASURED_TRUE_STATE_DIMS",
+        "W3.1_capacity_at_real_gdn_dims": "MEASURED_TRUE_STATE_MATRIX_GEOMETRY",
         "W3.1_gating_decay_stack_survival": "MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL",
         "W3.1_native_delta_rule_as_stack_gap": "MEASURED_CACHED_GDN_NATIVE_RULE_GAP",
         "W3.2_qwen3_4b_delta_table": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
@@ -2018,7 +3353,7 @@
       "S3.1 integration is not started."
     ]
   },
-  "generated_at": "2026-06-07T13:33:17.092801+00:00",
+  "generated_at": "2026-06-07T15:46:05.306923+00:00",
   "incremental_items": [
     [
       "001-018",
@@ -2078,7 +3413,7 @@
       "P0",
       "ledger and validation housekeeping",
       "Updated",
-      "validation_checks=165; validation_passed=False"
+      "validation_checks=172; validation_passed=False"
     ],
     [
       "W3.0",
@@ -2151,6 +3486,12 @@
       "T2 learned-operator preflight and T3 cached GDN state probe",
       "PARTIAL_EVIDENCE_RECORDED",
       "T2 should shift from simply adding steps/GPUs to correcting the learned target/interface or architecture, because the accelerated 8-GPU run still plateaus far below G1>=0.95. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims."
+    ],
+    [
+      "035",
+      "G1=G2 anomaly fix, true-dims W3 capacity, and W3.2 50x2 scale",
+      "PARTIAL_EVIDENCE_COMMITTED_W3_50X2_RUNNING",
+      "Do not scale T2 budget until forced-mask recall is repaired. After this partial-evidence commit, finish all remaining W3.2 50x2 shards, merge only when every shard has n_instances>=50 and at least two seeds, rerun validation/log generation, then make a final W3.2 completion commit."
     ]
   ],
   "items": [
@@ -2315,17 +3656,17 @@
         {
           "path": "analysis/validate_outputs.py",
           "present": "yes",
-          "size_bytes": 29692
+          "size_bytes": 30723
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 29829
+          "size_bytes": 31430
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 17801
+          "size_bytes": 18881
         }
       ],
       "detail_data": {
@@ -2335,7 +3676,7 @@
           "path": "analysis/validate_outputs.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 29692
+          "size_bytes": 30723
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -2348,18 +3689,18 @@
             ],
             [
               "generated_at",
-              "2026-06-07T13:21:34.006078+00:00"
+              "2026-06-07T15:46:05.144668+00:00"
             ],
             [
               "summary",
-              "n_checks=165; n_fail=4; n_pass=161"
+              "n_checks=172; n_fail=4; n_pass=168"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 29829
+          "size_bytes": 31430
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -2367,7 +3708,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 17801
+          "size_bytes": 18881
         }
       },
       "details": [
@@ -3117,17 +4458,17 @@
         {
           "path": "analysis/validate_outputs.py",
           "present": "yes",
-          "size_bytes": 29692
+          "size_bytes": 30723
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 29829
+          "size_bytes": 31430
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 322274
+          "size_bytes": 424489
         }
       ],
       "detail_data": {
@@ -3145,7 +4486,7 @@
           "path": "analysis/validate_outputs.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 29692
+          "size_bytes": 30723
         },
         "results/experiment_log/experiment_log.json": {
           "embedded": false,
@@ -3154,14 +4495,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-07T13:32:39.088540+00:00"
+              "2026-06-07T15:17:24.970249+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 322274
+          "size_bytes": 424489
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -3174,27 +4515,27 @@
             ],
             [
               "generated_at",
-              "2026-06-07T13:21:34.006078+00:00"
+              "2026-06-07T15:46:05.144668+00:00"
             ],
             [
               "summary",
-              "n_checks=165; n_fail=4; n_pass=161"
+              "n_checks=172; n_fail=4; n_pass=168"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 29829
+          "size_bytes": 31430
         }
       },
       "details": [
         "Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.",
-        "validation_pass=161; validation_fail=4",
+        "validation_pass=168; validation_fail=4",
         "Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure."
       ],
       "item": "P0",
-      "key_result": "validation_checks=165; validation_passed=False",
+      "key_result": "validation_checks=172; validation_passed=False",
       "name": "ledger and validation housekeeping",
       "next_action": "Keep future reports item-first and preserve explicit red checks.",
       "status": "Updated"
@@ -3486,12 +4827,12 @@
         {
           "path": "results/w3_qwen35_probe/results.json",
           "present": "yes",
-          "size_bytes": 56478
+          "size_bytes": 92111
         },
         {
           "path": "results/w3_qwen35_probe/verdicts.json",
           "present": "yes",
-          "size_bytes": 664
+          "size_bytes": 675
         }
       ],
       "detail_data": {
@@ -3522,7 +4863,7 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/results.json",
@@ -3535,8 +4876,8 @@
               "table": "capacity_estimates"
             },
             {
-              "columns": 6,
-              "rows": 6,
+              "columns": 13,
+              "rows": 8,
               "table": "capacity_at_real_gdn_dims"
             },
             {
@@ -3570,7 +4911,7 @@
               "table": "verdicts_echo"
             }
           ],
-          "size_bytes": 56478
+          "size_bytes": 92111
         },
         "results/w3_qwen35_probe/verdicts.json": {
           "embedded": false,
@@ -3595,14 +4936,14 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/verdicts.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 664
+          "size_bytes": 675
         },
         "specs/w3_qwen35_probe_spec.md": {
           "embedded": false,
@@ -3616,7 +4957,7 @@
       "details": [
         "hidden_size=2560; layers=32; full_attention_layers=8; linear_layers=24",
         "capacity_estimates=6; hidden_hook={'cached_state_probe': {'decay_survival': {'columns': ['level', 'intervening_steps', 'survival', 'half_life', 'provenance'], 'integration_grade_decision': 'in_state_candidate_pending_native_rule', 'measured_object': 'cached_gdn_recurrent_state', 'rows': [{'half_life': None, 'intervening_steps': 0, 'level': 0, 'provenance': 'measured:cached_gdn_recurrent_state perturb residual after native token updates', 'survival': 0.9997512798685079}, {'half_life': None, 'intervening_steps': 1, 'level': 0, 'provenance': 'measured:cached_gdn_recurrent_state perturb residual after native token updates', 'survival': 0.7434130127574465}, {'half_life': None, 'intervening_steps': 2, 'level': 0, 'provenance': 'measured:cached_gdn_recurrent_state perturb residual after native token updates', 'survival': 0.6905405621848195}, {'half_life': None, 'intervening_steps': 4, 'level': 0, 'provenance': 'measured:cached_gdn_recurrent_state perturb residual after native token updates', 'survival': 0.6627857612051089}, {'half_life': None, 'intervening_steps': 8, 'level': 0, 'provenance': 'measured:cached_gdn_recurrent_state perturb residual after native token updates', 'survival': 0.6469194051041568}], 'status': 'MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL'}, 'inventory': [{'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 0, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 0, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 1, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 1, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 2, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 2, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 4, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 4, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 5, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 5, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 6, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 6, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 8, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 8, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 9, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 9, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 10, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 10, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 12, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 12, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 13, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 13, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 14, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 14, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 16, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 16, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 17, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 17, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 18, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 18, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 20, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 20, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 21, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 21, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 22, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 22, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 24, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 24, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 25, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 25, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 26, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 26, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 28, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 28, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 29, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 29, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 30, 'num_state_heads': 32, 'per_head_matrix_dim': [128, 128], 'shape': [1, 32, 128, 128], 'state_name': 'recurrent_states'}, {'cache_layer_class': 'LinearAttentionLayer', 'device': 'cuda:1', 'dtype': 'bfloat16', 'layer': 30, 'num_state_heads': None, 'per_head_matrix_dim': None, 'shape': [1, 8192, 4], 'state_name': 'conv_states'}], 'measured_object': 'cached_gdn_recurrent_state', 'native_rule_gap': {'columns': ['depth', 'intervening_updates', 'native_delta_restore_error', 'keyed_register_restore_error', 'delta_inverse_cosine', 'failure_modes', 'provenance'], 'measured_object': 'cached_gdn_recurrent_state', 'rows': [{'delta_inverse_cosine': None, 'depth': 0, 'failure_modes': ['native_update_not_explicit_push_pop_inverse'], 'intervening_updates': 1, 'keyed_register_restore_error': 0.0, 'native_delta_restore_error': 0.16277175827047277, 'provenance': 'measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore'}, {'delta_inverse_cosine': None, 'depth': 0, 'failure_modes': ['native_update_not_explicit_push_pop_inverse'], 'intervening_updates': 2, 'keyed_register_restore_error': 0.0, 'native_delta_restore_error': 0.21244177972095904, 'provenance': 'measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore'}, {'delta_inverse_cosine': None, 'depth': 0, 'failure_modes': ['native_update_not_explicit_push_pop_inverse'], 'intervening_updates': 4, 'keyed_register_restore_error': 0.0, 'native_delta_restore_error': 0.2424491150259247, 'provenance': 'measured:cached_gdn_recurrent_state native gated-delta update versus exact keyed restore'}], 'status': 'MEASURED_CACHED_GDN_NATIVE_RULE_GAP'}, 'selected_layer': 0, 'state_hook_round_trip': {'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_max_logit_delta': 0.15625, 'perturbation_norm': 0.14225000143051147, 'restore_max_logit_delta': 0.0, 'restore_recovered_next_step': True}, 'status': 'MEASURED_CACHED_GDN_RECURRENT_STATE'}, 'device': 'cuda:1', 'hidden_dim': 2560, 'hidden_shape': [1, 2560], 'last_token_norm': 154.29713439941406, 'load_model': True, 'measured_object': 'prompt_hidden', 'state_hook_round_trip': {'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764}}",
-        "verdicts={'W3.0_checkpoint_pin': 'PASS', 'W3.1_cached_state_round_trip': 'MEASURED_CACHED_GDN_RECURRENT_STATE', 'W3.1_capacity_at_real_gdn_dims': 'MEASURED_TRUE_STATE_DIMS', 'W3.1_gating_decay_stack_survival': 'MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL', 'W3.1_native_delta_rule_as_stack_gap': 'MEASURED_CACHED_GDN_NATIVE_RULE_GAP', 'W3.2_qwen3_4b_delta_table': 'MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED'}"
+        "verdicts={'W3.0_checkpoint_pin': 'PASS', 'W3.1_cached_state_round_trip': 'MEASURED_CACHED_GDN_RECURRENT_STATE', 'W3.1_capacity_at_real_gdn_dims': 'MEASURED_TRUE_STATE_MATRIX_GEOMETRY', 'W3.1_gating_decay_stack_survival': 'MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL', 'W3.1_native_delta_rule_as_stack_gap': 'MEASURED_CACHED_GDN_NATIVE_RULE_GAP', 'W3.2_qwen3_4b_delta_table': 'MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED'}"
       ],
       "item": "P2",
       "key_result": "W3.0=PASS; survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; native_delta=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; propagation=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED",
@@ -3814,22 +5155,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 29829
+          "size_bytes": 31430
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 17801
+          "size_bytes": 18881
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 322274
+          "size_bytes": 424489
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 91775
+          "size_bytes": 102889
         },
         {
           "path": "specs/log_item_contract.md",
@@ -3854,12 +5195,12 @@
         {
           "path": "results/w3_qwen35_probe/results.json",
           "present": "yes",
-          "size_bytes": 56478
+          "size_bytes": 92111
         },
         {
           "path": "results/w3_qwen35_probe/verdicts.json",
           "present": "yes",
-          "size_bytes": 664
+          "size_bytes": 675
         }
       ],
       "contract_data": {
@@ -4199,14 +5540,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-07T13:32:39.088540+00:00"
+              "2026-06-07T15:17:24.970249+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 322274
+          "size_bytes": 424489
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -4214,7 +5555,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 91775
+          "size_bytes": 102889
         },
         "results/stage_a_adapter_wiring/results.json": {
           "embedded": false,
@@ -4399,18 +5740,18 @@
             ],
             [
               "generated_at",
-              "2026-06-07T13:21:34.006078+00:00"
+              "2026-06-07T15:46:05.144668+00:00"
             ],
             [
               "summary",
-              "n_checks=165; n_fail=4; n_pass=161"
+              "n_checks=172; n_fail=4; n_pass=168"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 29829
+          "size_bytes": 31430
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -4418,7 +5759,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 17801
+          "size_bytes": 18881
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -4447,7 +5788,7 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/results.json",
@@ -4460,8 +5801,8 @@
               "table": "capacity_estimates"
             },
             {
-              "columns": 6,
-              "rows": 6,
+              "columns": 13,
+              "rows": 8,
               "table": "capacity_at_real_gdn_dims"
             },
             {
@@ -4495,7 +5836,7 @@
               "table": "verdicts_echo"
             }
           ],
-          "size_bytes": 56478
+          "size_bytes": 92111
         },
         "results/w3_qwen35_probe/verdicts.json": {
           "embedded": false,
@@ -4520,14 +5861,14 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/verdicts.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 664
+          "size_bytes": 675
         },
         "scripts/reproduce_continuation_state.sh": {
           "embedded": false,
@@ -4964,12 +6305,12 @@
         {
           "path": "results/w3_qwen35_probe/results.json",
           "present": "yes",
-          "size_bytes": 56478
+          "size_bytes": 92111
         },
         {
           "path": "results/w3_qwen35_probe/verdicts.json",
           "present": "yes",
-          "size_bytes": 664
+          "size_bytes": 675
         },
         {
           "path": "specs/w3_qwen35_probe_spec.md",
@@ -4979,7 +6320,7 @@
         {
           "path": "experiments/w3_qwen35_probe.py",
           "present": "yes",
-          "size_bytes": 37681
+          "size_bytes": 47675
         },
         {
           "path": "results/model_download/qwen3_5_4b/qwen_download.json",
@@ -5262,7 +6603,7 @@
           "path": "experiments/w3_qwen35_probe.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 37681
+          "size_bytes": 47675
         },
         "results/experiment_items/item_030_p2_w3_hook_capacity.json": {
           "embedded": false,
@@ -5443,7 +6784,7 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/results.json",
@@ -5456,8 +6797,8 @@
               "table": "capacity_estimates"
             },
             {
-              "columns": 6,
-              "rows": 6,
+              "columns": 13,
+              "rows": 8,
               "table": "capacity_at_real_gdn_dims"
             },
             {
@@ -5491,7 +6832,7 @@
               "table": "verdicts_echo"
             }
           ],
-          "size_bytes": 56478
+          "size_bytes": 92111
         },
         "results/w3_qwen35_probe/verdicts.json": {
           "embedded": false,
@@ -5516,14 +6857,14 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/verdicts.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 664
+          "size_bytes": 675
         },
         "specs/w3_qwen35_probe_spec.md": {
           "embedded": false,
@@ -5557,17 +6898,17 @@
         {
           "path": "results/w3_qwen35_probe/results.json",
           "present": "yes",
-          "size_bytes": 56478
+          "size_bytes": 92111
         },
         {
           "path": "results/w3_qwen35_probe/verdicts.json",
           "present": "yes",
-          "size_bytes": 664
+          "size_bytes": 675
         },
         {
           "path": "results/w3_qwen35_probe/propagation_shards/horn_sat/results.json",
           "present": "yes",
-          "size_bytes": 25083
+          "size_bytes": 18897
         },
         {
           "path": "results/w3_qwen35_probe/propagation_shards/general_sat/results.json",
@@ -5582,7 +6923,7 @@
         {
           "path": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json",
           "present": "yes",
-          "size_bytes": 25103
+          "size_bytes": 19123
         },
         {
           "path": "results/w3_qwen35_probe/propagation_shards/logic_grid/results.json",
@@ -5592,12 +6933,12 @@
         {
           "path": "experiments/w3_qwen35_probe.py",
           "present": "yes",
-          "size_bytes": 37681
+          "size_bytes": 47675
         },
         {
           "path": "scripts/run_w3_qwen35_sharded.sh",
           "present": "yes",
-          "size_bytes": 1576
+          "size_bytes": 1707
         },
         {
           "path": "specs/w3_qwen35_probe_spec.md",
@@ -5979,7 +7320,7 @@
           "path": "experiments/w3_qwen35_probe.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 37681
+          "size_bytes": 47675
         },
         "results/experiment_items/item_031_p2_w3_survival_delta_propagation.json": {
           "embedded": false,
@@ -6223,7 +7564,11 @@
             ],
             [
               "generated_at",
-              "2026-06-07T10:48:20.998214+00:00"
+              "2026-06-07T15:03:16.903328+00:00"
+            ],
+            [
+              "measured_object",
+              "metadata_only"
             ],
             [
               "native_delta_probe",
@@ -6235,7 +7580,7 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=NOT_RUN; W3.1_native_delta_rule_as_stack_gap=NOT_RUN; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=NOT_RUN; W3.1_native_delta_rule_as_stack_gap=NOT_RUN; W3.2_qwen3_4b_delta_table=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/propagation_shards/horn_sat/results.json",
@@ -6269,7 +7614,7 @@
             },
             {
               "columns": 7,
-              "rows": 5,
+              "rows": 1,
               "table": "propagation_per_task_delta"
             },
             {
@@ -6283,7 +7628,7 @@
               "table": "verdicts_echo"
             }
           ],
-          "size_bytes": 25083
+          "size_bytes": 18897
         },
         "results/w3_qwen35_probe/propagation_shards/logic_grid/results.json": {
           "embedded": false,
@@ -6385,7 +7730,11 @@
             ],
             [
               "generated_at",
-              "2026-06-07T10:48:38.214916+00:00"
+              "2026-06-07T15:32:05.337201+00:00"
+            ],
+            [
+              "measured_object",
+              "metadata_only"
             ],
             [
               "native_delta_probe",
@@ -6397,7 +7746,7 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=NOT_RUN; W3.1_native_delta_rule_as_stack_gap=NOT_RUN; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=NOT_RUN; W3.1_native_delta_rule_as_stack_gap=NOT_RUN; W3.2_qwen3_4b_delta_table=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json",
@@ -6431,7 +7780,7 @@
             },
             {
               "columns": 7,
-              "rows": 5,
+              "rows": 1,
               "table": "propagation_per_task_delta"
             },
             {
@@ -6445,7 +7794,7 @@
               "table": "verdicts_echo"
             }
           ],
-          "size_bytes": 25103
+          "size_bytes": 19123
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -6474,7 +7823,7 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/results.json",
@@ -6487,8 +7836,8 @@
               "table": "capacity_estimates"
             },
             {
-              "columns": 6,
-              "rows": 6,
+              "columns": 13,
+              "rows": 8,
               "table": "capacity_at_real_gdn_dims"
             },
             {
@@ -6522,7 +7871,7 @@
               "table": "verdicts_echo"
             }
           ],
-          "size_bytes": 56478
+          "size_bytes": 92111
         },
         "results/w3_qwen35_probe/verdicts.json": {
           "embedded": false,
@@ -6547,14 +7896,14 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/verdicts.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 664
+          "size_bytes": 675
         },
         "scripts/run_w3_qwen35_sharded.sh": {
           "embedded": false,
@@ -6562,7 +7911,7 @@
           "path": "scripts/run_w3_qwen35_sharded.sh",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 1576
+          "size_bytes": 1707
         },
         "specs/w3_qwen35_probe_spec.md": {
           "embedded": false,
@@ -6636,12 +7985,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 29829
+          "size_bytes": 31430
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 17801
+          "size_bytes": 18881
         }
       ],
       "contract_data": {
@@ -7126,18 +8475,18 @@
             ],
             [
               "generated_at",
-              "2026-06-07T13:21:34.006078+00:00"
+              "2026-06-07T15:46:05.144668+00:00"
             ],
             [
               "summary",
-              "n_checks=165; n_fail=4; n_pass=161"
+              "n_checks=172; n_fail=4; n_pass=168"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 29829
+          "size_bytes": 31430
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -7145,7 +8494,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 17801
+          "size_bytes": 18881
         },
         "results/verifier/results.json": {
           "path": "results/verifier/results.json",
@@ -7183,7 +8532,7 @@
         {
           "path": "analysis/validate_outputs.py",
           "present": "yes",
-          "size_bytes": 29692
+          "size_bytes": 30723
         },
         {
           "path": "experiments/stage_a_sudoku6_bridge.py",
@@ -7193,7 +8542,7 @@
         {
           "path": "experiments/w3_qwen35_probe.py",
           "present": "yes",
-          "size_bytes": 37681
+          "size_bytes": 47675
         },
         {
           "path": "results/stage_a_sudoku6_bridge/results.json",
@@ -7203,22 +8552,22 @@
         {
           "path": "results/w3_qwen35_probe/results.json",
           "present": "yes",
-          "size_bytes": 56478
+          "size_bytes": 92111
         },
         {
           "path": "results/w3_qwen35_probe/verdicts.json",
           "present": "yes",
-          "size_bytes": 664
+          "size_bytes": 675
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 29829
+          "size_bytes": 31430
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 17801
+          "size_bytes": 18881
         }
       ],
       "contract_data": {
@@ -7429,7 +8778,7 @@
           "path": "analysis/validate_outputs.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 29692
+          "size_bytes": 30723
         },
         "experiments/stage_a_sudoku6_bridge.py": {
           "embedded": false,
@@ -7445,7 +8794,7 @@
           "path": "experiments/w3_qwen35_probe.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 37681
+          "size_bytes": 47675
         },
         "results/experiment_items/item_033_validation_object_binding.json": {
           "embedded": false,
@@ -7604,18 +8953,18 @@
             ],
             [
               "generated_at",
-              "2026-06-07T13:21:34.006078+00:00"
+              "2026-06-07T15:46:05.144668+00:00"
             ],
             [
               "summary",
-              "n_checks=165; n_fail=4; n_pass=161"
+              "n_checks=172; n_fail=4; n_pass=168"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 29829
+          "size_bytes": 31430
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -7623,7 +8972,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 17801
+          "size_bytes": 18881
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -7652,7 +9001,7 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/results.json",
@@ -7665,8 +9014,8 @@
               "table": "capacity_estimates"
             },
             {
-              "columns": 6,
-              "rows": 6,
+              "columns": 13,
+              "rows": 8,
               "table": "capacity_at_real_gdn_dims"
             },
             {
@@ -7700,7 +9049,7 @@
               "table": "verdicts_echo"
             }
           ],
-          "size_bytes": 56478
+          "size_bytes": 92111
         },
         "results/w3_qwen35_probe/verdicts.json": {
           "embedded": false,
@@ -7725,14 +9074,14 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/verdicts.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 664
+          "size_bytes": 675
         }
       },
       "details": [
@@ -7788,12 +9137,12 @@
         {
           "path": "results/w3_qwen35_probe/results.json",
           "present": "yes",
-          "size_bytes": 56478
+          "size_bytes": 92111
         },
         {
           "path": "results/w3_qwen35_probe/verdicts.json",
           "present": "yes",
-          "size_bytes": 664
+          "size_bytes": 675
         },
         {
           "path": "results/recurrent_operator/acceptance.json",
@@ -8558,7 +9907,7 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/results.json",
@@ -8571,8 +9920,8 @@
               "table": "capacity_estimates"
             },
             {
-              "columns": 6,
-              "rows": 6,
+              "columns": 13,
+              "rows": 8,
               "table": "capacity_at_real_gdn_dims"
             },
             {
@@ -8606,7 +9955,7 @@
               "table": "verdicts_echo"
             }
           ],
-          "size_bytes": 56478
+          "size_bytes": 92111
         },
         "results/w3_qwen35_probe/verdicts.json": {
           "embedded": false,
@@ -8631,14 +9980,14 @@
             ],
             [
               "verdicts",
-              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_DIMS; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
             ]
           ],
           "path": "results/w3_qwen35_probe/verdicts.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 664
+          "size_bytes": 675
         }
       },
       "details": [
@@ -8653,6 +10002,1633 @@
       "next_action": "T2 should shift from simply adding steps/GPUs to correcting the learned target/interface or architecture, because the accelerated 8-GPU run still plateaus far below G1>=0.95. Broaden W3.2 propagation beyond the small n=1/task shard before final integration claims.",
       "purpose": "Continue T2/T3 after validation object binding by producing real learned-operator artifacts for preflight wiring and measuring W3 on the actual Qwen3.5 cached GDN recurrent state.",
       "status": "PARTIAL_EVIDENCE_RECORDED"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/experiment_items/item_035_g1_anomaly_true_dims_w3_scale.json",
+          "present": "yes",
+          "size_bytes": 21877
+        },
+        {
+          "path": "results/recurrent_operator_forced_smoke/acceptance.json",
+          "present": "yes",
+          "size_bytes": 12931
+        },
+        {
+          "path": "results/recurrent_operator_forced_depth8_smoke/acceptance.json",
+          "present": "yes",
+          "size_bytes": 13420
+        },
+        {
+          "path": "results/recurrent_operator_forced_depth16_smoke/acceptance.json",
+          "present": "yes",
+          "size_bytes": 13399
+        },
+        {
+          "path": "results/recurrent_operator_forced_depth32_smoke/acceptance.json",
+          "present": "yes",
+          "size_bytes": 13368
+        },
+        {
+          "path": "results/w3_qwen35_probe/results.json",
+          "present": "yes",
+          "size_bytes": 92111
+        },
+        {
+          "path": "results/w3_qwen35_probe/verdicts.json",
+          "present": "yes",
+          "size_bytes": 675
+        },
+        {
+          "path": "results/w3_qwen35_probe/propagation_shards/horn_sat/results.json",
+          "present": "yes",
+          "size_bytes": 18897
+        },
+        {
+          "path": "results/w3_qwen35_probe/propagation_shards/general_sat/results.json",
+          "present": "yes",
+          "size_bytes": 25323
+        },
+        {
+          "path": "results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json",
+          "present": "yes",
+          "size_bytes": 25405
+        },
+        {
+          "path": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json",
+          "present": "yes",
+          "size_bytes": 19123
+        },
+        {
+          "path": "results/w3_qwen35_probe/propagation_shards/logic_grid/results.json",
+          "present": "yes",
+          "size_bytes": 25387
+        },
+        {
+          "path": "results/validation/validation.json",
+          "present": "yes",
+          "size_bytes": 31430
+        },
+        {
+          "path": "results/validation/validation.md",
+          "present": "yes",
+          "size_bytes": 18881
+        }
+      ],
+      "contract_data": {
+        "artifacts": [
+          "results/recurrent_operator_forced_smoke/acceptance.json",
+          "results/recurrent_operator_forced_depth8_smoke/acceptance.json",
+          "results/recurrent_operator_forced_depth16_smoke/acceptance.json",
+          "results/recurrent_operator_forced_depth32_smoke/acceptance.json",
+          "results/w3_qwen35_probe/results.json",
+          "results/w3_qwen35_probe/verdicts.json",
+          "results/w3_qwen35_probe/propagation_shards/horn_sat/results.json",
+          "results/w3_qwen35_probe/propagation_shards/general_sat/results.json",
+          "results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json",
+          "results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json",
+          "results/w3_qwen35_probe/propagation_shards/logic_grid/results.json",
+          "results/validation/validation.json",
+          "results/validation/validation.md"
+        ],
+        "code_added_used": [
+          {
+            "change": "Added forced_mask supervision, a shared forced_only_commit_decision function, tau calibration, forced-only episode fixpoint evaluation, anomaly-collapse reporting, and per-depth forced precision/recall rows.",
+            "path": "experiments/train_recurrent_operator.py"
+          },
+          {
+            "change": "Added true-state matrix capacity measurement from cached_state_probe.inventory geometry, 50x2 propagation status labels, mixed-scale-safe shard merge, preservation of true capacity through merge, and parse_failure_rate correction at generation/merge time.",
+            "path": "experiments/w3_qwen35_probe.py"
+          },
+          {
+            "change": "Strengthened W3 capacity validation to require measured rows from 128x128 cached-state inventory geometry and added a mixed-scale propagation guard.",
+            "path": "analysis/validate_outputs.py"
+          },
+          {
+            "change": "Made base W3 probes opt-in via RUN_BASE_PROBES so propagation shards do not overwrite the canonical cached-state artifact.",
+            "path": "scripts/run_w3_qwen35_sharded.sh"
+          },
+          {
+            "change": "Added item_035 to the canonical artifact index.",
+            "path": "analysis/experiment_log.py"
+          }
+        ],
+        "commands": [
+          {
+            "command": ".venv/bin/python -m experiments.train_recurrent_operator --output-dir results/recurrent_operator_forced_smoke --device cuda:0 --train-instances 32 --eval-instances 16 --l4-instances 4 --steps 20 --batch-size 64 --hidden-dim 128 --recurrence-steps 8 --generation-workers 4",
+            "purpose": "A1 forced-only smoke: verify that blocking unforced commits collapses G2 instead of preserving the old G1\u2248G2 anomaly."
+          },
+          {
+            "command": ".venv/bin/python -m experiments.train_recurrent_operator --output-dir results/recurrent_operator_forced_depth8_smoke --device cuda:0 --train-instances 128 --eval-instances 64 --l4-instances 16 --steps 80 --batch-size 256 --hidden-dim 128 --recurrence-steps 8 --generation-workers 4",
+            "purpose": "A2 low-budget recurrence-depth sweep point at recurrence_steps=8."
+          },
+          {
+            "command": ".venv/bin/python -m experiments.train_recurrent_operator --output-dir results/recurrent_operator_forced_depth16_smoke --device cuda:0 --train-instances 128 --eval-instances 64 --l4-instances 16 --steps 80 --batch-size 256 --hidden-dim 128 --recurrence-steps 16 --generation-workers 4",
+            "purpose": "A2 low-budget recurrence-depth sweep point at recurrence_steps=16."
+          },
+          {
+            "command": ".venv/bin/python -m experiments.train_recurrent_operator --output-dir results/recurrent_operator_forced_depth32_smoke --device cuda:0 --train-instances 128 --eval-instances 64 --l4-instances 16 --steps 80 --batch-size 256 --hidden-dim 128 --recurrence-steps 32 --generation-workers 4",
+            "purpose": "A2 low-budget recurrence-depth sweep point at recurrence_steps=32."
+          },
+          {
+            "command": ".venv/bin/python -m experiments.w3_qwen35_probe --output-dir results/w3_qwen35_probe --run-true-dims-capacity-only --true-dims-capacity-trials 32",
+            "purpose": "B2 true-dims capacity measurement on cached GDN recurrent-state inventory geometry."
+          },
+          {
+            "command": "RUN_BASE_PROBES=0 N_INSTANCES=50 SEEDS=42,43 MAX_NODES_PER_TASK=2 CAP_NODES=32 BATCH_SIZE=2 ./scripts/run_w3_qwen35_sharded.sh",
+            "purpose": "C1/C2 W3.2 sharded propagation scale run; in progress at commit time, with partial shard completion recorded honestly."
+          },
+          {
+            "command": ".venv/bin/python -m analysis.validate_outputs > /tmp/validation_after_binding.out || true",
+            "purpose": "Validation after object-binding and mixed-scale guard patches."
+          }
+        ],
+        "decision": {
+          "gate_outcomes": [
+            {
+              "gate": "T-A_A1_forced_only_semantics",
+              "number": "before G1=0.1508869528707883/G2=0.14923016186340307; after forced G2=0.0",
+              "outcome": "PASS_DIAGNOSTIC"
+            },
+            {
+              "gate": "T-A_A2_depth_sweep",
+              "number": "depths 8/16/32 all G1=0.0625, G2=0.0, forced_precision=0.0, forced_recall=0.0",
+              "outcome": "G1_NOT_MET_ROUTE_TO_FORCED_MASK_LEARNING"
+            },
+            {
+              "gate": "T-B_true_dims_capacity",
+              "number": "8 rows; state_rows=128; state_cols=128; head_grid=1/2/4/8; geometry_source=cached_state_probe.inventory",
+              "outcome": "MEASURED_OBJECT_BOUND"
+            },
+            {
+              "gate": "T-C_W3_50x2_scale",
+              "number": "horn_sat and sudoku_4x4 50x2 completed; general_sat, graph_coloring, and logic_grid still running at commit",
+              "outcome": "PARTIAL_RUNNING"
+            }
+          ],
+          "next_step_routing": "Do not scale T2 budget until forced-mask recall is repaired. After this partial-evidence commit, finish all remaining W3.2 50x2 shards, merge only when every shard has n_instances>=50 and at least two seeds, rerun validation/log generation, then make a final W3.2 completion commit."
+        },
+        "honesty": {
+          "does_not_establish": "T2 forced-only semantics eliminate the unforced-guess G1\u2248G2 anomaly but do not establish G1>=0.95, autonomous Stage A cells, or useful learned propagation; all A2 depths still have forced recall 0. W3 true-dims capacity is measured on the cached GDN recurrent-state matrix geometry, but it is a synthetic rank-1 keyed-stack capacity probe and not native Qwen rule execution. W3.2 50x2 is still running at this commit and must not be claimed accepted until all shards merge with 50x2 settings.",
+          "limitations": [
+            "A2 training is intentionally low-budget and diagnostic; it routes to target/interface/forced-mask learning repair rather than more budget.",
+            "No forced-only G2 solve was positive; therefore there was no need to stop for harness diagnosis.",
+            "The canonical W3 artifact remains honest if only partial 50x2 shards are available; mixed-scale promotion is now blocked."
+          ]
+        },
+        "item_number": "035",
+        "name": "G1=G2 anomaly fix, true-dims W3 capacity, and W3.2 50x2 scale",
+        "provenance": {
+          "devices": "A2 and W3 used CUDA A100 GPUs; W3 shards run with CUDA_VISIBLE_DEVICES mapping and --device cuda:0 inside each shard process.",
+          "forced_commit_function": "experiments.train_recurrent_operator.forced_only_commit_decision",
+          "generated_at": "2026-06-07",
+          "t2_seed": 102,
+          "t2_train_band": "Sudoku6 L1-L2 only for A2 smoke diagnostics; eval depth histogram {1: 41, 2: 23}; L4 histogram {4: 6, 5: 7, 6: 2, 7: 1}.",
+          "w3_capacity_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+          "w3_model_id": "Qwen/Qwen3.5-4B",
+          "w3_scale_status_at_commit": "horn_sat and sudoku_4x4 shards completed at 50x2; general_sat, graph_coloring, and logic_grid still running, so canonical W3.2 status must not be promoted yet.",
+          "w3_snapshot_verified": "models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a"
+        },
+        "purpose": "Execute the corrective spec that separates T2 learned propagation from guessing by forcing commits through symbolic singleton evidence, binds W3 capacity to the measured cached GDN recurrent-state matrix geometry, and scales the W3.2 Qwen3.5 propagation comparison toward 50 instances x 2 seeds per task.",
+        "result_tables": {
+          "a2_depth_sweep": {
+            "columns": [
+              "recurrence_steps",
+              "G1_forced_fixpoint",
+              "G2_forced_l4_solve",
+              "single_step_forced_precision",
+              "single_step_forced_recall",
+              "tau",
+              "mean_commits_G1",
+              "mean_commits_G2",
+              "status",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "G1_forced_fixpoint": 0.0625,
+                "G2_forced_l4_solve": 0.0,
+                "mean_commits_G1": 0.0,
+                "mean_commits_G2": 0.0,
+                "provenance": "results/recurrent_operator_forced_depth8_smoke/acceptance.json",
+                "recurrence_steps": 8,
+                "single_step_forced_precision": 0.0,
+                "single_step_forced_recall": 0.0,
+                "status": "G1_NOT_MET",
+                "tau": 0.0
+              },
+              {
+                "G1_forced_fixpoint": 0.0625,
+                "G2_forced_l4_solve": 0.0,
+                "mean_commits_G1": 0.0,
+                "mean_commits_G2": 0.0,
+                "provenance": "results/recurrent_operator_forced_depth16_smoke/acceptance.json",
+                "recurrence_steps": 16,
+                "single_step_forced_precision": 0.0,
+                "single_step_forced_recall": 0.0,
+                "status": "G1_NOT_MET",
+                "tau": 0.0
+              },
+              {
+                "G1_forced_fixpoint": 0.0625,
+                "G2_forced_l4_solve": 0.0,
+                "mean_commits_G1": 0.0,
+                "mean_commits_G2": 0.0,
+                "provenance": "results/recurrent_operator_forced_depth32_smoke/acceptance.json",
+                "recurrence_steps": 32,
+                "single_step_forced_precision": 0.0,
+                "single_step_forced_recall": 0.0,
+                "status": "G1_NOT_MET",
+                "tau": 0.0
+              }
+            ]
+          },
+          "forced_precision_recall_by_depth_depth32": {
+            "columns": [
+              "depth_into_solution",
+              "forced_precision",
+              "forced_recall",
+              "n_states",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "depth_into_solution": 10,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 10,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 11,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 26,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 12,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 29,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 13,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 156,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 14,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 167,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 15,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 163,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 16,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 133,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 17,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 117,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 18,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 96,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 19,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 185,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 20,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 111,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 21,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 97,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 22,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 61,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 23,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 94,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 24,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 69,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 25,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 70,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 26,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 60,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 27,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 58,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 28,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 60,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 29,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 63,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 30,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 62,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 31,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 64,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 32,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 20,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 33,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 64,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 34,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 64,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 35,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 64,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              },
+              {
+                "depth_into_solution": 36,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "n_states": 0,
+                "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+              }
+            ]
+          },
+          "g1_g2_before_after_A1": {
+            "columns": [
+              "row",
+              "G1",
+              "G2",
+              "legacy_G1",
+              "legacy_G2",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "G1": 0.1508869528707883,
+                "G2": 0.14923016186340307,
+                "legacy_G1": null,
+                "legacy_G2": null,
+                "provenance": "results/recurrent_operator_8gpu/acceptance.json",
+                "row": "before_A1_8gpu_unforced"
+              },
+              {
+                "G1": 0.0625,
+                "G2": 0.0,
+                "legacy_G1": 0.010135135135135136,
+                "legacy_G2": 0.013513513513513514,
+                "provenance": "results/recurrent_operator_forced_smoke/acceptance.json",
+                "row": "after_A1_forced_smoke"
+              }
+            ]
+          },
+          "stick_reason_histogram": {
+            "columns": [
+              "run",
+              "split",
+              "reason",
+              "count",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "count": 60,
+                "provenance": "results/recurrent_operator_forced_depth8_smoke/acceptance.json",
+                "reason": "no_forced_mask_fire",
+                "run": "depth8",
+                "split": "G1"
+              },
+              {
+                "count": 4,
+                "provenance": "results/recurrent_operator_forced_depth8_smoke/acceptance.json",
+                "reason": "stuck_no_symbolic_forced_move",
+                "run": "depth8",
+                "split": "G1"
+              },
+              {
+                "count": 6,
+                "provenance": "results/recurrent_operator_forced_depth8_smoke/acceptance.json",
+                "reason": "no_forced_mask_fire",
+                "run": "depth8",
+                "split": "G2"
+              },
+              {
+                "count": 10,
+                "provenance": "results/recurrent_operator_forced_depth8_smoke/acceptance.json",
+                "reason": "stuck_no_symbolic_forced_move",
+                "run": "depth8",
+                "split": "G2"
+              },
+              {
+                "count": 60,
+                "provenance": "results/recurrent_operator_forced_depth16_smoke/acceptance.json",
+                "reason": "no_forced_mask_fire",
+                "run": "depth16",
+                "split": "G1"
+              },
+              {
+                "count": 4,
+                "provenance": "results/recurrent_operator_forced_depth16_smoke/acceptance.json",
+                "reason": "stuck_no_symbolic_forced_move",
+                "run": "depth16",
+                "split": "G1"
+              },
+              {
+                "count": 6,
+                "provenance": "results/recurrent_operator_forced_depth16_smoke/acceptance.json",
+                "reason": "no_forced_mask_fire",
+                "run": "depth16",
+                "split": "G2"
+              },
+              {
+                "count": 10,
+                "provenance": "results/recurrent_operator_forced_depth16_smoke/acceptance.json",
+                "reason": "stuck_no_symbolic_forced_move",
+                "run": "depth16",
+                "split": "G2"
+              },
+              {
+                "count": 60,
+                "provenance": "results/recurrent_operator_forced_depth32_smoke/acceptance.json",
+                "reason": "no_forced_mask_fire",
+                "run": "depth32",
+                "split": "G1"
+              },
+              {
+                "count": 4,
+                "provenance": "results/recurrent_operator_forced_depth32_smoke/acceptance.json",
+                "reason": "stuck_no_symbolic_forced_move",
+                "run": "depth32",
+                "split": "G1"
+              },
+              {
+                "count": 6,
+                "provenance": "results/recurrent_operator_forced_depth32_smoke/acceptance.json",
+                "reason": "no_forced_mask_fire",
+                "run": "depth32",
+                "split": "G2"
+              },
+              {
+                "count": 10,
+                "provenance": "results/recurrent_operator_forced_depth32_smoke/acceptance.json",
+                "reason": "stuck_no_symbolic_forced_move",
+                "run": "depth32",
+                "split": "G2"
+              }
+            ]
+          },
+          "true_dims_capacity_measured": {
+            "columns": [
+              "task_family",
+              "state_rows",
+              "state_cols",
+              "heads",
+              "decode_frontier",
+              "rank_bound",
+              "matrix_geometry_source",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "decode_frontier": 4,
+                "heads": 1,
+                "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+                "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+                "rank_bound": 128,
+                "state_cols": 128,
+                "state_rows": 128,
+                "task_family": "sudoku_6x6"
+              },
+              {
+                "decode_frontier": 8,
+                "heads": 2,
+                "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+                "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+                "rank_bound": 256,
+                "state_cols": 128,
+                "state_rows": 128,
+                "task_family": "sudoku_6x6"
+              },
+              {
+                "decode_frontier": 16,
+                "heads": 4,
+                "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+                "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+                "rank_bound": 512,
+                "state_cols": 128,
+                "state_rows": 128,
+                "task_family": "sudoku_6x6"
+              },
+              {
+                "decode_frontier": 32,
+                "heads": 8,
+                "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+                "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+                "rank_bound": 1024,
+                "state_cols": 128,
+                "state_rows": 128,
+                "task_family": "sudoku_6x6"
+              },
+              {
+                "decode_frontier": 12,
+                "heads": 1,
+                "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+                "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+                "rank_bound": 128,
+                "state_cols": 128,
+                "state_rows": 128,
+                "task_family": "sudoku_9x9"
+              },
+              {
+                "decode_frontier": 16,
+                "heads": 2,
+                "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+                "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+                "rank_bound": 256,
+                "state_cols": 128,
+                "state_rows": 128,
+                "task_family": "sudoku_9x9"
+              },
+              {
+                "decode_frontier": 32,
+                "heads": 4,
+                "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+                "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+                "rank_bound": 512,
+                "state_cols": 128,
+                "state_rows": 128,
+                "task_family": "sudoku_9x9"
+              },
+              {
+                "decode_frontier": 64,
+                "heads": 8,
+                "matrix_geometry_source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+                "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+                "rank_bound": 1024,
+                "state_cols": 128,
+                "state_rows": 128,
+                "task_family": "sudoku_9x9"
+              }
+            ]
+          },
+          "validation_binding_checks": {
+            "columns": [
+              "check",
+              "status",
+              "detail",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "check": "w3_capacity_true_state_dims_measured",
+                "detail": "measured_rows=8; families=['sudoku_6x6','sudoku_9x9']; rows require cached_state_probe.inventory source",
+                "provenance": "results/validation/validation.json",
+                "status": "PASS"
+              },
+              {
+                "check": "w3_propagation_scale_not_mixed",
+                "detail": "mixed-scale guard added; partial shard completion must not promote canonical status",
+                "provenance": "analysis/validate_outputs.py",
+                "status": "PASS_FOR_CURRENT_CANONICAL_SMALL_STATUS"
+              }
+            ]
+          },
+          "w3_50x2_shard_status_at_commit": {
+            "columns": [
+              "task",
+              "status",
+              "n_instances",
+              "seeds",
+              "canonicalized",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "canonicalized": false,
+                "n_instances": 50,
+                "provenance": "results/w3_qwen35_probe/propagation_shards/horn_sat/results.json",
+                "seeds": [
+                  42,
+                  43
+                ],
+                "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED",
+                "task": "horn_sat"
+              },
+              {
+                "canonicalized": false,
+                "n_instances": null,
+                "provenance": "results/w3_qwen35_probe/propagation_shards/general_sat/results.json",
+                "seeds": null,
+                "status": "RUNNING_OR_OLD_SMALL_FILE",
+                "task": "general_sat"
+              },
+              {
+                "canonicalized": false,
+                "n_instances": null,
+                "provenance": "results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json",
+                "seeds": null,
+                "status": "RUNNING_OR_OLD_SMALL_FILE",
+                "task": "graph_coloring"
+              },
+              {
+                "canonicalized": false,
+                "n_instances": 50,
+                "provenance": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json",
+                "seeds": [
+                  42,
+                  43
+                ],
+                "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED",
+                "task": "sudoku_4x4"
+              },
+              {
+                "canonicalized": false,
+                "n_instances": null,
+                "provenance": "results/w3_qwen35_probe/propagation_shards/logic_grid/results.json",
+                "seeds": null,
+                "status": "RUNNING_OR_OLD_SMALL_FILE",
+                "task": "logic_grid"
+              }
+            ]
+          }
+        },
+        "schema_version": "log_item_contract_v1",
+        "status": "PARTIAL_EVIDENCE_COMMITTED_W3_50X2_RUNNING"
+      },
+      "detail_data": {
+        "results/experiment_items/item_035_g1_anomaly_true_dims_w3_scale.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": "035",
+          "json_summary": [
+            [
+              "status",
+              "PARTIAL_EVIDENCE_COMMITTED_W3_50X2_RUNNING"
+            ],
+            [
+              "decision",
+              "2 keys: gate_outcomes, next_step_routing"
+            ],
+            [
+              "schema_version",
+              "log_item_contract_v1"
+            ],
+            [
+              "item_number",
+              "035"
+            ],
+            [
+              "name",
+              "G1=G2 anomaly fix, true-dims W3 capacity, and W3.2 50x2 scale"
+            ],
+            [
+              "purpose",
+              "Execute the corrective spec that separates T2 learned propagation from guessing by forcing commits through symbolic singleton evidence, binds W3 capacity to the measured cached GDN recurrent-state matrix geometry, and scales the W3.2 Qwen3.5 propagation comparison toward 50 instances x 2 seeds per task."
+            ],
+            [
+              "honesty",
+              "2 keys: does_not_establish, limitations"
+            ]
+          ],
+          "path": "results/experiment_items/item_035_g1_anomaly_true_dims_w3_scale.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 6,
+              "rows": 2,
+              "table": "g1_g2_before_after_A1"
+            },
+            {
+              "columns": 10,
+              "rows": 3,
+              "table": "a2_depth_sweep"
+            },
+            {
+              "columns": 5,
+              "rows": 12,
+              "table": "stick_reason_histogram"
+            },
+            {
+              "columns": 5,
+              "rows": 27,
+              "table": "forced_precision_recall_by_depth_depth32"
+            },
+            {
+              "columns": 8,
+              "rows": 8,
+              "table": "true_dims_capacity_measured"
+            },
+            {
+              "columns": 4,
+              "rows": 2,
+              "table": "validation_binding_checks"
+            },
+            {
+              "columns": 6,
+              "rows": 5,
+              "table": "w3_50x2_shard_status_at_commit"
+            }
+          ],
+          "size_bytes": 21877
+        },
+        "results/recurrent_operator_forced_depth16_smoke/acceptance.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "train_recurrent_operator"
+            ],
+            [
+              "status",
+              "G1_NOT_MET"
+            ],
+            [
+              "G1",
+              "0.0625"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "G2",
+              "0"
+            ],
+            [
+              "checkpoint",
+              "results/recurrent_operator_forced_depth16_smoke/learned_recurrent_operator_seed102.pt"
+            ],
+            [
+              "generated_at",
+              "2026-06-07T14:50:34.872649+00:00"
+            ],
+            [
+              "honesty",
+              "does_not_establish=This trainer produces a learned checkpoint and live bridge metrics, but does not establish autonomous Stage A solving unless a later Stage A run consumes the checkpoint and reports real cells."
+            ],
+            [
+              "operator_type",
+              "learned_recurrent"
+            ],
+            [
+              "seed",
+              "102"
+            ],
+            [
+              "source",
+              "learned_recurrent_training_run"
+            ],
+            [
+              "training_curve_summary",
+              "6 keys: batch_size, data_parallel_devices, generation_workers, history, lr, steps"
+            ]
+          ],
+          "path": "results/recurrent_operator_forced_depth16_smoke/acceptance.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 13399
+        },
+        "results/recurrent_operator_forced_depth32_smoke/acceptance.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "train_recurrent_operator"
+            ],
+            [
+              "status",
+              "G1_NOT_MET"
+            ],
+            [
+              "G1",
+              "0.0625"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "G2",
+              "0"
+            ],
+            [
+              "checkpoint",
+              "results/recurrent_operator_forced_depth32_smoke/learned_recurrent_operator_seed102.pt"
+            ],
+            [
+              "generated_at",
+              "2026-06-07T14:53:28.376687+00:00"
+            ],
+            [
+              "honesty",
+              "does_not_establish=This trainer produces a learned checkpoint and live bridge metrics, but does not establish autonomous Stage A solving unless a later Stage A run consumes the checkpoint and reports real cells."
+            ],
+            [
+              "operator_type",
+              "learned_recurrent"
+            ],
+            [
+              "seed",
+              "102"
+            ],
+            [
+              "source",
+              "learned_recurrent_training_run"
+            ],
+            [
+              "training_curve_summary",
+              "6 keys: batch_size, data_parallel_devices, generation_workers, history, lr, steps"
+            ]
+          ],
+          "path": "results/recurrent_operator_forced_depth32_smoke/acceptance.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 13368
+        },
+        "results/recurrent_operator_forced_depth8_smoke/acceptance.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "train_recurrent_operator"
+            ],
+            [
+              "status",
+              "G1_NOT_MET"
+            ],
+            [
+              "G1",
+              "0.0625"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "G2",
+              "0"
+            ],
+            [
+              "checkpoint",
+              "results/recurrent_operator_forced_depth8_smoke/learned_recurrent_operator_seed102.pt"
+            ],
+            [
+              "generated_at",
+              "2026-06-07T14:47:55.492967+00:00"
+            ],
+            [
+              "honesty",
+              "does_not_establish=This trainer produces a learned checkpoint and live bridge metrics, but does not establish autonomous Stage A solving unless a later Stage A run consumes the checkpoint and reports real cells."
+            ],
+            [
+              "operator_type",
+              "learned_recurrent"
+            ],
+            [
+              "seed",
+              "102"
+            ],
+            [
+              "source",
+              "learned_recurrent_training_run"
+            ],
+            [
+              "training_curve_summary",
+              "6 keys: batch_size, data_parallel_devices, generation_workers, history, lr, steps"
+            ]
+          ],
+          "path": "results/recurrent_operator_forced_depth8_smoke/acceptance.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 13420
+        },
+        "results/recurrent_operator_forced_smoke/acceptance.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "train_recurrent_operator"
+            ],
+            [
+              "status",
+              "G1_NOT_MET"
+            ],
+            [
+              "G1",
+              "0.0625"
+            ],
+            [
+              "device",
+              "cpu"
+            ],
+            [
+              "G2",
+              "0"
+            ],
+            [
+              "checkpoint",
+              "results/recurrent_operator_forced_smoke/learned_recurrent_operator_seed102.pt"
+            ],
+            [
+              "generated_at",
+              "2026-06-07T14:38:09.636744+00:00"
+            ],
+            [
+              "honesty",
+              "does_not_establish=This trainer produces a learned checkpoint and live bridge metrics, but does not establish autonomous Stage A solving unless a later Stage A run consumes the checkpoint and reports real cells."
+            ],
+            [
+              "operator_type",
+              "learned_recurrent"
+            ],
+            [
+              "seed",
+              "102"
+            ],
+            [
+              "source",
+              "learned_recurrent_training_run"
+            ],
+            [
+              "training_curve_summary",
+              "6 keys: batch_size, data_parallel_devices, generation_workers, history, lr, steps"
+            ]
+          ],
+          "path": "results/recurrent_operator_forced_smoke/acceptance.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 12931
+        },
+        "results/validation/validation.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "passed",
+              "False"
+            ],
+            [
+              "generated_at",
+              "2026-06-07T15:46:05.144668+00:00"
+            ],
+            [
+              "summary",
+              "n_checks=172; n_fail=4; n_pass=168"
+            ]
+          ],
+          "path": "results/validation/validation.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 31430
+        },
+        "results/validation/validation.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/validation/validation.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 18881
+        },
+        "results/w3_qwen35_probe/propagation_shards/general_sat/results.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "w3_qwen35_probe"
+            ],
+            [
+              "integration_grade",
+              "do_not_integrate_yet"
+            ],
+            [
+              "model_id",
+              "Qwen/Qwen3.5-4B"
+            ],
+            [
+              "generated_at",
+              "2026-06-07T10:49:25.121685+00:00"
+            ],
+            [
+              "native_delta_probe",
+              "None"
+            ],
+            [
+              "survival_probe",
+              "None"
+            ],
+            [
+              "verdicts",
+              "W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=NOT_RUN; W3.1_native_delta_rule_as_stack_gap=NOT_RUN; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+            ]
+          ],
+          "path": "results/w3_qwen35_probe/propagation_shards/general_sat/results.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 6,
+              "rows": 6,
+              "table": "capacity_estimates"
+            },
+            {
+              "columns": 6,
+              "rows": 6,
+              "table": "capacity_at_real_gdn_dims"
+            },
+            {
+              "columns": 5,
+              "rows": 0,
+              "table": "decay_survival"
+            },
+            {
+              "columns": 3,
+              "rows": 10,
+              "table": "model_card"
+            },
+            {
+              "columns": 5,
+              "rows": 0,
+              "table": "native_rule_gap"
+            },
+            {
+              "columns": 7,
+              "rows": 5,
+              "table": "propagation_per_task_delta"
+            },
+            {
+              "columns": 0,
+              "rows": 0,
+              "table": "state_hook_round_trip"
+            },
+            {
+              "columns": 0,
+              "rows": 0,
+              "table": "verdicts_echo"
+            }
+          ],
+          "size_bytes": 25323
+        },
+        "results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "w3_qwen35_probe"
+            ],
+            [
+              "integration_grade",
+              "do_not_integrate_yet"
+            ],
+            [
+              "model_id",
+              "Qwen/Qwen3.5-4B"
+            ],
+            [
+              "generated_at",
+              "2026-06-07T10:49:37.910485+00:00"
+            ],
+            [
+              "native_delta_probe",
+              "None"
+            ],
+            [
+              "survival_probe",
+              "None"
+            ],
+            [
+              "verdicts",
+              "W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=NOT_RUN; W3.1_native_delta_rule_as_stack_gap=NOT_RUN; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+            ]
+          ],
+          "path": "results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 6,
+              "rows": 6,
+              "table": "capacity_estimates"
+            },
+            {
+              "columns": 6,
+              "rows": 6,
+              "table": "capacity_at_real_gdn_dims"
+            },
+            {
+              "columns": 5,
+              "rows": 0,
+              "table": "decay_survival"
+            },
+            {
+              "columns": 3,
+              "rows": 10,
+              "table": "model_card"
+            },
+            {
+              "columns": 5,
+              "rows": 0,
+              "table": "native_rule_gap"
+            },
+            {
+              "columns": 7,
+              "rows": 5,
+              "table": "propagation_per_task_delta"
+            },
+            {
+              "columns": 0,
+              "rows": 0,
+              "table": "state_hook_round_trip"
+            },
+            {
+              "columns": 0,
+              "rows": 0,
+              "table": "verdicts_echo"
+            }
+          ],
+          "size_bytes": 25405
+        },
+        "results/w3_qwen35_probe/propagation_shards/horn_sat/results.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "w3_qwen35_probe"
+            ],
+            [
+              "integration_grade",
+              "do_not_integrate_yet"
+            ],
+            [
+              "model_id",
+              "Qwen/Qwen3.5-4B"
+            ],
+            [
+              "generated_at",
+              "2026-06-07T15:03:16.903328+00:00"
+            ],
+            [
+              "measured_object",
+              "metadata_only"
+            ],
+            [
+              "native_delta_probe",
+              "None"
+            ],
+            [
+              "survival_probe",
+              "None"
+            ],
+            [
+              "verdicts",
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=NOT_RUN; W3.1_native_delta_rule_as_stack_gap=NOT_RUN; W3.2_qwen3_4b_delta_table=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
+            ]
+          ],
+          "path": "results/w3_qwen35_probe/propagation_shards/horn_sat/results.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 6,
+              "rows": 6,
+              "table": "capacity_estimates"
+            },
+            {
+              "columns": 6,
+              "rows": 6,
+              "table": "capacity_at_real_gdn_dims"
+            },
+            {
+              "columns": 5,
+              "rows": 0,
+              "table": "decay_survival"
+            },
+            {
+              "columns": 3,
+              "rows": 10,
+              "table": "model_card"
+            },
+            {
+              "columns": 5,
+              "rows": 0,
+              "table": "native_rule_gap"
+            },
+            {
+              "columns": 7,
+              "rows": 1,
+              "table": "propagation_per_task_delta"
+            },
+            {
+              "columns": 0,
+              "rows": 0,
+              "table": "state_hook_round_trip"
+            },
+            {
+              "columns": 0,
+              "rows": 0,
+              "table": "verdicts_echo"
+            }
+          ],
+          "size_bytes": 18897
+        },
+        "results/w3_qwen35_probe/propagation_shards/logic_grid/results.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "w3_qwen35_probe"
+            ],
+            [
+              "integration_grade",
+              "do_not_integrate_yet"
+            ],
+            [
+              "model_id",
+              "Qwen/Qwen3.5-4B"
+            ],
+            [
+              "generated_at",
+              "2026-06-07T10:49:43.669596+00:00"
+            ],
+            [
+              "native_delta_probe",
+              "None"
+            ],
+            [
+              "survival_probe",
+              "None"
+            ],
+            [
+              "verdicts",
+              "W3.0_checkpoint_pin=PASS; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=NOT_RUN; W3.1_native_delta_rule_as_stack_gap=NOT_RUN; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+            ]
+          ],
+          "path": "results/w3_qwen35_probe/propagation_shards/logic_grid/results.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 6,
+              "rows": 6,
+              "table": "capacity_estimates"
+            },
+            {
+              "columns": 6,
+              "rows": 6,
+              "table": "capacity_at_real_gdn_dims"
+            },
+            {
+              "columns": 5,
+              "rows": 0,
+              "table": "decay_survival"
+            },
+            {
+              "columns": 3,
+              "rows": 10,
+              "table": "model_card"
+            },
+            {
+              "columns": 5,
+              "rows": 0,
+              "table": "native_rule_gap"
+            },
+            {
+              "columns": 7,
+              "rows": 5,
+              "table": "propagation_per_task_delta"
+            },
+            {
+              "columns": 0,
+              "rows": 0,
+              "table": "state_hook_round_trip"
+            },
+            {
+              "columns": 0,
+              "rows": 0,
+              "table": "verdicts_echo"
+            }
+          ],
+          "size_bytes": 25387
+        },
+        "results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "w3_qwen35_probe"
+            ],
+            [
+              "integration_grade",
+              "do_not_integrate_yet"
+            ],
+            [
+              "model_id",
+              "Qwen/Qwen3.5-4B"
+            ],
+            [
+              "generated_at",
+              "2026-06-07T15:32:05.337201+00:00"
+            ],
+            [
+              "measured_object",
+              "metadata_only"
+            ],
+            [
+              "native_delta_probe",
+              "None"
+            ],
+            [
+              "survival_probe",
+              "None"
+            ],
+            [
+              "verdicts",
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY; W3.1_gating_decay_stack_survival=NOT_RUN; W3.1_native_delta_rule_as_stack_gap=NOT_RUN; W3.2_qwen3_4b_delta_table=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
+            ]
+          ],
+          "path": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 6,
+              "rows": 6,
+              "table": "capacity_estimates"
+            },
+            {
+              "columns": 6,
+              "rows": 6,
+              "table": "capacity_at_real_gdn_dims"
+            },
+            {
+              "columns": 5,
+              "rows": 0,
+              "table": "decay_survival"
+            },
+            {
+              "columns": 3,
+              "rows": 10,
+              "table": "model_card"
+            },
+            {
+              "columns": 5,
+              "rows": 0,
+              "table": "native_rule_gap"
+            },
+            {
+              "columns": 7,
+              "rows": 1,
+              "table": "propagation_per_task_delta"
+            },
+            {
+              "columns": 0,
+              "rows": 0,
+              "table": "state_hook_round_trip"
+            },
+            {
+              "columns": 0,
+              "rows": 0,
+              "table": "verdicts_echo"
+            }
+          ],
+          "size_bytes": 19123
+        },
+        "results/w3_qwen35_probe/results.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "w3_qwen35_probe"
+            ],
+            [
+              "integration_grade",
+              "cached_gdn_state_measured_with_propagation_delta"
+            ],
+            [
+              "model_id",
+              "Qwen/Qwen3.5-4B"
+            ],
+            [
+              "generated_at",
+              "2026-06-07T12:33:41.161598+00:00"
+            ],
+            [
+              "measured_object",
+              "cached_gdn_recurrent_state"
+            ],
+            [
+              "verdicts",
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+            ]
+          ],
+          "path": "results/w3_qwen35_probe/results.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 6,
+              "rows": 6,
+              "table": "capacity_estimates"
+            },
+            {
+              "columns": 13,
+              "rows": 8,
+              "table": "capacity_at_real_gdn_dims"
+            },
+            {
+              "columns": 5,
+              "rows": 5,
+              "table": "decay_survival"
+            },
+            {
+              "columns": 3,
+              "rows": 34,
+              "table": "model_card"
+            },
+            {
+              "columns": 7,
+              "rows": 3,
+              "table": "native_rule_gap"
+            },
+            {
+              "columns": 7,
+              "rows": 5,
+              "table": "propagation_per_task_delta"
+            },
+            {
+              "columns": 0,
+              "rows": 0,
+              "table": "state_hook_round_trip"
+            },
+            {
+              "columns": 0,
+              "rows": 0,
+              "table": "verdicts_echo"
+            }
+          ],
+          "size_bytes": 92111
+        },
+        "results/w3_qwen35_probe/verdicts.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "integration_grade",
+              "cached_gdn_state_measured_with_propagation_delta"
+            ],
+            [
+              "model_id",
+              "Qwen/Qwen3.5-4B"
+            ],
+            [
+              "generated_at",
+              "2026-06-07T12:33:41.161598+00:00"
+            ],
+            [
+              "measured_object",
+              "cached_gdn_recurrent_state"
+            ],
+            [
+              "verdicts",
+              "W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn_dims=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; W3.1_gating_decay_stack_survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; W3.1_native_delta_rule_as_stack_gap=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; W3.2_qwen3_4b_delta_table=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+            ]
+          ],
+          "path": "results/w3_qwen35_probe/verdicts.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 675
+        }
+      },
+      "details": [
+        "purpose=Execute the corrective spec that separates T2 learned propagation from guessing by forcing commits through symbolic singleton evidence, binds W3 capacity to the measured cached GDN recurrent-state matrix geometry, and scales the W3.2 Qwen3.5 propagation comparison toward 50 instances x 2 seeds per task.",
+        "commands=7",
+        "result_tables=['g1_g2_before_after_A1', 'a2_depth_sweep', 'stick_reason_histogram', 'forced_precision_recall_by_depth_depth32', 'true_dims_capacity_measured', 'validation_binding_checks', 'w3_50x2_shard_status_at_commit']",
+        "honesty=T2 forced-only semantics eliminate the unforced-guess G1\u2248G2 anomaly but do not establish G1>=0.95, autonomous Stage A cells, or useful learned propagation; all A2 depths still have forced recall 0. W3 true-dims capacity is measured on the cached GDN recurrent-state matrix geometry, but it is a synthetic rank-1 keyed-stack capacity probe and not native Qwen rule execution. W3.2 50x2 is still running at this commit and must not be claimed accepted until all shards merge with 50x2 settings."
+      ],
+      "item": "035",
+      "key_result": "Do not scale T2 budget until forced-mask recall is repaired. After this partial-evidence commit, finish all remaining W3.2 50x2 shards, merge only when every shard has n_instances>=50 and at least two seeds, rerun validation/log generation, then make a final W3.2 completion commit.",
+      "name": "G1=G2 anomaly fix, true-dims W3 capacity, and W3.2 50x2 scale",
+      "next_action": "Do not scale T2 budget until forced-mask recall is repaired. After this partial-evidence commit, finish all remaining W3.2 50x2 shards, merge only when every shard has n_instances>=50 and at least two seeds, rerun validation/log generation, then make a final W3.2 completion commit.",
+      "purpose": "Execute the corrective spec that separates T2 learned propagation from guessing by forcing commits through symbolic singleton evidence, binds W3 capacity to the measured cached GDN recurrent-state matrix geometry, and scales the W3.2 Qwen3.5 propagation comparison toward 50 instances x 2 seeds per task.",
+      "status": "PARTIAL_EVIDENCE_COMMITTED_W3_50X2_RUNNING"
     }
   ],
   "legacy_archive": {
@@ -8673,8 +11649,8 @@
     "verifier": "results/verifier/results.json"
   },
   "validation_summary": {
-    "n_checks": 165,
+    "n_checks": 172,
     "n_fail": 4,
-    "n_pass": 161
+    "n_pass": 168
   }
 }

@@ -9,18 +9,22 @@ MAX_NODES_PER_TASK=${MAX_NODES_PER_TASK:-2}
 SEEDS=${SEEDS:-42}
 CAP_NODES=${CAP_NODES:-32}
 BATCH_SIZE=${BATCH_SIZE:-2}
+RUN_BASE_PROBES=${RUN_BASE_PROBES:-0}
 
 mkdir -p "$OUT_DIR/propagation_shards"
 
-CUDA_VISIBLE_DEVICES=0 "$UV_BIN" run --python "$PYTHON_BIN" python -m experiments.w3_qwen35_probe \
-  --output-dir "$OUT_DIR" \
-  --load-model \
-  --device cuda:0 \
-  --run-survival \
-  --run-native-delta \
-  > /tmp/w3_hidden.out &
-
-pids=($!)
+pids=()
+if [[ "$RUN_BASE_PROBES" == "1" ]]; then
+  CUDA_VISIBLE_DEVICES=0 "$UV_BIN" run --python "$PYTHON_BIN" python -m experiments.w3_qwen35_probe \
+    --output-dir "$OUT_DIR" \
+    --load-model \
+    --device cuda:0 \
+    --run-survival \
+    --run-native-delta \
+    --run-cached-state \
+    > /tmp/w3_hidden.out &
+  pids+=($!)
+fi
 tasks=(horn_sat general_sat graph_coloring sudoku_4x4 logic_grid)
 gpus=(1 2 3 4 5)
 

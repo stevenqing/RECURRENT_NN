@@ -90,6 +90,119 @@ def _capacity_estimates(config: dict[str, Any], perdepth_path: Path) -> list[dic
     return estimates
 
 
+def _module1_reference_capacity(perdepth_path: Path, d_value: int, k_var: int, k_val: int) -> dict[str, float | None]:
+    perdepth = _read_json(perdepth_path) or {}
+    fits = perdepth.get("fits", [])
+    product_slope = None
+    kvar_slope = None
+    for fit in fits:
+        if fit.get("metric") != "joint" or fit.get("replacement") != "with_replacement":
+            continue
+        if fit.get("variant") == "bound_single":
+            product_slope = fit.get("fits", {}).get("D_over_ln_product", {}).get("slope")
+        if fit.get("variant") == "factored":
+            kvar_slope = fit.get("fits", {}).get("D_over_ln_Kvar", {}).get("slope")
+    return {
+        "module1_vector_law_D16384_bound_single": float(product_slope) * d_value / math.log(k_var * k_val) if product_slope else None,
+        "module1_vector_law_D16384_factored": float(kvar_slope) * d_value / math.log(k_var) if kvar_slope else None,
+    }
+
+
+def _decode_accuracy_for_depth(k_var: int, k_val: int, heads: int, depth: int, trials: int, seed: int, state_rows: int, state_cols: int) -> float:
+    generator = torch.Generator(device="cpu").manual_seed(seed + k_var * 100000 + k_val * 1000 + heads * 100 + depth)
+    keybook = torch.randn(k_var, state_rows, generator=generator)
+    keybook = torch.nn.functional.normalize(keybook, dim=-1)
+    valuebook = torch.randn(k_val, state_cols, generator=generator)
+    valuebook = torch.nn.functional.normalize(valuebook, dim=-1)
+    correct = 0
+    total = 0
+    for _ in range(trials):
+        matrices = torch.zeros(heads, state_rows, state_cols)
+        vars_for_items = torch.randint(0, k_var, (depth,), generator=generator)
+        vals_for_items = torch.randint(0, k_val, (depth,), generator=generator)
+        for item_index, (var_index, val_index) in enumerate(zip(vars_for_items.tolist(), vals_for_items.tolist())):
+            head = item_index % heads
+            matrices[head] += torch.outer(keybook[var_index], valuebook[val_index])
+        for item_index, (var_index, val_index) in enumerate(zip(vars_for_items.tolist(), vals_for_items.tolist())):
+            head = item_index % heads
+            read_vector = keybook[var_index] @ matrices[head]
+            decoded = int((valuebook @ read_vector).argmax().item())
+            correct += int(decoded == val_index)
+            total += 1
+    return correct / max(total, 1)
+
+
+def _cached_state_matrix_geometry(payload: dict[str, Any]) -> dict[str, Any]:
+    probe = (payload.get("hidden_hook_probe") or {}).get("cached_state_probe") or {}
+    inventory = probe.get("inventory") or []
+    recurrent_rows = [
+        row for row in inventory
+        if row.get("state_name") == "recurrent_states" and isinstance(row.get("per_head_matrix_dim"), list)
+    ]
+    if not recurrent_rows:
+        raise ValueError("cached_gdn_recurrent_state inventory is missing recurrent_states matrix rows")
+    first = recurrent_rows[0]
+    dims = first.get("per_head_matrix_dim") or []
+    if len(dims) != 2:
+        raise ValueError(f"invalid cached recurrent state matrix dims: {dims}")
+    state_rows = int(dims[0])
+    state_cols = int(dims[1])
+    state_heads = int(first.get("num_state_heads") or 0)
+    if state_rows <= 0 or state_cols <= 0 or state_heads <= 0:
+        raise ValueError(f"invalid cached recurrent state geometry: rows={state_rows}; cols={state_cols}; heads={state_heads}")
+    if any((row.get("per_head_matrix_dim") or []) != dims for row in recurrent_rows):
+        raise ValueError("cached recurrent state matrix dims are not consistent across inventory rows")
+    return {
+        "state_rows": state_rows,
+        "state_cols": state_cols,
+        "num_state_heads": state_heads,
+        "inventory_rows": len(recurrent_rows),
+        "source": "hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim",
+    }
+
+
+def _true_state_matrix_capacity(perdepth_path: Path, state_rows: int, state_cols: int, max_state_heads: int, matrix_geometry_source: str, seed: int = 102, trials: int = 32) -> dict[str, Any]:
+    rows = []
+    depth_grid = [1, 2, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 160, 192, 256]
+    head_grid = [heads for heads in [1, 2, 4, 8] if heads <= max_state_heads]
+    matrix_d = state_rows * state_cols
+    for k_var, k_val, task_family in [(36, 6, "sudoku_6x6"), (81, 9, "sudoku_9x9")]:
+        references = _module1_reference_capacity(perdepth_path, matrix_d, k_var, k_val)
+        for heads in head_grid:
+            frontier = 0
+            depth_rows = []
+            for depth in depth_grid:
+                accuracy = _decode_accuracy_for_depth(k_var, k_val, heads, depth, trials, seed, state_rows, state_cols)
+                depth_rows.append({"depth": depth, "decode_accuracy": accuracy})
+                if accuracy >= 0.95:
+                    frontier = depth
+            rows.append({
+                "task_family": task_family,
+                "K_var": k_var,
+                "K_val": k_val,
+                "state_rows": state_rows,
+                "state_cols": state_cols,
+                "matrix_D_flattened": matrix_d,
+                "heads": heads,
+                "striped": heads > 1,
+                "trials": trials,
+                "decode_threshold": 0.95,
+                "decode_frontier": frontier,
+                "rank_bound": state_rows * heads,
+                **references,
+                "delta_vs_rank_bound": frontier - state_rows * heads,
+                "depth_curve": depth_rows,
+                "matrix_geometry_source": matrix_geometry_source,
+                "provenance": "measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry",
+            })
+    return {
+        "columns": ["task_family", "K_var", "K_val", "state_rows", "state_cols", "heads", "striped", "decode_frontier", "rank_bound", "module1_vector_law_D16384_bound_single", "module1_vector_law_D16384_factored", "delta_vs_rank_bound", "provenance"],
+        "rows": rows,
+        "status": "MEASURED_TRUE_STATE_MATRIX_GEOMETRY",
+        "settings": {"seed": seed, "trials": trials, "depth_grid": depth_grid, "decode_threshold": 0.95, "state_rows": state_rows, "state_cols": state_cols, "max_state_heads": max_state_heads, "head_grid": head_grid, "matrix_geometry_source": matrix_geometry_source},
+    }
+
+
 def _load_model_components(model_id: str, snapshot_path: str | None, device: str, dtype: str) -> tuple[Any, Any]:
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -368,6 +481,13 @@ def _metric_mean(row: dict[str, Any], key: str) -> float | None:
     return float(value) if isinstance(value, (int, float)) else None
 
 
+def _parse_failure_rate(summary: dict[str, Any]) -> float | None:
+    parse_success = _metric_mean(summary, "parse_success_rate")
+    if parse_success is None:
+        return None
+    return 1.0 - parse_success
+
+
 def _run_propagation_probe(
     model_id: str,
     device: str,
@@ -414,6 +534,9 @@ def _run_propagation_probe(
     baseline = _read_json(baseline_report_path) or {}
     baseline_by_task = baseline.get("by_task", {})
     branch_summary = summarize_branch(branch_rows)
+    scale_grade = "50x2" if n_instances >= 50 and len(seeds) >= 2 else "small"
+    status_text = "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED" if scale_grade == "50x2" else "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+    provenance_text = f"measured:{scale_grade} W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline"
     rows = []
     for task in sorted(per_task_verdicts):
         qwen35_single = combined["single_iterated"].get("by_task", {}).get(task, {})
@@ -437,15 +560,15 @@ def _run_propagation_probe(
                 "qwen35_qwen_guess": qwen35_branch,
                 "qwen3_4b_qwen_guess_baseline": baseline_branch,
             },
-            "parse_failure_rate": _metric_mean(qwen35_single, "parse_success_rate"),
+            "parse_failure_rate": _parse_failure_rate(qwen35_single),
             "invalid_guess_rate": qwen35_branch.get("invalid_guess_rate"),
-            "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+            "provenance": provenance_text,
         })
     return {
         "columns": ["task", "qwen35_verdict", "qwen3_4b_delta", "branch_rollout", "parse_failure_rate", "invalid_guess_rate", "provenance"],
         "rows": rows,
-        "status": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED",
-        "settings": {"n_instances": n_instances, "max_nodes_per_task": max_nodes_per_task, "seeds": seeds, "cap_nodes": cap_nodes, "batch_size": batch_size, "task_types": task_types},
+        "status": status_text,
+        "settings": {"n_instances": n_instances, "max_nodes_per_task": max_nodes_per_task, "seeds": seeds, "cap_nodes": cap_nodes, "batch_size": batch_size, "task_types": task_types, "scale_grade": scale_grade},
         "summary": {"single_iterated": combined["single_iterated"], "branch": branch_summary},
     }
 
@@ -462,13 +585,35 @@ def _merge_propagation_shards(output_dir: str, shard_dirs: list[str]) -> dict[st
         if not shard_payload:
             raise FileNotFoundError(f"shard W3 result not found: {Path(shard_dir) / 'results.json'}")
         propagation = shard_payload.get("propagation_probe") or shard_payload.get("p2_tables", {}).get("propagation_per_task_delta", {})
-        rows.extend(row for row in propagation.get("rows", []) if row.get("qwen35_verdict"))
+        single_by_task = (((propagation.get("summary") or {}).get("single_iterated") or {}).get("by_task") or {})
+        for row in propagation.get("rows", []):
+            if not row.get("qwen35_verdict"):
+                continue
+            corrected = dict(row)
+            parse_failure_rate = _parse_failure_rate(single_by_task.get(row.get("task"), {}))
+            if parse_failure_rate is not None:
+                corrected["parse_failure_rate"] = parse_failure_rate
+            rows.append(corrected)
         shard_settings.append({"shard_dir": shard_dir, "settings": propagation.get("settings", {})})
     rows = sorted(rows, key=lambda row: row.get("task", ""))
+    scale_flags = [
+        int((setting.get("settings") or {}).get("n_instances") or 0) >= 50 and len((setting.get("settings") or {}).get("seeds") or []) >= 2
+        for setting in shard_settings
+    ]
+    all_50x2 = bool(scale_flags) and all(scale_flags)
+    all_small = bool(scale_flags) and not any(scale_flags)
+    if all_50x2 and rows:
+        merged_status = "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
+    elif all_small and rows:
+        merged_status = "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+    elif rows:
+        merged_status = "MEASURED_MIXED_SCALE_PROPAGATION_DELTA_NOT_ACCEPTED"
+    else:
+        merged_status = "NOT_RUN"
     merged = {
         "columns": ["task", "qwen35_verdict", "qwen3_4b_delta", "branch_rollout", "parse_failure_rate", "invalid_guess_rate", "provenance"],
         "rows": rows,
-        "status": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED" if rows else "NOT_RUN",
+        "status": merged_status,
         "settings": {"shards": shard_settings},
         "summary": {"note": "Merged from per-task-type propagation shards."},
     }
@@ -486,6 +631,7 @@ def _merge_propagation_shards(output_dir: str, shard_dirs: list[str]) -> dict[st
         payload.get("survival_probe"),
         payload.get("native_delta_probe"),
         merged,
+        payload.get("true_state_matrix_capacity"),
     )
     (out / "results.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     (out / "verdicts.json").write_text(json.dumps({"generated_at": payload.get("generated_at"), "model_id": payload.get("model_id"), "measured_object": payload.get("measured_object"), "verdicts": payload.get("verdicts"), "integration_grade": payload.get("integration_grade")}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -501,6 +647,7 @@ def _p2_tables(
     survival: dict[str, Any] | None,
     native_gap: dict[str, Any] | None,
     propagation: dict[str, Any] | None,
+    true_capacity: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     model_card = {
         "columns": ["field", "value", "provenance"],
@@ -521,7 +668,7 @@ def _p2_tables(
     for row in cached_state.get("inventory", []):
         if row.get("state_name") == "recurrent_states":
             model_card["rows"].append({"field": f"layer_{row['layer']}_recurrent_state_shape", "value": row.get("shape"), "provenance": "measured:DynamicCache.cached_gdn_recurrent_state"})
-    capacity = {
+    capacity = true_capacity or {
         "columns": ["K_var", "K_val", "hidden_size_as_D", "bound_single_estimated_capacity", "factored_estimated_capacity", "provenance"],
         "rows": [{**row, "provenance": "derived_from_module1_capacity_law"} for row in estimates],
     }
@@ -550,6 +697,44 @@ def _p2_tables(
         "propagation_per_task_delta": propagation_table,
         "verdicts_echo": verdicts,
     }
+
+
+def update_true_dims_capacity(
+    output_dir: str = "results/w3_qwen35_probe",
+    perdepth_path: str = "results/module1_capacity_perdepth_shards/results.json",
+    seed: int = 102,
+    trials: int = 32,
+) -> dict[str, Any]:
+    out = Path(output_dir)
+    payload = _read_json(out / "results.json")
+    if not isinstance(payload, dict):
+        raise FileNotFoundError(f"W3 result not found: {out / 'results.json'}")
+    geometry = _cached_state_matrix_geometry(payload)
+    capacity = _true_state_matrix_capacity(
+        Path(perdepth_path),
+        state_rows=geometry["state_rows"],
+        state_cols=geometry["state_cols"],
+        max_state_heads=geometry["num_state_heads"],
+        matrix_geometry_source=geometry["source"],
+        seed=seed,
+        trials=trials,
+    )
+    payload["true_state_matrix_capacity"] = capacity
+    payload.setdefault("verdicts", {})["W3.1_capacity_at_real_gdn_dims"] = capacity["status"]
+    payload["p2_tables"] = _p2_tables(
+        payload.get("config", {}),
+        payload.get("capacity_estimates", []),
+        payload.get("hidden_hook_probe", {}),
+        payload.get("verdicts", {}),
+        payload.get("survival_probe"),
+        payload.get("native_delta_probe"),
+        payload.get("propagation_probe"),
+        capacity,
+    )
+    (out / "results.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    (out / "verdicts.json").write_text(json.dumps({"generated_at": payload.get("generated_at"), "model_id": payload.get("model_id"), "measured_object": payload.get("measured_object"), "verdicts": payload.get("verdicts"), "integration_grade": payload.get("integration_grade")}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    print(json.dumps(payload, indent=2, sort_keys=True))
+    return payload
 
 
 def run_probe(
@@ -676,9 +861,14 @@ if __name__ == "__main__":
     parser.add_argument("--propagation-task-types", default="horn_sat,general_sat,graph_coloring,sudoku_4x4,logic_grid")
     parser.add_argument("--baseline-report", default="results/m2_operator_probe/report_fix_rescale.json")
     parser.add_argument("--merge-propagation-shards", default="")
+    parser.add_argument("--run-true-dims-capacity-only", action="store_true")
+    parser.add_argument("--true-dims-capacity-trials", type=int, default=32)
     args = parser.parse_args()
     if args.merge_propagation_shards:
         _merge_propagation_shards(args.output_dir, [path for path in args.merge_propagation_shards.split(",") if path.strip()])
+        raise SystemExit(0)
+    if args.run_true_dims_capacity_only:
+        update_true_dims_capacity(args.output_dir, args.perdepth_path, seed=102, trials=args.true_dims_capacity_trials)
         raise SystemExit(0)
     propagation_seeds = [int(seed) for seed in args.propagation_seeds.split(",") if seed.strip()]
     propagation_task_types = [task for task in args.propagation_task_types.split(",") if task.strip()]

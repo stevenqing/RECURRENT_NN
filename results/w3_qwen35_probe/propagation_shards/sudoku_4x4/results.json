@@ -64,7 +64,7 @@
     "vocab_size": 248320
   },
   "download_record": {
-    "generated_at": "2026-06-07T09:42:34.867563+00:00",
+    "generated_at": "2026-06-07T12:23:57.940723+00:00",
     "model_id": "Qwen/Qwen3.5-4B",
     "n_files": 14,
     "revision": null,
@@ -72,12 +72,13 @@
     "total_bytes": 9342907469,
     "total_gib": 8.701260638423264
   },
-  "generated_at": "2026-06-07T10:48:38.214916+00:00",
+  "generated_at": "2026-06-07T15:32:05.337201+00:00",
   "hidden_hook_probe": {
     "load_model": false,
     "status": "SKIPPED_METADATA_ONLY"
   },
   "integration_grade": "do_not_integrate_yet",
+  "measured_object": "metadata_only",
   "model_id": "Qwen/Qwen3.5-4B",
   "module": "w3_qwen35_probe",
   "native_delta_probe": null,
@@ -243,104 +244,12 @@
       "rows": [
         {
           "branch_rollout": {
-            "qwen35_qwen_guess": {},
-            "qwen3_4b_qwen_guess_baseline": {
-              "invalid_guess_rate": 0.16897506925207756,
-              "invalid_guesses": 122,
-              "mean_nodes_to_solve_or_cap": 7.22,
-              "n": 100,
-              "parse_failures": 0,
-              "solve_rate": 1.0
-            }
-          },
-          "invalid_guess_rate": null,
-          "parse_failure_rate": null,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-          "qwen35_verdict": null,
-          "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": null,
-            "mean_nodes_delta": null,
-            "per_call_precision_delta": null
-          },
-          "task": "general_sat"
-        },
-        {
-          "branch_rollout": {
-            "qwen35_qwen_guess": {},
-            "qwen3_4b_qwen_guess_baseline": {
-              "invalid_guess_rate": 0.16903633491311215,
-              "invalid_guesses": 107,
-              "mean_nodes_to_solve_or_cap": 6.33,
-              "n": 100,
-              "parse_failures": 8,
-              "solve_rate": 1.0
-            }
-          },
-          "invalid_guess_rate": null,
-          "parse_failure_rate": null,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-          "qwen35_verdict": null,
-          "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": null,
-            "mean_nodes_delta": null,
-            "per_call_precision_delta": null
-          },
-          "task": "graph_coloring"
-        },
-        {
-          "branch_rollout": {
-            "qwen35_qwen_guess": {},
-            "qwen3_4b_qwen_guess_baseline": {
-              "invalid_guess_rate": 0.0,
-              "invalid_guesses": 0,
-              "mean_nodes_to_solve_or_cap": 1,
-              "n": 45,
-              "parse_failures": 0,
-              "solve_rate": 1.0
-            }
-          },
-          "invalid_guess_rate": null,
-          "parse_failure_rate": null,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-          "qwen35_verdict": null,
-          "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": null,
-            "mean_nodes_delta": null,
-            "per_call_precision_delta": null
-          },
-          "task": "horn_sat"
-        },
-        {
-          "branch_rollout": {
-            "qwen35_qwen_guess": {},
-            "qwen3_4b_qwen_guess_baseline": {
-              "invalid_guess_rate": 0.4068554396423249,
-              "invalid_guesses": 273,
-              "mean_nodes_to_solve_or_cap": 6.71,
-              "n": 100,
-              "parse_failures": 136,
-              "solve_rate": 1.0
-            }
-          },
-          "invalid_guess_rate": null,
-          "parse_failure_rate": null,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-          "qwen35_verdict": null,
-          "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": null,
-            "mean_nodes_delta": null,
-            "per_call_precision_delta": null
-          },
-          "task": "logic_grid"
-        },
-        {
-          "branch_rollout": {
             "qwen35_qwen_guess": {
-              "invalid_guess_rate": 0.0,
-              "invalid_guesses": 0,
-              "mean_nodes_to_solve_or_cap": 1,
-              "n": 3,
-              "parse_failures": 0,
+              "invalid_guess_rate": 0.20634920634920634,
+              "invalid_guesses": 26,
+              "mean_nodes_to_solve_or_cap": 1.26,
+              "n": 100,
+              "parse_failures": 26,
               "solve_rate": 1.0
             },
             "qwen3_4b_qwen_guess_baseline": {
@@ -352,13 +261,13 @@
               "solve_rate": 1.0
             }
           },
-          "invalid_guess_rate": 0.0,
+          "invalid_guess_rate": 0.20634920634920634,
           "parse_failure_rate": 0.0,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+          "provenance": "measured:50x2 W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
           "qwen35_verdict": "NEEDS_OPERATOR_FIX",
           "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": -0.15833333333333333,
-            "mean_nodes_delta": -0.27,
+            "fixpoint_reach_rate_delta": -0.053333333333333316,
+            "mean_nodes_delta": -0.010000000000000009,
             "per_call_precision_delta": null
           },
           "task": "sudoku_4x4"
@@ -368,15 +277,17 @@
         "batch_size": 2,
         "cap_nodes": 32,
         "max_nodes_per_task": 2,
-        "n_instances": 3,
+        "n_instances": 50,
+        "scale_grade": "50x2",
         "seeds": [
-          42
+          42,
+          43
         ],
         "task_types": [
           "sudoku_4x4"
         ]
       },
-      "status": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED",
+      "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED",
       "summary": {
         "branch": {
           "by_task": {
@@ -384,17 +295,17 @@
               "mrv": {
                 "invalid_guess_rate": 0.0,
                 "invalid_guesses": 0,
-                "mean_nodes_to_solve_or_cap": 1,
-                "n": 3,
+                "mean_nodes_to_solve_or_cap": 1.26,
+                "n": 100,
                 "parse_failures": 0,
                 "solve_rate": 1.0
               },
               "qwen_guess": {
-                "invalid_guess_rate": 0.0,
-                "invalid_guesses": 0,
-                "mean_nodes_to_solve_or_cap": 1,
-                "n": 3,
-                "parse_failures": 0,
+                "invalid_guess_rate": 0.20634920634920634,
+                "invalid_guesses": 26,
+                "mean_nodes_to_solve_or_cap": 1.26,
+                "n": 100,
+                "parse_failures": 26,
                 "solve_rate": 1.0
               },
               "random": {
@@ -411,17 +322,17 @@
             "mrv": {
               "invalid_guess_rate": 0.0,
               "invalid_guesses": 0,
-              "mean_nodes_to_solve_or_cap": 1,
-              "n": 3,
+              "mean_nodes_to_solve_or_cap": 1.26,
+              "n": 100,
               "parse_failures": 0,
               "solve_rate": 1.0
             },
             "qwen_guess": {
-              "invalid_guess_rate": 0.0,
-              "invalid_guesses": 0,
-              "mean_nodes_to_solve_or_cap": 1,
-              "n": 3,
-              "parse_failures": 0,
+              "invalid_guess_rate": 0.20634920634920634,
+              "invalid_guesses": 26,
+              "mean_nodes_to_solve_or_cap": 1.26,
+              "n": 100,
+              "parse_failures": 26,
               "solve_rate": 1.0
             },
             "random": {
@@ -442,19 +353,19 @@
                 "std": 0.0
               },
               "calls": {
-                "mean": 6.0,
-                "std": 0.0
+                "mean": 89.5,
+                "std": 3.5
               },
               "fixpoint_reach_rate": {
+                "mean": 0.10500000000000001,
+                "std": 0.035
+              },
+              "mean_rounds_to_fixpoint": {
                 "mean": 0.0,
                 "std": 0.0
               },
-              "mean_rounds_to_fixpoint": {
-                "mean": null,
-                "std": 0.0
-              },
               "n": {
-                "mean": 6.0,
+                "mean": 100.0,
                 "std": 0.0
               },
               "parse_success_rate": {
@@ -477,19 +388,19 @@
               "std": 0.0
             },
             "calls": {
-              "mean": 6.0,
-              "std": 0.0
+              "mean": 89.5,
+              "std": 3.5
             },
             "fixpoint_reach_rate": {
+              "mean": 0.10500000000000001,
+              "std": 0.035
+            },
+            "mean_rounds_to_fixpoint": {
               "mean": 0.0,
               "std": 0.0
             },
-            "mean_rounds_to_fixpoint": {
-              "mean": null,
-              "std": 0.0
-            },
             "n": {
-              "mean": 6.0,
+              "mean": 100.0,
               "std": 0.0
             },
             "parse_success_rate": {
@@ -514,10 +425,11 @@
     },
     "verdicts_echo": {
       "W3.0_checkpoint_pin": "PASS",
+      "W3.1_cached_state_round_trip": "NOT_RUN",
       "W3.1_capacity_at_real_gdn_dims": "PLANNING_ESTIMATE_ONLY",
       "W3.1_gating_decay_stack_survival": "NOT_RUN",
       "W3.1_native_delta_rule_as_stack_gap": "NOT_RUN",
-      "W3.2_qwen3_4b_delta_table": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+      "W3.2_qwen3_4b_delta_table": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
     }
   },
   "propagation_probe": {
@@ -533,104 +445,12 @@
     "rows": [
       {
         "branch_rollout": {
-          "qwen35_qwen_guess": {},
-          "qwen3_4b_qwen_guess_baseline": {
-            "invalid_guess_rate": 0.16897506925207756,
-            "invalid_guesses": 122,
-            "mean_nodes_to_solve_or_cap": 7.22,
-            "n": 100,
-            "parse_failures": 0,
-            "solve_rate": 1.0
-          }
-        },
-        "invalid_guess_rate": null,
-        "parse_failure_rate": null,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-        "qwen35_verdict": null,
-        "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": null,
-          "mean_nodes_delta": null,
-          "per_call_precision_delta": null
-        },
-        "task": "general_sat"
-      },
-      {
-        "branch_rollout": {
-          "qwen35_qwen_guess": {},
-          "qwen3_4b_qwen_guess_baseline": {
-            "invalid_guess_rate": 0.16903633491311215,
-            "invalid_guesses": 107,
-            "mean_nodes_to_solve_or_cap": 6.33,
-            "n": 100,
-            "parse_failures": 8,
-            "solve_rate": 1.0
-          }
-        },
-        "invalid_guess_rate": null,
-        "parse_failure_rate": null,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-        "qwen35_verdict": null,
-        "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": null,
-          "mean_nodes_delta": null,
-          "per_call_precision_delta": null
-        },
-        "task": "graph_coloring"
-      },
-      {
-        "branch_rollout": {
-          "qwen35_qwen_guess": {},
-          "qwen3_4b_qwen_guess_baseline": {
-            "invalid_guess_rate": 0.0,
-            "invalid_guesses": 0,
-            "mean_nodes_to_solve_or_cap": 1,
-            "n": 45,
-            "parse_failures": 0,
-            "solve_rate": 1.0
-          }
-        },
-        "invalid_guess_rate": null,
-        "parse_failure_rate": null,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-        "qwen35_verdict": null,
-        "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": null,
-          "mean_nodes_delta": null,
-          "per_call_precision_delta": null
-        },
-        "task": "horn_sat"
-      },
-      {
-        "branch_rollout": {
-          "qwen35_qwen_guess": {},
-          "qwen3_4b_qwen_guess_baseline": {
-            "invalid_guess_rate": 0.4068554396423249,
-            "invalid_guesses": 273,
-            "mean_nodes_to_solve_or_cap": 6.71,
-            "n": 100,
-            "parse_failures": 136,
-            "solve_rate": 1.0
-          }
-        },
-        "invalid_guess_rate": null,
-        "parse_failure_rate": null,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
-        "qwen35_verdict": null,
-        "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": null,
-          "mean_nodes_delta": null,
-          "per_call_precision_delta": null
-        },
-        "task": "logic_grid"
-      },
-      {
-        "branch_rollout": {
           "qwen35_qwen_guess": {
-            "invalid_guess_rate": 0.0,
-            "invalid_guesses": 0,
-            "mean_nodes_to_solve_or_cap": 1,
-            "n": 3,
-            "parse_failures": 0,
+            "invalid_guess_rate": 0.20634920634920634,
+            "invalid_guesses": 26,
+            "mean_nodes_to_solve_or_cap": 1.26,
+            "n": 100,
+            "parse_failures": 26,
             "solve_rate": 1.0
           },
           "qwen3_4b_qwen_guess_baseline": {
@@ -642,13 +462,13 @@
             "solve_rate": 1.0
           }
         },
-        "invalid_guess_rate": 0.0,
+        "invalid_guess_rate": 0.20634920634920634,
         "parse_failure_rate": 0.0,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+        "provenance": "measured:50x2 W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
         "qwen35_verdict": "NEEDS_OPERATOR_FIX",
         "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": -0.15833333333333333,
-          "mean_nodes_delta": -0.27,
+          "fixpoint_reach_rate_delta": -0.053333333333333316,
+          "mean_nodes_delta": -0.010000000000000009,
           "per_call_precision_delta": null
         },
         "task": "sudoku_4x4"
@@ -658,15 +478,17 @@
       "batch_size": 2,
       "cap_nodes": 32,
       "max_nodes_per_task": 2,
-      "n_instances": 3,
+      "n_instances": 50,
+      "scale_grade": "50x2",
       "seeds": [
-        42
+        42,
+        43
       ],
       "task_types": [
         "sudoku_4x4"
       ]
     },
-    "status": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED",
+    "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED",
     "summary": {
       "branch": {
         "by_task": {
@@ -674,17 +496,17 @@
             "mrv": {
               "invalid_guess_rate": 0.0,
               "invalid_guesses": 0,
-              "mean_nodes_to_solve_or_cap": 1,
-              "n": 3,
+              "mean_nodes_to_solve_or_cap": 1.26,
+              "n": 100,
               "parse_failures": 0,
               "solve_rate": 1.0
             },
             "qwen_guess": {
-              "invalid_guess_rate": 0.0,
-              "invalid_guesses": 0,
-              "mean_nodes_to_solve_or_cap": 1,
-              "n": 3,
-              "parse_failures": 0,
+              "invalid_guess_rate": 0.20634920634920634,
+              "invalid_guesses": 26,
+              "mean_nodes_to_solve_or_cap": 1.26,
+              "n": 100,
+              "parse_failures": 26,
               "solve_rate": 1.0
             },
             "random": {
@@ -701,17 +523,17 @@
           "mrv": {
             "invalid_guess_rate": 0.0,
             "invalid_guesses": 0,
-            "mean_nodes_to_solve_or_cap": 1,
-            "n": 3,
+            "mean_nodes_to_solve_or_cap": 1.26,
+            "n": 100,
             "parse_failures": 0,
             "solve_rate": 1.0
           },
           "qwen_guess": {
-            "invalid_guess_rate": 0.0,
-            "invalid_guesses": 0,
-            "mean_nodes_to_solve_or_cap": 1,
-            "n": 3,
-            "parse_failures": 0,
+            "invalid_guess_rate": 0.20634920634920634,
+            "invalid_guesses": 26,
+            "mean_nodes_to_solve_or_cap": 1.26,
+            "n": 100,
+            "parse_failures": 26,
             "solve_rate": 1.0
           },
           "random": {
@@ -732,19 +554,19 @@
               "std": 0.0
             },
             "calls": {
-              "mean": 6.0,
-              "std": 0.0
+              "mean": 89.5,
+              "std": 3.5
             },
             "fixpoint_reach_rate": {
+              "mean": 0.10500000000000001,
+              "std": 0.035
+            },
+            "mean_rounds_to_fixpoint": {
               "mean": 0.0,
               "std": 0.0
             },
-            "mean_rounds_to_fixpoint": {
-              "mean": null,
-              "std": 0.0
-            },
             "n": {
-              "mean": 6.0,
+              "mean": 100.0,
               "std": 0.0
             },
             "parse_success_rate": {
@@ -767,19 +589,19 @@
             "std": 0.0
           },
           "calls": {
-            "mean": 6.0,
-            "std": 0.0
+            "mean": 89.5,
+            "std": 3.5
           },
           "fixpoint_reach_rate": {
+            "mean": 0.10500000000000001,
+            "std": 0.035
+          },
+          "mean_rounds_to_fixpoint": {
             "mean": 0.0,
             "std": 0.0
           },
-          "mean_rounds_to_fixpoint": {
-            "mean": null,
-            "std": 0.0
-          },
           "n": {
-            "mean": 6.0,
+            "mean": 100.0,
             "std": 0.0
           },
           "parse_success_rate": {
@@ -806,9 +628,10 @@
   "survival_probe": null,
   "verdicts": {
     "W3.0_checkpoint_pin": "PASS",
+    "W3.1_cached_state_round_trip": "NOT_RUN",
     "W3.1_capacity_at_real_gdn_dims": "PLANNING_ESTIMATE_ONLY",
     "W3.1_gating_decay_stack_survival": "NOT_RUN",
     "W3.1_native_delta_rule_as_stack_gap": "NOT_RUN",
-    "W3.2_qwen3_4b_delta_table": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+    "W3.2_qwen3_4b_delta_table": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
   }
 }

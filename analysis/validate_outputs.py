@@ -300,14 +300,31 @@ def _w3_checks(checks: list[dict[str, Any]]) -> None:
         _check(checks, true_object and probe.get("integration_grade") != "alongside_only_measured_not_in_state", "w3_integration_grade_reissued_on_true_state", f"integration_grade={probe.get('integration_grade')}; measured_object={measured_object}", "tier_c")
         hook = probe.get("hidden_hook_probe", {})
         tables = probe.get("p2_tables", {})
+        capacity_rows = tables.get("capacity_at_real_gdn_dims", {}).get("rows", [])
         survival_rows = tables.get("decay_survival", {}).get("rows", [])
         native_rows = tables.get("native_rule_gap", {}).get("rows", [])
         propagation_rows = tables.get("propagation_per_task_delta", {}).get("rows", [])
-        _check(checks, true_object and verdicts.get("W3.1_capacity_at_real_gdn_dims") not in {"PLANNING_ESTIMATE_ONLY", "FAIL", "NOT_RUN", None}, "w3_capacity_true_state_dims_measured", f"verdict={verdicts.get('W3.1_capacity_at_real_gdn_dims')}; measured_object={measured_object}", "tier_c")
+        measured_capacity_rows = [
+            row for row in capacity_rows
+            if str(row.get("provenance", "")).startswith("measured:")
+            and int(row.get("state_rows") or 0) == 128
+            and int(row.get("state_cols") or 0) == 128
+            and int(row.get("heads") or 0) in {1, 2, 4, 8}
+            and "cached_state_probe.inventory" in str(row.get("matrix_geometry_source", ""))
+        ]
+        measured_capacity_families = {row.get("task_family") for row in measured_capacity_rows}
+        _check(
+            checks,
+            true_object and {"sudoku_6x6", "sudoku_9x9"}.issubset(measured_capacity_families) and len(measured_capacity_rows) >= 8,
+            "w3_capacity_true_state_dims_measured",
+            f"verdict={verdicts.get('W3.1_capacity_at_real_gdn_dims')}; measured_rows={len(measured_capacity_rows)}; families={sorted(measured_capacity_families)}; measured_object={measured_object}",
+            "tier_c",
+        )
         _check(checks, true_object and hook.get("state_hook_round_trip", {}).get("perturbation_affected_next_step") is True, "w3_cached_state_round_trip", f"round_trip={hook.get('state_hook_round_trip')}; measured_object={measured_object}", "tier_c")
         _check(checks, true_object and bool(survival_rows) and verdicts.get("W3.1_gating_decay_stack_survival") != "MEASURED_PROMPT_HIDDEN_SURVIVAL_NOT_CACHED_STATE", "w3_cached_state_survival_measured", f"verdict={verdicts.get('W3.1_gating_decay_stack_survival')}; rows={len(survival_rows)}; measured_object={measured_object}", "tier_c")
         _check(checks, true_object and bool(native_rows) and verdicts.get("W3.1_native_delta_rule_as_stack_gap") != "MEASURED_NATIVE_HIDDEN_DELTA_GAP", "w3_cached_state_native_rule_gap_measured", f"verdict={verdicts.get('W3.1_native_delta_rule_as_stack_gap')}; rows={len(native_rows)}; measured_object={measured_object}", "tier_c")
-        if verdicts.get("W3.2_qwen3_4b_delta_table") == "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED":
+        _check(checks, verdicts.get("W3.2_qwen3_4b_delta_table") != "MEASURED_MIXED_SCALE_PROPAGATION_DELTA_NOT_ACCEPTED", "w3_propagation_scale_not_mixed", f"verdict={verdicts.get('W3.2_qwen3_4b_delta_table')}", "tier_c")
+        if verdicts.get("W3.2_qwen3_4b_delta_table") in {"MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED", "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"}:
             _check(checks, bool(propagation_rows) and all(row.get("qwen35_verdict") for row in propagation_rows), "w3_propagation_per_task_delta_measured", f"rows={len(propagation_rows)}", "tier_c")
 
 

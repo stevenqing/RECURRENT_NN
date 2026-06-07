@@ -21,6 +21,7 @@ ARTIFACT_INDEX = {
     "item_032_validation_green_closeout": "results/experiment_items/item_032_validation_green_closeout.json",
     "item_033_validation_object_binding": "results/experiment_items/item_033_validation_object_binding.json",
     "item_034_t2_t3_cached_state_and_learned_preflight": "results/experiment_items/item_034_t2_t3_cached_state_and_learned_preflight.json",
+    "item_035_g1_anomaly_true_dims_w3_scale": "results/experiment_items/item_035_g1_anomaly_true_dims_w3_scale.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "model_readiness": "results/model_readiness/readiness.json",
     "qwen3_4b_instruct_download": "results/model_download/qwen_download.json",

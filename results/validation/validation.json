@@ -475,7 +475,7 @@
       "tier": "tier_c"
     },
     {
-      "detail": "verdict=MEASURED_TRUE_STATE_DIMS; measured_object=cached_gdn_recurrent_state",
+      "detail": "verdict=MEASURED_TRUE_STATE_MATRIX_GEOMETRY; measured_rows=8; families=['sudoku_6x6', 'sudoku_9x9']; measured_object=cached_gdn_recurrent_state",
       "name": "w3_capacity_true_state_dims_measured",
       "status": "PASS",
       "tier": "tier_c"
@@ -499,6 +499,12 @@
       "tier": "tier_c"
     },
     {
+      "detail": "verdict=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED",
+      "name": "w3_propagation_scale_not_mixed",
+      "status": "PASS",
+      "tier": "tier_c"
+    },
+    {
       "detail": "rows=5",
       "name": "w3_propagation_per_task_delta_measured",
       "status": "PASS",
@@ -511,7 +517,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=7",
+      "detail": "count=8",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -769,6 +775,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_035_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_035_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=035",
+      "name": "log_item_035_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_035_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "T2 forced-only semantics eliminate the unforced-guess G1\u2248G2 anomaly but do not establish G1>=0.95, autonomous Stage A cells, or useful learned propagation; all ",
+      "name": "log_item_035_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=Do not scale T2 budget until forced-mask recall is repaired. After this partial-evidence commit, finish all remaining W3.2 50x2 shards, merge only when every shard has n_instances>=50 and at least two seeds, rerun validation/log generation, then make a final W3.2 completion commit.",
+      "name": "log_item_035_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -991,11 +1033,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-07T13:21:34.006078+00:00",
+  "generated_at": "2026-06-07T15:46:05.144668+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 165,
+    "n_checks": 172,
     "n_fail": 4,
-    "n_pass": 161
+    "n_pass": 168
   }
 }

@@ -1,0 +1,465 @@
+{
+  "G1": 0.0625,
+  "G2": 0.0,
+  "G3": {
+    "depth_histogram": {
+      "1": 3,
+      "2": 1
+    },
+    "n_instances": 4,
+    "status": "generated_for_external_anchor"
+  },
+  "acceptance": {
+    "G1_pass": false,
+    "G1_threshold": 0.95,
+    "autonomous_stage_a_run": false,
+    "commit_semantics": "forced_only_mask_and_singleton_margin_shared_function",
+    "operator_type": "learned_recurrent",
+    "stage_a_autonomous_cells": 0,
+    "tau": 0.0
+  },
+  "anomaly_collapse": {
+    "after_A1_forced_G1_fixpoint": 0.0625,
+    "after_A1_forced_G2_l4_solve": 0.0,
+    "after_A1_legacy_joint_G1": 0.0059121621621621625,
+    "after_A1_legacy_joint_G2": 0.0049586776859504135,
+    "before_A1_G1": 0.1508869528707883,
+    "before_A1_G2": 0.14923016186340307,
+    "before_A1_source": "results/recurrent_operator_8gpu/acceptance.json",
+    "prediction_checked": "G2 should collapse toward 0 when unforced commits are blocked",
+    "stop_if_G2_positive": false
+  },
+  "checkpoint": "results/recurrent_operator_forced_depth16_smoke/learned_recurrent_operator_seed102.pt",
+  "dataset": {
+    "eval_depth_histogram": {
+      "1": 41,
+      "2": 23
+    },
+    "eval_examples": 2368,
+    "eval_instances_generated": 64,
+    "eval_instances_requested": 64,
+    "l4_depth_histogram": {
+      "4": 6,
+      "5": 7,
+      "6": 2,
+      "7": 1
+    },
+    "l4_examples": 605,
+    "l4_instances_generated": 16,
+    "l4_instances_requested": 16,
+    "train_depth_histogram": {
+      "1": 82,
+      "2": 46
+    },
+    "train_examples": 4763,
+    "train_instances_generated": 128,
+    "train_instances_requested": 128
+  },
+  "device": "cuda:0",
+  "devices": [
+    "cuda:0"
+  ],
+  "forced_only": {
+    "G1_forced_fixpoint": {
+      "depth_histogram": {
+        "1": 41,
+        "2": 23
+      },
+      "fixpoint_reach_rate": 0.0625,
+      "mean_commits": 0.0,
+      "n_episodes": 64,
+      "solve_rate": 0.0,
+      "stick_reason_histogram": {
+        "no_forced_mask_fire": 60,
+        "stuck_no_symbolic_forced_move": 4
+      }
+    },
+    "G2_forced_l4": {
+      "depth_histogram": {
+        "4": 6,
+        "5": 7,
+        "6": 2,
+        "7": 1
+      },
+      "fixpoint_reach_rate": 0.625,
+      "mean_commits": 0.0,
+      "n_episodes": 16,
+      "solve_rate": 0.0,
+      "stick_reason_histogram": {
+        "no_forced_mask_fire": 6,
+        "stuck_no_symbolic_forced_move": 10
+      }
+    },
+    "commit_function": "experiments.train_recurrent_operator.forced_only_commit_decision",
+    "forced_threshold": 0.5,
+    "per_step_forced_precision_recall_by_depth": [
+      {
+        "depth_into_solution": 10,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 10,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 11,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 26,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 12,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 29,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 13,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 156,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 14,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 167,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 15,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 163,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 16,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 133,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 17,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 117,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 18,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 96,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 19,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 185,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 20,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 111,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 21,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 97,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 22,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 61,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 23,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 94,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 24,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 69,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 25,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 70,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 26,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 60,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 27,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 58,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 28,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 60,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 29,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 63,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 30,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 62,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 31,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 64,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 32,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 20,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 33,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 64,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 34,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 64,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 35,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 64,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      },
+      {
+        "depth_into_solution": 36,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "n_states": 0,
+        "provenance": "measured:forced_only_commit_decision_shared_with_episode_eval"
+      }
+    ],
+    "single_step_forced_precision": 0.0,
+    "single_step_forced_recall": 0.0,
+    "tau_calibration": {
+      "candidate_rows": [
+        {
+          "f1": 0.0,
+          "forced_precision": 0.0,
+          "forced_recall": 0.0,
+          "tau": 0.0
+        },
+        {
+          "f1": 0.0,
+          "forced_precision": 0.0,
+          "forced_recall": 0.0,
+          "tau": 0.02
+        },
+        {
+          "f1": 0.0,
+          "forced_precision": 0.0,
+          "forced_recall": 0.0,
+          "tau": 0.05
+        },
+        {
+          "f1": 0.0,
+          "forced_precision": 0.0,
+          "forced_recall": 0.0,
+          "tau": 0.1
+        },
+        {
+          "f1": 0.0,
+          "forced_precision": 0.0,
+          "forced_recall": 0.0,
+          "tau": 0.2
+        },
+        {
+          "f1": 0.0,
+          "forced_precision": 0.0,
+          "forced_recall": 0.0,
+          "tau": 0.4
+        },
+        {
+          "f1": 0.0,
+          "forced_precision": 0.0,
+          "forced_recall": 0.0,
+          "tau": 0.8
+        },
+        {
+          "f1": 0.0,
+          "forced_precision": 0.0,
+          "forced_recall": 0.0,
+          "tau": 1.2
+        }
+      ],
+      "selected_tau": 0.0,
+      "selection_rule": "max_f1_then_precision_then_recall_on_val_forced_single_step"
+    }
+  },
+  "generated_at": "2026-06-07T14:50:34.872649+00:00",
+  "honesty": {
+    "does_not_establish": "This trainer produces a learned checkpoint and live bridge metrics, but does not establish autonomous Stage A solving unless a later Stage A run consumes the checkpoint and reports real cells."
+  },
+  "legacy_single_step_joint": {
+    "G1_joint_accuracy": 0.0059121621621621625,
+    "G2_joint_accuracy": 0.0049586776859504135,
+    "note": "legacy diagnostic only; acceptance uses forced-only episode semantics"
+  },
+  "module": "train_recurrent_operator",
+  "operator_type": "learned_recurrent",
+  "recipe": {
+    "band_augmentation": "not_applied_in_smoke_path",
+    "digit_augmentation": true,
+    "ema_recorded": true,
+    "forced_only_commit_semantics": true,
+    "outer_iterate_to_fixpoint_eval": true,
+    "per_step_deep_supervision": true,
+    "tensor_io": true,
+    "trained_on_depths": "L1-L2_only",
+    "weight_tied_recurrent_net": true
+  },
+  "seed": 102,
+  "source": "learned_recurrent_training_run",
+  "status": "G1_NOT_MET",
+  "training_curve_summary": {
+    "batch_size": 256,
+    "data_parallel_devices": [],
+    "generation_workers": 4,
+    "history": [
+      {
+        "eval_joint_accuracy": 0.01708984375,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "loss": 6.478882789611816,
+        "step": 1,
+        "tau": 0.0
+      },
+      {
+        "eval_joint_accuracy": 0.00927734375,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "loss": 6.350682735443115,
+        "step": 8,
+        "tau": 0.0
+      },
+      {
+        "eval_joint_accuracy": 0.00341796875,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "loss": 6.286858558654785,
+        "step": 16,
+        "tau": 0.0
+      },
+      {
+        "eval_joint_accuracy": 0.00146484375,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "loss": 6.197639465332031,
+        "step": 24,
+        "tau": 0.0
+      },
+      {
+        "eval_joint_accuracy": 0.001953125,
+        "forced_precision": 0.02197802197802198,
+        "forced_recall": 0.017391304347826087,
+        "loss": 6.093979835510254,
+        "step": 32,
+        "tau": 0.0
+      },
+      {
+        "eval_joint_accuracy": 0.00244140625,
+        "forced_precision": 0.041666666666666664,
+        "forced_recall": 0.004347826086956522,
+        "loss": 5.953663349151611,
+        "step": 40,
+        "tau": 0.0
+      },
+      {
+        "eval_joint_accuracy": 0.001953125,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "loss": 5.88613224029541,
+        "step": 48,
+        "tau": 0.0
+      },
+      {
+        "eval_joint_accuracy": 0.00390625,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "loss": 5.849420070648193,
+        "step": 56,
+        "tau": 0.0
+      },
+      {
+        "eval_joint_accuracy": 0.0048828125,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "loss": 5.79069709777832,
+        "step": 64,
+        "tau": 0.0
+      },
+      {
+        "eval_joint_accuracy": 0.0048828125,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "loss": 5.735072135925293,
+        "step": 72,
+        "tau": 0.0
+      },
+      {
+        "eval_joint_accuracy": 0.00537109375,
+        "forced_precision": 0.0,
+        "forced_recall": 0.0,
+        "loss": 5.7483086585998535,
+        "step": 80,
+        "tau": 0.0
+      }
+    ],
+    "lr": 0.0003,
+    "steps": 80
+  }
+}
