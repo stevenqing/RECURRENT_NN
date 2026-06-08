@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timezone
 import json
@@ -115,6 +116,31 @@ def _tensorize_token_examples(examples: list[TrainingExample], augment_digits: b
     return rows
 
 
+def _tensorize_token_chunk(args: tuple[list[TrainingExample], bool, int]) -> list[TensorExample]:
+    examples, augment_digits, seed = args
+    return _tensorize_token_examples(examples, augment_digits, seed)
+
+
+def _tensorize_token_examples_parallel(label: str, examples: list[TrainingExample], augment_digits: bool, seed: int, workers: int) -> list[TensorExample]:
+    print(json.dumps({"event": "tensorize_start", "label": label, "examples": len(examples), "augment_digits": augment_digits, "workers": workers}), flush=True)
+    workers = max(1, workers)
+    if workers == 1 or len(examples) < 2048:
+        rows = _tensorize_token_examples(examples, augment_digits, seed)
+        print(json.dumps({"event": "tensorize_done", "label": label, "examples": len(examples), "rows": len(rows), "workers": 1}), flush=True)
+        return rows
+    chunk_size = max(1024, (len(examples) + workers - 1) // workers)
+    chunks = [examples[start:start + chunk_size] for start in range(0, len(examples), chunk_size)]
+    rows: list[TensorExample] = []
+    with ProcessPoolExecutor(max_workers=workers) as executor:
+        futures = [executor.submit(_tensorize_token_chunk, (chunk, augment_digits, seed + index * 1009)) for index, chunk in enumerate(chunks)]
+        for future in as_completed(futures):
+            chunk_rows = future.result()
+            rows.extend(chunk_rows)
+            print(json.dumps({"event": "tensorize_progress", "label": label, "rows": len(rows), "target": len(examples), "last_chunk": len(chunk_rows), "workers": workers}), flush=True)
+    print(json.dumps({"event": "tensorize_done", "label": label, "examples": len(examples), "rows": len(rows), "workers": workers}), flush=True)
+    return rows
+
+
 class PerCellTokenRecurrentOperator(torch.nn.Module):
     def __init__(self, config: TrackBConfig):
         super().__init__()
@@ -212,6 +238,7 @@ def train_trm_operator(
     lr: float = 3e-4,
     devices: str = "",
     generation_workers: int = 1,
+    tensorize_workers: int = 1,
     eval_every: int = 0,
     forced_loss: str = "focal",
     forced_pos_weight: float = -1.0,
@@ -236,9 +263,9 @@ def train_trm_operator(
 
     eval_episode_tasks = _episode_tasks(eval_instances_rows)
     l4_episode_tasks = _episode_tasks(l4_rows_raw)
-    train_rows = _tensorize_token_examples(train_examples, augment_digits=True, seed=seed + 10)
-    eval_rows = _tensorize_token_examples(eval_examples, augment_digits=False, seed=seed + 20)
-    l4_rows = _tensorize_token_examples(l4_examples, augment_digits=False, seed=seed + 30)
+    train_rows = _tensorize_token_examples_parallel("train", train_examples, augment_digits=True, seed=seed + 10, workers=tensorize_workers)
+    eval_rows = _tensorize_token_examples_parallel("eval", eval_examples, augment_digits=False, seed=seed + 20, workers=tensorize_workers)
+    l4_rows = _tensorize_token_examples_parallel("l4", l4_examples, augment_digits=False, seed=seed + 30, workers=tensorize_workers)
     config = TrackBConfig(hidden_dim=hidden_dim, nhead=nhead, feedforward_dim=feedforward_dim, recurrence_steps=recurrence_steps, dropout=0.0)
     model: torch.nn.Module = PerCellTokenRecurrentOperator(config).to(device)
     parameter_count = _parameter_count(model)
@@ -375,7 +402,7 @@ def train_trm_operator(
             "fuse": fuse,
             "red_lines": ["no_trm_checkpoint", "no_sudoku_extreme", "repo_local_l1_l2_banded_only"],
         },
-        "training_curve_summary": {"history": history, "steps": steps, "completed_step": completed_step, "batch_size": batch_size, "lr": lr, "data_parallel_devices": [f"cuda:{index}" for index in device_ids], "generation_workers": generation_workers, "progress_jsonl": str(progress_path), "min_steps": min_steps, "eval_every": eval_interval},
+        "training_curve_summary": {"history": history, "steps": steps, "completed_step": completed_step, "batch_size": batch_size, "lr": lr, "data_parallel_devices": [f"cuda:{index}" for index in device_ids], "generation_workers": generation_workers, "tensorize_workers": tensorize_workers, "progress_jsonl": str(progress_path), "min_steps": min_steps, "eval_every": eval_interval},
         "G1": g1_forced["fixpoint_reach_rate"],
         "G2": g2_forced["solve_rate"],
         "legacy_single_step_joint": {"G1_joint_accuracy": legacy_g1["joint_accuracy"], "G2_joint_accuracy": legacy_g2["joint_accuracy"], "note": "legacy diagnostic only; acceptance uses forced-only episode semantics"},
@@ -430,6 +457,7 @@ def main() -> None:
     parser.add_argument("--lr", type=float, default=3e-4)
     parser.add_argument("--devices", default="")
     parser.add_argument("--generation-workers", type=int, default=1)
+    parser.add_argument("--tensorize-workers", type=int, default=1)
     parser.add_argument("--eval-every", type=int, default=0)
     parser.add_argument("--forced-loss", choices=["bce", "focal"], default="focal")
     parser.add_argument("--forced-pos-weight", type=float, default=-1.0)
@@ -454,6 +482,7 @@ def main() -> None:
         lr=args.lr,
         devices=args.devices,
         generation_workers=args.generation_workers,
+        tensorize_workers=args.tensorize_workers,
         eval_every=args.eval_every,
         forced_loss=args.forced_loss,
         forced_pos_weight=args.forced_pos_weight,

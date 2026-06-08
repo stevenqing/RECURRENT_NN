@@ -18,6 +18,7 @@ from typing import Any
 
 TRAIN_EVENT = "trm_operator_train"
 GEN_EVENTS = {"generate_6x6_start", "generate_6x6_progress", "generate_6x6_done"}
+TENSORIZE_EVENTS = {"tensorize_start", "tensorize_progress", "tensorize_done"}
 ERROR_MARKERS = ("Traceback", "RuntimeError", "CUDA out", "OutOfMemoryError")
 
 
@@ -98,6 +99,26 @@ def _latest_training(events: list[dict[str, Any]]) -> dict[str, Any] | None:
     return row
 
 
+def _tensorize_rows(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows: dict[str, dict[str, Any]] = {}
+    for event in events:
+        if event.get("event") not in TENSORIZE_EVENTS:
+            continue
+        label = str(event.get("label") or "unknown")
+        current = rows.setdefault(label, {"label": label, "rows": 0, "target": int(event.get("examples") or event.get("target") or 0), "done": False})
+        if event.get("examples") or event.get("target"):
+            current["target"] = max(int(current.get("target") or 0), int(event.get("examples") or event.get("target") or 0))
+        if event.get("rows") is not None:
+            current["rows"] = max(int(current.get("rows") or 0), int(event.get("rows") or 0))
+        current["workers"] = event.get("workers", current.get("workers"))
+        if event.get("event") == "tensorize_done":
+            current["done"] = True
+            current["rows"] = max(int(current.get("rows") or 0), int(event.get("rows") or 0))
+        target = int(current.get("target") or 0)
+        current["fraction"] = min(1.0, float(current.get("rows") or 0) / target) if target else 0.0
+    return [rows[key] for key in sorted(rows)]
+
+
 def _stage(alive: bool, acceptance: dict[str, Any] | None, events: list[dict[str, Any]], errors: list[str]) -> str:
     if acceptance:
         return "complete"
@@ -105,6 +126,8 @@ def _stage(alive: bool, acceptance: dict[str, Any] | None, events: list[dict[str
         return "failed"
     if any(event.get("event") == TRAIN_EVENT for event in events):
         return "training" if alive else "training_stopped_without_acceptance"
+    if any(event.get("event") in TENSORIZE_EVENTS for event in events):
+        return "tensorization" if alive else "tensorization_stopped_without_acceptance"
     if any(event.get("event") in GEN_EVENTS for event in events):
         return "data_generation" if alive else "generation_stopped_without_acceptance"
     return "starting" if alive else "not_running"
@@ -149,6 +172,7 @@ def monitor_job(run_root: Path, pid_path: Path) -> dict[str, Any]:
         "log_bytes": log_path.stat().st_size if log_path.exists() else 0,
         "output_dir": str(out_dir),
         "generation": _generation_rows(events),
+        "tensorization": _tensorize_rows(events),
         "training_latest": latest_training,
         "acceptance": _acceptance_summary(acceptance),
         "errors": errors,
@@ -161,7 +185,7 @@ def monitor_job(run_root: Path, pid_path: Path) -> dict[str, Any]:
 
 def monitor_run(run_root: Path) -> dict[str, Any]:
     run_root.mkdir(parents=True, exist_ok=True)
-    pid_paths = sorted(path for path in (run_root / "logs").glob("seed*_gpu*.pid") if path.stem != "monitor")
+    pid_paths = sorted(path for path in (run_root / "logs").glob("seed*.pid") if path.stem != "monitor")
     jobs = [monitor_job(run_root, pid_path) for pid_path in pid_paths]
     summary = {
         "module": "monitor_track_b_trm.summary",
