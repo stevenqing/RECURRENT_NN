@@ -143,22 +143,27 @@ def _tensorize_token_examples_parallel(label: str, examples: list[TrainingExampl
     return rows
 
 
-def _episode_task_from_instance(args: tuple[int, Sudoku6x6Instance]) -> EpisodeEvalTask:
+def _episode_task_from_instance(args: tuple[int, Sudoku6x6Instance]) -> tuple[int, dict[str, int], dict[int, int], dict[int, int], str, int]:
     index, instance = args
     givens = {f"{row},{col}": value for (row, col), value in instance.givens.items()}
     task = _sudoku6_task(givens, f"sudoku_6x6_{index}")
     initial = {row * 6 + col: value for (row, col), value in instance.givens.items()}
     target, _, target_status = propagation_fixpoint(task, initial)
-    return EpisodeEvalTask(task, initial, target, target_status, instance.dpll_backtrack_depth)
+    return index, givens, initial, target, target_status, instance.dpll_backtrack_depth
+
+
+def _episode_eval_task(row: tuple[int, dict[str, int], dict[int, int], dict[int, int], str, int]) -> EpisodeEvalTask:
+    index, givens, initial, target, target_status, dpll_backtrack_depth = row
+    return EpisodeEvalTask(_sudoku6_task(givens, f"sudoku_6x6_{index}"), initial, target, target_status, dpll_backtrack_depth)
 
 
 def _episode_tasks_parallel(label: str, instances: list[Sudoku6x6Instance], workers: int) -> list[EpisodeEvalTask]:
-    print(json.dumps({"event": "episode_tasks_start", "label": label, "instances": len(instances), "workers": workers}), flush=True)
+    print(json.dumps({"event": "episode_tasks_start", "label": label, "n_instances": len(instances), "workers": workers}), flush=True)
     workers = max(1, workers)
     if workers == 1 or len(instances) < 64:
         tasks = []
         for index, instance in enumerate(instances):
-            tasks.append(_episode_task_from_instance((index, instance)))
+            tasks.append(_episode_eval_task(_episode_task_from_instance((index, instance))))
             if len(tasks) % 64 == 0 or len(tasks) == len(instances):
                 print(json.dumps({"event": "episode_tasks_progress", "label": label, "instances": len(tasks), "target": len(instances), "workers": 1}), flush=True)
         print(json.dumps({"event": "episode_tasks_done", "label": label, "instances": len(tasks), "workers": 1}), flush=True)
@@ -167,9 +172,9 @@ def _episode_tasks_parallel(label: str, instances: list[Sudoku6x6Instance], work
     with ProcessPoolExecutor(max_workers=workers) as executor:
         futures = [executor.submit(_episode_task_from_instance, (index, instance)) for index, instance in enumerate(instances)]
         for future in as_completed(futures):
-            task = future.result()
-            index = int(task.task.task_id.rsplit("_", 1)[-1])
-            tasks_by_index[index] = task
+            row = future.result()
+            index = row[0]
+            tasks_by_index[index] = _episode_eval_task(row)
             if len(tasks_by_index) % 64 == 0 or len(tasks_by_index) == len(instances):
                 print(json.dumps({"event": "episode_tasks_progress", "label": label, "instances": len(tasks_by_index), "target": len(instances), "workers": workers}), flush=True)
     tasks = [tasks_by_index[index] for index in sorted(tasks_by_index)]

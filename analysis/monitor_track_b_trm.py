@@ -126,9 +126,9 @@ def _episode_rows(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
         if event.get("event") not in EPISODE_EVENTS:
             continue
         label = str(event.get("label") or "unknown")
-        current = rows.setdefault(label, {"label": label, "instances": 0, "target": int(event.get("target") or event.get("instances") or 0), "done": False})
-        if event.get("target") or event.get("instances"):
-            current["target"] = max(int(current.get("target") or 0), int(event.get("target") or event.get("instances") or 0))
+        current = rows.setdefault(label, {"label": label, "instances": 0, "target": int(event.get("target") or event.get("n_instances") or 0), "done": False})
+        if event.get("target") or event.get("n_instances"):
+            current["target"] = max(int(current.get("target") or 0), int(event.get("target") or event.get("n_instances") or 0))
         if event.get("instances") is not None:
             current["instances"] = max(int(current.get("instances") or 0), int(event.get("instances") or 0))
         current["workers"] = event.get("workers", current.get("workers"))
