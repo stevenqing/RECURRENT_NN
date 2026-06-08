@@ -15,6 +15,7 @@ import torch
 
 from experiments.train_recurrent_operator import (
     ACTION_TO_ID,
+    EpisodeEvalTask,
     MAX_VALS,
     MAX_VARS,
     TensorExample,
@@ -32,7 +33,8 @@ from experiments.train_recurrent_operator import (
     _sudoku6_task,
     forced_only_commit_decision,
 )
-from llm_operator.symbolic_filter import CSPTask, forced_moves, status as csp_status, valid_values
+from llm_operator.symbolic_filter import CSPTask, forced_moves, propagation_fixpoint, status as csp_status, valid_values
+from tasks.sudoku.generator_6x6 import Sudoku6x6Instance
 from tasks.oracle.trace_generator import TrainingExample
 
 TOKEN_FEATURE_DIM = MAX_VALS + 1 + 6 + 6 + 6
@@ -141,6 +143,40 @@ def _tensorize_token_examples_parallel(label: str, examples: list[TrainingExampl
     return rows
 
 
+def _episode_task_from_instance(args: tuple[int, Sudoku6x6Instance]) -> EpisodeEvalTask:
+    index, instance = args
+    givens = {f"{row},{col}": value for (row, col), value in instance.givens.items()}
+    task = _sudoku6_task(givens, f"sudoku_6x6_{index}")
+    initial = {row * 6 + col: value for (row, col), value in instance.givens.items()}
+    target, _, target_status = propagation_fixpoint(task, initial)
+    return EpisodeEvalTask(task, initial, target, target_status, instance.dpll_backtrack_depth)
+
+
+def _episode_tasks_parallel(label: str, instances: list[Sudoku6x6Instance], workers: int) -> list[EpisodeEvalTask]:
+    print(json.dumps({"event": "episode_tasks_start", "label": label, "instances": len(instances), "workers": workers}), flush=True)
+    workers = max(1, workers)
+    if workers == 1 or len(instances) < 64:
+        tasks = []
+        for index, instance in enumerate(instances):
+            tasks.append(_episode_task_from_instance((index, instance)))
+            if len(tasks) % 64 == 0 or len(tasks) == len(instances):
+                print(json.dumps({"event": "episode_tasks_progress", "label": label, "instances": len(tasks), "target": len(instances), "workers": 1}), flush=True)
+        print(json.dumps({"event": "episode_tasks_done", "label": label, "instances": len(tasks), "workers": 1}), flush=True)
+        return tasks
+    tasks_by_index: dict[int, EpisodeEvalTask] = {}
+    with ProcessPoolExecutor(max_workers=workers) as executor:
+        futures = [executor.submit(_episode_task_from_instance, (index, instance)) for index, instance in enumerate(instances)]
+        for future in as_completed(futures):
+            task = future.result()
+            index = int(task.task.task_id.rsplit("_", 1)[-1])
+            tasks_by_index[index] = task
+            if len(tasks_by_index) % 64 == 0 or len(tasks_by_index) == len(instances):
+                print(json.dumps({"event": "episode_tasks_progress", "label": label, "instances": len(tasks_by_index), "target": len(instances), "workers": workers}), flush=True)
+    tasks = [tasks_by_index[index] for index in sorted(tasks_by_index)]
+    print(json.dumps({"event": "episode_tasks_done", "label": label, "instances": len(tasks), "workers": workers}), flush=True)
+    return tasks
+
+
 class PerCellTokenRecurrentOperator(torch.nn.Module):
     def __init__(self, config: TrackBConfig):
         super().__init__()
@@ -239,6 +275,7 @@ def train_trm_operator(
     devices: str = "",
     generation_workers: int = 1,
     tensorize_workers: int = 1,
+    episode_workers: int = 1,
     eval_every: int = 0,
     forced_loss: str = "focal",
     forced_pos_weight: float = -1.0,
@@ -259,10 +296,8 @@ def train_trm_operator(
     train_instances_rows, train_examples = _generate_band(1, 2, train_instances, seed, generation_workers)
     eval_instances_rows, eval_examples = _generate_band(1, 2, eval_instances, seed + 1000, generation_workers)
     l4_rows_raw, l4_examples = _generate_band(4, 8, l4_instances, seed + 2000, generation_workers)
-    from experiments.train_recurrent_operator import _episode_tasks
-
-    eval_episode_tasks = _episode_tasks(eval_instances_rows)
-    l4_episode_tasks = _episode_tasks(l4_rows_raw)
+    eval_episode_tasks = _episode_tasks_parallel("eval", eval_instances_rows, workers=episode_workers)
+    l4_episode_tasks = _episode_tasks_parallel("l4", l4_rows_raw, workers=episode_workers)
     train_rows = _tensorize_token_examples_parallel("train", train_examples, augment_digits=True, seed=seed + 10, workers=tensorize_workers)
     eval_rows = _tensorize_token_examples_parallel("eval", eval_examples, augment_digits=False, seed=seed + 20, workers=tensorize_workers)
     l4_rows = _tensorize_token_examples_parallel("l4", l4_examples, augment_digits=False, seed=seed + 30, workers=tensorize_workers)
@@ -402,7 +437,7 @@ def train_trm_operator(
             "fuse": fuse,
             "red_lines": ["no_trm_checkpoint", "no_sudoku_extreme", "repo_local_l1_l2_banded_only"],
         },
-        "training_curve_summary": {"history": history, "steps": steps, "completed_step": completed_step, "batch_size": batch_size, "lr": lr, "data_parallel_devices": [f"cuda:{index}" for index in device_ids], "generation_workers": generation_workers, "tensorize_workers": tensorize_workers, "progress_jsonl": str(progress_path), "min_steps": min_steps, "eval_every": eval_interval},
+        "training_curve_summary": {"history": history, "steps": steps, "completed_step": completed_step, "batch_size": batch_size, "lr": lr, "data_parallel_devices": [f"cuda:{index}" for index in device_ids], "generation_workers": generation_workers, "tensorize_workers": tensorize_workers, "episode_workers": episode_workers, "progress_jsonl": str(progress_path), "min_steps": min_steps, "eval_every": eval_interval},
         "G1": g1_forced["fixpoint_reach_rate"],
         "G2": g2_forced["solve_rate"],
         "legacy_single_step_joint": {"G1_joint_accuracy": legacy_g1["joint_accuracy"], "G2_joint_accuracy": legacy_g2["joint_accuracy"], "note": "legacy diagnostic only; acceptance uses forced-only episode semantics"},
@@ -458,6 +493,7 @@ def main() -> None:
     parser.add_argument("--devices", default="")
     parser.add_argument("--generation-workers", type=int, default=1)
     parser.add_argument("--tensorize-workers", type=int, default=1)
+    parser.add_argument("--episode-workers", type=int, default=1)
     parser.add_argument("--eval-every", type=int, default=0)
     parser.add_argument("--forced-loss", choices=["bce", "focal"], default="focal")
     parser.add_argument("--forced-pos-weight", type=float, default=-1.0)
@@ -483,6 +519,7 @@ def main() -> None:
         devices=args.devices,
         generation_workers=args.generation_workers,
         tensorize_workers=args.tensorize_workers,
+        episode_workers=args.episode_workers,
         eval_every=args.eval_every,
         forced_loss=args.forced_loss,
         forced_pos_weight=args.forced_pos_weight,
