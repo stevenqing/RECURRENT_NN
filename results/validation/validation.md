@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-08T12:06:21.851970+00:00
+Generated at: 2026-06-08T16:06:52.618288+00:00
 
-Summary: 237 PASS / 3 FAIL / 240 total.
+Summary: 243 PASS / 3 FAIL / 246 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -104,7 +104,7 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_c | w3_propagation_scale_not_mixed | PASS | verdict=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
 | tier_c | w3_propagation_per_task_delta_measured | PASS | rows=5 |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=18 |
+| contract | log_item_artifacts_present | PASS | count=19 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
@@ -213,6 +213,12 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_045_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_045_honesty_does_not_establish | PASS | This item does not establish final learned Track B acceptance. The seed102 DDP run is still active, and G1/G2 rollout metrics are intentionally null in progress |
 | contract | log_item_045_decision_numbers_and_routing | PASS | gates=2; routing=Continue monitoring the active seed102 DDP run until completion, then record final acceptance.json and compare final learned G1/G2 against item040 and item043 expectations. |
+| contract | log_item_046_required_fields | PASS | missing=[] |
+| contract | log_item_046_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_046_number_continues_from_028 | PASS | item_number=046 |
+| contract | log_item_046_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_046_honesty_does_not_establish | PASS | This item does not establish learned Track B success, Stage A autonomous learned evidence, or Qwen integration. It establishes a completed negative seed102 DDP  |
+| contract | log_item_046_decision_numbers_and_routing | PASS | gates=3; routing=Do not continue this supervised-imitation recipe as-is. Use the checkpoint and failure evidence to design a DAgger/RL-style rollout-refinement run with periodic checkpoints and mid-run acceptance probes. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |

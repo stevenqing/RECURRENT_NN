@@ -26,6 +26,7 @@
     "item_043_track_b_retry_plan": "results/experiment_items/item_043_track_b_retry_plan.json",
     "item_044_trainer_prelaunch_gates": "results/experiment_items/item_044_trainer_prelaunch_gates.json",
     "item_045_track_b_ddp_sharded_retry_launch": "results/experiment_items/item_045_track_b_ddp_sharded_retry_launch.json",
+    "item_046_track_b_ddp_sharded_seed102_final": "results/experiment_items/item_046_track_b_ddp_sharded_seed102_final.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "m2_operator_fix_rescale": "results/m2_operator_probe/report_fix_rescale.json",
     "m2_operator_probe": "results/m2_operator_probe/report.json",
@@ -4113,7 +4114,7 @@
       "S3.1 integration is not started."
     ]
   },
-  "generated_at": "2026-06-08T12:06:16.186316+00:00",
+  "generated_at": "2026-06-08T16:06:47.341192+00:00",
   "incremental_items": [
     [
       "001-018",
@@ -4312,6 +4313,12 @@
       "Track B DDP sharded-cache retry launched",
       "DDP_SHARDED_RETRY_ACTIVE_STEP1000",
       "Continue monitoring the active seed102 DDP run until completion, then record final acceptance.json and compare final learned G1/G2 against item040 and item043 expectations."
+    ],
+    [
+      "046",
+      "Track B DDP sharded seed102 final result",
+      "DDP_SHARDED_SEED102_FINAL_NEGATIVE",
+      "Do not continue this supervised-imitation recipe as-is. Use the checkpoint and failure evidence to design a DAgger/RL-style rollout-refinement run with periodic checkpoints and mid-run acceptance probes."
     ]
   ],
   "items": [
@@ -4509,7 +4516,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -5288,7 +5295,7 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781473
+          "size_bytes": 781484
         }
       ],
       "detail_data": {
@@ -5315,14 +5322,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:04:41.350790+00:00"
+              "2026-06-08T12:06:16.186316+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -5335,7 +5342,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -5985,12 +5992,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         {
           "path": "specs/log_item_contract.md",
@@ -6360,14 +6367,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:04:41.350790+00:00"
+              "2026-06-08T12:06:16.186316+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -6375,7 +6382,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         "results/stage_a_adapter_wiring/results.json": {
           "embedded": false,
@@ -6560,7 +6567,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -9307,7 +9314,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -9785,7 +9792,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -11905,7 +11912,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -14223,12 +14230,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188436
+          "size_bytes": 188443
         }
       ],
       "contract_data": {
@@ -15125,14 +15132,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:04:41.350790+00:00"
+              "2026-06-08T12:06:16.186316+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -15140,7 +15147,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         "results/stage_a_symbolic/oracle_statelessness_ci.json": {
           "embedded": false,
@@ -15313,7 +15320,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -15398,12 +15405,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188436
+          "size_bytes": 188443
         }
       ],
       "contract_data": {
@@ -16103,14 +16110,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:04:41.350790+00:00"
+              "2026-06-08T12:06:16.186316+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -16118,7 +16125,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         "results/stage_a_symbolic/oracle_statelessness_ci.json": {
           "embedded": false,
@@ -16291,7 +16298,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -16346,12 +16353,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         {
           "path": "results/validation/validation.json",
@@ -16671,14 +16678,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:04:41.350790+00:00"
+              "2026-06-08T12:06:16.186316+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -16686,7 +16693,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         "results/trm_operator_smoke/acceptance.json": {
           "embedded": false,
@@ -16767,7 +16774,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -16857,12 +16864,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         {
           "path": "results/validation/validation.json",
@@ -17573,14 +17580,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:04:41.350790+00:00"
+              "2026-06-08T12:06:16.186316+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -17588,7 +17595,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json": {
           "embedded": false,
@@ -17621,7 +17628,7 @@
             ],
             [
               "updated_at",
-              "2026-06-08T12:06:16.176522+00:00"
+              "2026-06-08T16:06:35.671887+00:00"
             ]
           ],
           "path": "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json",
@@ -17869,7 +17876,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -17964,12 +17971,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         {
           "path": "results/validation/validation.json",
@@ -18391,14 +18398,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:04:41.350790+00:00"
+              "2026-06-08T12:06:16.186316+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -18406,7 +18413,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         "results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl": {
           "embedded": false,
@@ -18523,7 +18530,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -18596,12 +18603,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         {
           "path": "results/validation/validation.json",
@@ -18891,14 +18898,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:04:41.350790+00:00"
+              "2026-06-08T12:06:16.186316+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -18906,7 +18913,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -18919,7 +18926,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -18977,12 +18984,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         {
           "path": "results/validation/validation.json",
@@ -19244,14 +19251,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:04:41.350790+00:00"
+              "2026-06-08T12:06:16.186316+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -19259,7 +19266,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -19272,7 +19279,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -19355,12 +19362,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         {
           "path": "results/validation/validation.json",
@@ -19618,14 +19625,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:04:41.350790+00:00"
+              "2026-06-08T12:06:16.186316+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -19633,7 +19640,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         "results/trm_operator_compile_smoke/acceptance.json": {
           "embedded": false,
@@ -19798,7 +19805,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -19876,12 +19883,12 @@
         {
           "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log",
           "present": "yes",
-          "size_bytes": 504342
+          "size_bytes": 626557
         },
         {
           "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl",
           "present": "yes",
-          "size_bytes": 3114
+          "size_bytes": 42721
         },
         {
           "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank0.pt",
@@ -19926,12 +19933,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         {
           "path": "results/validation/validation.json",
@@ -20290,14 +20297,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:04:41.350790+00:00"
+              "2026-06-08T12:06:16.186316+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781473
+          "size_bytes": 781484
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -20305,7 +20312,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188436
+          "size_bytes": 188443
         },
         "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt": {
           "embedded": false,
@@ -20321,7 +20328,7 @@
           "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 504342
+          "size_bytes": 626557
         },
         "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank0.pt": {
           "embedded": false,
@@ -20393,7 +20400,7 @@
           "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 3114
+          "size_bytes": 42721
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -20406,7 +20413,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:05:04.115976+00:00"
+              "2026-06-08T12:06:21.851970+00:00"
             ],
             [
               "summary",
@@ -20440,6 +20447,508 @@
       "next_action": "Continue monitoring the active seed102 DDP run until completion, then record final acceptance.json and compare final learned G1/G2 against item040 and item043 expectations.",
       "purpose": "Record the GPU-efficiency correction made after the one-seed 8-GPU DataParallel retry showed real GPU use but poor topology: replace DataParallel with torchrun/DDP, generate local dataset cache shards concurrently across ranks before NCCL initialization, keep per-rank GPU-resident batches, skip expensive rollout eval during progress rows, and launch the seed102 8-GPU DDP retry. This item records an active run snapshot, not final learned Track B acceptance.",
       "status": "DDP_SHARDED_RETRY_ACTIVE_STEP1000"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/experiment_items/item_046_track_b_ddp_sharded_seed102_final.json",
+          "present": "yes",
+          "size_bytes": 8184
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt",
+          "present": "yes",
+          "size_bytes": 689
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log",
+          "present": "yes",
+          "size_bytes": 626557
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl",
+          "present": "yes",
+          "size_bytes": 42721
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json",
+          "present": "yes",
+          "size_bytes": 80203
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt",
+          "present": "yes",
+          "size_bytes": 55287865
+        },
+        {
+          "path": "results/experiment_log/experiment_log.json",
+          "present": "yes",
+          "size_bytes": 781484
+        },
+        {
+          "path": "results/experiment_log/experiment_log.md",
+          "present": "yes",
+          "size_bytes": 188443
+        },
+        {
+          "path": "results/validation/validation.json",
+          "present": "yes",
+          "size_bytes": 46050
+        },
+        {
+          "path": "results/validation/validation.md",
+          "present": "yes",
+          "size_bytes": 28469
+        }
+      ],
+      "contract_data": {
+        "artifacts": [
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt",
+          "results/experiment_items/item_046_track_b_ddp_sharded_seed102_final.json",
+          "results/experiment_log/experiment_log.json",
+          "results/experiment_log/experiment_log.md",
+          "results/validation/validation.json",
+          "results/validation/validation.md"
+        ],
+        "code_added_used": [
+          {
+            "change": "Used the DDP sharded-cache trainer path added in item045: per-rank local dataset shards, distributed forced-mask pos_weight, GPU-resident batches, bf16 autocast, rank0 final shard recombination, and final full acceptance evaluation.",
+            "path": "experiments/train_trm_operator.py"
+          },
+          {
+            "change": "Used the DDP-compatible loss path where dead_head is retained in the autograd graph with zero contribution.",
+            "path": "experiments/train_recurrent_operator.py"
+          }
+        ],
+        "commands": [
+          {
+            "command": "CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 .venv/bin/torchrun --standalone --nnodes=1 --nproc_per_node=8 -m experiments.train_trm_operator --output-dir results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8 --seed 102 --device cuda:0 --train-instances 4096 --eval-instances 512 --l4-instances 128 --steps 20000 --batch-size 16384 --hidden-dim 384 --nhead 6 --feedforward-dim 8192 --recurrence-steps 12 --lr 3e-4 --generation-workers 2 --episode-workers 2 --tensorize-workers 2 --eval-every 500 --forced-loss focal --fuse-step 100 --fuse-min-loss-drop 0.01 --gpu-resident-batches --amp-bf16 --require-param-min 5000000 --require-param-max 8000000 --progress-eval-episodes 0",
+            "purpose": "Completed seed102 8-GPU DDP sharded-cache retry; final acceptance.json was written after full training and full final rollout evaluation."
+          },
+          {
+            "command": "python - <<'PY'\nimport json\np='results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json'\nwith open(p) as f: d=json.load(f)\nprint({k: d.get(k) for k in ['status','G1','G2']})\nprint(d.get('training_curve_summary', {}).get('completed_step'))\nPY",
+            "purpose": "Summarized final acceptance and completed step."
+          }
+        ],
+        "decision": {
+          "gate_outcomes": [
+            {
+              "gate": "completed_training",
+              "number": "completed_step=20000/20000; checkpoint written",
+              "outcome": "PASS"
+            },
+            {
+              "gate": "track_b_learned_g1",
+              "number": "G1_forced_fixpoint=0.033203125 < 0.95",
+              "outcome": "FAIL"
+            },
+            {
+              "gate": "track_b_l4_over_solve_guard",
+              "number": "G2_forced_l4_solve=0.0 <= 0.05",
+              "outcome": "PASS"
+            }
+          ],
+          "next_step_routing": "Do not continue this supervised-imitation recipe as-is. Use the checkpoint and failure evidence to design a DAgger/RL-style rollout-refinement run with periodic checkpoints and mid-run acceptance probes."
+        },
+        "honesty": {
+          "does_not_establish": "This item does not establish learned Track B success, Stage A autonomous learned evidence, or Qwen integration. It establishes a completed negative seed102 DDP sharded-cache supervised-imitation run.",
+          "limitations": [
+            "This is one seed, not a three-seed positive or negative aggregate.",
+            "Progress rollout G1/G2 was disabled during training; final acceptance G1/G2 is the binding evidence.",
+            "The result does not rule out DAgger, RL-style rollout refinement, better commit calibration, or different architectures."
+          ]
+        },
+        "item_number": "046",
+        "name": "Track B DDP sharded seed102 final result",
+        "provenance": {
+          "acceptance": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json",
+          "architecture_class": "trm_per_cell_tokens",
+          "checkpoint": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt",
+          "generated_at": "2026-06-08T12:20:00+00:00",
+          "operator_type": "learned_recurrent",
+          "repo": "/home/aiscuser/RECURRENT_NN",
+          "run_root": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z",
+          "source": "track_b_trm_class_training_run",
+          "track": "B_learned_pipeline_efficiency"
+        },
+        "purpose": "Record the completed seed102 8-GPU DDP sharded-cache Track B retry. The run completed all 20000 supervised imitation steps, wrote a checkpoint and final acceptance.json, and did not meet learned Track B G1 acceptance. This item closes the active item045 run snapshot with final evidence-bound metrics.",
+        "result_tables": {
+          "final_acceptance": {
+            "columns": [
+              "metric",
+              "value",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "metric": "status",
+                "provenance": "acceptance.json",
+                "value": "GATES_UNREACHED"
+              },
+              {
+                "metric": "completed_step",
+                "provenance": "acceptance.json",
+                "value": 20000
+              },
+              {
+                "metric": "steps",
+                "provenance": "acceptance.json",
+                "value": 20000
+              },
+              {
+                "metric": "world_size",
+                "provenance": "acceptance.json",
+                "value": 8
+              },
+              {
+                "metric": "global_batch_size",
+                "provenance": "acceptance.json",
+                "value": 16384
+              },
+              {
+                "metric": "parameter_count",
+                "provenance": "acceptance.json",
+                "value": 6908685
+              },
+              {
+                "metric": "G1_forced_fixpoint",
+                "provenance": "acceptance.json",
+                "value": 0.033203125
+              },
+              {
+                "metric": "G2_forced_l4_solve",
+                "provenance": "acceptance.json",
+                "value": 0.0
+              },
+              {
+                "metric": "G1_pass",
+                "provenance": "acceptance.json",
+                "value": false
+              },
+              {
+                "metric": "single_step_forced_precision",
+                "provenance": "acceptance.json",
+                "value": 0.26391598760472856
+              },
+              {
+                "metric": "single_step_forced_recall",
+                "provenance": "acceptance.json",
+                "value": 0.26130681818181817
+              }
+            ]
+          },
+          "interpretation": {
+            "columns": [
+              "observation",
+              "evidence",
+              "conclusion"
+            ],
+            "rows": [
+              {
+                "conclusion": "Single-step supervised loss is not sufficient evidence of safe rollout.",
+                "evidence": "final progress loss=0.06920756166800857; forced_mask_loss=0.00831257866229862",
+                "observation": "Supervised loss became low"
+              },
+              {
+                "conclusion": "The learned policy did not become a reliable forced-only commit selector.",
+                "evidence": "final acceptance precision=0.26391598760472856; recall=0.26130681818181817",
+                "observation": "Single-step forced precision/recall remained low"
+              },
+              {
+                "conclusion": "Track B learned recurrent acceptance failed for seed102 under this recipe.",
+                "evidence": "G1_forced_fixpoint=0.033203125",
+                "observation": "Final rollout G1 was low"
+              },
+              {
+                "conclusion": "The model did not over-solve L4, but this does not compensate for G1 failure.",
+                "evidence": "G2_forced_l4_solve=0.0",
+                "observation": "G2 remained zero"
+              }
+            ]
+          },
+          "training_throughput": {
+            "columns": [
+              "metric",
+              "value",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "metric": "progress_rows",
+                "provenance": "progress.jsonl",
+                "value": 41
+              },
+              {
+                "metric": "final_step_steps_per_sec",
+                "provenance": "progress.jsonl step20000",
+                "value": 1.3683014123893154
+              },
+              {
+                "metric": "final_step_examples_per_sec",
+                "provenance": "progress.jsonl step20000",
+                "value": 22418.250340586543
+              },
+              {
+                "metric": "recent_8_rows_mean_steps_per_sec",
+                "provenance": "progress.jsonl last 8 rows",
+                "value": 1.371042544198521
+              },
+              {
+                "metric": "recent_8_rows_mean_examples_per_sec",
+                "provenance": "progress.jsonl last 8 rows",
+                "value": 22463.161044148568
+              },
+              {
+                "metric": "recent_8_rows_mean_gpu_util",
+                "provenance": "progress.jsonl last 8 rows",
+                "value": 96.3125
+              },
+              {
+                "metric": "progress_rollout_eval",
+                "provenance": "--progress-eval-episodes 0",
+                "value": "disabled_during_training_progress"
+              },
+              {
+                "metric": "final_rollout_eval",
+                "provenance": "acceptance.json written",
+                "value": "enabled_after_training"
+              }
+            ]
+          }
+        },
+        "schema_version": "log_item_contract_v1",
+        "status": "DDP_SHARDED_SEED102_FINAL_NEGATIVE"
+      },
+      "detail_data": {
+        "results/experiment_items/item_046_track_b_ddp_sharded_seed102_final.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": "046",
+          "json_summary": [
+            [
+              "status",
+              "DDP_SHARDED_SEED102_FINAL_NEGATIVE"
+            ],
+            [
+              "decision",
+              "2 keys: gate_outcomes, next_step_routing"
+            ],
+            [
+              "schema_version",
+              "log_item_contract_v1"
+            ],
+            [
+              "item_number",
+              "046"
+            ],
+            [
+              "name",
+              "Track B DDP sharded seed102 final result"
+            ],
+            [
+              "purpose",
+              "Record the completed seed102 8-GPU DDP sharded-cache Track B retry. The run completed all 20000 supervised imitation steps, wrote a checkpoint and final acceptance.json, and did not meet learned Track B G1 acceptance. This item closes the active item045 run snapshot with final evidence-bound metrics."
+            ],
+            [
+              "honesty",
+              "2 keys: does_not_establish, limitations"
+            ]
+          ],
+          "path": "results/experiment_items/item_046_track_b_ddp_sharded_seed102_final.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 3,
+              "rows": 11,
+              "table": "final_acceptance"
+            },
+            {
+              "columns": 3,
+              "rows": 8,
+              "table": "training_throughput"
+            },
+            {
+              "columns": 3,
+              "rows": 4,
+              "table": "interpretation"
+            }
+          ],
+          "size_bytes": 8184
+        },
+        "results/experiment_log/experiment_log.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "generated_at",
+              "2026-06-08T12:06:16.186316+00:00"
+            ]
+          ],
+          "path": "results/experiment_log/experiment_log.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 781484
+        },
+        "results/experiment_log/experiment_log.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/experiment_log/experiment_log.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 188443
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt": {
+          "embedded": false,
+          "format": "txt",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 689
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log": {
+          "embedded": false,
+          "format": "log",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 626557
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "train_trm_operator"
+            ],
+            [
+              "status",
+              "GATES_UNREACHED"
+            ],
+            [
+              "G1",
+              "0.0332"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "G2",
+              "0"
+            ],
+            [
+              "architecture_class",
+              "trm_per_cell_tokens"
+            ],
+            [
+              "checkpoint",
+              "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T15:54:40.027027+00:00"
+            ],
+            [
+              "honesty",
+              "does_not_establish=Track B acceptance is per-seed learned-operator evidence only. It does not become Stage A evidence unless a later run consumes the checkpoint and reports operator=learned_recurrent autonomous cells side by side with Track A."
+            ],
+            [
+              "operator_type",
+              "learned_recurrent"
+            ],
+            [
+              "parameter_count",
+              "6908685"
+            ],
+            [
+              "seed",
+              "102"
+            ],
+            [
+              "source",
+              "track_b_trm_class_training_run"
+            ],
+            [
+              "training_curve_summary",
+              "19 keys: amp_bf16, batch_size, completed_step, data_parallel_devices, distributed_data_parallel_devices, episode_workers, eval_every, generation_workers"
+            ]
+          ],
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 80203
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl": {
+          "embedded": false,
+          "format": "jsonl",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 42721
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt": {
+          "embedded": false,
+          "format": "pt",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 55287865
+        },
+        "results/validation/validation.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "passed",
+              "False"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T12:06:21.851970+00:00"
+            ],
+            [
+              "summary",
+              "n_checks=240; n_fail=3; n_pass=237"
+            ]
+          ],
+          "path": "results/validation/validation.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 46050
+        },
+        "results/validation/validation.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/validation/validation.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 28469
+        }
+      },
+      "details": [
+        "purpose=Record the completed seed102 8-GPU DDP sharded-cache Track B retry. The run completed all 20000 supervised imitation steps, wrote a checkpoint and final acceptance.json, and did not meet learned Track B G1 acceptance. This item closes the active item045 run snapshot with final evidence-bound metrics.",
+        "commands=2",
+        "result_tables=['final_acceptance', 'training_throughput', 'interpretation']",
+        "honesty=This item does not establish learned Track B success, Stage A autonomous learned evidence, or Qwen integration. It establishes a completed negative seed102 DDP sharded-cache supervised-imitation run."
+      ],
+      "item": "046",
+      "key_result": "Do not continue this supervised-imitation recipe as-is. Use the checkpoint and failure evidence to design a DAgger/RL-style rollout-refinement run with periodic checkpoints and mid-run acceptance probes.",
+      "name": "Track B DDP sharded seed102 final result",
+      "next_action": "Do not continue this supervised-imitation recipe as-is. Use the checkpoint and failure evidence to design a DAgger/RL-style rollout-refinement run with periodic checkpoints and mid-run acceptance probes.",
+      "purpose": "Record the completed seed102 8-GPU DDP sharded-cache Track B retry. The run completed all 20000 supervised imitation steps, wrote a checkpoint and final acceptance.json, and did not meet learned Track B G1 acceptance. This item closes the active item045 run snapshot with final evidence-bound metrics.",
+      "status": "DDP_SHARDED_SEED102_FINAL_NEGATIVE"
     }
   ],
   "legacy_archive": {

@@ -1,0 +1,118 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "046",
+  "name": "Track B DDP sharded seed102 final result",
+  "status": "DDP_SHARDED_SEED102_FINAL_NEGATIVE",
+  "purpose": "Record the completed seed102 8-GPU DDP sharded-cache Track B retry. The run completed all 20000 supervised imitation steps, wrote a checkpoint and final acceptance.json, and did not meet learned Track B G1 acceptance. This item closes the active item045 run snapshot with final evidence-bound metrics.",
+  "code_added_used": [
+    {
+      "path": "experiments/train_trm_operator.py",
+      "change": "Used the DDP sharded-cache trainer path added in item045: per-rank local dataset shards, distributed forced-mask pos_weight, GPU-resident batches, bf16 autocast, rank0 final shard recombination, and final full acceptance evaluation."
+    },
+    {
+      "path": "experiments/train_recurrent_operator.py",
+      "change": "Used the DDP-compatible loss path where dead_head is retained in the autograd graph with zero contribution."
+    }
+  ],
+  "commands": [
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 .venv/bin/torchrun --standalone --nnodes=1 --nproc_per_node=8 -m experiments.train_trm_operator --output-dir results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8 --seed 102 --device cuda:0 --train-instances 4096 --eval-instances 512 --l4-instances 128 --steps 20000 --batch-size 16384 --hidden-dim 384 --nhead 6 --feedforward-dim 8192 --recurrence-steps 12 --lr 3e-4 --generation-workers 2 --episode-workers 2 --tensorize-workers 2 --eval-every 500 --forced-loss focal --fuse-step 100 --fuse-min-loss-drop 0.01 --gpu-resident-batches --amp-bf16 --require-param-min 5000000 --require-param-max 8000000 --progress-eval-episodes 0",
+      "purpose": "Completed seed102 8-GPU DDP sharded-cache retry; final acceptance.json was written after full training and full final rollout evaluation."
+    },
+    {
+      "command": "python - <<'PY'\nimport json\np='results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json'\nwith open(p) as f: d=json.load(f)\nprint({k: d.get(k) for k in ['status','G1','G2']})\nprint(d.get('training_curve_summary', {}).get('completed_step'))\nPY",
+      "purpose": "Summarized final acceptance and completed step."
+    }
+  ],
+  "artifacts": [
+    "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt",
+    "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log",
+    "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl",
+    "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json",
+    "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt",
+    "results/experiment_items/item_046_track_b_ddp_sharded_seed102_final.json",
+    "results/experiment_log/experiment_log.json",
+    "results/experiment_log/experiment_log.md",
+    "results/validation/validation.json",
+    "results/validation/validation.md"
+  ],
+  "provenance": {
+    "repo": "/home/aiscuser/RECURRENT_NN",
+    "generated_at": "2026-06-08T12:20:00+00:00",
+    "track": "B_learned_pipeline_efficiency",
+    "operator_type": "learned_recurrent",
+    "architecture_class": "trm_per_cell_tokens",
+    "source": "track_b_trm_class_training_run",
+    "run_root": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z",
+    "acceptance": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json",
+    "checkpoint": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt"
+  },
+  "result_tables": {
+    "final_acceptance": {
+      "columns": ["metric", "value", "provenance"],
+      "rows": [
+        {"metric": "status", "value": "GATES_UNREACHED", "provenance": "acceptance.json"},
+        {"metric": "completed_step", "value": 20000, "provenance": "acceptance.json"},
+        {"metric": "steps", "value": 20000, "provenance": "acceptance.json"},
+        {"metric": "world_size", "value": 8, "provenance": "acceptance.json"},
+        {"metric": "global_batch_size", "value": 16384, "provenance": "acceptance.json"},
+        {"metric": "parameter_count", "value": 6908685, "provenance": "acceptance.json"},
+        {"metric": "G1_forced_fixpoint", "value": 0.033203125, "provenance": "acceptance.json"},
+        {"metric": "G2_forced_l4_solve", "value": 0.0, "provenance": "acceptance.json"},
+        {"metric": "G1_pass", "value": false, "provenance": "acceptance.json"},
+        {"metric": "single_step_forced_precision", "value": 0.26391598760472856, "provenance": "acceptance.json"},
+        {"metric": "single_step_forced_recall", "value": 0.26130681818181817, "provenance": "acceptance.json"}
+      ]
+    },
+    "training_throughput": {
+      "columns": ["metric", "value", "provenance"],
+      "rows": [
+        {"metric": "progress_rows", "value": 41, "provenance": "progress.jsonl"},
+        {"metric": "final_step_steps_per_sec", "value": 1.3683014123893154, "provenance": "progress.jsonl step20000"},
+        {"metric": "final_step_examples_per_sec", "value": 22418.250340586543, "provenance": "progress.jsonl step20000"},
+        {"metric": "recent_8_rows_mean_steps_per_sec", "value": 1.371042544198521, "provenance": "progress.jsonl last 8 rows"},
+        {"metric": "recent_8_rows_mean_examples_per_sec", "value": 22463.161044148568, "provenance": "progress.jsonl last 8 rows"},
+        {"metric": "recent_8_rows_mean_gpu_util", "value": 96.3125, "provenance": "progress.jsonl last 8 rows"},
+        {"metric": "progress_rollout_eval", "value": "disabled_during_training_progress", "provenance": "--progress-eval-episodes 0"},
+        {"metric": "final_rollout_eval", "value": "enabled_after_training", "provenance": "acceptance.json written"}
+      ]
+    },
+    "interpretation": {
+      "columns": ["observation", "evidence", "conclusion"],
+      "rows": [
+        {"observation": "Supervised loss became low", "evidence": "final progress loss=0.06920756166800857; forced_mask_loss=0.00831257866229862", "conclusion": "Single-step supervised loss is not sufficient evidence of safe rollout."},
+        {"observation": "Single-step forced precision/recall remained low", "evidence": "final acceptance precision=0.26391598760472856; recall=0.26130681818181817", "conclusion": "The learned policy did not become a reliable forced-only commit selector."},
+        {"observation": "Final rollout G1 was low", "evidence": "G1_forced_fixpoint=0.033203125", "conclusion": "Track B learned recurrent acceptance failed for seed102 under this recipe."},
+        {"observation": "G2 remained zero", "evidence": "G2_forced_l4_solve=0.0", "conclusion": "The model did not over-solve L4, but this does not compensate for G1 failure."}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish learned Track B success, Stage A autonomous learned evidence, or Qwen integration. It establishes a completed negative seed102 DDP sharded-cache supervised-imitation run.",
+    "limitations": [
+      "This is one seed, not a three-seed positive or negative aggregate.",
+      "Progress rollout G1/G2 was disabled during training; final acceptance G1/G2 is the binding evidence.",
+      "The result does not rule out DAgger, RL-style rollout refinement, better commit calibration, or different architectures."
+    ]
+  },
+  "decision": {
+    "gate_outcomes": [
+      {
+        "gate": "completed_training",
+        "number": "completed_step=20000/20000; checkpoint written",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "track_b_learned_g1",
+        "number": "G1_forced_fixpoint=0.033203125 < 0.95",
+        "outcome": "FAIL"
+      },
+      {
+        "gate": "track_b_l4_over_solve_guard",
+        "number": "G2_forced_l4_solve=0.0 <= 0.05",
+        "outcome": "PASS"
+      }
+    ],
+    "next_step_routing": "Do not continue this supervised-imitation recipe as-is. Use the checkpoint and failure evidence to design a DAgger/RL-style rollout-refinement run with periodic checkpoints and mid-run acceptance probes."
+  }
+}

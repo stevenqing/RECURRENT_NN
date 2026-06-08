@@ -32,6 +32,7 @@ ARTIFACT_INDEX = {
     "item_043_track_b_retry_plan": "results/experiment_items/item_043_track_b_retry_plan.json",
     "item_044_trainer_prelaunch_gates": "results/experiment_items/item_044_trainer_prelaunch_gates.json",
     "item_045_track_b_ddp_sharded_retry_launch": "results/experiment_items/item_045_track_b_ddp_sharded_retry_launch.json",
+    "item_046_track_b_ddp_sharded_seed102_final": "results/experiment_items/item_046_track_b_ddp_sharded_seed102_final.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "model_readiness": "results/model_readiness/readiness.json",
     "qwen3_4b_instruct_download": "results/model_download/qwen_download.json",
