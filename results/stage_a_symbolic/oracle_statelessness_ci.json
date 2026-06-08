@@ -1,0 +1,55 @@
+{
+  "assignment_size": 23,
+  "byte_identical_outputs": true,
+  "history_a_ignored": {
+    "history": [
+      [
+        "branch",
+        1,
+        2
+      ],
+      [
+        "reconstruct",
+        "rot_bound_single"
+      ]
+    ]
+  },
+  "history_b_ignored": {
+    "history": [
+      [
+        "snapshot_restore",
+        0
+      ],
+      [
+        "reconstruct",
+        "kv_snapshot"
+      ],
+      [
+        "dropped",
+        "unrelated"
+      ]
+    ]
+  },
+  "input_contract_keys": [
+    "givens",
+    "assignments"
+  ],
+  "module": "stage_a_symbolic_oracle.statelessness_ci",
+  "operator": "symbolic_oracle",
+  "oracle_output_a": {
+    "forced_moves": [],
+    "input_digest": "d1988e878e1acb0bd19318c6db6cc2a89e561e64a2308009d58eb94012e4ff12",
+    "status": "CONTRADICTION",
+    "task_digest": "f8f7c7eaa6894c667283c871d4cecfc9ef4094a9323b1d43adcaca6025ffb10e"
+  },
+  "oracle_output_b": {
+    "forced_moves": [],
+    "input_digest": "d1988e878e1acb0bd19318c6db6cc2a89e561e64a2308009d58eb94012e4ff12",
+    "status": "CONTRADICTION",
+    "task_digest": "f8f7c7eaa6894c667283c871d4cecfc9ef4094a9323b1d43adcaca6025ffb10e"
+  },
+  "source": "ci_statelessness_test",
+  "status": "PASS",
+  "task_id": "sudoku6_0_d2",
+  "track": "A_symbolic"
+}

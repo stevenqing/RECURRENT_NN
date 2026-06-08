@@ -319,6 +319,24 @@
       "tier": "tier_b"
     },
     {
+      "detail": "results/stage_a_symbolic/results.json",
+      "name": "stage_a_symbolic_results_present",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "results/stage_a_symbolic/report.json",
+      "name": "stage_a_symbolic_report_present",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "results/stage_a_symbolic/oracle_statelessness_ci.json",
+      "name": "stage_a_symbolic_statelessness_present",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
       "detail": "results/continuation_state/post_027.json",
       "name": "continuation_post_027_present",
       "status": "PASS",
@@ -433,9 +451,39 @@
       "tier": "tier_b"
     },
     {
-      "detail": "stage_a_autonomous_cells=0; validation must not be all-green without autonomous Stage A cells",
-      "name": "all_green_requires_core_evidence",
+      "detail": "status=PASS; byte_identical=True",
+      "name": "stage_a_symbolic_oracle_stateless_ci",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "top_track=A_symbolic; top_operator=symbolic_oracle; labeled_cells=43",
+      "name": "stage_a_track_labels_symbolic",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "track=A_symbolic; operator=symbolic_oracle; autonomous_cells=43",
+      "name": "stage_a_autonomous_cells_symbolic",
+      "status": "PASS",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "track=A_symbolic; source=autonomous_stage_a_run; reverts=False; autonomous_cells=43",
+      "name": "stage_a_symbolic_reverts_nonzero_on_L4",
       "status": "FAIL",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "track=A_symbolic; source=autonomous_stage_a_run; forward_floor=False; kv_depth=2; no_revert_depth=2",
+      "name": "stage_a_symbolic_forward_floor_on_L4",
+      "status": "FAIL",
+      "tier": "tier_b"
+    },
+    {
+      "detail": "learned_autonomous_cells=0; symbolic_autonomous_cells=43; declared_track_core_cells=43",
+      "name": "all_green_requires_core_evidence",
+      "status": "PASS",
       "tier": "meta"
     },
     {
@@ -517,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=9",
+      "detail": "count=10",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -847,6 +895,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_037_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_037_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=037",
+      "name": "log_item_037_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_037_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item establishes Track A wiring, stateless oracle CI, labels, validation split, and a 6x6 chain-validation artifact with autonomous symbolic cells. It does",
+      "name": "log_item_037_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=5; routing=Launch the real Track A 9x9/deepened L4 grid with this runner after D3 bins land; keep learned-track reds visible; implement Track B per-cell-token TRM-class operator in parallel; keep D1/D2/D3 quarantines until their artifacts exist.",
+      "name": "log_item_037_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -1069,11 +1153,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-08T03:03:02.077478+00:00",
+  "generated_at": "2026-06-08T03:27:32.939951+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 178,
-    "n_fail": 4,
-    "n_pass": 174
+    "n_checks": 192,
+    "n_fail": 5,
+    "n_pass": 187
   }
 }

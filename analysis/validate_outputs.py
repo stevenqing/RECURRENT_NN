@@ -33,6 +33,9 @@ PATHS = {
     "stage_a_manifest": "artifacts/stage_a/manifest.json",
     "stage_a_results": "results/stage_a_backtrack/results.json",
     "stage_a_report": "results/stage_a_backtrack/report.json",
+    "stage_a_symbolic_results": "results/stage_a_symbolic/results.json",
+    "stage_a_symbolic_report": "results/stage_a_symbolic/report.json",
+    "stage_a_symbolic_statelessness": "results/stage_a_symbolic/oracle_statelessness_ci.json",
     "ttt_legacy": "results/ttt/results.json",
     "legacy_two_by_two": "results/two_by_two/results.json",
     "legacy_d_stage_1": "results/d_stage_1/results.json",
@@ -203,10 +206,16 @@ def _stage_a_checks(checks: list[dict[str, Any]]) -> None:
     manifest = _read_json("stage_a_manifest")
     results = _read_json("stage_a_results")
     report = _read_json("stage_a_report")
+    symbolic_results = _read_json("stage_a_symbolic_results")
+    symbolic_report = _read_json("stage_a_symbolic_report")
+    symbolic_statelessness = _read_json("stage_a_symbolic_statelessness")
     continuation = _read_json("continuation_post_027")
     _exists(checks, "stage_a_manifest", "tier_b")
     _exists(checks, "stage_a_results", "tier_b")
     _exists(checks, "stage_a_report", "tier_b")
+    _exists(checks, "stage_a_symbolic_results", "tier_b")
+    _exists(checks, "stage_a_symbolic_report", "tier_b")
+    _exists(checks, "stage_a_symbolic_statelessness", "tier_b")
     _exists(checks, "continuation_post_027", "tier_b")
     if manifest:
         _check(checks, manifest.get("status") == "READY", "stage_a_reconstructed_artifacts_ready", f"status={manifest.get('status')}", "tier_b")
@@ -275,12 +284,54 @@ def _stage_a_checks(checks: list[dict[str, Any]]) -> None:
         f"source={l4_source}; reverts={sudoku6.get('reverts_nonzero_on_L4') if sudoku6 else None}; forward={sudoku6.get('forward_floor_on_L4') if sudoku6 else None}",
         "tier_b",
     )
-    stage_a_autonomous_cells = int(results.get("n_cells", 0)) if results else 0
+
+    symbolic_core = symbolic_report.get("symbolic_core_evidence", {}) if symbolic_report else {}
+    symbolic_cells = int(symbolic_core.get("autonomous_cells") or (symbolic_results.get("n_cells", 0) if symbolic_results else 0))
+    symbolic_track_ok = symbolic_results and symbolic_results.get("track") == "A_symbolic" and symbolic_results.get("operator") == "symbolic_oracle"
+    symbolic_cell_rows = symbolic_results.get("cells", []) if symbolic_results else []
+    labels_ok = bool(symbolic_cell_rows) and all(row.get("track") == "A_symbolic" and row.get("operator") == "symbolic_oracle" and row.get("source") == "autonomous_stage_a_run" for row in symbolic_cell_rows)
     _check(
         checks,
-        stage_a_autonomous_cells > 0,
+        bool(symbolic_statelessness) and symbolic_statelessness.get("status") == "PASS" and symbolic_statelessness.get("byte_identical_outputs") is True,
+        "stage_a_symbolic_oracle_stateless_ci",
+        f"status={symbolic_statelessness.get('status') if symbolic_statelessness else None}; byte_identical={symbolic_statelessness.get('byte_identical_outputs') if symbolic_statelessness else None}",
+        "tier_b",
+    )
+    _check(
+        checks,
+        bool(symbolic_track_ok) and labels_ok,
+        "stage_a_track_labels_symbolic",
+        f"top_track={symbolic_results.get('track') if symbolic_results else None}; top_operator={symbolic_results.get('operator') if symbolic_results else None}; labeled_cells={len(symbolic_cell_rows)}",
+        "tier_b",
+    )
+    _check(
+        checks,
+        bool(symbolic_track_ok) and symbolic_cells > 0,
+        "stage_a_autonomous_cells_symbolic",
+        f"track={symbolic_results.get('track') if symbolic_results else None}; operator={symbolic_results.get('operator') if symbolic_results else None}; autonomous_cells={symbolic_cells}",
+        "tier_b",
+    )
+    _check(
+        checks,
+        bool(symbolic_core) and bool(symbolic_results) and symbolic_core.get("reverts_nonzero_on_L4") is True and symbolic_results.get("source") == "autonomous_stage_a_run",
+        "stage_a_symbolic_reverts_nonzero_on_L4",
+        f"track={symbolic_core.get('declared_track')}; source={symbolic_results.get('source') if symbolic_results else None}; reverts={symbolic_core.get('reverts_nonzero_on_L4')}; autonomous_cells={symbolic_cells}",
+        "tier_b",
+    )
+    _check(
+        checks,
+        bool(symbolic_core) and bool(symbolic_results) and symbolic_core.get("forward_floor_on_L4") is True and symbolic_results.get("source") == "autonomous_stage_a_run",
+        "stage_a_symbolic_forward_floor_on_L4",
+        f"track={symbolic_core.get('declared_track')}; source={symbolic_results.get('source') if symbolic_results else None}; forward_floor={symbolic_core.get('forward_floor_on_L4')}; kv_depth={symbolic_core.get('kv_snapshot_max_depth')}; no_revert_depth={symbolic_core.get('rot_no_revert_max_depth')}",
+        "tier_b",
+    )
+    stage_a_autonomous_cells = int(results.get("n_cells", 0)) if results else 0
+    declared_track_core_cells = stage_a_autonomous_cells + (symbolic_cells if symbolic_track_ok else 0)
+    _check(
+        checks,
+        declared_track_core_cells > 0,
         "all_green_requires_core_evidence",
-        f"stage_a_autonomous_cells={stage_a_autonomous_cells}; validation must not be all-green without autonomous Stage A cells",
+        f"learned_autonomous_cells={stage_a_autonomous_cells}; symbolic_autonomous_cells={symbolic_cells if symbolic_track_ok else 0}; declared_track_core_cells={declared_track_core_cells}",
         "meta",
     )
 

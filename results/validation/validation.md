@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-08T03:03:02.077478+00:00
+Generated at: 2026-06-08T03:27:32.939951+00:00
 
-Summary: 174 PASS / 4 FAIL / 178 total.
+Summary: 187 PASS / 5 FAIL / 192 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -63,6 +63,9 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_b | stage_a_manifest_present | PASS | artifacts/stage_a/manifest.json |
 | tier_b | stage_a_results_present | PASS | results/stage_a_backtrack/results.json |
 | tier_b | stage_a_report_present | PASS | results/stage_a_backtrack/report.json |
+| tier_b | stage_a_symbolic_results_present | PASS | results/stage_a_symbolic/results.json |
+| tier_b | stage_a_symbolic_report_present | PASS | results/stage_a_symbolic/report.json |
+| tier_b | stage_a_symbolic_statelessness_present | PASS | results/stage_a_symbolic/oracle_statelessness_ci.json |
 | tier_b | continuation_post_027_present | PASS | results/continuation_state/post_027.json |
 | tier_b | stage_a_reconstructed_artifacts_ready | PASS | status=READY |
 | tier_b | stage_a_provenance_recorded | PASS | policy=reconstructed_in_repo_not_inherited |
@@ -82,7 +85,12 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_b | stage_a_reverts_nonzero_on_L4 | FAIL | source=fixture; run_id=deterministic_l4_fixture; real_grid_cells=0; required_source=autonomous_stage_a_run |
 | tier_b | stage_a_forward_floor_on_L4 | FAIL | source=fixture; run_id=deterministic_l4_fixture; real_grid_cells=0; required_source=autonomous_stage_a_run |
 | tier_b | stage_a_l4_harness_fixture_pass | PASS | source=fixture; reverts=True; forward=True |
-| meta | all_green_requires_core_evidence | FAIL | stage_a_autonomous_cells=0; validation must not be all-green without autonomous Stage A cells |
+| tier_b | stage_a_symbolic_oracle_stateless_ci | PASS | status=PASS; byte_identical=True |
+| tier_b | stage_a_track_labels_symbolic | PASS | top_track=A_symbolic; top_operator=symbolic_oracle; labeled_cells=43 |
+| tier_b | stage_a_autonomous_cells_symbolic | PASS | track=A_symbolic; operator=symbolic_oracle; autonomous_cells=43 |
+| tier_b | stage_a_symbolic_reverts_nonzero_on_L4 | FAIL | track=A_symbolic; source=autonomous_stage_a_run; reverts=False; autonomous_cells=43 |
+| tier_b | stage_a_symbolic_forward_floor_on_L4 | FAIL | track=A_symbolic; source=autonomous_stage_a_run; forward_floor=False; kv_depth=2; no_revert_depth=2 |
+| meta | all_green_requires_core_evidence | PASS | learned_autonomous_cells=0; symbolic_autonomous_cells=43; declared_track_core_cells=43 |
 | tier_c | w3_qwen35_probe_spec_present | PASS | specs/w3_qwen35_probe_spec.md |
 | tier_c | w3_qwen35_probe_present | PASS | results/w3_qwen35_probe/results.json |
 | tier_c | w3_qwen35_model_id | PASS | model_id=Qwen/Qwen3.5-4B |
@@ -96,7 +104,7 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_c | w3_propagation_scale_not_mixed | PASS | verdict=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
 | tier_c | w3_propagation_per_task_delta_measured | PASS | rows=5 |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=9 |
+| contract | log_item_artifacts_present | PASS | count=10 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
@@ -151,6 +159,12 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_036_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_036_honesty_does_not_establish | PASS | The overnight T2 runs improve forced-mask recall from the zero-recall smoke but do not meet G1>=0.95, do not unlock Stage A, and do not produce autonomous Stage |
 | contract | log_item_036_decision_numbers_and_routing | PASS | gates=6; routing=Do not launch Stage A from this T2 checkpoint. Route T2 to forced-mask target/interface repair using the nonzero recall but low G1 evidence. Log W3.2 as complete 50x2 NOT_ACCEPTED and keep Qwen3.5 alongside-only unless a true structured cached-state push/pop decoder is implemented. |
+| contract | log_item_037_required_fields | PASS | missing=[] |
+| contract | log_item_037_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_037_number_continues_from_028 | PASS | item_number=037 |
+| contract | log_item_037_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_037_honesty_does_not_establish | PASS | This item establishes Track A wiring, stateless oracle CI, labels, validation split, and a 6x6 chain-validation artifact with autonomous symbolic cells. It does |
+| contract | log_item_037_decision_numbers_and_routing | PASS | gates=5; routing=Launch the real Track A 9x9/deepened L4 grid with this runner after D3 bins land; keep learned-track reds visible; implement Track B per-cell-token TRM-class operator in parallel; keep D1/D2/D3 quarantines until their artifacts exist. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |
