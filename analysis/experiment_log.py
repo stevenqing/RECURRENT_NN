@@ -26,6 +26,7 @@ ARTIFACT_INDEX = {
     "item_037_two_track_decoupling_track_a_symbolic": "results/experiment_items/item_037_two_track_decoupling_track_a_symbolic.json",
     "item_038_track_a_budgeted_parallel_symbolic_l4": "results/experiment_items/item_038_track_a_budgeted_parallel_symbolic_l4.json",
     "item_039_track_b_trm_operator_smoke": "results/experiment_items/item_039_track_b_trm_operator_smoke.json",
+    "item_040_track_b_trm_full_3x8gpu_negative": "results/experiment_items/item_040_track_b_trm_full_3x8gpu_negative.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "model_readiness": "results/model_readiness/readiness.json",
     "qwen3_4b_instruct_download": "results/model_download/qwen_download.json",
@@ -56,6 +57,10 @@ ARTIFACT_INDEX = {
     "t2_recurrent_operator_8gpu_acceptance": "results/recurrent_operator_8gpu/acceptance.json",
     "track_b_trm_operator_trainer": "experiments/train_trm_operator.py",
     "track_b_trm_operator_smoke_acceptance": "results/trm_operator_smoke/acceptance.json",
+    "track_b_trm_full_3x8gpu_monitor": "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json",
+    "track_b_trm_full_seed102_acceptance": "results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json",
+    "track_b_trm_full_seed137_acceptance": "results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json",
+    "track_b_trm_full_seed256_acceptance": "results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json",
     "validation": "results/validation/validation.json",
 }
 

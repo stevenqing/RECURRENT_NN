@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-08T03:57:21.264435+00:00
+Generated at: 2026-06-08T08:57:12.799111+00:00
 
-Summary: 201 PASS / 3 FAIL / 204 total.
+Summary: 207 PASS / 3 FAIL / 210 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -104,7 +104,7 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_c | w3_propagation_scale_not_mixed | PASS | verdict=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
 | tier_c | w3_propagation_per_task_delta_measured | PASS | rows=5 |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=12 |
+| contract | log_item_artifacts_present | PASS | count=13 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
@@ -177,6 +177,12 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_039_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_039_honesty_does_not_establish | PASS | This item establishes the Track B code path and one tiny GPU smoke artifact only. It does not establish Track B acceptance, does not pass the leading-indicator  |
 | contract | log_item_039_decision_numbers_and_routing | PASS | gates=4; routing=When GPUs are free, run seeds 102/137/256 with the default or scaled Track B config on separate GPUs and log acceptance per seed. Keep Track B learned rows side by side with Track A only after learned_recurrent gates pass and an autonomous Stage A learned run exists. |
+| contract | log_item_040_required_fields | PASS | missing=[] |
+| contract | log_item_040_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_040_number_continues_from_028 | PASS | item_number=040 |
+| contract | log_item_040_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_040_honesty_does_not_establish | PASS | This item does not establish Track B learned acceptance, does not establish autonomous learned Stage A cells, does not establish L4 solve transfer, and does not |
+| contract | log_item_040_decision_numbers_and_routing | PASS | gates=5; routing=Treat this Track B recipe as a clean negative result. Do not route learned_recurrent into Stage A or mark learned gates green. Future Track B work should change the objective/curriculum or recurrent control path rather than merely extending this L1-L2 forced-step run, because 20k steps left G2 at 0.0 and G1 far below threshold. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |
