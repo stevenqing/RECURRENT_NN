@@ -12,6 +12,8 @@ import hashlib
 import json
 import math
 import random
+import signal
+import time
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -28,6 +30,14 @@ from tasks.sudoku.generator_9x9 import constraints_9x9, generate_9x9_by_depth_ba
 TRACK = "A_symbolic"
 OPERATOR = "symbolic_oracle"
 SOURCE = "autonomous_stage_a_run"
+
+
+class EpisodeWallTimeout(Exception):
+    pass
+
+
+def _episode_alarm_handler(signum: int, frame: Any) -> None:
+    raise EpisodeWallTimeout()
 
 
 @dataclass(frozen=True)
@@ -327,7 +337,49 @@ def _mrv_branch(task: CSPTask, assignment: dict[int, int]) -> tuple[int, int] | 
     return int(var), int(val)
 
 
-def run_episode(task: CSPTask, cell: TrackACell, max_nodes: int, device: str) -> dict[str, Any]:
+def _episode_row(
+    task: CSPTask,
+    solved: bool,
+    status_text: str,
+    nodes: int,
+    oracle_calls: int,
+    applied_reverts: int,
+    forced_rounds: int,
+    branches: int,
+    peak_depth: int,
+    peak_register_bytes: int,
+    decode_failures: int,
+    overflow_entries: int,
+    started_at: float,
+    failure: str = "",
+) -> dict[str, Any]:
+    row = {
+        "task_id": task.task_id,
+        "solved": solved,
+        "status": status_text,
+        "nodes": nodes,
+        "oracle_calls": oracle_calls,
+        "applied_reverts": applied_reverts,
+        "forced_rounds": forced_rounds,
+        "branches": branches,
+        "peak_depth": peak_depth,
+        "peak_register_bytes": peak_register_bytes,
+        "decode_failures": decode_failures,
+        "overflow_entries": overflow_entries,
+        "dpll_backtrack_depth": task.dpll_backtrack_depth,
+        "elapsed_seconds": time.perf_counter() - started_at,
+    }
+    if failure:
+        row["failure"] = failure
+    return row
+
+
+def run_episode(task: CSPTask, cell: TrackACell, max_nodes: int, device: str, max_seconds: float = 0.0) -> dict[str, Any]:
+    started_at = time.perf_counter()
+
+    def timed_out() -> bool:
+        return max_seconds > 0.0 and (time.perf_counter() - started_at) >= max_seconds
+
     trail = _make_trail(cell, task, device)
     nodes = 0
     applied_reverts = 0
@@ -340,27 +392,17 @@ def run_episode(task: CSPTask, cell: TrackACell, max_nodes: int, device: str) ->
         assignment, rounds, current_status = trail.current_assignment(task)
         forced_rounds += rounds
         while nodes < max_nodes:
+            if timed_out():
+                return _episode_row(task, False, "EPISODE_TIMEOUT", nodes, oracle_calls, applied_reverts, forced_rounds, branches, peak_depth, peak_register_bytes, trail.decode_failures, trail.overflow_entries, started_at)
             oracle = oracle_call(task, assignment)
             oracle_calls += 1
             current_status = oracle["status"]
             if current_status == "SOLVED":
-                return {
-                    "task_id": task.task_id,
-                    "solved": True,
-                    "status": "SOLVED",
-                    "nodes": nodes,
-                    "oracle_calls": oracle_calls,
-                    "applied_reverts": applied_reverts,
-                    "forced_rounds": forced_rounds,
-                    "branches": branches,
-                    "peak_depth": peak_depth,
-                    "peak_register_bytes": peak_register_bytes,
-                    "decode_failures": trail.decode_failures,
-                    "overflow_entries": trail.overflow_entries,
-                    "dpll_backtrack_depth": task.dpll_backtrack_depth,
-                }
+                return _episode_row(task, True, "SOLVED", nodes, oracle_calls, applied_reverts, forced_rounds, branches, peak_depth, peak_register_bytes, trail.decode_failures, trail.overflow_entries, started_at)
             if current_status == "CONTRADICTION":
                 while True:
+                    if timed_out():
+                        return _episode_row(task, False, "EPISODE_TIMEOUT", nodes, oracle_calls, applied_reverts, forced_rounds, branches, peak_depth, peak_register_bytes, trail.decode_failures, trail.overflow_entries, started_at)
                     popped_var, popped_val, _margin = trail.pop(task)
                     applied_reverts += 1
                     assignment, rounds, restored_status = trail.current_assignment(task)
@@ -380,7 +422,7 @@ def run_episode(task: CSPTask, cell: TrackACell, max_nodes: int, device: str) ->
                 continue
             guess = _mrv_branch(task, assignment)
             if guess is None:
-                return {"task_id": task.task_id, "solved": False, "status": "OPEN_NO_MRV", "nodes": nodes, "oracle_calls": oracle_calls, "applied_reverts": applied_reverts, "forced_rounds": forced_rounds, "branches": branches, "peak_depth": peak_depth, "peak_register_bytes": peak_register_bytes, "decode_failures": trail.decode_failures, "overflow_entries": trail.overflow_entries, "dpll_backtrack_depth": task.dpll_backtrack_depth}
+                return _episode_row(task, False, "OPEN_NO_MRV", nodes, oracle_calls, applied_reverts, forced_rounds, branches, peak_depth, peak_register_bytes, trail.decode_failures, trail.overflow_entries, started_at)
             trail.push(task, assignment, guess[0], guess[1])
             branches += 1
             assignment, rounds, current_status = trail.current_assignment(task)
@@ -388,9 +430,25 @@ def run_episode(task: CSPTask, cell: TrackACell, max_nodes: int, device: str) ->
             nodes += 1
             peak_depth = max(peak_depth, trail.depth)
             peak_register_bytes = max(peak_register_bytes, trail.register_bytes)
-        return {"task_id": task.task_id, "solved": False, "status": "NODE_CAP", "nodes": nodes, "oracle_calls": oracle_calls, "applied_reverts": applied_reverts, "forced_rounds": forced_rounds, "branches": branches, "peak_depth": peak_depth, "peak_register_bytes": peak_register_bytes, "decode_failures": trail.decode_failures, "overflow_entries": trail.overflow_entries, "dpll_backtrack_depth": task.dpll_backtrack_depth}
+        return _episode_row(task, False, "NODE_CAP", nodes, oracle_calls, applied_reverts, forced_rounds, branches, peak_depth, peak_register_bytes, trail.decode_failures, trail.overflow_entries, started_at)
     except TrailDecodeError as exc:
-        return {"task_id": task.task_id, "solved": False, "status": "TRAIL_FAILURE", "failure": str(exc), "nodes": nodes, "oracle_calls": oracle_calls, "applied_reverts": applied_reverts, "forced_rounds": forced_rounds, "branches": branches, "peak_depth": peak_depth, "peak_register_bytes": peak_register_bytes, "decode_failures": trail.decode_failures, "overflow_entries": trail.overflow_entries, "dpll_backtrack_depth": task.dpll_backtrack_depth}
+        return _episode_row(task, False, "TRAIL_FAILURE", nodes, oracle_calls, applied_reverts, forced_rounds, branches, peak_depth, peak_register_bytes, trail.decode_failures, trail.overflow_entries, started_at, str(exc))
+
+
+def run_episode_with_alarm(task: CSPTask, cell: TrackACell, max_nodes: int, device: str, max_seconds: float = 0.0) -> dict[str, Any]:
+    if max_seconds <= 0.0:
+        return run_episode(task, cell, max_nodes=max_nodes, device=device, max_seconds=0.0)
+    started_at = time.perf_counter()
+    previous_handler = signal.getsignal(signal.SIGALRM)
+    signal.signal(signal.SIGALRM, _episode_alarm_handler)
+    signal.setitimer(signal.ITIMER_REAL, max_seconds)
+    try:
+        return run_episode(task, cell, max_nodes=max_nodes, device=device, max_seconds=max_seconds)
+    except EpisodeWallTimeout:
+        return _episode_row(task, False, "EPISODE_TIMEOUT", 0, 0, 0, 0, 0, 0, 0, 0, 0, started_at, "wall_timeout_alarm")
+    finally:
+        signal.setitimer(signal.ITIMER_REAL, 0.0)
+        signal.signal(signal.SIGALRM, previous_handler)
 
 
 def _sudoku6_task(instance: Any, index: int) -> CSPTask:
@@ -486,6 +544,7 @@ def _summarize_cell(cell: TrackACell, episodes: list[dict[str, Any]]) -> dict[st
         "peak_register_bytes": max([int(row.get("peak_register_bytes") or 0) for row in episodes], default=0),
         "overflow_entries": max([int(row.get("overflow_entries") or 0) for row in episodes], default=0),
         "decode_failures": sum(int(row.get("decode_failures") or 0) for row in episodes),
+        "timeout_count": sum(1 for row in episodes if row.get("status") == "EPISODE_TIMEOUT"),
         "status": "CELL_COMPLETE" if episodes else "NO_EPISODES",
     }
 
@@ -509,6 +568,7 @@ def _group_rows(cells: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "max_solve_depth": max(int(cell["max_solve_depth"]) for cell in subset),
             "max_peak_register_bytes": max(int(cell["peak_register_bytes"]) for cell in subset),
             "max_overflow_entries": max(int(cell["overflow_entries"]) for cell in subset),
+            "total_timeout_count": sum(int(cell.get("timeout_count") or 0) for cell in subset),
         })
     return rows
 
@@ -526,7 +586,7 @@ def _report_payload(result: dict[str, Any]) -> dict[str, Any]:
         "operator": OPERATOR,
         "source": SOURCE,
         "n_cells": len(cells),
-        "l4_separation_table": {"columns": ["track", "operator", "source", "task_family", "arm", "D", "spill", "n_cells", "mean_solve_rate", "total_applied_reverts", "max_solve_depth"], "rows": rows},
+        "l4_separation_table": {"columns": ["track", "operator", "source", "task_family", "arm", "D", "spill", "n_cells", "mean_solve_rate", "total_applied_reverts", "max_solve_depth", "total_timeout_count"], "rows": rows},
         "band_overlay": {"columns": ["D", "predicted_d_star", "observed_max_solve_depth", "provenance"], "rows": [
             {"D": D, "predicted_d_star": predicted_d_star(D, 36 * 7), "observed_max_solve_depth": max((cell["max_solve_depth"] for cell in cells if cell["D"] == D and cell["arm"] in {"rot_bound_single", "rot_factored"}), default=0), "provenance": "results/stage_a_symbolic/results.json"}
             for D in [128, 256, 512]
@@ -587,6 +647,8 @@ def run_track_a(
     max_nodes: int = 512,
     device: str = "cpu",
     torch_threads: int = 1,
+    max_seconds_per_episode: float = 0.0,
+    cell_indices: set[int] | None = None,
 ) -> dict[str, Any]:
     root = Path(output_dir)
     root.mkdir(parents=True, exist_ok=True)
@@ -599,12 +661,14 @@ def run_track_a(
     stateless = statelessness_ci(output_dir)
     tasks = build_eval_tasks(task_family, n_instances, seed, min_depth, max_depth)
     grid = shard_cells(build_track_a_grid(task_family), num_shards, shard_index)
+    if cell_indices is not None:
+        grid = [cell for cell in grid if cell.cell_index in cell_indices]
     cells: list[dict[str, Any]] = []
     for cell in grid:
         rng = random.Random(cell.seed)
         selected_tasks = list(tasks)
         rng.shuffle(selected_tasks)
-        episodes = [run_episode(task, cell, max_nodes=max_nodes, device=device) for task in selected_tasks]
+        episodes = [run_episode_with_alarm(task, cell, max_nodes=max_nodes, device=device, max_seconds=max_seconds_per_episode) for task in selected_tasks]
         cell_summary = _summarize_cell(cell, episodes)
         cell_summary["episodes"] = episodes
         cells.append(cell_summary)
@@ -627,6 +691,7 @@ def run_track_a(
         },
         "task_family": task_family,
         "torch_threads": torch.get_num_threads(),
+        "max_seconds_per_episode": max_seconds_per_episode,
         "n_tasks": len(tasks),
         "task_depth_histogram": {str(depth): sum(1 for task in tasks if task.dpll_backtrack_depth == depth) for depth in sorted({task.dpll_backtrack_depth for task in tasks})},
         "num_shards": num_shards,
@@ -655,8 +720,10 @@ def main() -> None:
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
     parser.add_argument("--max-nodes", type=int, default=512)
+    parser.add_argument("--max-seconds-per-episode", type=float, default=0.0)
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--torch-threads", type=int, default=1)
+    parser.add_argument("--cell-index", type=int, action="append", default=[])
     parser.add_argument("--statelessness-ci-only", action="store_true")
     args = parser.parse_args()
     if args.statelessness_ci_only:
@@ -672,8 +739,10 @@ def main() -> None:
             num_shards=args.num_shards,
             shard_index=args.shard_index,
             max_nodes=args.max_nodes,
+            max_seconds_per_episode=args.max_seconds_per_episode,
             device=args.device,
             torch_threads=args.torch_threads,
+            cell_indices=set(args.cell_index) if args.cell_index else None,
         )
     print(json.dumps(payload, indent=2, sort_keys=True))
     if payload.get("status") in {"FAIL", "NO_CELLS"}:

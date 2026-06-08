@@ -9,9 +9,9 @@
     ],
     "rows": [
       {
-        "applied_reverts": 0,
+        "applied_reverts": 1,
         "cell_name": "A_symbolic_sudoku6_rot_bound_single_D256_seed42_spill_on_arbiter09025",
-        "max_solve_depth": 2,
+        "max_solve_depth": 3,
         "provenance": "results/stage_a_symbolic/results.json",
         "solve_rate": 1.0
       }
@@ -27,19 +27,19 @@
     "rows": [
       {
         "D": 128,
-        "observed_max_solve_depth": 2,
+        "observed_max_solve_depth": 3,
         "predicted_d_star": 11.574431824172983,
         "provenance": "results/stage_a_symbolic/results.json"
       },
       {
         "D": 256,
-        "observed_max_solve_depth": 2,
+        "observed_max_solve_depth": 3,
         "predicted_d_star": 23.148863648345966,
         "provenance": "results/stage_a_symbolic/results.json"
       },
       {
         "D": 512,
-        "observed_max_solve_depth": 2,
+        "observed_max_solve_depth": 3,
         "predicted_d_star": 46.29772729669193,
         "provenance": "results/stage_a_symbolic/results.json"
       }
@@ -57,7 +57,8 @@
       "n_cells",
       "mean_solve_rate",
       "total_applied_reverts",
-      "max_solve_depth"
+      "max_solve_depth",
+      "total_timeout_count"
     ],
     "rows": [
       {
@@ -73,6 +74,7 @@
         "spill": "spill_off",
         "task_family": "sudoku6",
         "total_applied_reverts": 0,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -88,6 +90,7 @@
         "spill": "spill_off",
         "task_family": "sudoku6",
         "total_applied_reverts": 0,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -103,51 +106,55 @@
         "spill": "spill_off",
         "task_family": "sudoku6",
         "total_applied_reverts": 0,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
         "D": 128,
         "arm": "kv_snapshot",
         "max_overflow_entries": 0,
-        "max_peak_register_bytes": 624,
-        "max_solve_depth": 2,
+        "max_peak_register_bytes": 808,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_off",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
         "D": 256,
         "arm": "kv_snapshot",
         "max_overflow_entries": 0,
-        "max_peak_register_bytes": 624,
-        "max_solve_depth": 2,
+        "max_peak_register_bytes": 808,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_off",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
         "D": 512,
         "arm": "kv_snapshot",
         "max_overflow_entries": 0,
-        "max_peak_register_bytes": 624,
-        "max_solve_depth": 2,
+        "max_peak_register_bytes": 808,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_off",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -155,14 +162,15 @@
         "arm": "rot_bound_single",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 512,
-        "max_solve_depth": 2,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_off",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -170,14 +178,15 @@
         "arm": "rot_bound_single",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 512,
-        "max_solve_depth": 2,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_on",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -185,14 +194,15 @@
         "arm": "rot_bound_single",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 1024,
-        "max_solve_depth": 2,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_off",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -200,14 +210,15 @@
         "arm": "rot_bound_single",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 1024,
-        "max_solve_depth": 2,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 3,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_on",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 3,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -215,14 +226,15 @@
         "arm": "rot_bound_single",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 2048,
-        "max_solve_depth": 2,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_off",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -230,14 +242,15 @@
         "arm": "rot_bound_single",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 2048,
-        "max_solve_depth": 2,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_on",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -245,14 +258,15 @@
         "arm": "rot_factored",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 512,
-        "max_solve_depth": 2,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_off",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -260,14 +274,15 @@
         "arm": "rot_factored",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 512,
-        "max_solve_depth": 2,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_on",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -275,14 +290,15 @@
         "arm": "rot_factored",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 1024,
-        "max_solve_depth": 2,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_off",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -290,14 +306,15 @@
         "arm": "rot_factored",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 1024,
-        "max_solve_depth": 2,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_on",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -305,14 +322,15 @@
         "arm": "rot_factored",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 2048,
-        "max_solve_depth": 2,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_off",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -320,14 +338,15 @@
         "arm": "rot_factored",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 2048,
-        "max_solve_depth": 2,
+        "max_solve_depth": 3,
         "mean_solve_rate": 1.0,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_on",
         "task_family": "sudoku6",
-        "total_applied_reverts": 0,
+        "total_applied_reverts": 2,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -335,14 +354,15 @@
         "arm": "rot_no_revert",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 512,
-        "max_solve_depth": 2,
-        "mean_solve_rate": 1.0,
+        "max_solve_depth": 3,
+        "mean_solve_rate": 0.875,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_off",
         "task_family": "sudoku6",
         "total_applied_reverts": 0,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -350,14 +370,15 @@
         "arm": "rot_no_revert",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 1024,
-        "max_solve_depth": 2,
-        "mean_solve_rate": 1.0,
+        "max_solve_depth": 3,
+        "mean_solve_rate": 0.875,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_off",
         "task_family": "sudoku6",
         "total_applied_reverts": 0,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       },
       {
@@ -365,14 +386,15 @@
         "arm": "rot_no_revert",
         "max_overflow_entries": 0,
         "max_peak_register_bytes": 2048,
-        "max_solve_depth": 2,
-        "mean_solve_rate": 1.0,
+        "max_solve_depth": 3,
+        "mean_solve_rate": 0.875,
         "n_cells": 2,
         "operator": "symbolic_oracle",
         "source": "autonomous_stage_a_run",
         "spill": "spill_off",
         "task_family": "sudoku6",
         "total_applied_reverts": 0,
+        "total_timeout_count": 0,
         "track": "A_symbolic"
       }
     ]
@@ -419,7 +441,7 @@
         "D": 128,
         "arm": "kv_snapshot",
         "max_overflow_entries": 0,
-        "max_peak_register_bytes": 624,
+        "max_peak_register_bytes": 808,
         "provenance": "results/stage_a_symbolic/results.json",
         "spill": "spill_off"
       },
@@ -427,7 +449,7 @@
         "D": 256,
         "arm": "kv_snapshot",
         "max_overflow_entries": 0,
-        "max_peak_register_bytes": 624,
+        "max_peak_register_bytes": 808,
         "provenance": "results/stage_a_symbolic/results.json",
         "spill": "spill_off"
       },
@@ -435,7 +457,7 @@
         "D": 512,
         "arm": "kv_snapshot",
         "max_overflow_entries": 0,
-        "max_peak_register_bytes": 624,
+        "max_peak_register_bytes": 808,
         "provenance": "results/stage_a_symbolic/results.json",
         "spill": "spill_off"
       },
@@ -565,11 +587,11 @@
   "symbolic_core_evidence": {
     "autonomous_cells": 43,
     "declared_track": "A_symbolic",
-    "forward_floor_on_L4": false,
-    "kv_snapshot_max_depth": 2,
+    "forward_floor_on_L4": true,
+    "kv_snapshot_max_depth": 3,
     "operator": "symbolic_oracle",
-    "reverts_nonzero_on_L4": false,
-    "rot_no_revert_max_depth": 2
+    "reverts_nonzero_on_L4": true,
+    "rot_no_revert_max_depth": 3
   },
   "track": "A_symbolic"
 }

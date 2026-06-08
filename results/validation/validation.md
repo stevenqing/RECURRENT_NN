@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-08T03:27:32.939951+00:00
+Generated at: 2026-06-08T03:50:33.392096+00:00
 
-Summary: 187 PASS / 5 FAIL / 192 total.
+Summary: 195 PASS / 3 FAIL / 198 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -88,8 +88,8 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_b | stage_a_symbolic_oracle_stateless_ci | PASS | status=PASS; byte_identical=True |
 | tier_b | stage_a_track_labels_symbolic | PASS | top_track=A_symbolic; top_operator=symbolic_oracle; labeled_cells=43 |
 | tier_b | stage_a_autonomous_cells_symbolic | PASS | track=A_symbolic; operator=symbolic_oracle; autonomous_cells=43 |
-| tier_b | stage_a_symbolic_reverts_nonzero_on_L4 | FAIL | track=A_symbolic; source=autonomous_stage_a_run; reverts=False; autonomous_cells=43 |
-| tier_b | stage_a_symbolic_forward_floor_on_L4 | FAIL | track=A_symbolic; source=autonomous_stage_a_run; forward_floor=False; kv_depth=2; no_revert_depth=2 |
+| tier_b | stage_a_symbolic_reverts_nonzero_on_L4 | PASS | track=A_symbolic; source=autonomous_stage_a_run; reverts=True; autonomous_cells=43 |
+| tier_b | stage_a_symbolic_forward_floor_on_L4 | PASS | track=A_symbolic; source=autonomous_stage_a_run; forward_floor=True; kv_depth=3; no_revert_depth=3 |
 | meta | all_green_requires_core_evidence | PASS | learned_autonomous_cells=0; symbolic_autonomous_cells=43; declared_track_core_cells=43 |
 | tier_c | w3_qwen35_probe_spec_present | PASS | specs/w3_qwen35_probe_spec.md |
 | tier_c | w3_qwen35_probe_present | PASS | results/w3_qwen35_probe/results.json |
@@ -104,7 +104,7 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_c | w3_propagation_scale_not_mixed | PASS | verdict=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
 | tier_c | w3_propagation_per_task_delta_measured | PASS | rows=5 |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=10 |
+| contract | log_item_artifacts_present | PASS | count=11 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
@@ -165,6 +165,12 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_037_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_037_honesty_does_not_establish | PASS | This item establishes Track A wiring, stateless oracle CI, labels, validation split, and a 6x6 chain-validation artifact with autonomous symbolic cells. It does |
 | contract | log_item_037_decision_numbers_and_routing | PASS | gates=5; routing=Launch the real Track A 9x9/deepened L4 grid with this runner after D3 bins land; keep learned-track reds visible; implement Track B per-cell-token TRM-class operator in parallel; keep D1/D2/D3 quarantines until their artifacts exist. |
+| contract | log_item_038_required_fields | PASS | missing=[] |
+| contract | log_item_038_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_038_number_continues_from_028 | PASS | item_number=038 |
+| contract | log_item_038_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_038_honesty_does_not_establish | PASS | This item establishes a faster fail-closed Track A execution path and measured symbolic-oracle L4 revert/floor evidence on sudoku6 depth histogram {'1':3,'2':2, |
+| contract | log_item_038_decision_numbers_and_routing | PASS | gates=5; routing=Use CPU parallel budgeted Track A for remaining symbolic shards; reserve GPUs for Track B learned/TRM-class operator and D1. Next, implement Track B or the D1/D2/D3 debts without promoting symbolic Track A rows into learned-track evidence. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |

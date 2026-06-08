@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-08T03:27:33.099211+00:00
+Generated at: 2026-06-08T03:50:33.552415+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,7 +17,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 pre-fix record | BLOCKER | historical_continuation_G1=0.0; current_diagnostic_G1=1.0 |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=192; validation_passed=False |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=198; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Diagnostic pass, autonomous grid not proven | Sudoku6 diagnostic G1=1.0; L4_reverts=True; L4_forward=True |
 | P2 | W3 Qwen3.5 probe | cached_gdn_state_measured_with_propagation_delta | W3.0=PASS; survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; native_delta=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; propagation=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
@@ -33,6 +33,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 035 | G1=G2 anomaly fix, true-dims W3 capacity, and W3.2 50x2 scale | PARTIAL_EVIDENCE_COMMITTED_W3_50X2_RUNNING | Do not scale T2 budget until forced-mask recall is repaired. After this partial-evidence commit, finish all remaining W3.2 50x2 shards, merge only when every shard has n_instances>=50 and at least two seeds, rerun validation/log generation, then make a final W3.2 completion commit. |
 | 036 | Overnight six-line closeout and W3.2 50x2 completion | OVERNIGHT_COMPLETE_GATES_UNREACHED_W3_50X2_NOT_ACCEPTED | Do not launch Stage A from this T2 checkpoint. Route T2 to forced-mask target/interface repair using the nonzero recall but low G1 evidence. Log W3.2 as complete 50x2 NOT_ACCEPTED and keep Qwen3.5 alongside-only unless a true structured cached-state push/pop decoder is implemented. |
 | 037 | Two-track decoupling: Track A symbolic oracle wiring and Track B TRM-class routing | TRACK_A_WIRED_6X6_CHAIN_VALIDATED_REVERT_L4_PENDING | Launch the real Track A 9x9/deepened L4 grid with this runner after D3 bins land; keep learned-track reds visible; implement Track B per-cell-token TRM-class operator in parallel; keep D1/D2/D3 quarantines until their artifacts exist. |
+| 038 | Track A budgeted parallel symbolic L4 evidence and GPU feasibility | TRACK_A_SYMBOLIC_L4_EVIDENCE_RECORDED_LEARNED_TRACK_STILL_RED | Use CPU parallel budgeted Track A for remaining symbolic shards; reserve GPUs for Track B learned/TRM-class operator and D1. Next, implement Track B or the D1/D2/D3 debts without promoting symbolic Track A rows into learned-track evidence. |
 
 ## Item Details
 
@@ -90,13 +91,13 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - Current validation is registry-style and does not collapse missing history into one opaque required-files failure.
 - Artifact refs:
   - analysis/validate_outputs.py (yes, 34385 bytes)
-  - results/validation/validation.json (yes, 35599 bytes)
-  - results/validation/validation.md (yes, 21570 bytes)
+  - results/validation/validation.json (yes, 36902 bytes)
+  - results/validation/validation.md (yes, 22429 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=192; n_fail=5; n_pass=187 |  |
+| results/validation/validation.json | False | summary=n_checks=198; n_fail=3; n_pass=195 |  |
 
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
@@ -243,21 +244,21 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=192; validation_passed=False
+- Key result: validation_checks=198; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=187; validation_fail=5
+  - validation_pass=195; validation_fail=3
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifact refs:
   - CANONICAL_REPO.md (yes, 532 bytes)
   - analysis/validate_outputs.py (yes, 34385 bytes)
-  - results/validation/validation.json (yes, 35599 bytes)
-  - results/experiment_log/experiment_log.json (yes, 560376 bytes)
+  - results/validation/validation.json (yes, 36902 bytes)
+  - results/experiment_log/experiment_log.json (yes, 601038 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=192; n_fail=5; n_pass=187 |  |
+| results/validation/validation.json | False | summary=n_checks=198; n_fail=3; n_pass=195 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 - Next action: Keep future reports item-first and preserve explicit red checks.
@@ -374,10 +375,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - REPRODUCIBILITY.md (yes, 3478 bytes)
   - scripts/reproduce_continuation_state.sh (yes, 1972 bytes)
   - results/continuation_state/post_027.json (yes, 1453 bytes)
-  - results/validation/validation.json (yes, 35599 bytes)
-  - results/validation/validation.md (yes, 21570 bytes)
-  - results/experiment_log/experiment_log.json (yes, 560376 bytes)
-  - results/experiment_log/experiment_log.md (yes, 130933 bytes)
+  - results/validation/validation.json (yes, 36902 bytes)
+  - results/validation/validation.md (yes, 22429 bytes)
+  - results/experiment_log/experiment_log.json (yes, 601038 bytes)
+  - results/experiment_log/experiment_log.md (yes, 141145 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -389,7 +390,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/continuation_state/post_027.json | recorded | source=user_master_runbook_2026_06_07; canonical_repo=/home/aiscuser/RECURRENT_NN |  |
-| results/validation/validation.json | False | summary=n_checks=192; n_fail=5; n_pass=187 |  |
+| results/validation/validation.json | False | summary=n_checks=198; n_fail=3; n_pass=195 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/stage_a_adapter_wiring/results.json | PASS | autonomous_solve_status=NOT_RUN; grid_cells=36; preflight_status=READY; register_smoke_status=SMOKE_PASS |  |
 | results/stage_a_banded_gate_refusal/results.json | PASS | banded_datasets=8 keys: note, sudoku6_depths, sudoku6_generated_count, sudoku6_generator_present, sudoku6_status, sudoku9_generated_c... | fail_closed_cases:3r/5c |
@@ -672,8 +673,8 @@ No rows recorded.
   - results/d_stage_2/results.json (missing)
   - results/d_stage_3/results.json (missing)
   - results/verifier/results.json (missing)
-  - results/validation/validation.json (yes, 35599 bytes)
-  - results/validation/validation.md (yes, 21570 bytes)
+  - results/validation/validation.json (yes, 36902 bytes)
+  - results/validation/validation.md (yes, 22429 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -685,7 +686,7 @@ No rows recorded.
 | results/d_stage_2/results.json | missing |  |  |
 | results/d_stage_3/results.json | missing |  |  |
 | results/verifier/results.json | missing |  |  |
-| results/validation/validation.json | False | summary=n_checks=192; n_fail=5; n_pass=187 |  |
+| results/validation/validation.json | False | summary=n_checks=198; n_fail=3; n_pass=195 |  |
 
 #### Contract Result Tables
 
@@ -753,8 +754,8 @@ No rows recorded.
   - results/stage_a_sudoku6_bridge/results.json (yes, 4890 bytes)
   - results/w3_qwen35_probe/results.json (yes, 96087 bytes)
   - results/w3_qwen35_probe/verdicts.json (yes, 674 bytes)
-  - results/validation/validation.json (yes, 35599 bytes)
-  - results/validation/validation.md (yes, 21570 bytes)
+  - results/validation/validation.json (yes, 36902 bytes)
+  - results/validation/validation.md (yes, 22429 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -762,7 +763,7 @@ No rows recorded.
 | results/stage_a_sudoku6_bridge/results.json | DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER | G1=1; single_step_forced_accuracy=1; n_sudoku6_tasks=32; reverts_nonzero_on_L4=True; forward_floor_on_L4=True; device=cpu | single_step_forced_precision_recall_by_depth:2r/5c |
 | results/w3_qwen35_probe/results.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:8r/13c; decay_survival:5r/5c; model_card:34r/3c; native_rule_gap:3r/7c; propagation_per_task_delta:5r/7c |
 | results/w3_qwen35_probe/verdicts.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... |  |
-| results/validation/validation.json | False | summary=n_checks=192; n_fail=5; n_pass=187 |  |
+| results/validation/validation.json | False | summary=n_checks=198; n_fail=3; n_pass=195 |  |
 
 #### Contract Result Tables
 
@@ -935,8 +936,8 @@ No rows recorded.
   - results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json (yes, 19157 bytes)
   - results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json (yes, 19123 bytes)
   - results/w3_qwen35_probe/propagation_shards/logic_grid/results.json (yes, 19025 bytes)
-  - results/validation/validation.json (yes, 35599 bytes)
-  - results/validation/validation.md (yes, 21570 bytes)
+  - results/validation/validation.json (yes, 36902 bytes)
+  - results/validation/validation.md (yes, 22429 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -952,7 +953,7 @@ No rows recorded.
 | results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/logic_grid/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
-| results/validation/validation.json | False | summary=n_checks=192; n_fail=5; n_pass=187 |  |
+| results/validation/validation.json | False | summary=n_checks=198; n_fail=3; n_pass=195 |  |
 
 #### Contract Result Tables
 
@@ -1172,24 +1173,24 @@ Truncated to 24 of 27 rows.
   - honesty=This item establishes Track A wiring, stateless oracle CI, labels, validation split, and a 6x6 chain-validation artifact with autonomous symbolic cells. It does not establish learned_recurrent Stage A, does not green learned-track checks, does not yet show nonzero L4 reverts or forward-floor separation on a deep L4 grid, does not complete Track B, and does not land D1/D2/D3.
 - Artifact refs:
   - results/experiment_items/item_037_two_track_decoupling_track_a_symbolic.json (yes, 26888 bytes)
-  - experiments/stage_a_symbolic_oracle.py (yes, 31799 bytes)
+  - experiments/stage_a_symbolic_oracle.py (yes, 34170 bytes)
   - analysis/test_stage_a_symbolic_oracle.py (yes, 462 bytes)
-  - results/stage_a_symbolic/results.json (yes, 126243 bytes)
-  - results/stage_a_symbolic/report.json (yes, 16181 bytes)
-  - results/stage_a_symbolic/report.md (yes, 1635 bytes)
+  - results/stage_a_symbolic/results.json (yes, 271066 bytes)
+  - results/stage_a_symbolic/report.json (yes, 16928 bytes)
+  - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 35599 bytes)
-  - results/validation/validation.md (yes, 21570 bytes)
-  - results/experiment_log/experiment_log.json (yes, 560376 bytes)
-  - results/experiment_log/experiment_log.md (yes, 130933 bytes)
+  - results/validation/validation.json (yes, 36902 bytes)
+  - results/validation/validation.md (yes, 22429 bytes)
+  - results/experiment_log/experiment_log.json (yes, 601038 bytes)
+  - results/experiment_log/experiment_log.md (yes, 141145 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_SHARD_COMPLETE | n_cells=43; num_shards=1; n_tasks=4; operator=symbolic_oracle; shard_index=0; source=autonomous_stage_a_run |  |
+| results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=192; n_fail=5; n_pass=187 |  |
+| results/validation/validation.json | False | summary=n_checks=198; n_fail=3; n_pass=195 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1289,6 +1290,100 @@ Truncated to 24 of 27 rows.
 
 - Next action: Launch the real Track A 9x9/deepened L4 grid with this runner after D3 bins land; keep learned-track reds visible; implement Track B per-cell-token TRM-class operator in parallel; keep D1/D2/D3 quarantines until their artifacts exist.
 
+### Item 038 - Track A budgeted parallel symbolic L4 evidence and GPU feasibility
+
+- Status: TRACK_A_SYMBOLIC_L4_EVIDENCE_RECORDED_LEARNED_TRACK_STILL_RED
+- Key result: Use CPU parallel budgeted Track A for remaining symbolic shards; reserve GPUs for Track B learned/TRM-class operator and D1. Next, implement Track B or the D1/D2/D3 debts without promoting symbolic Track A rows into learned-track evidence.
+- Purpose: Continue the two-track decoupling work by first checking whether Track A symbolic-oracle Stage A benefits from GPU acceleration, then replacing slow sequential execution with subprocess-budgeted CPU parallel orchestration. This item records the GPU feasibility result, the 8-worker canonical Track A symbolic run, and the measured symbolic L4 revert/floor evidence while preserving learned-track red checks.
+- Details:
+  - purpose=Continue the two-track decoupling work by first checking whether Track A symbolic-oracle Stage A benefits from GPU acceleration, then replacing slow sequential execution with subprocess-budgeted CPU parallel orchestration. This item records the GPU feasibility result, the 8-worker canonical Track A symbolic run, and the measured symbolic L4 revert/floor evidence while preserving learned-track red checks.
+  - commands=5
+  - result_tables=['gpu_feasibility_benchmark', 'budgeted_parallel_run_summary', 'symbolic_core_evidence', 'l4_separation_table_symbolic_budgeted', 'arbiter_cell_symbolic_budgeted', 'validation_before_after']
+  - honesty=This item establishes a faster fail-closed Track A execution path and measured symbolic-oracle L4 revert/floor evidence on sudoku6 depth histogram {'1':3,'2':2,'3':3}. It does not establish learned_recurrent Stage A, does not green fixture/learned-track Stage A checks, does not complete Track B, and does not complete D1/D2/D3 or a 9x9 deep frontier.
+- Artifact refs:
+  - results/experiment_items/item_038_track_a_budgeted_parallel_symbolic_l4.json (yes, 18931 bytes)
+  - experiments/stage_a_symbolic_oracle.py (yes, 34170 bytes)
+  - experiments/stage_a_symbolic_budgeted_grid.py (yes, 10305 bytes)
+  - results/stage_a_symbolic/results.json (yes, 271066 bytes)
+  - results/stage_a_symbolic/report.json (yes, 16928 bytes)
+  - results/stage_a_symbolic/report.md (yes, 1641 bytes)
+  - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
+  - results/validation/validation.json (yes, 36902 bytes)
+  - results/validation/validation.md (yes, 22429 bytes)
+  - results/experiment_log/experiment_log.json (yes, 601038 bytes)
+  - results/experiment_log/experiment_log.md (yes, 141145 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
+| results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
+| results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
+| results/validation/validation.json | False | summary=n_checks=198; n_fail=3; n_pass=195 |  |
+| results/experiment_log/experiment_log.json | recorded |  |  |
+
+#### Contract Result Tables
+
+##### gpu_feasibility_benchmark
+
+| device | elapsed_seconds | representative_cell | task_rows | decision | provenance |
+| --- | --- | --- | --- | --- | --- |
+| cpu | 1.56 | build_track_a_grid('sudoku6')[0] | [('SOLVED',1,0),('SOLVED',4,0)] | faster_for_track_a_hot_path | inline benchmark command in this item |
+| cuda:0 | 2.093 | build_track_a_grid('sudoku6')[0] | [('SOLVED',1,0),('SOLVED',4,0)] | slower_for_track_a_hot_path | inline benchmark command in this item |
+
+##### budgeted_parallel_run_summary
+
+| artifact | status | n_cells | n_tasks | workers | per_cell_timeout_seconds | total_timeout_count | failed_subprocess_runs | depth_histogram | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | 43 | 8 | 8 | 15 | 0 | 0 | 1=3; 2=2; 3=3 | results/stage_a_symbolic/results.json |
+
+##### symbolic_core_evidence
+
+| declared_track | operator | autonomous_cells | reverts_nonzero_on_L4 | forward_floor_on_L4 | kv_snapshot_max_depth | rot_no_revert_max_depth | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| A_symbolic | symbolic_oracle | 43 | True | True | 3 | 3 | results/stage_a_symbolic/report.json |
+
+##### l4_separation_table_symbolic_budgeted
+
+| track | operator | source | task_family | arm | D | spill | n_cells | mean_solve_rate | total_applied_reverts | max_solve_depth | total_timeout_count | max_peak_register_bytes | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | gru | 128 | spill_off | 2 | 0 | 0 | 0 | 0 | 0 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | gru | 256 | spill_off | 2 | 0 | 0 | 0 | 0 | 0 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | gru | 512 | spill_off | 2 | 0 | 0 | 0 | 0 | 0 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | kv_snapshot | 128 | spill_off | 2 | 1 | 2 | 3 | 0 | 808 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | kv_snapshot | 256 | spill_off | 2 | 1 | 2 | 3 | 0 | 808 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | kv_snapshot | 512 | spill_off | 2 | 1 | 2 | 3 | 0 | 808 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_bound_single | 128 | spill_off | 2 | 1 | 2 | 3 | 0 | 512 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_bound_single | 128 | spill_on | 2 | 1 | 2 | 3 | 0 | 512 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_bound_single | 256 | spill_off | 2 | 1 | 2 | 3 | 0 | 1024 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_bound_single | 256 | spill_on | 3 | 1 | 3 | 3 | 0 | 1024 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_bound_single | 512 | spill_off | 2 | 1 | 2 | 3 | 0 | 2048 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_bound_single | 512 | spill_on | 2 | 1 | 2 | 3 | 0 | 2048 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_factored | 128 | spill_off | 2 | 1 | 2 | 3 | 0 | 512 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_factored | 128 | spill_on | 2 | 1 | 2 | 3 | 0 | 512 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_factored | 256 | spill_off | 2 | 1 | 2 | 3 | 0 | 1024 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_factored | 256 | spill_on | 2 | 1 | 2 | 3 | 0 | 1024 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_factored | 512 | spill_off | 2 | 1 | 2 | 3 | 0 | 2048 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_factored | 512 | spill_on | 2 | 1 | 2 | 3 | 0 | 2048 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_no_revert | 128 | spill_off | 2 | 0.875 | 0 | 3 | 0 | 512 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_no_revert | 256 | spill_off | 2 | 0.875 | 0 | 3 | 0 | 1024 | results/stage_a_symbolic/report.json |
+| A_symbolic | symbolic_oracle | autonomous_stage_a_run | sudoku6 | rot_no_revert | 512 | spill_off | 2 | 0.875 | 0 | 3 | 0 | 2048 | results/stage_a_symbolic/report.json |
+
+##### arbiter_cell_symbolic_budgeted
+
+| cell_name | solve_rate | applied_reverts | max_solve_depth | provenance |
+| --- | --- | --- | --- | --- |
+| A_symbolic_sudoku6_rot_bound_single_D256_seed42_spill_on_arbiter09025 | 1 | 1 | 3 | results/stage_a_symbolic/report.json |
+
+##### validation_before_after
+
+| point | n_checks | n_pass | n_fail | remaining_fail_names | provenance |
+| --- | --- | --- | --- | --- | --- |
+| after_item037_track_a_wiring | 192 | 187 | 5 | stage_a_g1_pass; stage_a_reverts_nonzero_on_L4; stage_a_forward_floor_on_L4; stage_a_symbolic_reverts_nonzero_on_L4; stage_a_symbolic_forward_floor_on_L4 | item037 validation summary |
+| after_item038_budgeted_parallel_symbolic_l4 | 198 | 195 | 3 | stage_a_g1_pass; stage_a_reverts_nonzero_on_L4; stage_a_forward_floor_on_L4 | results/validation/validation.json |
+
+- Next action: Use CPU parallel budgeted Track A for remaining symbolic shards; reserve GPUs for Track B learned/TRM-class operator and D1. Next, implement Track B or the D1/D2/D3 debts without promoting symbolic Track A rows into learned-track evidence.
+
 
 ## Canonical Repo Decision
 
@@ -1325,10 +1420,10 @@ Truncated to 24 of 27 rows.
 | Fair GRU closeout | YELLOW | classification=NOT_READY; max_ratio=0.9025; headline_locked=False |
 | M2.0 frozen Qwen operator | RED | verdict=PER_TASK_ROUTING; list_all_recall=0.3771; single_precision=0.4322 |
 | Branch policy | YELLOW | qwen_nodes=4.939; mrv_nodes=5.067; qwen_invalid_rate=0.2316 |
-| Stage A Track A symbolic | YELLOW | track=A_symbolic; operator=symbolic_oracle; autonomous_cells=43; symbolic_core={'autonomous_cells': 43, 'declared_track': 'A_symbolic', 'forward_floor_on_L4': False, 'kv_snapshot_max_depth': 2, 'operator': 'symbolic_oracle', 'reverts_nonzero_on_L4': False, 'rot_no_revert_max_depth': 2} |
+| Stage A Track A symbolic | YELLOW | track=A_symbolic; operator=symbolic_oracle; autonomous_cells=43; symbolic_core={'autonomous_cells': 43, 'declared_track': 'A_symbolic', 'forward_floor_on_L4': True, 'kv_snapshot_max_depth': 3, 'operator': 'symbolic_oracle', 'reverts_nonzero_on_L4': True, 'rot_no_revert_max_depth': 3} |
 | Stage A learned track | RED | diagnostic_G1=1.0; learned_autonomous_cells=0; statuses=['PARENT_ADAPTER_REQUIRED'] |
 | W3 Qwen3.5 | YELLOW | integration_grade=cached_gdn_state_measured_with_propagation_delta; W3.0=PASS |
-| Validation | RED | checks=192; pass=187; fail=5 |
+| Validation | RED | checks=198; pass=195; fail=3 |
 
 ## Artifact Index
 
@@ -1347,6 +1442,7 @@ Truncated to 24 of 27 rows.
 | item_035_g1_anomaly_true_dims_w3_scale | results/experiment_items/item_035_g1_anomaly_true_dims_w3_scale.json | yes |
 | item_036_overnight_t2_w3_50x2_closeout | results/experiment_items/item_036_overnight_t2_w3_50x2_closeout.json | yes |
 | item_037_two_track_decoupling_track_a_symbolic | results/experiment_items/item_037_two_track_decoupling_track_a_symbolic.json | yes |
+| item_038_track_a_budgeted_parallel_symbolic_l4 | results/experiment_items/item_038_track_a_budgeted_parallel_symbolic_l4.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
 | qwen3_4b_instruct_download | results/model_download/qwen_download.json | yes |
@@ -1365,6 +1461,7 @@ Truncated to 24 of 27 rows.
 | g1_fix_spec | specs/g1_fix_spec.md | yes |
 | stage_a_reconstructed_artifacts | artifacts/stage_a/manifest.json | yes |
 | stage_a_backtrack | results/stage_a_backtrack/report.json | yes |
+| stage_a_symbolic_budgeted_grid_script | experiments/stage_a_symbolic_budgeted_grid.py | yes |
 | stage_a_symbolic_results | results/stage_a_symbolic/results.json | yes |
 | stage_a_symbolic_report | results/stage_a_symbolic/report.json | yes |
 | stage_a_symbolic_oracle_statelessness | results/stage_a_symbolic/oracle_statelessness_ci.json | yes |
@@ -1380,13 +1477,13 @@ Truncated to 24 of 27 rows.
 
 | tier | pass | fail |
 | --- | --- | --- |
-| contract | 92 | 0 |
+| contract | 98 | 0 |
 | env | 13 | 0 |
 | legacy | 7 | 0 |
 | meta | 1 | 0 |
 | p0 | 2 | 0 |
 | tier_a | 35 | 0 |
-| tier_b | 25 | 5 |
+| tier_b | 27 | 3 |
 | tier_c | 12 | 0 |
 
 ## P0/P1/P2/P3 Execution Notes

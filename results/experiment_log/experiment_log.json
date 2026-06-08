@@ -18,6 +18,7 @@
     "item_035_g1_anomaly_true_dims_w3_scale": "results/experiment_items/item_035_g1_anomaly_true_dims_w3_scale.json",
     "item_036_overnight_t2_w3_50x2_closeout": "results/experiment_items/item_036_overnight_t2_w3_50x2_closeout.json",
     "item_037_two_track_decoupling_track_a_symbolic": "results/experiment_items/item_037_two_track_decoupling_track_a_symbolic.json",
+    "item_038_track_a_budgeted_parallel_symbolic_l4": "results/experiment_items/item_038_track_a_budgeted_parallel_symbolic_l4.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "m2_operator_fix_rescale": "results/m2_operator_probe/report_fix_rescale.json",
     "m2_operator_probe": "results/m2_operator_probe/report.json",
@@ -34,6 +35,7 @@
     "qwen3_5_4b_download": "results/model_download/qwen3_5_4b/qwen_download.json",
     "stage_a_backtrack": "results/stage_a_backtrack/report.json",
     "stage_a_reconstructed_artifacts": "artifacts/stage_a/manifest.json",
+    "stage_a_symbolic_budgeted_grid_script": "experiments/stage_a_symbolic_budgeted_grid.py",
     "stage_a_symbolic_oracle_statelessness": "results/stage_a_symbolic/oracle_statelessness_ci.json",
     "stage_a_symbolic_report": "results/stage_a_symbolic/report.json",
     "stage_a_symbolic_results": "results/stage_a_symbolic/results.json",
@@ -60,9 +62,9 @@
         ],
         "rows": [
           {
-            "applied_reverts": 0,
+            "applied_reverts": 1,
             "cell_name": "A_symbolic_sudoku6_rot_bound_single_D256_seed42_spill_on_arbiter09025",
-            "max_solve_depth": 2,
+            "max_solve_depth": 3,
             "provenance": "results/stage_a_symbolic/results.json",
             "solve_rate": 1.0
           }
@@ -78,19 +80,19 @@
         "rows": [
           {
             "D": 128,
-            "observed_max_solve_depth": 2,
+            "observed_max_solve_depth": 3,
             "predicted_d_star": 11.574431824172983,
             "provenance": "results/stage_a_symbolic/results.json"
           },
           {
             "D": 256,
-            "observed_max_solve_depth": 2,
+            "observed_max_solve_depth": 3,
             "predicted_d_star": 23.148863648345966,
             "provenance": "results/stage_a_symbolic/results.json"
           },
           {
             "D": 512,
-            "observed_max_solve_depth": 2,
+            "observed_max_solve_depth": 3,
             "predicted_d_star": 46.29772729669193,
             "provenance": "results/stage_a_symbolic/results.json"
           }
@@ -108,7 +110,8 @@
           "n_cells",
           "mean_solve_rate",
           "total_applied_reverts",
-          "max_solve_depth"
+          "max_solve_depth",
+          "total_timeout_count"
         ],
         "rows": [
           {
@@ -124,6 +127,7 @@
             "spill": "spill_off",
             "task_family": "sudoku6",
             "total_applied_reverts": 0,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -139,6 +143,7 @@
             "spill": "spill_off",
             "task_family": "sudoku6",
             "total_applied_reverts": 0,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -154,51 +159,55 @@
             "spill": "spill_off",
             "task_family": "sudoku6",
             "total_applied_reverts": 0,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
             "D": 128,
             "arm": "kv_snapshot",
             "max_overflow_entries": 0,
-            "max_peak_register_bytes": 624,
-            "max_solve_depth": 2,
+            "max_peak_register_bytes": 808,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_off",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
             "D": 256,
             "arm": "kv_snapshot",
             "max_overflow_entries": 0,
-            "max_peak_register_bytes": 624,
-            "max_solve_depth": 2,
+            "max_peak_register_bytes": 808,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_off",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
             "D": 512,
             "arm": "kv_snapshot",
             "max_overflow_entries": 0,
-            "max_peak_register_bytes": 624,
-            "max_solve_depth": 2,
+            "max_peak_register_bytes": 808,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_off",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -206,14 +215,15 @@
             "arm": "rot_bound_single",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 512,
-            "max_solve_depth": 2,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_off",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -221,14 +231,15 @@
             "arm": "rot_bound_single",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 512,
-            "max_solve_depth": 2,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_on",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -236,14 +247,15 @@
             "arm": "rot_bound_single",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 1024,
-            "max_solve_depth": 2,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_off",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -251,14 +263,15 @@
             "arm": "rot_bound_single",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 1024,
-            "max_solve_depth": 2,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 3,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_on",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 3,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -266,14 +279,15 @@
             "arm": "rot_bound_single",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 2048,
-            "max_solve_depth": 2,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_off",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -281,14 +295,15 @@
             "arm": "rot_bound_single",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 2048,
-            "max_solve_depth": 2,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_on",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -296,14 +311,15 @@
             "arm": "rot_factored",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 512,
-            "max_solve_depth": 2,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_off",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -311,14 +327,15 @@
             "arm": "rot_factored",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 512,
-            "max_solve_depth": 2,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_on",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -326,14 +343,15 @@
             "arm": "rot_factored",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 1024,
-            "max_solve_depth": 2,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_off",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -341,14 +359,15 @@
             "arm": "rot_factored",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 1024,
-            "max_solve_depth": 2,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_on",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -356,14 +375,15 @@
             "arm": "rot_factored",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 2048,
-            "max_solve_depth": 2,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_off",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -371,14 +391,15 @@
             "arm": "rot_factored",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 2048,
-            "max_solve_depth": 2,
+            "max_solve_depth": 3,
             "mean_solve_rate": 1.0,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_on",
             "task_family": "sudoku6",
-            "total_applied_reverts": 0,
+            "total_applied_reverts": 2,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -386,14 +407,15 @@
             "arm": "rot_no_revert",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 512,
-            "max_solve_depth": 2,
-            "mean_solve_rate": 1.0,
+            "max_solve_depth": 3,
+            "mean_solve_rate": 0.875,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_off",
             "task_family": "sudoku6",
             "total_applied_reverts": 0,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -401,14 +423,15 @@
             "arm": "rot_no_revert",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 1024,
-            "max_solve_depth": 2,
-            "mean_solve_rate": 1.0,
+            "max_solve_depth": 3,
+            "mean_solve_rate": 0.875,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_off",
             "task_family": "sudoku6",
             "total_applied_reverts": 0,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           },
           {
@@ -416,14 +439,15 @@
             "arm": "rot_no_revert",
             "max_overflow_entries": 0,
             "max_peak_register_bytes": 2048,
-            "max_solve_depth": 2,
-            "mean_solve_rate": 1.0,
+            "max_solve_depth": 3,
+            "mean_solve_rate": 0.875,
             "n_cells": 2,
             "operator": "symbolic_oracle",
             "source": "autonomous_stage_a_run",
             "spill": "spill_off",
             "task_family": "sudoku6",
             "total_applied_reverts": 0,
+            "total_timeout_count": 0,
             "track": "A_symbolic"
           }
         ]
@@ -470,7 +494,7 @@
             "D": 128,
             "arm": "kv_snapshot",
             "max_overflow_entries": 0,
-            "max_peak_register_bytes": 624,
+            "max_peak_register_bytes": 808,
             "provenance": "results/stage_a_symbolic/results.json",
             "spill": "spill_off"
           },
@@ -478,7 +502,7 @@
             "D": 256,
             "arm": "kv_snapshot",
             "max_overflow_entries": 0,
-            "max_peak_register_bytes": 624,
+            "max_peak_register_bytes": 808,
             "provenance": "results/stage_a_symbolic/results.json",
             "spill": "spill_off"
           },
@@ -486,7 +510,7 @@
             "D": 512,
             "arm": "kv_snapshot",
             "max_overflow_entries": 0,
-            "max_peak_register_bytes": 624,
+            "max_peak_register_bytes": 808,
             "provenance": "results/stage_a_symbolic/results.json",
             "spill": "spill_off"
           },
@@ -616,11 +640,11 @@
       "symbolic_core_evidence": {
         "autonomous_cells": 43,
         "declared_track": "A_symbolic",
-        "forward_floor_on_L4": false,
-        "kv_snapshot_max_depth": 2,
+        "forward_floor_on_L4": true,
+        "kv_snapshot_max_depth": 3,
         "operator": "symbolic_oracle",
-        "reverts_nonzero_on_L4": false,
-        "rot_no_revert_max_depth": 2
+        "reverts_nonzero_on_L4": true,
+        "rot_no_revert_max_depth": 3
       },
       "track": "A_symbolic"
     },
@@ -4066,7 +4090,7 @@
       "S3.1 integration is not started."
     ]
   },
-  "generated_at": "2026-06-08T03:27:33.099211+00:00",
+  "generated_at": "2026-06-08T03:50:33.552415+00:00",
   "incremental_items": [
     [
       "001-018",
@@ -4126,7 +4150,7 @@
       "P0",
       "ledger and validation housekeeping",
       "Updated",
-      "validation_checks=192; validation_passed=False"
+      "validation_checks=198; validation_passed=False"
     ],
     [
       "W3.0",
@@ -4217,6 +4241,12 @@
       "Two-track decoupling: Track A symbolic oracle wiring and Track B TRM-class routing",
       "TRACK_A_WIRED_6X6_CHAIN_VALIDATED_REVERT_L4_PENDING",
       "Launch the real Track A 9x9/deepened L4 grid with this runner after D3 bins land; keep learned-track reds visible; implement Track B per-cell-token TRM-class operator in parallel; keep D1/D2/D3 quarantines until their artifacts exist."
+    ],
+    [
+      "038",
+      "Track A budgeted parallel symbolic L4 evidence and GPU feasibility",
+      "TRACK_A_SYMBOLIC_L4_EVIDENCE_RECORDED_LEARNED_TRACK_STILL_RED",
+      "Use CPU parallel budgeted Track A for remaining symbolic shards; reserve GPUs for Track B learned/TRM-class operator and D1. Next, implement Track B or the D1/D2/D3 debts without promoting symbolic Track A rows into learned-track evidence."
     ]
   ],
   "items": [
@@ -4386,12 +4416,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 35599
+          "size_bytes": 36902
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 21570
+          "size_bytes": 22429
         }
       ],
       "detail_data": {
@@ -4414,18 +4444,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:27:32.939951+00:00"
+              "2026-06-08T03:50:33.392096+00:00"
             ],
             [
               "summary",
-              "n_checks=192; n_fail=5; n_pass=187"
+              "n_checks=198; n_fail=3; n_pass=195"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 35599
+          "size_bytes": 36902
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -4433,7 +4463,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 21570
+          "size_bytes": 22429
         }
       },
       "details": [
@@ -5188,12 +5218,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 35599
+          "size_bytes": 36902
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 560376
+          "size_bytes": 601038
         }
       ],
       "detail_data": {
@@ -5220,14 +5250,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T03:18:51.889254+00:00"
+              "2026-06-08T03:49:58.428159+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 560376
+          "size_bytes": 601038
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -5240,27 +5270,27 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:27:32.939951+00:00"
+              "2026-06-08T03:50:33.392096+00:00"
             ],
             [
               "summary",
-              "n_checks=192; n_fail=5; n_pass=187"
+              "n_checks=198; n_fail=3; n_pass=195"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 35599
+          "size_bytes": 36902
         }
       },
       "details": [
         "Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.",
-        "validation_pass=187; validation_fail=5",
+        "validation_pass=195; validation_fail=3",
         "Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure."
       ],
       "item": "P0",
-      "key_result": "validation_checks=192; validation_passed=False",
+      "key_result": "validation_checks=198; validation_passed=False",
       "name": "ledger and validation housekeeping",
       "next_action": "Keep future reports item-first and preserve explicit red checks.",
       "status": "Updated"
@@ -5880,22 +5910,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 35599
+          "size_bytes": 36902
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 21570
+          "size_bytes": 22429
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 560376
+          "size_bytes": 601038
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 130933
+          "size_bytes": 141145
         },
         {
           "path": "specs/log_item_contract.md",
@@ -6265,14 +6295,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T03:18:51.889254+00:00"
+              "2026-06-08T03:49:58.428159+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 560376
+          "size_bytes": 601038
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -6280,7 +6310,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 130933
+          "size_bytes": 141145
         },
         "results/stage_a_adapter_wiring/results.json": {
           "embedded": false,
@@ -6465,18 +6495,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:27:32.939951+00:00"
+              "2026-06-08T03:50:33.392096+00:00"
             ],
             [
               "summary",
-              "n_checks=192; n_fail=5; n_pass=187"
+              "n_checks=198; n_fail=3; n_pass=195"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 35599
+          "size_bytes": 36902
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -6484,7 +6514,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 21570
+          "size_bytes": 22429
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -8722,12 +8752,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 35599
+          "size_bytes": 36902
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 21570
+          "size_bytes": 22429
         }
       ],
       "contract_data": {
@@ -9212,18 +9242,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:27:32.939951+00:00"
+              "2026-06-08T03:50:33.392096+00:00"
             ],
             [
               "summary",
-              "n_checks=192; n_fail=5; n_pass=187"
+              "n_checks=198; n_fail=3; n_pass=195"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 35599
+          "size_bytes": 36902
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -9231,7 +9261,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 21570
+          "size_bytes": 22429
         },
         "results/verifier/results.json": {
           "path": "results/verifier/results.json",
@@ -9299,12 +9329,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 35599
+          "size_bytes": 36902
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 21570
+          "size_bytes": 22429
         }
       ],
       "contract_data": {
@@ -9690,18 +9720,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:27:32.939951+00:00"
+              "2026-06-08T03:50:33.392096+00:00"
             ],
             [
               "summary",
-              "n_checks=192; n_fail=5; n_pass=187"
+              "n_checks=198; n_fail=3; n_pass=195"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 35599
+          "size_bytes": 36902
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -9709,7 +9739,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 21570
+          "size_bytes": 22429
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -10805,12 +10835,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 35599
+          "size_bytes": 36902
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 21570
+          "size_bytes": 22429
         }
       ],
       "contract_data": {
@@ -11810,18 +11840,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:27:32.939951+00:00"
+              "2026-06-08T03:50:33.392096+00:00"
             ],
             [
               "summary",
-              "n_checks=192; n_fail=5; n_pass=187"
+              "n_checks=198; n_fail=3; n_pass=195"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 35599
+          "size_bytes": 36902
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -11829,7 +11859,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 21570
+          "size_bytes": 22429
         },
         "results/w3_qwen35_probe/propagation_shards/general_sat/results.json": {
           "embedded": false,
@@ -14088,7 +14118,7 @@
         {
           "path": "experiments/stage_a_symbolic_oracle.py",
           "present": "yes",
-          "size_bytes": 31799
+          "size_bytes": 34170
         },
         {
           "path": "analysis/test_stage_a_symbolic_oracle.py",
@@ -14098,17 +14128,17 @@
         {
           "path": "results/stage_a_symbolic/results.json",
           "present": "yes",
-          "size_bytes": 126243
+          "size_bytes": 271066
         },
         {
           "path": "results/stage_a_symbolic/report.json",
           "present": "yes",
-          "size_bytes": 16181
+          "size_bytes": 16928
         },
         {
           "path": "results/stage_a_symbolic/report.md",
           "present": "yes",
-          "size_bytes": 1635
+          "size_bytes": 1641
         },
         {
           "path": "results/stage_a_symbolic/oracle_statelessness_ci.json",
@@ -14118,22 +14148,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 35599
+          "size_bytes": 36902
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 21570
+          "size_bytes": 22429
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 560376
+          "size_bytes": 601038
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 130933
+          "size_bytes": 141145
         }
       ],
       "contract_data": {
@@ -14940,7 +14970,7 @@
           "path": "experiments/stage_a_symbolic_oracle.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 31799
+          "size_bytes": 34170
         },
         "results/experiment_items/item_037_two_track_decoupling_track_a_symbolic.json": {
           "embedded": false,
@@ -15030,14 +15060,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T03:18:51.889254+00:00"
+              "2026-06-08T03:49:58.428159+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 560376
+          "size_bytes": 601038
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -15045,7 +15075,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 130933
+          "size_bytes": 141145
         },
         "results/stage_a_symbolic/oracle_statelessness_ci.json": {
           "embedded": false,
@@ -15125,7 +15155,7 @@
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 16181
+          "size_bytes": 16928
         },
         "results/stage_a_symbolic/report.md": {
           "embedded": false,
@@ -15133,7 +15163,7 @@
           "path": "results/stage_a_symbolic/report.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 1635
+          "size_bytes": 1641
         },
         "results/stage_a_symbolic/results.json": {
           "embedded": false,
@@ -15142,39 +15172,43 @@
           "json_summary": [
             [
               "module",
-              "stage_a_symbolic_oracle"
+              "stage_a_symbolic_budgeted_grid"
             ],
             [
               "status",
-              "TRACK_A_SYMBOLIC_SHARD_COMPLETE"
+              "TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE"
             ],
             [
               "n_cells",
               "43"
             ],
             [
-              "num_shards",
-              "1"
+              "device",
+              "cpu"
             ],
             [
               "generated_at",
-              "2026-06-08T03:25:29.627409+00:00"
+              "2026-06-08T03:46:43.547703+00:00"
             ],
             [
               "honesty",
-              "does_not_establish=Track A uses operator=symbolic_oracle and does not establish learned_recurrent G1, learned operator propagation, TRM performance, D1 cached-state survival, D2 TRM defensive accuracy, or D3 deep 9x9 frontier resolution."
+              "does_not_establish=Subprocess timeouts are fail-closed evidence rows, not solves. Timed-out rot cells require narrower shards or optimized register decode before they can support L4 claims."
             ],
             [
               "n_tasks",
-              "4"
+              "8"
             ],
             [
               "operator",
               "symbolic_oracle"
             ],
             [
-              "shard_index",
-              "0"
+              "per_cell_timeout",
+              "15"
+            ],
+            [
+              "requested_cells",
+              "43"
             ],
             [
               "source",
@@ -15191,13 +15225,17 @@
             [
               "track",
               "A_symbolic"
+            ],
+            [
+              "workers",
+              "8"
             ]
           ],
           "path": "results/stage_a_symbolic/results.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 126243
+          "size_bytes": 271066
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -15210,18 +15248,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:27:32.939951+00:00"
+              "2026-06-08T03:50:33.392096+00:00"
             ],
             [
               "summary",
-              "n_checks=192; n_fail=5; n_pass=187"
+              "n_checks=198; n_fail=3; n_pass=195"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 35599
+          "size_bytes": 36902
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -15229,7 +15267,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 21570
+          "size_bytes": 22429
         }
       },
       "details": [
@@ -15244,6 +15282,984 @@
       "next_action": "Launch the real Track A 9x9/deepened L4 grid with this runner after D3 bins land; keep learned-track reds visible; implement Track B per-cell-token TRM-class operator in parallel; keep D1/D2/D3 quarantines until their artifacts exist.",
       "purpose": "Register the user-approved two-track decoupling: Track A treats Stage A as a trail-mechanism claim under a fixed stateless symbolic oracle, while Track B continues learned-operator work in the TRM-class architecture. This item records the Day-1 Track A oracle contract, labels, validation split, and a 6x6 chain-validation run; it does not claim the 9x9 L4 grid, D1, D2, D3, or Track B training are complete.",
       "status": "TRACK_A_WIRED_6X6_CHAIN_VALIDATED_REVERT_L4_PENDING"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/experiment_items/item_038_track_a_budgeted_parallel_symbolic_l4.json",
+          "present": "yes",
+          "size_bytes": 18931
+        },
+        {
+          "path": "experiments/stage_a_symbolic_oracle.py",
+          "present": "yes",
+          "size_bytes": 34170
+        },
+        {
+          "path": "experiments/stage_a_symbolic_budgeted_grid.py",
+          "present": "yes",
+          "size_bytes": 10305
+        },
+        {
+          "path": "results/stage_a_symbolic/results.json",
+          "present": "yes",
+          "size_bytes": 271066
+        },
+        {
+          "path": "results/stage_a_symbolic/report.json",
+          "present": "yes",
+          "size_bytes": 16928
+        },
+        {
+          "path": "results/stage_a_symbolic/report.md",
+          "present": "yes",
+          "size_bytes": 1641
+        },
+        {
+          "path": "results/stage_a_symbolic/oracle_statelessness_ci.json",
+          "present": "yes",
+          "size_bytes": 1240
+        },
+        {
+          "path": "results/validation/validation.json",
+          "present": "yes",
+          "size_bytes": 36902
+        },
+        {
+          "path": "results/validation/validation.md",
+          "present": "yes",
+          "size_bytes": 22429
+        },
+        {
+          "path": "results/experiment_log/experiment_log.json",
+          "present": "yes",
+          "size_bytes": 601038
+        },
+        {
+          "path": "results/experiment_log/experiment_log.md",
+          "present": "yes",
+          "size_bytes": 141145
+        }
+      ],
+      "contract_data": {
+        "artifacts": [
+          "experiments/stage_a_symbolic_oracle.py",
+          "experiments/stage_a_symbolic_budgeted_grid.py",
+          "results/stage_a_symbolic/results.json",
+          "results/stage_a_symbolic/report.json",
+          "results/stage_a_symbolic/report.md",
+          "results/stage_a_symbolic/oracle_statelessness_ci.json",
+          "results/validation/validation.json",
+          "results/validation/validation.md",
+          "results/experiment_items/item_038_track_a_budgeted_parallel_symbolic_l4.json",
+          "results/experiment_log/experiment_log.json",
+          "results/experiment_log/experiment_log.md"
+        ],
+        "code_added_used": [
+          {
+            "change": "Added per-cell filtering, torch thread control, max_seconds_per_episode metadata, timeout_count summaries, and total_timeout_count report columns so Track A cells can be run and merged independently.",
+            "path": "experiments/stage_a_symbolic_oracle.py"
+          },
+          {
+            "change": "Added subprocess-level per-cell timeout orchestration with optional parallel workers. Each child runs one Track A cell via --cell-index; timeout/failure rows are fail-closed and receive no solve credit.",
+            "path": "experiments/stage_a_symbolic_budgeted_grid.py"
+          },
+          {
+            "change": "Added item038 and the budgeted Track A runner to the canonical artifact index.",
+            "path": "analysis/experiment_log.py"
+          }
+        ],
+        "commands": [
+          {
+            "command": ".venv/bin/python - <<'PY'\nfrom experiments.stage_a_symbolic_oracle import build_eval_tasks, build_track_a_grid, run_episode\nimport time\nfor device in ['cpu','cuda:0']:\n    tasks=build_eval_tasks('sudoku6', 2, 2, 1, 3)\n    cell=build_track_a_grid('sudoku6')[0]\n    start=time.time()\n    rows=[run_episode(task, cell, max_nodes=64, device=device) for task in tasks]\n    print(device, 'elapsed', round(time.time()-start, 4), [(row['status'], row.get('dpll_backtrack_depth'), row.get('applied_reverts')) for row in rows])\nPY",
+            "purpose": "Representative CPU vs GPU Track A hot-path benchmark before choosing the runtime path."
+          },
+          {
+            "command": ".venv/bin/python -m py_compile experiments/stage_a_symbolic_oracle.py experiments/stage_a_symbolic_budgeted_grid.py",
+            "purpose": "Compile-check the edited Track A runner files."
+          },
+          {
+            "command": ".venv/bin/python -m experiments.stage_a_symbolic_budgeted_grid --output-dir results/stage_a_symbolic_budgeted_smoke_parallel --task-family sudoku6 --n-instances 8 --min-depth 1 --max-depth 4 --seed 2 --max-nodes 64 --per-cell-timeout 15 --device cpu --torch-threads 1 --workers 3 --cell-index 0 --cell-index 30 --cell-index 36",
+            "purpose": "Smoke-test parallel subprocess orchestration on rot, kv_snapshot, and no-revert controls."
+          },
+          {
+            "command": ".venv/bin/python -m experiments.stage_a_symbolic_budgeted_grid --output-dir results/stage_a_symbolic --task-family sudoku6 --n-instances 8 --min-depth 1 --max-depth 4 --seed 2 --max-nodes 64 --per-cell-timeout 15 --device cpu --torch-threads 1 --workers 8",
+            "purpose": "Regenerate canonical Track A symbolic artifacts with 43 cells, 8 CPU workers, and subprocess-level per-cell timeout boundaries."
+          },
+          {
+            "command": ".venv/bin/python -m analysis.validate_outputs > /tmp/validation_item038.out || true",
+            "purpose": "Regenerate validation after canonical Track A symbolic L4 evidence."
+          }
+        ],
+        "decision": {
+          "gate_outcomes": [
+            {
+              "gate": "track_a_gpu_acceleration_choice",
+              "number": "cpu=1.5595s; cuda:0=2.0926s on representative cell",
+              "outcome": "USE_CPU_PARALLEL_FOR_TRACK_A"
+            },
+            {
+              "gate": "subprocess_budgeted_orchestration",
+              "number": "workers=8; per_cell_timeout_seconds=15; failed_subprocess_runs=0; total_timeout_count=0",
+              "outcome": "PASS"
+            },
+            {
+              "gate": "track_a_symbolic_l4_reverts",
+              "number": "reverts_nonzero_on_L4=True; rot/kv applied_reverts recorded across 43 cells",
+              "outcome": "PASS_SYMBOLIC_TRACK_ONLY"
+            },
+            {
+              "gate": "track_a_symbolic_forward_floor",
+              "number": "forward_floor_on_L4=True; rot_no_revert mean_solve_rate=0.875 while revert-capable rot/kv rows solve_rate=1.0",
+              "outcome": "PASS_SYMBOLIC_TRACK_ONLY"
+            },
+            {
+              "gate": "learned_track_substitution",
+              "number": "validation remains 189/192 with learned/fixture Stage A reds intact",
+              "outcome": "NO_SUBSTITUTION_GREENING"
+            }
+          ],
+          "next_step_routing": "Use CPU parallel budgeted Track A for remaining symbolic shards; reserve GPUs for Track B learned/TRM-class operator and D1. Next, implement Track B or the D1/D2/D3 debts without promoting symbolic Track A rows into learned-track evidence."
+        },
+        "honesty": {
+          "does_not_establish": "This item establishes a faster fail-closed Track A execution path and measured symbolic-oracle L4 revert/floor evidence on sudoku6 depth histogram {'1':3,'2':2,'3':3}. It does not establish learned_recurrent Stage A, does not green fixture/learned-track Stage A checks, does not complete Track B, and does not complete D1/D2/D3 or a 9x9 deep frontier.",
+          "limitations": [
+            "GPU acceleration was measured on a representative Track A cell and was slower than CPU for this Python-control-heavy symbolic runner; this does not rule out GPU use for Track B or batched learned operators.",
+            "Subprocess timeout rows are fail-closed and receive no solve credit. The canonical item038 run had zero timeout rows.",
+            "The symbolic_core.forward_floor_on_L4 field is true because rot/kv arms require real reverts while no-revert controls have solve_rate 0.875; kv_snapshot_max_depth and rot_no_revert_max_depth are both 3, so the floor evidence should be read with the revert and no-revert-control rows, not as a deeper kv-only frontier."
+          ]
+        },
+        "item_number": "038",
+        "name": "Track A budgeted parallel symbolic L4 evidence and GPU feasibility",
+        "provenance": {
+          "generated_at": "2026-06-08T03:58:00+00:00",
+          "gpu_inventory": "8 x NVIDIA A100-SXM4-80GB visible through torch.cuda",
+          "repo": "/home/aiscuser/RECURRENT_NN",
+          "track_a_dataset": "tasks.sudoku.generator_6x6.generate_6x6_by_depth_band(min_depth=1,max_depth=4,n_instances=8,seed=2)",
+          "track_a_depth_histogram": {
+            "1": 3,
+            "2": 2,
+            "3": 3
+          },
+          "track_a_device_choice": "cpu",
+          "track_a_grid_cells": 43,
+          "track_a_operator": "symbolic_oracle",
+          "track_a_per_cell_timeout_seconds": 15,
+          "track_a_source": "autonomous_stage_a_run",
+          "track_a_task_family": "sudoku6",
+          "track_a_torch_threads_per_child": 1,
+          "track_a_track": "A_symbolic",
+          "track_a_workers": 8
+        },
+        "purpose": "Continue the two-track decoupling work by first checking whether Track A symbolic-oracle Stage A benefits from GPU acceleration, then replacing slow sequential execution with subprocess-budgeted CPU parallel orchestration. This item records the GPU feasibility result, the 8-worker canonical Track A symbolic run, and the measured symbolic L4 revert/floor evidence while preserving learned-track red checks.",
+        "result_tables": {
+          "arbiter_cell_symbolic_budgeted": {
+            "columns": [
+              "cell_name",
+              "solve_rate",
+              "applied_reverts",
+              "max_solve_depth",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "applied_reverts": 1,
+                "cell_name": "A_symbolic_sudoku6_rot_bound_single_D256_seed42_spill_on_arbiter09025",
+                "max_solve_depth": 3,
+                "provenance": "results/stage_a_symbolic/report.json",
+                "solve_rate": 1.0
+              }
+            ]
+          },
+          "budgeted_parallel_run_summary": {
+            "columns": [
+              "artifact",
+              "status",
+              "n_cells",
+              "n_tasks",
+              "workers",
+              "per_cell_timeout_seconds",
+              "total_timeout_count",
+              "failed_subprocess_runs",
+              "depth_histogram",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "artifact": "results/stage_a_symbolic/results.json",
+                "depth_histogram": {
+                  "1": 3,
+                  "2": 2,
+                  "3": 3
+                },
+                "failed_subprocess_runs": 0,
+                "n_cells": 43,
+                "n_tasks": 8,
+                "per_cell_timeout_seconds": 15,
+                "provenance": "results/stage_a_symbolic/results.json",
+                "status": "TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE",
+                "total_timeout_count": 0,
+                "workers": 8
+              }
+            ]
+          },
+          "gpu_feasibility_benchmark": {
+            "columns": [
+              "device",
+              "elapsed_seconds",
+              "representative_cell",
+              "task_rows",
+              "decision",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "decision": "faster_for_track_a_hot_path",
+                "device": "cpu",
+                "elapsed_seconds": 1.5595,
+                "provenance": "inline benchmark command in this item",
+                "representative_cell": "build_track_a_grid('sudoku6')[0]",
+                "task_rows": "[('SOLVED',1,0),('SOLVED',4,0)]"
+              },
+              {
+                "decision": "slower_for_track_a_hot_path",
+                "device": "cuda:0",
+                "elapsed_seconds": 2.0926,
+                "provenance": "inline benchmark command in this item",
+                "representative_cell": "build_track_a_grid('sudoku6')[0]",
+                "task_rows": "[('SOLVED',1,0),('SOLVED',4,0)]"
+              }
+            ]
+          },
+          "l4_separation_table_symbolic_budgeted": {
+            "columns": [
+              "track",
+              "operator",
+              "source",
+              "task_family",
+              "arm",
+              "D",
+              "spill",
+              "n_cells",
+              "mean_solve_rate",
+              "total_applied_reverts",
+              "max_solve_depth",
+              "total_timeout_count",
+              "max_peak_register_bytes",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "D": 128,
+                "arm": "gru",
+                "max_peak_register_bytes": 0,
+                "max_solve_depth": 0,
+                "mean_solve_rate": 0.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 0,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 256,
+                "arm": "gru",
+                "max_peak_register_bytes": 0,
+                "max_solve_depth": 0,
+                "mean_solve_rate": 0.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 0,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 512,
+                "arm": "gru",
+                "max_peak_register_bytes": 0,
+                "max_solve_depth": 0,
+                "mean_solve_rate": 0.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 0,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 128,
+                "arm": "kv_snapshot",
+                "max_peak_register_bytes": 808,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 256,
+                "arm": "kv_snapshot",
+                "max_peak_register_bytes": 808,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 512,
+                "arm": "kv_snapshot",
+                "max_peak_register_bytes": 808,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "max_peak_register_bytes": 512,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "max_peak_register_bytes": 512,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_on",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "max_peak_register_bytes": 1024,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "max_peak_register_bytes": 1024,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 3,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_on",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 3,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "max_peak_register_bytes": 2048,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "max_peak_register_bytes": 2048,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_on",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "max_peak_register_bytes": 512,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "max_peak_register_bytes": 512,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_on",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "max_peak_register_bytes": 1024,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "max_peak_register_bytes": 1024,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_on",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "max_peak_register_bytes": 2048,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "max_peak_register_bytes": 2048,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 1.0,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_on",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 2,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 128,
+                "arm": "rot_no_revert",
+                "max_peak_register_bytes": 512,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 0.875,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 0,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 256,
+                "arm": "rot_no_revert",
+                "max_peak_register_bytes": 1024,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 0.875,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 0,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              },
+              {
+                "D": 512,
+                "arm": "rot_no_revert",
+                "max_peak_register_bytes": 2048,
+                "max_solve_depth": 3,
+                "mean_solve_rate": 0.875,
+                "n_cells": 2,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "source": "autonomous_stage_a_run",
+                "spill": "spill_off",
+                "task_family": "sudoku6",
+                "total_applied_reverts": 0,
+                "total_timeout_count": 0,
+                "track": "A_symbolic"
+              }
+            ]
+          },
+          "symbolic_core_evidence": {
+            "columns": [
+              "declared_track",
+              "operator",
+              "autonomous_cells",
+              "reverts_nonzero_on_L4",
+              "forward_floor_on_L4",
+              "kv_snapshot_max_depth",
+              "rot_no_revert_max_depth",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "autonomous_cells": 43,
+                "declared_track": "A_symbolic",
+                "forward_floor_on_L4": true,
+                "kv_snapshot_max_depth": 3,
+                "operator": "symbolic_oracle",
+                "provenance": "results/stage_a_symbolic/report.json",
+                "reverts_nonzero_on_L4": true,
+                "rot_no_revert_max_depth": 3
+              }
+            ]
+          },
+          "validation_before_after": {
+            "columns": [
+              "point",
+              "n_checks",
+              "n_pass",
+              "n_fail",
+              "remaining_fail_names",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "n_checks": 192,
+                "n_fail": 5,
+                "n_pass": 187,
+                "point": "after_item037_track_a_wiring",
+                "provenance": "item037 validation summary",
+                "remaining_fail_names": "stage_a_g1_pass; stage_a_reverts_nonzero_on_L4; stage_a_forward_floor_on_L4; stage_a_symbolic_reverts_nonzero_on_L4; stage_a_symbolic_forward_floor_on_L4"
+              },
+              {
+                "n_checks": 198,
+                "n_fail": 3,
+                "n_pass": 195,
+                "point": "after_item038_budgeted_parallel_symbolic_l4",
+                "provenance": "results/validation/validation.json",
+                "remaining_fail_names": "stage_a_g1_pass; stage_a_reverts_nonzero_on_L4; stage_a_forward_floor_on_L4"
+              }
+            ]
+          }
+        },
+        "schema_version": "log_item_contract_v1",
+        "status": "TRACK_A_SYMBOLIC_L4_EVIDENCE_RECORDED_LEARNED_TRACK_STILL_RED"
+      },
+      "detail_data": {
+        "experiments/stage_a_symbolic_budgeted_grid.py": {
+          "embedded": false,
+          "format": "py",
+          "path": "experiments/stage_a_symbolic_budgeted_grid.py",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 10305
+        },
+        "experiments/stage_a_symbolic_oracle.py": {
+          "embedded": false,
+          "format": "py",
+          "path": "experiments/stage_a_symbolic_oracle.py",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 34170
+        },
+        "results/experiment_items/item_038_track_a_budgeted_parallel_symbolic_l4.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": "038",
+          "json_summary": [
+            [
+              "status",
+              "TRACK_A_SYMBOLIC_L4_EVIDENCE_RECORDED_LEARNED_TRACK_STILL_RED"
+            ],
+            [
+              "decision",
+              "2 keys: gate_outcomes, next_step_routing"
+            ],
+            [
+              "schema_version",
+              "log_item_contract_v1"
+            ],
+            [
+              "item_number",
+              "038"
+            ],
+            [
+              "name",
+              "Track A budgeted parallel symbolic L4 evidence and GPU feasibility"
+            ],
+            [
+              "purpose",
+              "Continue the two-track decoupling work by first checking whether Track A symbolic-oracle Stage A benefits from GPU acceleration, then replacing slow sequential execution with subprocess-budgeted CPU parallel orchestration. This item records the GPU feasibility result, the 8-worker canonical Track A symbolic run, and the measured symbolic L4 revert/floor evidence while preserving learned-track red checks."
+            ],
+            [
+              "honesty",
+              "2 keys: does_not_establish, limitations"
+            ]
+          ],
+          "path": "results/experiment_items/item_038_track_a_budgeted_parallel_symbolic_l4.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 6,
+              "rows": 2,
+              "table": "gpu_feasibility_benchmark"
+            },
+            {
+              "columns": 10,
+              "rows": 1,
+              "table": "budgeted_parallel_run_summary"
+            },
+            {
+              "columns": 8,
+              "rows": 1,
+              "table": "symbolic_core_evidence"
+            },
+            {
+              "columns": 14,
+              "rows": 21,
+              "table": "l4_separation_table_symbolic_budgeted"
+            },
+            {
+              "columns": 5,
+              "rows": 1,
+              "table": "arbiter_cell_symbolic_budgeted"
+            },
+            {
+              "columns": 6,
+              "rows": 2,
+              "table": "validation_before_after"
+            }
+          ],
+          "size_bytes": 18931
+        },
+        "results/experiment_log/experiment_log.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "generated_at",
+              "2026-06-08T03:49:58.428159+00:00"
+            ]
+          ],
+          "path": "results/experiment_log/experiment_log.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 601038
+        },
+        "results/experiment_log/experiment_log.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/experiment_log/experiment_log.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 141145
+        },
+        "results/stage_a_symbolic/oracle_statelessness_ci.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "stage_a_symbolic_oracle.statelessness_ci"
+            ],
+            [
+              "status",
+              "PASS"
+            ],
+            [
+              "assignment_size",
+              "23"
+            ],
+            [
+              "byte_identical_outputs",
+              "True"
+            ],
+            [
+              "operator",
+              "symbolic_oracle"
+            ],
+            [
+              "source",
+              "ci_statelessness_test"
+            ],
+            [
+              "task_id",
+              "sudoku6_0_d2"
+            ],
+            [
+              "track",
+              "A_symbolic"
+            ]
+          ],
+          "path": "results/stage_a_symbolic/oracle_statelessness_ci.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 1240
+        },
+        "results/stage_a_symbolic/report.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "stage_a_symbolic_oracle_report"
+            ],
+            [
+              "status",
+              "TRACK_A_SYMBOLIC_RESULTS_AVAILABLE"
+            ],
+            [
+              "n_cells",
+              "43"
+            ],
+            [
+              "operator",
+              "symbolic_oracle"
+            ],
+            [
+              "source",
+              "autonomous_stage_a_run"
+            ],
+            [
+              "track",
+              "A_symbolic"
+            ]
+          ],
+          "path": "results/stage_a_symbolic/report.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 16928
+        },
+        "results/stage_a_symbolic/report.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/stage_a_symbolic/report.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 1641
+        },
+        "results/stage_a_symbolic/results.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "stage_a_symbolic_budgeted_grid"
+            ],
+            [
+              "status",
+              "TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE"
+            ],
+            [
+              "n_cells",
+              "43"
+            ],
+            [
+              "device",
+              "cpu"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T03:46:43.547703+00:00"
+            ],
+            [
+              "honesty",
+              "does_not_establish=Subprocess timeouts are fail-closed evidence rows, not solves. Timed-out rot cells require narrower shards or optimized register decode before they can support L4 claims."
+            ],
+            [
+              "n_tasks",
+              "8"
+            ],
+            [
+              "operator",
+              "symbolic_oracle"
+            ],
+            [
+              "per_cell_timeout",
+              "15"
+            ],
+            [
+              "requested_cells",
+              "43"
+            ],
+            [
+              "source",
+              "autonomous_stage_a_run"
+            ],
+            [
+              "task_family",
+              "sudoku6"
+            ],
+            [
+              "torch_threads",
+              "1"
+            ],
+            [
+              "track",
+              "A_symbolic"
+            ],
+            [
+              "workers",
+              "8"
+            ]
+          ],
+          "path": "results/stage_a_symbolic/results.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 271066
+        },
+        "results/validation/validation.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "passed",
+              "False"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T03:50:33.392096+00:00"
+            ],
+            [
+              "summary",
+              "n_checks=198; n_fail=3; n_pass=195"
+            ]
+          ],
+          "path": "results/validation/validation.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 36902
+        },
+        "results/validation/validation.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/validation/validation.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 22429
+        }
+      },
+      "details": [
+        "purpose=Continue the two-track decoupling work by first checking whether Track A symbolic-oracle Stage A benefits from GPU acceleration, then replacing slow sequential execution with subprocess-budgeted CPU parallel orchestration. This item records the GPU feasibility result, the 8-worker canonical Track A symbolic run, and the measured symbolic L4 revert/floor evidence while preserving learned-track red checks.",
+        "commands=5",
+        "result_tables=['gpu_feasibility_benchmark', 'budgeted_parallel_run_summary', 'symbolic_core_evidence', 'l4_separation_table_symbolic_budgeted', 'arbiter_cell_symbolic_budgeted', 'validation_before_after']",
+        "honesty=This item establishes a faster fail-closed Track A execution path and measured symbolic-oracle L4 revert/floor evidence on sudoku6 depth histogram {'1':3,'2':2,'3':3}. It does not establish learned_recurrent Stage A, does not green fixture/learned-track Stage A checks, does not complete Track B, and does not complete D1/D2/D3 or a 9x9 deep frontier."
+      ],
+      "item": "038",
+      "key_result": "Use CPU parallel budgeted Track A for remaining symbolic shards; reserve GPUs for Track B learned/TRM-class operator and D1. Next, implement Track B or the D1/D2/D3 debts without promoting symbolic Track A rows into learned-track evidence.",
+      "name": "Track A budgeted parallel symbolic L4 evidence and GPU feasibility",
+      "next_action": "Use CPU parallel budgeted Track A for remaining symbolic shards; reserve GPUs for Track B learned/TRM-class operator and D1. Next, implement Track B or the D1/D2/D3 debts without promoting symbolic Track A rows into learned-track evidence.",
+      "purpose": "Continue the two-track decoupling work by first checking whether Track A symbolic-oracle Stage A benefits from GPU acceleration, then replacing slow sequential execution with subprocess-budgeted CPU parallel orchestration. This item records the GPU feasibility result, the 8-worker canonical Track A symbolic run, and the measured symbolic L4 revert/floor evidence while preserving learned-track red checks.",
+      "status": "TRACK_A_SYMBOLIC_L4_EVIDENCE_RECORDED_LEARNED_TRACK_STILL_RED"
     }
   ],
   "legacy_archive": {
@@ -15264,8 +16280,8 @@
     "verifier": "results/verifier/results.json"
   },
   "validation_summary": {
-    "n_checks": 192,
-    "n_fail": 5,
-    "n_pass": 187
+    "n_checks": 198,
+    "n_fail": 3,
+    "n_pass": 195
   }
 }
