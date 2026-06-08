@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-08T03:50:33.392096+00:00
+Generated at: 2026-06-08T03:57:21.264435+00:00
 
-Summary: 195 PASS / 3 FAIL / 198 total.
+Summary: 201 PASS / 3 FAIL / 204 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -104,7 +104,7 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_c | w3_propagation_scale_not_mixed | PASS | verdict=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
 | tier_c | w3_propagation_per_task_delta_measured | PASS | rows=5 |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=11 |
+| contract | log_item_artifacts_present | PASS | count=12 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
@@ -171,6 +171,12 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_038_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_038_honesty_does_not_establish | PASS | This item establishes a faster fail-closed Track A execution path and measured symbolic-oracle L4 revert/floor evidence on sudoku6 depth histogram {'1':3,'2':2, |
 | contract | log_item_038_decision_numbers_and_routing | PASS | gates=5; routing=Use CPU parallel budgeted Track A for remaining symbolic shards; reserve GPUs for Track B learned/TRM-class operator and D1. Next, implement Track B or the D1/D2/D3 debts without promoting symbolic Track A rows into learned-track evidence. |
+| contract | log_item_039_required_fields | PASS | missing=[] |
+| contract | log_item_039_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_039_number_continues_from_028 | PASS | item_number=039 |
+| contract | log_item_039_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_039_honesty_does_not_establish | PASS | This item establishes the Track B code path and one tiny GPU smoke artifact only. It does not establish Track B acceptance, does not pass the leading-indicator  |
+| contract | log_item_039_decision_numbers_and_routing | PASS | gates=4; routing=When GPUs are free, run seeds 102/137/256 with the default or scaled Track B config on separate GPUs and log acceptance per seed. Keep Track B learned rows side by side with Track A only after learned_recurrent gates pass and an autonomous Stage A learned run exists. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |

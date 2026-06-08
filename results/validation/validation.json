@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=11",
+      "detail": "count=12",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -967,6 +967,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_039_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_039_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=039",
+      "name": "log_item_039_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_039_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item establishes the Track B code path and one tiny GPU smoke artifact only. It does not establish Track B acceptance, does not pass the leading-indicator ",
+      "name": "log_item_039_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=When GPUs are free, run seeds 102/137/256 with the default or scaled Track B config on separate GPUs and log acceptance per seed. Keep Track B learned rows side by side with Track A only after learned_recurrent gates pass and an autonomous Stage A learned run exists.",
+      "name": "log_item_039_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -1189,11 +1225,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-08T03:50:33.392096+00:00",
+  "generated_at": "2026-06-08T03:57:21.264435+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 198,
+    "n_checks": 204,
     "n_fail": 3,
-    "n_pass": 195
+    "n_pass": 201
   }
 }

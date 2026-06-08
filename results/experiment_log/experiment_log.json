@@ -19,6 +19,7 @@
     "item_036_overnight_t2_w3_50x2_closeout": "results/experiment_items/item_036_overnight_t2_w3_50x2_closeout.json",
     "item_037_two_track_decoupling_track_a_symbolic": "results/experiment_items/item_037_two_track_decoupling_track_a_symbolic.json",
     "item_038_track_a_budgeted_parallel_symbolic_l4": "results/experiment_items/item_038_track_a_budgeted_parallel_symbolic_l4.json",
+    "item_039_track_b_trm_operator_smoke": "results/experiment_items/item_039_track_b_trm_operator_smoke.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "m2_operator_fix_rescale": "results/m2_operator_probe/report_fix_rescale.json",
     "m2_operator_probe": "results/m2_operator_probe/report.json",
@@ -40,6 +41,8 @@
     "stage_a_symbolic_report": "results/stage_a_symbolic/report.json",
     "stage_a_symbolic_results": "results/stage_a_symbolic/results.json",
     "t2_recurrent_operator_8gpu_acceptance": "results/recurrent_operator_8gpu/acceptance.json",
+    "track_b_trm_operator_smoke_acceptance": "results/trm_operator_smoke/acceptance.json",
+    "track_b_trm_operator_trainer": "experiments/train_trm_operator.py",
     "validation": "results/validation/validation.json",
     "w3_qwen35_probe": "results/w3_qwen35_probe/results.json",
     "w3_qwen35_probe_spec": "specs/w3_qwen35_probe_spec.md"
@@ -4090,7 +4093,7 @@
       "S3.1 integration is not started."
     ]
   },
-  "generated_at": "2026-06-08T03:50:33.552415+00:00",
+  "generated_at": "2026-06-08T03:57:21.424731+00:00",
   "incremental_items": [
     [
       "001-018",
@@ -4150,7 +4153,7 @@
       "P0",
       "ledger and validation housekeeping",
       "Updated",
-      "validation_checks=198; validation_passed=False"
+      "validation_checks=204; validation_passed=False"
     ],
     [
       "W3.0",
@@ -4247,6 +4250,12 @@
       "Track A budgeted parallel symbolic L4 evidence and GPU feasibility",
       "TRACK_A_SYMBOLIC_L4_EVIDENCE_RECORDED_LEARNED_TRACK_STILL_RED",
       "Use CPU parallel budgeted Track A for remaining symbolic shards; reserve GPUs for Track B learned/TRM-class operator and D1. Next, implement Track B or the D1/D2/D3 debts without promoting symbolic Track A rows into learned-track evidence."
+    ],
+    [
+      "039",
+      "Track B TRM-class per-cell-token operator smoke",
+      "TRACK_B_TRAINER_SMOKE_PASSED_FULL_3GPU_LAUNCH_PENDING",
+      "When GPUs are free, run seeds 102/137/256 with the default or scaled Track B config on separate GPUs and log acceptance per seed. Keep Track B learned rows side by side with Track A only after learned_recurrent gates pass and an autonomous Stage A learned run exists."
     ]
   ],
   "items": [
@@ -4416,12 +4425,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 22429
+          "size_bytes": 23318
         }
       ],
       "detail_data": {
@@ -4444,18 +4453,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:50:33.392096+00:00"
+              "2026-06-08T03:57:21.264435+00:00"
             ],
             [
               "summary",
-              "n_checks=198; n_fail=3; n_pass=195"
+              "n_checks=204; n_fail=3; n_pass=201"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -4463,7 +4472,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 22429
+          "size_bytes": 23318
         }
       },
       "details": [
@@ -5218,7 +5227,7 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         {
           "path": "results/experiment_log/experiment_log.json",
@@ -5250,7 +5259,7 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T03:49:58.428159+00:00"
+              "2026-06-08T03:50:33.552415+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
@@ -5270,27 +5279,27 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:50:33.392096+00:00"
+              "2026-06-08T03:57:21.264435+00:00"
             ],
             [
               "summary",
-              "n_checks=198; n_fail=3; n_pass=195"
+              "n_checks=204; n_fail=3; n_pass=201"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 36902
+          "size_bytes": 38235
         }
       },
       "details": [
         "Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.",
-        "validation_pass=195; validation_fail=3",
+        "validation_pass=201; validation_fail=3",
         "Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure."
       ],
       "item": "P0",
-      "key_result": "validation_checks=198; validation_passed=False",
+      "key_result": "validation_checks=204; validation_passed=False",
       "name": "ledger and validation housekeeping",
       "next_action": "Keep future reports item-first and preserve explicit red checks.",
       "status": "Updated"
@@ -5910,12 +5919,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 22429
+          "size_bytes": 23318
         },
         {
           "path": "results/experiment_log/experiment_log.json",
@@ -6295,7 +6304,7 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T03:49:58.428159+00:00"
+              "2026-06-08T03:50:33.552415+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
@@ -6495,18 +6504,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:50:33.392096+00:00"
+              "2026-06-08T03:57:21.264435+00:00"
             ],
             [
               "summary",
-              "n_checks=198; n_fail=3; n_pass=195"
+              "n_checks=204; n_fail=3; n_pass=201"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -6514,7 +6523,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 22429
+          "size_bytes": 23318
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -8752,12 +8761,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 22429
+          "size_bytes": 23318
         }
       ],
       "contract_data": {
@@ -9242,18 +9251,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:50:33.392096+00:00"
+              "2026-06-08T03:57:21.264435+00:00"
             ],
             [
               "summary",
-              "n_checks=198; n_fail=3; n_pass=195"
+              "n_checks=204; n_fail=3; n_pass=201"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -9261,7 +9270,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 22429
+          "size_bytes": 23318
         },
         "results/verifier/results.json": {
           "path": "results/verifier/results.json",
@@ -9329,12 +9338,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 22429
+          "size_bytes": 23318
         }
       ],
       "contract_data": {
@@ -9720,18 +9729,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:50:33.392096+00:00"
+              "2026-06-08T03:57:21.264435+00:00"
             ],
             [
               "summary",
-              "n_checks=198; n_fail=3; n_pass=195"
+              "n_checks=204; n_fail=3; n_pass=201"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -9739,7 +9748,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 22429
+          "size_bytes": 23318
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -10835,12 +10844,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 22429
+          "size_bytes": 23318
         }
       ],
       "contract_data": {
@@ -11840,18 +11849,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:50:33.392096+00:00"
+              "2026-06-08T03:57:21.264435+00:00"
             ],
             [
               "summary",
-              "n_checks=198; n_fail=3; n_pass=195"
+              "n_checks=204; n_fail=3; n_pass=201"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -11859,7 +11868,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 22429
+          "size_bytes": 23318
         },
         "results/w3_qwen35_probe/propagation_shards/general_sat/results.json": {
           "embedded": false,
@@ -14148,12 +14157,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 22429
+          "size_bytes": 23318
         },
         {
           "path": "results/experiment_log/experiment_log.json",
@@ -15060,7 +15069,7 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T03:49:58.428159+00:00"
+              "2026-06-08T03:50:33.552415+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
@@ -15248,18 +15257,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:50:33.392096+00:00"
+              "2026-06-08T03:57:21.264435+00:00"
             ],
             [
               "summary",
-              "n_checks=198; n_fail=3; n_pass=195"
+              "n_checks=204; n_fail=3; n_pass=201"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -15267,7 +15276,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 22429
+          "size_bytes": 23318
         }
       },
       "details": [
@@ -15323,12 +15332,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 22429
+          "size_bytes": 23318
         },
         {
           "path": "results/experiment_log/experiment_log.json",
@@ -16038,7 +16047,7 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T03:49:58.428159+00:00"
+              "2026-06-08T03:50:33.552415+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
@@ -16226,18 +16235,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T03:50:33.392096+00:00"
+              "2026-06-08T03:57:21.264435+00:00"
             ],
             [
               "summary",
-              "n_checks=198; n_fail=3; n_pass=195"
+              "n_checks=204; n_fail=3; n_pass=201"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 36902
+          "size_bytes": 38235
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -16245,7 +16254,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 22429
+          "size_bytes": 23318
         }
       },
       "details": [
@@ -16260,6 +16269,482 @@
       "next_action": "Use CPU parallel budgeted Track A for remaining symbolic shards; reserve GPUs for Track B learned/TRM-class operator and D1. Next, implement Track B or the D1/D2/D3 debts without promoting symbolic Track A rows into learned-track evidence.",
       "purpose": "Continue the two-track decoupling work by first checking whether Track A symbolic-oracle Stage A benefits from GPU acceleration, then replacing slow sequential execution with subprocess-budgeted CPU parallel orchestration. This item records the GPU feasibility result, the 8-worker canonical Track A symbolic run, and the measured symbolic L4 revert/floor evidence while preserving learned-track red checks.",
       "status": "TRACK_A_SYMBOLIC_L4_EVIDENCE_RECORDED_LEARNED_TRACK_STILL_RED"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/experiment_items/item_039_track_b_trm_operator_smoke.json",
+          "present": "yes",
+          "size_bytes": 8879
+        },
+        {
+          "path": "experiments/train_trm_operator.py",
+          "present": "yes",
+          "size_bytes": 22517
+        },
+        {
+          "path": "results/trm_operator_smoke/acceptance.json",
+          "present": "yes",
+          "size_bytes": 11922
+        },
+        {
+          "path": "results/experiment_log/experiment_log.json",
+          "present": "yes",
+          "size_bytes": 601038
+        },
+        {
+          "path": "results/experiment_log/experiment_log.md",
+          "present": "yes",
+          "size_bytes": 141145
+        },
+        {
+          "path": "results/validation/validation.json",
+          "present": "yes",
+          "size_bytes": 38235
+        },
+        {
+          "path": "results/validation/validation.md",
+          "present": "yes",
+          "size_bytes": 23318
+        }
+      ],
+      "contract_data": {
+        "artifacts": [
+          "experiments/train_trm_operator.py",
+          "results/trm_operator_smoke/acceptance.json",
+          "results/experiment_items/item_039_track_b_trm_operator_smoke.json",
+          "results/experiment_log/experiment_log.json",
+          "results/experiment_log/experiment_log.md",
+          "results/validation/validation.json",
+          "results/validation/validation.md"
+        ],
+        "code_added_used": [
+          {
+            "change": "Added a Track B trainer with per-cell token encoding (candidate-set bitmask, given flag, row/col/box ids), tied TransformerEncoderLayer recurrence, per-recurrence deep supervision, EMA, focal/pos-weighted forced-mask loss, and the shared forced_only_commit_decision evaluator.",
+            "path": "experiments/train_trm_operator.py"
+          },
+          {
+            "change": "Added item039, the Track B trainer, and the Track B smoke acceptance artifact to the canonical artifact index.",
+            "path": "analysis/experiment_log.py"
+          }
+        ],
+        "commands": [
+          {
+            "command": ".venv/bin/python -m py_compile experiments/train_trm_operator.py",
+            "purpose": "Compile-check the new Track B trainer."
+          },
+          {
+            "command": ".venv/bin/python -m experiments.train_trm_operator --output-dir results/trm_operator_smoke --seed 102 --device cuda:0 --train-instances 32 --eval-instances 8 --l4-instances 4 --steps 3 --batch-size 8 --hidden-dim 96 --nhead 4 --feedforward-dim 192 --recurrence-steps 2 --generation-workers 1 --eval-every 1 --fuse-step 0",
+            "purpose": "Run a tiny end-to-end GPU smoke through dataset generation, tokenization, training, forced-only evaluation, checkpoint writing, and acceptance.json writing."
+          },
+          {
+            "command": "nvidia-smi --query-compute-apps=gpu_uuid,pid,process_name,used_memory --format=csv,noheader || true && ps -p 1869 -o pid,etime,pcpu,pmem,args",
+            "purpose": "Check GPU availability before launching the three-seed Track B run; identify the existing non-project GPU occupant without cancelling it."
+          }
+        ],
+        "decision": {
+          "gate_outcomes": [
+            {
+              "gate": "track_b_code_path",
+              "number": "py_compile PASS; acceptance.json written; checkpoint written locally",
+              "outcome": "PASS_SMOKE"
+            },
+            {
+              "gate": "per_cell_token_representation",
+              "number": "token features=candidate_set_bitmask,given_flag,row_id,col_id,box_id; architecture_class=trm_per_cell_tokens",
+              "outcome": "IMPLEMENTED"
+            },
+            {
+              "gate": "leading_indicator_pair",
+              "number": "forced_precision=0.08445945945945946; forced_recall=0.09398496240601503; required~0.95/0.95",
+              "outcome": "NOT_MET_SMOKE_ONLY"
+            },
+            {
+              "gate": "three_seed_gpu_launch",
+              "number": "external PID 1869 occupied all 8 GPUs at launch check",
+              "outcome": "PENDING_GPU_AVAILABILITY"
+            }
+          ],
+          "next_step_routing": "When GPUs are free, run seeds 102/137/256 with the default or scaled Track B config on separate GPUs and log acceptance per seed. Keep Track B learned rows side by side with Track A only after learned_recurrent gates pass and an autonomous Stage A learned run exists."
+        },
+        "honesty": {
+          "does_not_establish": "This item establishes the Track B code path and one tiny GPU smoke artifact only. It does not establish Track B acceptance, does not pass the leading-indicator criterion, does not launch the requested three full seeds because all GPUs were already occupied by an external process, and does not create learned_recurrent Stage A cells.",
+          "limitations": [
+            "The smoke model is intentionally tiny (hidden_dim=96, recurrence_steps=2, 78,733 parameters) to test plumbing; the default trainer configuration is larger and should be used for real runs when GPUs are available.",
+            "The checkpoint path is recorded for local provenance but is not promoted as a canonical committed artifact in this item.",
+            "G1=0.125 and forced precision/recall around 0.08/0.09 are expected for a three-step smoke and are not acceptance evidence."
+          ]
+        },
+        "item_number": "039",
+        "name": "Track B TRM-class per-cell-token operator smoke",
+        "provenance": {
+          "architecture_class": "trm_per_cell_tokens",
+          "external_process_policy": "not cancelled or modified",
+          "generated_at": "2026-06-08T04:12:00+00:00",
+          "gpu_availability_at_launch_check": "all 8 A100s occupied by PID 1869, python /scratch/azureml/cr/j/2a309fc0b0ce444e80cde, elapsed 18:25:02, about 20GB per GPU",
+          "operator_type": "learned_recurrent",
+          "repo": "/home/aiscuser/RECURRENT_NN",
+          "smoke_dataset": "Sudoku6 L1-L2 train/eval plus L4 diagnostic eval generated in repo",
+          "smoke_device": "cuda:0",
+          "smoke_eval_instances": 8,
+          "smoke_l4_instances": 4,
+          "smoke_seed": 102,
+          "smoke_steps": 3,
+          "smoke_train_instances": 32,
+          "track": "B_learned"
+        },
+        "purpose": "Implement the Track B architecture/representation change from the two-track spec: a learned_recurrent operator using per-cell tokens and a tiny weight-tied transformer/TRM-class recurrence while preserving forced-only commit semantics and L1-L2-only training red lines. This item records a GPU smoke run and explains why the requested three-seed GPU launch was not started in this turn.",
+        "result_tables": {
+          "gpu_launch_blocker": {
+            "columns": [
+              "requested_launch",
+              "observed_gpu_state",
+              "policy_action",
+              "result",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "observed_gpu_state": "all eight A100s occupied by PID 1869, an external AzureML python process, about 20GB per GPU",
+                "policy_action": "did_not_cancel_or_modify_external_process",
+                "provenance": "nvidia-smi and ps output in this item",
+                "requested_launch": "three Track B seeds on GPUs 0,1,6",
+                "result": "full_3gpu_launch_pending"
+              }
+            ]
+          },
+          "smoke_dataset_table": {
+            "columns": [
+              "split",
+              "instances_requested",
+              "instances_generated",
+              "examples",
+              "depth_histogram",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "depth_histogram": {
+                  "1": 21,
+                  "2": 11
+                },
+                "examples": 1197,
+                "instances_generated": 32,
+                "instances_requested": 32,
+                "provenance": "results/trm_operator_smoke/acceptance.json",
+                "split": "train_l1_l2"
+              },
+              {
+                "depth_histogram": {
+                  "1": 5,
+                  "2": 3
+                },
+                "examples": 296,
+                "instances_generated": 8,
+                "instances_requested": 8,
+                "provenance": "results/trm_operator_smoke/acceptance.json",
+                "split": "eval_l1_l2"
+              },
+              {
+                "depth_histogram": {
+                  "4": 1,
+                  "5": 3
+                },
+                "examples": 148,
+                "instances_generated": 4,
+                "instances_requested": 4,
+                "provenance": "results/trm_operator_smoke/acceptance.json",
+                "split": "diagnostic_l4"
+              }
+            ]
+          },
+          "track_b_smoke_acceptance": {
+            "columns": [
+              "artifact",
+              "status",
+              "device",
+              "parameter_count",
+              "G1",
+              "G2",
+              "single_step_forced_precision",
+              "single_step_forced_recall",
+              "leading_indicator_success",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "G1": 0.125,
+                "G2": 0.0,
+                "artifact": "results/trm_operator_smoke/acceptance.json",
+                "device": "cuda:0",
+                "leading_indicator_success": false,
+                "parameter_count": 78733,
+                "provenance": "results/trm_operator_smoke/acceptance.json",
+                "single_step_forced_precision": 0.08445945945945946,
+                "single_step_forced_recall": 0.09398496240601503,
+                "status": "G1_NOT_MET"
+              }
+            ]
+          },
+          "training_curve_smoke": {
+            "columns": [
+              "step",
+              "loss",
+              "forced_mask_loss",
+              "forced_precision",
+              "forced_recall",
+              "G1_forced_fixpoint",
+              "G2_forced_l4_solve",
+              "tau",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "G1_forced_fixpoint": 0.125,
+                "G2_forced_l4_solve": 0.0,
+                "forced_mask_loss": 0.34233027696609497,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "loss": 5.809364318847656,
+                "provenance": "results/trm_operator_smoke/progress.jsonl",
+                "step": 1,
+                "tau": 0.0
+              },
+              {
+                "G1_forced_fixpoint": 0.125,
+                "G2_forced_l4_solve": 0.0,
+                "forced_mask_loss": 0.33280307054519653,
+                "forced_precision": 0.0,
+                "forced_recall": 0.0,
+                "loss": 6.147930145263672,
+                "provenance": "results/trm_operator_smoke/progress.jsonl",
+                "step": 2,
+                "tau": 0.0
+              },
+              {
+                "G1_forced_fixpoint": 0.125,
+                "G2_forced_l4_solve": 0.0,
+                "forced_mask_loss": 0.32136741280555725,
+                "forced_precision": 0.09765625,
+                "forced_recall": 0.10869565217391304,
+                "loss": 5.853318691253662,
+                "provenance": "results/trm_operator_smoke/progress.jsonl",
+                "step": 3,
+                "tau": 0.0
+              }
+            ]
+          }
+        },
+        "schema_version": "log_item_contract_v1",
+        "status": "TRACK_B_TRAINER_SMOKE_PASSED_FULL_3GPU_LAUNCH_PENDING"
+      },
+      "detail_data": {
+        "experiments/train_trm_operator.py": {
+          "embedded": false,
+          "format": "py",
+          "path": "experiments/train_trm_operator.py",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 22517
+        },
+        "results/experiment_items/item_039_track_b_trm_operator_smoke.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": "039",
+          "json_summary": [
+            [
+              "status",
+              "TRACK_B_TRAINER_SMOKE_PASSED_FULL_3GPU_LAUNCH_PENDING"
+            ],
+            [
+              "decision",
+              "2 keys: gate_outcomes, next_step_routing"
+            ],
+            [
+              "schema_version",
+              "log_item_contract_v1"
+            ],
+            [
+              "item_number",
+              "039"
+            ],
+            [
+              "name",
+              "Track B TRM-class per-cell-token operator smoke"
+            ],
+            [
+              "purpose",
+              "Implement the Track B architecture/representation change from the two-track spec: a learned_recurrent operator using per-cell tokens and a tiny weight-tied transformer/TRM-class recurrence while preserving forced-only commit semantics and L1-L2-only training red lines. This item records a GPU smoke run and explains why the requested three-seed GPU launch was not started in this turn."
+            ],
+            [
+              "honesty",
+              "2 keys: does_not_establish, limitations"
+            ]
+          ],
+          "path": "results/experiment_items/item_039_track_b_trm_operator_smoke.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 10,
+              "rows": 1,
+              "table": "track_b_smoke_acceptance"
+            },
+            {
+              "columns": 6,
+              "rows": 3,
+              "table": "smoke_dataset_table"
+            },
+            {
+              "columns": 9,
+              "rows": 3,
+              "table": "training_curve_smoke"
+            },
+            {
+              "columns": 5,
+              "rows": 1,
+              "table": "gpu_launch_blocker"
+            }
+          ],
+          "size_bytes": 8879
+        },
+        "results/experiment_log/experiment_log.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "generated_at",
+              "2026-06-08T03:50:33.552415+00:00"
+            ]
+          ],
+          "path": "results/experiment_log/experiment_log.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 601038
+        },
+        "results/experiment_log/experiment_log.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/experiment_log/experiment_log.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 141145
+        },
+        "results/trm_operator_smoke/acceptance.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "train_trm_operator"
+            ],
+            [
+              "status",
+              "G1_NOT_MET"
+            ],
+            [
+              "G1",
+              "0.125"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "G2",
+              "0"
+            ],
+            [
+              "architecture_class",
+              "trm_per_cell_tokens"
+            ],
+            [
+              "checkpoint",
+              "results/trm_operator_smoke/trm_operator_seed102.pt"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T03:55:20.328708+00:00"
+            ],
+            [
+              "honesty",
+              "does_not_establish=Track B acceptance is per-seed learned-operator evidence only. It does not become Stage A evidence unless a later run consumes the checkpoint and reports operator=learned_recurrent autonomous cells side by side with Track A."
+            ],
+            [
+              "operator_type",
+              "learned_recurrent"
+            ],
+            [
+              "parameter_count",
+              "78733"
+            ],
+            [
+              "seed",
+              "102"
+            ],
+            [
+              "source",
+              "track_b_trm_class_training_run"
+            ],
+            [
+              "training_curve_summary",
+              "10 keys: batch_size, completed_step, data_parallel_devices, eval_every, generation_workers, history, lr, min_steps"
+            ]
+          ],
+          "path": "results/trm_operator_smoke/acceptance.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 11922
+        },
+        "results/validation/validation.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "passed",
+              "False"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T03:57:21.264435+00:00"
+            ],
+            [
+              "summary",
+              "n_checks=204; n_fail=3; n_pass=201"
+            ]
+          ],
+          "path": "results/validation/validation.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 38235
+        },
+        "results/validation/validation.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/validation/validation.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 23318
+        }
+      },
+      "details": [
+        "purpose=Implement the Track B architecture/representation change from the two-track spec: a learned_recurrent operator using per-cell tokens and a tiny weight-tied transformer/TRM-class recurrence while preserving forced-only commit semantics and L1-L2-only training red lines. This item records a GPU smoke run and explains why the requested three-seed GPU launch was not started in this turn.",
+        "commands=3",
+        "result_tables=['track_b_smoke_acceptance', 'smoke_dataset_table', 'training_curve_smoke', 'gpu_launch_blocker']",
+        "honesty=This item establishes the Track B code path and one tiny GPU smoke artifact only. It does not establish Track B acceptance, does not pass the leading-indicator criterion, does not launch the requested three full seeds because all GPUs were already occupied by an external process, and does not create learned_recurrent Stage A cells."
+      ],
+      "item": "039",
+      "key_result": "When GPUs are free, run seeds 102/137/256 with the default or scaled Track B config on separate GPUs and log acceptance per seed. Keep Track B learned rows side by side with Track A only after learned_recurrent gates pass and an autonomous Stage A learned run exists.",
+      "name": "Track B TRM-class per-cell-token operator smoke",
+      "next_action": "When GPUs are free, run seeds 102/137/256 with the default or scaled Track B config on separate GPUs and log acceptance per seed. Keep Track B learned rows side by side with Track A only after learned_recurrent gates pass and an autonomous Stage A learned run exists.",
+      "purpose": "Implement the Track B architecture/representation change from the two-track spec: a learned_recurrent operator using per-cell tokens and a tiny weight-tied transformer/TRM-class recurrence while preserving forced-only commit semantics and L1-L2-only training red lines. This item records a GPU smoke run and explains why the requested three-seed GPU launch was not started in this turn.",
+      "status": "TRACK_B_TRAINER_SMOKE_PASSED_FULL_3GPU_LAUNCH_PENDING"
     }
   ],
   "legacy_archive": {
@@ -16280,8 +16765,8 @@
     "verifier": "results/verifier/results.json"
   },
   "validation_summary": {
-    "n_checks": 198,
+    "n_checks": 204,
     "n_fail": 3,
-    "n_pass": 195
+    "n_pass": 201
   }
 }

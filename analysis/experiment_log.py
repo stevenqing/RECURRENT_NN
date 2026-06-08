@@ -25,6 +25,7 @@ ARTIFACT_INDEX = {
     "item_036_overnight_t2_w3_50x2_closeout": "results/experiment_items/item_036_overnight_t2_w3_50x2_closeout.json",
     "item_037_two_track_decoupling_track_a_symbolic": "results/experiment_items/item_037_two_track_decoupling_track_a_symbolic.json",
     "item_038_track_a_budgeted_parallel_symbolic_l4": "results/experiment_items/item_038_track_a_budgeted_parallel_symbolic_l4.json",
+    "item_039_track_b_trm_operator_smoke": "results/experiment_items/item_039_track_b_trm_operator_smoke.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "model_readiness": "results/model_readiness/readiness.json",
     "qwen3_4b_instruct_download": "results/model_download/qwen_download.json",
@@ -53,6 +54,8 @@ ARTIFACT_INDEX = {
     "w3_qwen35_probe_spec": "specs/w3_qwen35_probe_spec.md",
     "w3_qwen35_probe": "results/w3_qwen35_probe/results.json",
     "t2_recurrent_operator_8gpu_acceptance": "results/recurrent_operator_8gpu/acceptance.json",
+    "track_b_trm_operator_trainer": "experiments/train_trm_operator.py",
+    "track_b_trm_operator_smoke_acceptance": "results/trm_operator_smoke/acceptance.json",
     "validation": "results/validation/validation.json",
 }
 

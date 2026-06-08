@@ -1,0 +1,191 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "039",
+  "name": "Track B TRM-class per-cell-token operator smoke",
+  "status": "TRACK_B_TRAINER_SMOKE_PASSED_FULL_3GPU_LAUNCH_PENDING",
+  "purpose": "Implement the Track B architecture/representation change from the two-track spec: a learned_recurrent operator using per-cell tokens and a tiny weight-tied transformer/TRM-class recurrence while preserving forced-only commit semantics and L1-L2-only training red lines. This item records a GPU smoke run and explains why the requested three-seed GPU launch was not started in this turn.",
+  "code_added_used": [
+    {
+      "path": "experiments/train_trm_operator.py",
+      "change": "Added a Track B trainer with per-cell token encoding (candidate-set bitmask, given flag, row/col/box ids), tied TransformerEncoderLayer recurrence, per-recurrence deep supervision, EMA, focal/pos-weighted forced-mask loss, and the shared forced_only_commit_decision evaluator."
+    },
+    {
+      "path": "analysis/experiment_log.py",
+      "change": "Added item039, the Track B trainer, and the Track B smoke acceptance artifact to the canonical artifact index."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m py_compile experiments/train_trm_operator.py",
+      "purpose": "Compile-check the new Track B trainer."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.train_trm_operator --output-dir results/trm_operator_smoke --seed 102 --device cuda:0 --train-instances 32 --eval-instances 8 --l4-instances 4 --steps 3 --batch-size 8 --hidden-dim 96 --nhead 4 --feedforward-dim 192 --recurrence-steps 2 --generation-workers 1 --eval-every 1 --fuse-step 0",
+      "purpose": "Run a tiny end-to-end GPU smoke through dataset generation, tokenization, training, forced-only evaluation, checkpoint writing, and acceptance.json writing."
+    },
+    {
+      "command": "nvidia-smi --query-compute-apps=gpu_uuid,pid,process_name,used_memory --format=csv,noheader || true && ps -p 1869 -o pid,etime,pcpu,pmem,args",
+      "purpose": "Check GPU availability before launching the three-seed Track B run; identify the existing non-project GPU occupant without cancelling it."
+    }
+  ],
+  "artifacts": [
+    "experiments/train_trm_operator.py",
+    "results/trm_operator_smoke/acceptance.json",
+    "results/experiment_items/item_039_track_b_trm_operator_smoke.json",
+    "results/experiment_log/experiment_log.json",
+    "results/experiment_log/experiment_log.md",
+    "results/validation/validation.json",
+    "results/validation/validation.md"
+  ],
+  "provenance": {
+    "repo": "/home/aiscuser/RECURRENT_NN",
+    "generated_at": "2026-06-08T04:12:00+00:00",
+    "track": "B_learned",
+    "operator_type": "learned_recurrent",
+    "architecture_class": "trm_per_cell_tokens",
+    "smoke_device": "cuda:0",
+    "smoke_seed": 102,
+    "smoke_dataset": "Sudoku6 L1-L2 train/eval plus L4 diagnostic eval generated in repo",
+    "smoke_train_instances": 32,
+    "smoke_eval_instances": 8,
+    "smoke_l4_instances": 4,
+    "smoke_steps": 3,
+    "gpu_availability_at_launch_check": "all 8 A100s occupied by PID 1869, python /scratch/azureml/cr/j/2a309fc0b0ce444e80cde, elapsed 18:25:02, about 20GB per GPU",
+    "external_process_policy": "not cancelled or modified"
+  },
+  "result_tables": {
+    "track_b_smoke_acceptance": {
+      "columns": [
+        "artifact",
+        "status",
+        "device",
+        "parameter_count",
+        "G1",
+        "G2",
+        "single_step_forced_precision",
+        "single_step_forced_recall",
+        "leading_indicator_success",
+        "provenance"
+      ],
+      "rows": [
+        {
+          "artifact": "results/trm_operator_smoke/acceptance.json",
+          "status": "G1_NOT_MET",
+          "device": "cuda:0",
+          "parameter_count": 78733,
+          "G1": 0.125,
+          "G2": 0.0,
+          "single_step_forced_precision": 0.08445945945945946,
+          "single_step_forced_recall": 0.09398496240601503,
+          "leading_indicator_success": false,
+          "provenance": "results/trm_operator_smoke/acceptance.json"
+        }
+      ]
+    },
+    "smoke_dataset_table": {
+      "columns": [
+        "split",
+        "instances_requested",
+        "instances_generated",
+        "examples",
+        "depth_histogram",
+        "provenance"
+      ],
+      "rows": [
+        {
+          "split": "train_l1_l2",
+          "instances_requested": 32,
+          "instances_generated": 32,
+          "examples": 1197,
+          "depth_histogram": {"1": 21, "2": 11},
+          "provenance": "results/trm_operator_smoke/acceptance.json"
+        },
+        {
+          "split": "eval_l1_l2",
+          "instances_requested": 8,
+          "instances_generated": 8,
+          "examples": 296,
+          "depth_histogram": {"1": 5, "2": 3},
+          "provenance": "results/trm_operator_smoke/acceptance.json"
+        },
+        {
+          "split": "diagnostic_l4",
+          "instances_requested": 4,
+          "instances_generated": 4,
+          "examples": 148,
+          "depth_histogram": {"4": 1, "5": 3},
+          "provenance": "results/trm_operator_smoke/acceptance.json"
+        }
+      ]
+    },
+    "training_curve_smoke": {
+      "columns": [
+        "step",
+        "loss",
+        "forced_mask_loss",
+        "forced_precision",
+        "forced_recall",
+        "G1_forced_fixpoint",
+        "G2_forced_l4_solve",
+        "tau",
+        "provenance"
+      ],
+      "rows": [
+        {"step":1,"loss":5.809364318847656,"forced_mask_loss":0.34233027696609497,"forced_precision":0.0,"forced_recall":0.0,"G1_forced_fixpoint":0.125,"G2_forced_l4_solve":0.0,"tau":0.0,"provenance":"results/trm_operator_smoke/progress.jsonl"},
+        {"step":2,"loss":6.147930145263672,"forced_mask_loss":0.33280307054519653,"forced_precision":0.0,"forced_recall":0.0,"G1_forced_fixpoint":0.125,"G2_forced_l4_solve":0.0,"tau":0.0,"provenance":"results/trm_operator_smoke/progress.jsonl"},
+        {"step":3,"loss":5.853318691253662,"forced_mask_loss":0.32136741280555725,"forced_precision":0.09765625,"forced_recall":0.10869565217391304,"G1_forced_fixpoint":0.125,"G2_forced_l4_solve":0.0,"tau":0.0,"provenance":"results/trm_operator_smoke/progress.jsonl"}
+      ]
+    },
+    "gpu_launch_blocker": {
+      "columns": [
+        "requested_launch",
+        "observed_gpu_state",
+        "policy_action",
+        "result",
+        "provenance"
+      ],
+      "rows": [
+        {
+          "requested_launch": "three Track B seeds on GPUs 0,1,6",
+          "observed_gpu_state": "all eight A100s occupied by PID 1869, an external AzureML python process, about 20GB per GPU",
+          "policy_action": "did_not_cancel_or_modify_external_process",
+          "result": "full_3gpu_launch_pending",
+          "provenance": "nvidia-smi and ps output in this item"
+        }
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item establishes the Track B code path and one tiny GPU smoke artifact only. It does not establish Track B acceptance, does not pass the leading-indicator criterion, does not launch the requested three full seeds because all GPUs were already occupied by an external process, and does not create learned_recurrent Stage A cells.",
+    "limitations": [
+      "The smoke model is intentionally tiny (hidden_dim=96, recurrence_steps=2, 78,733 parameters) to test plumbing; the default trainer configuration is larger and should be used for real runs when GPUs are available.",
+      "The checkpoint path is recorded for local provenance but is not promoted as a canonical committed artifact in this item.",
+      "G1=0.125 and forced precision/recall around 0.08/0.09 are expected for a three-step smoke and are not acceptance evidence."
+    ]
+  },
+  "decision": {
+    "gate_outcomes": [
+      {
+        "gate": "track_b_code_path",
+        "number": "py_compile PASS; acceptance.json written; checkpoint written locally",
+        "outcome": "PASS_SMOKE"
+      },
+      {
+        "gate": "per_cell_token_representation",
+        "number": "token features=candidate_set_bitmask,given_flag,row_id,col_id,box_id; architecture_class=trm_per_cell_tokens",
+        "outcome": "IMPLEMENTED"
+      },
+      {
+        "gate": "leading_indicator_pair",
+        "number": "forced_precision=0.08445945945945946; forced_recall=0.09398496240601503; required~0.95/0.95",
+        "outcome": "NOT_MET_SMOKE_ONLY"
+      },
+      {
+        "gate": "three_seed_gpu_launch",
+        "number": "external PID 1869 occupied all 8 GPUs at launch check",
+        "outcome": "PENDING_GPU_AVAILABILITY"
+      }
+    ],
+    "next_step_routing": "When GPUs are free, run seeds 102/137/256 with the default or scaled Track B config on separate GPUs and log acceptance per seed. Keep Track B learned rows side by side with Track A only after learned_recurrent gates pass and an autonomous Stage A learned run exists."
+  }
+}
