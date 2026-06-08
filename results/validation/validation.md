@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-08T16:06:52.618288+00:00
+Generated at: 2026-06-08T16:51:41.787800+00:00
 
-Summary: 243 PASS / 3 FAIL / 246 total.
+Summary: 249 PASS / 3 FAIL / 252 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -104,7 +104,7 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_c | w3_propagation_scale_not_mixed | PASS | verdict=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
 | tier_c | w3_propagation_per_task_delta_measured | PASS | rows=5 |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=19 |
+| contract | log_item_artifacts_present | PASS | count=20 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
@@ -219,6 +219,12 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_046_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_046_honesty_does_not_establish | PASS | This item does not establish learned Track B success, Stage A autonomous learned evidence, or Qwen integration. It establishes a completed negative seed102 DDP  |
 | contract | log_item_046_decision_numbers_and_routing | PASS | gates=3; routing=Do not continue this supervised-imitation recipe as-is. Use the checkpoint and failure evidence to design a DAgger/RL-style rollout-refinement run with periodic checkpoints and mid-run acceptance probes. |
+| contract | log_item_047_required_fields | PASS | missing=[] |
+| contract | log_item_047_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_047_number_continues_from_028 | PASS | item_number=047 |
+| contract | log_item_047_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_047_honesty_does_not_establish | PASS | This preregistration alone establishes no observed separation; the observed tables must be written later under the same item/run root. If a required engine or a |
+| contract | log_item_047_decision_numbers_and_routing | PASS | gates=1; routing=Inspect Line 1 R3+ table, Line 2 close/fix decision, Line 3 Grade 2 verdict, and D3 frontier audit. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |

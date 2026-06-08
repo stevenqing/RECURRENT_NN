@@ -1,0 +1,132 @@
+{
+  "artifacts": [
+    "results/overnight_047_headline_preregistered",
+    "results/overnight_047_headline_preregistered/line1_headline/line1_headline.json",
+    "results/overnight_047_headline_preregistered/line2_track_b_diagnostic/track_b_forced_diagnostic.json",
+    "results/overnight_047_headline_preregistered/line3_qwen_d1_decode/qwen35_cache_push_pop_decode.json",
+    "results/overnight_047_headline_preregistered/line4_d3/d3_histograms_frontier.json",
+    "results/overnight_047_headline_preregistered/monitor_progress.jsonl",
+    "results/overnight_047_headline_preregistered/checkpoints/monitor_latest.json",
+    "results/overnight_047_headline_preregistered/line1_headline/checkpoints/mining_latest.json",
+    "results/overnight_047_headline_preregistered/line4_d3/checkpoints/mining_latest.json",
+    "results/experiment_items/item_047_deep_band_track_a_headline_overnight.json"
+  ],
+  "code_added_used": [
+    {
+      "change": "Adds preregistration, reverts-needed mining, equivalence-gated Line 1 table generation, D3 histograms, and rollup helpers.",
+      "path": "analysis/overnight_headline.py"
+    },
+    {
+      "change": "Adds one-shot Track B train-vs-eval forced P/R and target-vs-metric audit.",
+      "path": "analysis/track_b_forced_diagnostic.py"
+    },
+    {
+      "change": "Adds D1 cached-state structured push/pop decode probe with fail-closed recurrent-state inventory checks.",
+      "path": "analysis/qwen35_cache_push_pop_decode.py"
+    },
+    {
+      "change": "Adds periodic overnight progress snapshots, monitor_progress.jsonl, and numbered/latest checkpoint JSON files.",
+      "path": "analysis/monitor_overnight_progress.py"
+    },
+    {
+      "change": "Allocates GPUs 0-6 to the four requested lines with logs, pids, status files, and a progress monitor.",
+      "path": "scripts/run_overnight_headline_047.sh"
+    }
+  ],
+  "commands": [
+    {
+      "command": "scripts/run_overnight_headline_047.sh --run",
+      "purpose": "Launch all four overnight lines after writing this preregistration item."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [
+      {
+        "gate": "overnight_rollup_written",
+        "number": "results/overnight_047_headline_preregistered/rollup.json",
+        "outcome": "PASS"
+      }
+    ],
+    "next_step_routing": "Inspect Line 1 R3+ table, Line 2 close/fix decision, Line 3 Grade 2 verdict, and D3 frontier audit."
+  },
+  "honesty": {
+    "does_not_establish": "This preregistration alone establishes no observed separation; the observed tables must be written later under the same item/run root. If a required engine or audit is absent, the run must fail closed."
+  },
+  "item_number": "047",
+  "name": "Deep-band Track A headline overnight preregistration",
+  "preregistration": {
+    "acceptance_rules": [
+      "No Line 1 grid row may be logged before GPU equivalence passes.",
+      "Instances are binned by scalar-reference reverts_needed, not minimal depth.",
+      "R3+ no_revert solve_rate above 0.1 forces cap recalibration/fail-closed interpretation.",
+      "GRU rows require nonzero peak_register_bytes and a training-curve reference.",
+      "Deviations are reported as measured, not smoothed.",
+      "Intermediate monitor checkpoints and mining pool checkpoints are written while the run is in progress."
+    ],
+    "expected_table": [
+      {
+        "band": "R0",
+        "expectation": "all arms approximately solve; no separation expected"
+      },
+      {
+        "band": "R3-5/R6+",
+        "expectation": "rot_bound_single and rot_factored solve up to d*(D), kv_snapshot solves as upper reference, rot_no_revert and GRU collapse unless audited evidence says otherwise"
+      },
+      {
+        "capacity_knee": "D in {128,256,512}; spill_off should drop past d*(D); spill_on should extend with overflow entries scaling in depth-d*"
+      }
+    ]
+  },
+  "provenance": {
+    "binning_axis": "reverts_needed=scalar_reference_total_backtracks",
+    "generated_at": "2026-06-08T16:22:48.443560+00:00",
+    "gpu_allocation": "0-3 Line1, 4 Line3, 5 Line2, 6 Line4/D3, 7 spare",
+    "repo": "/home/aiscuser/RECURRENT_NN",
+    "run_root": "results/overnight_047_headline_preregistered",
+    "track": "A_symbolic_oracle_deep_band"
+  },
+  "purpose": "Preregister the overnight headline run that bins 9x9 Stage A candidates by scalar-reference reverts_needed rather than minimal DPLL depth, gates Line 1 on GPU engine equivalence, and targets the R3+ separation table needed to test whether the register causally enables backtracking to the predicted depth.",
+  "result_tables": {
+    "overnight_rollup": {
+      "columns": [
+        "path",
+        "status",
+        "fail_closed"
+      ],
+      "rows": [
+        {
+          "fail_closed": false,
+          "path": "results/overnight_047_headline_preregistered/line1_headline/line1_headline.json",
+          "status": "HEADLINE_TABLE_READY_WITH_AUDIT_RED"
+        },
+        {
+          "fail_closed": false,
+          "path": "results/overnight_047_headline_preregistered/line1_headline/reverts_needed_pool.json",
+          "status": "REVERTS_NEEDED_POOL_READY"
+        },
+        {
+          "fail_closed": false,
+          "path": "results/overnight_047_headline_preregistered/line2_track_b_diagnostic/track_b_forced_diagnostic.json",
+          "status": "CLOSE_AS_TARGET_METRIC_OR_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
+        },
+        {
+          "fail_closed": false,
+          "path": "results/overnight_047_headline_preregistered/line3_qwen_d1_decode/qwen35_cache_push_pop_decode.json",
+          "status": "GRADE2_IN_STATE_NOT_ESTABLISHED"
+        },
+        {
+          "fail_closed": false,
+          "path": "results/overnight_047_headline_preregistered/line4_d3/d3_histograms_frontier.json",
+          "status": "D3_HISTOGRAMS_AND_FRONTIER_AUDIT_READY"
+        },
+        {
+          "fail_closed": false,
+          "path": "results/overnight_047_headline_preregistered/line4_d3/reverts_needed_pool.json",
+          "status": "REVERTS_NEEDED_POOL_READY"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "OVERNIGHT_LAUNCHED_ROLLUP_AVAILABLE"
+}

@@ -27,6 +27,7 @@
     "item_044_trainer_prelaunch_gates": "results/experiment_items/item_044_trainer_prelaunch_gates.json",
     "item_045_track_b_ddp_sharded_retry_launch": "results/experiment_items/item_045_track_b_ddp_sharded_retry_launch.json",
     "item_046_track_b_ddp_sharded_seed102_final": "results/experiment_items/item_046_track_b_ddp_sharded_seed102_final.json",
+    "item_047_deep_band_track_a_headline_overnight": "results/experiment_items/item_047_deep_band_track_a_headline_overnight.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "m2_operator_fix_rescale": "results/m2_operator_probe/report_fix_rescale.json",
     "m2_operator_probe": "results/m2_operator_probe/report.json",
@@ -4114,7 +4115,7 @@
       "S3.1 integration is not started."
     ]
   },
-  "generated_at": "2026-06-08T16:06:47.341192+00:00",
+  "generated_at": "2026-06-08T16:51:36.151390+00:00",
   "incremental_items": [
     [
       "001-018",
@@ -4174,7 +4175,7 @@
       "P0",
       "ledger and validation housekeeping",
       "Updated",
-      "validation_checks=240; validation_passed=False"
+      "validation_checks=252; validation_passed=False"
     ],
     [
       "W3.0",
@@ -4319,6 +4320,12 @@
       "Track B DDP sharded seed102 final result",
       "DDP_SHARDED_SEED102_FINAL_NEGATIVE",
       "Do not continue this supervised-imitation recipe as-is. Use the checkpoint and failure evidence to design a DAgger/RL-style rollout-refinement run with periodic checkpoints and mid-run acceptance probes."
+    ],
+    [
+      "047",
+      "Deep-band Track A headline overnight preregistration",
+      "OVERNIGHT_LAUNCHED_ROLLUP_AVAILABLE",
+      "Inspect Line 1 R3+ table, Line 2 close/fix decision, Line 3 Grade 2 verdict, and D3 frontier audit."
     ]
   ],
   "items": [
@@ -4488,12 +4495,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       ],
       "detail_data": {
@@ -4516,18 +4523,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -4535,7 +4542,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       },
       "details": [
@@ -5290,12 +5297,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781484
+          "size_bytes": 821450
         }
       ],
       "detail_data": {
@@ -5322,14 +5329,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:06:16.186316+00:00"
+              "2026-06-08T16:35:17.852610+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -5342,27 +5349,27 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         }
       },
       "details": [
         "Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.",
-        "validation_pass=237; validation_fail=3",
+        "validation_pass=248; validation_fail=4",
         "Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure."
       ],
       "item": "P0",
-      "key_result": "validation_checks=240; validation_passed=False",
+      "key_result": "validation_checks=252; validation_passed=False",
       "name": "ledger and validation housekeeping",
       "next_action": "Keep future reports item-first and preserve explicit red checks.",
       "status": "Updated"
@@ -5982,22 +5989,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         {
           "path": "specs/log_item_contract.md",
@@ -6367,14 +6374,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:06:16.186316+00:00"
+              "2026-06-08T16:35:17.852610+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -6382,7 +6389,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         "results/stage_a_adapter_wiring/results.json": {
           "embedded": false,
@@ -6567,18 +6574,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -6586,7 +6593,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -8824,12 +8831,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       ],
       "contract_data": {
@@ -9314,18 +9321,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -9333,7 +9340,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         },
         "results/verifier/results.json": {
           "path": "results/verifier/results.json",
@@ -9401,12 +9408,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       ],
       "contract_data": {
@@ -9792,18 +9799,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -9811,7 +9818,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -10907,12 +10914,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       ],
       "contract_data": {
@@ -11912,18 +11919,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -11931,7 +11938,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         },
         "results/w3_qwen35_probe/propagation_shards/general_sat/results.json": {
           "embedded": false,
@@ -14220,22 +14227,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188443
+          "size_bytes": 198314
         }
       ],
       "contract_data": {
@@ -15132,14 +15139,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:06:16.186316+00:00"
+              "2026-06-08T16:35:17.852610+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -15147,7 +15154,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         "results/stage_a_symbolic/oracle_statelessness_ci.json": {
           "embedded": false,
@@ -15320,18 +15327,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -15339,7 +15346,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       },
       "details": [
@@ -15395,22 +15402,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188443
+          "size_bytes": 198314
         }
       ],
       "contract_data": {
@@ -16110,14 +16117,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:06:16.186316+00:00"
+              "2026-06-08T16:35:17.852610+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -16125,7 +16132,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         "results/stage_a_symbolic/oracle_statelessness_ci.json": {
           "embedded": false,
@@ -16298,18 +16305,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -16317,7 +16324,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       },
       "details": [
@@ -16353,22 +16360,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       ],
       "contract_data": {
@@ -16678,14 +16685,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:06:16.186316+00:00"
+              "2026-06-08T16:35:17.852610+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -16693,7 +16700,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         "results/trm_operator_smoke/acceptance.json": {
           "embedded": false,
@@ -16774,18 +16781,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -16793,7 +16800,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       },
       "details": [
@@ -16864,22 +16871,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       ],
       "contract_data": {
@@ -17580,14 +17587,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:06:16.186316+00:00"
+              "2026-06-08T16:35:17.852610+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -17595,7 +17602,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json": {
           "embedded": false,
@@ -17628,7 +17635,7 @@
             ],
             [
               "updated_at",
-              "2026-06-08T16:06:35.671887+00:00"
+              "2026-06-08T16:51:09.309441+00:00"
             ]
           ],
           "path": "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json",
@@ -17876,18 +17883,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -17895,7 +17902,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       },
       "details": [
@@ -17971,22 +17978,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       ],
       "contract_data": {
@@ -18398,14 +18405,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:06:16.186316+00:00"
+              "2026-06-08T16:35:17.852610+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -18413,7 +18420,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         "results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl": {
           "embedded": false,
@@ -18530,18 +18537,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -18549,7 +18556,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         },
         "sudoku_engine_gpu.py": {
           "embedded": false,
@@ -18603,22 +18610,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       ],
       "contract_data": {
@@ -18898,14 +18905,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:06:16.186316+00:00"
+              "2026-06-08T16:35:17.852610+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -18913,7 +18920,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -18926,18 +18933,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -18945,7 +18952,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         },
         "sudoku_engine_gpu.py": {
           "embedded": false,
@@ -18984,22 +18991,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       ],
       "contract_data": {
@@ -19251,14 +19258,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:06:16.186316+00:00"
+              "2026-06-08T16:35:17.852610+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -19266,7 +19273,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -19279,18 +19286,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -19298,7 +19305,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         },
         "specs/track_b_retry_plan.md": {
           "embedded": false,
@@ -19362,22 +19369,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       ],
       "contract_data": {
@@ -19625,14 +19632,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:06:16.186316+00:00"
+              "2026-06-08T16:35:17.852610+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -19640,7 +19647,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         "results/trm_operator_compile_smoke/acceptance.json": {
           "embedded": false,
@@ -19805,18 +19812,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -19824,7 +19831,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         },
         "specs/track_b_retry_plan.md": {
           "embedded": false,
@@ -19933,22 +19940,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       ],
       "contract_data": {
@@ -20297,14 +20304,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:06:16.186316+00:00"
+              "2026-06-08T16:35:17.852610+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -20312,7 +20319,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt": {
           "embedded": false,
@@ -20413,18 +20420,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -20432,7 +20439,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       },
       "details": [
@@ -20483,22 +20490,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       ],
       "contract_data": {
@@ -20787,14 +20794,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T12:06:16.186316+00:00"
+              "2026-06-08T16:35:17.852610+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 781484
+          "size_bytes": 821450
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -20802,7 +20809,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 188443
+          "size_bytes": 198314
         },
         "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt": {
           "embedded": false,
@@ -20915,18 +20922,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T12:06:21.851970+00:00"
+              "2026-06-08T16:25:15.554179+00:00"
             ],
             [
               "summary",
-              "n_checks=240; n_fail=3; n_pass=237"
+              "n_checks=252; n_fail=4; n_pass=248"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 46050
+          "size_bytes": 48867
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -20934,7 +20941,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 28469
+          "size_bytes": 30398
         }
       },
       "details": [
@@ -20949,6 +20956,559 @@
       "next_action": "Do not continue this supervised-imitation recipe as-is. Use the checkpoint and failure evidence to design a DAgger/RL-style rollout-refinement run with periodic checkpoints and mid-run acceptance probes.",
       "purpose": "Record the completed seed102 8-GPU DDP sharded-cache Track B retry. The run completed all 20000 supervised imitation steps, wrote a checkpoint and final acceptance.json, and did not meet learned Track B G1 acceptance. This item closes the active item045 run snapshot with final evidence-bound metrics.",
       "status": "DDP_SHARDED_SEED102_FINAL_NEGATIVE"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/experiment_items/item_047_deep_band_track_a_headline_overnight.json",
+          "present": "yes",
+          "size_bytes": 6142
+        },
+        {
+          "path": "results/overnight_047_headline_preregistered",
+          "present": "yes",
+          "size_bytes": 4096
+        },
+        {
+          "path": "results/overnight_047_headline_preregistered/line1_headline/line1_headline.json",
+          "present": "yes",
+          "size_bytes": 110709
+        },
+        {
+          "path": "results/overnight_047_headline_preregistered/line2_track_b_diagnostic/track_b_forced_diagnostic.json",
+          "present": "yes",
+          "size_bytes": 10401
+        },
+        {
+          "path": "results/overnight_047_headline_preregistered/line3_qwen_d1_decode/qwen35_cache_push_pop_decode.json",
+          "present": "yes",
+          "size_bytes": 45009
+        },
+        {
+          "path": "results/overnight_047_headline_preregistered/line4_d3/d3_histograms_frontier.json",
+          "present": "yes",
+          "size_bytes": 2272
+        },
+        {
+          "path": "results/overnight_047_headline_preregistered/monitor_progress.jsonl",
+          "present": "yes",
+          "size_bytes": 45044
+        },
+        {
+          "path": "results/overnight_047_headline_preregistered/checkpoints/monitor_latest.json",
+          "present": "yes",
+          "size_bytes": 16297
+        },
+        {
+          "path": "results/overnight_047_headline_preregistered/line1_headline/checkpoints/mining_latest.json",
+          "present": "yes",
+          "size_bytes": 507
+        },
+        {
+          "path": "results/overnight_047_headline_preregistered/line4_d3/checkpoints/mining_latest.json",
+          "present": "yes",
+          "size_bytes": 495
+        }
+      ],
+      "contract_data": {
+        "artifacts": [
+          "results/overnight_047_headline_preregistered",
+          "results/overnight_047_headline_preregistered/line1_headline/line1_headline.json",
+          "results/overnight_047_headline_preregistered/line2_track_b_diagnostic/track_b_forced_diagnostic.json",
+          "results/overnight_047_headline_preregistered/line3_qwen_d1_decode/qwen35_cache_push_pop_decode.json",
+          "results/overnight_047_headline_preregistered/line4_d3/d3_histograms_frontier.json",
+          "results/overnight_047_headline_preregistered/monitor_progress.jsonl",
+          "results/overnight_047_headline_preregistered/checkpoints/monitor_latest.json",
+          "results/overnight_047_headline_preregistered/line1_headline/checkpoints/mining_latest.json",
+          "results/overnight_047_headline_preregistered/line4_d3/checkpoints/mining_latest.json",
+          "results/experiment_items/item_047_deep_band_track_a_headline_overnight.json"
+        ],
+        "code_added_used": [
+          {
+            "change": "Adds preregistration, reverts-needed mining, equivalence-gated Line 1 table generation, D3 histograms, and rollup helpers.",
+            "path": "analysis/overnight_headline.py"
+          },
+          {
+            "change": "Adds one-shot Track B train-vs-eval forced P/R and target-vs-metric audit.",
+            "path": "analysis/track_b_forced_diagnostic.py"
+          },
+          {
+            "change": "Adds D1 cached-state structured push/pop decode probe with fail-closed recurrent-state inventory checks.",
+            "path": "analysis/qwen35_cache_push_pop_decode.py"
+          },
+          {
+            "change": "Adds periodic overnight progress snapshots, monitor_progress.jsonl, and numbered/latest checkpoint JSON files.",
+            "path": "analysis/monitor_overnight_progress.py"
+          },
+          {
+            "change": "Allocates GPUs 0-6 to the four requested lines with logs, pids, status files, and a progress monitor.",
+            "path": "scripts/run_overnight_headline_047.sh"
+          }
+        ],
+        "commands": [
+          {
+            "command": "scripts/run_overnight_headline_047.sh --run",
+            "purpose": "Launch all four overnight lines after writing this preregistration item."
+          }
+        ],
+        "decision": {
+          "gate_outcomes": [
+            {
+              "gate": "overnight_rollup_written",
+              "number": "results/overnight_047_headline_preregistered/rollup.json",
+              "outcome": "PASS"
+            }
+          ],
+          "next_step_routing": "Inspect Line 1 R3+ table, Line 2 close/fix decision, Line 3 Grade 2 verdict, and D3 frontier audit."
+        },
+        "honesty": {
+          "does_not_establish": "This preregistration alone establishes no observed separation; the observed tables must be written later under the same item/run root. If a required engine or audit is absent, the run must fail closed."
+        },
+        "item_number": "047",
+        "name": "Deep-band Track A headline overnight preregistration",
+        "preregistration": {
+          "acceptance_rules": [
+            "No Line 1 grid row may be logged before GPU equivalence passes.",
+            "Instances are binned by scalar-reference reverts_needed, not minimal depth.",
+            "R3+ no_revert solve_rate above 0.1 forces cap recalibration/fail-closed interpretation.",
+            "GRU rows require nonzero peak_register_bytes and a training-curve reference.",
+            "Deviations are reported as measured, not smoothed.",
+            "Intermediate monitor checkpoints and mining pool checkpoints are written while the run is in progress."
+          ],
+          "expected_table": [
+            {
+              "band": "R0",
+              "expectation": "all arms approximately solve; no separation expected"
+            },
+            {
+              "band": "R3-5/R6+",
+              "expectation": "rot_bound_single and rot_factored solve up to d*(D), kv_snapshot solves as upper reference, rot_no_revert and GRU collapse unless audited evidence says otherwise"
+            },
+            {
+              "capacity_knee": "D in {128,256,512}; spill_off should drop past d*(D); spill_on should extend with overflow entries scaling in depth-d*"
+            }
+          ]
+        },
+        "provenance": {
+          "binning_axis": "reverts_needed=scalar_reference_total_backtracks",
+          "generated_at": "2026-06-08T16:22:48.443560+00:00",
+          "gpu_allocation": "0-3 Line1, 4 Line3, 5 Line2, 6 Line4/D3, 7 spare",
+          "repo": "/home/aiscuser/RECURRENT_NN",
+          "run_root": "results/overnight_047_headline_preregistered",
+          "track": "A_symbolic_oracle_deep_band"
+        },
+        "purpose": "Preregister the overnight headline run that bins 9x9 Stage A candidates by scalar-reference reverts_needed rather than minimal DPLL depth, gates Line 1 on GPU engine equivalence, and targets the R3+ separation table needed to test whether the register causally enables backtracking to the predicted depth.",
+        "result_tables": {
+          "overnight_rollup": {
+            "columns": [
+              "path",
+              "status",
+              "fail_closed"
+            ],
+            "rows": [
+              {
+                "fail_closed": false,
+                "path": "results/overnight_047_headline_preregistered/line1_headline/line1_headline.json",
+                "status": "HEADLINE_TABLE_READY_WITH_AUDIT_RED"
+              },
+              {
+                "fail_closed": false,
+                "path": "results/overnight_047_headline_preregistered/line1_headline/reverts_needed_pool.json",
+                "status": "REVERTS_NEEDED_POOL_READY"
+              },
+              {
+                "fail_closed": false,
+                "path": "results/overnight_047_headline_preregistered/line2_track_b_diagnostic/track_b_forced_diagnostic.json",
+                "status": "CLOSE_AS_TARGET_METRIC_OR_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
+              },
+              {
+                "fail_closed": false,
+                "path": "results/overnight_047_headline_preregistered/line3_qwen_d1_decode/qwen35_cache_push_pop_decode.json",
+                "status": "GRADE2_IN_STATE_NOT_ESTABLISHED"
+              },
+              {
+                "fail_closed": false,
+                "path": "results/overnight_047_headline_preregistered/line4_d3/d3_histograms_frontier.json",
+                "status": "D3_HISTOGRAMS_AND_FRONTIER_AUDIT_READY"
+              },
+              {
+                "fail_closed": false,
+                "path": "results/overnight_047_headline_preregistered/line4_d3/reverts_needed_pool.json",
+                "status": "REVERTS_NEEDED_POOL_READY"
+              }
+            ]
+          }
+        },
+        "schema_version": "log_item_contract_v1",
+        "status": "OVERNIGHT_LAUNCHED_ROLLUP_AVAILABLE"
+      },
+      "detail_data": {
+        "results/experiment_items/item_047_deep_band_track_a_headline_overnight.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": "047",
+          "json_summary": [
+            [
+              "status",
+              "OVERNIGHT_LAUNCHED_ROLLUP_AVAILABLE"
+            ],
+            [
+              "decision",
+              "2 keys: gate_outcomes, next_step_routing"
+            ],
+            [
+              "honesty",
+              "does_not_establish=This preregistration alone establishes no observed separation; the observed tables must be written later under the same item/run root. If a required engine or audit is absent, the run must fail closed."
+            ],
+            [
+              "item_number",
+              "047"
+            ],
+            [
+              "name",
+              "Deep-band Track A headline overnight preregistration"
+            ],
+            [
+              "purpose",
+              "Preregister the overnight headline run that bins 9x9 Stage A candidates by scalar-reference reverts_needed rather than minimal DPLL depth, gates Line 1 on GPU engine equivalence, and targets the R3+ separation table needed to test whether the register causally enables backtracking to the predicted depth."
+            ],
+            [
+              "schema_version",
+              "log_item_contract_v1"
+            ]
+          ],
+          "path": "results/experiment_items/item_047_deep_band_track_a_headline_overnight.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 3,
+              "rows": 6,
+              "table": "overnight_rollup"
+            }
+          ],
+          "size_bytes": 6142
+        },
+        "results/overnight_047_headline_preregistered": {
+          "embedded": false,
+          "path": "results/overnight_047_headline_preregistered",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 4096
+        },
+        "results/overnight_047_headline_preregistered/checkpoints/monitor_latest.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "monitor_overnight_progress"
+            ],
+            [
+              "status",
+              "ALL_LINES_EXITED"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T16:49:41.142809+00:00"
+            ],
+            [
+              "iteration",
+              "15"
+            ],
+            [
+              "run_root",
+              "results/overnight_047_headline_preregistered"
+            ]
+          ],
+          "path": "results/overnight_047_headline_preregistered/checkpoints/monitor_latest.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 16297
+        },
+        "results/overnight_047_headline_preregistered/line1_headline/checkpoints/mining_latest.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "monitor_overnight_progress.mining_count_checkpoint"
+            ],
+            [
+              "status",
+              "COUNT_ONLY_PROGRESS_CHECKPOINT"
+            ],
+            [
+              "chunk_index",
+              "32"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T16:49:41.120588+00:00"
+            ],
+            [
+              "limitation",
+              "Current process started before internal selected-instance checkpoint support; this checkpoint preserves progress counts, not candidate rows."
+            ],
+            [
+              "line",
+              "line1_headline"
+            ],
+            [
+              "source",
+              "line1_headline/mining_progress.jsonl"
+            ]
+          ],
+          "path": "results/overnight_047_headline_preregistered/line1_headline/checkpoints/mining_latest.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 507
+        },
+        "results/overnight_047_headline_preregistered/line1_headline/line1_headline.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "overnight_headline.line1"
+            ],
+            [
+              "status",
+              "HEADLINE_TABLE_READY_WITH_AUDIT_RED"
+            ],
+            [
+              "binning_axis",
+              "reverts_needed=scalar_reference_total_backtracks"
+            ],
+            [
+              "fail_closed",
+              "False"
+            ],
+            [
+              "forward_only_asserted",
+              "True"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T16:32:33.084565+00:00"
+            ],
+            [
+              "pool_ref",
+              "results/overnight_047_headline_preregistered/line1_headline/reverts_needed_pool.json"
+            ]
+          ],
+          "path": "results/overnight_047_headline_preregistered/line1_headline/line1_headline.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 16,
+              "rows": 168,
+              "table": "headline_separation"
+            },
+            {
+              "columns": 5,
+              "rows": 6,
+              "table": "module1_overlay"
+            }
+          ],
+          "size_bytes": 110709
+        },
+        "results/overnight_047_headline_preregistered/line2_track_b_diagnostic/track_b_forced_diagnostic.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "track_b_forced_diagnostic"
+            ],
+            [
+              "status",
+              "CLOSE_AS_TARGET_METRIC_OR_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
+            ],
+            [
+              "decision",
+              "no_dagger_rl_tonight=True; outcome=CLOSE_AS_TARGET_METRIC_OR_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL; rule=no further training unless a trivial target/metric bug is found"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "checkpoint",
+              "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt"
+            ],
+            [
+              "fail_closed",
+              "False"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T16:49:06.818915+00:00"
+            ]
+          ],
+          "path": "results/overnight_047_headline_preregistered/line2_track_b_diagnostic/track_b_forced_diagnostic.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 7,
+              "rows": 10,
+              "table": "target_metric_trace_examples"
+            },
+            {
+              "columns": 7,
+              "rows": 2,
+              "table": "train_vs_eval_forced_pr"
+            }
+          ],
+          "size_bytes": 10401
+        },
+        "results/overnight_047_headline_preregistered/line3_qwen_d1_decode/qwen35_cache_push_pop_decode.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "qwen35_cache_push_pop_decode"
+            ],
+            [
+              "status",
+              "GRADE2_IN_STATE_NOT_ESTABLISHED"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "model_id",
+              "Qwen/Qwen3.5-4B"
+            ],
+            [
+              "fail_closed",
+              "False"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T16:26:58.066604+00:00"
+            ],
+            [
+              "target_layer",
+              "0"
+            ]
+          ],
+          "path": "results/overnight_047_headline_preregistered/line3_qwen_d1_decode/qwen35_cache_push_pop_decode.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 10,
+              "rows": 72,
+              "table": "decode_accuracy"
+            }
+          ],
+          "size_bytes": 45009
+        },
+        "results/overnight_047_headline_preregistered/line4_d3/checkpoints/mining_latest.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "monitor_overnight_progress.mining_count_checkpoint"
+            ],
+            [
+              "status",
+              "COUNT_ONLY_PROGRESS_CHECKPOINT"
+            ],
+            [
+              "chunk_index",
+              "32"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T16:49:41.133708+00:00"
+            ],
+            [
+              "limitation",
+              "Current process started before internal selected-instance checkpoint support; this checkpoint preserves progress counts, not candidate rows."
+            ],
+            [
+              "line",
+              "line4_d3"
+            ],
+            [
+              "source",
+              "line4_d3/mining_progress.jsonl"
+            ]
+          ],
+          "path": "results/overnight_047_headline_preregistered/line4_d3/checkpoints/mining_latest.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 495
+        },
+        "results/overnight_047_headline_preregistered/line4_d3/d3_histograms_frontier.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "overnight_headline.d3"
+            ],
+            [
+              "status",
+              "D3_HISTOGRAMS_AND_FRONTIER_AUDIT_READY"
+            ],
+            [
+              "fail_closed",
+              "False"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T16:31:10.367903+00:00"
+            ],
+            [
+              "pool_ref",
+              "results/overnight_047_headline_preregistered/line4_d3/reverts_needed_pool.json"
+            ]
+          ],
+          "path": "results/overnight_047_headline_preregistered/line4_d3/d3_histograms_frontier.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 2272
+        },
+        "results/overnight_047_headline_preregistered/monitor_progress.jsonl": {
+          "embedded": false,
+          "format": "jsonl",
+          "path": "results/overnight_047_headline_preregistered/monitor_progress.jsonl",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 45044
+        }
+      },
+      "details": [
+        "purpose=Preregister the overnight headline run that bins 9x9 Stage A candidates by scalar-reference reverts_needed rather than minimal DPLL depth, gates Line 1 on GPU engine equivalence, and targets the R3+ separation table needed to test whether the register causally enables backtracking to the predicted depth.",
+        "commands=1",
+        "result_tables=['overnight_rollup']",
+        "honesty=This preregistration alone establishes no observed separation; the observed tables must be written later under the same item/run root. If a required engine or audit is absent, the run must fail closed."
+      ],
+      "item": "047",
+      "key_result": "Inspect Line 1 R3+ table, Line 2 close/fix decision, Line 3 Grade 2 verdict, and D3 frontier audit.",
+      "name": "Deep-band Track A headline overnight preregistration",
+      "next_action": "Inspect Line 1 R3+ table, Line 2 close/fix decision, Line 3 Grade 2 verdict, and D3 frontier audit.",
+      "purpose": "Preregister the overnight headline run that bins 9x9 Stage A candidates by scalar-reference reverts_needed rather than minimal DPLL depth, gates Line 1 on GPU engine equivalence, and targets the R3+ separation table needed to test whether the register causally enables backtracking to the predicted depth.",
+      "status": "OVERNIGHT_LAUNCHED_ROLLUP_AVAILABLE"
     }
   ],
   "legacy_archive": {
@@ -20969,8 +21529,8 @@
     "verifier": "results/verifier/results.json"
   },
   "validation_summary": {
-    "n_checks": 240,
-    "n_fail": 3,
-    "n_pass": 237
+    "n_checks": 252,
+    "n_fail": 4,
+    "n_pass": 248
   }
 }
