@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=13",
+      "detail": "count=18",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -1039,6 +1039,186 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_041_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_041_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=041",
+      "name": "log_item_041_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_041_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not claim a speedup, does not establish learned Track B gate success, and does not change experimental semantics. It records a before-optimizatio",
+      "name": "log_item_041_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=Proceed to GPU pipeline optimization only behind the recorded equivalence guard. The next implementation should wire GPU-resident/batched Sudoku operations into data preparation or rollout evaluation, then report before/after against this P0 baseline without changing Track B semantics.",
+      "name": "log_item_041_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_042_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_042_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=042",
+      "name": "log_item_042_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_042_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not claim a speedup, does not change Track B training, and does not establish learned gate success. It only establishes that the register-level b",
+      "name": "log_item_042_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=2; routing=Use register.batched_ops as the guarded integration layer for the next GPU pipeline optimization. The next code change should wire batched operations into the trainer data preparation or rollout path and compare timing against item041 P0.",
+      "name": "log_item_042_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_043_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_043_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=043",
+      "name": "log_item_043_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_043_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not run training, does not claim speedup, and does not establish learned Track B acceptance. It only records the next faithful retry plan and the",
+      "name": "log_item_043_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=3; routing=Implement the prelaunch trainer gates, rerun equivalence checks, then launch one seed per GPU and report before/after throughput against item041 plus per-seed learned metrics as in item040.",
+      "name": "log_item_043_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_044_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_044_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=044",
+      "name": "log_item_044_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_044_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish a speedup, does not run the full retry, and does not establish learned Track B acceptance. It only validates that the trainer now s",
+      "name": "log_item_044_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=2; routing=Launch the item043 one-GPU-per-seed retry when ready, using the selected 6.91M-parameter shape and the new prelaunch flags, then compare throughput against item041 and report learned metrics as in item040.",
+      "name": "log_item_044_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_045_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_045_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=045",
+      "name": "log_item_045_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_045_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish final learned Track B acceptance. The seed102 DDP run is still active, and G1/G2 rollout metrics are intentionally null in progress",
+      "name": "log_item_045_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=2; routing=Continue monitoring the active seed102 DDP run until completion, then record final acceptance.json and compare final learned G1/G2 against item040 and item043 expectations.",
+      "name": "log_item_045_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -1261,11 +1441,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-08T08:57:12.799111+00:00",
+  "generated_at": "2026-06-08T12:06:21.851970+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 210,
+    "n_checks": 240,
     "n_fail": 3,
-    "n_pass": 207
+    "n_pass": 237
   }
 }

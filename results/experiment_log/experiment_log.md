@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-08T08:57:12.359494+00:00
+Generated at: 2026-06-08T12:06:16.186316+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,7 +17,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 pre-fix record | BLOCKER | historical_continuation_G1=0.0; current_diagnostic_G1=1.0 |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=210; validation_passed=False |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=240; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Diagnostic pass, autonomous grid not proven | Sudoku6 diagnostic G1=1.0; L4_reverts=True; L4_forward=True |
 | P2 | W3 Qwen3.5 probe | cached_gdn_state_measured_with_propagation_delta | W3.0=PASS; survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; native_delta=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; propagation=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
@@ -36,6 +36,11 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 038 | Track A budgeted parallel symbolic L4 evidence and GPU feasibility | TRACK_A_SYMBOLIC_L4_EVIDENCE_RECORDED_LEARNED_TRACK_STILL_RED | Use CPU parallel budgeted Track A for remaining symbolic shards; reserve GPUs for Track B learned/TRM-class operator and D1. Next, implement Track B or the D1/D2/D3 debts without promoting symbolic Track A rows into learned-track evidence. |
 | 039 | Track B TRM-class per-cell-token operator smoke | TRACK_B_TRAINER_SMOKE_PASSED_FULL_3GPU_LAUNCH_PENDING | When GPUs are free, run seeds 102/137/256 with the default or scaled Track B config on separate GPUs and log acceptance per seed. Keep Track B learned rows side by side with Track A only after learned_recurrent gates pass and an autonomous Stage A learned run exists. |
 | 040 | Track B TRM-class full 3x8GPU run negative result | TRACK_B_FULL_3X8GPU_COMPLETE_GATES_UNREACHED | Treat this Track B recipe as a clean negative result. Do not route learned_recurrent into Stage A or mark learned gates green. Future Track B work should change the objective/curriculum or recurrent control path rather than merely extending this L1-L2 forced-step run, because 20k steps left G2 at 0.0 and G1 far below threshold. |
+| 041 | GPU efficiency P0 profile and Sudoku engine equivalence | P0_PROFILE_COMPLETE_GPU_ENGINE_EQUIVALENCE_PASS | Proceed to GPU pipeline optimization only behind the recorded equivalence guard. The next implementation should wire GPU-resident/batched Sudoku operations into data preparation or rollout evaluation, then report before/after against this P0 baseline without changing Track B semantics. |
+| 042 | Register batched ops bridge equivalence | BATCHED_OPS_BRIDGE_EQUIVALENCE_PASS | Use register.batched_ops as the guarded integration layer for the next GPU pipeline optimization. The next code change should wire batched operations into the trainer data preparation or rollout path and compare timing against item041 P0. |
+| 043 | Track B faithful retry plan after GPU efficiency guards | RETRY_PLAN_READY_NOT_LAUNCHED | Implement the prelaunch trainer gates, rerun equivalence checks, then launch one seed per GPU and report before/after throughput against item041 plus per-seed learned metrics as in item040. |
+| 044 | Track B trainer prelaunch gates implemented | PRELAUNCH_GATES_IMPLEMENTED_SMOKE_PASS | Launch the item043 one-GPU-per-seed retry when ready, using the selected 6.91M-parameter shape and the new prelaunch flags, then compare throughput against item041 and report learned metrics as in item040. |
+| 045 | Track B DDP sharded-cache retry launched | DDP_SHARDED_RETRY_ACTIVE_STEP1000 | Continue monitoring the active seed102 DDP run until completion, then record final acceptance.json and compare final learned G1/G2 against item040 and item043 expectations. |
 
 ## Item Details
 
@@ -93,13 +98,13 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - Current validation is registry-style and does not collapse missing history into one opaque required-files failure.
 - Artifact refs:
   - analysis/validate_outputs.py (yes, 34385 bytes)
-  - results/validation/validation.json (yes, 39630 bytes)
-  - results/validation/validation.md (yes, 24269 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=210; n_fail=3; n_pass=207 |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
 
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
@@ -246,21 +251,21 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=210; validation_passed=False
+- Key result: validation_checks=240; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=207; validation_fail=3
+  - validation_pass=237; validation_fail=3
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifact refs:
   - CANONICAL_REPO.md (yes, 532 bytes)
   - analysis/validate_outputs.py (yes, 34385 bytes)
-  - results/validation/validation.json (yes, 39630 bytes)
-  - results/experiment_log/experiment_log.json (yes, 667742 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/experiment_log/experiment_log.json (yes, 781473 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=210; n_fail=3; n_pass=207 |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 - Next action: Keep future reports item-first and preserve explicit red checks.
@@ -377,10 +382,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - REPRODUCIBILITY.md (yes, 3478 bytes)
   - scripts/reproduce_continuation_state.sh (yes, 1972 bytes)
   - results/continuation_state/post_027.json (yes, 1453 bytes)
-  - results/validation/validation.json (yes, 39630 bytes)
-  - results/validation/validation.md (yes, 24269 bytes)
-  - results/experiment_log/experiment_log.json (yes, 667742 bytes)
-  - results/experiment_log/experiment_log.md (yes, 159240 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
+  - results/experiment_log/experiment_log.json (yes, 781473 bytes)
+  - results/experiment_log/experiment_log.md (yes, 188436 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -392,7 +397,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/continuation_state/post_027.json | recorded | source=user_master_runbook_2026_06_07; canonical_repo=/home/aiscuser/RECURRENT_NN |  |
-| results/validation/validation.json | False | summary=n_checks=210; n_fail=3; n_pass=207 |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/stage_a_adapter_wiring/results.json | PASS | autonomous_solve_status=NOT_RUN; grid_cells=36; preflight_status=READY; register_smoke_status=SMOKE_PASS |  |
 | results/stage_a_banded_gate_refusal/results.json | PASS | banded_datasets=8 keys: note, sudoku6_depths, sudoku6_generated_count, sudoku6_generator_present, sudoku6_status, sudoku9_generated_c... | fail_closed_cases:3r/5c |
@@ -675,8 +680,8 @@ No rows recorded.
   - results/d_stage_2/results.json (missing)
   - results/d_stage_3/results.json (missing)
   - results/verifier/results.json (missing)
-  - results/validation/validation.json (yes, 39630 bytes)
-  - results/validation/validation.md (yes, 24269 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -688,7 +693,7 @@ No rows recorded.
 | results/d_stage_2/results.json | missing |  |  |
 | results/d_stage_3/results.json | missing |  |  |
 | results/verifier/results.json | missing |  |  |
-| results/validation/validation.json | False | summary=n_checks=210; n_fail=3; n_pass=207 |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
 
 #### Contract Result Tables
 
@@ -756,8 +761,8 @@ No rows recorded.
   - results/stage_a_sudoku6_bridge/results.json (yes, 4890 bytes)
   - results/w3_qwen35_probe/results.json (yes, 96087 bytes)
   - results/w3_qwen35_probe/verdicts.json (yes, 674 bytes)
-  - results/validation/validation.json (yes, 39630 bytes)
-  - results/validation/validation.md (yes, 24269 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -765,7 +770,7 @@ No rows recorded.
 | results/stage_a_sudoku6_bridge/results.json | DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER | G1=1; single_step_forced_accuracy=1; n_sudoku6_tasks=32; reverts_nonzero_on_L4=True; forward_floor_on_L4=True; device=cpu | single_step_forced_precision_recall_by_depth:2r/5c |
 | results/w3_qwen35_probe/results.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:8r/13c; decay_survival:5r/5c; model_card:34r/3c; native_rule_gap:3r/7c; propagation_per_task_delta:5r/7c |
 | results/w3_qwen35_probe/verdicts.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... |  |
-| results/validation/validation.json | False | summary=n_checks=210; n_fail=3; n_pass=207 |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
 
 #### Contract Result Tables
 
@@ -938,8 +943,8 @@ No rows recorded.
   - results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json (yes, 19157 bytes)
   - results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json (yes, 19123 bytes)
   - results/w3_qwen35_probe/propagation_shards/logic_grid/results.json (yes, 19025 bytes)
-  - results/validation/validation.json (yes, 39630 bytes)
-  - results/validation/validation.md (yes, 24269 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -955,7 +960,7 @@ No rows recorded.
 | results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/logic_grid/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
-| results/validation/validation.json | False | summary=n_checks=210; n_fail=3; n_pass=207 |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
 
 #### Contract Result Tables
 
@@ -1181,10 +1186,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 39630 bytes)
-  - results/validation/validation.md (yes, 24269 bytes)
-  - results/experiment_log/experiment_log.json (yes, 667742 bytes)
-  - results/experiment_log/experiment_log.md (yes, 159240 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
+  - results/experiment_log/experiment_log.json (yes, 781473 bytes)
+  - results/experiment_log/experiment_log.md (yes, 188436 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1192,7 +1197,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=210; n_fail=3; n_pass=207 |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1310,10 +1315,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 39630 bytes)
-  - results/validation/validation.md (yes, 24269 bytes)
-  - results/experiment_log/experiment_log.json (yes, 667742 bytes)
-  - results/experiment_log/experiment_log.md (yes, 159240 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
+  - results/experiment_log/experiment_log.json (yes, 781473 bytes)
+  - results/experiment_log/experiment_log.md (yes, 188436 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1321,7 +1326,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=210; n_fail=3; n_pass=207 |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1398,19 +1403,19 @@ Truncated to 24 of 27 rows.
   - honesty=This item establishes the Track B code path and one tiny GPU smoke artifact only. It does not establish Track B acceptance, does not pass the leading-indicator criterion, does not launch the requested three full seeds because all GPUs were already occupied by an external process, and does not create learned_recurrent Stage A cells.
 - Artifact refs:
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
-  - experiments/train_trm_operator.py (yes, 27556 bytes)
+  - experiments/train_trm_operator.py (yes, 50342 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 667742 bytes)
-  - results/experiment_log/experiment_log.md (yes, 159240 bytes)
-  - results/validation/validation.json (yes, 39630 bytes)
-  - results/validation/validation.md (yes, 24269 bytes)
+  - results/experiment_log/experiment_log.json (yes, 781473 bytes)
+  - results/experiment_log/experiment_log.md (yes, 188436 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/trm_operator_smoke/acceptance.json | G1_NOT_MET | G1=0.125; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=210; n_fail=3; n_pass=207 |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
 
 #### Contract Result Tables
 
@@ -1456,7 +1461,7 @@ Truncated to 24 of 27 rows.
   - honesty=This item does not establish Track B learned acceptance, does not establish autonomous learned Stage A cells, does not establish L4 solve transfer, and does not supersede Track A symbolic evidence. It records a clean negative learned_recurrent result: all three full seeds completed but G2 remained 0.0 and G1 stayed far below the 0.95 gate.
 - Artifact refs:
   - results/experiment_items/item_040_track_b_trm_full_3x8gpu_negative.json (yes, 20522 bytes)
-  - experiments/train_trm_operator.py (yes, 27556 bytes)
+  - experiments/train_trm_operator.py (yes, 50342 bytes)
   - analysis/monitor_track_b_trm.py (yes, 10550 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json (yes, 9895 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json (yes, 26636 bytes)
@@ -1465,20 +1470,20 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (yes, 11255 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (yes, 11389 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (yes, 11218 bytes)
-  - results/experiment_log/experiment_log.json (yes, 667742 bytes)
-  - results/experiment_log/experiment_log.md (yes, 159240 bytes)
-  - results/validation/validation.json (yes, 39630 bytes)
-  - results/validation/validation.md (yes, 24269 bytes)
+  - results/experiment_log/experiment_log.json (yes, 781473 bytes)
+  - results/experiment_log/experiment_log.md (yes, 188436 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-08T08:57:00.857105+00:00 |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-08T12:06:16.176522+00:00 |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | GATES_UNREACHED | G1=0.03906; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | GATES_UNREACHED | G1=0.01562; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=210; n_fail=3; n_pass=207 |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
 
 #### Contract Result Tables
 
@@ -1545,6 +1550,322 @@ Truncated to 24 of 27 rows.
 
 - Next action: Treat this Track B recipe as a clean negative result. Do not route learned_recurrent into Stage A or mark learned gates green. Future Track B work should change the objective/curriculum or recurrent control path rather than merely extending this L1-L2 forced-step run, because 20k steps left G2 at 0.0 and G1 far below threshold.
 
+### Item 041 - GPU efficiency P0 profile and Sudoku engine equivalence
+
+- Status: P0_PROFILE_COMPLETE_GPU_ENGINE_EQUIVALENCE_PASS
+- Key result: Proceed to GPU pipeline optimization only behind the recorded equivalence guard. The next implementation should wire GPU-resident/batched Sudoku operations into data preparation or rollout evaluation, then report before/after against this P0 baseline without changing Track B semantics.
+- Purpose: Record the GPU efficiency overhaul baseline before optimization and the first semantics guard for future pipeline acceleration. This item profiles the current Track B per-cell-token trainer without claiming speedup, adds required throughput/GPU-util progress logging for later runs, and records a batched 6x6 Sudoku candidate engine with scalar equivalence on forced sets, contradiction, and propagation fixpoint over 1,000 boards.
+- Details:
+  - purpose=Record the GPU efficiency overhaul baseline before optimization and the first semantics guard for future pipeline acceleration. This item profiles the current Track B per-cell-token trainer without claiming speedup, adds required throughput/GPU-util progress logging for later runs, and records a batched 6x6 Sudoku candidate engine with scalar equivalence on forced sets, contradiction, and propagation fixpoint over 1,000 boards.
+  - commands=5
+  - result_tables=['p0_phase_timing', 'p0_throughput_and_gpu', 'progress_logging_smoke', 'sudoku_engine_equivalence', 'profile_attempt_notes']
+  - honesty=This item does not claim a speedup, does not establish learned Track B gate success, and does not change experimental semantics. It records a before-optimization profile and an equivalence guard that future GPU pipeline work must preserve.
+- Artifact refs:
+  - results/experiment_items/item_041_gpu_efficiency_p0_profile_and_sudoku_engine.json (yes, 12794 bytes)
+  - analysis/profile_track_b_pipeline.py (yes, 21048 bytes)
+  - experiments/train_trm_operator.py (yes, 50342 bytes)
+  - sudoku_engine_gpu.py (yes, 7042 bytes)
+  - analysis/test_sudoku_engine_gpu.py (yes, 4258 bytes)
+  - results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json (yes, 7912 bytes)
+  - results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_key_averages.txt (yes, 16690 bytes)
+  - results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_eval_key_averages.txt (yes, 15108 bytes)
+  - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (yes, 40421 bytes)
+  - results/sudoku_engine_gpu/equivalence_1000.json (yes, 167 bytes)
+  - results/trm_operator_logging_smoke/progress.jsonl (yes, 968 bytes)
+  - results/experiment_log/experiment_log.json (yes, 781473 bytes)
+  - results/experiment_log/experiment_log.md (yes, 188436 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json | recorded | no_optimization_claim=True; profiled_object=experiments.train_trm_operator current Track B per-cell-token trainer; purpose=P0 profile gate before GPU efficiency optimization; semantics mirror current Track B trainer.; started_at=2026-06-08T10:02:52.744806+00:00 |  |
+| results/sudoku_engine_gpu/equivalence_1000.json | True | device=cuda:0; n_boards=1000; n_mismatches=0; name=sudoku_engine_gpu_equivalence; seed=20260608 |  |
+| results/experiment_log/experiment_log.json | recorded |  |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
+
+#### Contract Result Tables
+
+##### p0_phase_timing
+
+| phase | seconds | percent_of_measured_wallclock | provenance |
+| --- | --- | --- | --- |
+| tensorization_seconds | 117.2 | 32.22 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json |
+| training_loop_seconds | 104.8 | 28.82 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json |
+| backward_seconds | 49.5 | 13.61 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json |
+| data_generation_seconds | 42.4 | 11.66 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json |
+| forward_seconds | 23.48 | 6.456 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json |
+| loss_seconds | 15.8 | 4.343 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json |
+| eval_episodes_total_seconds | 1.294 | 0.3559 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json |
+
+##### p0_throughput_and_gpu
+
+| metric | value | provenance |
+| --- | --- | --- |
+| total_seconds | 279 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json |
+| steps_per_sec | 1.908 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json |
+| examples_per_sec | 488.4 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json |
+| mean_gpu_utilization_percent | 55.92 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json |
+| max_gpu_utilization_percent | 100 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json |
+| gpu_util_samples | 366 | results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl |
+
+##### progress_logging_smoke
+
+| step | steps_per_sec | examples_per_sec | gpu_util | required_fields_present | provenance |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 1.668 | 13.34 | 46 | True | results/trm_operator_logging_smoke/progress.jsonl |
+| 2 | 1.713 | 13.7 | 41 | True | results/trm_operator_logging_smoke/progress.jsonl |
+
+##### sudoku_engine_equivalence
+
+| check | n_boards | n_mismatches | passed | device | seed | provenance |
+| --- | --- | --- | --- | --- | --- | --- |
+| forced_set_vs_scalar_forced_moves | 1000 | 0 | True | cuda:0 | 20260608 | results/sudoku_engine_gpu/equivalence_1000.json |
+| initial_contradiction_vs_scalar_status | 1000 | 0 | True | cuda:0 | 20260608 | results/sudoku_engine_gpu/equivalence_1000.json |
+| propagation_fixpoint_vs_scalar | 1000 | 0 | True | cuda:0 | 20260608 | results/sudoku_engine_gpu/equivalence_1000.json |
+
+##### profile_attempt_notes
+
+| attempt | outcome | lesson | provenance |
+| --- | --- | --- | --- |
+| full_shape_8gpu_profile | stalled before useful training profile | CPU tensorization dominates enough to block full baseline collection | operator session observation; not promoted as speedup evidence |
+| 8gpu_chrome_trace | trace artifact about 5GB | chrome trace export must stay opt-in | operator session observation; trace not retained in item artifacts |
+| single_gpu_200_step_active_profiler | profiler aggregation too slow | sampled active profiler window is the practical P0 gate | operator session observation; successful sampled artifact recorded |
+| single_gpu_sampled_10_active_steps | completed | accepted baseline for before/after comparison | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json |
+
+- Next action: Proceed to GPU pipeline optimization only behind the recorded equivalence guard. The next implementation should wire GPU-resident/batched Sudoku operations into data preparation or rollout evaluation, then report before/after against this P0 baseline without changing Track B semantics.
+
+### Item 042 - Register batched ops bridge equivalence
+
+- Status: BATCHED_OPS_BRIDGE_EQUIVALENCE_PASS
+- Key result: Use register.batched_ops as the guarded integration layer for the next GPU pipeline optimization. The next code change should wire batched operations into the trainer data preparation or rollout path and compare timing against item041 P0.
+- Purpose: Record the first register-level batched Sudoku6 operation bridge for the GPU efficiency overhaul. This item wraps the item041 GPU Sudoku candidate engine behind scalar-compatible helper functions for forced moves, propagation fixpoint, and applying commits, then verifies those helpers against the scalar CSP loop on 100 generated Sudoku6 episodes.
+- Details:
+  - purpose=Record the first register-level batched Sudoku6 operation bridge for the GPU efficiency overhaul. This item wraps the item041 GPU Sudoku candidate engine behind scalar-compatible helper functions for forced moves, propagation fixpoint, and applying commits, then verifies those helpers against the scalar CSP loop on 100 generated Sudoku6 episodes.
+  - commands=2
+  - result_tables=['batched_ops_equivalence', 'bridge_api']
+  - honesty=This item does not claim a speedup, does not change Track B training, and does not establish learned gate success. It only establishes that the register-level batched helper layer preserves the scalar Sudoku6 semantics it is meant to replace in future pipeline code.
+- Artifact refs:
+  - results/experiment_items/item_042_register_batched_ops_equivalence.json (yes, 6325 bytes)
+  - register/batched_ops.py (yes, 2393 bytes)
+  - analysis/test_batched_ops.py (yes, 4250 bytes)
+  - sudoku_engine_gpu.py (yes, 7042 bytes)
+  - results/batched_ops/equivalence_100.json (yes, 322 bytes)
+  - results/experiment_log/experiment_log.json (yes, 781473 bytes)
+  - results/experiment_log/experiment_log.md (yes, 188436 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/batched_ops/equivalence_100.json | True | device=cuda:0; n_episodes_generated=100; n_episodes_requested=100; n_mismatches=0; name=register_batched_ops_equivalence; seed=20260608 |  |
+| results/experiment_log/experiment_log.json | recorded |  |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
+
+#### Contract Result Tables
+
+##### batched_ops_equivalence
+
+| check | n_episodes | n_mismatches | passed | device | seed | provenance |
+| --- | --- | --- | --- | --- | --- | --- |
+| batched_forced_values_vs_scalar_forced_moves | 100 | 0 | True | cuda:0 | 20260608 | results/batched_ops/equivalence_100.json |
+| batched_initial_status_vs_scalar_status | 100 | 0 | True | cuda:0 | 20260608 | results/batched_ops/equivalence_100.json |
+| batched_propagation_fixpoint_vs_scalar | 100 | 0 | True | cuda:0 | 20260608 | results/batched_ops/equivalence_100.json |
+| batched_apply_commits_vs_scalar_dict_update | 100 | 0 | True | cuda:0 | 20260608 | results/batched_ops/equivalence_100.json |
+
+##### bridge_api
+
+| function | input | output | semantics | provenance |
+| --- | --- | --- | --- | --- |
+| batched_forced_values | Sequence[dict[int,int]] | BatchedForcedResult(forced_values,statuses) | scalar forced_moves plus scalar status over the same assignment objects | register/batched_ops.py |
+| batched_propagation_fixpoint | Sequence[dict[int,int]] | BatchedPropagationResult(assignments,statuses) | scalar propagation_fixpoint assignment/status over the same assignment objects | register/batched_ops.py |
+| batched_apply_commits | Sequence[assignments], Sequence[commit dicts] | list[dict[int,int]] | scalar dict update for proposed commits before any later propagation | register/batched_ops.py |
+
+- Next action: Use register.batched_ops as the guarded integration layer for the next GPU pipeline optimization. The next code change should wire batched operations into the trainer data preparation or rollout path and compare timing against item041 P0.
+
+### Item 043 - Track B faithful retry plan after GPU efficiency guards
+
+- Status: RETRY_PLAN_READY_NOT_LAUNCHED
+- Key result: Implement the prelaunch trainer gates, rerun equivalence checks, then launch one seed per GPU and report before/after throughput against item041 plus per-seed learned metrics as in item040.
+- Purpose: Record the concrete Track B retry plan after P0 profiling and batched Sudoku equivalence guards. This item chooses a parameter-count-valid TRM-class shape, one-GPU-per-seed topology, required trainer changes, and reporting gates for a future optimized retry. It is not a training result and makes no speedup or learned-gate claim.
+- Details:
+  - purpose=Record the concrete Track B retry plan after P0 profiling and batched Sudoku equivalence guards. This item chooses a parameter-count-valid TRM-class shape, one-GPU-per-seed topology, required trainer changes, and reporting gates for a future optimized retry. It is not a training result and makes no speedup or learned-gate claim.
+  - commands=1
+  - result_tables=['selected_model_shape', 'launch_topology', 'prelaunch_code_gates']
+  - honesty=This item does not run training, does not claim speedup, and does not establish learned Track B acceptance. It only records the next faithful retry plan and the code gates that must be implemented before launch.
+- Artifact refs:
+  - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
+  - specs/track_b_retry_plan.md (yes, 4005 bytes)
+  - results/experiment_log/experiment_log.json (yes, 781473 bytes)
+  - results/experiment_log/experiment_log.md (yes, 188436 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/experiment_log/experiment_log.json | recorded |  |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
+
+#### Contract Result Tables
+
+##### selected_model_shape
+
+| hidden_dim | nhead | feedforward_dim | recurrence_steps | parameter_count | within_5m_8m_gate | provenance |
+| --- | --- | --- | --- | --- | --- | --- |
+| 384 | 6 | 8192 | 12 | 6908685 | True | computed from experiments.train_trm_operator.PerCellTokenRecurrentOperator |
+
+##### launch_topology
+
+| seed | cuda_visible_devices | trainer_device | data_parallel | provenance |
+| --- | --- | --- | --- | --- |
+| 102 | 0 | cuda:0 | False | specs/track_b_retry_plan.md |
+| 137 | 1 | cuda:0 | False | specs/track_b_retry_plan.md |
+| 256 | 6 | cuda:0 | False | specs/track_b_retry_plan.md |
+
+##### prelaunch_code_gates
+
+| gate | required | status | provenance |
+| --- | --- | --- | --- |
+| gpu_resident_dataset_sampling | True | NOT_IMPLEMENTED_YET | specs/track_b_retry_plan.md |
+| register_batched_ops_equivalence | True | PASS_ITEM042 | results/batched_ops/equivalence_100.json |
+| amp_bf16_flag | True | NOT_IMPLEMENTED_YET | specs/track_b_retry_plan.md |
+| torch_compile_flag | True | NOT_IMPLEMENTED_YET | specs/track_b_retry_plan.md |
+| parameter_count_assertion | True | NOT_IMPLEMENTED_YET | specs/track_b_retry_plan.md |
+
+- Next action: Implement the prelaunch trainer gates, rerun equivalence checks, then launch one seed per GPU and report before/after throughput against item041 plus per-seed learned metrics as in item040.
+
+### Item 044 - Track B trainer prelaunch gates implemented
+
+- Status: PRELAUNCH_GATES_IMPLEMENTED_SMOKE_PASS
+- Key result: Launch the item043 one-GPU-per-seed retry when ready, using the selected 6.91M-parameter shape and the new prelaunch flags, then compare throughput against item041 and report learned metrics as in item040.
+- Purpose: Record implementation and smoke validation of the trainer capabilities required by the item043 Track B retry plan: GPU-resident batch sampling, bf16 autocast, torch.compile opt-in, and parameter-count assertions. This item does not launch the full retry and does not claim speedup; it only makes the planned retry command line valid for a later before/after run.
+- Details:
+  - purpose=Record implementation and smoke validation of the trainer capabilities required by the item043 Track B retry plan: GPU-resident batch sampling, bf16 autocast, torch.compile opt-in, and parameter-count assertions. This item does not launch the full retry and does not claim speedup; it only makes the planned retry command line valid for a later before/after run.
+  - commands=4
+  - result_tables=['prelaunch_gate_smokes', 'checkpoint_unwrap_checks', 'retry_plan_gate_status_after_item044']
+  - honesty=This item does not establish a speedup, does not run the full retry, and does not establish learned Track B acceptance. It only validates that the trainer now supports the prelaunch flags required by item043.
+- Artifact refs:
+  - results/experiment_items/item_044_trainer_prelaunch_gates.json (yes, 7823 bytes)
+  - experiments/train_trm_operator.py (yes, 50342 bytes)
+  - specs/track_b_retry_plan.md (yes, 4005 bytes)
+  - results/trm_operator_prelaunch_smoke/acceptance.json (yes, 12066 bytes)
+  - results/trm_operator_prelaunch_smoke/progress.jsonl (yes, 974 bytes)
+  - results/trm_operator_compile_smoke/acceptance.json (yes, 10396 bytes)
+  - results/trm_operator_compile_smoke/progress.jsonl (yes, 486 bytes)
+  - results/experiment_log/experiment_log.json (yes, 781473 bytes)
+  - results/experiment_log/experiment_log.md (yes, 188436 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/trm_operator_prelaunch_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_prelaunch_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
+| results/trm_operator_compile_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_compile_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
+| results/experiment_log/experiment_log.json | recorded |  |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
+
+#### Contract Result Tables
+
+##### prelaunch_gate_smokes
+
+| smoke | gpu_resident_batches | amp_bf16 | torch_compile | parameter_count | parameter_gate_passed | progress_fields_present | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| gpu_resident_bf16_param_gate | True | True | False | 78733 | True | True | results/trm_operator_prelaunch_smoke/acceptance.json |
+| torch_compile_training_path | True | True | True | 9869 | True | True | results/trm_operator_compile_smoke/acceptance.json |
+
+##### checkpoint_unwrap_checks
+
+| check | passed | number | provenance |
+| --- | --- | --- | --- |
+| compiled_model_base_unwrap | True | _base_trm_model(torch.compile(model)) is model | inline compile unwrap smoke |
+| compiled_checkpoint_state_dict_prefix | True | 0 state_dict keys start with _orig_mod. | results/trm_operator_compile_smoke/trm_operator_seed102.pt |
+| compiled_ema_state_dict_prefix | True | 0 ema_state_dict keys start with _orig_mod. | results/trm_operator_compile_smoke/trm_operator_seed102.pt |
+
+##### retry_plan_gate_status_after_item044
+
+| gate | status | provenance |
+| --- | --- | --- |
+| gpu_resident_dataset_sampling | IMPLEMENTED_SMOKE_PASS | experiments/train_trm_operator.py; results/trm_operator_prelaunch_smoke/acceptance.json |
+| amp_bf16_flag | IMPLEMENTED_SMOKE_PASS | experiments/train_trm_operator.py; results/trm_operator_prelaunch_smoke/acceptance.json |
+| torch_compile_flag | IMPLEMENTED_SMOKE_PASS | experiments/train_trm_operator.py; results/trm_operator_compile_smoke/acceptance.json |
+| parameter_count_assertion | IMPLEMENTED_SMOKE_PASS | experiments/train_trm_operator.py; results/trm_operator_prelaunch_smoke/acceptance.json |
+
+- Next action: Launch the item043 one-GPU-per-seed retry when ready, using the selected 6.91M-parameter shape and the new prelaunch flags, then compare throughput against item041 and report learned metrics as in item040.
+
+### Item 045 - Track B DDP sharded-cache retry launched
+
+- Status: DDP_SHARDED_RETRY_ACTIVE_STEP1000
+- Key result: Continue monitoring the active seed102 DDP run until completion, then record final acceptance.json and compare final learned G1/G2 against item040 and item043 expectations.
+- Purpose: Record the GPU-efficiency correction made after the one-seed 8-GPU DataParallel retry showed real GPU use but poor topology: replace DataParallel with torchrun/DDP, generate local dataset cache shards concurrently across ranks before NCCL initialization, keep per-rank GPU-resident batches, skip expensive rollout eval during progress rows, and launch the seed102 8-GPU DDP retry. This item records an active run snapshot, not final learned Track B acceptance.
+- Details:
+  - purpose=Record the GPU-efficiency correction made after the one-seed 8-GPU DataParallel retry showed real GPU use but poor topology: replace DataParallel with torchrun/DDP, generate local dataset cache shards concurrently across ranks before NCCL initialization, keep per-rank GPU-resident batches, skip expensive rollout eval during progress rows, and launch the seed102 8-GPU DDP retry. This item records an active run snapshot, not final learned Track B acceptance.
+  - commands=4
+  - result_tables=['ddp_sharded_smoke', 'active_seed102_ddp_snapshot']
+  - honesty=This item does not establish final learned Track B acceptance. The seed102 DDP run is still active, and G1/G2 rollout metrics are intentionally null in progress rows because expensive progress rollout eval was disabled. Final acceptance must be read from the eventual acceptance.json after the run completes.
+- Artifact refs:
+  - results/experiment_items/item_045_track_b_ddp_sharded_retry_launch.json (yes, 9802 bytes)
+  - experiments/train_trm_operator.py (yes, 50342 bytes)
+  - experiments/train_recurrent_operator.py (yes, 40388 bytes)
+  - results/ddp_shard_smoke_track_b_20260608/acceptance.json (yes, 13437 bytes)
+  - results/ddp_shard_smoke_track_b_20260608/progress.jsonl (yes, 1166 bytes)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt (yes, 689 bytes)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log (yes, 504342 bytes)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 3114 bytes)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank0.pt (yes, 102497751 bytes)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank1.pt (yes, 102753255 bytes)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank2.pt (yes, 102465687 bytes)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank3.pt (yes, 102732839 bytes)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank4.pt (yes, 102890311 bytes)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (yes, 102640503 bytes)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (yes, 102514311 bytes)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (yes, 102594183 bytes)
+  - results/experiment_log/experiment_log.json (yes, 781473 bytes)
+  - results/experiment_log/experiment_log.md (yes, 188436 bytes)
+  - results/validation/validation.json (yes, 46050 bytes)
+  - results/validation/validation.md (yes, 28469 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/ddp_shard_smoke_track_b_20260608/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/ddp_shard_smoke_track_b_20260608/trm_operator_seed778.pt; operator_type=learned_recurrent |  |
+| results/experiment_log/experiment_log.json | recorded |  |  |
+| results/validation/validation.json | False | summary=n_checks=240; n_fail=3; n_pass=237 |  |
+
+#### Contract Result Tables
+
+##### ddp_sharded_smoke
+
+| check | value | provenance |
+| --- | --- | --- |
+| torchrun_world_size | 2 | results/ddp_shard_smoke_track_b_20260608/acceptance.json |
+| rank0_shard_train_examples | 296 | results/ddp_shard_smoke_track_b_20260608/dataset_cache/*rank0.pt |
+| rank1_shard_train_examples | 296 | results/ddp_shard_smoke_track_b_20260608/dataset_cache/*rank1.pt |
+| combined_train_instances | 16 | results/ddp_shard_smoke_track_b_20260608/acceptance.json |
+| acceptance_written | True | results/ddp_shard_smoke_track_b_20260608/acceptance.json |
+
+##### active_seed102_ddp_snapshot
+
+| metric | value | provenance |
+| --- | --- | --- |
+| run_status | active_at_step_1000 | results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl |
+| shard_cache_files_written | 8 | results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache |
+| global_batch_size | 16384 | launch command |
+| per_rank_batch_size | 2048 | DDP world_size=8; global batch=16384 |
+| step | 1000 | progress.jsonl |
+| steps_total | 20000 | progress.jsonl |
+| steps_per_sec_at_step1000 | 1.351 | progress.jsonl |
+| examples_per_sec_at_step1000 | 2.213e+04 | progress.jsonl |
+| mean_gpu_util_at_step1000 | 100 | progress.jsonl |
+| data_parallel_baseline_steps_per_sec | 1.029 | results/track_b_trm_retry_1seed_8gpu_20260608T105628Z/seed102_8gpu/progress.jsonl step1000 |
+| ddp_vs_dataparallel_step_speedup | 1.313 | 1.3507618172570945 / 1.0290870959122722 |
+| progress_rollout_eval | disabled_during_training_progress | --progress-eval-episodes 0 |
+
+- Next action: Continue monitoring the active seed102 DDP run until completion, then record final acceptance.json and compare final learned G1/G2 against item040 and item043 expectations.
+
 
 ## Canonical Repo Decision
 
@@ -1584,7 +1905,7 @@ Truncated to 24 of 27 rows.
 | Stage A Track A symbolic | YELLOW | track=A_symbolic; operator=symbolic_oracle; autonomous_cells=43; symbolic_core={'autonomous_cells': 43, 'declared_track': 'A_symbolic', 'forward_floor_on_L4': True, 'kv_snapshot_max_depth': 3, 'operator': 'symbolic_oracle', 'reverts_nonzero_on_L4': True, 'rot_no_revert_max_depth': 3} |
 | Stage A learned track | RED | diagnostic_G1=1.0; learned_autonomous_cells=0; statuses=['PARENT_ADAPTER_REQUIRED'] |
 | W3 Qwen3.5 | YELLOW | integration_grade=cached_gdn_state_measured_with_propagation_delta; W3.0=PASS |
-| Validation | RED | checks=210; pass=207; fail=3 |
+| Validation | RED | checks=240; pass=237; fail=3 |
 
 ## Artifact Index
 
@@ -1606,6 +1927,11 @@ Truncated to 24 of 27 rows.
 | item_038_track_a_budgeted_parallel_symbolic_l4 | results/experiment_items/item_038_track_a_budgeted_parallel_symbolic_l4.json | yes |
 | item_039_track_b_trm_operator_smoke | results/experiment_items/item_039_track_b_trm_operator_smoke.json | yes |
 | item_040_track_b_trm_full_3x8gpu_negative | results/experiment_items/item_040_track_b_trm_full_3x8gpu_negative.json | yes |
+| item_041_gpu_efficiency_p0_profile_and_sudoku_engine | results/experiment_items/item_041_gpu_efficiency_p0_profile_and_sudoku_engine.json | yes |
+| item_042_register_batched_ops_equivalence | results/experiment_items/item_042_register_batched_ops_equivalence.json | yes |
+| item_043_track_b_retry_plan | results/experiment_items/item_043_track_b_retry_plan.json | yes |
+| item_044_trainer_prelaunch_gates | results/experiment_items/item_044_trainer_prelaunch_gates.json | yes |
+| item_045_track_b_ddp_sharded_retry_launch | results/experiment_items/item_045_track_b_ddp_sharded_retry_launch.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
 | qwen3_4b_instruct_download | results/model_download/qwen_download.json | yes |
@@ -1640,13 +1966,23 @@ Truncated to 24 of 27 rows.
 | track_b_trm_full_seed102_acceptance | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | yes |
 | track_b_trm_full_seed137_acceptance | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | yes |
 | track_b_trm_full_seed256_acceptance | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | yes |
+| track_b_p0_profile_report | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json | yes |
+| track_b_p0_profiler_key_averages | results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_key_averages.txt | yes |
+| track_b_p0_gpu_util_samples | results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl | yes |
+| sudoku_engine_gpu | sudoku_engine_gpu.py | yes |
+| sudoku_engine_gpu_equivalence | results/sudoku_engine_gpu/equivalence_1000.json | yes |
+| register_batched_ops | register/batched_ops.py | yes |
+| register_batched_ops_equivalence | results/batched_ops/equivalence_100.json | yes |
+| track_b_retry_plan | specs/track_b_retry_plan.md | yes |
+| track_b_prelaunch_smoke_acceptance | results/trm_operator_prelaunch_smoke/acceptance.json | yes |
+| track_b_compile_smoke_acceptance | results/trm_operator_compile_smoke/acceptance.json | yes |
 | validation | results/validation/validation.json | yes |
 
 ## Validation Summary
 
 | tier | pass | fail |
 | --- | --- | --- |
-| contract | 110 | 0 |
+| contract | 140 | 0 |
 | env | 13 | 0 |
 | legacy | 7 | 0 |
 | meta | 1 | 0 |

@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-08T08:57:12.799111+00:00
+Generated at: 2026-06-08T12:06:21.851970+00:00
 
-Summary: 207 PASS / 3 FAIL / 210 total.
+Summary: 237 PASS / 3 FAIL / 240 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -104,7 +104,7 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_c | w3_propagation_scale_not_mixed | PASS | verdict=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
 | tier_c | w3_propagation_per_task_delta_measured | PASS | rows=5 |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=13 |
+| contract | log_item_artifacts_present | PASS | count=18 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
@@ -183,6 +183,36 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_040_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_040_honesty_does_not_establish | PASS | This item does not establish Track B learned acceptance, does not establish autonomous learned Stage A cells, does not establish L4 solve transfer, and does not |
 | contract | log_item_040_decision_numbers_and_routing | PASS | gates=5; routing=Treat this Track B recipe as a clean negative result. Do not route learned_recurrent into Stage A or mark learned gates green. Future Track B work should change the objective/curriculum or recurrent control path rather than merely extending this L1-L2 forced-step run, because 20k steps left G2 at 0.0 and G1 far below threshold. |
+| contract | log_item_041_required_fields | PASS | missing=[] |
+| contract | log_item_041_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_041_number_continues_from_028 | PASS | item_number=041 |
+| contract | log_item_041_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_041_honesty_does_not_establish | PASS | This item does not claim a speedup, does not establish learned Track B gate success, and does not change experimental semantics. It records a before-optimizatio |
+| contract | log_item_041_decision_numbers_and_routing | PASS | gates=4; routing=Proceed to GPU pipeline optimization only behind the recorded equivalence guard. The next implementation should wire GPU-resident/batched Sudoku operations into data preparation or rollout evaluation, then report before/after against this P0 baseline without changing Track B semantics. |
+| contract | log_item_042_required_fields | PASS | missing=[] |
+| contract | log_item_042_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_042_number_continues_from_028 | PASS | item_number=042 |
+| contract | log_item_042_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_042_honesty_does_not_establish | PASS | This item does not claim a speedup, does not change Track B training, and does not establish learned gate success. It only establishes that the register-level b |
+| contract | log_item_042_decision_numbers_and_routing | PASS | gates=2; routing=Use register.batched_ops as the guarded integration layer for the next GPU pipeline optimization. The next code change should wire batched operations into the trainer data preparation or rollout path and compare timing against item041 P0. |
+| contract | log_item_043_required_fields | PASS | missing=[] |
+| contract | log_item_043_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_043_number_continues_from_028 | PASS | item_number=043 |
+| contract | log_item_043_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_043_honesty_does_not_establish | PASS | This item does not run training, does not claim speedup, and does not establish learned Track B acceptance. It only records the next faithful retry plan and the |
+| contract | log_item_043_decision_numbers_and_routing | PASS | gates=3; routing=Implement the prelaunch trainer gates, rerun equivalence checks, then launch one seed per GPU and report before/after throughput against item041 plus per-seed learned metrics as in item040. |
+| contract | log_item_044_required_fields | PASS | missing=[] |
+| contract | log_item_044_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_044_number_continues_from_028 | PASS | item_number=044 |
+| contract | log_item_044_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_044_honesty_does_not_establish | PASS | This item does not establish a speedup, does not run the full retry, and does not establish learned Track B acceptance. It only validates that the trainer now s |
+| contract | log_item_044_decision_numbers_and_routing | PASS | gates=2; routing=Launch the item043 one-GPU-per-seed retry when ready, using the selected 6.91M-parameter shape and the new prelaunch flags, then compare throughput against item041 and report learned metrics as in item040. |
+| contract | log_item_045_required_fields | PASS | missing=[] |
+| contract | log_item_045_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_045_number_continues_from_028 | PASS | item_number=045 |
+| contract | log_item_045_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_045_honesty_does_not_establish | PASS | This item does not establish final learned Track B acceptance. The seed102 DDP run is still active, and G1/G2 rollout metrics are intentionally null in progress |
+| contract | log_item_045_decision_numbers_and_routing | PASS | gates=2; routing=Continue monitoring the active seed102 DDP run until completion, then record final acceptance.json and compare final learned G1/G2 against item040 and item043 expectations. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |

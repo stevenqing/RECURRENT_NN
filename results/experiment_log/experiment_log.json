@@ -21,6 +21,11 @@
     "item_038_track_a_budgeted_parallel_symbolic_l4": "results/experiment_items/item_038_track_a_budgeted_parallel_symbolic_l4.json",
     "item_039_track_b_trm_operator_smoke": "results/experiment_items/item_039_track_b_trm_operator_smoke.json",
     "item_040_track_b_trm_full_3x8gpu_negative": "results/experiment_items/item_040_track_b_trm_full_3x8gpu_negative.json",
+    "item_041_gpu_efficiency_p0_profile_and_sudoku_engine": "results/experiment_items/item_041_gpu_efficiency_p0_profile_and_sudoku_engine.json",
+    "item_042_register_batched_ops_equivalence": "results/experiment_items/item_042_register_batched_ops_equivalence.json",
+    "item_043_track_b_retry_plan": "results/experiment_items/item_043_track_b_retry_plan.json",
+    "item_044_trainer_prelaunch_gates": "results/experiment_items/item_044_trainer_prelaunch_gates.json",
+    "item_045_track_b_ddp_sharded_retry_launch": "results/experiment_items/item_045_track_b_ddp_sharded_retry_launch.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "m2_operator_fix_rescale": "results/m2_operator_probe/report_fix_rescale.json",
     "m2_operator_probe": "results/m2_operator_probe/report.json",
@@ -35,13 +40,23 @@
     "qwen3_4b_instruct_download": "results/model_download/qwen_download.json",
     "qwen3_4b_thinking_download": "results/model_download/thinking/qwen_download.json",
     "qwen3_5_4b_download": "results/model_download/qwen3_5_4b/qwen_download.json",
+    "register_batched_ops": "register/batched_ops.py",
+    "register_batched_ops_equivalence": "results/batched_ops/equivalence_100.json",
     "stage_a_backtrack": "results/stage_a_backtrack/report.json",
     "stage_a_reconstructed_artifacts": "artifacts/stage_a/manifest.json",
     "stage_a_symbolic_budgeted_grid_script": "experiments/stage_a_symbolic_budgeted_grid.py",
     "stage_a_symbolic_oracle_statelessness": "results/stage_a_symbolic/oracle_statelessness_ci.json",
     "stage_a_symbolic_report": "results/stage_a_symbolic/report.json",
     "stage_a_symbolic_results": "results/stage_a_symbolic/results.json",
+    "sudoku_engine_gpu": "sudoku_engine_gpu.py",
+    "sudoku_engine_gpu_equivalence": "results/sudoku_engine_gpu/equivalence_1000.json",
     "t2_recurrent_operator_8gpu_acceptance": "results/recurrent_operator_8gpu/acceptance.json",
+    "track_b_compile_smoke_acceptance": "results/trm_operator_compile_smoke/acceptance.json",
+    "track_b_p0_gpu_util_samples": "results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl",
+    "track_b_p0_profile_report": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+    "track_b_p0_profiler_key_averages": "results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_key_averages.txt",
+    "track_b_prelaunch_smoke_acceptance": "results/trm_operator_prelaunch_smoke/acceptance.json",
+    "track_b_retry_plan": "specs/track_b_retry_plan.md",
     "track_b_trm_full_3x8gpu_monitor": "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json",
     "track_b_trm_full_seed102_acceptance": "results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json",
     "track_b_trm_full_seed137_acceptance": "results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json",
@@ -4098,7 +4113,7 @@
       "S3.1 integration is not started."
     ]
   },
-  "generated_at": "2026-06-08T08:57:12.359494+00:00",
+  "generated_at": "2026-06-08T12:06:16.186316+00:00",
   "incremental_items": [
     [
       "001-018",
@@ -4158,7 +4173,7 @@
       "P0",
       "ledger and validation housekeeping",
       "Updated",
-      "validation_checks=210; validation_passed=False"
+      "validation_checks=240; validation_passed=False"
     ],
     [
       "W3.0",
@@ -4267,6 +4282,36 @@
       "Track B TRM-class full 3x8GPU run negative result",
       "TRACK_B_FULL_3X8GPU_COMPLETE_GATES_UNREACHED",
       "Treat this Track B recipe as a clean negative result. Do not route learned_recurrent into Stage A or mark learned gates green. Future Track B work should change the objective/curriculum or recurrent control path rather than merely extending this L1-L2 forced-step run, because 20k steps left G2 at 0.0 and G1 far below threshold."
+    ],
+    [
+      "041",
+      "GPU efficiency P0 profile and Sudoku engine equivalence",
+      "P0_PROFILE_COMPLETE_GPU_ENGINE_EQUIVALENCE_PASS",
+      "Proceed to GPU pipeline optimization only behind the recorded equivalence guard. The next implementation should wire GPU-resident/batched Sudoku operations into data preparation or rollout evaluation, then report before/after against this P0 baseline without changing Track B semantics."
+    ],
+    [
+      "042",
+      "Register batched ops bridge equivalence",
+      "BATCHED_OPS_BRIDGE_EQUIVALENCE_PASS",
+      "Use register.batched_ops as the guarded integration layer for the next GPU pipeline optimization. The next code change should wire batched operations into the trainer data preparation or rollout path and compare timing against item041 P0."
+    ],
+    [
+      "043",
+      "Track B faithful retry plan after GPU efficiency guards",
+      "RETRY_PLAN_READY_NOT_LAUNCHED",
+      "Implement the prelaunch trainer gates, rerun equivalence checks, then launch one seed per GPU and report before/after throughput against item041 plus per-seed learned metrics as in item040."
+    ],
+    [
+      "044",
+      "Track B trainer prelaunch gates implemented",
+      "PRELAUNCH_GATES_IMPLEMENTED_SMOKE_PASS",
+      "Launch the item043 one-GPU-per-seed retry when ready, using the selected 6.91M-parameter shape and the new prelaunch flags, then compare throughput against item041 and report learned metrics as in item040."
+    ],
+    [
+      "045",
+      "Track B DDP sharded-cache retry launched",
+      "DDP_SHARDED_RETRY_ACTIVE_STEP1000",
+      "Continue monitoring the active seed102 DDP run until completion, then record final acceptance.json and compare final learned G1/G2 against item040 and item043 expectations."
     ]
   ],
   "items": [
@@ -4436,12 +4481,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 24269
+          "size_bytes": 28469
         }
       ],
       "detail_data": {
@@ -4464,18 +4509,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T08:55:43.136093+00:00"
+              "2026-06-08T12:05:04.115976+00:00"
             ],
             [
               "summary",
-              "n_checks=210; n_fail=3; n_pass=207"
+              "n_checks=240; n_fail=3; n_pass=237"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -4483,7 +4528,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 24269
+          "size_bytes": 28469
         }
       },
       "details": [
@@ -5238,12 +5283,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 667742
+          "size_bytes": 781473
         }
       ],
       "detail_data": {
@@ -5270,14 +5315,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T08:55:42.697593+00:00"
+              "2026-06-08T12:04:41.350790+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 667742
+          "size_bytes": 781473
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -5290,27 +5335,27 @@
             ],
             [
               "generated_at",
-              "2026-06-08T08:55:43.136093+00:00"
+              "2026-06-08T12:05:04.115976+00:00"
             ],
             [
               "summary",
-              "n_checks=210; n_fail=3; n_pass=207"
+              "n_checks=240; n_fail=3; n_pass=237"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 39630
+          "size_bytes": 46050
         }
       },
       "details": [
         "Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.",
-        "validation_pass=207; validation_fail=3",
+        "validation_pass=237; validation_fail=3",
         "Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure."
       ],
       "item": "P0",
-      "key_result": "validation_checks=210; validation_passed=False",
+      "key_result": "validation_checks=240; validation_passed=False",
       "name": "ledger and validation housekeeping",
       "next_action": "Keep future reports item-first and preserve explicit red checks.",
       "status": "Updated"
@@ -5930,22 +5975,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 24269
+          "size_bytes": 28469
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 667742
+          "size_bytes": 781473
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 159240
+          "size_bytes": 188436
         },
         {
           "path": "specs/log_item_contract.md",
@@ -6315,14 +6360,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T08:55:42.697593+00:00"
+              "2026-06-08T12:04:41.350790+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 667742
+          "size_bytes": 781473
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -6330,7 +6375,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 159240
+          "size_bytes": 188436
         },
         "results/stage_a_adapter_wiring/results.json": {
           "embedded": false,
@@ -6515,18 +6560,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T08:55:43.136093+00:00"
+              "2026-06-08T12:05:04.115976+00:00"
             ],
             [
               "summary",
-              "n_checks=210; n_fail=3; n_pass=207"
+              "n_checks=240; n_fail=3; n_pass=237"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -6534,7 +6579,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 24269
+          "size_bytes": 28469
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -8772,12 +8817,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 24269
+          "size_bytes": 28469
         }
       ],
       "contract_data": {
@@ -9262,18 +9307,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T08:55:43.136093+00:00"
+              "2026-06-08T12:05:04.115976+00:00"
             ],
             [
               "summary",
-              "n_checks=210; n_fail=3; n_pass=207"
+              "n_checks=240; n_fail=3; n_pass=237"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -9281,7 +9326,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 24269
+          "size_bytes": 28469
         },
         "results/verifier/results.json": {
           "path": "results/verifier/results.json",
@@ -9349,12 +9394,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 24269
+          "size_bytes": 28469
         }
       ],
       "contract_data": {
@@ -9740,18 +9785,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T08:55:43.136093+00:00"
+              "2026-06-08T12:05:04.115976+00:00"
             ],
             [
               "summary",
-              "n_checks=210; n_fail=3; n_pass=207"
+              "n_checks=240; n_fail=3; n_pass=237"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -9759,7 +9804,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 24269
+          "size_bytes": 28469
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -10855,12 +10900,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 24269
+          "size_bytes": 28469
         }
       ],
       "contract_data": {
@@ -11860,18 +11905,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T08:55:43.136093+00:00"
+              "2026-06-08T12:05:04.115976+00:00"
             ],
             [
               "summary",
-              "n_checks=210; n_fail=3; n_pass=207"
+              "n_checks=240; n_fail=3; n_pass=237"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -11879,7 +11924,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 24269
+          "size_bytes": 28469
         },
         "results/w3_qwen35_probe/propagation_shards/general_sat/results.json": {
           "embedded": false,
@@ -14168,22 +14213,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 24269
+          "size_bytes": 28469
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 667742
+          "size_bytes": 781473
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 159240
+          "size_bytes": 188436
         }
       ],
       "contract_data": {
@@ -15080,14 +15125,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T08:55:42.697593+00:00"
+              "2026-06-08T12:04:41.350790+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 667742
+          "size_bytes": 781473
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -15095,7 +15140,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 159240
+          "size_bytes": 188436
         },
         "results/stage_a_symbolic/oracle_statelessness_ci.json": {
           "embedded": false,
@@ -15268,18 +15313,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T08:55:43.136093+00:00"
+              "2026-06-08T12:05:04.115976+00:00"
             ],
             [
               "summary",
-              "n_checks=210; n_fail=3; n_pass=207"
+              "n_checks=240; n_fail=3; n_pass=237"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -15287,7 +15332,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 24269
+          "size_bytes": 28469
         }
       },
       "details": [
@@ -15343,22 +15388,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 24269
+          "size_bytes": 28469
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 667742
+          "size_bytes": 781473
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 159240
+          "size_bytes": 188436
         }
       ],
       "contract_data": {
@@ -16058,14 +16103,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T08:55:42.697593+00:00"
+              "2026-06-08T12:04:41.350790+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 667742
+          "size_bytes": 781473
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -16073,7 +16118,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 159240
+          "size_bytes": 188436
         },
         "results/stage_a_symbolic/oracle_statelessness_ci.json": {
           "embedded": false,
@@ -16246,18 +16291,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T08:55:43.136093+00:00"
+              "2026-06-08T12:05:04.115976+00:00"
             ],
             [
               "summary",
-              "n_checks=210; n_fail=3; n_pass=207"
+              "n_checks=240; n_fail=3; n_pass=237"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -16265,7 +16310,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 24269
+          "size_bytes": 28469
         }
       },
       "details": [
@@ -16291,7 +16336,7 @@
         {
           "path": "experiments/train_trm_operator.py",
           "present": "yes",
-          "size_bytes": 27556
+          "size_bytes": 50342
         },
         {
           "path": "results/trm_operator_smoke/acceptance.json",
@@ -16301,22 +16346,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 667742
+          "size_bytes": 781473
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 159240
+          "size_bytes": 188436
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 24269
+          "size_bytes": 28469
         }
       ],
       "contract_data": {
@@ -16556,7 +16601,7 @@
           "path": "experiments/train_trm_operator.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 27556
+          "size_bytes": 50342
         },
         "results/experiment_items/item_039_track_b_trm_operator_smoke.json": {
           "embedded": false,
@@ -16626,14 +16671,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T08:55:42.697593+00:00"
+              "2026-06-08T12:04:41.350790+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 667742
+          "size_bytes": 781473
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -16641,7 +16686,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 159240
+          "size_bytes": 188436
         },
         "results/trm_operator_smoke/acceptance.json": {
           "embedded": false,
@@ -16722,18 +16767,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T08:55:43.136093+00:00"
+              "2026-06-08T12:05:04.115976+00:00"
             ],
             [
               "summary",
-              "n_checks=210; n_fail=3; n_pass=207"
+              "n_checks=240; n_fail=3; n_pass=237"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -16741,7 +16786,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 24269
+          "size_bytes": 28469
         }
       },
       "details": [
@@ -16767,7 +16812,7 @@
         {
           "path": "experiments/train_trm_operator.py",
           "present": "yes",
-          "size_bytes": 27556
+          "size_bytes": 50342
         },
         {
           "path": "analysis/monitor_track_b_trm.py",
@@ -16812,22 +16857,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 667742
+          "size_bytes": 781473
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 159240
+          "size_bytes": 188436
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 24269
+          "size_bytes": 28469
         }
       ],
       "contract_data": {
@@ -17453,7 +17498,7 @@
           "path": "experiments/train_trm_operator.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 27556
+          "size_bytes": 50342
         },
         "results/experiment_items/item_040_track_b_trm_full_3x8gpu_negative.json": {
           "embedded": false,
@@ -17528,14 +17573,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T08:55:42.697593+00:00"
+              "2026-06-08T12:04:41.350790+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 667742
+          "size_bytes": 781473
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -17543,7 +17588,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 159240
+          "size_bytes": 188436
         },
         "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json": {
           "embedded": false,
@@ -17576,7 +17621,7 @@
             ],
             [
               "updated_at",
-              "2026-06-08T08:57:00.857105+00:00"
+              "2026-06-08T12:06:16.176522+00:00"
             ]
           ],
           "path": "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json",
@@ -17824,18 +17869,18 @@
             ],
             [
               "generated_at",
-              "2026-06-08T08:55:43.136093+00:00"
+              "2026-06-08T12:05:04.115976+00:00"
             ],
             [
               "summary",
-              "n_checks=210; n_fail=3; n_pass=207"
+              "n_checks=240; n_fail=3; n_pass=237"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 39630
+          "size_bytes": 46050
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -17843,7 +17888,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 24269
+          "size_bytes": 28469
         }
       },
       "details": [
@@ -17858,6 +17903,2543 @@
       "next_action": "Treat this Track B recipe as a clean negative result. Do not route learned_recurrent into Stage A or mark learned gates green. Future Track B work should change the objective/curriculum or recurrent control path rather than merely extending this L1-L2 forced-step run, because 20k steps left G2 at 0.0 and G1 far below threshold.",
       "purpose": "Record the full three-seed Track B learned_recurrent run requested after the Track B TRM-class smoke: three independent seeds, each launched with all 8 A100 GPUs visible, L1-L2 Sudoku6 training only, L1-L2 eval, and L4-L8 diagnostic rollout. This item bears on whether the current per-cell-token TRM-class forced-step recipe can satisfy learned Track B gates; it does not, with all seeds completing cleanly but G2 remaining 0.0.",
       "status": "TRACK_B_FULL_3X8GPU_COMPLETE_GATES_UNREACHED"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/experiment_items/item_041_gpu_efficiency_p0_profile_and_sudoku_engine.json",
+          "present": "yes",
+          "size_bytes": 12794
+        },
+        {
+          "path": "analysis/profile_track_b_pipeline.py",
+          "present": "yes",
+          "size_bytes": 21048
+        },
+        {
+          "path": "experiments/train_trm_operator.py",
+          "present": "yes",
+          "size_bytes": 50342
+        },
+        {
+          "path": "sudoku_engine_gpu.py",
+          "present": "yes",
+          "size_bytes": 7042
+        },
+        {
+          "path": "analysis/test_sudoku_engine_gpu.py",
+          "present": "yes",
+          "size_bytes": 4258
+        },
+        {
+          "path": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+          "present": "yes",
+          "size_bytes": 7912
+        },
+        {
+          "path": "results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_key_averages.txt",
+          "present": "yes",
+          "size_bytes": 16690
+        },
+        {
+          "path": "results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_eval_key_averages.txt",
+          "present": "yes",
+          "size_bytes": 15108
+        },
+        {
+          "path": "results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl",
+          "present": "yes",
+          "size_bytes": 40421
+        },
+        {
+          "path": "results/sudoku_engine_gpu/equivalence_1000.json",
+          "present": "yes",
+          "size_bytes": 167
+        },
+        {
+          "path": "results/trm_operator_logging_smoke/progress.jsonl",
+          "present": "yes",
+          "size_bytes": 968
+        },
+        {
+          "path": "results/experiment_log/experiment_log.json",
+          "present": "yes",
+          "size_bytes": 781473
+        },
+        {
+          "path": "results/experiment_log/experiment_log.md",
+          "present": "yes",
+          "size_bytes": 188436
+        },
+        {
+          "path": "results/validation/validation.json",
+          "present": "yes",
+          "size_bytes": 46050
+        },
+        {
+          "path": "results/validation/validation.md",
+          "present": "yes",
+          "size_bytes": 28469
+        }
+      ],
+      "contract_data": {
+        "artifacts": [
+          "analysis/profile_track_b_pipeline.py",
+          "experiments/train_trm_operator.py",
+          "sudoku_engine_gpu.py",
+          "analysis/test_sudoku_engine_gpu.py",
+          "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+          "results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_key_averages.txt",
+          "results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_eval_key_averages.txt",
+          "results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl",
+          "results/sudoku_engine_gpu/equivalence_1000.json",
+          "results/trm_operator_logging_smoke/progress.jsonl",
+          "results/experiment_items/item_041_gpu_efficiency_p0_profile_and_sudoku_engine.json",
+          "results/experiment_log/experiment_log.json",
+          "results/experiment_log/experiment_log.md",
+          "results/validation/validation.json",
+          "results/validation/validation.md"
+        ],
+        "code_added_used": [
+          {
+            "change": "Added an independent P0 profile harness for the current Track B trainer with wallclock phase timers, sampled torch profiler windows, GPU utilization sampling, and opt-in chrome trace export.",
+            "path": "analysis/profile_track_b_pipeline.py"
+          },
+          {
+            "change": "Added progress-row throughput fields steps_per_sec, examples_per_sec, gpu_util, and gpu_util_snapshot for future Track B runs.",
+            "path": "experiments/train_trm_operator.py"
+          },
+          {
+            "change": "Added a batched 6x6 Sudoku candidate-bitmask engine with propagate, forced_set, contradiction, and apply_commits.",
+            "path": "sudoku_engine_gpu.py"
+          },
+          {
+            "change": "Added a 1,000-board scalar equivalence check for the batched Sudoku engine.",
+            "path": "analysis/test_sudoku_engine_gpu.py"
+          }
+        ],
+        "commands": [
+          {
+            "command": ".venv/bin/python -m py_compile experiments/train_trm_operator.py analysis/profile_track_b_pipeline.py",
+            "purpose": "Compile-check the Track B trainer and P0 profile harness before profiling."
+          },
+          {
+            "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m analysis.profile_track_b_pipeline --output-dir results/profile_gate/track_b_current_20260608T_p0_single --seed 102 --device cuda:0 --train-instances 512 --eval-instances 64 --l4-instances 16 --steps 200 --batch-size 256 --hidden-dim 768 --nhead 8 --feedforward-dim 3072 --recurrence-steps 7 --generation-workers 8 --episode-workers 8 --tensorize-workers 8 --profiler-active-steps 10 --eval-episodes 20",
+            "purpose": "Run the successful sampled single-GPU P0 profile after full-shape and 8GPU profiler attempts proved too slow or too large for practical baseline collection."
+          },
+          {
+            "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m experiments.train_trm_operator --output-dir results/trm_operator_logging_smoke --seed 102 --device cuda:0 --train-instances 16 --eval-instances 4 --l4-instances 2 --steps 2 --batch-size 8 --hidden-dim 96 --nhead 4 --feedforward-dim 192 --recurrence-steps 2 --generation-workers 1 --episode-workers 1 --tensorize-workers 1 --eval-every 1 --fuse-step 0",
+            "purpose": "Smoke-test the added progress-row throughput and GPU-utilization fields."
+          },
+          {
+            "command": ".venv/bin/python -m py_compile sudoku_engine_gpu.py analysis/test_sudoku_engine_gpu.py",
+            "purpose": "Compile-check the batched Sudoku engine and equivalence script."
+          },
+          {
+            "command": ".venv/bin/python -m analysis.test_sudoku_engine_gpu",
+            "purpose": "Run 1,000-board equivalence against the scalar Python reference."
+          }
+        ],
+        "decision": {
+          "gate_outcomes": [
+            {
+              "gate": "P0_before_optimization_profile_exists",
+              "number": "profile_steps=200; profiler_active_steps=10; total_seconds=279.01809672405943; torch_profiler_artifacts=true; gpu_samples=366",
+              "outcome": "PASS"
+            },
+            {
+              "gate": "pipeline_bottleneck_evidence_recorded",
+              "number": "tensorization_seconds=117.20008887490258; data_generation_seconds=42.3955217031762; training_loop_seconds=104.82309325505048",
+              "outcome": "PASS_BASELINE_RECORDED"
+            },
+            {
+              "gate": "future_progress_rows_have_throughput_fields",
+              "number": "2/2 smoke train rows include steps_per_sec, examples_per_sec, gpu_util, gpu_util_snapshot",
+              "outcome": "PASS"
+            },
+            {
+              "gate": "sudoku_gpu_engine_equivalence",
+              "number": "1,000 boards; n_mismatches=0; forced_set, contradiction, propagation_fixpoint checked",
+              "outcome": "PASS"
+            }
+          ],
+          "next_step_routing": "Proceed to GPU pipeline optimization only behind the recorded equivalence guard. The next implementation should wire GPU-resident/batched Sudoku operations into data preparation or rollout evaluation, then report before/after against this P0 baseline without changing Track B semantics."
+        },
+        "honesty": {
+          "does_not_establish": "This item does not claim a speedup, does not establish learned Track B gate success, and does not change experimental semantics. It records a before-optimization profile and an equivalence guard that future GPU pipeline work must preserve.",
+          "limitations": [
+            "The successful P0 run uses reduced dataset counts on one GPU with the same model shape; it is a pipeline profile baseline, not the full three-seed acceptance workload.",
+            "The GPU Sudoku engine is currently a guarded primitive and is not yet wired into the trainer or Stage A rollout path.",
+            "Full 8GPU profile artifacts were intentionally not retained because profiler traces and aggregation were too large/slow for useful ledger evidence.",
+            "The progress logging smoke is only a logging contract check, not a meaningful training result."
+          ]
+        },
+        "item_number": "041",
+        "name": "GPU efficiency P0 profile and Sudoku engine equivalence",
+        "provenance": {
+          "eval_episodes": 20,
+          "external_process_policy": "No non-project GPU process was cancelled or modified. Latest user instruction allowed use of GPUs despite external occupancy because free memory remained sufficient.",
+          "generated_at": "2026-06-08T10:20:00+00:00",
+          "profile_dataset": "repo-local Sudoku6 L1-L2 training/eval with L4 diagnostic generation; reduced counts for P0 timing only",
+          "profile_device": "cuda:0",
+          "profile_model_shape": "hidden_dim=768 nhead=8 feedforward_dim=3072 recurrence_steps=7 parameter_count=7119373",
+          "profile_run_root": "results/profile_gate/track_b_current_20260608T_p0_single",
+          "profile_steps": 200,
+          "profiled_object": "experiments.train_trm_operator current Track B per-cell-token trainer",
+          "profiler_active_steps": 10,
+          "repo": "/home/aiscuser/RECURRENT_NN",
+          "sudoku_engine_device": "cuda:0",
+          "sudoku_engine_equivalence_artifact": "results/sudoku_engine_gpu/equivalence_1000.json",
+          "sudoku_engine_n_boards": 1000,
+          "sudoku_engine_seed": 20260608,
+          "track": "B_learned_pipeline_efficiency"
+        },
+        "purpose": "Record the GPU efficiency overhaul baseline before optimization and the first semantics guard for future pipeline acceleration. This item profiles the current Track B per-cell-token trainer without claiming speedup, adds required throughput/GPU-util progress logging for later runs, and records a batched 6x6 Sudoku candidate engine with scalar equivalence on forced sets, contradiction, and propagation fixpoint over 1,000 boards.",
+        "result_tables": {
+          "p0_phase_timing": {
+            "columns": [
+              "phase",
+              "seconds",
+              "percent_of_measured_wallclock",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "percent_of_measured_wallclock": 32.222937554948324,
+                "phase": "tensorization_seconds",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+                "seconds": 117.20008887490258
+              },
+              {
+                "percent_of_measured_wallclock": 28.820012174899677,
+                "phase": "training_loop_seconds",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+                "seconds": 104.82309325505048
+              },
+              {
+                "percent_of_measured_wallclock": 13.608301812265935,
+                "phase": "backward_seconds",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+                "seconds": 49.49561718618497
+              },
+              {
+                "percent_of_measured_wallclock": 11.65620488487056,
+                "phase": "data_generation_seconds",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+                "seconds": 42.3955217031762
+              },
+              {
+                "percent_of_measured_wallclock": 6.4557048658546226,
+                "phase": "forward_seconds",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+                "seconds": 23.480453411117196
+              },
+              {
+                "percent_of_measured_wallclock": 4.3434091368686465,
+                "phase": "loss_seconds",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+                "seconds": 15.797688711434603
+              },
+              {
+                "percent_of_measured_wallclock": 0.3559073529088229,
+                "phase": "eval_episodes_total_seconds",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+                "seconds": 1.2944931951351464
+              }
+            ]
+          },
+          "p0_throughput_and_gpu": {
+            "columns": [
+              "metric",
+              "value",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "metric": "total_seconds",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+                "value": 279.01809672405943
+              },
+              {
+                "metric": "steps_per_sec",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+                "value": 1.9079765134708406
+              },
+              {
+                "metric": "examples_per_sec",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+                "value": 488.4419874485352
+              },
+              {
+                "metric": "mean_gpu_utilization_percent",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+                "value": 55.91803278688525
+              },
+              {
+                "metric": "max_gpu_utilization_percent",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+                "value": 100.0
+              },
+              {
+                "metric": "gpu_util_samples",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl",
+                "value": 366
+              }
+            ]
+          },
+          "profile_attempt_notes": {
+            "columns": [
+              "attempt",
+              "outcome",
+              "lesson",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "attempt": "full_shape_8gpu_profile",
+                "lesson": "CPU tensorization dominates enough to block full baseline collection",
+                "outcome": "stalled before useful training profile",
+                "provenance": "operator session observation; not promoted as speedup evidence"
+              },
+              {
+                "attempt": "8gpu_chrome_trace",
+                "lesson": "chrome trace export must stay opt-in",
+                "outcome": "trace artifact about 5GB",
+                "provenance": "operator session observation; trace not retained in item artifacts"
+              },
+              {
+                "attempt": "single_gpu_200_step_active_profiler",
+                "lesson": "sampled active profiler window is the practical P0 gate",
+                "outcome": "profiler aggregation too slow",
+                "provenance": "operator session observation; successful sampled artifact recorded"
+              },
+              {
+                "attempt": "single_gpu_sampled_10_active_steps",
+                "lesson": "accepted baseline for before/after comparison",
+                "outcome": "completed",
+                "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"
+              }
+            ]
+          },
+          "progress_logging_smoke": {
+            "columns": [
+              "step",
+              "steps_per_sec",
+              "examples_per_sec",
+              "gpu_util",
+              "required_fields_present",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "examples_per_sec": 13.344016237433284,
+                "gpu_util": 46.0,
+                "provenance": "results/trm_operator_logging_smoke/progress.jsonl",
+                "required_fields_present": true,
+                "step": 1,
+                "steps_per_sec": 1.6680020296791604
+              },
+              {
+                "examples_per_sec": 13.70480088965225,
+                "gpu_util": 41.0,
+                "provenance": "results/trm_operator_logging_smoke/progress.jsonl",
+                "required_fields_present": true,
+                "step": 2,
+                "steps_per_sec": 1.7131001112065312
+              }
+            ]
+          },
+          "sudoku_engine_equivalence": {
+            "columns": [
+              "check",
+              "n_boards",
+              "n_mismatches",
+              "passed",
+              "device",
+              "seed",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "check": "forced_set_vs_scalar_forced_moves",
+                "device": "cuda:0",
+                "n_boards": 1000,
+                "n_mismatches": 0,
+                "passed": true,
+                "provenance": "results/sudoku_engine_gpu/equivalence_1000.json",
+                "seed": 20260608
+              },
+              {
+                "check": "initial_contradiction_vs_scalar_status",
+                "device": "cuda:0",
+                "n_boards": 1000,
+                "n_mismatches": 0,
+                "passed": true,
+                "provenance": "results/sudoku_engine_gpu/equivalence_1000.json",
+                "seed": 20260608
+              },
+              {
+                "check": "propagation_fixpoint_vs_scalar",
+                "device": "cuda:0",
+                "n_boards": 1000,
+                "n_mismatches": 0,
+                "passed": true,
+                "provenance": "results/sudoku_engine_gpu/equivalence_1000.json",
+                "seed": 20260608
+              }
+            ]
+          }
+        },
+        "schema_version": "log_item_contract_v1",
+        "status": "P0_PROFILE_COMPLETE_GPU_ENGINE_EQUIVALENCE_PASS"
+      },
+      "detail_data": {
+        "analysis/profile_track_b_pipeline.py": {
+          "embedded": false,
+          "format": "py",
+          "path": "analysis/profile_track_b_pipeline.py",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 21048
+        },
+        "analysis/test_sudoku_engine_gpu.py": {
+          "embedded": false,
+          "format": "py",
+          "path": "analysis/test_sudoku_engine_gpu.py",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 4258
+        },
+        "experiments/train_trm_operator.py": {
+          "embedded": false,
+          "format": "py",
+          "path": "experiments/train_trm_operator.py",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 50342
+        },
+        "results/experiment_items/item_041_gpu_efficiency_p0_profile_and_sudoku_engine.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": "041",
+          "json_summary": [
+            [
+              "status",
+              "P0_PROFILE_COMPLETE_GPU_ENGINE_EQUIVALENCE_PASS"
+            ],
+            [
+              "decision",
+              "2 keys: gate_outcomes, next_step_routing"
+            ],
+            [
+              "schema_version",
+              "log_item_contract_v1"
+            ],
+            [
+              "item_number",
+              "041"
+            ],
+            [
+              "name",
+              "GPU efficiency P0 profile and Sudoku engine equivalence"
+            ],
+            [
+              "purpose",
+              "Record the GPU efficiency overhaul baseline before optimization and the first semantics guard for future pipeline acceleration. This item profiles the current Track B per-cell-token trainer without claiming speedup, adds required throughput/GPU-util progress logging for later runs, and records a batched 6x6 Sudoku candidate engine with scalar equivalence on forced sets, contradiction, and propagation fixpoint over 1,000 boards."
+            ],
+            [
+              "honesty",
+              "2 keys: does_not_establish, limitations"
+            ]
+          ],
+          "path": "results/experiment_items/item_041_gpu_efficiency_p0_profile_and_sudoku_engine.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 4,
+              "rows": 7,
+              "table": "p0_phase_timing"
+            },
+            {
+              "columns": 3,
+              "rows": 6,
+              "table": "p0_throughput_and_gpu"
+            },
+            {
+              "columns": 6,
+              "rows": 2,
+              "table": "progress_logging_smoke"
+            },
+            {
+              "columns": 7,
+              "rows": 3,
+              "table": "sudoku_engine_equivalence"
+            },
+            {
+              "columns": 4,
+              "rows": 4,
+              "table": "profile_attempt_notes"
+            }
+          ],
+          "size_bytes": 12794
+        },
+        "results/experiment_log/experiment_log.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "generated_at",
+              "2026-06-08T12:04:41.350790+00:00"
+            ]
+          ],
+          "path": "results/experiment_log/experiment_log.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 781473
+        },
+        "results/experiment_log/experiment_log.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/experiment_log/experiment_log.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 188436
+        },
+        "results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl": {
+          "embedded": false,
+          "format": "jsonl",
+          "path": "results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 40421
+        },
+        "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "analysis.profile_track_b_pipeline"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T10:07:31.762950+00:00"
+            ],
+            [
+              "no_optimization_claim",
+              "True"
+            ],
+            [
+              "profiled_object",
+              "experiments.train_trm_operator current Track B per-cell-token trainer"
+            ],
+            [
+              "purpose",
+              "P0 profile gate before GPU efficiency optimization; semantics mirror current Track B trainer."
+            ],
+            [
+              "started_at",
+              "2026-06-08T10:02:52.744806+00:00"
+            ]
+          ],
+          "path": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 7912
+        },
+        "results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_eval_key_averages.txt": {
+          "embedded": false,
+          "format": "txt",
+          "path": "results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_eval_key_averages.txt",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 15108
+        },
+        "results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_key_averages.txt": {
+          "embedded": false,
+          "format": "txt",
+          "path": "results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_key_averages.txt",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 16690
+        },
+        "results/sudoku_engine_gpu/equivalence_1000.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "passed",
+              "True"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "n_boards",
+              "1000"
+            ],
+            [
+              "n_mismatches",
+              "0"
+            ],
+            [
+              "name",
+              "sudoku_engine_gpu_equivalence"
+            ],
+            [
+              "seed",
+              "20260608"
+            ]
+          ],
+          "path": "results/sudoku_engine_gpu/equivalence_1000.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 167
+        },
+        "results/trm_operator_logging_smoke/progress.jsonl": {
+          "embedded": false,
+          "format": "jsonl",
+          "path": "results/trm_operator_logging_smoke/progress.jsonl",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 968
+        },
+        "results/validation/validation.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "passed",
+              "False"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T12:05:04.115976+00:00"
+            ],
+            [
+              "summary",
+              "n_checks=240; n_fail=3; n_pass=237"
+            ]
+          ],
+          "path": "results/validation/validation.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 46050
+        },
+        "results/validation/validation.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/validation/validation.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 28469
+        },
+        "sudoku_engine_gpu.py": {
+          "embedded": false,
+          "format": "py",
+          "path": "sudoku_engine_gpu.py",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 7042
+        }
+      },
+      "details": [
+        "purpose=Record the GPU efficiency overhaul baseline before optimization and the first semantics guard for future pipeline acceleration. This item profiles the current Track B per-cell-token trainer without claiming speedup, adds required throughput/GPU-util progress logging for later runs, and records a batched 6x6 Sudoku candidate engine with scalar equivalence on forced sets, contradiction, and propagation fixpoint over 1,000 boards.",
+        "commands=5",
+        "result_tables=['p0_phase_timing', 'p0_throughput_and_gpu', 'progress_logging_smoke', 'sudoku_engine_equivalence', 'profile_attempt_notes']",
+        "honesty=This item does not claim a speedup, does not establish learned Track B gate success, and does not change experimental semantics. It records a before-optimization profile and an equivalence guard that future GPU pipeline work must preserve."
+      ],
+      "item": "041",
+      "key_result": "Proceed to GPU pipeline optimization only behind the recorded equivalence guard. The next implementation should wire GPU-resident/batched Sudoku operations into data preparation or rollout evaluation, then report before/after against this P0 baseline without changing Track B semantics.",
+      "name": "GPU efficiency P0 profile and Sudoku engine equivalence",
+      "next_action": "Proceed to GPU pipeline optimization only behind the recorded equivalence guard. The next implementation should wire GPU-resident/batched Sudoku operations into data preparation or rollout evaluation, then report before/after against this P0 baseline without changing Track B semantics.",
+      "purpose": "Record the GPU efficiency overhaul baseline before optimization and the first semantics guard for future pipeline acceleration. This item profiles the current Track B per-cell-token trainer without claiming speedup, adds required throughput/GPU-util progress logging for later runs, and records a batched 6x6 Sudoku candidate engine with scalar equivalence on forced sets, contradiction, and propagation fixpoint over 1,000 boards.",
+      "status": "P0_PROFILE_COMPLETE_GPU_ENGINE_EQUIVALENCE_PASS"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/experiment_items/item_042_register_batched_ops_equivalence.json",
+          "present": "yes",
+          "size_bytes": 6325
+        },
+        {
+          "path": "register/batched_ops.py",
+          "present": "yes",
+          "size_bytes": 2393
+        },
+        {
+          "path": "analysis/test_batched_ops.py",
+          "present": "yes",
+          "size_bytes": 4250
+        },
+        {
+          "path": "sudoku_engine_gpu.py",
+          "present": "yes",
+          "size_bytes": 7042
+        },
+        {
+          "path": "results/batched_ops/equivalence_100.json",
+          "present": "yes",
+          "size_bytes": 322
+        },
+        {
+          "path": "results/experiment_log/experiment_log.json",
+          "present": "yes",
+          "size_bytes": 781473
+        },
+        {
+          "path": "results/experiment_log/experiment_log.md",
+          "present": "yes",
+          "size_bytes": 188436
+        },
+        {
+          "path": "results/validation/validation.json",
+          "present": "yes",
+          "size_bytes": 46050
+        },
+        {
+          "path": "results/validation/validation.md",
+          "present": "yes",
+          "size_bytes": 28469
+        }
+      ],
+      "contract_data": {
+        "artifacts": [
+          "register/batched_ops.py",
+          "analysis/test_batched_ops.py",
+          "sudoku_engine_gpu.py",
+          "results/batched_ops/equivalence_100.json",
+          "results/experiment_items/item_042_register_batched_ops_equivalence.json",
+          "results/experiment_log/experiment_log.json",
+          "results/experiment_log/experiment_log.md",
+          "results/validation/validation.json",
+          "results/validation/validation.md"
+        ],
+        "code_added_used": [
+          {
+            "change": "Added batched_forced_values, batched_propagation_fixpoint, and batched_apply_commits helpers backed by sudoku_engine_gpu while returning scalar-compatible Python dictionaries and status strings.",
+            "path": "register/batched_ops.py"
+          },
+          {
+            "change": "Added a 100-episode scalar equivalence check for the register-level batched helpers.",
+            "path": "analysis/test_batched_ops.py"
+          },
+          {
+            "change": "Indexed item042, register/batched_ops.py, and the batched ops equivalence artifact in the canonical ledger artifact index.",
+            "path": "analysis/experiment_log.py"
+          }
+        ],
+        "commands": [
+          {
+            "command": ".venv/bin/python -m py_compile register/batched_ops.py analysis/test_batched_ops.py sudoku_engine_gpu.py analysis/test_sudoku_engine_gpu.py",
+            "purpose": "Compile-check the batched ops bridge, its equivalence check, and the underlying GPU Sudoku engine."
+          },
+          {
+            "command": ".venv/bin/python -m analysis.test_batched_ops",
+            "purpose": "Run 100 generated Sudoku6 episodes through register.batched_ops and compare against scalar forced_moves, status, propagation_fixpoint, and one-step commit application."
+          }
+        ],
+        "decision": {
+          "gate_outcomes": [
+            {
+              "gate": "batched_ops_compile",
+              "number": "py_compile passed for register/batched_ops.py and analysis/test_batched_ops.py",
+              "outcome": "PASS"
+            },
+            {
+              "gate": "batched_ops_equivalence",
+              "number": "100 episodes generated; n_mismatches=0 across forced_values, initial_status, propagation_fixpoint, apply_commits",
+              "outcome": "PASS"
+            }
+          ],
+          "next_step_routing": "Use register.batched_ops as the guarded integration layer for the next GPU pipeline optimization. The next code change should wire batched operations into the trainer data preparation or rollout path and compare timing against item041 P0."
+        },
+        "honesty": {
+          "does_not_establish": "This item does not claim a speedup, does not change Track B training, and does not establish learned gate success. It only establishes that the register-level batched helper layer preserves the scalar Sudoku6 semantics it is meant to replace in future pipeline code.",
+          "limitations": [
+            "The bridge returns scalar-compatible Python dictionaries, so it is an integration guard rather than the final fully GPU-resident trainer data path.",
+            "The equivalence set covers 100 generated L1-L2 Sudoku6 episodes, not every possible invalid board or L4 diagnostic episode.",
+            "Future wiring into data preparation or rollout evaluation must rerun before/after timing against item041 P0 and must keep this equivalence check passing."
+          ]
+        },
+        "item_number": "042",
+        "name": "Register batched ops bridge equivalence",
+        "provenance": {
+          "bridge_module": "register/batched_ops.py",
+          "device": "cuda:0",
+          "episode_source": "tasks.sudoku.generator_6x6.generate_6x6_by_depth_band(min_depth=1,max_depth=2)",
+          "equivalence_artifact": "results/batched_ops/equivalence_100.json",
+          "external_process_policy": "No non-project GPU process was cancelled or modified.",
+          "generated_at": "2026-06-08T10:35:00+00:00",
+          "n_episodes_generated": 100,
+          "n_episodes_requested": 100,
+          "repo": "/home/aiscuser/RECURRENT_NN",
+          "seed": 20260608,
+          "source_engine": "sudoku_engine_gpu.py",
+          "track": "B_learned_pipeline_efficiency"
+        },
+        "purpose": "Record the first register-level batched Sudoku6 operation bridge for the GPU efficiency overhaul. This item wraps the item041 GPU Sudoku candidate engine behind scalar-compatible helper functions for forced moves, propagation fixpoint, and applying commits, then verifies those helpers against the scalar CSP loop on 100 generated Sudoku6 episodes.",
+        "result_tables": {
+          "batched_ops_equivalence": {
+            "columns": [
+              "check",
+              "n_episodes",
+              "n_mismatches",
+              "passed",
+              "device",
+              "seed",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "check": "batched_forced_values_vs_scalar_forced_moves",
+                "device": "cuda:0",
+                "n_episodes": 100,
+                "n_mismatches": 0,
+                "passed": true,
+                "provenance": "results/batched_ops/equivalence_100.json",
+                "seed": 20260608
+              },
+              {
+                "check": "batched_initial_status_vs_scalar_status",
+                "device": "cuda:0",
+                "n_episodes": 100,
+                "n_mismatches": 0,
+                "passed": true,
+                "provenance": "results/batched_ops/equivalence_100.json",
+                "seed": 20260608
+              },
+              {
+                "check": "batched_propagation_fixpoint_vs_scalar",
+                "device": "cuda:0",
+                "n_episodes": 100,
+                "n_mismatches": 0,
+                "passed": true,
+                "provenance": "results/batched_ops/equivalence_100.json",
+                "seed": 20260608
+              },
+              {
+                "check": "batched_apply_commits_vs_scalar_dict_update",
+                "device": "cuda:0",
+                "n_episodes": 100,
+                "n_mismatches": 0,
+                "passed": true,
+                "provenance": "results/batched_ops/equivalence_100.json",
+                "seed": 20260608
+              }
+            ]
+          },
+          "bridge_api": {
+            "columns": [
+              "function",
+              "input",
+              "output",
+              "semantics",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "function": "batched_forced_values",
+                "input": "Sequence[dict[int,int]]",
+                "output": "BatchedForcedResult(forced_values,statuses)",
+                "provenance": "register/batched_ops.py",
+                "semantics": "scalar forced_moves plus scalar status over the same assignment objects"
+              },
+              {
+                "function": "batched_propagation_fixpoint",
+                "input": "Sequence[dict[int,int]]",
+                "output": "BatchedPropagationResult(assignments,statuses)",
+                "provenance": "register/batched_ops.py",
+                "semantics": "scalar propagation_fixpoint assignment/status over the same assignment objects"
+              },
+              {
+                "function": "batched_apply_commits",
+                "input": "Sequence[assignments], Sequence[commit dicts]",
+                "output": "list[dict[int,int]]",
+                "provenance": "register/batched_ops.py",
+                "semantics": "scalar dict update for proposed commits before any later propagation"
+              }
+            ]
+          }
+        },
+        "schema_version": "log_item_contract_v1",
+        "status": "BATCHED_OPS_BRIDGE_EQUIVALENCE_PASS"
+      },
+      "detail_data": {
+        "analysis/test_batched_ops.py": {
+          "embedded": false,
+          "format": "py",
+          "path": "analysis/test_batched_ops.py",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 4250
+        },
+        "register/batched_ops.py": {
+          "embedded": false,
+          "format": "py",
+          "path": "register/batched_ops.py",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 2393
+        },
+        "results/batched_ops/equivalence_100.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "passed",
+              "True"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "n_episodes_generated",
+              "100"
+            ],
+            [
+              "n_episodes_requested",
+              "100"
+            ],
+            [
+              "n_mismatches",
+              "0"
+            ],
+            [
+              "name",
+              "register_batched_ops_equivalence"
+            ],
+            [
+              "seed",
+              "20260608"
+            ]
+          ],
+          "path": "results/batched_ops/equivalence_100.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 322
+        },
+        "results/experiment_items/item_042_register_batched_ops_equivalence.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": "042",
+          "json_summary": [
+            [
+              "status",
+              "BATCHED_OPS_BRIDGE_EQUIVALENCE_PASS"
+            ],
+            [
+              "decision",
+              "2 keys: gate_outcomes, next_step_routing"
+            ],
+            [
+              "schema_version",
+              "log_item_contract_v1"
+            ],
+            [
+              "item_number",
+              "042"
+            ],
+            [
+              "name",
+              "Register batched ops bridge equivalence"
+            ],
+            [
+              "purpose",
+              "Record the first register-level batched Sudoku6 operation bridge for the GPU efficiency overhaul. This item wraps the item041 GPU Sudoku candidate engine behind scalar-compatible helper functions for forced moves, propagation fixpoint, and applying commits, then verifies those helpers against the scalar CSP loop on 100 generated Sudoku6 episodes."
+            ],
+            [
+              "honesty",
+              "2 keys: does_not_establish, limitations"
+            ]
+          ],
+          "path": "results/experiment_items/item_042_register_batched_ops_equivalence.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 7,
+              "rows": 4,
+              "table": "batched_ops_equivalence"
+            },
+            {
+              "columns": 5,
+              "rows": 3,
+              "table": "bridge_api"
+            }
+          ],
+          "size_bytes": 6325
+        },
+        "results/experiment_log/experiment_log.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "generated_at",
+              "2026-06-08T12:04:41.350790+00:00"
+            ]
+          ],
+          "path": "results/experiment_log/experiment_log.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 781473
+        },
+        "results/experiment_log/experiment_log.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/experiment_log/experiment_log.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 188436
+        },
+        "results/validation/validation.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "passed",
+              "False"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T12:05:04.115976+00:00"
+            ],
+            [
+              "summary",
+              "n_checks=240; n_fail=3; n_pass=237"
+            ]
+          ],
+          "path": "results/validation/validation.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 46050
+        },
+        "results/validation/validation.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/validation/validation.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 28469
+        },
+        "sudoku_engine_gpu.py": {
+          "embedded": false,
+          "format": "py",
+          "path": "sudoku_engine_gpu.py",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 7042
+        }
+      },
+      "details": [
+        "purpose=Record the first register-level batched Sudoku6 operation bridge for the GPU efficiency overhaul. This item wraps the item041 GPU Sudoku candidate engine behind scalar-compatible helper functions for forced moves, propagation fixpoint, and applying commits, then verifies those helpers against the scalar CSP loop on 100 generated Sudoku6 episodes.",
+        "commands=2",
+        "result_tables=['batched_ops_equivalence', 'bridge_api']",
+        "honesty=This item does not claim a speedup, does not change Track B training, and does not establish learned gate success. It only establishes that the register-level batched helper layer preserves the scalar Sudoku6 semantics it is meant to replace in future pipeline code."
+      ],
+      "item": "042",
+      "key_result": "Use register.batched_ops as the guarded integration layer for the next GPU pipeline optimization. The next code change should wire batched operations into the trainer data preparation or rollout path and compare timing against item041 P0.",
+      "name": "Register batched ops bridge equivalence",
+      "next_action": "Use register.batched_ops as the guarded integration layer for the next GPU pipeline optimization. The next code change should wire batched operations into the trainer data preparation or rollout path and compare timing against item041 P0.",
+      "purpose": "Record the first register-level batched Sudoku6 operation bridge for the GPU efficiency overhaul. This item wraps the item041 GPU Sudoku candidate engine behind scalar-compatible helper functions for forced moves, propagation fixpoint, and applying commits, then verifies those helpers against the scalar CSP loop on 100 generated Sudoku6 episodes.",
+      "status": "BATCHED_OPS_BRIDGE_EQUIVALENCE_PASS"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/experiment_items/item_043_track_b_retry_plan.json",
+          "present": "yes",
+          "size_bytes": 6361
+        },
+        {
+          "path": "specs/track_b_retry_plan.md",
+          "present": "yes",
+          "size_bytes": 4005
+        },
+        {
+          "path": "results/experiment_log/experiment_log.json",
+          "present": "yes",
+          "size_bytes": 781473
+        },
+        {
+          "path": "results/experiment_log/experiment_log.md",
+          "present": "yes",
+          "size_bytes": 188436
+        },
+        {
+          "path": "results/validation/validation.json",
+          "present": "yes",
+          "size_bytes": 46050
+        },
+        {
+          "path": "results/validation/validation.md",
+          "present": "yes",
+          "size_bytes": 28469
+        }
+      ],
+      "contract_data": {
+        "artifacts": [
+          "specs/track_b_retry_plan.md",
+          "results/experiment_items/item_043_track_b_retry_plan.json",
+          "results/experiment_log/experiment_log.json",
+          "results/experiment_log/experiment_log.md",
+          "results/validation/validation.json",
+          "results/validation/validation.md"
+        ],
+        "code_added_used": [
+          {
+            "change": "Added the launch plan, preconditions, model shape, GPU topology, gated candidate commands, and reporting criteria for the next Track B retry.",
+            "path": "specs/track_b_retry_plan.md"
+          }
+        ],
+        "commands": [
+          {
+            "command": ".venv/bin/python - <<'PY'\nfrom experiments.train_trm_operator import PerCellTokenRecurrentOperator, TrackBConfig\nfor hidden in [256,320,384]:\n  for nhead in [4,5,6,8]:\n    if hidden % nhead:\n      continue\n    for ff in [2048,3072,4096,6144,8192,10240]:\n      model=PerCellTokenRecurrentOperator(TrackBConfig(hidden_dim=hidden,nhead=nhead,feedforward_dim=ff,recurrence_steps=12,dropout=0.0))\n      params=sum(p.numel() for p in model.parameters())\n      if 5_000_000 <= params <= 8_000_000:\n        print({'hidden_dim':hidden,'nhead':nhead,'feedforward_dim':ff,'recurrence_steps':12,'params':params})\nPY",
+            "purpose": "Compute real parameter counts from the existing PerCellTokenRecurrentOperator implementation before selecting a retry shape."
+          }
+        ],
+        "decision": {
+          "gate_outcomes": [
+            {
+              "gate": "retry_shape_selected",
+              "number": "hidden_dim=384; nhead=6; feedforward_dim=8192; recurrence_steps=12; parameter_count=6908685",
+              "outcome": "PASS_PLAN"
+            },
+            {
+              "gate": "one_gpu_per_seed_topology",
+              "number": "seeds 102,137,256 mapped to CUDA_VISIBLE_DEVICES 0,1,6 respectively; DataParallel=false",
+              "outcome": "PASS_PLAN"
+            },
+            {
+              "gate": "launch_readiness",
+              "number": "gpu_resident_dataset_sampling, amp_bf16, torch_compile, parameter_count_assertion still not implemented",
+              "outcome": "NOT_READY_TO_LAUNCH"
+            }
+          ],
+          "next_step_routing": "Implement the prelaunch trainer gates, rerun equivalence checks, then launch one seed per GPU and report before/after throughput against item041 plus per-seed learned metrics as in item040."
+        },
+        "honesty": {
+          "does_not_establish": "This item does not run training, does not claim speedup, and does not establish learned Track B acceptance. It only records the next faithful retry plan and the code gates that must be implemented before launch.",
+          "limitations": [
+            "The current trainer still needs GPU-resident sampling, bf16, compile, and parameter assertion flags before the planned commands are valid.",
+            "The chosen feedforward dimension is intentionally large to satisfy the 5-8M parameter-count gate with hidden_dim 384; throughput must be measured against item041 before any launch claim.",
+            "DataParallel is explicitly excluded for the retry because item041/item040 evidence showed pipeline overhead and profiler aggregation issues for this small tied model."
+          ]
+        },
+        "item_number": "043",
+        "name": "Track B faithful retry plan after GPU efficiency guards",
+        "provenance": {
+          "generated_at": "2026-06-08T10:45:00+00:00",
+          "preconditions": [
+            "item041 P0 baseline remains the before-optimization comparison",
+            "item042 batched ops equivalence remains green",
+            "trainer supports GPU-resident dataset sampling, bf16 autocast, torch.compile, and parameter-count assertion before launch"
+          ],
+          "repo": "/home/aiscuser/RECURRENT_NN",
+          "seed_gpu_mapping": [
+            {
+              "cuda_visible_devices": "0",
+              "seed": 102,
+              "trainer_device": "cuda:0"
+            },
+            {
+              "cuda_visible_devices": "1",
+              "seed": 137,
+              "trainer_device": "cuda:0"
+            },
+            {
+              "cuda_visible_devices": "6",
+              "seed": 256,
+              "trainer_device": "cuda:0"
+            }
+          ],
+          "selected_shape": {
+            "feedforward_dim": 8192,
+            "hidden_dim": 384,
+            "nhead": 6,
+            "parameter_count": 6908685,
+            "recurrence_steps": 12
+          },
+          "track": "B_learned_pipeline_efficiency"
+        },
+        "purpose": "Record the concrete Track B retry plan after P0 profiling and batched Sudoku equivalence guards. This item chooses a parameter-count-valid TRM-class shape, one-GPU-per-seed topology, required trainer changes, and reporting gates for a future optimized retry. It is not a training result and makes no speedup or learned-gate claim.",
+        "result_tables": {
+          "launch_topology": {
+            "columns": [
+              "seed",
+              "cuda_visible_devices",
+              "trainer_device",
+              "data_parallel",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "cuda_visible_devices": "0",
+                "data_parallel": false,
+                "provenance": "specs/track_b_retry_plan.md",
+                "seed": 102,
+                "trainer_device": "cuda:0"
+              },
+              {
+                "cuda_visible_devices": "1",
+                "data_parallel": false,
+                "provenance": "specs/track_b_retry_plan.md",
+                "seed": 137,
+                "trainer_device": "cuda:0"
+              },
+              {
+                "cuda_visible_devices": "6",
+                "data_parallel": false,
+                "provenance": "specs/track_b_retry_plan.md",
+                "seed": 256,
+                "trainer_device": "cuda:0"
+              }
+            ]
+          },
+          "prelaunch_code_gates": {
+            "columns": [
+              "gate",
+              "required",
+              "status",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "gate": "gpu_resident_dataset_sampling",
+                "provenance": "specs/track_b_retry_plan.md",
+                "required": true,
+                "status": "NOT_IMPLEMENTED_YET"
+              },
+              {
+                "gate": "register_batched_ops_equivalence",
+                "provenance": "results/batched_ops/equivalence_100.json",
+                "required": true,
+                "status": "PASS_ITEM042"
+              },
+              {
+                "gate": "amp_bf16_flag",
+                "provenance": "specs/track_b_retry_plan.md",
+                "required": true,
+                "status": "NOT_IMPLEMENTED_YET"
+              },
+              {
+                "gate": "torch_compile_flag",
+                "provenance": "specs/track_b_retry_plan.md",
+                "required": true,
+                "status": "NOT_IMPLEMENTED_YET"
+              },
+              {
+                "gate": "parameter_count_assertion",
+                "provenance": "specs/track_b_retry_plan.md",
+                "required": true,
+                "status": "NOT_IMPLEMENTED_YET"
+              }
+            ]
+          },
+          "selected_model_shape": {
+            "columns": [
+              "hidden_dim",
+              "nhead",
+              "feedforward_dim",
+              "recurrence_steps",
+              "parameter_count",
+              "within_5m_8m_gate",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "feedforward_dim": 8192,
+                "hidden_dim": 384,
+                "nhead": 6,
+                "parameter_count": 6908685,
+                "provenance": "computed from experiments.train_trm_operator.PerCellTokenRecurrentOperator",
+                "recurrence_steps": 12,
+                "within_5m_8m_gate": true
+              }
+            ]
+          }
+        },
+        "schema_version": "log_item_contract_v1",
+        "status": "RETRY_PLAN_READY_NOT_LAUNCHED"
+      },
+      "detail_data": {
+        "results/experiment_items/item_043_track_b_retry_plan.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": "043",
+          "json_summary": [
+            [
+              "status",
+              "RETRY_PLAN_READY_NOT_LAUNCHED"
+            ],
+            [
+              "decision",
+              "2 keys: gate_outcomes, next_step_routing"
+            ],
+            [
+              "schema_version",
+              "log_item_contract_v1"
+            ],
+            [
+              "item_number",
+              "043"
+            ],
+            [
+              "name",
+              "Track B faithful retry plan after GPU efficiency guards"
+            ],
+            [
+              "purpose",
+              "Record the concrete Track B retry plan after P0 profiling and batched Sudoku equivalence guards. This item chooses a parameter-count-valid TRM-class shape, one-GPU-per-seed topology, required trainer changes, and reporting gates for a future optimized retry. It is not a training result and makes no speedup or learned-gate claim."
+            ],
+            [
+              "honesty",
+              "2 keys: does_not_establish, limitations"
+            ]
+          ],
+          "path": "results/experiment_items/item_043_track_b_retry_plan.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 7,
+              "rows": 1,
+              "table": "selected_model_shape"
+            },
+            {
+              "columns": 5,
+              "rows": 3,
+              "table": "launch_topology"
+            },
+            {
+              "columns": 4,
+              "rows": 5,
+              "table": "prelaunch_code_gates"
+            }
+          ],
+          "size_bytes": 6361
+        },
+        "results/experiment_log/experiment_log.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "generated_at",
+              "2026-06-08T12:04:41.350790+00:00"
+            ]
+          ],
+          "path": "results/experiment_log/experiment_log.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 781473
+        },
+        "results/experiment_log/experiment_log.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/experiment_log/experiment_log.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 188436
+        },
+        "results/validation/validation.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "passed",
+              "False"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T12:05:04.115976+00:00"
+            ],
+            [
+              "summary",
+              "n_checks=240; n_fail=3; n_pass=237"
+            ]
+          ],
+          "path": "results/validation/validation.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 46050
+        },
+        "results/validation/validation.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/validation/validation.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 28469
+        },
+        "specs/track_b_retry_plan.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "specs/track_b_retry_plan.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 4005
+        }
+      },
+      "details": [
+        "purpose=Record the concrete Track B retry plan after P0 profiling and batched Sudoku equivalence guards. This item chooses a parameter-count-valid TRM-class shape, one-GPU-per-seed topology, required trainer changes, and reporting gates for a future optimized retry. It is not a training result and makes no speedup or learned-gate claim.",
+        "commands=1",
+        "result_tables=['selected_model_shape', 'launch_topology', 'prelaunch_code_gates']",
+        "honesty=This item does not run training, does not claim speedup, and does not establish learned Track B acceptance. It only records the next faithful retry plan and the code gates that must be implemented before launch."
+      ],
+      "item": "043",
+      "key_result": "Implement the prelaunch trainer gates, rerun equivalence checks, then launch one seed per GPU and report before/after throughput against item041 plus per-seed learned metrics as in item040.",
+      "name": "Track B faithful retry plan after GPU efficiency guards",
+      "next_action": "Implement the prelaunch trainer gates, rerun equivalence checks, then launch one seed per GPU and report before/after throughput against item041 plus per-seed learned metrics as in item040.",
+      "purpose": "Record the concrete Track B retry plan after P0 profiling and batched Sudoku equivalence guards. This item chooses a parameter-count-valid TRM-class shape, one-GPU-per-seed topology, required trainer changes, and reporting gates for a future optimized retry. It is not a training result and makes no speedup or learned-gate claim.",
+      "status": "RETRY_PLAN_READY_NOT_LAUNCHED"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/experiment_items/item_044_trainer_prelaunch_gates.json",
+          "present": "yes",
+          "size_bytes": 7823
+        },
+        {
+          "path": "experiments/train_trm_operator.py",
+          "present": "yes",
+          "size_bytes": 50342
+        },
+        {
+          "path": "specs/track_b_retry_plan.md",
+          "present": "yes",
+          "size_bytes": 4005
+        },
+        {
+          "path": "results/trm_operator_prelaunch_smoke/acceptance.json",
+          "present": "yes",
+          "size_bytes": 12066
+        },
+        {
+          "path": "results/trm_operator_prelaunch_smoke/progress.jsonl",
+          "present": "yes",
+          "size_bytes": 974
+        },
+        {
+          "path": "results/trm_operator_compile_smoke/acceptance.json",
+          "present": "yes",
+          "size_bytes": 10396
+        },
+        {
+          "path": "results/trm_operator_compile_smoke/progress.jsonl",
+          "present": "yes",
+          "size_bytes": 486
+        },
+        {
+          "path": "results/experiment_log/experiment_log.json",
+          "present": "yes",
+          "size_bytes": 781473
+        },
+        {
+          "path": "results/experiment_log/experiment_log.md",
+          "present": "yes",
+          "size_bytes": 188436
+        },
+        {
+          "path": "results/validation/validation.json",
+          "present": "yes",
+          "size_bytes": 46050
+        },
+        {
+          "path": "results/validation/validation.md",
+          "present": "yes",
+          "size_bytes": 28469
+        }
+      ],
+      "contract_data": {
+        "artifacts": [
+          "experiments/train_trm_operator.py",
+          "specs/track_b_retry_plan.md",
+          "results/trm_operator_prelaunch_smoke/acceptance.json",
+          "results/trm_operator_prelaunch_smoke/progress.jsonl",
+          "results/trm_operator_compile_smoke/acceptance.json",
+          "results/trm_operator_compile_smoke/progress.jsonl",
+          "results/experiment_items/item_044_trainer_prelaunch_gates.json",
+          "results/experiment_log/experiment_log.json",
+          "results/experiment_log/experiment_log.md",
+          "results/validation/validation.json",
+          "results/validation/validation.md"
+        ],
+        "code_added_used": [
+          {
+            "change": "Added --gpu-resident-batches, --amp-bf16, --torch-compile, --require-param-min, and --require-param-max; recorded these flags in acceptance.json; unwrapped compiled models for EMA/checkpoint state_dicts.",
+            "path": "experiments/train_trm_operator.py"
+          },
+          {
+            "change": "Updated the retry command to include --gpu-resident-batches and marked the trainer capabilities as implemented/gated rather than hypothetical.",
+            "path": "specs/track_b_retry_plan.md"
+          }
+        ],
+        "commands": [
+          {
+            "command": ".venv/bin/python -m py_compile experiments/train_trm_operator.py",
+            "purpose": "Compile-check the updated trainer."
+          },
+          {
+            "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m experiments.train_trm_operator --output-dir results/trm_operator_prelaunch_smoke --seed 102 --device cuda:0 --train-instances 16 --eval-instances 4 --l4-instances 2 --steps 2 --batch-size 8 --hidden-dim 96 --nhead 4 --feedforward-dim 192 --recurrence-steps 2 --generation-workers 1 --episode-workers 1 --tensorize-workers 1 --eval-every 1 --fuse-step 0 --gpu-resident-batches --amp-bf16 --require-param-min 1 --require-param-max 1000000",
+            "purpose": "Smoke-test GPU-resident batch sampling, bf16 autocast, parameter-count assertion, and progress throughput fields."
+          },
+          {
+            "command": ".venv/bin/python - <<'PY'\nimport torch\nfrom experiments.train_trm_operator import PerCellTokenRecurrentOperator, TrackBConfig, _base_trm_model, _parameter_count\nmodel = PerCellTokenRecurrentOperator(TrackBConfig(hidden_dim=96, nhead=4, feedforward_dim=192, recurrence_steps=2, dropout=0.0))\ncompiled = torch.compile(model)\nprint({'base_unwrapped': _base_trm_model(compiled) is model, 'parameter_count': _parameter_count(model)})\nPY",
+            "purpose": "Check that torch.compile wrapping can be unwrapped for EMA/checkpoint handling."
+          },
+          {
+            "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m experiments.train_trm_operator --output-dir results/trm_operator_compile_smoke --seed 102 --device cuda:0 --train-instances 4 --eval-instances 1 --l4-instances 1 --steps 1 --batch-size 2 --hidden-dim 32 --nhead 4 --feedforward-dim 64 --recurrence-steps 1 --generation-workers 1 --episode-workers 1 --tensorize-workers 1 --eval-every 1 --fuse-step 0 --gpu-resident-batches --amp-bf16 --torch-compile --require-param-min 1 --require-param-max 1000000",
+            "purpose": "Smoke-test the actual training path with torch.compile enabled."
+          }
+        ],
+        "decision": {
+          "gate_outcomes": [
+            {
+              "gate": "prelaunch_flags_implemented",
+              "number": "gpu_resident_batches=true; amp_bf16=true; torch_compile=true in compile smoke; parameter gates passed in both smokes",
+              "outcome": "PASS"
+            },
+            {
+              "gate": "compiled_checkpoint_unwrapped",
+              "number": "state_dict_prefix_ok=true; ema_prefix_ok=true",
+              "outcome": "PASS"
+            }
+          ],
+          "next_step_routing": "Launch the item043 one-GPU-per-seed retry when ready, using the selected 6.91M-parameter shape and the new prelaunch flags, then compare throughput against item041 and report learned metrics as in item040."
+        },
+        "honesty": {
+          "does_not_establish": "This item does not establish a speedup, does not run the full retry, and does not establish learned Track B acceptance. It only validates that the trainer now supports the prelaunch flags required by item043.",
+          "limitations": [
+            "The smokes use tiny datasets and small model shapes; they verify code paths, not final throughput or learned quality.",
+            "The selected retry shape from item043 still needs a full run and before/after comparison against item041.",
+            "GPU-resident sampling accelerates the training-step input path, but tensorization/data generation must still be timed in the full optimized run."
+          ]
+        },
+        "item_number": "044",
+        "name": "Track B trainer prelaunch gates implemented",
+        "provenance": {
+          "compile_smoke": "results/trm_operator_compile_smoke/acceptance.json",
+          "device": "cuda:0",
+          "external_process_policy": "No non-project GPU process was cancelled or modified.",
+          "generated_at": "2026-06-08T11:05:00+00:00",
+          "prelaunch_smoke": "results/trm_operator_prelaunch_smoke/acceptance.json",
+          "repo": "/home/aiscuser/RECURRENT_NN",
+          "track": "B_learned_pipeline_efficiency"
+        },
+        "purpose": "Record implementation and smoke validation of the trainer capabilities required by the item043 Track B retry plan: GPU-resident batch sampling, bf16 autocast, torch.compile opt-in, and parameter-count assertions. This item does not launch the full retry and does not claim speedup; it only makes the planned retry command line valid for a later before/after run.",
+        "result_tables": {
+          "checkpoint_unwrap_checks": {
+            "columns": [
+              "check",
+              "passed",
+              "number",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "check": "compiled_model_base_unwrap",
+                "number": "_base_trm_model(torch.compile(model)) is model",
+                "passed": true,
+                "provenance": "inline compile unwrap smoke"
+              },
+              {
+                "check": "compiled_checkpoint_state_dict_prefix",
+                "number": "0 state_dict keys start with _orig_mod.",
+                "passed": true,
+                "provenance": "results/trm_operator_compile_smoke/trm_operator_seed102.pt"
+              },
+              {
+                "check": "compiled_ema_state_dict_prefix",
+                "number": "0 ema_state_dict keys start with _orig_mod.",
+                "passed": true,
+                "provenance": "results/trm_operator_compile_smoke/trm_operator_seed102.pt"
+              }
+            ]
+          },
+          "prelaunch_gate_smokes": {
+            "columns": [
+              "smoke",
+              "gpu_resident_batches",
+              "amp_bf16",
+              "torch_compile",
+              "parameter_count",
+              "parameter_gate_passed",
+              "progress_fields_present",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "amp_bf16": true,
+                "gpu_resident_batches": true,
+                "parameter_count": 78733,
+                "parameter_gate_passed": true,
+                "progress_fields_present": true,
+                "provenance": "results/trm_operator_prelaunch_smoke/acceptance.json",
+                "smoke": "gpu_resident_bf16_param_gate",
+                "torch_compile": false
+              },
+              {
+                "amp_bf16": true,
+                "gpu_resident_batches": true,
+                "parameter_count": 9869,
+                "parameter_gate_passed": true,
+                "progress_fields_present": true,
+                "provenance": "results/trm_operator_compile_smoke/acceptance.json",
+                "smoke": "torch_compile_training_path",
+                "torch_compile": true
+              }
+            ]
+          },
+          "retry_plan_gate_status_after_item044": {
+            "columns": [
+              "gate",
+              "status",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "gate": "gpu_resident_dataset_sampling",
+                "provenance": "experiments/train_trm_operator.py; results/trm_operator_prelaunch_smoke/acceptance.json",
+                "status": "IMPLEMENTED_SMOKE_PASS"
+              },
+              {
+                "gate": "amp_bf16_flag",
+                "provenance": "experiments/train_trm_operator.py; results/trm_operator_prelaunch_smoke/acceptance.json",
+                "status": "IMPLEMENTED_SMOKE_PASS"
+              },
+              {
+                "gate": "torch_compile_flag",
+                "provenance": "experiments/train_trm_operator.py; results/trm_operator_compile_smoke/acceptance.json",
+                "status": "IMPLEMENTED_SMOKE_PASS"
+              },
+              {
+                "gate": "parameter_count_assertion",
+                "provenance": "experiments/train_trm_operator.py; results/trm_operator_prelaunch_smoke/acceptance.json",
+                "status": "IMPLEMENTED_SMOKE_PASS"
+              }
+            ]
+          }
+        },
+        "schema_version": "log_item_contract_v1",
+        "status": "PRELAUNCH_GATES_IMPLEMENTED_SMOKE_PASS"
+      },
+      "detail_data": {
+        "experiments/train_trm_operator.py": {
+          "embedded": false,
+          "format": "py",
+          "path": "experiments/train_trm_operator.py",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 50342
+        },
+        "results/experiment_items/item_044_trainer_prelaunch_gates.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": "044",
+          "json_summary": [
+            [
+              "status",
+              "PRELAUNCH_GATES_IMPLEMENTED_SMOKE_PASS"
+            ],
+            [
+              "decision",
+              "2 keys: gate_outcomes, next_step_routing"
+            ],
+            [
+              "schema_version",
+              "log_item_contract_v1"
+            ],
+            [
+              "item_number",
+              "044"
+            ],
+            [
+              "name",
+              "Track B trainer prelaunch gates implemented"
+            ],
+            [
+              "purpose",
+              "Record implementation and smoke validation of the trainer capabilities required by the item043 Track B retry plan: GPU-resident batch sampling, bf16 autocast, torch.compile opt-in, and parameter-count assertions. This item does not launch the full retry and does not claim speedup; it only makes the planned retry command line valid for a later before/after run."
+            ],
+            [
+              "honesty",
+              "2 keys: does_not_establish, limitations"
+            ]
+          ],
+          "path": "results/experiment_items/item_044_trainer_prelaunch_gates.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 8,
+              "rows": 2,
+              "table": "prelaunch_gate_smokes"
+            },
+            {
+              "columns": 4,
+              "rows": 3,
+              "table": "checkpoint_unwrap_checks"
+            },
+            {
+              "columns": 3,
+              "rows": 4,
+              "table": "retry_plan_gate_status_after_item044"
+            }
+          ],
+          "size_bytes": 7823
+        },
+        "results/experiment_log/experiment_log.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "generated_at",
+              "2026-06-08T12:04:41.350790+00:00"
+            ]
+          ],
+          "path": "results/experiment_log/experiment_log.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 781473
+        },
+        "results/experiment_log/experiment_log.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/experiment_log/experiment_log.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 188436
+        },
+        "results/trm_operator_compile_smoke/acceptance.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "train_trm_operator"
+            ],
+            [
+              "status",
+              "G1_NOT_MET"
+            ],
+            [
+              "G1",
+              "0"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "G2",
+              "0"
+            ],
+            [
+              "architecture_class",
+              "trm_per_cell_tokens"
+            ],
+            [
+              "checkpoint",
+              "results/trm_operator_compile_smoke/trm_operator_seed102.pt"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T10:48:13.932799+00:00"
+            ],
+            [
+              "honesty",
+              "does_not_establish=Track B acceptance is per-seed learned-operator evidence only. It does not become Stage A evidence unless a later run consumes the checkpoint and reports operator=learned_recurrent autonomous cells side by side with Track A."
+            ],
+            [
+              "operator_type",
+              "learned_recurrent"
+            ],
+            [
+              "parameter_count",
+              "9869"
+            ],
+            [
+              "seed",
+              "102"
+            ],
+            [
+              "source",
+              "track_b_trm_class_training_run"
+            ],
+            [
+              "training_curve_summary",
+              "15 keys: amp_bf16, batch_size, completed_step, data_parallel_devices, episode_workers, eval_every, generation_workers, gpu_resident_batches"
+            ]
+          ],
+          "path": "results/trm_operator_compile_smoke/acceptance.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 10396
+        },
+        "results/trm_operator_compile_smoke/progress.jsonl": {
+          "embedded": false,
+          "format": "jsonl",
+          "path": "results/trm_operator_compile_smoke/progress.jsonl",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 486
+        },
+        "results/trm_operator_prelaunch_smoke/acceptance.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "train_trm_operator"
+            ],
+            [
+              "status",
+              "G1_NOT_MET"
+            ],
+            [
+              "G1",
+              "0"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "G2",
+              "0"
+            ],
+            [
+              "architecture_class",
+              "trm_per_cell_tokens"
+            ],
+            [
+              "checkpoint",
+              "results/trm_operator_prelaunch_smoke/trm_operator_seed102.pt"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T10:47:17.245669+00:00"
+            ],
+            [
+              "honesty",
+              "does_not_establish=Track B acceptance is per-seed learned-operator evidence only. It does not become Stage A evidence unless a later run consumes the checkpoint and reports operator=learned_recurrent autonomous cells side by side with Track A."
+            ],
+            [
+              "operator_type",
+              "learned_recurrent"
+            ],
+            [
+              "parameter_count",
+              "78733"
+            ],
+            [
+              "seed",
+              "102"
+            ],
+            [
+              "source",
+              "track_b_trm_class_training_run"
+            ],
+            [
+              "training_curve_summary",
+              "15 keys: amp_bf16, batch_size, completed_step, data_parallel_devices, episode_workers, eval_every, generation_workers, gpu_resident_batches"
+            ]
+          ],
+          "path": "results/trm_operator_prelaunch_smoke/acceptance.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 12066
+        },
+        "results/trm_operator_prelaunch_smoke/progress.jsonl": {
+          "embedded": false,
+          "format": "jsonl",
+          "path": "results/trm_operator_prelaunch_smoke/progress.jsonl",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 974
+        },
+        "results/validation/validation.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "passed",
+              "False"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T12:05:04.115976+00:00"
+            ],
+            [
+              "summary",
+              "n_checks=240; n_fail=3; n_pass=237"
+            ]
+          ],
+          "path": "results/validation/validation.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 46050
+        },
+        "results/validation/validation.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/validation/validation.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 28469
+        },
+        "specs/track_b_retry_plan.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "specs/track_b_retry_plan.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 4005
+        }
+      },
+      "details": [
+        "purpose=Record implementation and smoke validation of the trainer capabilities required by the item043 Track B retry plan: GPU-resident batch sampling, bf16 autocast, torch.compile opt-in, and parameter-count assertions. This item does not launch the full retry and does not claim speedup; it only makes the planned retry command line valid for a later before/after run.",
+        "commands=4",
+        "result_tables=['prelaunch_gate_smokes', 'checkpoint_unwrap_checks', 'retry_plan_gate_status_after_item044']",
+        "honesty=This item does not establish a speedup, does not run the full retry, and does not establish learned Track B acceptance. It only validates that the trainer now supports the prelaunch flags required by item043."
+      ],
+      "item": "044",
+      "key_result": "Launch the item043 one-GPU-per-seed retry when ready, using the selected 6.91M-parameter shape and the new prelaunch flags, then compare throughput against item041 and report learned metrics as in item040.",
+      "name": "Track B trainer prelaunch gates implemented",
+      "next_action": "Launch the item043 one-GPU-per-seed retry when ready, using the selected 6.91M-parameter shape and the new prelaunch flags, then compare throughput against item041 and report learned metrics as in item040.",
+      "purpose": "Record implementation and smoke validation of the trainer capabilities required by the item043 Track B retry plan: GPU-resident batch sampling, bf16 autocast, torch.compile opt-in, and parameter-count assertions. This item does not launch the full retry and does not claim speedup; it only makes the planned retry command line valid for a later before/after run.",
+      "status": "PRELAUNCH_GATES_IMPLEMENTED_SMOKE_PASS"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/experiment_items/item_045_track_b_ddp_sharded_retry_launch.json",
+          "present": "yes",
+          "size_bytes": 9802
+        },
+        {
+          "path": "experiments/train_trm_operator.py",
+          "present": "yes",
+          "size_bytes": 50342
+        },
+        {
+          "path": "experiments/train_recurrent_operator.py",
+          "present": "yes",
+          "size_bytes": 40388
+        },
+        {
+          "path": "results/ddp_shard_smoke_track_b_20260608/acceptance.json",
+          "present": "yes",
+          "size_bytes": 13437
+        },
+        {
+          "path": "results/ddp_shard_smoke_track_b_20260608/progress.jsonl",
+          "present": "yes",
+          "size_bytes": 1166
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt",
+          "present": "yes",
+          "size_bytes": 689
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log",
+          "present": "yes",
+          "size_bytes": 504342
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl",
+          "present": "yes",
+          "size_bytes": 3114
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank0.pt",
+          "present": "yes",
+          "size_bytes": 102497751
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank1.pt",
+          "present": "yes",
+          "size_bytes": 102753255
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank2.pt",
+          "present": "yes",
+          "size_bytes": 102465687
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank3.pt",
+          "present": "yes",
+          "size_bytes": 102732839
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank4.pt",
+          "present": "yes",
+          "size_bytes": 102890311
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt",
+          "present": "yes",
+          "size_bytes": 102640503
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt",
+          "present": "yes",
+          "size_bytes": 102514311
+        },
+        {
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt",
+          "present": "yes",
+          "size_bytes": 102594183
+        },
+        {
+          "path": "results/experiment_log/experiment_log.json",
+          "present": "yes",
+          "size_bytes": 781473
+        },
+        {
+          "path": "results/experiment_log/experiment_log.md",
+          "present": "yes",
+          "size_bytes": 188436
+        },
+        {
+          "path": "results/validation/validation.json",
+          "present": "yes",
+          "size_bytes": 46050
+        },
+        {
+          "path": "results/validation/validation.md",
+          "present": "yes",
+          "size_bytes": 28469
+        }
+      ],
+      "contract_data": {
+        "artifacts": [
+          "experiments/train_trm_operator.py",
+          "experiments/train_recurrent_operator.py",
+          "results/ddp_shard_smoke_track_b_20260608/acceptance.json",
+          "results/ddp_shard_smoke_track_b_20260608/progress.jsonl",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank0.pt",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank1.pt",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank2.pt",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank3.pt",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank4.pt",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt",
+          "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt",
+          "results/experiment_items/item_045_track_b_ddp_sharded_retry_launch.json",
+          "results/experiment_log/experiment_log.json",
+          "results/experiment_log/experiment_log.md",
+          "results/validation/validation.json",
+          "results/validation/validation.md"
+        ],
+        "code_added_used": [
+          {
+            "change": "Added torchrun/DDP support, DdpContext helpers, per-rank dataset shard cache generation, shard waiting/combining, distributed global forced-mask pos_weight, rank0-only progress/acceptance writing, and --dataset-cache-dir / --progress-eval-episodes CLI flags. DDP cache shards are generated before NCCL init so Python ProcessPool work does not run under an initialized process group.",
+            "path": "experiments/train_trm_operator.py"
+          },
+          {
+            "change": "Kept dead_head in the autograd graph with a zero-weight loss term so DDP does not fail on unused parameters while preserving behavior.",
+            "path": "experiments/train_recurrent_operator.py"
+          }
+        ],
+        "commands": [
+          {
+            "command": ".venv/bin/python -m py_compile experiments/train_trm_operator.py experiments/train_recurrent_operator.py",
+            "purpose": "Compile-check the DDP trainer and shared loss path."
+          },
+          {
+            "command": "CUDA_VISIBLE_DEVICES=6,7 .venv/bin/torchrun --standalone --nnodes=1 --nproc_per_node=2 -m experiments.train_trm_operator --output-dir results/ddp_shard_smoke_track_b_20260608 --seed 778 --train-instances 16 --eval-instances 8 --l4-instances 4 --steps 2 --batch-size 64 --hidden-dim 32 --nhead 4 --feedforward-dim 128 --recurrence-steps 2 --lr 3e-4 --generation-workers 1 --episode-workers 1 --tensorize-workers 1 --eval-every 1 --forced-loss focal --gpu-resident-batches --amp-bf16 --progress-eval-episodes 0",
+            "purpose": "Smoke-test two-rank sharded cache generation, DDP training, rank0 progress writing, final shard recombination, and acceptance writing."
+          },
+          {
+            "command": "kill 2213154",
+            "purpose": "Stop only the prior project-owned seed102 DataParallel run after user approval; no external GPU processes were killed."
+          },
+          {
+            "command": "CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 .venv/bin/torchrun --standalone --nnodes=1 --nproc_per_node=8 -m experiments.train_trm_operator --output-dir results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8 --seed 102 --device cuda:0 --train-instances 4096 --eval-instances 512 --l4-instances 128 --steps 20000 --batch-size 16384 --hidden-dim 384 --nhead 6 --feedforward-dim 8192 --recurrence-steps 12 --lr 3e-4 --generation-workers 2 --episode-workers 2 --tensorize-workers 2 --eval-every 500 --forced-loss focal --fuse-step 100 --fuse-min-loss-drop 0.01 --gpu-resident-batches --amp-bf16 --require-param-min 5000000 --require-param-max 8000000 --progress-eval-episodes 0",
+            "purpose": "Launch the corrected active seed102 8-GPU DDP retry with concurrent per-rank local cache shards and lightweight progress rows."
+          }
+        ],
+        "decision": {
+          "gate_outcomes": [
+            {
+              "gate": "ddp_sharded_cache_smoke",
+              "number": "2 ranks wrote separate shards and rank0 wrote acceptance.json",
+              "outcome": "PASS"
+            },
+            {
+              "gate": "active_8gpu_ddp_launch",
+              "number": "8 shard cache files written; step1000 reached; mean_gpu_util=100%; steps_per_sec=1.3507618172570945",
+              "outcome": "ACTIVE_PASS_THROUGH_STEP1000"
+            }
+          ],
+          "next_step_routing": "Continue monitoring the active seed102 DDP run until completion, then record final acceptance.json and compare final learned G1/G2 against item040 and item043 expectations."
+        },
+        "honesty": {
+          "does_not_establish": "This item does not establish final learned Track B acceptance. The seed102 DDP run is still active, and G1/G2 rollout metrics are intentionally null in progress rows because expensive progress rollout eval was disabled. Final acceptance must be read from the eventual acceptance.json after the run completes.",
+          "limitations": [
+            "The step500 speedup is a training-loop snapshot, not a final completed-run throughput summary.",
+            "Progress rows do not report G1/G2 during training because --progress-eval-episodes 0 is used to avoid serial rollout overhead.",
+            "Large active-run cache files are referenced as artifacts but are not intended to be committed into git."
+          ]
+        },
+        "item_number": "045",
+        "name": "Track B DDP sharded-cache retry launched",
+        "provenance": {
+          "active_run_progress": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl",
+          "active_run_root": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z",
+          "architecture_class": "trm_per_cell_tokens",
+          "external_process_policy": "Only project-owned trainer PIDs were stopped after user approval; no non-project GPU process was killed.",
+          "generated_at": "2026-06-08T11:55:00+00:00",
+          "operator_type": "learned_recurrent",
+          "repo": "/home/aiscuser/RECURRENT_NN",
+          "track": "B_learned_pipeline_efficiency"
+        },
+        "purpose": "Record the GPU-efficiency correction made after the one-seed 8-GPU DataParallel retry showed real GPU use but poor topology: replace DataParallel with torchrun/DDP, generate local dataset cache shards concurrently across ranks before NCCL initialization, keep per-rank GPU-resident batches, skip expensive rollout eval during progress rows, and launch the seed102 8-GPU DDP retry. This item records an active run snapshot, not final learned Track B acceptance.",
+        "result_tables": {
+          "active_seed102_ddp_snapshot": {
+            "columns": [
+              "metric",
+              "value",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "metric": "run_status",
+                "provenance": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl",
+                "value": "active_at_step_1000"
+              },
+              {
+                "metric": "shard_cache_files_written",
+                "provenance": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache",
+                "value": 8
+              },
+              {
+                "metric": "global_batch_size",
+                "provenance": "launch command",
+                "value": 16384
+              },
+              {
+                "metric": "per_rank_batch_size",
+                "provenance": "DDP world_size=8; global batch=16384",
+                "value": 2048
+              },
+              {
+                "metric": "step",
+                "provenance": "progress.jsonl",
+                "value": 1000
+              },
+              {
+                "metric": "steps_total",
+                "provenance": "progress.jsonl",
+                "value": 20000
+              },
+              {
+                "metric": "steps_per_sec_at_step1000",
+                "provenance": "progress.jsonl",
+                "value": 1.3507618172570945
+              },
+              {
+                "metric": "examples_per_sec_at_step1000",
+                "provenance": "progress.jsonl",
+                "value": 22130.881613940237
+              },
+              {
+                "metric": "mean_gpu_util_at_step1000",
+                "provenance": "progress.jsonl",
+                "value": 100.0
+              },
+              {
+                "metric": "data_parallel_baseline_steps_per_sec",
+                "provenance": "results/track_b_trm_retry_1seed_8gpu_20260608T105628Z/seed102_8gpu/progress.jsonl step1000",
+                "value": 1.0290870959122722
+              },
+              {
+                "metric": "ddp_vs_dataparallel_step_speedup",
+                "provenance": "1.3507618172570945 / 1.0290870959122722",
+                "value": 1.3125825991954896
+              },
+              {
+                "metric": "progress_rollout_eval",
+                "provenance": "--progress-eval-episodes 0",
+                "value": "disabled_during_training_progress"
+              }
+            ]
+          },
+          "ddp_sharded_smoke": {
+            "columns": [
+              "check",
+              "value",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "check": "torchrun_world_size",
+                "provenance": "results/ddp_shard_smoke_track_b_20260608/acceptance.json",
+                "value": 2
+              },
+              {
+                "check": "rank0_shard_train_examples",
+                "provenance": "results/ddp_shard_smoke_track_b_20260608/dataset_cache/*rank0.pt",
+                "value": 296
+              },
+              {
+                "check": "rank1_shard_train_examples",
+                "provenance": "results/ddp_shard_smoke_track_b_20260608/dataset_cache/*rank1.pt",
+                "value": 296
+              },
+              {
+                "check": "combined_train_instances",
+                "provenance": "results/ddp_shard_smoke_track_b_20260608/acceptance.json",
+                "value": 16
+              },
+              {
+                "check": "acceptance_written",
+                "provenance": "results/ddp_shard_smoke_track_b_20260608/acceptance.json",
+                "value": true
+              }
+            ]
+          }
+        },
+        "schema_version": "log_item_contract_v1",
+        "status": "DDP_SHARDED_RETRY_ACTIVE_STEP1000"
+      },
+      "detail_data": {
+        "experiments/train_recurrent_operator.py": {
+          "embedded": false,
+          "format": "py",
+          "path": "experiments/train_recurrent_operator.py",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 40388
+        },
+        "experiments/train_trm_operator.py": {
+          "embedded": false,
+          "format": "py",
+          "path": "experiments/train_trm_operator.py",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 50342
+        },
+        "results/ddp_shard_smoke_track_b_20260608/acceptance.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "train_trm_operator"
+            ],
+            [
+              "status",
+              "G1_NOT_MET"
+            ],
+            [
+              "G1",
+              "0"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "G2",
+              "0"
+            ],
+            [
+              "architecture_class",
+              "trm_per_cell_tokens"
+            ],
+            [
+              "checkpoint",
+              "results/ddp_shard_smoke_track_b_20260608/trm_operator_seed778.pt"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T11:41:54.373891+00:00"
+            ],
+            [
+              "honesty",
+              "does_not_establish=Track B acceptance is per-seed learned-operator evidence only. It does not become Stage A evidence unless a later run consumes the checkpoint and reports operator=learned_recurrent autonomous cells side by side with Track A."
+            ],
+            [
+              "operator_type",
+              "learned_recurrent"
+            ],
+            [
+              "parameter_count",
+              "14029"
+            ],
+            [
+              "seed",
+              "778"
+            ],
+            [
+              "source",
+              "track_b_trm_class_training_run"
+            ],
+            [
+              "training_curve_summary",
+              "19 keys: amp_bf16, batch_size, completed_step, data_parallel_devices, distributed_data_parallel_devices, episode_workers, eval_every, generation_workers"
+            ]
+          ],
+          "path": "results/ddp_shard_smoke_track_b_20260608/acceptance.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 13437
+        },
+        "results/ddp_shard_smoke_track_b_20260608/progress.jsonl": {
+          "embedded": false,
+          "format": "jsonl",
+          "path": "results/ddp_shard_smoke_track_b_20260608/progress.jsonl",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 1166
+        },
+        "results/experiment_items/item_045_track_b_ddp_sharded_retry_launch.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": "045",
+          "json_summary": [
+            [
+              "status",
+              "DDP_SHARDED_RETRY_ACTIVE_STEP1000"
+            ],
+            [
+              "decision",
+              "2 keys: gate_outcomes, next_step_routing"
+            ],
+            [
+              "schema_version",
+              "log_item_contract_v1"
+            ],
+            [
+              "item_number",
+              "045"
+            ],
+            [
+              "name",
+              "Track B DDP sharded-cache retry launched"
+            ],
+            [
+              "purpose",
+              "Record the GPU-efficiency correction made after the one-seed 8-GPU DataParallel retry showed real GPU use but poor topology: replace DataParallel with torchrun/DDP, generate local dataset cache shards concurrently across ranks before NCCL initialization, keep per-rank GPU-resident batches, skip expensive rollout eval during progress rows, and launch the seed102 8-GPU DDP retry. This item records an active run snapshot, not final learned Track B acceptance."
+            ],
+            [
+              "honesty",
+              "2 keys: does_not_establish, limitations"
+            ]
+          ],
+          "path": "results/experiment_items/item_045_track_b_ddp_sharded_retry_launch.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 3,
+              "rows": 5,
+              "table": "ddp_sharded_smoke"
+            },
+            {
+              "columns": 3,
+              "rows": 12,
+              "table": "active_seed102_ddp_snapshot"
+            }
+          ],
+          "size_bytes": 9802
+        },
+        "results/experiment_log/experiment_log.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "generated_at",
+              "2026-06-08T12:04:41.350790+00:00"
+            ]
+          ],
+          "path": "results/experiment_log/experiment_log.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 781473
+        },
+        "results/experiment_log/experiment_log.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/experiment_log/experiment_log.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 188436
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt": {
+          "embedded": false,
+          "format": "txt",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 689
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log": {
+          "embedded": false,
+          "format": "log",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 504342
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank0.pt": {
+          "embedded": false,
+          "format": "pt",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank0.pt",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 102497751
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank1.pt": {
+          "embedded": false,
+          "format": "pt",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank1.pt",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 102753255
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank2.pt": {
+          "embedded": false,
+          "format": "pt",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank2.pt",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 102465687
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank3.pt": {
+          "embedded": false,
+          "format": "pt",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank3.pt",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 102732839
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank4.pt": {
+          "embedded": false,
+          "format": "pt",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank4.pt",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 102890311
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt": {
+          "embedded": false,
+          "format": "pt",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 102640503
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt": {
+          "embedded": false,
+          "format": "pt",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 102514311
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt": {
+          "embedded": false,
+          "format": "pt",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 102594183
+        },
+        "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl": {
+          "embedded": false,
+          "format": "jsonl",
+          "path": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 3114
+        },
+        "results/validation/validation.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "passed",
+              "False"
+            ],
+            [
+              "generated_at",
+              "2026-06-08T12:05:04.115976+00:00"
+            ],
+            [
+              "summary",
+              "n_checks=240; n_fail=3; n_pass=237"
+            ]
+          ],
+          "path": "results/validation/validation.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 46050
+        },
+        "results/validation/validation.md": {
+          "embedded": false,
+          "format": "md",
+          "path": "results/validation/validation.md",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 28469
+        }
+      },
+      "details": [
+        "purpose=Record the GPU-efficiency correction made after the one-seed 8-GPU DataParallel retry showed real GPU use but poor topology: replace DataParallel with torchrun/DDP, generate local dataset cache shards concurrently across ranks before NCCL initialization, keep per-rank GPU-resident batches, skip expensive rollout eval during progress rows, and launch the seed102 8-GPU DDP retry. This item records an active run snapshot, not final learned Track B acceptance.",
+        "commands=4",
+        "result_tables=['ddp_sharded_smoke', 'active_seed102_ddp_snapshot']",
+        "honesty=This item does not establish final learned Track B acceptance. The seed102 DDP run is still active, and G1/G2 rollout metrics are intentionally null in progress rows because expensive progress rollout eval was disabled. Final acceptance must be read from the eventual acceptance.json after the run completes."
+      ],
+      "item": "045",
+      "key_result": "Continue monitoring the active seed102 DDP run until completion, then record final acceptance.json and compare final learned G1/G2 against item040 and item043 expectations.",
+      "name": "Track B DDP sharded-cache retry launched",
+      "next_action": "Continue monitoring the active seed102 DDP run until completion, then record final acceptance.json and compare final learned G1/G2 against item040 and item043 expectations.",
+      "purpose": "Record the GPU-efficiency correction made after the one-seed 8-GPU DataParallel retry showed real GPU use but poor topology: replace DataParallel with torchrun/DDP, generate local dataset cache shards concurrently across ranks before NCCL initialization, keep per-rank GPU-resident batches, skip expensive rollout eval during progress rows, and launch the seed102 8-GPU DDP retry. This item records an active run snapshot, not final learned Track B acceptance.",
+      "status": "DDP_SHARDED_RETRY_ACTIVE_STEP1000"
     }
   ],
   "legacy_archive": {
@@ -17878,8 +20460,8 @@
     "verifier": "results/verifier/results.json"
   },
   "validation_summary": {
-    "n_checks": 210,
+    "n_checks": 240,
     "n_fail": 3,
-    "n_pass": 207
+    "n_pass": 237
   }
 }

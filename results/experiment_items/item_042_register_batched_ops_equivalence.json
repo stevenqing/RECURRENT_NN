@@ -1,0 +1,98 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "042",
+  "name": "Register batched ops bridge equivalence",
+  "status": "BATCHED_OPS_BRIDGE_EQUIVALENCE_PASS",
+  "purpose": "Record the first register-level batched Sudoku6 operation bridge for the GPU efficiency overhaul. This item wraps the item041 GPU Sudoku candidate engine behind scalar-compatible helper functions for forced moves, propagation fixpoint, and applying commits, then verifies those helpers against the scalar CSP loop on 100 generated Sudoku6 episodes.",
+  "code_added_used": [
+    {
+      "path": "register/batched_ops.py",
+      "change": "Added batched_forced_values, batched_propagation_fixpoint, and batched_apply_commits helpers backed by sudoku_engine_gpu while returning scalar-compatible Python dictionaries and status strings."
+    },
+    {
+      "path": "analysis/test_batched_ops.py",
+      "change": "Added a 100-episode scalar equivalence check for the register-level batched helpers."
+    },
+    {
+      "path": "analysis/experiment_log.py",
+      "change": "Indexed item042, register/batched_ops.py, and the batched ops equivalence artifact in the canonical ledger artifact index."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m py_compile register/batched_ops.py analysis/test_batched_ops.py sudoku_engine_gpu.py analysis/test_sudoku_engine_gpu.py",
+      "purpose": "Compile-check the batched ops bridge, its equivalence check, and the underlying GPU Sudoku engine."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.test_batched_ops",
+      "purpose": "Run 100 generated Sudoku6 episodes through register.batched_ops and compare against scalar forced_moves, status, propagation_fixpoint, and one-step commit application."
+    }
+  ],
+  "artifacts": [
+    "register/batched_ops.py",
+    "analysis/test_batched_ops.py",
+    "sudoku_engine_gpu.py",
+    "results/batched_ops/equivalence_100.json",
+    "results/experiment_items/item_042_register_batched_ops_equivalence.json",
+    "results/experiment_log/experiment_log.json",
+    "results/experiment_log/experiment_log.md",
+    "results/validation/validation.json",
+    "results/validation/validation.md"
+  ],
+  "provenance": {
+    "repo": "/home/aiscuser/RECURRENT_NN",
+    "generated_at": "2026-06-08T10:35:00+00:00",
+    "track": "B_learned_pipeline_efficiency",
+    "source_engine": "sudoku_engine_gpu.py",
+    "bridge_module": "register/batched_ops.py",
+    "equivalence_artifact": "results/batched_ops/equivalence_100.json",
+    "device": "cuda:0",
+    "seed": 20260608,
+    "n_episodes_requested": 100,
+    "n_episodes_generated": 100,
+    "episode_source": "tasks.sudoku.generator_6x6.generate_6x6_by_depth_band(min_depth=1,max_depth=2)",
+    "external_process_policy": "No non-project GPU process was cancelled or modified."
+  },
+  "result_tables": {
+    "batched_ops_equivalence": {
+      "columns": ["check", "n_episodes", "n_mismatches", "passed", "device", "seed", "provenance"],
+      "rows": [
+        {"check": "batched_forced_values_vs_scalar_forced_moves", "n_episodes": 100, "n_mismatches": 0, "passed": true, "device": "cuda:0", "seed": 20260608, "provenance": "results/batched_ops/equivalence_100.json"},
+        {"check": "batched_initial_status_vs_scalar_status", "n_episodes": 100, "n_mismatches": 0, "passed": true, "device": "cuda:0", "seed": 20260608, "provenance": "results/batched_ops/equivalence_100.json"},
+        {"check": "batched_propagation_fixpoint_vs_scalar", "n_episodes": 100, "n_mismatches": 0, "passed": true, "device": "cuda:0", "seed": 20260608, "provenance": "results/batched_ops/equivalence_100.json"},
+        {"check": "batched_apply_commits_vs_scalar_dict_update", "n_episodes": 100, "n_mismatches": 0, "passed": true, "device": "cuda:0", "seed": 20260608, "provenance": "results/batched_ops/equivalence_100.json"}
+      ]
+    },
+    "bridge_api": {
+      "columns": ["function", "input", "output", "semantics", "provenance"],
+      "rows": [
+        {"function": "batched_forced_values", "input": "Sequence[dict[int,int]]", "output": "BatchedForcedResult(forced_values,statuses)", "semantics": "scalar forced_moves plus scalar status over the same assignment objects", "provenance": "register/batched_ops.py"},
+        {"function": "batched_propagation_fixpoint", "input": "Sequence[dict[int,int]]", "output": "BatchedPropagationResult(assignments,statuses)", "semantics": "scalar propagation_fixpoint assignment/status over the same assignment objects", "provenance": "register/batched_ops.py"},
+        {"function": "batched_apply_commits", "input": "Sequence[assignments], Sequence[commit dicts]", "output": "list[dict[int,int]]", "semantics": "scalar dict update for proposed commits before any later propagation", "provenance": "register/batched_ops.py"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not claim a speedup, does not change Track B training, and does not establish learned gate success. It only establishes that the register-level batched helper layer preserves the scalar Sudoku6 semantics it is meant to replace in future pipeline code.",
+    "limitations": [
+      "The bridge returns scalar-compatible Python dictionaries, so it is an integration guard rather than the final fully GPU-resident trainer data path.",
+      "The equivalence set covers 100 generated L1-L2 Sudoku6 episodes, not every possible invalid board or L4 diagnostic episode.",
+      "Future wiring into data preparation or rollout evaluation must rerun before/after timing against item041 P0 and must keep this equivalence check passing."
+    ]
+  },
+  "decision": {
+    "gate_outcomes": [
+      {
+        "gate": "batched_ops_compile",
+        "number": "py_compile passed for register/batched_ops.py and analysis/test_batched_ops.py",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "batched_ops_equivalence",
+        "number": "100 episodes generated; n_mismatches=0 across forced_values, initial_status, propagation_fixpoint, apply_commits",
+        "outcome": "PASS"
+      }
+    ],
+    "next_step_routing": "Use register.batched_ops as the guarded integration layer for the next GPU pipeline optimization. The next code change should wire batched operations into the trainer data preparation or rollout path and compare timing against item041 P0."
+  }
+}

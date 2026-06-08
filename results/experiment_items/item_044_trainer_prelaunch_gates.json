@@ -1,0 +1,106 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "044",
+  "name": "Track B trainer prelaunch gates implemented",
+  "status": "PRELAUNCH_GATES_IMPLEMENTED_SMOKE_PASS",
+  "purpose": "Record implementation and smoke validation of the trainer capabilities required by the item043 Track B retry plan: GPU-resident batch sampling, bf16 autocast, torch.compile opt-in, and parameter-count assertions. This item does not launch the full retry and does not claim speedup; it only makes the planned retry command line valid for a later before/after run.",
+  "code_added_used": [
+    {
+      "path": "experiments/train_trm_operator.py",
+      "change": "Added --gpu-resident-batches, --amp-bf16, --torch-compile, --require-param-min, and --require-param-max; recorded these flags in acceptance.json; unwrapped compiled models for EMA/checkpoint state_dicts."
+    },
+    {
+      "path": "specs/track_b_retry_plan.md",
+      "change": "Updated the retry command to include --gpu-resident-batches and marked the trainer capabilities as implemented/gated rather than hypothetical."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m py_compile experiments/train_trm_operator.py",
+      "purpose": "Compile-check the updated trainer."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m experiments.train_trm_operator --output-dir results/trm_operator_prelaunch_smoke --seed 102 --device cuda:0 --train-instances 16 --eval-instances 4 --l4-instances 2 --steps 2 --batch-size 8 --hidden-dim 96 --nhead 4 --feedforward-dim 192 --recurrence-steps 2 --generation-workers 1 --episode-workers 1 --tensorize-workers 1 --eval-every 1 --fuse-step 0 --gpu-resident-batches --amp-bf16 --require-param-min 1 --require-param-max 1000000",
+      "purpose": "Smoke-test GPU-resident batch sampling, bf16 autocast, parameter-count assertion, and progress throughput fields."
+    },
+    {
+      "command": ".venv/bin/python - <<'PY'\nimport torch\nfrom experiments.train_trm_operator import PerCellTokenRecurrentOperator, TrackBConfig, _base_trm_model, _parameter_count\nmodel = PerCellTokenRecurrentOperator(TrackBConfig(hidden_dim=96, nhead=4, feedforward_dim=192, recurrence_steps=2, dropout=0.0))\ncompiled = torch.compile(model)\nprint({'base_unwrapped': _base_trm_model(compiled) is model, 'parameter_count': _parameter_count(model)})\nPY",
+      "purpose": "Check that torch.compile wrapping can be unwrapped for EMA/checkpoint handling."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m experiments.train_trm_operator --output-dir results/trm_operator_compile_smoke --seed 102 --device cuda:0 --train-instances 4 --eval-instances 1 --l4-instances 1 --steps 1 --batch-size 2 --hidden-dim 32 --nhead 4 --feedforward-dim 64 --recurrence-steps 1 --generation-workers 1 --episode-workers 1 --tensorize-workers 1 --eval-every 1 --fuse-step 0 --gpu-resident-batches --amp-bf16 --torch-compile --require-param-min 1 --require-param-max 1000000",
+      "purpose": "Smoke-test the actual training path with torch.compile enabled."
+    }
+  ],
+  "artifacts": [
+    "experiments/train_trm_operator.py",
+    "specs/track_b_retry_plan.md",
+    "results/trm_operator_prelaunch_smoke/acceptance.json",
+    "results/trm_operator_prelaunch_smoke/progress.jsonl",
+    "results/trm_operator_compile_smoke/acceptance.json",
+    "results/trm_operator_compile_smoke/progress.jsonl",
+    "results/experiment_items/item_044_trainer_prelaunch_gates.json",
+    "results/experiment_log/experiment_log.json",
+    "results/experiment_log/experiment_log.md",
+    "results/validation/validation.json",
+    "results/validation/validation.md"
+  ],
+  "provenance": {
+    "repo": "/home/aiscuser/RECURRENT_NN",
+    "generated_at": "2026-06-08T11:05:00+00:00",
+    "track": "B_learned_pipeline_efficiency",
+    "prelaunch_smoke": "results/trm_operator_prelaunch_smoke/acceptance.json",
+    "compile_smoke": "results/trm_operator_compile_smoke/acceptance.json",
+    "device": "cuda:0",
+    "external_process_policy": "No non-project GPU process was cancelled or modified."
+  },
+  "result_tables": {
+    "prelaunch_gate_smokes": {
+      "columns": ["smoke", "gpu_resident_batches", "amp_bf16", "torch_compile", "parameter_count", "parameter_gate_passed", "progress_fields_present", "provenance"],
+      "rows": [
+        {"smoke": "gpu_resident_bf16_param_gate", "gpu_resident_batches": true, "amp_bf16": true, "torch_compile": false, "parameter_count": 78733, "parameter_gate_passed": true, "progress_fields_present": true, "provenance": "results/trm_operator_prelaunch_smoke/acceptance.json"},
+        {"smoke": "torch_compile_training_path", "gpu_resident_batches": true, "amp_bf16": true, "torch_compile": true, "parameter_count": 9869, "parameter_gate_passed": true, "progress_fields_present": true, "provenance": "results/trm_operator_compile_smoke/acceptance.json"}
+      ]
+    },
+    "checkpoint_unwrap_checks": {
+      "columns": ["check", "passed", "number", "provenance"],
+      "rows": [
+        {"check": "compiled_model_base_unwrap", "passed": true, "number": "_base_trm_model(torch.compile(model)) is model", "provenance": "inline compile unwrap smoke"},
+        {"check": "compiled_checkpoint_state_dict_prefix", "passed": true, "number": "0 state_dict keys start with _orig_mod.", "provenance": "results/trm_operator_compile_smoke/trm_operator_seed102.pt"},
+        {"check": "compiled_ema_state_dict_prefix", "passed": true, "number": "0 ema_state_dict keys start with _orig_mod.", "provenance": "results/trm_operator_compile_smoke/trm_operator_seed102.pt"}
+      ]
+    },
+    "retry_plan_gate_status_after_item044": {
+      "columns": ["gate", "status", "provenance"],
+      "rows": [
+        {"gate": "gpu_resident_dataset_sampling", "status": "IMPLEMENTED_SMOKE_PASS", "provenance": "experiments/train_trm_operator.py; results/trm_operator_prelaunch_smoke/acceptance.json"},
+        {"gate": "amp_bf16_flag", "status": "IMPLEMENTED_SMOKE_PASS", "provenance": "experiments/train_trm_operator.py; results/trm_operator_prelaunch_smoke/acceptance.json"},
+        {"gate": "torch_compile_flag", "status": "IMPLEMENTED_SMOKE_PASS", "provenance": "experiments/train_trm_operator.py; results/trm_operator_compile_smoke/acceptance.json"},
+        {"gate": "parameter_count_assertion", "status": "IMPLEMENTED_SMOKE_PASS", "provenance": "experiments/train_trm_operator.py; results/trm_operator_prelaunch_smoke/acceptance.json"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish a speedup, does not run the full retry, and does not establish learned Track B acceptance. It only validates that the trainer now supports the prelaunch flags required by item043.",
+    "limitations": [
+      "The smokes use tiny datasets and small model shapes; they verify code paths, not final throughput or learned quality.",
+      "The selected retry shape from item043 still needs a full run and before/after comparison against item041.",
+      "GPU-resident sampling accelerates the training-step input path, but tensorization/data generation must still be timed in the full optimized run."
+    ]
+  },
+  "decision": {
+    "gate_outcomes": [
+      {
+        "gate": "prelaunch_flags_implemented",
+        "number": "gpu_resident_batches=true; amp_bf16=true; torch_compile=true in compile smoke; parameter gates passed in both smokes",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "compiled_checkpoint_unwrapped",
+        "number": "state_dict_prefix_ok=true; ema_prefix_ok=true",
+        "outcome": "PASS"
+      }
+    ],
+    "next_step_routing": "Launch the item043 one-GPU-per-seed retry when ready, using the selected 6.91M-parameter shape and the new prelaunch flags, then compare throughput against item041 and report learned metrics as in item040."
+  }
+}

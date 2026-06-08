@@ -314,10 +314,10 @@ def _loss(
     losses = []
     forced_losses = []
     propagate_mask = action == ACTION_TO_ID["propagate"]
-    for action_logits, var_logits, val_logits, forced_logits in zip(outputs["action"], outputs["var"], outputs["val"], outputs["forced_mask"]):
+    for action_logits, var_logits, val_logits, forced_logits, dead_logits in zip(outputs["action"], outputs["var"], outputs["val"], outputs["forced_mask"], outputs["dead"]):
         forced_step_loss = _forced_mask_loss(forced_logits, forced_mask, pos_weight, forced_loss, focal_gamma)
         forced_losses.append(forced_step_loss.detach())
-        step_loss = forced_step_loss
+        step_loss = forced_step_loss + 0.0 * dead_logits.sum()
         var_mask = var >= 0
         val_mask = val >= 0
         if var_mask.any():

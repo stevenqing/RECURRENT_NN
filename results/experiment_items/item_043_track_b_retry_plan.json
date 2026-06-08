@@ -1,0 +1,103 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "043",
+  "name": "Track B faithful retry plan after GPU efficiency guards",
+  "status": "RETRY_PLAN_READY_NOT_LAUNCHED",
+  "purpose": "Record the concrete Track B retry plan after P0 profiling and batched Sudoku equivalence guards. This item chooses a parameter-count-valid TRM-class shape, one-GPU-per-seed topology, required trainer changes, and reporting gates for a future optimized retry. It is not a training result and makes no speedup or learned-gate claim.",
+  "code_added_used": [
+    {
+      "path": "specs/track_b_retry_plan.md",
+      "change": "Added the launch plan, preconditions, model shape, GPU topology, gated candidate commands, and reporting criteria for the next Track B retry."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python - <<'PY'\nfrom experiments.train_trm_operator import PerCellTokenRecurrentOperator, TrackBConfig\nfor hidden in [256,320,384]:\n  for nhead in [4,5,6,8]:\n    if hidden % nhead:\n      continue\n    for ff in [2048,3072,4096,6144,8192,10240]:\n      model=PerCellTokenRecurrentOperator(TrackBConfig(hidden_dim=hidden,nhead=nhead,feedforward_dim=ff,recurrence_steps=12,dropout=0.0))\n      params=sum(p.numel() for p in model.parameters())\n      if 5_000_000 <= params <= 8_000_000:\n        print({'hidden_dim':hidden,'nhead':nhead,'feedforward_dim':ff,'recurrence_steps':12,'params':params})\nPY",
+      "purpose": "Compute real parameter counts from the existing PerCellTokenRecurrentOperator implementation before selecting a retry shape."
+    }
+  ],
+  "artifacts": [
+    "specs/track_b_retry_plan.md",
+    "results/experiment_items/item_043_track_b_retry_plan.json",
+    "results/experiment_log/experiment_log.json",
+    "results/experiment_log/experiment_log.md",
+    "results/validation/validation.json",
+    "results/validation/validation.md"
+  ],
+  "provenance": {
+    "repo": "/home/aiscuser/RECURRENT_NN",
+    "generated_at": "2026-06-08T10:45:00+00:00",
+    "track": "B_learned_pipeline_efficiency",
+    "selected_shape": {
+      "hidden_dim": 384,
+      "nhead": 6,
+      "feedforward_dim": 8192,
+      "recurrence_steps": 12,
+      "parameter_count": 6908685
+    },
+    "seed_gpu_mapping": [
+      {"seed": 102, "cuda_visible_devices": "0", "trainer_device": "cuda:0"},
+      {"seed": 137, "cuda_visible_devices": "1", "trainer_device": "cuda:0"},
+      {"seed": 256, "cuda_visible_devices": "6", "trainer_device": "cuda:0"}
+    ],
+    "preconditions": [
+      "item041 P0 baseline remains the before-optimization comparison",
+      "item042 batched ops equivalence remains green",
+      "trainer supports GPU-resident dataset sampling, bf16 autocast, torch.compile, and parameter-count assertion before launch"
+    ]
+  },
+  "result_tables": {
+    "selected_model_shape": {
+      "columns": ["hidden_dim", "nhead", "feedforward_dim", "recurrence_steps", "parameter_count", "within_5m_8m_gate", "provenance"],
+      "rows": [
+        {"hidden_dim": 384, "nhead": 6, "feedforward_dim": 8192, "recurrence_steps": 12, "parameter_count": 6908685, "within_5m_8m_gate": true, "provenance": "computed from experiments.train_trm_operator.PerCellTokenRecurrentOperator"}
+      ]
+    },
+    "launch_topology": {
+      "columns": ["seed", "cuda_visible_devices", "trainer_device", "data_parallel", "provenance"],
+      "rows": [
+        {"seed": 102, "cuda_visible_devices": "0", "trainer_device": "cuda:0", "data_parallel": false, "provenance": "specs/track_b_retry_plan.md"},
+        {"seed": 137, "cuda_visible_devices": "1", "trainer_device": "cuda:0", "data_parallel": false, "provenance": "specs/track_b_retry_plan.md"},
+        {"seed": 256, "cuda_visible_devices": "6", "trainer_device": "cuda:0", "data_parallel": false, "provenance": "specs/track_b_retry_plan.md"}
+      ]
+    },
+    "prelaunch_code_gates": {
+      "columns": ["gate", "required", "status", "provenance"],
+      "rows": [
+        {"gate": "gpu_resident_dataset_sampling", "required": true, "status": "NOT_IMPLEMENTED_YET", "provenance": "specs/track_b_retry_plan.md"},
+        {"gate": "register_batched_ops_equivalence", "required": true, "status": "PASS_ITEM042", "provenance": "results/batched_ops/equivalence_100.json"},
+        {"gate": "amp_bf16_flag", "required": true, "status": "NOT_IMPLEMENTED_YET", "provenance": "specs/track_b_retry_plan.md"},
+        {"gate": "torch_compile_flag", "required": true, "status": "NOT_IMPLEMENTED_YET", "provenance": "specs/track_b_retry_plan.md"},
+        {"gate": "parameter_count_assertion", "required": true, "status": "NOT_IMPLEMENTED_YET", "provenance": "specs/track_b_retry_plan.md"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not run training, does not claim speedup, and does not establish learned Track B acceptance. It only records the next faithful retry plan and the code gates that must be implemented before launch.",
+    "limitations": [
+      "The current trainer still needs GPU-resident sampling, bf16, compile, and parameter assertion flags before the planned commands are valid.",
+      "The chosen feedforward dimension is intentionally large to satisfy the 5-8M parameter-count gate with hidden_dim 384; throughput must be measured against item041 before any launch claim.",
+      "DataParallel is explicitly excluded for the retry because item041/item040 evidence showed pipeline overhead and profiler aggregation issues for this small tied model."
+    ]
+  },
+  "decision": {
+    "gate_outcomes": [
+      {
+        "gate": "retry_shape_selected",
+        "number": "hidden_dim=384; nhead=6; feedforward_dim=8192; recurrence_steps=12; parameter_count=6908685",
+        "outcome": "PASS_PLAN"
+      },
+      {
+        "gate": "one_gpu_per_seed_topology",
+        "number": "seeds 102,137,256 mapped to CUDA_VISIBLE_DEVICES 0,1,6 respectively; DataParallel=false",
+        "outcome": "PASS_PLAN"
+      },
+      {
+        "gate": "launch_readiness",
+        "number": "gpu_resident_dataset_sampling, amp_bf16, torch_compile, parameter_count_assertion still not implemented",
+        "outcome": "NOT_READY_TO_LAUNCH"
+      }
+    ],
+    "next_step_routing": "Implement the prelaunch trainer gates, rerun equivalence checks, then launch one seed per GPU and report before/after throughput against item041 plus per-seed learned metrics as in item040."
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "041",
+  "name": "GPU efficiency P0 profile and Sudoku engine equivalence",
+  "status": "P0_PROFILE_COMPLETE_GPU_ENGINE_EQUIVALENCE_PASS",
+  "purpose": "Record the GPU efficiency overhaul baseline before optimization and the first semantics guard for future pipeline acceleration. This item profiles the current Track B per-cell-token trainer without claiming speedup, adds required throughput/GPU-util progress logging for later runs, and records a batched 6x6 Sudoku candidate engine with scalar equivalence on forced sets, contradiction, and propagation fixpoint over 1,000 boards.",
+  "code_added_used": [
+    {
+      "path": "analysis/profile_track_b_pipeline.py",
+      "change": "Added an independent P0 profile harness for the current Track B trainer with wallclock phase timers, sampled torch profiler windows, GPU utilization sampling, and opt-in chrome trace export."
+    },
+    {
+      "path": "experiments/train_trm_operator.py",
+      "change": "Added progress-row throughput fields steps_per_sec, examples_per_sec, gpu_util, and gpu_util_snapshot for future Track B runs."
+    },
+    {
+      "path": "sudoku_engine_gpu.py",
+      "change": "Added a batched 6x6 Sudoku candidate-bitmask engine with propagate, forced_set, contradiction, and apply_commits."
+    },
+    {
+      "path": "analysis/test_sudoku_engine_gpu.py",
+      "change": "Added a 1,000-board scalar equivalence check for the batched Sudoku engine."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m py_compile experiments/train_trm_operator.py analysis/profile_track_b_pipeline.py",
+      "purpose": "Compile-check the Track B trainer and P0 profile harness before profiling."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m analysis.profile_track_b_pipeline --output-dir results/profile_gate/track_b_current_20260608T_p0_single --seed 102 --device cuda:0 --train-instances 512 --eval-instances 64 --l4-instances 16 --steps 200 --batch-size 256 --hidden-dim 768 --nhead 8 --feedforward-dim 3072 --recurrence-steps 7 --generation-workers 8 --episode-workers 8 --tensorize-workers 8 --profiler-active-steps 10 --eval-episodes 20",
+      "purpose": "Run the successful sampled single-GPU P0 profile after full-shape and 8GPU profiler attempts proved too slow or too large for practical baseline collection."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m experiments.train_trm_operator --output-dir results/trm_operator_logging_smoke --seed 102 --device cuda:0 --train-instances 16 --eval-instances 4 --l4-instances 2 --steps 2 --batch-size 8 --hidden-dim 96 --nhead 4 --feedforward-dim 192 --recurrence-steps 2 --generation-workers 1 --episode-workers 1 --tensorize-workers 1 --eval-every 1 --fuse-step 0",
+      "purpose": "Smoke-test the added progress-row throughput and GPU-utilization fields."
+    },
+    {
+      "command": ".venv/bin/python -m py_compile sudoku_engine_gpu.py analysis/test_sudoku_engine_gpu.py",
+      "purpose": "Compile-check the batched Sudoku engine and equivalence script."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.test_sudoku_engine_gpu",
+      "purpose": "Run 1,000-board equivalence against the scalar Python reference."
+    }
+  ],
+  "artifacts": [
+    "analysis/profile_track_b_pipeline.py",
+    "experiments/train_trm_operator.py",
+    "sudoku_engine_gpu.py",
+    "analysis/test_sudoku_engine_gpu.py",
+    "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json",
+    "results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_key_averages.txt",
+    "results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_eval_key_averages.txt",
+    "results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl",
+    "results/sudoku_engine_gpu/equivalence_1000.json",
+    "results/trm_operator_logging_smoke/progress.jsonl",
+    "results/experiment_items/item_041_gpu_efficiency_p0_profile_and_sudoku_engine.json",
+    "results/experiment_log/experiment_log.json",
+    "results/experiment_log/experiment_log.md",
+    "results/validation/validation.json",
+    "results/validation/validation.md"
+  ],
+  "provenance": {
+    "repo": "/home/aiscuser/RECURRENT_NN",
+    "generated_at": "2026-06-08T10:20:00+00:00",
+    "track": "B_learned_pipeline_efficiency",
+    "profiled_object": "experiments.train_trm_operator current Track B per-cell-token trainer",
+    "profile_run_root": "results/profile_gate/track_b_current_20260608T_p0_single",
+    "profile_device": "cuda:0",
+    "profile_model_shape": "hidden_dim=768 nhead=8 feedforward_dim=3072 recurrence_steps=7 parameter_count=7119373",
+    "profile_dataset": "repo-local Sudoku6 L1-L2 training/eval with L4 diagnostic generation; reduced counts for P0 timing only",
+    "profile_steps": 200,
+    "profiler_active_steps": 10,
+    "eval_episodes": 20,
+    "sudoku_engine_equivalence_artifact": "results/sudoku_engine_gpu/equivalence_1000.json",
+    "sudoku_engine_device": "cuda:0",
+    "sudoku_engine_seed": 20260608,
+    "sudoku_engine_n_boards": 1000,
+    "external_process_policy": "No non-project GPU process was cancelled or modified. Latest user instruction allowed use of GPUs despite external occupancy because free memory remained sufficient."
+  },
+  "result_tables": {
+    "p0_phase_timing": {
+      "columns": ["phase", "seconds", "percent_of_measured_wallclock", "provenance"],
+      "rows": [
+        {"phase": "tensorization_seconds", "seconds": 117.20008887490258, "percent_of_measured_wallclock": 32.222937554948324, "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"},
+        {"phase": "training_loop_seconds", "seconds": 104.82309325505048, "percent_of_measured_wallclock": 28.820012174899677, "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"},
+        {"phase": "backward_seconds", "seconds": 49.49561718618497, "percent_of_measured_wallclock": 13.608301812265935, "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"},
+        {"phase": "data_generation_seconds", "seconds": 42.3955217031762, "percent_of_measured_wallclock": 11.65620488487056, "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"},
+        {"phase": "forward_seconds", "seconds": 23.480453411117196, "percent_of_measured_wallclock": 6.4557048658546226, "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"},
+        {"phase": "loss_seconds", "seconds": 15.797688711434603, "percent_of_measured_wallclock": 4.3434091368686465, "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"},
+        {"phase": "eval_episodes_total_seconds", "seconds": 1.2944931951351464, "percent_of_measured_wallclock": 0.3559073529088229, "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"}
+      ]
+    },
+    "p0_throughput_and_gpu": {
+      "columns": ["metric", "value", "provenance"],
+      "rows": [
+        {"metric": "total_seconds", "value": 279.01809672405943, "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"},
+        {"metric": "steps_per_sec", "value": 1.9079765134708406, "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"},
+        {"metric": "examples_per_sec", "value": 488.4419874485352, "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"},
+        {"metric": "mean_gpu_utilization_percent", "value": 55.91803278688525, "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"},
+        {"metric": "max_gpu_utilization_percent", "value": 100.0, "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"},
+        {"metric": "gpu_util_samples", "value": 366, "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl"}
+      ]
+    },
+    "progress_logging_smoke": {
+      "columns": ["step", "steps_per_sec", "examples_per_sec", "gpu_util", "required_fields_present", "provenance"],
+      "rows": [
+        {"step": 1, "steps_per_sec": 1.6680020296791604, "examples_per_sec": 13.344016237433284, "gpu_util": 46.0, "required_fields_present": true, "provenance": "results/trm_operator_logging_smoke/progress.jsonl"},
+        {"step": 2, "steps_per_sec": 1.7131001112065312, "examples_per_sec": 13.70480088965225, "gpu_util": 41.0, "required_fields_present": true, "provenance": "results/trm_operator_logging_smoke/progress.jsonl"}
+      ]
+    },
+    "sudoku_engine_equivalence": {
+      "columns": ["check", "n_boards", "n_mismatches", "passed", "device", "seed", "provenance"],
+      "rows": [
+        {"check": "forced_set_vs_scalar_forced_moves", "n_boards": 1000, "n_mismatches": 0, "passed": true, "device": "cuda:0", "seed": 20260608, "provenance": "results/sudoku_engine_gpu/equivalence_1000.json"},
+        {"check": "initial_contradiction_vs_scalar_status", "n_boards": 1000, "n_mismatches": 0, "passed": true, "device": "cuda:0", "seed": 20260608, "provenance": "results/sudoku_engine_gpu/equivalence_1000.json"},
+        {"check": "propagation_fixpoint_vs_scalar", "n_boards": 1000, "n_mismatches": 0, "passed": true, "device": "cuda:0", "seed": 20260608, "provenance": "results/sudoku_engine_gpu/equivalence_1000.json"}
+      ]
+    },
+    "profile_attempt_notes": {
+      "columns": ["attempt", "outcome", "lesson", "provenance"],
+      "rows": [
+        {"attempt": "full_shape_8gpu_profile", "outcome": "stalled before useful training profile", "lesson": "CPU tensorization dominates enough to block full baseline collection", "provenance": "operator session observation; not promoted as speedup evidence"},
+        {"attempt": "8gpu_chrome_trace", "outcome": "trace artifact about 5GB", "lesson": "chrome trace export must stay opt-in", "provenance": "operator session observation; trace not retained in item artifacts"},
+        {"attempt": "single_gpu_200_step_active_profiler", "outcome": "profiler aggregation too slow", "lesson": "sampled active profiler window is the practical P0 gate", "provenance": "operator session observation; successful sampled artifact recorded"},
+        {"attempt": "single_gpu_sampled_10_active_steps", "outcome": "completed", "lesson": "accepted baseline for before/after comparison", "provenance": "results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not claim a speedup, does not establish learned Track B gate success, and does not change experimental semantics. It records a before-optimization profile and an equivalence guard that future GPU pipeline work must preserve.",
+    "limitations": [
+      "The successful P0 run uses reduced dataset counts on one GPU with the same model shape; it is a pipeline profile baseline, not the full three-seed acceptance workload.",
+      "The GPU Sudoku engine is currently a guarded primitive and is not yet wired into the trainer or Stage A rollout path.",
+      "Full 8GPU profile artifacts were intentionally not retained because profiler traces and aggregation were too large/slow for useful ledger evidence.",
+      "The progress logging smoke is only a logging contract check, not a meaningful training result."
+    ]
+  },
+  "decision": {
+    "gate_outcomes": [
+      {
+        "gate": "P0_before_optimization_profile_exists",
+        "number": "profile_steps=200; profiler_active_steps=10; total_seconds=279.01809672405943; torch_profiler_artifacts=true; gpu_samples=366",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "pipeline_bottleneck_evidence_recorded",
+        "number": "tensorization_seconds=117.20008887490258; data_generation_seconds=42.3955217031762; training_loop_seconds=104.82309325505048",
+        "outcome": "PASS_BASELINE_RECORDED"
+      },
+      {
+        "gate": "future_progress_rows_have_throughput_fields",
+        "number": "2/2 smoke train rows include steps_per_sec, examples_per_sec, gpu_util, gpu_util_snapshot",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "sudoku_gpu_engine_equivalence",
+        "number": "1,000 boards; n_mismatches=0; forced_set, contradiction, propagation_fixpoint checked",
+        "outcome": "PASS"
+      }
+    ],
+    "next_step_routing": "Proceed to GPU pipeline optimization only behind the recorded equivalence guard. The next implementation should wire GPU-resident/batched Sudoku operations into data preparation or rollout evaluation, then report before/after against this P0 baseline without changing Track B semantics."
+  }
+}
