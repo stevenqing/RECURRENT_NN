@@ -180,6 +180,7 @@ def monitor_job(run_root: Path, pid_path: Path) -> dict[str, Any]:
         parts = name.split("_gpu", 1)
         if len(parts) == 2:
             out_dir = run_root / f"{parts[0]}_gpu{parts[1]}"
+    out_dir.mkdir(parents=True, exist_ok=True)
     acceptance = _read_json(out_dir / "acceptance.json")
     events, errors = _parse_json_log(log_path)
     latest_training = _latest_training(events)
