@@ -1,0 +1,466 @@
+{
+  "artifacts": [
+    "results/overnight_036_20260607T161435Z/line1_t2/seed102_r32/acceptance.json",
+    "results/overnight_036_20260607T161435Z/line1_t2/seed137_r32/acceptance.json",
+    "results/overnight_036_20260607T161435Z/line1_t2/seed256_r32/acceptance.json",
+    "results/overnight_036_20260607T161435Z/line1_t2/seed102_r16/acceptance.json",
+    "results/overnight_036_20260607T161435Z/line1_t2/seed102_r32/progress.jsonl",
+    "results/overnight_036_20260607T161435Z/line1_t2/seed137_r32/progress.jsonl",
+    "results/overnight_036_20260607T161435Z/line1_t2/seed256_r32/progress.jsonl",
+    "results/overnight_036_20260607T161435Z/line1_t2/seed102_r16/progress.jsonl",
+    "results/overnight_036_20260607T161435Z/line2_stage_a/line2_stage_a_gate.json",
+    "results/overnight_036_20260607T161435Z/line3_w3_push/line3_cached_push_survival.json",
+    "results/overnight_036_20260607T161435Z/line4_w3_50x2/line4_w3_50x2_merge.json",
+    "results/overnight_036_20260607T161435Z/line5_trm/line5_trm_defensive.json",
+    "results/overnight_036_20260607T161435Z/line6_9x9/line6_9x9_generator_audit.json",
+    "results/overnight_036_20260607T161435Z/rollup.json",
+    "results/w3_qwen35_probe/results.json",
+    "results/w3_qwen35_probe/verdicts.json",
+    "results/w3_qwen35_probe/propagation_shards/horn_sat/results.json",
+    "results/w3_qwen35_probe/propagation_shards/general_sat/results.json",
+    "results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json",
+    "results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json",
+    "results/w3_qwen35_probe/propagation_shards/logic_grid/results.json"
+  ],
+  "code_added_used": [
+    {
+      "change": "Used focal forced-mask loss, auto pos_weight, cosine LR, progress.jsonl, fuse-at-step-100, and G1/G2 gated early-stop instrumentation from commit d67040b.",
+      "path": "experiments/train_recurrent_operator.py"
+    },
+    {
+      "change": "Used overnight watchers and fail-closed line artifact helpers for Line2/Line4/Line5/Line6 and rollup.",
+      "path": "analysis/overnight_six_lines.py"
+    },
+    {
+      "change": "Launched six overnight lines with T2_GPUS=0,1,6,7 and explicit --run guard.",
+      "path": "scripts/run_overnight_036_six_lines.sh"
+    },
+    {
+      "change": "Merged all five 50x2 W3.2 propagation shards into the canonical W3 artifact without mixed-scale promotion.",
+      "path": "experiments/w3_qwen35_probe.py"
+    }
+  ],
+  "commands": [
+    {
+      "command": "T2_GPUS=0,1,6,7 LINE2_DEVICE=cuda:6 ./scripts/run_overnight_036_six_lines.sh --dry-run",
+      "purpose": "Confirm the overnight GPU placement and line configuration without launching."
+    },
+    {
+      "command": "RUN_ROOT=results/overnight_036_20260607T161435Z T2_GPUS=0,1,6,7 LINE2_DEVICE=cuda:6 ./scripts/run_overnight_036_six_lines.sh --run",
+      "purpose": "Launch the six overnight lines and wait for line completion."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.overnight_six_lines rollup --run-root results/overnight_036_20260607T161435Z",
+      "purpose": "Regenerate rollup after manually closing the Line2 gate artifact from completed T2 acceptances."
+    },
+    {
+      "command": "RUN_BASE_PROBES=0 N_INSTANCES=50 SEEDS=42,43 MAX_NODES_PER_TASK=2 CAP_NODES=32 BATCH_SIZE=2 ./scripts/run_w3_qwen35_sharded.sh",
+      "purpose": "Underlying W3.2 50x2 shard completion that Line4 watcher merged once every shard met 50x2."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [
+      {
+        "gate": "Line1_T2_real_budget",
+        "number": "best G1=0.0302734375; all G2=0.0; all completed_step=60000",
+        "outcome": "GATES_UNREACHED"
+      },
+      {
+        "gate": "Line2_StageA_unlock",
+        "number": "0/3 gated r32 seeds met G1>=0.95 and G2<=0.05",
+        "outcome": "CHAIN_NOT_RUN_GATES_UNREACHED"
+      },
+      {
+        "gate": "Line3_cached_push_survival",
+        "number": "STRUCTURED_PUSH_SURVIVAL_NOT_IMPLEMENTED",
+        "outcome": "FAIL_CLOSED_NOT_IMPLEMENTED"
+      },
+      {
+        "gate": "Line4_W3_50x2_merge",
+        "number": "5/5 shards ready_50x2; canonical verdict MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED",
+        "outcome": "MERGED_NOT_ACCEPTED"
+      },
+      {
+        "gate": "Line5_TRM_defensive",
+        "number": "No Sudoku-Extreme checkpoint path supplied; train-to-spec forbidden",
+        "outcome": "CHECKPOINT_UNAVAILABLE_NOT_RUN"
+      },
+      {
+        "gate": "Line6_9x9_depth_audit",
+        "number": "depth1 generated=200 forward_only=0; depth2 generated=200 forward_only=0",
+        "outcome": "PASS"
+      }
+    ],
+    "next_step_routing": "Do not launch Stage A from this T2 checkpoint. Route T2 to forced-mask target/interface repair using the nonzero recall but low G1 evidence. Log W3.2 as complete 50x2 NOT_ACCEPTED and keep Qwen3.5 alongside-only unless a true structured cached-state push/pop decoder is implemented."
+  },
+  "honesty": {
+    "does_not_establish": "The overnight T2 runs improve forced-mask recall from the zero-recall smoke but do not meet G1>=0.95, do not unlock Stage A, and do not produce autonomous Stage A cells. W3.2 is now complete at 50x2 and merged without mixed-scale substitution, but every task remains NOT_ACCEPTED for Qwen3.5 propagation. Line3 structured cached-state push/pop survival and Line5 TRM defensive grading remain fail-closed/not implemented or unavailable, so they are not positive evidence.",
+    "limitations": [
+      "Line2 gate artifact was reconstructed after completion from acceptance files because the watcher exited without writing JSON; its conclusion follows directly from all gated T2 runs having status=GATES_UNREACHED.",
+      "T2 G2=0 is expected under forced-only blocking and is not a success without G1.",
+      "W3 true-dims capacity remains a synthetic keyed-stack decode probe on measured cached-state geometry, not native Qwen rule execution."
+    ]
+  },
+  "item_number": "036",
+  "name": "Overnight six-line closeout and W3.2 50x2 completion",
+  "provenance": {
+    "commit_for_runner": "d67040b Add six-line overnight runner",
+    "generated_at": "2026-06-08T03:01:06.972160+00:00",
+    "line2_manual_closeout": "Line2 watcher did not leave its own JSON, so line2_stage_a_gate.json was reconstructed from the completed T2 acceptance files; no Stage A run was launched because no acceptance met the gate.",
+    "run_root": "results/overnight_036_20260607T161435Z",
+    "t2_gpus": "0,1,6,7 via CUDA_VISIBLE_DEVICES per run; external non-project processes were not cancelled.",
+    "t2_train_band": "Sudoku6 L1-L2 only; train_instances=16384, eval_instances=1024, l4_instances=512, batch_size=512, steps=60000.",
+    "w3_scale": "50 instances x seeds [42,43] per task for horn_sat/general_sat/graph_coloring/sudoku_4x4/logic_grid."
+  },
+  "purpose": "Close the six-line overnight package for item 036+: run real-budget forced-mask T2 training on four lines, gate Stage A strictly on learned recurrent G1/G2 acceptance, complete and merge W3.2 50x2 propagation shards, record fail-closed unsupported lines, and audit the 9x9 depth-1/depth-2 generator bins.",
+  "result_tables": {
+    "line6_9x9_depth_audit": {
+      "columns": [
+        "depth",
+        "requested",
+        "generated",
+        "forward_only_count",
+        "status",
+        "provenance"
+      ],
+      "rows": [
+        {
+          "depth": 1,
+          "forward_only_count": 0,
+          "generated": 200,
+          "provenance": "results/overnight_036_20260607T161435Z/line6_9x9/line6_9x9_generator_audit.json",
+          "requested": 200,
+          "status": "L3_DEPTH_1_2_GENERATOR_AUDIT_PASS"
+        },
+        {
+          "depth": 2,
+          "forward_only_count": 0,
+          "generated": 200,
+          "provenance": "results/overnight_036_20260607T161435Z/line6_9x9/line6_9x9_generator_audit.json",
+          "requested": 200,
+          "status": "L3_DEPTH_1_2_GENERATOR_AUDIT_PASS"
+        }
+      ]
+    },
+    "stage_a_gate_and_line_status": {
+      "columns": [
+        "line",
+        "status",
+        "fail_closed",
+        "stage_a_launched",
+        "returncode",
+        "provenance"
+      ],
+      "rows": [
+        {
+          "fail_closed": true,
+          "line": "line2_stage_a_gate",
+          "provenance": "results/overnight_036_20260607T161435Z/line2_stage_a/line2_stage_a_gate.json",
+          "returncode": null,
+          "stage_a_launched": false,
+          "status": "CHAIN_NOT_RUN_GATES_UNREACHED"
+        },
+        {
+          "fail_closed": true,
+          "line": "line3_cached_push_survival",
+          "provenance": "results/overnight_036_20260607T161435Z/line3_w3_push/line3_cached_push_survival.json",
+          "returncode": null,
+          "stage_a_launched": null,
+          "status": "STRUCTURED_PUSH_SURVIVAL_NOT_IMPLEMENTED"
+        },
+        {
+          "fail_closed": false,
+          "line": "line4_w3_50x2_merge",
+          "provenance": "results/overnight_036_20260607T161435Z/line4_w3_50x2/line4_w3_50x2_merge.json",
+          "returncode": 0,
+          "stage_a_launched": null,
+          "status": "W3_50X2_MERGE_ATTEMPTED"
+        },
+        {
+          "fail_closed": true,
+          "line": "line5_trm_defensive",
+          "provenance": "results/overnight_036_20260607T161435Z/line5_trm/line5_trm_defensive.json",
+          "returncode": null,
+          "stage_a_launched": null,
+          "status": "CHECKPOINT_UNAVAILABLE_NOT_RUN"
+        },
+        {
+          "fail_closed": false,
+          "line": "line6_9x9_audit",
+          "provenance": "results/overnight_036_20260607T161435Z/line6_9x9/line6_9x9_generator_audit.json",
+          "returncode": null,
+          "stage_a_launched": null,
+          "status": "L3_DEPTH_1_2_GENERATOR_AUDIT_PASS"
+        }
+      ]
+    },
+    "t2_forced_learning_curve_final": {
+      "columns": [
+        "run",
+        "step",
+        "loss",
+        "forced_mask_loss",
+        "forced_precision",
+        "forced_recall",
+        "G1_forced_fixpoint",
+        "G2_forced_l4_solve",
+        "tau",
+        "provenance"
+      ],
+      "rows": [
+        {
+          "G1_forced_fixpoint": 0.029296875,
+          "G2_forced_l4_solve": 0.0,
+          "forced_mask_loss": 0.10834278911352158,
+          "forced_precision": 0.3333333333333333,
+          "forced_recall": 0.16521739130434782,
+          "loss": 3.731405258178711,
+          "provenance": "results/overnight_036_20260607T161435Z/line1_t2/seed102_r32/progress.jsonl",
+          "run": "seed102_r32",
+          "step": 60000,
+          "tau": 0.05
+        },
+        {
+          "G1_forced_fixpoint": 0.0302734375,
+          "G2_forced_l4_solve": 0.0,
+          "forced_mask_loss": 0.1110898032784462,
+          "forced_precision": 0.22357723577235772,
+          "forced_recall": 0.22821576763485477,
+          "loss": 3.6284453868865967,
+          "provenance": "results/overnight_036_20260607T161435Z/line1_t2/seed137_r32/progress.jsonl",
+          "run": "seed137_r32",
+          "step": 60000,
+          "tau": 0.0
+        },
+        {
+          "G1_forced_fixpoint": 0.017578125,
+          "G2_forced_l4_solve": 0.0,
+          "forced_mask_loss": 0.10831601172685623,
+          "forced_precision": 0.3699186991869919,
+          "forced_recall": 0.3775933609958506,
+          "loss": 3.5962722301483154,
+          "provenance": "results/overnight_036_20260607T161435Z/line1_t2/seed256_r32/progress.jsonl",
+          "run": "seed256_r32",
+          "step": 60000,
+          "tau": 0.0
+        },
+        {
+          "G1_forced_fixpoint": 0.0302734375,
+          "G2_forced_l4_solve": 0.0,
+          "forced_mask_loss": 0.10749758034944534,
+          "forced_precision": 0.1814516129032258,
+          "forced_recall": 0.1956521739130435,
+          "loss": 3.7413203716278076,
+          "provenance": "results/overnight_036_20260607T161435Z/line1_t2/seed102_r16/progress.jsonl",
+          "run": "seed102_r16",
+          "step": 60000,
+          "tau": 0.0
+        }
+      ]
+    },
+    "t2_overnight_seed_outcomes": {
+      "columns": [
+        "run",
+        "seed",
+        "recurrence_steps",
+        "status",
+        "G1",
+        "G2",
+        "completed_step",
+        "fuse_status",
+        "initial_forced_loss",
+        "forced_loss_at_fuse",
+        "forced_pos_weight",
+        "provenance"
+      ],
+      "rows": [
+        {
+          "G1": 0.029296875,
+          "G2": 0.0,
+          "completed_step": 60000,
+          "forced_loss_at_fuse": 0.2876274585723877,
+          "forced_pos_weight": 9.675507207492865,
+          "fuse_status": "PASS",
+          "initial_forced_loss": 0.31449493765830994,
+          "provenance": "results/overnight_036_20260607T161435Z/line1_t2/seed102_r32/acceptance.json",
+          "recurrence_steps": 32,
+          "run": "seed102_r32",
+          "seed": 102,
+          "status": "GATES_UNREACHED"
+        },
+        {
+          "G1": 0.0302734375,
+          "G2": 0.0,
+          "completed_step": 60000,
+          "forced_loss_at_fuse": 0.2865312099456787,
+          "forced_pos_weight": 9.654624323858844,
+          "fuse_status": "PASS",
+          "initial_forced_loss": 0.31390488147735596,
+          "provenance": "results/overnight_036_20260607T161435Z/line1_t2/seed137_r32/acceptance.json",
+          "recurrence_steps": 32,
+          "run": "seed137_r32",
+          "seed": 137,
+          "status": "GATES_UNREACHED"
+        },
+        {
+          "G1": 0.017578125,
+          "G2": 0.0,
+          "completed_step": 60000,
+          "forced_loss_at_fuse": 0.29356756806373596,
+          "forced_pos_weight": 9.661458548951517,
+          "fuse_status": "PASS",
+          "initial_forced_loss": 0.3165122866630554,
+          "provenance": "results/overnight_036_20260607T161435Z/line1_t2/seed256_r32/acceptance.json",
+          "recurrence_steps": 32,
+          "run": "seed256_r32",
+          "seed": 256,
+          "status": "GATES_UNREACHED"
+        },
+        {
+          "G1": 0.0302734375,
+          "G2": 0.0,
+          "completed_step": 60000,
+          "forced_loss_at_fuse": 0.2898867726325989,
+          "forced_pos_weight": 9.675507207492865,
+          "fuse_status": "PASS",
+          "initial_forced_loss": 0.3149137496948242,
+          "provenance": "results/overnight_036_20260607T161435Z/line1_t2/seed102_r16/acceptance.json",
+          "recurrence_steps": 16,
+          "run": "seed102_r16",
+          "seed": 102,
+          "status": "GATES_UNREACHED"
+        }
+      ]
+    },
+    "w3_50x2_shard_completion": {
+      "columns": [
+        "task",
+        "status",
+        "n_instances",
+        "seeds",
+        "scale_grade",
+        "qwen35_verdict",
+        "fixpoint_reach_rate_delta",
+        "mean_nodes_delta",
+        "invalid_guess_rate",
+        "parse_failure_rate",
+        "qwen_guess_n",
+        "provenance"
+      ],
+      "rows": [
+        {
+          "fixpoint_reach_rate_delta": -0.02969696969696972,
+          "invalid_guess_rate": 0.0,
+          "mean_nodes_delta": 0,
+          "n_instances": 50,
+          "parse_failure_rate": 0.0,
+          "provenance": "results/w3_qwen35_probe/propagation_shards/horn_sat/results.json",
+          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+          "qwen_guess_n": 47,
+          "scale_grade": "50x2",
+          "seeds": [
+            42,
+            43
+          ],
+          "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED",
+          "task": "horn_sat"
+        },
+        {
+          "fixpoint_reach_rate_delta": -0.025000000000000022,
+          "invalid_guess_rate": 0.6206415620641562,
+          "mean_nodes_delta": -0.04999999999999982,
+          "n_instances": 50,
+          "parse_failure_rate": 0.0,
+          "provenance": "results/w3_qwen35_probe/propagation_shards/general_sat/results.json",
+          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+          "qwen_guess_n": 100,
+          "scale_grade": "50x2",
+          "seeds": [
+            42,
+            43
+          ],
+          "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED",
+          "task": "general_sat"
+        },
+        {
+          "fixpoint_reach_rate_delta": -0.046666666666666634,
+          "invalid_guess_rate": 0.8532763532763533,
+          "mean_nodes_delta": 0.6899999999999995,
+          "n_instances": 50,
+          "parse_failure_rate": 0.0,
+          "provenance": "results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json",
+          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+          "qwen_guess_n": 100,
+          "scale_grade": "50x2",
+          "seeds": [
+            42,
+            43
+          ],
+          "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED",
+          "task": "graph_coloring"
+        },
+        {
+          "fixpoint_reach_rate_delta": -0.053333333333333316,
+          "invalid_guess_rate": 0.20634920634920634,
+          "mean_nodes_delta": -0.010000000000000009,
+          "n_instances": 50,
+          "parse_failure_rate": 0.0,
+          "provenance": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json",
+          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+          "qwen_guess_n": 100,
+          "scale_grade": "50x2",
+          "seeds": [
+            42,
+            43
+          ],
+          "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED",
+          "task": "sudoku_4x4"
+        },
+        {
+          "fixpoint_reach_rate_delta": 0.0,
+          "invalid_guess_rate": 0.7160883280757098,
+          "mean_nodes_delta": -0.3700000000000001,
+          "n_instances": 50,
+          "parse_failure_rate": 0.0,
+          "provenance": "results/w3_qwen35_probe/propagation_shards/logic_grid/results.json",
+          "qwen35_verdict": "NEEDS_OPERATOR_FIX",
+          "qwen_guess_n": 100,
+          "scale_grade": "50x2",
+          "seeds": [
+            42,
+            43
+          ],
+          "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED",
+          "task": "logic_grid"
+        }
+      ]
+    },
+    "w3_canonical_merge": {
+      "columns": [
+        "status",
+        "row_count",
+        "n_instances",
+        "seeds",
+        "scale_grade",
+        "verdict_echo",
+        "provenance"
+      ],
+      "rows": [
+        {
+          "n_instances": 50,
+          "provenance": "results/w3_qwen35_probe/results.json",
+          "row_count": 5,
+          "scale_grade": "50x2",
+          "seeds": [
+            42,
+            43
+          ],
+          "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED",
+          "verdict_echo": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "OVERNIGHT_COMPLETE_GATES_UNREACHED_W3_50X2_NOT_ACCEPTED"
+}

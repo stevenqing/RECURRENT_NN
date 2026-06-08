@@ -2133,11 +2133,11 @@
         {
           "branch_rollout": {
             "qwen35_qwen_guess": {
-              "invalid_guess_rate": 0.75,
-              "invalid_guesses": 3,
-              "mean_nodes_to_solve_or_cap": 4,
-              "n": 1,
-              "parse_failures": 3,
+              "invalid_guess_rate": 0.6206415620641562,
+              "invalid_guesses": 445,
+              "mean_nodes_to_solve_or_cap": 7.17,
+              "n": 100,
+              "parse_failures": 445,
               "solve_rate": 1.0
             },
             "qwen3_4b_qwen_guess_baseline": {
@@ -2149,13 +2149,13 @@
               "solve_rate": 1.0
             }
           },
-          "invalid_guess_rate": 0.75,
-          "parse_failure_rate": 0.0,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+          "invalid_guess_rate": 0.6206415620641562,
+          "parse_failure_rate": 1.0,
+          "provenance": "measured:50x2 W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
           "qwen35_verdict": "NEEDS_OPERATOR_FIX",
           "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": -0.605,
-            "mean_nodes_delta": -3.2199999999999998,
+            "fixpoint_reach_rate_delta": -0.025000000000000022,
+            "mean_nodes_delta": -0.04999999999999982,
             "per_call_precision_delta": null
           },
           "task": "general_sat"
@@ -2163,11 +2163,11 @@
         {
           "branch_rollout": {
             "qwen35_qwen_guess": {
-              "invalid_guess_rate": 0.75,
-              "invalid_guesses": 3,
-              "mean_nodes_to_solve_or_cap": 4,
-              "n": 1,
-              "parse_failures": 3,
+              "invalid_guess_rate": 0.8532763532763533,
+              "invalid_guesses": 599,
+              "mean_nodes_to_solve_or_cap": 7.02,
+              "n": 100,
+              "parse_failures": 599,
               "solve_rate": 1.0
             },
             "qwen3_4b_qwen_guess_baseline": {
@@ -2179,13 +2179,13 @@
               "solve_rate": 1.0
             }
           },
-          "invalid_guess_rate": 0.75,
-          "parse_failure_rate": 0.0,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+          "invalid_guess_rate": 0.8532763532763533,
+          "parse_failure_rate": 1.0,
+          "provenance": "measured:50x2 W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
           "qwen35_verdict": "NEEDS_OPERATOR_FIX",
           "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": -0.8166666666666667,
-            "mean_nodes_delta": -2.33,
+            "fixpoint_reach_rate_delta": -0.046666666666666634,
+            "mean_nodes_delta": 0.6899999999999995,
             "per_call_precision_delta": null
           },
           "task": "graph_coloring"
@@ -2196,7 +2196,7 @@
               "invalid_guess_rate": 0.0,
               "invalid_guesses": 0,
               "mean_nodes_to_solve_or_cap": 1,
-              "n": 1,
+              "n": 47,
               "parse_failures": 0,
               "solve_rate": 1.0
             },
@@ -2210,11 +2210,11 @@
             }
           },
           "invalid_guess_rate": 0.0,
-          "parse_failure_rate": 0.0,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+          "parse_failure_rate": 1.0,
+          "provenance": "measured:50x2 W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
           "qwen35_verdict": "NEEDS_OPERATOR_FIX",
           "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": -0.17333333333333334,
+            "fixpoint_reach_rate_delta": -0.02969696969696972,
             "mean_nodes_delta": 0,
             "per_call_precision_delta": null
           },
@@ -2223,11 +2223,11 @@
         {
           "branch_rollout": {
             "qwen35_qwen_guess": {
-              "invalid_guess_rate": 0.75,
-              "invalid_guesses": 3,
-              "mean_nodes_to_solve_or_cap": 4,
-              "n": 1,
-              "parse_failures": 3,
+              "invalid_guess_rate": 0.7160883280757098,
+              "invalid_guesses": 454,
+              "mean_nodes_to_solve_or_cap": 6.34,
+              "n": 100,
+              "parse_failures": 454,
               "solve_rate": 1.0
             },
             "qwen3_4b_qwen_guess_baseline": {
@@ -2239,13 +2239,13 @@
               "solve_rate": 1.0
             }
           },
-          "invalid_guess_rate": 0.75,
-          "parse_failure_rate": 0.0,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+          "invalid_guess_rate": 0.7160883280757098,
+          "parse_failure_rate": 1.0,
+          "provenance": "measured:50x2 W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
           "qwen35_verdict": "NEEDS_OPERATOR_FIX",
           "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": -0.63,
-            "mean_nodes_delta": -2.71,
+            "fixpoint_reach_rate_delta": 0.0,
+            "mean_nodes_delta": -0.3700000000000001,
             "per_call_precision_delta": null
           },
           "task": "logic_grid"
@@ -2253,11 +2253,11 @@
         {
           "branch_rollout": {
             "qwen35_qwen_guess": {
-              "invalid_guess_rate": 0.0,
-              "invalid_guesses": 0,
-              "mean_nodes_to_solve_or_cap": 1,
-              "n": 1,
-              "parse_failures": 0,
+              "invalid_guess_rate": 0.20634920634920634,
+              "invalid_guesses": 26,
+              "mean_nodes_to_solve_or_cap": 1.26,
+              "n": 100,
+              "parse_failures": 26,
               "solve_rate": 1.0
             },
             "qwen3_4b_qwen_guess_baseline": {
@@ -2269,13 +2269,13 @@
               "solve_rate": 1.0
             }
           },
-          "invalid_guess_rate": 0.0,
-          "parse_failure_rate": 0.0,
-          "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+          "invalid_guess_rate": 0.20634920634920634,
+          "parse_failure_rate": 1.0,
+          "provenance": "measured:50x2 W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
           "qwen35_verdict": "NEEDS_OPERATOR_FIX",
           "qwen3_4b_delta": {
-            "fixpoint_reach_rate_delta": -0.15833333333333333,
-            "mean_nodes_delta": -0.27,
+            "fixpoint_reach_rate_delta": -0.053333333333333316,
+            "mean_nodes_delta": -0.010000000000000009,
             "per_call_precision_delta": null
           },
           "task": "sudoku_4x4"
@@ -2285,26 +2285,92 @@
         "shards": [
           {
             "settings": {
-              "batch_size": 1,
-              "cap_nodes": 8,
-              "max_nodes_per_task": 1,
-              "n_instances": 1,
+              "batch_size": 2,
+              "cap_nodes": 32,
+              "max_nodes_per_task": 2,
+              "n_instances": 50,
+              "scale_grade": "50x2",
               "seeds": [
-                42
+                42,
+                43
               ],
               "task_types": [
-                "horn_sat",
-                "general_sat",
-                "graph_coloring",
-                "sudoku_4x4",
+                "horn_sat"
+              ]
+            },
+            "shard_dir": "results/w3_qwen35_probe/propagation_shards/horn_sat"
+          },
+          {
+            "settings": {
+              "batch_size": 2,
+              "cap_nodes": 32,
+              "max_nodes_per_task": 2,
+              "n_instances": 50,
+              "scale_grade": "50x2",
+              "seeds": [
+                42,
+                43
+              ],
+              "task_types": [
+                "general_sat"
+              ]
+            },
+            "shard_dir": "results/w3_qwen35_probe/propagation_shards/general_sat"
+          },
+          {
+            "settings": {
+              "batch_size": 2,
+              "cap_nodes": 32,
+              "max_nodes_per_task": 2,
+              "n_instances": 50,
+              "scale_grade": "50x2",
+              "seeds": [
+                42,
+                43
+              ],
+              "task_types": [
+                "graph_coloring"
+              ]
+            },
+            "shard_dir": "results/w3_qwen35_probe/propagation_shards/graph_coloring"
+          },
+          {
+            "settings": {
+              "batch_size": 2,
+              "cap_nodes": 32,
+              "max_nodes_per_task": 2,
+              "n_instances": 50,
+              "scale_grade": "50x2",
+              "seeds": [
+                42,
+                43
+              ],
+              "task_types": [
+                "sudoku_4x4"
+              ]
+            },
+            "shard_dir": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4"
+          },
+          {
+            "settings": {
+              "batch_size": 2,
+              "cap_nodes": 32,
+              "max_nodes_per_task": 2,
+              "n_instances": 50,
+              "scale_grade": "50x2",
+              "seeds": [
+                42,
+                43
+              ],
+              "task_types": [
                 "logic_grid"
               ]
             },
-            "shard_dir": "results/w3_qwen35_probe_propagation_smoke"
+            "shard_dir": "results/w3_qwen35_probe/propagation_shards/logic_grid"
           }
         ]
       },
-      "status": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED",
+      "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED",
       "summary": {
         "note": "Merged from per-task-type propagation shards."
       }
@@ -2321,7 +2387,7 @@
       "W3.1_capacity_at_real_gdn_dims": "MEASURED_TRUE_STATE_MATRIX_GEOMETRY",
       "W3.1_gating_decay_stack_survival": "MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL",
       "W3.1_native_delta_rule_as_stack_gap": "MEASURED_CACHED_GDN_NATIVE_RULE_GAP",
-      "W3.2_qwen3_4b_delta_table": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+      "W3.2_qwen3_4b_delta_table": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
     }
   },
   "propagation_probe": {
@@ -2338,11 +2404,11 @@
       {
         "branch_rollout": {
           "qwen35_qwen_guess": {
-            "invalid_guess_rate": 0.75,
-            "invalid_guesses": 3,
-            "mean_nodes_to_solve_or_cap": 4,
-            "n": 1,
-            "parse_failures": 3,
+            "invalid_guess_rate": 0.6206415620641562,
+            "invalid_guesses": 445,
+            "mean_nodes_to_solve_or_cap": 7.17,
+            "n": 100,
+            "parse_failures": 445,
             "solve_rate": 1.0
           },
           "qwen3_4b_qwen_guess_baseline": {
@@ -2354,13 +2420,13 @@
             "solve_rate": 1.0
           }
         },
-        "invalid_guess_rate": 0.75,
-        "parse_failure_rate": 0.0,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+        "invalid_guess_rate": 0.6206415620641562,
+        "parse_failure_rate": 1.0,
+        "provenance": "measured:50x2 W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
         "qwen35_verdict": "NEEDS_OPERATOR_FIX",
         "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": -0.605,
-          "mean_nodes_delta": -3.2199999999999998,
+          "fixpoint_reach_rate_delta": -0.025000000000000022,
+          "mean_nodes_delta": -0.04999999999999982,
           "per_call_precision_delta": null
         },
         "task": "general_sat"
@@ -2368,11 +2434,11 @@
       {
         "branch_rollout": {
           "qwen35_qwen_guess": {
-            "invalid_guess_rate": 0.75,
-            "invalid_guesses": 3,
-            "mean_nodes_to_solve_or_cap": 4,
-            "n": 1,
-            "parse_failures": 3,
+            "invalid_guess_rate": 0.8532763532763533,
+            "invalid_guesses": 599,
+            "mean_nodes_to_solve_or_cap": 7.02,
+            "n": 100,
+            "parse_failures": 599,
             "solve_rate": 1.0
           },
           "qwen3_4b_qwen_guess_baseline": {
@@ -2384,13 +2450,13 @@
             "solve_rate": 1.0
           }
         },
-        "invalid_guess_rate": 0.75,
-        "parse_failure_rate": 0.0,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+        "invalid_guess_rate": 0.8532763532763533,
+        "parse_failure_rate": 1.0,
+        "provenance": "measured:50x2 W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
         "qwen35_verdict": "NEEDS_OPERATOR_FIX",
         "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": -0.8166666666666667,
-          "mean_nodes_delta": -2.33,
+          "fixpoint_reach_rate_delta": -0.046666666666666634,
+          "mean_nodes_delta": 0.6899999999999995,
           "per_call_precision_delta": null
         },
         "task": "graph_coloring"
@@ -2401,7 +2467,7 @@
             "invalid_guess_rate": 0.0,
             "invalid_guesses": 0,
             "mean_nodes_to_solve_or_cap": 1,
-            "n": 1,
+            "n": 47,
             "parse_failures": 0,
             "solve_rate": 1.0
           },
@@ -2415,11 +2481,11 @@
           }
         },
         "invalid_guess_rate": 0.0,
-        "parse_failure_rate": 0.0,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+        "parse_failure_rate": 1.0,
+        "provenance": "measured:50x2 W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
         "qwen35_verdict": "NEEDS_OPERATOR_FIX",
         "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": -0.17333333333333334,
+          "fixpoint_reach_rate_delta": -0.02969696969696972,
           "mean_nodes_delta": 0,
           "per_call_precision_delta": null
         },
@@ -2428,11 +2494,11 @@
       {
         "branch_rollout": {
           "qwen35_qwen_guess": {
-            "invalid_guess_rate": 0.75,
-            "invalid_guesses": 3,
-            "mean_nodes_to_solve_or_cap": 4,
-            "n": 1,
-            "parse_failures": 3,
+            "invalid_guess_rate": 0.7160883280757098,
+            "invalid_guesses": 454,
+            "mean_nodes_to_solve_or_cap": 6.34,
+            "n": 100,
+            "parse_failures": 454,
             "solve_rate": 1.0
           },
           "qwen3_4b_qwen_guess_baseline": {
@@ -2444,13 +2510,13 @@
             "solve_rate": 1.0
           }
         },
-        "invalid_guess_rate": 0.75,
-        "parse_failure_rate": 0.0,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+        "invalid_guess_rate": 0.7160883280757098,
+        "parse_failure_rate": 1.0,
+        "provenance": "measured:50x2 W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
         "qwen35_verdict": "NEEDS_OPERATOR_FIX",
         "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": -0.63,
-          "mean_nodes_delta": -2.71,
+          "fixpoint_reach_rate_delta": 0.0,
+          "mean_nodes_delta": -0.3700000000000001,
           "per_call_precision_delta": null
         },
         "task": "logic_grid"
@@ -2458,11 +2524,11 @@
       {
         "branch_rollout": {
           "qwen35_qwen_guess": {
-            "invalid_guess_rate": 0.0,
-            "invalid_guesses": 0,
-            "mean_nodes_to_solve_or_cap": 1,
-            "n": 1,
-            "parse_failures": 0,
+            "invalid_guess_rate": 0.20634920634920634,
+            "invalid_guesses": 26,
+            "mean_nodes_to_solve_or_cap": 1.26,
+            "n": 100,
+            "parse_failures": 26,
             "solve_rate": 1.0
           },
           "qwen3_4b_qwen_guess_baseline": {
@@ -2474,13 +2540,13 @@
             "solve_rate": 1.0
           }
         },
-        "invalid_guess_rate": 0.0,
-        "parse_failure_rate": 0.0,
-        "provenance": "measured:small W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
+        "invalid_guess_rate": 0.20634920634920634,
+        "parse_failure_rate": 1.0,
+        "provenance": "measured:50x2 W3.2 reuse of M2 task suite; compared with stored Qwen3-4B report_fix_rescale baseline",
         "qwen35_verdict": "NEEDS_OPERATOR_FIX",
         "qwen3_4b_delta": {
-          "fixpoint_reach_rate_delta": -0.15833333333333333,
-          "mean_nodes_delta": -0.27,
+          "fixpoint_reach_rate_delta": -0.053333333333333316,
+          "mean_nodes_delta": -0.010000000000000009,
           "per_call_precision_delta": null
         },
         "task": "sudoku_4x4"
@@ -2490,26 +2556,92 @@
       "shards": [
         {
           "settings": {
-            "batch_size": 1,
-            "cap_nodes": 8,
-            "max_nodes_per_task": 1,
-            "n_instances": 1,
+            "batch_size": 2,
+            "cap_nodes": 32,
+            "max_nodes_per_task": 2,
+            "n_instances": 50,
+            "scale_grade": "50x2",
             "seeds": [
-              42
+              42,
+              43
             ],
             "task_types": [
-              "horn_sat",
-              "general_sat",
-              "graph_coloring",
-              "sudoku_4x4",
+              "horn_sat"
+            ]
+          },
+          "shard_dir": "results/w3_qwen35_probe/propagation_shards/horn_sat"
+        },
+        {
+          "settings": {
+            "batch_size": 2,
+            "cap_nodes": 32,
+            "max_nodes_per_task": 2,
+            "n_instances": 50,
+            "scale_grade": "50x2",
+            "seeds": [
+              42,
+              43
+            ],
+            "task_types": [
+              "general_sat"
+            ]
+          },
+          "shard_dir": "results/w3_qwen35_probe/propagation_shards/general_sat"
+        },
+        {
+          "settings": {
+            "batch_size": 2,
+            "cap_nodes": 32,
+            "max_nodes_per_task": 2,
+            "n_instances": 50,
+            "scale_grade": "50x2",
+            "seeds": [
+              42,
+              43
+            ],
+            "task_types": [
+              "graph_coloring"
+            ]
+          },
+          "shard_dir": "results/w3_qwen35_probe/propagation_shards/graph_coloring"
+        },
+        {
+          "settings": {
+            "batch_size": 2,
+            "cap_nodes": 32,
+            "max_nodes_per_task": 2,
+            "n_instances": 50,
+            "scale_grade": "50x2",
+            "seeds": [
+              42,
+              43
+            ],
+            "task_types": [
+              "sudoku_4x4"
+            ]
+          },
+          "shard_dir": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4"
+        },
+        {
+          "settings": {
+            "batch_size": 2,
+            "cap_nodes": 32,
+            "max_nodes_per_task": 2,
+            "n_instances": 50,
+            "scale_grade": "50x2",
+            "seeds": [
+              42,
+              43
+            ],
+            "task_types": [
               "logic_grid"
             ]
           },
-          "shard_dir": "results/w3_qwen35_probe_propagation_smoke"
+          "shard_dir": "results/w3_qwen35_probe/propagation_shards/logic_grid"
         }
       ]
     },
-    "status": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED",
+    "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED",
     "summary": {
       "note": "Merged from per-task-type propagation shards."
     }
@@ -3274,6 +3406,6 @@
     "W3.1_capacity_at_real_gdn_dims": "MEASURED_TRUE_STATE_MATRIX_GEOMETRY",
     "W3.1_gating_decay_stack_survival": "MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL",
     "W3.1_native_delta_rule_as_stack_gap": "MEASURED_CACHED_GDN_NATIVE_RULE_GAP",
-    "W3.2_qwen3_4b_delta_table": "MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED"
+    "W3.2_qwen3_4b_delta_table": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
   }
 }

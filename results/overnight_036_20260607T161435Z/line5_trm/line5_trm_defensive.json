@@ -1,0 +1,13 @@
+{
+  "checkpoint": "",
+  "fail_closed": true,
+  "forbidden": [
+    "train_to_spec",
+    "use_trm_as_stage_a_core_evidence"
+  ],
+  "generated_at": "2026-06-07T16:14:47.953297+00:00",
+  "module": "overnight_six_lines.line5_trm",
+  "quarantine_dir": "artifacts/trm_defensive",
+  "reason": "No Sudoku-Extreme checkpoint path was provided; train-to-spec is forbidden for this line.",
+  "status": "CHECKPOINT_UNAVAILABLE_NOT_RUN"
+}

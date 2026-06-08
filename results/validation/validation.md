@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-07T15:46:05.144668+00:00
+Generated at: 2026-06-08T03:03:02.077478+00:00
 
-Summary: 168 PASS / 4 FAIL / 172 total.
+Summary: 174 PASS / 4 FAIL / 178 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -93,10 +93,10 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_c | w3_cached_state_round_trip | PASS | round_trip={'note': 'This verifies hidden-state tensor access and perturbability, not a full cached-state generation intervention.', 'perturbation_affected_next_step': True, 'perturbation_injected': True, 'perturbation_norm': 0.05059561878442764}; measured_object=cached_gdn_recurrent_state |
 | tier_c | w3_cached_state_survival_measured | PASS | verdict=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; rows=5; measured_object=cached_gdn_recurrent_state |
 | tier_c | w3_cached_state_native_rule_gap_measured | PASS | verdict=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; rows=3; measured_object=cached_gdn_recurrent_state |
-| tier_c | w3_propagation_scale_not_mixed | PASS | verdict=MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED |
+| tier_c | w3_propagation_scale_not_mixed | PASS | verdict=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
 | tier_c | w3_propagation_per_task_delta_measured | PASS | rows=5 |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=8 |
+| contract | log_item_artifacts_present | PASS | count=9 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
@@ -145,6 +145,12 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_035_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_035_honesty_does_not_establish | PASS | T2 forced-only semantics eliminate the unforced-guess G1≈G2 anomaly but do not establish G1>=0.95, autonomous Stage A cells, or useful learned propagation; all  |
 | contract | log_item_035_decision_numbers_and_routing | PASS | gates=4; routing=Do not scale T2 budget until forced-mask recall is repaired. After this partial-evidence commit, finish all remaining W3.2 50x2 shards, merge only when every shard has n_instances>=50 and at least two seeds, rerun validation/log generation, then make a final W3.2 completion commit. |
+| contract | log_item_036_required_fields | PASS | missing=[] |
+| contract | log_item_036_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_036_number_continues_from_028 | PASS | item_number=036 |
+| contract | log_item_036_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_036_honesty_does_not_establish | PASS | The overnight T2 runs improve forced-mask recall from the zero-recall smoke but do not meet G1>=0.95, do not unlock Stage A, and do not produce autonomous Stage |
+| contract | log_item_036_decision_numbers_and_routing | PASS | gates=6; routing=Do not launch Stage A from this T2 checkpoint. Route T2 to forced-mask target/interface repair using the nonzero recall but low G1 evidence. Log W3.2 as complete 50x2 NOT_ACCEPTED and keep Qwen3.5 alongside-only unless a true structured cached-state push/pop decoder is implemented. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |

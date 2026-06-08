@@ -1,0 +1,120 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "experiments.w3_qwen35_probe",
+    "--output-dir",
+    "results/w3_qwen35_probe",
+    "--merge-propagation-shards",
+    "results/w3_qwen35_probe/propagation_shards/horn_sat,results/w3_qwen35_probe/propagation_shards/general_sat,results/w3_qwen35_probe/propagation_shards/graph_coloring,results/w3_qwen35_probe/propagation_shards/sudoku_4x4,results/w3_qwen35_probe/propagation_shards/logic_grid"
+  ],
+  "fail_closed": false,
+  "generated_at": "2026-06-07T16:29:49.866533+00:00",
+  "module": "overnight_six_lines.line4_watch",
+  "returncode": 0,
+  "shards": [
+    {
+      "exists": true,
+      "path": "results/w3_qwen35_probe/propagation_shards/horn_sat",
+      "ready_50x2": true,
+      "settings": {
+        "batch_size": 2,
+        "cap_nodes": 32,
+        "max_nodes_per_task": 2,
+        "n_instances": 50,
+        "scale_grade": "50x2",
+        "seeds": [
+          42,
+          43
+        ],
+        "task_types": [
+          "horn_sat"
+        ]
+      },
+      "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
+    },
+    {
+      "exists": true,
+      "path": "results/w3_qwen35_probe/propagation_shards/general_sat",
+      "ready_50x2": true,
+      "settings": {
+        "batch_size": 2,
+        "cap_nodes": 32,
+        "max_nodes_per_task": 2,
+        "n_instances": 50,
+        "scale_grade": "50x2",
+        "seeds": [
+          42,
+          43
+        ],
+        "task_types": [
+          "general_sat"
+        ]
+      },
+      "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
+    },
+    {
+      "exists": true,
+      "path": "results/w3_qwen35_probe/propagation_shards/graph_coloring",
+      "ready_50x2": true,
+      "settings": {
+        "batch_size": 2,
+        "cap_nodes": 32,
+        "max_nodes_per_task": 2,
+        "n_instances": 50,
+        "scale_grade": "50x2",
+        "seeds": [
+          42,
+          43
+        ],
+        "task_types": [
+          "graph_coloring"
+        ]
+      },
+      "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
+    },
+    {
+      "exists": true,
+      "path": "results/w3_qwen35_probe/propagation_shards/sudoku_4x4",
+      "ready_50x2": true,
+      "settings": {
+        "batch_size": 2,
+        "cap_nodes": 32,
+        "max_nodes_per_task": 2,
+        "n_instances": 50,
+        "scale_grade": "50x2",
+        "seeds": [
+          42,
+          43
+        ],
+        "task_types": [
+          "sudoku_4x4"
+        ]
+      },
+      "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
+    },
+    {
+      "exists": true,
+      "path": "results/w3_qwen35_probe/propagation_shards/logic_grid",
+      "ready_50x2": true,
+      "settings": {
+        "batch_size": 2,
+        "cap_nodes": 32,
+        "max_nodes_per_task": 2,
+        "n_instances": 50,
+        "scale_grade": "50x2",
+        "seeds": [
+          42,
+          43
+        ],
+        "task_types": [
+          "logic_grid"
+        ]
+      },
+      "status": "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"
+    }
+  ],
+  "status": "W3_50X2_MERGE_ATTEMPTED",
+  "stderr_tail": "",
+  "stdout_tail": "\": 0.7888997395833334,\n            \"depth\": 192\n          },\n          {\n            \"decode_accuracy\": 0.736572265625,\n            \"depth\": 256\n          }\n        ],\n        \"heads\": 4,\n        \"matrix_D_flattened\": 16384,\n        \"matrix_geometry_source\": \"hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim\",\n        \"module1_vector_law_D16384_bound_single\": 668.173281260553,\n        \"module1_vector_law_D16384_factored\": 467.9856255640321,\n        \"provenance\": \"measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry\",\n        \"rank_bound\": 512,\n        \"state_cols\": 128,\n        \"state_rows\": 128,\n        \"striped\": true,\n        \"task_family\": \"sudoku_9x9\",\n        \"trials\": 32\n      },\n      {\n        \"K_val\": 9,\n        \"K_var\": 81,\n        \"decode_frontier\": 64,\n        \"decode_threshold\": 0.95,\n        \"delta_vs_rank_bound\": -960,\n        \"depth_curve\": [\n          {\n            \"decode_accuracy\": 1.0,\n            \"depth\": 1\n          },\n          {\n            \"decode_accuracy\": 1.0,\n            \"depth\": 2\n          },\n          {\n            \"decode_accuracy\": 1.0,\n            \"depth\": 4\n          },\n          {\n            \"decode_accuracy\": 1.0,\n            \"depth\": 8\n          },\n          {\n            \"decode_accuracy\": 0.9947916666666666,\n            \"depth\": 12\n          },\n          {\n            \"decode_accuracy\": 0.99609375,\n            \"depth\": 16\n          },\n          {\n            \"decode_accuracy\": 0.984375,\n            \"depth\": 24\n          },\n          {\n            \"decode_accuracy\": 0.9794921875,\n            \"depth\": 32\n          },\n          {\n            \"decode_accuracy\": 0.9700520833333334,\n            \"depth\": 48\n          },\n          {\n            \"decode_accuracy\": 0.95751953125,\n            \"depth\": 64\n          },\n          {\n            \"decode_accuracy\": 0.9482421875,\n            \"depth\": 96\n          },\n          {\n            \"decode_accuracy\": 0.921875,\n            \"depth\": 128\n          },\n          {\n            \"decode_accuracy\": 0.903125,\n            \"depth\": 160\n          },\n          {\n            \"decode_accuracy\": 0.88525390625,\n            \"depth\": 192\n          },\n          {\n            \"decode_accuracy\": 0.8511962890625,\n            \"depth\": 256\n          }\n        ],\n        \"heads\": 8,\n        \"matrix_D_flattened\": 16384,\n        \"matrix_geometry_source\": \"hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim\",\n        \"module1_vector_law_D16384_bound_single\": 668.173281260553,\n        \"module1_vector_law_D16384_factored\": 467.9856255640321,\n        \"provenance\": \"measured:rank1_keyed_stack_on_cached_gdn_recurrent_state_inventory_geometry\",\n        \"rank_bound\": 1024,\n        \"state_cols\": 128,\n        \"state_rows\": 128,\n        \"striped\": true,\n        \"task_family\": \"sudoku_9x9\",\n        \"trials\": 32\n      }\n    ],\n    \"settings\": {\n      \"decode_threshold\": 0.95,\n      \"depth_grid\": [\n        1,\n        2,\n        4,\n        8,\n        12,\n        16,\n        24,\n        32,\n        48,\n        64,\n        96,\n        128,\n        160,\n        192,\n        256\n      ],\n      \"head_grid\": [\n        1,\n        2,\n        4,\n        8\n      ],\n      \"matrix_geometry_source\": \"hidden_hook_probe.cached_state_probe.inventory.recurrent_states.per_head_matrix_dim\",\n      \"max_state_heads\": 32,\n      \"seed\": 102,\n      \"state_cols\": 128,\n      \"state_rows\": 128,\n      \"trials\": 32\n    },\n    \"status\": \"MEASURED_TRUE_STATE_MATRIX_GEOMETRY\"\n  },\n  \"verdicts\": {\n    \"W3.0_checkpoint_pin\": \"PASS\",\n    \"W3.1_cached_state_round_trip\": \"MEASURED_CACHED_GDN_RECURRENT_STATE\",\n    \"W3.1_capacity_at_real_gdn_dims\": \"MEASURED_TRUE_STATE_MATRIX_GEOMETRY\",\n    \"W3.1_gating_decay_stack_survival\": \"MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL\",\n    \"W3.1_native_delta_rule_as_stack_gap\": \"MEASURED_CACHED_GDN_NATIVE_RULE_GAP\",\n    \"W3.2_qwen3_4b_delta_table\": \"MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED\"\n  }\n}\n"
+}

@@ -1,0 +1,22 @@
+{
+  "capacity_table_status": "CAN_QUOTE_TRUE_DIMS_AFTER_FRONTIER_RERUN",
+  "fail_closed": false,
+  "generated_at": "2026-06-07T16:38:06.982358+00:00",
+  "module": "overnight_six_lines.line6_audit",
+  "rows": [
+    {
+      "depth": 1,
+      "forward_only_count": 0,
+      "generated": 200,
+      "requested": 200
+    },
+    {
+      "depth": 2,
+      "forward_only_count": 0,
+      "generated": 200,
+      "requested": 200
+    }
+  ],
+  "source": "tasks.sudoku.generator_9x9.generate_9x9_by_depth_band",
+  "status": "L3_DEPTH_1_2_GENERATOR_AUDIT_PASS"
+}

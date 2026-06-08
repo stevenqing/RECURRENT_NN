@@ -1,0 +1,9 @@
+{
+  "evidence": "experiments/w3_qwen35_probe.py",
+  "fail_closed": true,
+  "generated_at": "2026-06-07T16:14:47.953461+00:00",
+  "line": "line3",
+  "module": "overnight_six_lines",
+  "reason": "No audited cached-GDN structured push/pop decoder exists yet; perturbation survival is not acceptable evidence for this line.",
+  "status": "STRUCTURED_PUSH_SURVIVAL_NOT_IMPLEMENTED"
+}

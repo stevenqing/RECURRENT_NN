@@ -1,0 +1,41 @@
+{
+  "acceptance_rows": [
+    {
+      "G1": 0.029296875,
+      "G1_pass": false,
+      "G2": 0.0,
+      "completed_step": 60000,
+      "operator_type": "learned_recurrent",
+      "path": "results/overnight_036_20260607T161435Z/line1_t2/seed102_r32/acceptance.json",
+      "run": "seed102_r32",
+      "status": "GATES_UNREACHED"
+    },
+    {
+      "G1": 0.0302734375,
+      "G1_pass": false,
+      "G2": 0.0,
+      "completed_step": 60000,
+      "operator_type": "learned_recurrent",
+      "path": "results/overnight_036_20260607T161435Z/line1_t2/seed137_r32/acceptance.json",
+      "run": "seed137_r32",
+      "status": "GATES_UNREACHED"
+    },
+    {
+      "G1": 0.017578125,
+      "G1_pass": false,
+      "G2": 0.0,
+      "completed_step": 60000,
+      "operator_type": "learned_recurrent",
+      "path": "results/overnight_036_20260607T161435Z/line1_t2/seed256_r32/acceptance.json",
+      "run": "seed256_r32",
+      "status": "GATES_UNREACHED"
+    }
+  ],
+  "fail_closed": true,
+  "generated_at": "2026-06-08T03:00:12.989710+00:00",
+  "module": "overnight_six_lines.line2_watch_manual_closeout",
+  "reason": "No T2 seed met G1>=0.95 and G2<=0.05, so Stage A autonomous chain was correctly not launched.",
+  "selected_acceptance": "",
+  "stage_a_launched": false,
+  "status": "CHAIN_NOT_RUN_GATES_UNREACHED"
+}
