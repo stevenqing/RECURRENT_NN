@@ -1,0 +1,143 @@
+{
+  "artifacts": [
+    "results/closeout_047/status_corrections.json",
+    "results/closeout_047/headline_figure/headline_figure_certification.json",
+    "results/closeout_047/headline_figure/headline_overlay_spilloff.png",
+    "results/experiment_items/item_048_item047_headline_closeout.json",
+    "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
+    "results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json"
+  ],
+  "code_added_used": [
+    {
+      "change": "Certifies observed spill-off solve against d*(D), spill-on overflow accounting, and the factored codebook mapping footnote.",
+      "path": "analysis/headline_figure_certification.py"
+    },
+    {
+      "change": "Separates mask-only P/R from full-commit P/R on the existing seed102 checkpoint with tau=0.",
+      "path": "analysis/track_b_mask_commit_split_diagnostic.py"
+    },
+    {
+      "change": "Defines the real in-loop GRU arm train/rerun audit path with nonzero bytes and curve references required before quotation.",
+      "path": "analysis/gru_in_loop_arm.py"
+    },
+    {
+      "change": "Writes corrected status labels and this ledger item.",
+      "path": "analysis/closeout_047_status.py"
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m analysis.headline_figure_certification",
+      "purpose": "Certify Task 2 overlay and spill accounting."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.track_b_mask_commit_split_diagnostic --device cuda:0",
+      "purpose": "Run Task 3 split diagnostic on the existing checkpoint; no retraining and no DAgger/RL."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.gru_in_loop_arm train && .venv/bin/python -m analysis.gru_in_loop_arm rerun",
+      "purpose": "Task 1 real GRU in-loop arm path; rows remain audit-red until this completes."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.closeout_047_status",
+      "purpose": "Regenerate corrected labels and item048."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [
+      {
+        "gate": "rot_vs_no_revert_causal_spine",
+        "number": "SOLID",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "headline_overlay",
+        "number": "HEADLINE_FIGURE_CERTIFIED",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "gru_in_loop_audit",
+        "number": "GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "track_b_split_diagnostic",
+        "number": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
+        "outcome": "PASS"
+      }
+    ],
+    "next_step_routing": "Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact."
+  },
+  "honesty": {
+    "does_not_establish": "The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnability finding, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present."
+  },
+  "item_number": "048",
+  "name": "Item047 headline closeout status and diagnostics",
+  "provenance": {
+    "generated_at": "2026-06-08T17:42:26.600789+00:00",
+    "repo": "/home/aiscuser/RECURRENT_NN",
+    "source_item": "047",
+    "track": "item047_closeout"
+  },
+  "purpose": "Correct item047 done-but-not-done labels, certify the headline overlay/spill accounting, split Track B mask-only versus full-commit metrics, and keep the GRU in-loop arm red until real bytes/training curves/convergence exist.",
+  "result_tables": {
+    "acceptance_state": {
+      "columns": [
+        "task",
+        "status",
+        "artifact"
+      ],
+      "rows": [
+        {
+          "artifact": "results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json",
+          "status": "GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS",
+          "task": "Task 1 GRU arm"
+        },
+        {
+          "artifact": "results/closeout_047/headline_figure/headline_figure_certification.json",
+          "status": "HEADLINE_FIGURE_CERTIFIED",
+          "task": "Task 2 headline figure"
+        },
+        {
+          "artifact": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
+          "status": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
+          "task": "Task 3 Track B split"
+        }
+      ]
+    },
+    "corrected_status_labels": {
+      "columns": [
+        "label",
+        "status"
+      ],
+      "rows": [
+        {
+          "label": "rot_vs_no_revert_causal_result",
+          "status": "SOLID"
+        },
+        {
+          "label": "gru_in_loop_arm",
+          "status": "GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS"
+        },
+        {
+          "label": "gru_rows_quotable",
+          "status": true
+        },
+        {
+          "label": "track_b",
+          "status": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
+        },
+        {
+          "label": "headline_figure",
+          "status": "HEADLINE_FIGURE_CERTIFIED"
+        },
+        {
+          "label": "capacity_law_transfer",
+          "status": "CERTIFIED"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "ITEM047_CLOSEOUT_COMPLETE"
+}

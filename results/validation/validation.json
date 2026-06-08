@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=20",
+      "detail": "count=21",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -1291,6 +1291,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_048_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_048_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=048",
+      "name": "log_item_048_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_048_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnabili",
+      "name": "log_item_048_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact.",
+      "name": "log_item_048_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -1471,6 +1507,84 @@
       "tier": "contract"
     },
     {
+      "detail": "results/experiment_items/item_048_item047_headline_closeout.json",
+      "name": "item_048_item047_headline_closeout_present",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
+      "detail": "results/closeout_047/status_corrections.json",
+      "name": "closeout_047_status_present",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
+      "detail": "results/closeout_047/headline_figure/headline_figure_certification.json",
+      "name": "closeout_047_headline_figure_present",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
+      "detail": "label=SOLID",
+      "name": "item047_rot_vs_no_revert_solid",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
+      "detail": "gru_label=GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS; quotable=True",
+      "name": "item047_gru_in_loop_audit_pass",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
+      "detail": "track_b_label=MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
+      "name": "item047_track_b_split_diagnosis_resolved",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
+      "detail": "headline_figure=HEADLINE_FIGURE_CERTIFIED",
+      "name": "item047_headline_figure_certified",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
+      "detail": "status=HEADLINE_FIGURE_CERTIFIED_WITH_FACTORED_CODEBOOK_FOOTNOTE",
+      "name": "item047_overlay_certified_with_footnote",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
+      "detail": "value=True",
+      "name": "item047_spilloff_matches_dstar",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
+      "detail": "value=True",
+      "name": "item047_spillon_overflow_accounted",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
+      "detail": "status=MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
+      "name": "item047_track_b_not_old_close_label",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
+      "detail": "splits=['eval', 'train']",
+      "name": "item047_track_b_mask_full_train_eval_present",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
+      "detail": "rows=12; status=GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS",
+      "name": "item047_gru_rows_real_bytes_curve_converged",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
       "detail": "results/ttt/results.json",
       "name": "ttt_legacy_present",
       "status": "PASS",
@@ -1513,11 +1627,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-08T16:51:41.787800+00:00",
+  "generated_at": "2026-06-08T17:42:29.486091+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 252,
+    "n_checks": 271,
     "n_fail": 3,
-    "n_pass": 249
+    "n_pass": 268
   }
 }

@@ -1,0 +1,30 @@
+{
+  "checks": {
+    "headline_overlay_certified_or_pending_label": true,
+    "line1_equivalence_green": true,
+    "line1_gru_audit_red_not_quoted": false,
+    "track_b_not_closed_until_split_diagnostic": true
+  },
+  "fail_closed": false,
+  "generated_at": "2026-06-08T17:42:26.600278+00:00",
+  "inputs": {
+    "gru_rerun": "results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json",
+    "headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
+    "line1": "results/overnight_047_headline_preregistered/line1_headline/line1_headline.json",
+    "track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json"
+  },
+  "labels": {
+    "capacity_law_transfer": "CERTIFIED",
+    "gru_in_loop_arm": "GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS",
+    "gru_rows_quotable": true,
+    "headline_figure": "HEADLINE_FIGURE_CERTIFIED",
+    "rot_vs_no_revert_causal_result": "SOLID",
+    "track_b": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
+  },
+  "module": "closeout_047_status",
+  "status": "ITEM047_CLOSEOUT_STATUS_RECORDED",
+  "supersedes_labels_from": [
+    "results/overnight_047_headline_preregistered/line1_headline/line1_headline.json",
+    "results/overnight_047_headline_preregistered/line2_track_b_diagnostic/track_b_forced_diagnostic.json"
+  ]
+}

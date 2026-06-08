@@ -53,6 +53,11 @@ PATHS = {
     "item_029_p1_1a_g1_diagnosis": "results/experiment_items/item_029_p1_1a_g1_diagnosis.json",
     "item_030_p2_w3_hook_capacity": "results/experiment_items/item_030_p2_w3_hook_capacity.json",
     "item_031_p2_w3_survival_delta_propagation": "results/experiment_items/item_031_p2_w3_survival_delta_propagation.json",
+    "item_048_item047_headline_closeout": "results/experiment_items/item_048_item047_headline_closeout.json",
+    "closeout_047_status": "results/closeout_047/status_corrections.json",
+    "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
+    "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
+    "closeout_047_gru_rerun": "results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
@@ -479,6 +484,40 @@ def _legacy_checks(checks: list[dict[str, Any]]) -> None:
         _check(checks, ttt.get("ttt_restore_error", 0) > ttt.get("structured_restore_error", 0), "ttt_irreversibility_real", f"ttt={ttt.get('ttt_restore_error')}, structured={ttt.get('structured_restore_error')}", "legacy")
 
 
+def _closeout_047_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "item_048_item047_headline_closeout", "closeout_047")
+    status = _read_json("closeout_047_status")
+    figure = _read_json("closeout_047_headline_figure")
+    track_b = _read_json("closeout_047_track_b_split")
+    gru = _read_json("closeout_047_gru_rerun")
+    _exists(checks, "closeout_047_status", "closeout_047")
+    _exists(checks, "closeout_047_headline_figure", "closeout_047")
+    if status:
+        labels = status.get("labels", {})
+        _check(checks, labels.get("rot_vs_no_revert_causal_result") == "SOLID", "item047_rot_vs_no_revert_solid", f"label={labels.get('rot_vs_no_revert_causal_result')}", "closeout_047")
+        _check(checks, labels.get("gru_rows_quotable") is True, "item047_gru_in_loop_audit_pass", f"gru_label={labels.get('gru_in_loop_arm')}; quotable={labels.get('gru_rows_quotable')}", "closeout_047")
+        _check(checks, labels.get("track_b") not in {None, "DIAGNOSIS_PENDING", "CLOSE_AS_TARGET_METRIC_OR_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"}, "item047_track_b_split_diagnosis_resolved", f"track_b_label={labels.get('track_b')}", "closeout_047")
+        _check(checks, labels.get("headline_figure") == "HEADLINE_FIGURE_CERTIFIED", "item047_headline_figure_certified", f"headline_figure={labels.get('headline_figure')}", "closeout_047")
+    if figure:
+        figure_checks = figure.get("checks", {})
+        _check(checks, figure.get("status") == "HEADLINE_FIGURE_CERTIFIED_WITH_FACTORED_CODEBOOK_FOOTNOTE", "item047_overlay_certified_with_footnote", f"status={figure.get('status')}", "closeout_047")
+        _check(checks, figure_checks.get("spill_off_solve_matches_depth_le_dstar") is True, "item047_spilloff_matches_dstar", f"value={figure_checks.get('spill_off_solve_matches_depth_le_dstar')}", "closeout_047")
+        _check(checks, figure_checks.get("spill_on_overflow_entries_match_depth_minus_dstar") is True, "item047_spillon_overflow_accounted", f"value={figure_checks.get('spill_on_overflow_entries_match_depth_minus_dstar')}", "closeout_047")
+    if track_b:
+        _check(checks, track_b.get("status") != "CLOSE_AS_TARGET_METRIC_OR_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL", "item047_track_b_not_old_close_label", f"status={track_b.get('status')}", "closeout_047")
+        rows = track_b.get("result_tables", {}).get("mask_only_vs_full_commit_pr", {}).get("rows", [])
+        splits = {row.get("split") for row in rows}
+        _check(checks, {"train", "eval"}.issubset(splits), "item047_track_b_mask_full_train_eval_present", f"splits={sorted(splits)}", "closeout_047")
+    else:
+        _check(checks, False, "item047_track_b_mask_full_train_eval_present", "diagnosis_pending; artifact not written yet", "closeout_047")
+    if gru:
+        rows = gru.get("result_tables", {}).get("gru_r3plus_rerun", {}).get("rows", [])
+        audit_ok = bool(rows) and all(row.get("gru_audit_pass") is True and int(row.get("peak_register_bytes") or 0) > 0 and row.get("gru_training_curve_ref") and row.get("gru_converged") is True for row in rows)
+        _check(checks, audit_ok, "item047_gru_rows_real_bytes_curve_converged", f"rows={len(rows)}; status={gru.get('status')}", "closeout_047")
+    else:
+        _check(checks, False, "item047_gru_rows_real_bytes_curve_converged", "INCOMPLETE_AUDIT_RED; GRU in-loop rerun artifact not written yet", "closeout_047")
+
+
 def _canonical_checks(checks: list[dict[str, Any]]) -> None:
     _check(checks, REPO_ROOT == Path("/home/aiscuser/RECURRENT_NN"), "canonical_repo_is_recurrent_nn", f"repo_root={REPO_ROOT}", "p0")
     old_repo = Path("/home/aiscuser/stage_d_llm")
@@ -518,6 +557,7 @@ def validate_outputs(output_dir: str = "results/validation") -> dict[str, Any]:
     _stage_a_checks(checks)
     _w3_checks(checks)
     _item_contract_checks(checks)
+    _closeout_047_checks(checks)
     _legacy_checks(checks)
 
     passed = all(check["status"] == "PASS" for check in checks)

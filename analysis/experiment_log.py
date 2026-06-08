@@ -34,6 +34,7 @@ ARTIFACT_INDEX = {
     "item_045_track_b_ddp_sharded_retry_launch": "results/experiment_items/item_045_track_b_ddp_sharded_retry_launch.json",
     "item_046_track_b_ddp_sharded_seed102_final": "results/experiment_items/item_046_track_b_ddp_sharded_seed102_final.json",
     "item_047_deep_band_track_a_headline_overnight": "results/experiment_items/item_047_deep_band_track_a_headline_overnight.json",
+    "item_048_item047_headline_closeout": "results/experiment_items/item_048_item047_headline_closeout.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "model_readiness": "results/model_readiness/readiness.json",
     "qwen3_4b_instruct_download": "results/model_download/qwen_download.json",

@@ -1,0 +1,940 @@
+{
+  "checkpoint": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt",
+  "dataset": {
+    "eval_examples": 19054,
+    "eval_instances": 512,
+    "seed": 102,
+    "train_examples": 151871,
+    "train_instances": 4096
+  },
+  "decision": {
+    "eval_mask_only_precision": 0.8203236415495212,
+    "eval_mask_only_recall": 0.8826863755226031,
+    "next_step": "Close Track B as an off-critical-path operator learnability finding.",
+    "no_dagger_rl": true,
+    "outcome": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
+    "threshold": 0.9,
+    "train_full_low": true,
+    "train_mask_high": false
+  },
+  "device": "cuda:0",
+  "fail_closed": false,
+  "generated_at": "2026-06-08T17:33:01.916036+00:00",
+  "module": "track_b_mask_commit_split_diagnostic",
+  "result_tables": {
+    "mask_only_vs_full_commit_pr": {
+      "columns": [
+        "split",
+        "n_examples",
+        "mask_only_precision",
+        "mask_only_recall",
+        "mask_proposed_cells",
+        "mask_true_cells",
+        "full_commit_precision",
+        "full_commit_recall",
+        "full_proposed_commits",
+        "full_true_forced_states"
+      ],
+      "rows": [
+        {
+          "full_commit_precision": 0.28060018818729665,
+          "full_commit_recall": 0.2770677598263805,
+          "full_proposed_commits": 139223,
+          "full_true_forced_states": 140998,
+          "mask_only_precision": 0.8267064037519646,
+          "mask_only_recall": 0.8996382358390296,
+          "mask_proposed_cells": 558001,
+          "mask_true_cells": 512765,
+          "n_examples": 151871,
+          "split": "train",
+          "stick_reason_histogram": {
+            "commit_forced": 39066,
+            "no_forced_mask_fire": 12648,
+            "unforced_candidate_blocked": 100157
+          }
+        },
+        {
+          "full_commit_precision": 0.26353581562337136,
+          "full_commit_recall": 0.25890317442257366,
+          "full_proposed_commits": 17269,
+          "full_true_forced_states": 17578,
+          "mask_only_precision": 0.8203236415495212,
+          "mask_only_recall": 0.8826863755226031,
+          "mask_proposed_cells": 68718,
+          "mask_true_cells": 63863,
+          "n_examples": 19054,
+          "split": "eval",
+          "stick_reason_histogram": {
+            "commit_forced": 4551,
+            "no_forced_mask_fire": 1785,
+            "unforced_candidate_blocked": 12718
+          }
+        }
+      ]
+    },
+    "training_trace_examples": {
+      "columns": [
+        "row_index",
+        "target_forced",
+        "mask_logits_top",
+        "mask_probs_ge_0_5_cells",
+        "value_logits_top",
+        "commit_rule",
+        "drop_location"
+      ],
+      "rows": [
+        {
+          "commit_rule": {
+            "commit": false,
+            "forced_margin": 0.0021837949752807617,
+            "forced_score": 0.992819607257843,
+            "reason": "unforced_candidate_blocked",
+            "val": 6,
+            "val_margin": 7.499918460845947,
+            "var": 6
+          },
+          "drop_location": "value_or_commit_conjunction",
+          "mask_logits_top": [
+            {
+              "index": 6,
+              "logit": 4.929203987121582
+            },
+            {
+              "index": 24,
+              "logit": 4.661451816558838
+            },
+            {
+              "index": 20,
+              "logit": 4.542363166809082
+            },
+            {
+              "index": 35,
+              "logit": 3.9875123500823975
+            },
+            {
+              "index": 2,
+              "logit": -4.326703071594238
+            },
+            {
+              "index": 26,
+              "logit": -4.865777015686035
+            },
+            {
+              "index": 30,
+              "logit": -5.280082702636719
+            },
+            {
+              "index": 12,
+              "logit": -5.324575424194336
+            }
+          ],
+          "mask_probs_ge_0_5_cells": [
+            6,
+            20,
+            24,
+            35
+          ],
+          "row_index": 0,
+          "target_forced": {
+            "6": 2,
+            "20": 5,
+            "24": 5,
+            "35": 2
+          },
+          "value_logits_top": [
+            {
+              "logit": 9.046849250793457,
+              "value": 6
+            },
+            {
+              "logit": 1.5469306707382202,
+              "value": 2
+            },
+            {
+              "logit": -1.4821228981018066,
+              "value": 3
+            },
+            {
+              "logit": -2.615950584411621,
+              "value": 1
+            },
+            {
+              "logit": -5.809243202209473,
+              "value": 4
+            },
+            {
+              "logit": -7.975754737854004,
+              "value": 5
+            }
+          ]
+        },
+        {
+          "commit_rule": {
+            "commit": false,
+            "forced_margin": 0.002652585506439209,
+            "forced_score": 0.9930564761161804,
+            "reason": "unforced_candidate_blocked",
+            "val": 5,
+            "val_margin": 12.049589157104492,
+            "var": 24
+          },
+          "drop_location": "value_or_commit_conjunction",
+          "mask_logits_top": [
+            {
+              "index": 24,
+              "logit": 4.962982654571533
+            },
+            {
+              "index": 6,
+              "logit": 4.636754989624023
+            },
+            {
+              "index": 35,
+              "logit": 4.5154266357421875
+            },
+            {
+              "index": 20,
+              "logit": 3.8338510990142822
+            },
+            {
+              "index": 5,
+              "logit": -1.9256782531738281
+            },
+            {
+              "index": 2,
+              "logit": -3.9849741458892822
+            },
+            {
+              "index": 14,
+              "logit": -5.069700717926025
+            },
+            {
+              "index": 26,
+              "logit": -5.087915420532227
+            }
+          ],
+          "mask_probs_ge_0_5_cells": [
+            6,
+            20,
+            24,
+            35
+          ],
+          "row_index": 1,
+          "target_forced": {
+            "6": 2,
+            "20": 6,
+            "24": 6,
+            "35": 2
+          },
+          "value_logits_top": [
+            {
+              "logit": 14.791158676147461,
+              "value": 5
+            },
+            {
+              "logit": 2.7415695190429688,
+              "value": 6
+            },
+            {
+              "logit": -4.786273002624512,
+              "value": 1
+            },
+            {
+              "logit": -5.708554744720459,
+              "value": 2
+            },
+            {
+              "logit": -6.166402339935303,
+              "value": 3
+            },
+            {
+              "logit": -9.601215362548828,
+              "value": 4
+            }
+          ]
+        },
+        {
+          "commit_rule": {
+            "commit": false,
+            "forced_margin": 0.00027436017990112305,
+            "forced_score": 0.9956641793251038,
+            "reason": "unforced_candidate_blocked",
+            "val": 5,
+            "val_margin": 10.964493751525879,
+            "var": 6
+          },
+          "drop_location": "value_or_commit_conjunction",
+          "mask_logits_top": [
+            {
+              "index": 6,
+              "logit": 5.436504364013672
+            },
+            {
+              "index": 24,
+              "logit": 5.374874591827393
+            },
+            {
+              "index": 35,
+              "logit": 5.049219608306885
+            },
+            {
+              "index": 20,
+              "logit": 4.556781768798828
+            },
+            {
+              "index": 18,
+              "logit": -4.1279215812683105
+            },
+            {
+              "index": 7,
+              "logit": -5.02277946472168
+            },
+            {
+              "index": 26,
+              "logit": -5.060239315032959
+            },
+            {
+              "index": 30,
+              "logit": -5.168118953704834
+            }
+          ],
+          "mask_probs_ge_0_5_cells": [
+            6,
+            20,
+            24,
+            35
+          ],
+          "row_index": 2,
+          "target_forced": {
+            "6": 3,
+            "20": 6,
+            "24": 6,
+            "35": 3
+          },
+          "value_logits_top": [
+            {
+              "logit": 11.63504409790039,
+              "value": 5
+            },
+            {
+              "logit": 0.6705503463745117,
+              "value": 1
+            },
+            {
+              "logit": -0.9453362822532654,
+              "value": 2
+            },
+            {
+              "logit": -4.563610076904297,
+              "value": 6
+            },
+            {
+              "logit": -5.663424015045166,
+              "value": 4
+            },
+            {
+              "logit": -8.909415245056152,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "commit_rule": {
+            "commit": false,
+            "forced_margin": 0.003779470920562744,
+            "forced_score": 0.9954908490180969,
+            "reason": "unforced_candidate_blocked",
+            "val": 1,
+            "val_margin": 13.213088035583496,
+            "var": 6
+          },
+          "drop_location": "value_or_commit_conjunction",
+          "mask_logits_top": [
+            {
+              "index": 6,
+              "logit": 5.397130489349365
+            },
+            {
+              "index": 35,
+              "logit": 4.784550666809082
+            },
+            {
+              "index": 24,
+              "logit": 4.762521743774414
+            },
+            {
+              "index": 20,
+              "logit": 4.018229961395264
+            },
+            {
+              "index": 8,
+              "logit": -4.452189922332764
+            },
+            {
+              "index": 2,
+              "logit": -4.962458610534668
+            },
+            {
+              "index": 30,
+              "logit": -5.024183750152588
+            },
+            {
+              "index": 12,
+              "logit": -5.822418212890625
+            }
+          ],
+          "mask_probs_ge_0_5_cells": [
+            6,
+            20,
+            24,
+            35
+          ],
+          "row_index": 3,
+          "target_forced": {
+            "6": 6,
+            "20": 5,
+            "24": 5,
+            "35": 6
+          },
+          "value_logits_top": [
+            {
+              "logit": 11.275565147399902,
+              "value": 1
+            },
+            {
+              "logit": -1.9375232458114624,
+              "value": 6
+            },
+            {
+              "logit": -2.5352392196655273,
+              "value": 3
+            },
+            {
+              "logit": -3.6597654819488525,
+              "value": 2
+            },
+            {
+              "logit": -4.144826412200928,
+              "value": 4
+            },
+            {
+              "logit": -5.364609718322754,
+              "value": 5
+            }
+          ]
+        },
+        {
+          "commit_rule": {
+            "commit": true,
+            "forced_margin": 0.0013343095779418945,
+            "forced_score": 0.9953077435493469,
+            "reason": "commit_forced",
+            "val": 1,
+            "val_margin": 7.248310565948486,
+            "var": 24
+          },
+          "drop_location": "commit_passed",
+          "mask_logits_top": [
+            {
+              "index": 24,
+              "logit": 5.357147693634033
+            },
+            {
+              "index": 35,
+              "logit": 5.105542182922363
+            },
+            {
+              "index": 20,
+              "logit": 5.063490867614746
+            },
+            {
+              "index": 6,
+              "logit": 4.95842981338501
+            },
+            {
+              "index": 26,
+              "logit": -3.537360906600952
+            },
+            {
+              "index": 30,
+              "logit": -3.5479066371917725
+            },
+            {
+              "index": 9,
+              "logit": -3.9760992527008057
+            },
+            {
+              "index": 10,
+              "logit": -4.513099193572998
+            }
+          ],
+          "mask_probs_ge_0_5_cells": [
+            6,
+            20,
+            24,
+            35
+          ],
+          "row_index": 4,
+          "target_forced": {
+            "6": 5,
+            "20": 1,
+            "24": 1,
+            "35": 5
+          },
+          "value_logits_top": [
+            {
+              "logit": 8.935457229614258,
+              "value": 1
+            },
+            {
+              "logit": 1.687146544456482,
+              "value": 3
+            },
+            {
+              "logit": -0.6879435181617737,
+              "value": 2
+            },
+            {
+              "logit": -3.521146535873413,
+              "value": 5
+            },
+            {
+              "logit": -3.8504750728607178,
+              "value": 4
+            },
+            {
+              "logit": -9.576225280761719,
+              "value": 6
+            }
+          ]
+        },
+        {
+          "commit_rule": {
+            "commit": false,
+            "forced_margin": 9.137392044067383e-05,
+            "forced_score": 0.993884265422821,
+            "reason": "unforced_candidate_blocked",
+            "val": 3,
+            "val_margin": 10.184893608093262,
+            "var": 6
+          },
+          "drop_location": "value_or_commit_conjunction",
+          "mask_logits_top": [
+            {
+              "index": 6,
+              "logit": 5.090764045715332
+            },
+            {
+              "index": 35,
+              "logit": 5.075845241546631
+            },
+            {
+              "index": 24,
+              "logit": 4.8400092124938965
+            },
+            {
+              "index": 20,
+              "logit": 4.112754821777344
+            },
+            {
+              "index": 17,
+              "logit": -3.715106248855591
+            },
+            {
+              "index": 10,
+              "logit": -3.832895040512085
+            },
+            {
+              "index": 12,
+              "logit": -4.25430154800415
+            },
+            {
+              "index": 30,
+              "logit": -5.39342737197876
+            }
+          ],
+          "mask_probs_ge_0_5_cells": [
+            6,
+            20,
+            24,
+            35
+          ],
+          "row_index": 5,
+          "target_forced": {
+            "6": 6,
+            "20": 2,
+            "24": 2,
+            "35": 6
+          },
+          "value_logits_top": [
+            {
+              "logit": 10.902962684631348,
+              "value": 3
+            },
+            {
+              "logit": 0.7180691957473755,
+              "value": 6
+            },
+            {
+              "logit": -0.2950446307659149,
+              "value": 2
+            },
+            {
+              "logit": -5.14327335357666,
+              "value": 5
+            },
+            {
+              "logit": -6.870167255401611,
+              "value": 1
+            },
+            {
+              "logit": -7.581350803375244,
+              "value": 4
+            }
+          ]
+        },
+        {
+          "commit_rule": {
+            "commit": false,
+            "forced_margin": 0.002921879291534424,
+            "forced_score": 0.9942532181739807,
+            "reason": "unforced_candidate_blocked",
+            "val": 4,
+            "val_margin": 10.731101989746094,
+            "var": 24
+          },
+          "drop_location": "value_or_commit_conjunction",
+          "mask_logits_top": [
+            {
+              "index": 24,
+              "logit": 5.1533589363098145
+            },
+            {
+              "index": 20,
+              "logit": 4.739326000213623
+            },
+            {
+              "index": 6,
+              "logit": 4.588527679443359
+            },
+            {
+              "index": 35,
+              "logit": 4.2301506996154785
+            },
+            {
+              "index": 33,
+              "logit": -2.2565817832946777
+            },
+            {
+              "index": 32,
+              "logit": -4.014376163482666
+            },
+            {
+              "index": 12,
+              "logit": -4.0489277839660645
+            },
+            {
+              "index": 10,
+              "logit": -4.429215431213379
+            }
+          ],
+          "mask_probs_ge_0_5_cells": [
+            6,
+            20,
+            24,
+            35
+          ],
+          "row_index": 6,
+          "target_forced": {
+            "6": 2,
+            "20": 6,
+            "24": 6,
+            "35": 2
+          },
+          "value_logits_top": [
+            {
+              "logit": 12.024262428283691,
+              "value": 4
+            },
+            {
+              "logit": 1.2931599617004395,
+              "value": 6
+            },
+            {
+              "logit": -1.1137105226516724,
+              "value": 1
+            },
+            {
+              "logit": -3.4397878646850586,
+              "value": 5
+            },
+            {
+              "logit": -4.685263633728027,
+              "value": 2
+            },
+            {
+              "logit": -13.003872871398926,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "commit_rule": {
+            "commit": false,
+            "forced_margin": 0.0018502473831176758,
+            "forced_score": 0.9957172274589539,
+            "reason": "unforced_candidate_blocked",
+            "val": 4,
+            "val_margin": 8.805599212646484,
+            "var": 6
+          },
+          "drop_location": "value_or_commit_conjunction",
+          "mask_logits_top": [
+            {
+              "index": 6,
+              "logit": 5.4488525390625
+            },
+            {
+              "index": 35,
+              "logit": 5.087906360626221
+            },
+            {
+              "index": 24,
+              "logit": 4.934831619262695
+            },
+            {
+              "index": 20,
+              "logit": 4.426784515380859
+            },
+            {
+              "index": 13,
+              "logit": -3.6857314109802246
+            },
+            {
+              "index": 12,
+              "logit": -4.122957229614258
+            },
+            {
+              "index": 2,
+              "logit": -4.75768518447876
+            },
+            {
+              "index": 17,
+              "logit": -5.065460205078125
+            }
+          ],
+          "mask_probs_ge_0_5_cells": [
+            6,
+            20,
+            24,
+            35
+          ],
+          "row_index": 7,
+          "target_forced": {
+            "6": 6,
+            "20": 2,
+            "24": 2,
+            "35": 6
+          },
+          "value_logits_top": [
+            {
+              "logit": 7.963741779327393,
+              "value": 4
+            },
+            {
+              "logit": -0.8418575525283813,
+              "value": 6
+            },
+            {
+              "logit": -2.8136603832244873,
+              "value": 5
+            },
+            {
+              "logit": -3.0753445625305176,
+              "value": 1
+            },
+            {
+              "logit": -3.5839428901672363,
+              "value": 2
+            },
+            {
+              "logit": -6.3957905769348145,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "commit_rule": {
+            "commit": false,
+            "forced_margin": 0.00044232606887817383,
+            "forced_score": 0.9939842820167542,
+            "reason": "unforced_candidate_blocked",
+            "val": 5,
+            "val_margin": 7.251129150390625,
+            "var": 6
+          },
+          "drop_location": "value_or_commit_conjunction",
+          "mask_logits_top": [
+            {
+              "index": 6,
+              "logit": 5.107353210449219
+            },
+            {
+              "index": 35,
+              "logit": 5.0359601974487305
+            },
+            {
+              "index": 24,
+              "logit": 4.7444257736206055
+            },
+            {
+              "index": 20,
+              "logit": 4.534043788909912
+            },
+            {
+              "index": 14,
+              "logit": -2.869356870651245
+            },
+            {
+              "index": 12,
+              "logit": -3.2925405502319336
+            },
+            {
+              "index": 8,
+              "logit": -5.194592475891113
+            },
+            {
+              "index": 26,
+              "logit": -5.786383628845215
+            }
+          ],
+          "mask_probs_ge_0_5_cells": [
+            6,
+            20,
+            24,
+            35
+          ],
+          "row_index": 8,
+          "target_forced": {
+            "6": 6,
+            "20": 3,
+            "24": 3,
+            "35": 6
+          },
+          "value_logits_top": [
+            {
+              "logit": 11.583301544189453,
+              "value": 5
+            },
+            {
+              "logit": 4.332172393798828,
+              "value": 6
+            },
+            {
+              "logit": -3.9674558639526367,
+              "value": 3
+            },
+            {
+              "logit": -5.795230388641357,
+              "value": 4
+            },
+            {
+              "logit": -6.685502529144287,
+              "value": 2
+            },
+            {
+              "logit": -7.480820655822754,
+              "value": 1
+            }
+          ]
+        },
+        {
+          "commit_rule": {
+            "commit": false,
+            "forced_margin": 0.0005993247032165527,
+            "forced_score": 0.9882979989051819,
+            "reason": "unforced_candidate_blocked",
+            "val": 3,
+            "val_margin": 8.056580543518066,
+            "var": 6
+          },
+          "drop_location": "value_or_commit_conjunction",
+          "mask_logits_top": [
+            {
+              "index": 6,
+              "logit": 4.4362263679504395
+            },
+            {
+              "index": 24,
+              "logit": 4.385672092437744
+            },
+            {
+              "index": 35,
+              "logit": 4.342717170715332
+            },
+            {
+              "index": 20,
+              "logit": 3.8171069622039795
+            },
+            {
+              "index": 17,
+              "logit": -3.0085597038269043
+            },
+            {
+              "index": 26,
+              "logit": -3.92395281791687
+            },
+            {
+              "index": 31,
+              "logit": -5.509068489074707
+            },
+            {
+              "index": 14,
+              "logit": -5.897471904754639
+            }
+          ],
+          "mask_probs_ge_0_5_cells": [
+            6,
+            20,
+            24,
+            35
+          ],
+          "row_index": 9,
+          "target_forced": {
+            "6": 4,
+            "20": 3,
+            "24": 3,
+            "35": 4
+          },
+          "value_logits_top": [
+            {
+              "logit": 8.330463409423828,
+              "value": 3
+            },
+            {
+              "logit": 0.2738827168941498,
+              "value": 2
+            },
+            {
+              "logit": 0.13281401991844177,
+              "value": 6
+            },
+            {
+              "logit": -3.628053903579712,
+              "value": 5
+            },
+            {
+              "logit": -5.563046455383301,
+              "value": 4
+            },
+            {
+              "logit": -7.082903861999512,
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "status": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
+}

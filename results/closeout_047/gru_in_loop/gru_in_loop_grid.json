@@ -1,0 +1,1221 @@
+{
+  "cells": [
+    {
+      "D": 128,
+      "K_val": 9,
+      "K_var": 81,
+      "architecture_grid": [
+        {
+          "cell_type": "gru",
+          "decoder_layers": 3,
+          "decoder_type": "mlp"
+        },
+        {
+          "cell_type": "gru",
+          "decoder_layers": 2,
+          "decoder_type": "replay"
+        }
+      ],
+      "batch_size": 4096,
+      "best_config": {
+        "best_val_loss": 1.669709492533002,
+        "cell_type": "gru",
+        "decoder_layers": 2,
+        "decoder_type": "replay",
+        "learned_init": true,
+        "lr": 0.0008,
+        "num_layers": 2
+      },
+      "bounded_state_only": true,
+      "checkpoint": "results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed42/gru_stack_best.pt",
+      "converged": true,
+      "curve": [
+        {
+          "depth": 1,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 2,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 3,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 4,
+          "joint_accuracy": 0.99993896484375,
+          "val_accuracy": 0.99993896484375,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 5,
+          "joint_accuracy": 0.9991943538188934,
+          "val_accuracy": 0.9995117485523224,
+          "var_accuracy": 0.9996826350688934
+        },
+        {
+          "depth": 6,
+          "joint_accuracy": 0.9939371943473816,
+          "val_accuracy": 0.9975382685661316,
+          "var_accuracy": 0.9963582456111908
+        },
+        {
+          "depth": 7,
+          "joint_accuracy": 0.9761788845062256,
+          "val_accuracy": 0.9903390407562256,
+          "var_accuracy": 0.9856829345226288
+        },
+        {
+          "depth": 8,
+          "joint_accuracy": 0.89544677734375,
+          "val_accuracy": 0.958465576171875,
+          "var_accuracy": 0.93023681640625
+        },
+        {
+          "depth": 9,
+          "joint_accuracy": 0.7741292417049408,
+          "val_accuracy": 0.8611246645450592,
+          "var_accuracy": 0.8098958432674408
+        },
+        {
+          "depth": 10,
+          "joint_accuracy": 0.6830932796001434,
+          "val_accuracy": 0.7824585139751434,
+          "var_accuracy": 0.71868896484375
+        },
+        {
+          "depth": 11,
+          "joint_accuracy": 0.5960138738155365,
+          "val_accuracy": 0.7156427502632141,
+          "var_accuracy": 0.6279852092266083
+        },
+        {
+          "depth": 12,
+          "joint_accuracy": 0.5311381220817566,
+          "val_accuracy": 0.6678060293197632,
+          "var_accuracy": 0.5565999448299408
+        },
+        {
+          "depth": 13,
+          "joint_accuracy": 0.49004659056663513,
+          "val_accuracy": 0.6217416822910309,
+          "var_accuracy": 0.518235445022583
+        },
+        {
+          "depth": 14,
+          "joint_accuracy": 0.4448940008878708,
+          "val_accuracy": 0.5800606906414032,
+          "var_accuracy": 0.471653550863266
+        },
+        {
+          "depth": 15,
+          "joint_accuracy": 0.4211914390325546,
+          "val_accuracy": 0.5465983152389526,
+          "var_accuracy": 0.4442383050918579
+        },
+        {
+          "depth": 16,
+          "joint_accuracy": 0.39763641357421875,
+          "val_accuracy": 0.5239486694335938,
+          "var_accuracy": 0.42047119140625
+        },
+        {
+          "depth": 17,
+          "joint_accuracy": 0.36721622943878174,
+          "val_accuracy": 0.49472224712371826,
+          "var_accuracy": 0.394129142165184
+        },
+        {
+          "depth": 18,
+          "joint_accuracy": 0.3352118581533432,
+          "val_accuracy": 0.4606662392616272,
+          "var_accuracy": 0.3660346269607544
+        },
+        {
+          "depth": 19,
+          "joint_accuracy": 0.32856830954551697,
+          "val_accuracy": 0.44936010241508484,
+          "var_accuracy": 0.3553595244884491
+        },
+        {
+          "depth": 20,
+          "joint_accuracy": 0.31654052436351776,
+          "val_accuracy": 0.43311767280101776,
+          "var_accuracy": 0.3464416563510895
+        },
+        {
+          "depth": 21,
+          "joint_accuracy": 0.307832270860672,
+          "val_accuracy": 0.4169573187828064,
+          "var_accuracy": 0.3380708247423172
+        },
+        {
+          "depth": 22,
+          "joint_accuracy": 0.2974298745393753,
+          "val_accuracy": 0.40182773768901825,
+          "var_accuracy": 0.32395797967910767
+        },
+        {
+          "depth": 23,
+          "joint_accuracy": 0.2919338047504425,
+          "val_accuracy": 0.3897811323404312,
+          "var_accuracy": 0.31505286693573
+        },
+        {
+          "depth": 24,
+          "joint_accuracy": 0.2892761379480362,
+          "val_accuracy": 0.3929239958524704,
+          "var_accuracy": 0.3074747920036316
+        }
+      ],
+      "eval_batches": 1,
+      "eval_every": 100,
+      "eval_max_depth": 24,
+      "final_eval_batches": 2,
+      "frontier_joint_095": 7.324268564594009,
+      "max_depth": 24,
+      "patience_requested": 20,
+      "replacement": "with_replacement",
+      "result_path": "results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed42/results.json",
+      "seed": 42,
+      "selection": "val_loss_min",
+      "steps_requested": 5000,
+      "train_max_depth": 24,
+      "val_depths": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        16,
+        21,
+        24
+      ],
+      "variant": "gru_fair_bounded"
+    },
+    {
+      "D": 128,
+      "K_val": 9,
+      "K_var": 81,
+      "architecture_grid": [
+        {
+          "cell_type": "gru",
+          "decoder_layers": 3,
+          "decoder_type": "mlp"
+        },
+        {
+          "cell_type": "gru",
+          "decoder_layers": 2,
+          "decoder_type": "replay"
+        }
+      ],
+      "batch_size": 4096,
+      "best_config": {
+        "best_val_loss": 1.5884755669394508,
+        "cell_type": "gru",
+        "decoder_layers": 2,
+        "decoder_type": "replay",
+        "learned_init": true,
+        "lr": 0.0008,
+        "num_layers": 2
+      },
+      "bounded_state_only": true,
+      "checkpoint": "results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed137/gru_stack_best.pt",
+      "converged": true,
+      "curve": [
+        {
+          "depth": 1,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 2,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 3,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 4,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 5,
+          "joint_accuracy": 0.9997802972793579,
+          "val_accuracy": 0.9999755918979645,
+          "var_accuracy": 0.9998047053813934
+        },
+        {
+          "depth": 6,
+          "joint_accuracy": 0.9968465268611908,
+          "val_accuracy": 0.9992676079273224,
+          "var_accuracy": 0.9975789785385132
+        },
+        {
+          "depth": 7,
+          "joint_accuracy": 0.982613742351532,
+          "val_accuracy": 0.9963030517101288,
+          "var_accuracy": 0.9862060844898224
+        },
+        {
+          "depth": 8,
+          "joint_accuracy": 0.9372406005859375,
+          "val_accuracy": 0.9810638427734375,
+          "var_accuracy": 0.954345703125
+        },
+        {
+          "depth": 9,
+          "joint_accuracy": 0.8080919086933136,
+          "val_accuracy": 0.8830837905406952,
+          "var_accuracy": 0.8317328691482544
+        },
+        {
+          "depth": 10,
+          "joint_accuracy": 0.7159057855606079,
+          "val_accuracy": 0.8069946467876434,
+          "var_accuracy": 0.7370361387729645
+        },
+        {
+          "depth": 11,
+          "joint_accuracy": 0.6185413897037506,
+          "val_accuracy": 0.7403564751148224,
+          "var_accuracy": 0.6405029594898224
+        },
+        {
+          "depth": 12,
+          "joint_accuracy": 0.5558064877986908,
+          "val_accuracy": 0.6819763481616974,
+          "var_accuracy": 0.5826416313648224
+        },
+        {
+          "depth": 13,
+          "joint_accuracy": 0.5091740787029266,
+          "val_accuracy": 0.6397705376148224,
+          "var_accuracy": 0.5316913425922394
+        },
+        {
+          "depth": 14,
+          "joint_accuracy": 0.4793091118335724,
+          "val_accuracy": 0.6040475368499756,
+          "var_accuracy": 0.4957275688648224
+        },
+        {
+          "depth": 15,
+          "joint_accuracy": 0.46560874581336975,
+          "val_accuracy": 0.5663086175918579,
+          "var_accuracy": 0.48605959117412567
+        },
+        {
+          "depth": 16,
+          "joint_accuracy": 0.455596923828125,
+          "val_accuracy": 0.5431671142578125,
+          "var_accuracy": 0.4765625
+        },
+        {
+          "depth": 17,
+          "joint_accuracy": 0.42626234889030457,
+          "val_accuracy": 0.5163286924362183,
+          "var_accuracy": 0.44766056537628174
+        },
+        {
+          "depth": 18,
+          "joint_accuracy": 0.4043850302696228,
+          "val_accuracy": 0.4934895932674408,
+          "var_accuracy": 0.4256930947303772
+        },
+        {
+          "depth": 19,
+          "joint_accuracy": 0.37759560346603394,
+          "val_accuracy": 0.47190454602241516,
+          "var_accuracy": 0.39956825971603394
+        },
+        {
+          "depth": 20,
+          "joint_accuracy": 0.35682983696460724,
+          "val_accuracy": 0.4552856534719467,
+          "var_accuracy": 0.3778015077114105
+        },
+        {
+          "depth": 21,
+          "joint_accuracy": 0.3373267948627472,
+          "val_accuracy": 0.439470574259758,
+          "var_accuracy": 0.3564046323299408
+        },
+        {
+          "depth": 22,
+          "joint_accuracy": 0.32161644101142883,
+          "val_accuracy": 0.42503219842910767,
+          "var_accuracy": 0.33871738612651825
+        },
+        {
+          "depth": 23,
+          "joint_accuracy": 0.3142143040895462,
+          "val_accuracy": 0.4103473275899887,
+          "var_accuracy": 0.33237093687057495
+        },
+        {
+          "depth": 24,
+          "joint_accuracy": 0.3096313625574112,
+          "val_accuracy": 0.4012654721736908,
+          "var_accuracy": 0.3253377377986908
+        }
+      ],
+      "eval_batches": 1,
+      "eval_every": 100,
+      "eval_max_depth": 24,
+      "final_eval_batches": 2,
+      "frontier_joint_095": 7.718789598481416,
+      "max_depth": 24,
+      "patience_requested": 20,
+      "replacement": "with_replacement",
+      "result_path": "results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed137/results.json",
+      "seed": 137,
+      "selection": "val_loss_min",
+      "steps_requested": 5000,
+      "train_max_depth": 24,
+      "val_depths": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        16,
+        21,
+        24
+      ],
+      "variant": "gru_fair_bounded"
+    },
+    {
+      "D": 256,
+      "K_val": 9,
+      "K_var": 81,
+      "architecture_grid": [
+        {
+          "cell_type": "gru",
+          "decoder_layers": 3,
+          "decoder_type": "mlp"
+        },
+        {
+          "cell_type": "gru",
+          "decoder_layers": 2,
+          "decoder_type": "replay"
+        }
+      ],
+      "batch_size": 4096,
+      "best_config": {
+        "best_val_loss": 1.1962625531014055,
+        "cell_type": "gru",
+        "decoder_layers": 2,
+        "decoder_type": "replay",
+        "learned_init": true,
+        "lr": 0.0008,
+        "num_layers": 2
+      },
+      "bounded_state_only": true,
+      "checkpoint": "results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed42/gru_stack_best.pt",
+      "converged": true,
+      "curve": [
+        {
+          "depth": 1,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 2,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 3,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 4,
+          "joint_accuracy": 0.999664306640625,
+          "val_accuracy": 0.999908447265625,
+          "var_accuracy": 0.999755859375
+        },
+        {
+          "depth": 5,
+          "joint_accuracy": 0.998974621295929,
+          "val_accuracy": 0.9997802972793579,
+          "var_accuracy": 0.9991943538188934
+        },
+        {
+          "depth": 6,
+          "joint_accuracy": 0.9961954951286316,
+          "val_accuracy": 0.9985555112361908,
+          "var_accuracy": 0.9976399838924408
+        },
+        {
+          "depth": 7,
+          "joint_accuracy": 0.993355929851532,
+          "val_accuracy": 0.998116672039032,
+          "var_accuracy": 0.995221883058548
+        },
+        {
+          "depth": 8,
+          "joint_accuracy": 0.9858551025390625,
+          "val_accuracy": 0.9964599609375,
+          "var_accuracy": 0.9893951416015625
+        },
+        {
+          "depth": 9,
+          "joint_accuracy": 0.9682210385799408,
+          "val_accuracy": 0.9925943911075592,
+          "var_accuracy": 0.9754638671875
+        },
+        {
+          "depth": 10,
+          "joint_accuracy": 0.9373413324356079,
+          "val_accuracy": 0.987072765827179,
+          "var_accuracy": 0.9491943418979645
+        },
+        {
+          "depth": 11,
+          "joint_accuracy": 0.8758434355258942,
+          "val_accuracy": 0.9491632878780365,
+          "var_accuracy": 0.8979492485523224
+        },
+        {
+          "depth": 12,
+          "joint_accuracy": 0.8013611137866974,
+          "val_accuracy": 0.8738606870174408,
+          "var_accuracy": 0.8275757133960724
+        },
+        {
+          "depth": 13,
+          "joint_accuracy": 0.7417837679386139,
+          "val_accuracy": 0.8168851733207703,
+          "var_accuracy": 0.7723388969898224
+        },
+        {
+          "depth": 14,
+          "joint_accuracy": 0.6926880180835724,
+          "val_accuracy": 0.7716849446296692,
+          "var_accuracy": 0.7231619954109192
+        },
+        {
+          "depth": 15,
+          "joint_accuracy": 0.6473388969898224,
+          "val_accuracy": 0.7283203303813934,
+          "var_accuracy": 0.6751953363418579
+        },
+        {
+          "depth": 16,
+          "joint_accuracy": 0.6073379516601562,
+          "val_accuracy": 0.6928024291992188,
+          "var_accuracy": 0.6346359252929688
+        },
+        {
+          "depth": 17,
+          "joint_accuracy": 0.5687686800956726,
+          "val_accuracy": 0.657520979642868,
+          "var_accuracy": 0.5952938199043274
+        },
+        {
+          "depth": 18,
+          "joint_accuracy": 0.5405748188495636,
+          "val_accuracy": 0.6295233964920044,
+          "var_accuracy": 0.564019113779068
+        },
+        {
+          "depth": 19,
+          "joint_accuracy": 0.5159398019313812,
+          "val_accuracy": 0.6064131855964661,
+          "var_accuracy": 0.53759765625
+        },
+        {
+          "depth": 20,
+          "joint_accuracy": 0.49061278998851776,
+          "val_accuracy": 0.5831604301929474,
+          "var_accuracy": 0.5101806819438934
+        },
+        {
+          "depth": 21,
+          "joint_accuracy": 0.4699532836675644,
+          "val_accuracy": 0.5630057156085968,
+          "var_accuracy": 0.4893450140953064
+        },
+        {
+          "depth": 22,
+          "joint_accuracy": 0.44912998378276825,
+          "val_accuracy": 0.5434015691280365,
+          "var_accuracy": 0.46779565513134
+        },
+        {
+          "depth": 23,
+          "joint_accuracy": 0.42935845255851746,
+          "val_accuracy": 0.52268385887146,
+          "var_accuracy": 0.44865086674690247
+        },
+        {
+          "depth": 24,
+          "joint_accuracy": 0.4114736020565033,
+          "val_accuracy": 0.5063680112361908,
+          "var_accuracy": 0.4295806884765625
+        }
+      ],
+      "eval_batches": 1,
+      "eval_every": 100,
+      "eval_max_depth": 24,
+      "final_eval_batches": 2,
+      "frontier_joint_095": 9.590065154596195,
+      "max_depth": 24,
+      "patience_requested": 20,
+      "replacement": "with_replacement",
+      "result_path": "results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed42/results.json",
+      "seed": 42,
+      "selection": "val_loss_min",
+      "steps_requested": 5000,
+      "train_max_depth": 24,
+      "val_depths": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        16,
+        21,
+        24
+      ],
+      "variant": "gru_fair_bounded"
+    },
+    {
+      "D": 256,
+      "K_val": 9,
+      "K_var": 81,
+      "architecture_grid": [
+        {
+          "cell_type": "gru",
+          "decoder_layers": 3,
+          "decoder_type": "mlp"
+        },
+        {
+          "cell_type": "gru",
+          "decoder_layers": 2,
+          "decoder_type": "replay"
+        }
+      ],
+      "batch_size": 4096,
+      "best_config": {
+        "best_val_loss": 1.1320010606432334,
+        "cell_type": "gru",
+        "decoder_layers": 2,
+        "decoder_type": "replay",
+        "learned_init": true,
+        "lr": 0.0008,
+        "num_layers": 2
+      },
+      "bounded_state_only": true,
+      "checkpoint": "results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed137/gru_stack_best.pt",
+      "converged": true,
+      "curve": [
+        {
+          "depth": 1,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 2,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 3,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 4,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 5,
+          "joint_accuracy": 0.999951183795929,
+          "val_accuracy": 1.0,
+          "var_accuracy": 0.999951183795929
+        },
+        {
+          "depth": 6,
+          "joint_accuracy": 0.9997355341911316,
+          "val_accuracy": 0.9999593496322632,
+          "var_accuracy": 0.9997762441635132
+        },
+        {
+          "depth": 7,
+          "joint_accuracy": 0.9991455674171448,
+          "val_accuracy": 0.9998430907726288,
+          "var_accuracy": 0.999302476644516
+        },
+        {
+          "depth": 8,
+          "joint_accuracy": 0.9964141845703125,
+          "val_accuracy": 0.999176025390625,
+          "var_accuracy": 0.9972381591796875
+        },
+        {
+          "depth": 9,
+          "joint_accuracy": 0.9896918535232544,
+          "val_accuracy": 0.9985487461090088,
+          "var_accuracy": 0.9911159873008728
+        },
+        {
+          "depth": 10,
+          "joint_accuracy": 0.9760742485523224,
+          "val_accuracy": 0.9946167171001434,
+          "var_accuracy": 0.9811767935752869
+        },
+        {
+          "depth": 11,
+          "joint_accuracy": 0.9427046477794647,
+          "val_accuracy": 0.9819669127464294,
+          "var_accuracy": 0.9590842723846436
+        },
+        {
+          "depth": 12,
+          "joint_accuracy": 0.8519694209098816,
+          "val_accuracy": 0.9158528745174408,
+          "var_accuracy": 0.87469482421875
+        },
+        {
+          "depth": 13,
+          "joint_accuracy": 0.7962270975112915,
+          "val_accuracy": 0.8610934317111969,
+          "var_accuracy": 0.8128286600112915
+        },
+        {
+          "depth": 14,
+          "joint_accuracy": 0.7338257133960724,
+          "val_accuracy": 0.8081490993499756,
+          "var_accuracy": 0.751194566488266
+        },
+        {
+          "depth": 15,
+          "joint_accuracy": 0.6892008781433105,
+          "val_accuracy": 0.7702148854732513,
+          "var_accuracy": 0.7040934860706329
+        },
+        {
+          "depth": 16,
+          "joint_accuracy": 0.6471786499023438,
+          "val_accuracy": 0.7274627685546875,
+          "var_accuracy": 0.6636886596679688
+        },
+        {
+          "depth": 17,
+          "joint_accuracy": 0.6025821566581726,
+          "val_accuracy": 0.6892951428890228,
+          "var_accuracy": 0.6181712448596954
+        },
+        {
+          "depth": 18,
+          "joint_accuracy": 0.580756276845932,
+          "val_accuracy": 0.6606174111366272,
+          "var_accuracy": 0.59698486328125
+        },
+        {
+          "depth": 19,
+          "joint_accuracy": 0.5479158163070679,
+          "val_accuracy": 0.6313990652561188,
+          "var_accuracy": 0.5639648735523224
+        },
+        {
+          "depth": 20,
+          "joint_accuracy": 0.521759033203125,
+          "val_accuracy": 0.6038208305835724,
+          "var_accuracy": 0.5386291444301605
+        },
+        {
+          "depth": 21,
+          "joint_accuracy": 0.498046875,
+          "val_accuracy": 0.5820777714252472,
+          "var_accuracy": 0.5131022334098816
+        },
+        {
+          "depth": 22,
+          "joint_accuracy": 0.4758855849504471,
+          "val_accuracy": 0.5632379949092865,
+          "var_accuracy": 0.49025657773017883
+        },
+        {
+          "depth": 23,
+          "joint_accuracy": 0.45456331968307495,
+          "val_accuracy": 0.54564368724823,
+          "var_accuracy": 0.4676672965288162
+        },
+        {
+          "depth": 24,
+          "joint_accuracy": 0.4399261623620987,
+          "val_accuracy": 0.5264486074447632,
+          "var_accuracy": 0.4535370022058487
+        }
+      ],
+      "eval_batches": 1,
+      "eval_every": 100,
+      "eval_max_depth": 24,
+      "final_eval_batches": 2,
+      "frontier_joint_095": 10.781377299950524,
+      "max_depth": 24,
+      "patience_requested": 20,
+      "replacement": "with_replacement",
+      "result_path": "results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed137/results.json",
+      "seed": 137,
+      "selection": "val_loss_min",
+      "steps_requested": 5000,
+      "train_max_depth": 24,
+      "val_depths": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        16,
+        21,
+        24
+      ],
+      "variant": "gru_fair_bounded"
+    },
+    {
+      "D": 512,
+      "K_val": 9,
+      "K_var": 81,
+      "architecture_grid": [
+        {
+          "cell_type": "gru",
+          "decoder_layers": 3,
+          "decoder_type": "mlp"
+        },
+        {
+          "cell_type": "gru",
+          "decoder_layers": 2,
+          "decoder_type": "replay"
+        }
+      ],
+      "batch_size": 4096,
+      "best_config": {
+        "best_val_loss": 0.795754902290355,
+        "cell_type": "gru",
+        "decoder_layers": 2,
+        "decoder_type": "replay",
+        "learned_init": true,
+        "lr": 0.0008,
+        "num_layers": 2
+      },
+      "bounded_state_only": true,
+      "checkpoint": "results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed42/gru_stack_best.pt",
+      "converged": true,
+      "curve": [
+        {
+          "depth": 1,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 2,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 3,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 4,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 5,
+          "joint_accuracy": 0.9997802674770355,
+          "val_accuracy": 1.0,
+          "var_accuracy": 0.9997802674770355
+        },
+        {
+          "depth": 6,
+          "joint_accuracy": 0.9993489682674408,
+          "val_accuracy": 0.9999593198299408,
+          "var_accuracy": 0.9993896484375
+        },
+        {
+          "depth": 7,
+          "joint_accuracy": 0.9985351860523224,
+          "val_accuracy": 0.999912828207016,
+          "var_accuracy": 0.9986224174499512
+        },
+        {
+          "depth": 8,
+          "joint_accuracy": 0.99822998046875,
+          "val_accuracy": 0.999755859375,
+          "var_accuracy": 0.99847412109375
+        },
+        {
+          "depth": 9,
+          "joint_accuracy": 0.9967176616191864,
+          "val_accuracy": 0.999321848154068,
+          "var_accuracy": 0.9973958432674408
+        },
+        {
+          "depth": 10,
+          "joint_accuracy": 0.9942260682582855,
+          "val_accuracy": 0.9992553889751434,
+          "var_accuracy": 0.994946300983429
+        },
+        {
+          "depth": 11,
+          "joint_accuracy": 0.9894576072692871,
+          "val_accuracy": 0.9975919127464294,
+          "var_accuracy": 0.9917325377464294
+        },
+        {
+          "depth": 12,
+          "joint_accuracy": 0.9747619926929474,
+          "val_accuracy": 0.9941813349723816,
+          "var_accuracy": 0.9798787832260132
+        },
+        {
+          "depth": 13,
+          "joint_accuracy": 0.9616324007511139,
+          "val_accuracy": 0.9797927141189575,
+          "var_accuracy": 0.9792293012142181
+        },
+        {
+          "depth": 14,
+          "joint_accuracy": 0.9075492322444916,
+          "val_accuracy": 0.946603000164032,
+          "var_accuracy": 0.9231393337249756
+        },
+        {
+          "depth": 15,
+          "joint_accuracy": 0.8509033620357513,
+          "val_accuracy": 0.9268717765808105,
+          "var_accuracy": 0.865812212228775
+        },
+        {
+          "depth": 16,
+          "joint_accuracy": 0.798431396484375,
+          "val_accuracy": 0.8925094604492188,
+          "var_accuracy": 0.8125
+        },
+        {
+          "depth": 17,
+          "joint_accuracy": 0.7519818246364594,
+          "val_accuracy": 0.8543342351913452,
+          "var_accuracy": 0.7657039761543274
+        },
+        {
+          "depth": 18,
+          "joint_accuracy": 0.7079874575138092,
+          "val_accuracy": 0.8178439736366272,
+          "var_accuracy": 0.7218695878982544
+        },
+        {
+          "depth": 19,
+          "joint_accuracy": 0.673384815454483,
+          "val_accuracy": 0.7840897440910339,
+          "var_accuracy": 0.6861250996589661
+        },
+        {
+          "depth": 20,
+          "joint_accuracy": 0.639965832233429,
+          "val_accuracy": 0.7528381645679474,
+          "var_accuracy": 0.653302013874054
+        },
+        {
+          "depth": 21,
+          "joint_accuracy": 0.608921617269516,
+          "val_accuracy": 0.723603755235672,
+          "var_accuracy": 0.623261958360672
+        },
+        {
+          "depth": 22,
+          "joint_accuracy": 0.5804831683635712,
+          "val_accuracy": 0.6970381438732147,
+          "var_accuracy": 0.5954811871051788
+        },
+        {
+          "depth": 23,
+          "joint_accuracy": 0.553493320941925,
+          "val_accuracy": 0.6718909442424774,
+          "var_accuracy": 0.5685292482376099
+        },
+        {
+          "depth": 24,
+          "joint_accuracy": 0.5323588252067566,
+          "val_accuracy": 0.6501058042049408,
+          "var_accuracy": 0.546478271484375
+        }
+      ],
+      "eval_batches": 1,
+      "eval_every": 100,
+      "eval_max_depth": 24,
+      "final_eval_batches": 2,
+      "frontier_joint_095": 13.215083566150337,
+      "max_depth": 24,
+      "patience_requested": 20,
+      "replacement": "with_replacement",
+      "result_path": "results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed42/results.json",
+      "seed": 42,
+      "selection": "val_loss_min",
+      "steps_requested": 5000,
+      "train_max_depth": 24,
+      "val_depths": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        16,
+        21,
+        24
+      ],
+      "variant": "gru_fair_bounded"
+    },
+    {
+      "D": 512,
+      "K_val": 9,
+      "K_var": 81,
+      "architecture_grid": [
+        {
+          "cell_type": "gru",
+          "decoder_layers": 3,
+          "decoder_type": "mlp"
+        },
+        {
+          "cell_type": "gru",
+          "decoder_layers": 2,
+          "decoder_type": "replay"
+        }
+      ],
+      "batch_size": 4096,
+      "best_config": {
+        "best_val_loss": 0.8407987355385558,
+        "cell_type": "gru",
+        "decoder_layers": 2,
+        "decoder_type": "replay",
+        "learned_init": true,
+        "lr": 0.0008,
+        "num_layers": 2
+      },
+      "bounded_state_only": true,
+      "checkpoint": "results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed137/gru_stack_best.pt",
+      "converged": true,
+      "curve": [
+        {
+          "depth": 1,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 2,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 3,
+          "joint_accuracy": 1.0,
+          "val_accuracy": 1.0,
+          "var_accuracy": 1.0
+        },
+        {
+          "depth": 4,
+          "joint_accuracy": 0.999969482421875,
+          "val_accuracy": 1.0,
+          "var_accuracy": 0.999969482421875
+        },
+        {
+          "depth": 5,
+          "joint_accuracy": 0.9996826350688934,
+          "val_accuracy": 1.0,
+          "var_accuracy": 0.9996826350688934
+        },
+        {
+          "depth": 6,
+          "joint_accuracy": 0.9980265498161316,
+          "val_accuracy": 0.9999593496322632,
+          "var_accuracy": 0.9980672299861908
+        },
+        {
+          "depth": 7,
+          "joint_accuracy": 0.9982910454273224,
+          "val_accuracy": 0.9998430907726288,
+          "var_accuracy": 0.9984480142593384
+        },
+        {
+          "depth": 8,
+          "joint_accuracy": 0.9960174560546875,
+          "val_accuracy": 0.9990997314453125,
+          "var_accuracy": 0.9969024658203125
+        },
+        {
+          "depth": 9,
+          "joint_accuracy": 0.993584543466568,
+          "val_accuracy": 0.9981147050857544,
+          "var_accuracy": 0.9954698383808136
+        },
+        {
+          "depth": 10,
+          "joint_accuracy": 0.9925903379917145,
+          "val_accuracy": 0.997998058795929,
+          "var_accuracy": 0.99456787109375
+        },
+        {
+          "depth": 11,
+          "joint_accuracy": 0.9825439751148224,
+          "val_accuracy": 0.9926868975162506,
+          "var_accuracy": 0.9896795451641083
+        },
+        {
+          "depth": 12,
+          "joint_accuracy": 0.9785258173942566,
+          "val_accuracy": 0.9944559931755066,
+          "var_accuracy": 0.9839274287223816
+        },
+        {
+          "depth": 13,
+          "joint_accuracy": 0.9301570355892181,
+          "val_accuracy": 0.9643367230892181,
+          "var_accuracy": 0.9629282355308533
+        },
+        {
+          "depth": 14,
+          "joint_accuracy": 0.8632377088069916,
+          "val_accuracy": 0.9269932806491852,
+          "var_accuracy": 0.8955340087413788
+        },
+        {
+          "depth": 15,
+          "joint_accuracy": 0.8069824576377869,
+          "val_accuracy": 0.8958496451377869,
+          "var_accuracy": 0.829435259103775
+        },
+        {
+          "depth": 16,
+          "joint_accuracy": 0.7581558227539062,
+          "val_accuracy": 0.8568801879882812,
+          "var_accuracy": 0.7797775268554688
+        },
+        {
+          "depth": 17,
+          "joint_accuracy": 0.7103271484375,
+          "val_accuracy": 0.8119111955165863,
+          "var_accuracy": 0.7359619140625
+        },
+        {
+          "depth": 18,
+          "joint_accuracy": 0.6714613139629364,
+          "val_accuracy": 0.7794800102710724,
+          "var_accuracy": 0.6930745542049408
+        },
+        {
+          "depth": 19,
+          "joint_accuracy": 0.6469855010509491,
+          "val_accuracy": 0.7494731843471527,
+          "var_accuracy": 0.6689517498016357
+        },
+        {
+          "depth": 20,
+          "joint_accuracy": 0.6121826171875,
+          "val_accuracy": 0.7191406488418579,
+          "var_accuracy": 0.6340515315532684
+        },
+        {
+          "depth": 21,
+          "joint_accuracy": 0.5864025354385376,
+          "val_accuracy": 0.692231684923172,
+          "var_accuracy": 0.6069626808166504
+        },
+        {
+          "depth": 22,
+          "joint_accuracy": 0.5631325542926788,
+          "val_accuracy": 0.6675248742103577,
+          "var_accuracy": 0.5846446752548218
+        },
+        {
+          "depth": 23,
+          "joint_accuracy": 0.5378949046134949,
+          "val_accuracy": 0.6436767578125,
+          "var_accuracy": 0.55893874168396
+        },
+        {
+          "depth": 24,
+          "joint_accuracy": 0.5141550898551941,
+          "val_accuracy": 0.618743896484375,
+          "var_accuracy": 0.5368804931640625
+        }
+      ],
+      "eval_batches": 1,
+      "eval_every": 100,
+      "eval_max_depth": 24,
+      "final_eval_batches": 2,
+      "frontier_joint_095": 12.589756787947163,
+      "max_depth": 24,
+      "patience_requested": 20,
+      "replacement": "with_replacement",
+      "result_path": "results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed137/results.json",
+      "seed": 137,
+      "selection": "val_loss_min",
+      "steps_requested": 5000,
+      "train_max_depth": 24,
+      "val_depths": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        16,
+        21,
+        24
+      ],
+      "variant": "gru_fair_bounded"
+    }
+  ],
+  "eval_max_depth_r3plus": 21,
+  "fail_closed": false,
+  "fairness_budget": {
+    "K_val": 9,
+    "K_var": 81,
+    "arch_grid": "gru:mlp:3,gru:replay:2",
+    "batch_size": 4096,
+    "bounded_final_state_decoder": true,
+    "replacement": "with_replacement",
+    "steps": 5000,
+    "train_depth_gte_eval_depth": true
+  },
+  "generated_at": "2026-06-08T17:41:08.092697+00:00",
+  "module": "gru_in_loop_arm.train",
+  "pool_ref": "results/overnight_047_headline_preregistered/line1_headline/reverts_needed_pool.json",
+  "status": "GRU_IN_LOOP_ARM_TRAINED_AUDIT_READY",
+  "train_max_depth": 24
+}

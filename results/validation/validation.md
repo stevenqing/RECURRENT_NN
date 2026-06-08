@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-08T16:51:41.787800+00:00
+Generated at: 2026-06-08T17:42:29.486091+00:00
 
-Summary: 249 PASS / 3 FAIL / 252 total.
+Summary: 268 PASS / 3 FAIL / 271 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -104,7 +104,7 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_c | w3_propagation_scale_not_mixed | PASS | verdict=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
 | tier_c | w3_propagation_per_task_delta_measured | PASS | rows=5 |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=20 |
+| contract | log_item_artifacts_present | PASS | count=21 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
@@ -225,6 +225,12 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_047_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_047_honesty_does_not_establish | PASS | This preregistration alone establishes no observed separation; the observed tables must be written later under the same item/run root. If a required engine or a |
 | contract | log_item_047_decision_numbers_and_routing | PASS | gates=1; routing=Inspect Line 1 R3+ table, Line 2 close/fix decision, Line 3 Grade 2 verdict, and D3 frontier audit. |
+| contract | log_item_048_required_fields | PASS | missing=[] |
+| contract | log_item_048_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_048_number_continues_from_028 | PASS | item_number=048 |
+| contract | log_item_048_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_048_honesty_does_not_establish | PASS | The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnabili |
+| contract | log_item_048_decision_numbers_and_routing | PASS | gates=4; routing=Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |
@@ -255,6 +261,19 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | item_031_decision_summary_present | PASS | rows=4 |
 | contract | item_031_no_in_state_overclaim | PASS | integration_grade=alongside_only_measured_not_in_state |
 | contract | item_031_marked_measured_not_accepted | PASS | status=MEASURED_NOT_ACCEPTED |
+| closeout_047 | item_048_item047_headline_closeout_present | PASS | results/experiment_items/item_048_item047_headline_closeout.json |
+| closeout_047 | closeout_047_status_present | PASS | results/closeout_047/status_corrections.json |
+| closeout_047 | closeout_047_headline_figure_present | PASS | results/closeout_047/headline_figure/headline_figure_certification.json |
+| closeout_047 | item047_rot_vs_no_revert_solid | PASS | label=SOLID |
+| closeout_047 | item047_gru_in_loop_audit_pass | PASS | gru_label=GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS; quotable=True |
+| closeout_047 | item047_track_b_split_diagnosis_resolved | PASS | track_b_label=MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL |
+| closeout_047 | item047_headline_figure_certified | PASS | headline_figure=HEADLINE_FIGURE_CERTIFIED |
+| closeout_047 | item047_overlay_certified_with_footnote | PASS | status=HEADLINE_FIGURE_CERTIFIED_WITH_FACTORED_CODEBOOK_FOOTNOTE |
+| closeout_047 | item047_spilloff_matches_dstar | PASS | value=True |
+| closeout_047 | item047_spillon_overflow_accounted | PASS | value=True |
+| closeout_047 | item047_track_b_not_old_close_label | PASS | status=MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL |
+| closeout_047 | item047_track_b_mask_full_train_eval_present | PASS | splits=['eval', 'train'] |
+| closeout_047 | item047_gru_rows_real_bytes_curve_converged | PASS | rows=12; status=GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS |
 | legacy | ttt_legacy_present | PASS | results/ttt/results.json |
 | legacy | legacy_two_by_two_archived_or_absent_ok | PASS | state=absent_ok; path=results/two_by_two/results.json |
 | legacy | legacy_d_stage_1_archived_or_absent_ok | PASS | state=absent_ok; path=results/d_stage_1/results.json |
