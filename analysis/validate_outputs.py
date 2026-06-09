@@ -58,6 +58,7 @@ PATHS = {
     "item_050_post_review_e1_cross_task_generalization": "results/experiment_items/item_050_post_review_e1_cross_task_generalization.json",
     "item_051_rung1_distributed_graph_coloring": "results/experiment_items/item_051_rung1_distributed_graph_coloring.json",
     "item_052_rung1_gate_distributed_coloring_v01": "results/experiment_items/item_052_rung1_gate_distributed_coloring_v01.json",
+    "item_053_rung1_gate_distributed_coloring_v02": "results/experiment_items/item_053_rung1_gate_distributed_coloring_v02.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
@@ -67,6 +68,7 @@ PATHS = {
     "post_review_e1_sudoku_d128_bound_single_curve": "results/post_review_e1_cross_task_generalization/sudoku_d128_bound_single_module1_curve.json",
     "rung1_distributed_graph_coloring": "results/rung1_distributed_graph_coloring/results.json",
     "rung1_gate_distributed_coloring_v01": "results/rung1_gate_distributed_coloring_v01/results.json",
+    "rung1_gate_distributed_coloring_v02": "results/rung1_gate_distributed_coloring_v02/results.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
@@ -780,6 +782,49 @@ def _rung1_gate_distributed_coloring_v01_checks(checks: list[dict[str, Any]]) ->
         _check(checks, metric_ok and acceptance.get("rung1_v01_gate_pass") is True and results.get("status") == "RUNG1_V01_FIXED_SIZE_DEPTH_CURVE_PASSED", "rung1_v01_gate_passed", f"acceptance={acceptance}; metric_rows={len(metric_rows)}", "rung1_v01")
 
 
+def _rung1_gate_distributed_coloring_v02_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "item_053_rung1_gate_distributed_coloring_v02", "rung1_v02")
+    _exists(checks, "rung1_gate_distributed_coloring_v02", "rung1_v02")
+    item = _read_json("item_053_rung1_gate_distributed_coloring_v02")
+    results = _read_json("rung1_gate_distributed_coloring_v02")
+    target_bins = {"7", "8", "9+"}
+    if item:
+        _check(checks, item.get("item_number") == "053", "item053_number_present", f"item_number={item.get('item_number')}", "rung1_v02")
+        _check(checks, item.get("status") == "RUNG1_V02_RG_NATIVE_HARD_BASELINE_RECORDED", "item053_status_valid", f"status={item.get('status')}", "rung1_v02")
+        gates = {row.get("gate"): row.get("outcome") for row in item.get("decision", {}).get("gate_outcomes", [])}
+        required_gates = {"rg_native_bins_filled", "reverse_greedy_one_shot_zero", "cbj_solves_all_hard_bins", "all_hard_bins_significant"}
+        _check(checks, required_gates.issubset(gates) and all(gates.get(gate) == "PASS" for gate in required_gates - {"all_hard_bins_significant"}) and gates.get("all_hard_bins_significant") in {"PASS", "RECORDED"}, "item053_gate_rows_recorded", f"gates={gates}", "rung1_v02")
+    if results:
+        discipline = results.get("discipline", {})
+        generation = results.get("generation_config", {})
+        acceptance = results.get("acceptance", {})
+        pool_rows = results.get("pool_depth_summary", [])
+        gap_rows = results.get("gap_vs_depth_curve", [])
+        arm_rows = results.get("arm_depth_summary", [])
+        metric_rows = results.get("instance_arm_metrics", [])
+        manifest_rows = results.get("instance_manifest", [])
+        pool_by_bin = {row.get("depth_bin"): row for row in pool_rows}
+        _check(checks, results.get("schema_version") == "rung1_gate_distributed_coloring_v0_2", "rung1_v02_schema_version", f"schema={results.get('schema_version')}", "rung1_v02")
+        frozen = set(discipline.get("frozen_from_item051", []))
+        _check(checks, discipline.get("phase") == "0_symbolic_operator" and {"register mechanism", "recovery target rules", "priority ordered protocol", "symbolic conflict set", "solve loop"}.issubset(frozen), "rung1_v02_frozen_loop_discipline", f"discipline={discipline}", "rung1_v02")
+        _check(checks, generation.get("n_vertices") == 16 and generation.get("k") == 4 and generation.get("n_agents") == 4 and generation.get("target_per_depth_bin") == 48 and generation.get("generator_api") == "reasoning_gym.algorithmic.graph_color.generate_random_graph" and generation.get("verifier_api") == "reasoning_gym.algorithmic.graph_color.verify_graph_coloring_solution" and generation.get("one_shot_baseline") == "reasoning_gym.algorithmic.graph_color.greedy_graph_coloring", "rung1_v02_rg_native_generation", f"generation={generation}", "rung1_v02")
+        bins_ok = set(pool_by_bin) == target_bins and all(pool_by_bin[bin_name].get("n") == 48 and pool_by_bin[bin_name].get("target_met") is True and pool_by_bin[bin_name].get("n_vertices") == 16 and pool_by_bin[bin_name].get("k") == 4 and pool_by_bin[bin_name].get("n_agents") == 4 for bin_name in target_bins)
+        _check(checks, bins_ok, "rung1_v02_target_hard_bins_filled", f"pool={pool_rows}", "rung1_v02")
+        manifest_ok = bool(manifest_rows) and all(row.get("n_vertices") == 16 and row.get("k") == 4 and row.get("chromatic_number") == 4 and row.get("boundary_conflict_exact") is True and row.get("rg_verified_sat") is True and row.get("rg_greedy_one_shot_solved") is False and str(row.get("source_kind", "")).startswith("reasoning_gym_generate_random_graph:") and "chain" not in str(row.get("fill_method", "")) for row in manifest_rows)
+        _check(checks, manifest_ok, "rung1_v02_manifest_rg_native_reverse_greedy", f"rows={len(manifest_rows)}", "rung1_v02")
+        arms = {(row.get("depth_bin"), row.get("arm")) for row in arm_rows}
+        required_arms = {(bin_name, arm) for bin_name in target_bins for arm in {"forward_markov_team", "chronological_rollback", "cbj_bounded", "rg_greedy_one_shot"}}
+        _check(checks, required_arms.issubset(arms), "rung1_v02_arm_rows_complete", f"arms={sorted(arms)}", "rung1_v02")
+        one_shot_zero = bool(gap_rows) and all(float(row.get("rg_greedy_one_shot_solve_rate", 1.0)) == 0.0 for row in gap_rows)
+        forward_zero = bool(gap_rows) and all(float(row.get("forward_solve_rate", 1.0)) == 0.0 for row in gap_rows)
+        cbj_all = bool(gap_rows) and all(float(row.get("cbj_solve_rate", 0.0)) == 1.0 for row in gap_rows)
+        deepest = next((row for row in gap_rows if row.get("depth_bin") == "9+"), {})
+        deepest_sig = deepest.get("mcnemar_one_sided_p_cbj_gt_chronological") is not None and float(deepest.get("mcnemar_one_sided_p_cbj_gt_chronological")) <= 0.05 and float(deepest.get("solve_rate_gap_cbj_minus_chronological", 0.0)) > 0
+        _check(checks, one_shot_zero and forward_zero and cbj_all and deepest_sig, "rung1_v02_hard_pool_baseline_and_9plus_gap", f"one_shot_zero={one_shot_zero}; forward_zero={forward_zero}; cbj_all={cbj_all}; deepest={deepest}", "rung1_v02")
+        metric_ok = bool(metric_rows) and all((row.get("arm") == "rg_greedy_one_shot" and row.get("provenance") == "reasoning_gym_greedy_graph_coloring_one_shot_verified_by_rg") or (row.get("arm") != "rg_greedy_one_shot" and row.get("register_capacity") == 16 and row.get("node_cap") == 120 and row.get("provenance") == "phase0_symbolic_loop_frozen_from_item051_rg_native_pool") for row in metric_rows[:80])
+        _check(checks, metric_ok and acceptance.get("rung1_v02_recorded") is True and results.get("status") == "RUNG1_V02_RG_NATIVE_HARD_BASELINE_RECORDED", "rung1_v02_recorded_status", f"acceptance={acceptance}; metric_rows={len(metric_rows)}", "rung1_v02")
+
+
 def _canonical_checks(checks: list[dict[str, Any]]) -> None:
     _check(checks, REPO_ROOT == Path("/home/aiscuser/RECURRENT_NN"), "canonical_repo_is_recurrent_nn", f"repo_root={REPO_ROOT}", "p0")
     old_repo = Path("/home/aiscuser/stage_d_llm")
@@ -824,6 +869,7 @@ def validate_outputs(output_dir: str = "results/validation") -> dict[str, Any]:
     _post_review_e1_checks(checks)
     _rung1_distributed_graph_coloring_checks(checks)
     _rung1_gate_distributed_coloring_v01_checks(checks)
+    _rung1_gate_distributed_coloring_v02_checks(checks)
     _legacy_checks(checks)
 
     passed = all(check["status"] == "PASS" for check in checks)

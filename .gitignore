@@ -16,6 +16,8 @@ results/**
 !results/rung1_distributed_graph_coloring/results.json
 !results/rung1_gate_distributed_coloring_v01/
 !results/rung1_gate_distributed_coloring_v01/results.json
+!results/rung1_gate_distributed_coloring_v02/
+!results/rung1_gate_distributed_coloring_v02/results.json
 !results/model_readiness/
 !results/model_readiness/readiness.json
 !results/model_download/

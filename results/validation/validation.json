@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=25",
+      "detail": "count=26",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -1471,6 +1471,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_053_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_053_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=053",
+      "name": "log_item_053_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_053_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This is Phase 0 symbolic recovery over a reasoning-gym native hard pool, not Qwen3.5-4B. Reverse-greedy filtering makes the RG one-shot baseline zero by constru",
+      "name": "log_item_053_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=Use Item053 as the RG-native hard baseline pool for Phase 1 comparability; keep Item052 chain-structured fixed-size curve as the mechanism stress curve and do not mix the two distributions.",
+      "name": "log_item_053_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -2047,13 +2083,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'forward_read', 'pop_read', 'register_entry_classification', 'spill_off_write_drop', 'write_drop_mask', 'final_solution_readback'}",
+      "detail": "rules={'spill_off_write_drop', 'write_drop_mask', 'forward_read', 'pop_read', 'final_solution_readback', 'register_entry_classification'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_all_unmasked', 'P_all', 'P_pop', 'P_pop_unmasked', 'threshold_D_pop', 'threshold_D_peak', 'P_choice_unmasked', 'P_choice'}; rows=768",
+      "detail": "candidates={'P_pop', 'P_pop_unmasked', 'P_all', 'threshold_D_peak', 'P_all_unmasked', 'P_choice_unmasked', 'P_choice', 'threshold_D_pop'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2089,7 +2125,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_all_unmasked', 'P_all', 'P_pop', 'P_pop_unmasked', 'P_choice_unmasked', 'P_choice'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_pop', 'P_pop_unmasked', 'P_all', 'P_all_unmasked', 'P_choice_unmasked', 'P_choice'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2329,6 +2365,84 @@
       "tier": "rung1_v01"
     },
     {
+      "detail": "results/experiment_items/item_053_rung1_gate_distributed_coloring_v02.json",
+      "name": "item_053_rung1_gate_distributed_coloring_v02_present",
+      "status": "PASS",
+      "tier": "rung1_v02"
+    },
+    {
+      "detail": "results/rung1_gate_distributed_coloring_v02/results.json",
+      "name": "rung1_gate_distributed_coloring_v02_present",
+      "status": "PASS",
+      "tier": "rung1_v02"
+    },
+    {
+      "detail": "item_number=053",
+      "name": "item053_number_present",
+      "status": "PASS",
+      "tier": "rung1_v02"
+    },
+    {
+      "detail": "status=RUNG1_V02_RG_NATIVE_HARD_BASELINE_RECORDED",
+      "name": "item053_status_valid",
+      "status": "PASS",
+      "tier": "rung1_v02"
+    },
+    {
+      "detail": "gates={'rg_native_bins_filled': 'PASS', 'reverse_greedy_one_shot_zero': 'PASS', 'cbj_solves_all_hard_bins': 'PASS', 'all_hard_bins_significant': 'RECORDED'}",
+      "name": "item053_gate_rows_recorded",
+      "status": "PASS",
+      "tier": "rung1_v02"
+    },
+    {
+      "detail": "schema=rung1_gate_distributed_coloring_v0_2",
+      "name": "rung1_v02_schema_version",
+      "status": "PASS",
+      "tier": "rung1_v02"
+    },
+    {
+      "detail": "discipline={'arms': ['forward_markov_team', 'chronological_rollback', 'cbj_bounded', 'rg_greedy_one_shot'], 'frozen_from_item051': ['register mechanism', 'recovery target rules', 'priority ordered protocol', 'symbolic conflict set', 'solve loop'], 'generator': 'reasoning_gym.generate_random_graph', 'only_variable': 'pool generation and one-shot baseline report; recovery loop unchanged', 'phase': '0_symbolic_operator', 'purpose': 'RG-native hard graph-coloring pool plus one-shot RG baseline', 'verifier': 'reasoning_gym.verify_graph_coloring_solution'}",
+      "name": "rung1_v02_frozen_loop_discipline",
+      "status": "PASS",
+      "tier": "rung1_v02"
+    },
+    {
+      "detail": "generation={'generator_api': 'reasoning_gym.algorithmic.graph_color.generate_random_graph', 'generator_package': 'reasoning-gym', 'generator_version': '0.1.25', 'k': 4, 'max_attempts_per_seed_bin': 120000, 'n_agents': 4, 'n_vertices': 16, 'node_cap': 120, 'one_shot_baseline': 'reasoning_gym.algorithmic.graph_color.greedy_graph_coloring', 'p_range': [0.3, 0.48], 'register_capacity_main': 16, 'seeds': [42, 137], 'target_depth_bins': ['7', '8', '9+'], 'target_per_depth_bin': 48, 'target_per_seed_depth_bin': 24, 'verifier_api': 'reasoning_gym.algorithmic.graph_color.verify_graph_coloring_solution'}",
+      "name": "rung1_v02_rg_native_generation",
+      "status": "PASS",
+      "tier": "rung1_v02"
+    },
+    {
+      "detail": "pool=[{'actual_depth_max': 7, 'actual_depth_min': 7, 'chromatic_number_distribution': {'4': 48}, 'depth_bin': '7', 'fill_methods': {'rg_native_reverse_greedy_exact_depth': 48}, 'k': 4, 'mean_actual_depth': 7.0, 'mean_boundary_edges': 34.229166666666664, 'mean_n_edges': 43.979166666666664, 'n': 48, 'n_agents': 4, 'n_vertices': 16, 'provenance': 'rg_native_hard_pool_depth_summary', 'seeds': [42, 137], 'source': 'autonomous_stage_a_run', 'target_met': True, 'target_n': 48}, {'actual_depth_max': 8, 'actual_depth_min': 8, 'chromatic_number_distribution': {'4': 48}, 'depth_bin': '8', 'fill_methods': {'rg_native_reverse_greedy_exact_depth': 48}, 'k': 4, 'mean_actual_depth': 8.0, 'mean_boundary_edges': 34.645833333333336, 'mean_n_edges': 43.416666666666664, 'n': 48, 'n_agents': 4, 'n_vertices': 16, 'provenance': 'rg_native_hard_pool_depth_summary', 'seeds': [42, 137], 'source': 'autonomous_stage_a_run', 'target_met': True, 'target_n': 48}, {'actual_depth_max': 15, 'actual_depth_min': 10, 'chromatic_number_distribution': {'4': 48}, 'depth_bin': '9+', 'fill_methods': {'rg_native_reverse_greedy_exact_depth': 48}, 'k': 4, 'mean_actual_depth': 11.916666666666666, 'mean_boundary_edges': 35.25, 'mean_n_edges': 43.729166666666664, 'n': 48, 'n_agents': 4, 'n_vertices': 16, 'provenance': 'rg_native_hard_pool_depth_summary', 'seeds': [42, 137], 'source': 'autonomous_stage_a_run', 'target_met': True, 'target_n': 48}]",
+      "name": "rung1_v02_target_hard_bins_filled",
+      "status": "PASS",
+      "tier": "rung1_v02"
+    },
+    {
+      "detail": "rows=144",
+      "name": "rung1_v02_manifest_rg_native_reverse_greedy",
+      "status": "PASS",
+      "tier": "rung1_v02"
+    },
+    {
+      "detail": "arms=[('7', 'cbj_bounded'), ('7', 'chronological_rollback'), ('7', 'forward_markov_team'), ('7', 'rg_greedy_one_shot'), ('8', 'cbj_bounded'), ('8', 'chronological_rollback'), ('8', 'forward_markov_team'), ('8', 'rg_greedy_one_shot'), ('9+', 'cbj_bounded'), ('9+', 'chronological_rollback'), ('9+', 'forward_markov_team'), ('9+', 'rg_greedy_one_shot')]",
+      "name": "rung1_v02_arm_rows_complete",
+      "status": "PASS",
+      "tier": "rung1_v02"
+    },
+    {
+      "detail": "one_shot_zero=True; forward_zero=True; cbj_all=True; deepest={'cbj_solve_rate': 1.0, 'chronological_solve_rate': 0.8125, 'comm_token_advantage_chronological_minus_cbj': 196.95833333333334, 'depth_bin': '9+', 'forward_solve_rate': 0.0, 'mcnemar_one_sided_p_cbj_gt_chronological': 0.001953125, 'n': 48, 'provenance': 'rg_native_hard_pool_gap_vs_depth_with_one_shot_baseline', 'retraction_advantage_chronological_minus_cbj': 12.0625, 'rg_greedy_one_shot_solve_rate': 0.0, 'solve_rate_gap_cbj_minus_chronological': 0.1875, 'source': 'autonomous_stage_a_run'}",
+      "name": "rung1_v02_hard_pool_baseline_and_9plus_gap",
+      "status": "PASS",
+      "tier": "rung1_v02"
+    },
+    {
+      "detail": "acceptance={'all_hard_bins_significant': False, 'cbj_solves_all_hard_bins': True, 'chronological_solve_rates': {'7': 0.9583333333333334, '8': 0.9583333333333334, '9+': 0.8125}, 'forward_markov_zero_on_hard_bins': True, 'reverse_greedy_filter_effective': True, 'rg_native_bins_filled': True, 'rung1_v02_recorded': True, 'significant_cbj_gt_chronological_bins': ['9+']}; metric_rows=576",
+      "name": "rung1_v02_recorded_status",
+      "status": "PASS",
+      "tier": "rung1_v02"
+    },
+    {
       "detail": "results/ttt/results.json",
       "name": "ttt_legacy_present",
       "status": "PASS",
@@ -2371,11 +2485,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-09T13:12:52.207086+00:00",
+  "generated_at": "2026-06-09T13:42:59.638423+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 395,
+    "n_checks": 414,
     "n_fail": 3,
-    "n_pass": 392
+    "n_pass": 411
   }
 }
