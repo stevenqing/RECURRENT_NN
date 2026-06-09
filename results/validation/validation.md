@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-09T07:46:07.043954+00:00
+Generated at: 2026-06-09T08:57:31.155602+00:00
 
-Summary: 323 PASS / 3 FAIL / 326 total.
+Summary: 329 PASS / 3 FAIL / 332 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -242,7 +242,7 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_050_number_continues_from_028 | PASS | item_number=050 |
 | contract | log_item_050_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_050_honesty_does_not_establish | PASS | GRU is not reported as a collapse datum; it is audit-red and excluded until trained to the fairness budget with nonzero bytes and a curve. |
-| contract | log_item_050_decision_numbers_and_routing | PASS | gates=5; routing={'defer': ['gru_until_audited'], 'ready': ['minimum_viable_figure4_rot_no_revert_kv']} |
+| contract | log_item_050_decision_numbers_and_routing | PASS | gates=6; routing={'defer': ['gru_until_audited'], 'ready': ['minimum_viable_figure4_rot_no_revert_kv']} |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |
@@ -302,12 +302,14 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | post_review_e1 | post_review_e1_cross_task_generalization_present | PASS | results/post_review_e1_cross_task_generalization/results.json |
 | post_review_e1 | item050_number_present | PASS | item_number=050 |
 | post_review_e1 | item050_scalar_status | PASS | status=E1_SCALAR_FIGURE4_DEVIATION_RECORDED |
-| post_review_e1 | item050_stateless_gate_pass | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'law_transfer_y_equals_x': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
-| post_review_e1 | item050_small_d_knee_gate_pass | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'law_transfer_y_equals_x': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
-| post_review_e1 | item050_gru_audit_red_gate | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'law_transfer_y_equals_x': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
-| post_review_e1 | item050_deviation_gate_recorded | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'law_transfer_y_equals_x': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
+| post_review_e1 | item050_stateless_gate_pass | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
+| post_review_e1 | item050_small_d_knee_gate_pass | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
+| post_review_e1 | item050_storage_dstar_gate_pass | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
+| post_review_e1 | item050_gru_audit_red_gate | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
+| post_review_e1 | item050_deviation_gate_recorded | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
 | post_review_e1 | e1_bins_by_reverts_needed | PASS | binning_key=reverts_needed |
 | post_review_e1 | e1_law_uses_required_depth | PASS | law_transfer_depth_key=required_depth |
+| post_review_e1 | e1_law_uses_measured_dstar | PASS | law_transfer_d_star_source=measured_pure_storage_frontier |
 | post_review_e1 | e1_scalar_status | PASS | status=E1_SCALAR_FIGURE4_DEVIATION_RECORDED |
 | post_review_e1 | e1_autonomous_source | PASS | source=autonomous_stage_a_run |
 | post_review_e1 | e1_no_batched_engine_required | PASS | batched_engine_required=False |
@@ -320,12 +322,16 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | post_review_e1 | e1_stateless_rows_sourced | PASS | rows=2 |
 | post_review_e1 | e1_band_rows_revert_metrics_present | PASS | rows=8 |
 | post_review_e1 | e1_required_depth_histogram_present | PASS | rows=73 |
+| post_review_e1 | e1_storage_dstar_summary_complete | PASS | rows=24 |
+| post_review_e1 | e1_storage_curve_no_solving_provenance | PASS | rows=804 |
 | post_review_e1 | e1_figure4_arm_rows_present | PASS | arms=['gru', 'kv_snapshot', 'rot_bound_single', 'rot_factored', 'rot_no_revert'] |
 | post_review_e1 | e1_figure4_rows_sourced | PASS | rows=672 |
 | post_review_e1 | e1_gru_audit_red_excluded | PASS | rows=96 |
 | post_review_e1 | e1_law_rows_sourced | PASS | rows=96 |
 | post_review_e1 | e1_law_seed_join_fixed | PASS | rows=96 |
-| post_review_e1 | e1_small_d_knee_exercised | PASS | rows=27 |
+| post_review_e1 | e1_law_uses_storage_dstar_rows | PASS | rows=96 |
+| post_review_e1 | e1_law_transfer_strict_tolerance | PASS | rows=96 |
+| post_review_e1 | e1_small_d_knee_exercised | PASS | rows=21 |
 | post_review_e1 | e1_law_transfer_ready_or_deviation_recorded | PASS | status=E1_SCALAR_FIGURE4_DEVIATION_RECORDED; law_ready=False; deviation=True |
 | post_review_e1 | e1_episode_metric_keys_present | PASS | rows=36864 |
 | post_review_e1 | e1_figure4_panel_artifacts_present | PASS | panels={'graph_coloring': 'results/post_review_e1_cross_task_generalization/panels/graph_coloring_figure4_scalar_panels.png', 'sat_3sat': 'results/post_review_e1_cross_task_generalization/panels/sat_3sat_figure4_scalar_panels.png'} |

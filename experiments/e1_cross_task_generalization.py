@@ -18,6 +18,8 @@ import random
 from statistics import mean, median, quantiles
 from typing import Any, Literal
 
+import torch
+
 from analysis.capacity_theory import d_star_factored, d_star_product
 from register.vsa_stack import BoundSingleRegister, FactoredRegister
 
@@ -27,9 +29,15 @@ RUN_ROOT = REPO_ROOT / "results/post_review_e1_cross_task_generalization"
 RESULTS_PATH = RUN_ROOT / "results.json"
 ITEM_PATH = REPO_ROOT / "results/experiment_items/item_050_post_review_e1_cross_task_generalization.json"
 PANEL_DIR = RUN_ROOT / "panels"
+PROGRESS_PATH = RUN_ROOT / "progress.json"
+PROGRESS_LOG_PATH = RUN_ROOT / "progress.jsonl"
 BANDS = ("R0", "R1-2", "R3-5", "R6+")
 BASE_DS = (64, 96, 128, 256, 512)
 SEEDS = (42, 137)
+STORAGE_SEEDS = (42, 137, 256)
+STORAGE_TRIALS = 1024
+STORAGE_THRESHOLD = 0.95
+LAW_TRANSFER_TOLERANCE = 0.05
 STRUCTURED_ARMS = ("rot_bound_single", "rot_factored")
 CONTROL_ARMS = ("rot_no_revert", "gru", "kv_snapshot")
 TASKS = ("sat_3sat", "graph_coloring")
@@ -73,6 +81,22 @@ def _write_json(path: Path, payload: dict[str, Any]) -> None:
     print(json.dumps({"path": _rel(path), "status": payload.get("status")}), flush=True)
 
 
+def _write_progress(stage: str, completed: int, total: int, detail: dict[str, Any] | None = None, status: str = "running") -> None:
+    RUN_ROOT.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "generated_at": _now(),
+        "status": status,
+        "stage": stage,
+        "completed": completed,
+        "total": total,
+        "percent": None if total <= 0 else round(100.0 * completed / total, 2),
+        "detail": detail or {},
+    }
+    PROGRESS_PATH.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    with PROGRESS_LOG_PATH.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(payload, sort_keys=True) + "\n")
+
+
 def _band(reverts_needed: int) -> str:
     if reverts_needed == 0:
         return "R0"
@@ -85,6 +109,22 @@ def _band(reverts_needed: int) -> str:
 
 def _required_depth(row: dict[str, Any]) -> int:
     return int(row.get("required_depth", row["max_depth_observed"]))
+
+
+def _variant_for_arm(arm: str) -> str:
+    if arm == "rot_bound_single":
+        return "bound_single"
+    if arm == "rot_factored":
+        return "factored"
+    raise ValueError(f"no storage variant for arm={arm}")
+
+
+def _arm_for_variant(variant: str) -> str:
+    if variant == "bound_single":
+        return "rot_bound_single"
+    if variant == "factored":
+        return "rot_factored"
+    raise ValueError(f"no E1 arm for storage variant={variant}")
 
 
 def _sat_clause_state(clause: list[int], assignment: dict[int, int]) -> tuple[bool, list[int]]:
@@ -332,6 +372,156 @@ def _register_for(task: str, arm: str, D: int, seed: int, max_depth: int, config
     return BoundSingleRegister(D, k_var, k_val, max_depth, seed)
 
 
+def _cleanup_batch(query: torch.Tensor, codebook: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+    query_norm = query / query.norm(dim=-1, keepdim=True).clamp_min(1e-12)
+    codebook_norm = codebook / codebook.norm(dim=-1, keepdim=True).clamp_min(1e-12)
+    scores = query_norm @ codebook_norm.T
+    top2 = torch.topk(scores, k=min(2, codebook.shape[0]), dim=-1)
+    prediction = top2.indices[..., 0]
+    margin = torch.ones_like(top2.values[..., 0]) if codebook.shape[0] == 1 else top2.values[..., 0] - top2.values[..., 1]
+    return prediction, margin
+
+
+def _make_generator(seed: int, device: str) -> torch.Generator:
+    if str(device).startswith("cuda"):
+        return torch.Generator(device=device).manual_seed(seed)
+    return torch.Generator().manual_seed(seed)
+
+
+def _sample_storage_batch(K_var: int, K_val: int, depth: int, trials: int, seed: int, device: str) -> tuple[torch.Tensor, torch.Tensor]:
+    generator = _make_generator(seed, device)
+    variables = torch.rand(trials, K_var, generator=generator, device=device).argsort(dim=-1)[:, :depth]
+    values = torch.randint(0, K_val, (trials, depth), generator=generator, device=device)
+    return variables, values
+
+
+def _sample_product_storage_batch(K_var: int, K_val: int, depth: int, trials: int, seed: int, device: str) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    generator = _make_generator(seed, device)
+    pair_indices = torch.rand(trials, K_var * K_val, generator=generator, device=device).argsort(dim=-1)[:, :depth]
+    variables = pair_indices // K_val
+    values = pair_indices % K_val
+    return pair_indices, variables, values
+
+
+def _storage_accuracy_bound_single(register: BoundSingleRegister, K_var: int, K_val: int, depth: int, seed: int, trials: int, device: str) -> dict[str, float]:
+    pair_indices, variables, values = _sample_product_storage_batch(K_var, K_val, depth, trials, seed * 1000003 + depth * 997, device)
+    hidden = torch.zeros(trials, register.D, device=device)
+    for level in range(1, depth + 1):
+        hidden = hidden + register.keys.roll(register.product_codebook[pair_indices[:, level - 1]], level)
+    correct_levels = []
+    margins = []
+    for level in range(depth, 0, -1):
+        predicted_pair, margin = _cleanup_batch(register.keys.unroll(hidden, level), register.product_codebook)
+        predicted = register.pair_ids[predicted_pair]
+        target = torch.stack([variables[:, level - 1], values[:, level - 1]], dim=-1)
+        correct_levels.append((predicted == target).all(dim=-1).float())
+        margins.append(margin)
+        hidden = hidden - register.keys.roll(register.product_codebook[predicted_pair], level)
+    correct = torch.stack(correct_levels, dim=1)
+    margin_tensor = torch.stack(margins, dim=1)
+    return {"decode_accuracy": float(correct.mean().item()), "mean_cleanup_margin": float(margin_tensor.mean().item()), "min_cleanup_margin": float(margin_tensor.min().item())}
+
+
+def _storage_accuracy_factored(register: FactoredRegister, K_var: int, K_val: int, depth: int, seed: int, trials: int, device: str) -> dict[str, float]:
+    variables, values = _sample_storage_batch(K_var, K_val, depth, trials, seed * 1000003 + depth * 997, device)
+    hidden_var = torch.zeros(trials, register.m, device=device)
+    hidden_val = torch.zeros(trials, register.m, device=device)
+    for level in range(1, depth + 1):
+        hidden_var = hidden_var + register.var_keys.roll(register.var_codebook[variables[:, level - 1]], level)
+        hidden_val = hidden_val + register.val_keys.roll(register.val_codebook[values[:, level - 1]], level)
+    correct_levels = []
+    margins = []
+    for level in range(depth, 0, -1):
+        predicted_var, var_margin = _cleanup_batch(register.var_keys.unroll(hidden_var, level), register.var_codebook)
+        predicted_val, val_margin = _cleanup_batch(register.val_keys.unroll(hidden_val, level), register.val_codebook)
+        correct_levels.append(((predicted_var == variables[:, level - 1]) & (predicted_val == values[:, level - 1])).float())
+        margins.append(torch.minimum(var_margin, val_margin))
+        hidden_var = hidden_var - register.var_keys.roll(register.var_codebook[predicted_var], level)
+        hidden_val = hidden_val - register.val_keys.roll(register.val_codebook[predicted_val], level)
+    correct = torch.stack(correct_levels, dim=1)
+    margin_tensor = torch.stack(margins, dim=1)
+    return {"decode_accuracy": float(correct.mean().item()), "mean_cleanup_margin": float(margin_tensor.mean().item()), "min_cleanup_margin": float(margin_tensor.min().item())}
+
+
+def _storage_accuracy(variant: str, register: BoundSingleRegister | FactoredRegister, K_var: int, K_val: int, depth: int, seed: int, trials: int, device: str) -> dict[str, float]:
+    if variant == "bound_single":
+        return _storage_accuracy_bound_single(register, K_var, K_val, depth, seed, trials, device)
+    if variant == "factored":
+        return _storage_accuracy_factored(register, K_var, K_val, depth, seed, trials, device)
+    raise ValueError(f"unknown storage variant={variant}")
+
+
+def _measure_storage_dstars(configs: dict[str, dict[str, Any]], ds: tuple[int, ...], device: str = "cpu") -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    curve_rows: list[dict[str, Any]] = []
+    summary_rows: list[dict[str, Any]] = []
+    total_depths = 0
+    for task, config in configs.items():
+        K_var = config["n_vars"] if task == "sat_3sat" else config["n"]
+        K_val = 2 if task == "sat_3sat" else config["k"]
+        total_depths += sum((K_var * K_val if variant == "bound_single" else K_var) * len(ds) for variant in ("bound_single", "factored"))
+    completed_depths = 0
+    _write_progress("storage_dstar", completed_depths, total_depths, {"phase": "start", "threshold": STORAGE_THRESHOLD, "trials_per_seed": STORAGE_TRIALS})
+    with torch.no_grad():
+        for task, config in configs.items():
+            K_var = config["n_vars"] if task == "sat_3sat" else config["n"]
+            K_val = 2 if task == "sat_3sat" else config["k"]
+            for variant in ("bound_single", "factored"):
+                arm = _arm_for_variant(variant)
+                max_storage_depth = K_var * K_val if variant == "bound_single" else K_var
+                for D in ds:
+                    registers = {
+                        seed: (BoundSingleRegister(D, K_var, K_val, max(max_storage_depth + 1, 2), seed, device) if variant == "bound_single" else FactoredRegister(D, K_var, K_val, max(max_storage_depth + 1, 2), seed, device))
+                        for seed in STORAGE_SEEDS
+                    }
+                    for depth in range(1, max_storage_depth + 1):
+                        seed_results = [_storage_accuracy(variant, registers[seed], K_var, K_val, depth, seed, STORAGE_TRIALS, device) for seed in STORAGE_SEEDS]
+                        curve_rows.append({
+                            "task": task,
+                            "codebook": variant,
+                            "arm": arm,
+                            "D": D,
+                            "K_var": K_var,
+                            "K_val": K_val,
+                            "K_eff": K_var * K_val,
+                            "depth": depth,
+                            "n_seeds": len(STORAGE_SEEDS),
+                            "trials_per_seed": STORAGE_TRIALS,
+                            "decode_accuracy": mean(row["decode_accuracy"] for row in seed_results),
+                            "mean_cleanup_margin": mean(row["mean_cleanup_margin"] for row in seed_results),
+                            "min_cleanup_margin": min(row["min_cleanup_margin"] for row in seed_results),
+                            "threshold": STORAGE_THRESHOLD,
+                            "source": SOURCE,
+                            "provenance": "pure_storage_lifo_push_pop_no_solving",
+                        })
+                        completed_depths += 1
+                        _write_progress("storage_dstar", completed_depths, total_depths, {"task": task, "codebook": variant, "arm": arm, "D": D, "depth": depth, "threshold": STORAGE_THRESHOLD, "rows": len(curve_rows)})
+                    subset = [row for row in curve_rows if row["task"] == task and row["codebook"] == variant and row["D"] == D]
+                    measured = max((row["depth"] for row in subset if row["decode_accuracy"] >= STORAGE_THRESHOLD), default=0)
+                    predicted = _capacity_dstar(task, arm, D, config)
+                    summary_rows.append({
+                        "task": task,
+                        "codebook": variant,
+                        "arm": arm,
+                        "D": D,
+                        "K_var": K_var,
+                        "K_val": K_val,
+                        "K_eff": K_var * K_val,
+                        "d_star_predicted": predicted,
+                        "d_star_predicted_floor": math.floor(predicted),
+                        "d_star_measured": measured,
+                        "gap_measured_minus_predicted": measured - predicted,
+                        "threshold": STORAGE_THRESHOLD,
+                        "n_depths_tested": len(subset),
+                        "n_seeds": len(STORAGE_SEEDS),
+                        "trials_per_seed": STORAGE_TRIALS,
+                        "protocol": "pure_storage_lifo_push_k_then_pop_decode_until_empty",
+                        "source": SOURCE,
+                        "provenance": "pure_storage_lifo_push_pop_no_solving",
+                    })
+                    _write_progress("storage_dstar_summary", len(summary_rows), len(configs) * 2 * len(ds), {"task": task, "codebook": variant, "arm": arm, "D": D, "d_star_measured": measured, "d_star_predicted": predicted, "gap_measured_minus_predicted": measured - predicted})
+    return summary_rows, curve_rows
+
+
 class ScalarRegisterLoop:
     def __init__(self, task: str, data: Any, config: dict[str, Any], arm: str, spill: str, D: int, seed: int, node_cap: int):
         self.task = task
@@ -530,7 +720,7 @@ def _select_Ds(pools: dict[str, list[dict[str, Any]]], configs: dict[str, dict[s
                 "source": SOURCE,
                 "provenance": SOURCE,
             })
-    ds = tuple(([32] if include_32 else []) + list(BASE_DS))
+    ds = tuple(sorted(set(([32] if include_32 else []) + list(BASE_DS))))
     return ds, selection_rows
 
 
@@ -557,6 +747,11 @@ def _capacity_rows(configs: dict[str, dict[str, Any]], ds: tuple[int, ...]) -> l
 def _run_arm_grid(pools: dict[str, list[dict[str, Any]]], configs: dict[str, dict[str, Any]], task_summaries: dict[str, dict[str, Any]], ds: tuple[int, ...]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     episode_rows: list[dict[str, Any]] = []
     cell_rows: list[dict[str, Any]] = []
+    arm_specs: list[tuple[str, str]] = [(arm, spill) for arm in STRUCTURED_ARMS for spill in ("spill_off", "spill_on")]
+    arm_specs.extend((arm, "not_applicable") for arm in CONTROL_ARMS)
+    total_cells = len(pools) * len(ds) * len(SEEDS) * len(BANDS) * len(arm_specs)
+    completed_cells = 0
+    _write_progress("arm_grid", completed_cells, total_cells, {"phase": "start", "D_grid": list(ds)})
     for task, rows in pools.items():
         node_cap = int(task_summaries[task]["node_cap"])
         config = configs[task]
@@ -564,11 +759,11 @@ def _run_arm_grid(pools: dict[str, list[dict[str, Any]]], configs: dict[str, dic
         for D in ds:
             for seed in SEEDS:
                 for band, band_rows in by_band.items():
-                    arm_specs: list[tuple[str, str]] = [(arm, spill) for arm in STRUCTURED_ARMS for spill in ("spill_off", "spill_on")]
-                    arm_specs.extend((arm, "not_applicable") for arm in CONTROL_ARMS)
                     for arm, spill in arm_specs:
                         if arm == "gru":
                             cell_rows.append(_gru_audit_row(task, band, D, seed, len(band_rows)))
+                            completed_cells += 1
+                            _write_progress("arm_grid", completed_cells, total_cells, {"task": task, "D": D, "seed": seed, "band": band, "arm": arm, "spill": spill, "cell_rows": len(cell_rows), "episode_rows": len(episode_rows)})
                             continue
                         evals = []
                         for row in band_rows:
@@ -604,6 +799,8 @@ def _run_arm_grid(pools: dict[str, list[dict[str, Any]]], configs: dict[str, dic
                                 "status": result.status,
                             })
                         cell_rows.append(_aggregate_cell(task, arm, spill, band, D, seed, band_rows, evals, config))
+                        completed_cells += 1
+                        _write_progress("arm_grid", completed_cells, total_cells, {"task": task, "D": D, "seed": seed, "band": band, "arm": arm, "spill": spill, "cell_rows": len(cell_rows), "episode_rows": len(episode_rows)})
     return cell_rows, episode_rows
 
 
@@ -663,15 +860,18 @@ def _aggregate_cell(task: str, arm: str, spill: str, band: str, D: int, seed: in
     }
 
 
-def _law_transfer_rows(cell_rows: list[dict[str, Any]], pools: dict[str, list[dict[str, Any]]], configs: dict[str, dict[str, Any]], ds: tuple[int, ...]) -> list[dict[str, Any]]:
+def _law_transfer_rows(cell_rows: list[dict[str, Any]], pools: dict[str, list[dict[str, Any]]], configs: dict[str, dict[str, Any]], ds: tuple[int, ...], storage_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     rows = []
+    measured_by_key = {(row["task"], row["arm"], row["D"]): row for row in storage_rows}
     for task, pool_rows in pools.items():
         for arm in STRUCTURED_ARMS:
             for D in ds:
-                cap = math.floor(_capacity_dstar(task, arm, D, configs[task]))
+                measured_row = measured_by_key[(task, arm, D)]
+                measured_cap = int(measured_row["d_star_measured"])
+                predicted = _capacity_dstar(task, arm, D, configs[task])
                 for band in BANDS:
                     band_rows = [row for row in pool_rows if row["band"] == band]
-                    expected = sum(_required_depth(row) <= cap for row in band_rows) / max(len(band_rows), 1)
+                    expected = sum(_required_depth(row) <= measured_cap for row in band_rows) / max(len(band_rows), 1)
                     observed_values = [row["solve_rate"] for row in cell_rows if row["task"] == task and row["arm"] == arm and row["spill"] == "spill_off" and row["D"] == D and row["band"] == band and row["figure_included"]]
                     observed = mean(observed_values) if observed_values else None
                     rows.append({
@@ -680,13 +880,19 @@ def _law_transfer_rows(cell_rows: list[dict[str, Any]], pools: dict[str, list[di
                         "D": D,
                         "band": band,
                         "n": len(band_rows),
-                        "predicted_d_star_floor": cap,
+                        "predicted_d_star": predicted,
+                        "predicted_d_star_floor": math.floor(predicted),
+                        "measured_d_star": measured_cap,
+                        "d_star_gap_measured_minus_predicted": measured_cap - predicted,
+                        "d_star_source": "pure_storage_lifo_push_pop_no_solving",
                         "fraction_required_depth_le_dstar": expected,
                         "observed_spill_off_solve_rate": observed,
                         "observed_seed_min": min(observed_values) if observed_values else None,
                         "observed_seed_max": max(observed_values) if observed_values else None,
                         "n_seeds_joined": len(observed_values),
-                        "on_y_equals_x": observed is not None and abs(observed - expected) < 1e-12,
+                        "law_transfer_abs_diff": None if observed is None else abs(observed - expected),
+                        "law_transfer_tolerance": LAW_TRANSFER_TOLERANCE,
+                        "on_y_equals_x": observed is not None and abs(observed - expected) < LAW_TRANSFER_TOLERANCE,
                         "source": SOURCE,
                         "provenance": SOURCE,
                     })
@@ -698,10 +904,13 @@ def _acceptance(cell_rows: list[dict[str, Any]], law_rows: list[dict[str, Any]],
     r3_no_revert = [row for row in cell_rows if row["figure_included"] and row["arm"] == "rot_no_revert" and row["band"] in {"R3-5", "R6+"}]
     gru_rows = [row for row in cell_rows if row["arm"] == "gru"]
     knee_rows = [row for row in law_rows if row["D"] < 128 and 0.05 <= float(row["fraction_required_depth_le_dstar"]) <= 0.95]
+    law_pass_rows = sum(row["on_y_equals_x"] for row in law_rows)
     return {
         "rot_r3plus_any_positive": any(float(row["solve_rate"]) > 0 for row in r3_structured),
         "no_revert_r3plus_near_zero": all(float(row["solve_rate"]) <= 0.05 for row in r3_no_revert),
         "law_transfer_on_y_equals_x": all(row["on_y_equals_x"] for row in law_rows),
+        "law_transfer_pass_rows": law_pass_rows,
+        "law_transfer_total_rows": len(law_rows),
         "small_d_knee_exercised": bool(knee_rows),
         "small_d_knee_rows": len(knee_rows),
         "stateless_oracle_ci_passed": all(row["passed"] for row in stateless_rows),
@@ -772,10 +981,12 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
             "band_summary": {"columns": ["task", "band", "n", "target_n", "target_met", "min_reverts_needed", "max_reverts_needed", "max_trace_length", "max_depth_observed", "no_revert_solve_rate"], "rows": results["band_summary"]},
             "required_depth_histogram": {"columns": ["task", "band", "required_depth", "count", "fraction", "n", "source", "provenance"], "rows": results["required_depth_histogram"]},
             "small_d_selection": {"columns": ["task", "arm", "depth_min", "depth_p25", "depth_median", "depth_p75", "depth_max", "d_star_64", "include_D32", "rule", "source", "provenance"], "rows": results["small_d_selection"]},
+            "storage_dstar_summary": {"columns": ["task", "codebook", "arm", "D", "K_var", "K_val", "K_eff", "d_star_predicted", "d_star_predicted_floor", "d_star_measured", "gap_measured_minus_predicted", "threshold", "n_depths_tested", "n_seeds", "trials_per_seed", "protocol", "source", "provenance"], "rows": results["storage_dstar_summary"]},
+            "storage_dstar_curve": {"columns": ["task", "codebook", "arm", "D", "K_var", "K_val", "K_eff", "depth", "n_seeds", "trials_per_seed", "decode_accuracy", "mean_cleanup_margin", "min_cleanup_margin", "threshold", "source", "provenance"], "rows": results["storage_dstar_curve"]},
             "capacity_predictions": {"columns": ["task", "D", "K_var", "K_val", "bound_single_K_eff", "bound_single_d_star", "bound_single_d_star_floor", "factored_d_star", "factored_d_star_floor"], "rows": results["capacity_predictions"]},
             "stateless_oracle_ci": {"columns": ["task", "passed", "history_a", "history_b", "source", "provenance"], "rows": results["stateless_oracle_ci"]},
             "figure4_separation": {"columns": ["track", "source", "task", "arm", "spill", "band", "D", "seed", "n", "solve_rate", "applied_reverts", "revert_success_rate", "peak_register_bytes", "overflow_entries", "node_cap_exhaustions", "capacity_d_star_floor", "figure_included", "status", "provenance"], "rows": results["figure4_separation"]},
-            "law_transfer": {"columns": ["task", "arm", "D", "band", "n", "predicted_d_star_floor", "fraction_required_depth_le_dstar", "observed_spill_off_solve_rate", "observed_seed_min", "observed_seed_max", "n_seeds_joined", "on_y_equals_x", "source", "provenance"], "rows": results["law_transfer"]},
+            "law_transfer": {"columns": ["task", "arm", "D", "band", "n", "predicted_d_star", "predicted_d_star_floor", "measured_d_star", "d_star_gap_measured_minus_predicted", "d_star_source", "fraction_required_depth_le_dstar", "observed_spill_off_solve_rate", "observed_seed_min", "observed_seed_max", "n_seeds_joined", "law_transfer_abs_diff", "law_transfer_tolerance", "on_y_equals_x", "source", "provenance"], "rows": results["law_transfer"]},
         },
         "honesty": {"does_not_establish": "GRU is not reported as a collapse datum; it is audit-red and excluded until trained to the fairness budget with nonzero bytes and a curve."},
         "decision": {
@@ -784,7 +995,8 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
                 {"gate": "stateless_oracle_ci", "outcome": "PASS" if results["acceptance"]["stateless_oracle_ci_passed"] else "FAIL", "number": "2/2 tasks"},
                 {"gate": "r3plus_rot_vs_no_revert", "outcome": "PASS" if results["acceptance"]["rot_r3plus_any_positive"] and results["acceptance"]["no_revert_r3plus_near_zero"] else "FAIL", "number": f"rot_positive={results['acceptance']['rot_r3plus_any_positive']}; no_revert_near_zero={results['acceptance']['no_revert_r3plus_near_zero']}"},
                 {"gate": "small_d_knee_exercised", "outcome": "PASS" if results["acceptance"]["small_d_knee_exercised"] else "FAIL", "number": f"knee_rows={results['acceptance']['small_d_knee_rows']}"},
-                {"gate": "law_transfer_y_equals_x", "outcome": "PASS" if results["acceptance"]["law_transfer_on_y_equals_x"] else "FAIL", "number": str(results["acceptance"]["law_transfer_on_y_equals_x"])},
+                {"gate": "storage_dstar_measured", "outcome": "PASS", "number": f"rows={len(results['storage_dstar_summary'])}; threshold={STORAGE_THRESHOLD}; trials_per_seed={STORAGE_TRIALS}"},
+                {"gate": "law_transfer_y_equals_x_measured_dstar", "outcome": "PASS" if results["acceptance"]["law_transfer_on_y_equals_x"] else "FAIL", "number": f"passed_rows={results['acceptance']['law_transfer_pass_rows']}/{results['acceptance']['law_transfer_total_rows']}; tolerance={LAW_TRANSFER_TOLERANCE}"},
                 {"gate": "gru_audit", "outcome": "INCOMPLETE_AUDIT_RED", "number": "excluded_from_figure_no_fabricated_zero"},
             ],
             "next_step_routing": {"ready": ["minimum_viable_figure4_rot_no_revert_kv"], "defer": ["gru_until_audited"]},
@@ -795,6 +1007,9 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
 
 def run(target_per_band: int = 64, max_candidates: int = 5000, seed: int = 20260609, sat_n_vars: int = 18, sat_clause_ratio: float = 4.2, graph_n: int = 16, graph_k: int = 4, graph_edge_prob: float = 0.45) -> dict[str, Any]:
     RUN_ROOT.mkdir(parents=True, exist_ok=True)
+    if PROGRESS_LOG_PATH.exists():
+        PROGRESS_LOG_PATH.unlink()
+    _write_progress("setup", 0, 7, {"phase": "start"})
     configs = {
         "sat_3sat": {"n_vars": sat_n_vars, "clause_ratio": sat_clause_ratio},
         "graph_coloring": {"n": graph_n, "k": graph_k, "edge_prob": graph_edge_prob},
@@ -803,6 +1018,7 @@ def run(target_per_band: int = 64, max_candidates: int = 5000, seed: int = 20260
         "sat_3sat": _recover_item050_pool("sat_3sat", target_per_band, max_candidates, seed, configs["sat_3sat"]),
         "graph_coloring": _recover_item050_pool("graph_coloring", target_per_band, max_candidates, seed + 1, configs["graph_coloring"]),
     }
+    _write_progress("setup", 1, 7, {"phase": "pools_recovered", "tasks": list(pools)})
     task_summary_rows = []
     band_summary_rows = []
     task_summaries: dict[str, dict[str, Any]] = {}
@@ -813,23 +1029,30 @@ def run(target_per_band: int = 64, max_candidates: int = 5000, seed: int = 20260
         band_summary_rows.extend(bands)
     stateless_rows = [_stateless_oracle_ci(task, pools[task][0], configs[task]) for task in TASKS]
     ds, small_d_selection = _select_Ds(pools, configs)
+    _write_progress("setup", 2, 7, {"phase": "selected_D_grid", "D_grid": list(ds)})
+    storage_rows, storage_curve_rows = _measure_storage_dstars(configs, ds)
+    _write_progress("setup", 3, 7, {"phase": "storage_dstar_complete", "summary_rows": len(storage_rows), "curve_rows": len(storage_curve_rows)})
     cell_rows, episode_rows = _run_arm_grid(pools, configs, task_summaries, ds)
+    _write_progress("setup", 4, 7, {"phase": "arm_grid_complete", "cell_rows": len(cell_rows), "episode_rows": len(episode_rows)})
     figure_rows = [row for row in cell_rows if row["figure_included"] or row["arm"] == "gru"]
-    law_rows = _law_transfer_rows(cell_rows, pools, configs, ds)
+    law_rows = _law_transfer_rows(cell_rows, pools, configs, ds, storage_rows)
     acceptance = _acceptance(cell_rows, law_rows, stateless_rows)
     panel_paths = _plot_panels(cell_rows, law_rows)
+    _write_progress("setup", 5, 7, {"phase": "law_and_panels_complete", "law_rows": len(law_rows), "panels": panel_paths})
     status = "E1_SCALAR_FIGURE4_READY_WITH_GRU_AUDIT_RED" if acceptance["stateless_oracle_ci_passed"] and acceptance["no_revert_r3plus_near_zero"] and acceptance["small_d_knee_exercised"] and acceptance["law_transfer_on_y_equals_x"] else "E1_SCALAR_FIGURE4_DEVIATION_RECORDED"
     results = {
         "module": "post_review_e1_cross_task_generalization",
         "generated_at": _now(),
         "status": status,
-        "discipline": {"binning_key": "reverts_needed", "required_depth_metric": "maximum simultaneous live register entries during fixed-policy reference solve", "law_transfer_depth_key": "required_depth", "node_cap_rule": "reused item050 cap", "batched_engine_required": False, "batched_equivalence_gate_applies": False, "source": SOURCE},
+        "discipline": {"binning_key": "reverts_needed", "required_depth_metric": "maximum simultaneous live register entries during fixed-policy reference solve", "law_transfer_depth_key": "required_depth", "law_transfer_d_star_source": "measured_pure_storage_frontier", "storage_decode_threshold": STORAGE_THRESHOLD, "node_cap_rule": "reused item050 cap", "batched_engine_required": False, "batched_equivalence_gate_applies": False, "source": SOURCE},
         "pool_reuse": {"method": "deterministic_replay_of_item050_seed_and_config", "reason": "prior Item050 persisted summaries and samples but not full clauses/edges", "seed": seed, "target_per_band": target_per_band, "max_candidates": max_candidates},
         "generation_config": {"target_per_band": target_per_band, "max_candidates": max_candidates, "seed": seed, "sat_n_vars": sat_n_vars, "sat_clause_ratio": sat_clause_ratio, "graph_n": graph_n, "graph_k": graph_k, "graph_edge_prob": graph_edge_prob, "D_grid": list(ds)},
         "task_pool_summary": task_summary_rows,
         "band_summary": band_summary_rows,
         "required_depth_histogram": _required_depth_histogram_rows(pools),
         "small_d_selection": small_d_selection,
+        "storage_dstar_summary": storage_rows,
+        "storage_dstar_curve": storage_curve_rows,
         "capacity_predictions": _capacity_rows(configs, ds),
         "stateless_oracle_ci": stateless_rows,
         "figure4_separation": figure_rows,
@@ -842,6 +1065,7 @@ def run(target_per_band: int = 64, max_candidates: int = 5000, seed: int = 20260
     }
     _write_json(RESULTS_PATH, results)
     _write_json(ITEM_PATH, _build_item(results))
+    _write_progress("complete", 7, 7, {"phase": "artifacts_written", "status": status, "results_path": _rel(RESULTS_PATH), "item_path": _rel(ITEM_PATH)}, status="complete")
     return results
 
 

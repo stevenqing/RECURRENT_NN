@@ -570,6 +570,7 @@ def _post_review_e1_checks(checks: list[dict[str, Any]]) -> None:
         gate_map = {row.get("gate"): row.get("outcome") for row in gates}
         _check(checks, gate_map.get("stateless_oracle_ci") == "PASS", "item050_stateless_gate_pass", f"gates={gate_map}", "post_review_e1")
         _check(checks, gate_map.get("small_d_knee_exercised") == "PASS", "item050_small_d_knee_gate_pass", f"gates={gate_map}", "post_review_e1")
+        _check(checks, gate_map.get("storage_dstar_measured") == "PASS", "item050_storage_dstar_gate_pass", f"gates={gate_map}", "post_review_e1")
         _check(checks, gate_map.get("gru_audit") == "INCOMPLETE_AUDIT_RED", "item050_gru_audit_red_gate", f"gates={gate_map}", "post_review_e1")
         if item.get("status") == "E1_SCALAR_FIGURE4_DEVIATION_RECORDED":
             _check(checks, "FAIL" in gate_map.values(), "item050_deviation_gate_recorded", f"gates={gate_map}", "post_review_e1")
@@ -584,10 +585,13 @@ def _post_review_e1_checks(checks: list[dict[str, Any]]) -> None:
         episode_rows = results.get("episode_records", [])
         depth_hist_rows = results.get("required_depth_histogram", [])
         small_d_selection = results.get("small_d_selection", [])
+        storage_rows = results.get("storage_dstar_summary", [])
+        storage_curve_rows = results.get("storage_dstar_curve", [])
         d_grid = results.get("generation_config", {}).get("D_grid", [])
         acceptance = results.get("acceptance", {})
         _check(checks, discipline.get("binning_key") == "reverts_needed", "e1_bins_by_reverts_needed", f"binning_key={discipline.get('binning_key')}", "post_review_e1")
         _check(checks, discipline.get("law_transfer_depth_key") == "required_depth", "e1_law_uses_required_depth", f"law_transfer_depth_key={discipline.get('law_transfer_depth_key')}", "post_review_e1")
+        _check(checks, discipline.get("law_transfer_d_star_source") == "measured_pure_storage_frontier", "e1_law_uses_measured_dstar", f"law_transfer_d_star_source={discipline.get('law_transfer_d_star_source')}", "post_review_e1")
         _check(checks, status in allowed_statuses, "e1_scalar_status", f"status={status}", "post_review_e1")
         _check(checks, discipline.get("source") == "autonomous_stage_a_run", "e1_autonomous_source", f"source={discipline.get('source')}", "post_review_e1")
         _check(checks, discipline.get("batched_engine_required") is False, "e1_no_batched_engine_required", f"batched_engine_required={discipline.get('batched_engine_required')}", "post_review_e1")
@@ -603,6 +607,10 @@ def _post_review_e1_checks(checks: list[dict[str, Any]]) -> None:
         _check(checks, band_keys_ok, "e1_band_rows_revert_metrics_present", f"rows={len(band_rows)}", "post_review_e1")
         hist_tasks = {(row.get("task"), row.get("band")) for row in depth_hist_rows}
         _check(checks, bool(depth_hist_rows) and hist_tasks == {(task, band) for task in {"sat_3sat", "graph_coloring"} for band in {"R0", "R1-2", "R3-5", "R6+"}}, "e1_required_depth_histogram_present", f"rows={len(depth_hist_rows)}", "post_review_e1")
+        storage_keys = {(row.get("task"), row.get("codebook"), row.get("D")) for row in storage_rows}
+        expected_storage_keys = {(task, codebook, D) for task in {"sat_3sat", "graph_coloring"} for codebook in {"bound_single", "factored"} for D in {32, 64, 96, 128, 256, 512}}
+        _check(checks, storage_keys == expected_storage_keys and all(row.get("d_star_measured") is not None and row.get("threshold") == 0.95 for row in storage_rows), "e1_storage_dstar_summary_complete", f"rows={len(storage_rows)}", "post_review_e1")
+        _check(checks, bool(storage_curve_rows) and all(row.get("provenance") == "pure_storage_lifo_push_pop_no_solving" for row in storage_curve_rows[:25]), "e1_storage_curve_no_solving_provenance", f"rows={len(storage_curve_rows)}", "post_review_e1")
         arms = {row.get("arm") for row in figure_rows}
         _check(checks, {"rot_bound_single", "rot_factored", "rot_no_revert", "kv_snapshot", "gru"}.issubset(arms), "e1_figure4_arm_rows_present", f"arms={sorted(arms)}", "post_review_e1")
         _check(checks, bool(figure_rows) and all(row.get("source") == "autonomous_stage_a_run" and row.get("provenance") == "autonomous_stage_a_run" for row in figure_rows), "e1_figure4_rows_sourced", f"rows={len(figure_rows)}", "post_review_e1")
@@ -610,6 +618,9 @@ def _post_review_e1_checks(checks: list[dict[str, Any]]) -> None:
         _check(checks, bool(gru_rows) and all(row.get("status") == "INCOMPLETE_AUDIT_RED" and row.get("figure_included") is False and row.get("solve_rate") is None for row in gru_rows), "e1_gru_audit_red_excluded", f"rows={len(gru_rows)}", "post_review_e1")
         _check(checks, bool(law_rows) and all(row.get("source") == "autonomous_stage_a_run" and row.get("provenance") == "autonomous_stage_a_run" for row in law_rows), "e1_law_rows_sourced", f"rows={len(law_rows)}", "post_review_e1")
         _check(checks, bool(law_rows) and all(row.get("observed_spill_off_solve_rate") is not None and row.get("n_seeds_joined") == 2 for row in law_rows), "e1_law_seed_join_fixed", f"rows={len(law_rows)}", "post_review_e1")
+        _check(checks, bool(law_rows) and all(row.get("d_star_source") == "pure_storage_lifo_push_pop_no_solving" and row.get("measured_d_star") is not None and row.get("law_transfer_tolerance") == 0.05 for row in law_rows), "e1_law_uses_storage_dstar_rows", f"rows={len(law_rows)}", "post_review_e1")
+        law_strict_tolerance = bool(law_rows) and all(row.get("on_y_equals_x") == (row.get("law_transfer_abs_diff") is not None and float(row.get("law_transfer_abs_diff")) < 0.05) for row in law_rows)
+        _check(checks, law_strict_tolerance, "e1_law_transfer_strict_tolerance", f"rows={len(law_rows)}", "post_review_e1")
         small_d_knee_rows = [row for row in law_rows if row.get("D", 999) < 128 and 0.05 <= float(row.get("fraction_required_depth_le_dstar", 0.0)) <= 0.95]
         _check(checks, bool(small_d_knee_rows) and acceptance.get("small_d_knee_exercised") is True, "e1_small_d_knee_exercised", f"rows={len(small_d_knee_rows)}", "post_review_e1")
         law_ready = bool(law_rows) and all(row.get("on_y_equals_x") is True for row in law_rows)
