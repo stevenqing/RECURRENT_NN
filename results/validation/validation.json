@@ -1393,7 +1393,7 @@
       "tier": "contract"
     },
     {
-      "detail": "gates=6; routing={'defer': ['gru_until_audited'], 'ready': ['minimum_viable_figure4_rot_no_revert_kv']}",
+      "detail": "gates=7; routing={'defer': ['gru_until_audited'], 'ready': ['minimum_viable_figure4_rot_no_revert_kv']}",
       "name": "log_item_050_decision_numbers_and_routing",
       "status": "PASS",
       "tier": "contract"
@@ -1753,31 +1753,31 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'}",
+      "detail": "gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'live_load_path_b_predictor': 'RECORDED', 'gru_audit': 'INCOMPLETE_AUDIT_RED'}",
       "name": "item050_stateless_gate_pass",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'}",
+      "detail": "gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'live_load_path_b_predictor': 'RECORDED', 'gru_audit': 'INCOMPLETE_AUDIT_RED'}",
       "name": "item050_small_d_knee_gate_pass",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'}",
+      "detail": "gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'live_load_path_b_predictor': 'RECORDED', 'gru_audit': 'INCOMPLETE_AUDIT_RED'}",
       "name": "item050_storage_dstar_gate_pass",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'}",
+      "detail": "gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'live_load_path_b_predictor': 'RECORDED', 'gru_audit': 'INCOMPLETE_AUDIT_RED'}",
       "name": "item050_gru_audit_red_gate",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'}",
+      "detail": "gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'live_load_path_b_predictor': 'RECORDED', 'gru_audit': 'INCOMPLETE_AUDIT_RED'}",
       "name": "item050_deviation_gate_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -1927,6 +1927,42 @@
       "tier": "post_review_e1"
     },
     {
+      "detail": "keys=['D_peak', 'D_pop', 'D_readpop']",
+      "name": "e1_path_b_depth_keys_recorded",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "rows=512",
+      "name": "e1_live_load_predictors_present",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "rows=288",
+      "name": "e1_live_load_law_transfer_present",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "best={'is_best_by_mean_abs_diff': True, 'law_transfer_tolerance': 0.05, 'max_abs_diff': 1.0, 'mean_abs_diff': 0.13834635416666666, 'pass_rate': 0.6145833333333334, 'pass_rows': 59, 'predictor': 'D_pop', 'provenance': 'candidate_live_load_predictor_summary_against_observed_spill_off_solve_rate', 'scope': 'e1_sat_graph', 'source': 'autonomous_stage_a_run', 'total_rows': 96}; acceptance=D_pop",
+      "name": "e1_path_b_dpop_winner",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "rows=256",
+      "name": "e1_sudoku_live_load_predictors_recorded",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "rows=72; summary=[{'is_best_by_mean_abs_diff': False, 'law_transfer_tolerance': 0.05, 'max_abs_diff': 0.0, 'mean_abs_diff': 0.0, 'pass_rate': 1.0, 'pass_rows': 24, 'predictor': 'D_peak', 'provenance': 'candidate_live_load_predictor_summary_against_observed_spill_off_solve_rate', 'scope': 'sudoku_item047', 'source': 'autonomous_stage_a_run', 'total_rows': 24}, {'is_best_by_mean_abs_diff': True, 'law_transfer_tolerance': 0.05, 'max_abs_diff': 0.0, 'mean_abs_diff': 0.0, 'pass_rate': 1.0, 'pass_rows': 24, 'predictor': 'D_pop', 'provenance': 'candidate_live_load_predictor_summary_against_observed_spill_off_solve_rate', 'scope': 'sudoku_item047', 'source': 'autonomous_stage_a_run', 'total_rows': 24}, {'is_best_by_mean_abs_diff': False, 'law_transfer_tolerance': 0.05, 'max_abs_diff': 0.0, 'mean_abs_diff': 0.0, 'pass_rate': 1.0, 'pass_rows': 24, 'predictor': 'D_readpop', 'provenance': 'candidate_live_load_predictor_summary_against_observed_spill_off_solve_rate', 'scope': 'sudoku_item047', 'source': 'autonomous_stage_a_run', 'total_rows': 24}]",
+      "name": "e1_sudoku_live_load_confirmation_present",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
       "detail": "rows=21",
       "name": "e1_small_d_knee_exercised",
       "status": "PASS",
@@ -1993,11 +2029,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-09T08:57:31.155602+00:00",
+  "generated_at": "2026-06-09T09:43:36.229511+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 332,
+    "n_checks": 338,
     "n_fail": 3,
-    "n_pass": 329
+    "n_pass": 335
   }
 }

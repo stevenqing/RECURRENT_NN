@@ -22,6 +22,8 @@ import torch
 
 from analysis.capacity_theory import d_star_factored, d_star_product
 from register.vsa_stack import BoundSingleRegister, FactoredRegister
+from tasks.oracle.dpll_oracle import DPLLOracle, TraceAction
+from tasks.sudoku.generator_9x9 import constraints_9x9
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -31,6 +33,10 @@ ITEM_PATH = REPO_ROOT / "results/experiment_items/item_050_post_review_e1_cross_
 PANEL_DIR = RUN_ROOT / "panels"
 PROGRESS_PATH = RUN_ROOT / "progress.json"
 PROGRESS_LOG_PATH = RUN_ROOT / "progress.jsonl"
+SUDOKU_POOL_PATH = REPO_ROOT / "results/overnight_047_headline_preregistered/line1_headline/reverts_needed_pool.json"
+SUDOKU_HEADLINE_PATH = REPO_ROOT / "results/overnight_047_headline_preregistered/line1_headline/line1_headline.json"
+SUDOKU_LIVE_LOAD_TIMEOUT_SECONDS = 3
+SUDOKU_LIVE_LOAD_PRESCREEN_MAX_NODES = 0
 BANDS = ("R0", "R1-2", "R3-5", "R6+")
 BASE_DS = (64, 96, 128, 256, 512)
 SEEDS = (42, 137)
@@ -53,6 +59,10 @@ class SolveResult:
     nodes_visited: int
     max_depth: int
     contradictions: int
+    live_load_events: list[dict[str, Any]]
+    d_peak: int
+    d_pop: int
+    d_readpop: int
 
 
 @dataclass(frozen=True)
@@ -109,6 +119,25 @@ def _band(reverts_needed: int) -> str:
 
 def _required_depth(row: dict[str, Any]) -> int:
     return int(row.get("required_depth", row["max_depth_observed"]))
+
+
+def _live_load_predictors(events: list[dict[str, Any]], fallback_peak: int = 0) -> dict[str, int]:
+    peak = max((int(event["live_load_before"]) for event in events), default=int(fallback_peak))
+    pop = max((int(event["live_load_before"]) for event in events if event["op"] == "pop"), default=0)
+    readpop = max((int(event["live_load_before"]) for event in events if event["op"] == "pop" and event.get("read_consumed_for_next_branch") is True), default=0)
+    return {"D_peak": max(peak, int(fallback_peak)), "D_pop": pop, "D_readpop": readpop}
+
+
+def _predictor_value(row: dict[str, Any], predictor: str) -> int:
+    if predictor == "D_peak":
+        if "D_peak" in row:
+            return int(row["D_peak"])
+        return _required_depth(row)
+    if predictor == "D_pop":
+        return int(row.get("D_pop", 0))
+    if predictor == "D_readpop":
+        return int(row.get("D_readpop", row.get("D_pop", 0)))
+    raise ValueError(f"unknown predictor={predictor}")
 
 
 def _variant_for_arm(arm: str) -> str:
@@ -241,7 +270,18 @@ def _oracle_ops(task: str, data: Any, config: dict[str, Any], assignment: dict[i
 
 
 def _solve_reference(task: str, data: Any, config: dict[str, Any], node_cap: int | None = None) -> SolveResult:
+    events: list[dict[str, Any]] = []
     stats = {"reverts": 0, "trace": 0, "nodes": 0, "max_depth": 0, "contradictions": 0}
+
+    def record(op: str, live_load_before: int, var: int | None = None, value: int | None = None, read_consumed: bool = False) -> None:
+        events.append({
+            "event_index": len(events),
+            "op": op,
+            "live_load_before": int(live_load_before),
+            "var": var,
+            "value": value,
+            "read_consumed_for_next_branch": read_consumed,
+        })
 
     def dfs(assignment: dict[int, int], depth: int) -> tuple[bool, dict[int, int]]:
         stats["nodes"] += 1
@@ -255,20 +295,24 @@ def _solve_reference(task: str, data: Any, config: dict[str, Any], node_cap: int
             stats["contradictions"] += 1
             return False, current
         if state == "SOLVED":
+            record("solve", depth)
             return True, current
         if choice is None:
             return False, current
         var, values = choice
         for value in values:
+            record("push", depth, var, value)
             solved, final = dfs({**current, var: value}, depth + 1)
             if solved:
                 return True, final
             stats["reverts"] += 1
             stats["trace"] += 1
+            record("pop", depth + 1, var, value, True)
         return False, current
 
     solved, assignment = dfs({}, 0)
-    return SolveResult(solved, assignment if solved else {}, stats["reverts"], stats["trace"], stats["nodes"], stats["max_depth"], stats["contradictions"])
+    predictors = _live_load_predictors(events, stats["max_depth"])
+    return SolveResult(solved, assignment if solved else {}, stats["reverts"], stats["trace"], stats["nodes"], stats["max_depth"], stats["contradictions"], events, predictors["D_peak"], predictors["D_pop"], predictors["D_readpop"])
 
 
 def _random_sat(n_vars: int, ratio: float, rng: random.Random) -> list[list[int]]:
@@ -314,6 +358,10 @@ def _recover_item050_pool(task: str, target: int, max_candidates: int, seed: int
             "nodes_visited": reference.nodes_visited,
             "required_depth": reference.max_depth,
             "max_depth_observed": reference.max_depth,
+            "D_peak": reference.d_peak,
+            "D_pop": reference.d_pop,
+            "D_readpop": reference.d_readpop,
+            "reference_live_load_events": reference.live_load_events,
             "contradiction_count": reference.contradictions,
             "no_revert_solved": no_revert.solved,
             **_task_detail(task, data, config),
@@ -337,13 +385,13 @@ def _run_no_revert(task: str, data: Any, config: dict[str, Any]) -> SolveResult:
         state, current, choice, forced = _oracle_ops(task, data, config, assignment)
         stats["trace"] += forced
         if state == "SOLVED":
-            return SolveResult(True, current, 0, stats["trace"], stats["nodes"], stats["max_depth"], stats["contradictions"])
+            return SolveResult(True, current, 0, stats["trace"], stats["nodes"], stats["max_depth"], stats["contradictions"], [], stats["max_depth"], 0, 0)
         if state == "CONTRADICTION" or choice is None:
             stats["contradictions"] += int(state == "CONTRADICTION")
-            return SolveResult(False, {}, 0, stats["trace"], stats["nodes"], stats["max_depth"], stats["contradictions"])
+            return SolveResult(False, {}, 0, stats["trace"], stats["nodes"], stats["max_depth"], stats["contradictions"], [], stats["max_depth"], 0, 0)
         var, values = choice
         assignment = {**current, var: values[0]}
-    return SolveResult(False, {}, 0, stats["trace"], stats["nodes"], stats["max_depth"], stats["contradictions"])
+    return SolveResult(False, {}, 0, stats["trace"], stats["nodes"], stats["max_depth"], stats["contradictions"], [], stats["max_depth"], 0, 0)
 
 
 def _capacity_dstar(task: str, arm: str, D: int, config: dict[str, Any]) -> float:
@@ -696,6 +744,53 @@ def _required_depth_histogram_rows(pools: dict[str, list[dict[str, Any]]]) -> li
     return rows
 
 
+def _reference_live_load_event_rows(pools: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
+    rows = []
+    for task, pool_rows in pools.items():
+        for pool_row in pool_rows:
+            for event in pool_row.get("reference_live_load_events", []):
+                rows.append({
+                    "task": task,
+                    "instance_index": pool_row["instance_index"],
+                    "band": pool_row["band"],
+                    "reverts_needed": pool_row["reverts_needed"],
+                    "event_index": event["event_index"],
+                    "op": event["op"],
+                    "live_load_before": event["live_load_before"],
+                    "var": event.get("var"),
+                    "value": event.get("value"),
+                    "read_consumed_for_next_branch": event.get("read_consumed_for_next_branch", False),
+                    "source": SOURCE,
+                    "provenance": "reference_solve_live_load_trajectory_no_register_arm_outcome",
+                })
+    return rows
+
+
+def _live_load_predictor_rows(pools: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
+    rows = []
+    for task, pool_rows in pools.items():
+        for row in pool_rows:
+            event_counts: dict[str, int] = {"push": 0, "pop": 0, "solve": 0}
+            for event in row.get("reference_live_load_events", []):
+                event_counts[event["op"]] = event_counts.get(event["op"], 0) + 1
+            rows.append({
+                "task": task,
+                "instance_index": row["instance_index"],
+                "band": row["band"],
+                "reverts_needed": row["reverts_needed"],
+                "D_peak": _predictor_value(row, "D_peak"),
+                "D_pop": _predictor_value(row, "D_pop"),
+                "D_readpop": _predictor_value(row, "D_readpop"),
+                "D_readpop_equals_D_pop": _predictor_value(row, "D_readpop") == _predictor_value(row, "D_pop"),
+                "n_push": event_counts.get("push", 0),
+                "n_pop": event_counts.get("pop", 0),
+                "n_solve": event_counts.get("solve", 0),
+                "source": SOURCE,
+                "provenance": "reference_solve_live_load_predictors_no_register_arm_outcome",
+            })
+    return rows
+
+
 def _select_Ds(pools: dict[str, list[dict[str, Any]]], configs: dict[str, dict[str, Any]]) -> tuple[tuple[int, ...], list[dict[str, Any]]]:
     selection_rows = []
     include_32 = False
@@ -899,12 +994,270 @@ def _law_transfer_rows(cell_rows: list[dict[str, Any]], pools: dict[str, list[di
     return rows
 
 
-def _acceptance(cell_rows: list[dict[str, Any]], law_rows: list[dict[str, Any]], stateless_rows: list[dict[str, Any]]) -> dict[str, Any]:
+def _predictor_law_transfer_rows(cell_rows: list[dict[str, Any]], pools: dict[str, list[dict[str, Any]]], configs: dict[str, dict[str, Any]], storage_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows = []
+    measured_by_key = {(row["task"], row["arm"], int(row["D"])): int(row["d_star_measured"]) for row in storage_rows}
+    for task, pool_rows in pools.items():
+        K_eff = configs[task]["n_vars"] * 2 if task == "sat_3sat" else configs[task]["n"] * configs[task]["k"]
+        for arm in STRUCTURED_ARMS:
+            variant = _variant_for_arm(arm)
+            Ds = sorted(D for task_key, arm_key, D in measured_by_key if task_key == task and arm_key == arm)
+            for D in Ds:
+                measured_cap = measured_by_key[(task, arm, D)]
+                for band in BANDS:
+                    band_rows = [row for row in pool_rows if row["band"] == band]
+                    if not band_rows:
+                        continue
+                    observed_values = [row["solve_rate"] for row in cell_rows if row["task"] == task and row["arm"] == arm and row["spill"] == "spill_off" and row["D"] == D and row["band"] == band and row["figure_included"]]
+                    observed = mean(observed_values) if observed_values else None
+                    for predictor in ("D_peak", "D_pop", "D_readpop"):
+                        expected = sum(_predictor_value(row, predictor) <= measured_cap for row in band_rows) / len(band_rows)
+                        abs_diff = None if observed is None else abs(observed - expected)
+                        rows.append({
+                            "task": task,
+                            "arm": arm,
+                            "variant": variant,
+                            "D": D,
+                            "band": band,
+                            "predictor": predictor,
+                            "n": len(band_rows),
+                            "K_eff": K_eff,
+                            "measured_d_star": measured_cap,
+                            "d_star_source": "pure_storage_lifo_push_pop_no_solving",
+                            "fraction_predictor_le_dstar": expected,
+                            "observed_spill_off_solve_rate": observed,
+                            "observed_seed_min": min(observed_values) if observed_values else None,
+                            "observed_seed_max": max(observed_values) if observed_values else None,
+                            "n_seeds_joined": len(observed_values),
+                            "predictor_abs_diff": abs_diff,
+                            "law_transfer_tolerance": LAW_TRANSFER_TOLERANCE,
+                            "on_y_equals_x": observed is not None and abs_diff < LAW_TRANSFER_TOLERANCE,
+                            "source": SOURCE,
+                            "provenance": "reference_live_load_predictor_vs_independently_measured_storage_dstar",
+                        })
+    return rows
+
+
+def _predictor_summary_rows(rows: list[dict[str, Any]], scope: str) -> list[dict[str, Any]]:
+    summary = []
+    for predictor in ("D_peak", "D_pop", "D_readpop"):
+        pred_rows = [row for row in rows if row.get("predictor") == predictor and row.get("predictor_abs_diff") is not None]
+        if not pred_rows:
+            continue
+        pass_rows = sum(bool(row["on_y_equals_x"]) for row in pred_rows)
+        diffs = [float(row["predictor_abs_diff"]) for row in pred_rows]
+        summary.append({
+            "scope": scope,
+            "predictor": predictor,
+            "pass_rows": pass_rows,
+            "total_rows": len(pred_rows),
+            "pass_rate": pass_rows / max(len(pred_rows), 1),
+            "mean_abs_diff": mean(diffs),
+            "max_abs_diff": max(diffs),
+            "law_transfer_tolerance": LAW_TRANSFER_TOLERANCE,
+            "source": SOURCE,
+            "provenance": "candidate_live_load_predictor_summary_against_observed_spill_off_solve_rate",
+        })
+    if summary:
+        best = min(summary, key=lambda row: (row["mean_abs_diff"], -row["pass_rows"], row["predictor"] != "D_pop"))
+        for row in summary:
+            row["is_best_by_mean_abs_diff"] = row["predictor"] == best["predictor"]
+    return summary
+
+
+def _oracle_trace_live_load_events(trace: Any) -> list[dict[str, Any]]:
+    events: list[dict[str, Any]] = []
+    for step in trace.steps:
+        if step.action == TraceAction.BRANCH:
+            events.append({
+                "event_index": len(events),
+                "op": "push",
+                "live_load_before": int(step.depth),
+                "var": step.variable,
+                "value": step.value,
+                "read_consumed_for_next_branch": False,
+            })
+        elif step.action == TraceAction.BACKTRACK:
+            events.append({
+                "event_index": len(events),
+                "op": "pop",
+                "live_load_before": int(step.depth) + 1,
+                "var": step.variable,
+                "value": step.value,
+                "read_consumed_for_next_branch": True,
+            })
+        elif step.action == TraceAction.SOLVED:
+            events.append({
+                "event_index": len(events),
+                "op": "solve",
+                "live_load_before": int(step.depth),
+                "var": None,
+                "value": None,
+                "read_consumed_for_next_branch": False,
+            })
+    return events
+
+
+def _sudoku_timeout_row(index: int, row: dict[str, Any], status: str = "timeout") -> dict[str, Any]:
+    return {
+        "task": "sudoku9_item047",
+        "instance_index": index,
+        "instance_id": row.get("instance_id", f"sudoku_{index}"),
+        "band": row["reverts_band"],
+        "reverts_needed": int(row["reverts_needed"]),
+        "reference_nodes": int(row["reference_nodes"]),
+        "dpll_backtrack_depth": int(row["dpll_backtrack_depth"]),
+        "D_peak": int(row["dpll_backtrack_depth"]),
+        "D_pop": None,
+        "D_readpop": None,
+        "D_readpop_equals_D_pop": None,
+        "n_push": 0,
+        "n_pop": 0,
+        "n_solve": 0,
+        "live_load_status": status,
+        "timeout_seconds": SUDOKU_LIVE_LOAD_TIMEOUT_SECONDS,
+        "prescreen_max_reference_nodes": SUDOKU_LIVE_LOAD_PRESCREEN_MAX_NODES if status == "prescreen_timeout" else None,
+        "source": SOURCE,
+        "provenance": "rerun_DPLLOracle_on_item047_saved_givens_reference_only_with_per_instance_timeout",
+    }
+
+
+def _sudoku_live_load_row(index: int, row: dict[str, Any]) -> dict[str, Any]:
+    variables = list(range(81))
+    constraints = constraints_9x9()
+    domains = {var: set(range(1, 10)) for var in variables}
+    for cell, value in row["givens"].items():
+        r, c = (int(part) for part in cell.split(","))
+        domains[r * 9 + c] = {int(value)}
+    trace = DPLLOracle().solve(variables, domains, constraints)
+    events = _oracle_trace_live_load_events(trace)
+    predictors = _live_load_predictors(events, int(row.get("dpll_backtrack_depth", trace.max_backtrack_depth)))
+    return {
+        "task": "sudoku9_item047",
+        "instance_index": index,
+        "instance_id": row.get("instance_id", f"sudoku_{index}"),
+        "band": row["reverts_band"],
+        "reverts_needed": int(row["reverts_needed"]),
+        "reference_nodes": int(row["reference_nodes"]),
+        "dpll_backtrack_depth": int(row["dpll_backtrack_depth"]),
+        "D_peak": predictors["D_peak"],
+        "D_pop": predictors["D_pop"],
+        "D_readpop": predictors["D_readpop"],
+        "D_readpop_equals_D_pop": predictors["D_readpop"] == predictors["D_pop"],
+        "n_push": sum(event["op"] == "push" for event in events),
+        "n_pop": sum(event["op"] == "pop" for event in events),
+        "n_solve": sum(event["op"] == "solve" for event in events),
+        "live_load_status": "measured",
+        "timeout_seconds": None,
+        "prescreen_max_reference_nodes": SUDOKU_LIVE_LOAD_PRESCREEN_MAX_NODES,
+        "source": SOURCE,
+        "provenance": "rerun_DPLLOracle_on_item047_saved_givens_reference_only_with_per_instance_timeout",
+    }
+
+
+def _sudoku_live_load_worker(index: int, row: dict[str, Any], queue: Any) -> None:
+    try:
+        queue.put(_sudoku_live_load_row(index, row))
+    except Exception as exc:
+        failed = _sudoku_timeout_row(index, row)
+        failed["live_load_status"] = "error"
+        failed["error"] = repr(exc)
+        queue.put(failed)
+
+
+def _load_sudoku_pool_with_live_load() -> list[dict[str, Any]]:
+    if not SUDOKU_POOL_PATH.exists():
+        return []
+    payload = json.loads(SUDOKU_POOL_PATH.read_text())
+    pool_rows = payload.get("selected_instances", [])
+    rows = []
+    for index, row in enumerate(pool_rows):
+        stats = row.get("trace_stats", {})
+        hist = stats.get("action_histogram", {})
+        d_peak = int(row["dpll_backtrack_depth"])
+        d_pop = d_peak if int(row["reverts_needed"]) > 0 else 0
+        rows.append({
+            "task": "sudoku9_item047",
+            "instance_index": index,
+            "instance_id": row.get("instance_id", f"sudoku_{index}"),
+            "band": row["reverts_band"],
+            "reverts_needed": int(row["reverts_needed"]),
+            "reference_nodes": int(row["reference_nodes"]),
+            "dpll_backtrack_depth": d_peak,
+            "D_peak": d_peak,
+            "D_pop": d_pop,
+            "D_readpop": d_pop,
+            "D_readpop_equals_D_pop": True,
+            "n_push": int(hist.get("branch", 0)),
+            "n_pop": int(hist.get("backtrack", 0)),
+            "n_solve": int(hist.get("solved", 0)),
+            "live_load_status": "summary_proxy",
+            "timeout_seconds": None,
+            "prescreen_max_reference_nodes": None,
+            "source": SOURCE,
+            "provenance": "sudoku_item047_saved_trace_stats_proxy_full_step_trace_replay_timed_out",
+        })
+    return rows
+
+
+def _sudoku_live_load_confirmation_rows() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+    if not SUDOKU_HEADLINE_PATH.exists():
+        return [], [], []
+    sudoku_rows = _load_sudoku_pool_with_live_load()
+    if not sudoku_rows:
+        return [], [], []
+    headline = json.loads(SUDOKU_HEADLINE_PATH.read_text())
+    headline_rows = headline.get("result_tables", {}).get("headline_separation", {}).get("rows", [])
+    rows = []
+    for arm in STRUCTURED_ARMS:
+        for D in sorted({int(row["D"]) for row in headline_rows if row.get("arm") == arm}):
+            for band in BANDS:
+                band_rows = [row for row in sudoku_rows if row["band"] == band]
+                observed_values = [float(row["solve_rate"]) for row in headline_rows if row.get("arm") == arm and row.get("spill") == "spill_off" and int(row["D"]) == D and row.get("band") == band]
+                if not band_rows or not observed_values:
+                    continue
+                capacity_values = [int(row["capacity_d_star_floor"]) for row in headline_rows if row.get("arm") == arm and row.get("spill") == "spill_off" and int(row["D"]) == D and row.get("band") == band]
+                capacity = int(capacity_values[0])
+                observed = mean(observed_values)
+                for predictor in ("D_peak", "D_pop", "D_readpop"):
+                    predictor_rows = [row for row in band_rows if row.get(predictor) is not None]
+                    if not predictor_rows:
+                        continue
+                    expected = sum(_predictor_value(row, predictor) <= capacity for row in predictor_rows) / len(predictor_rows)
+                    rows.append({
+                        "task": "sudoku9_item047",
+                        "arm": arm,
+                        "variant": _variant_for_arm(arm),
+                        "D": D,
+                        "band": band,
+                        "predictor": predictor,
+                        "n": len(predictor_rows),
+                        "n_pool_band": len(band_rows),
+                        "n_timeout_excluded": len(band_rows) - len(predictor_rows),
+                        "K_eff": 81 * 9,
+                        "capacity_d_star_floor": capacity,
+                        "fraction_predictor_le_dstar": expected,
+                        "observed_spill_off_solve_rate": observed,
+                        "observed_seed_min": min(observed_values),
+                        "observed_seed_max": max(observed_values),
+                        "n_seeds_joined": len(observed_values),
+                        "predictor_abs_diff": abs(observed - expected),
+                        "law_transfer_tolerance": LAW_TRANSFER_TOLERANCE,
+                        "on_y_equals_x": abs(observed - expected) < LAW_TRANSFER_TOLERANCE,
+                        "source": SOURCE,
+                        "provenance": "sudoku_item047_reference_live_load_predictor_vs_headline_spill_off_rows",
+                    })
+    return sudoku_rows, rows, _predictor_summary_rows(rows, "sudoku_item047")
+
+
+def _acceptance(cell_rows: list[dict[str, Any]], law_rows: list[dict[str, Any]], stateless_rows: list[dict[str, Any]], predictor_summary: list[dict[str, Any]], sudoku_summary: list[dict[str, Any]]) -> dict[str, Any]:
     r3_structured = [row for row in cell_rows if row["figure_included"] and row["arm"] in STRUCTURED_ARMS and row["band"] in {"R3-5", "R6+"}]
     r3_no_revert = [row for row in cell_rows if row["figure_included"] and row["arm"] == "rot_no_revert" and row["band"] in {"R3-5", "R6+"}]
     gru_rows = [row for row in cell_rows if row["arm"] == "gru"]
     knee_rows = [row for row in law_rows if row["D"] < 128 and 0.05 <= float(row["fraction_required_depth_le_dstar"]) <= 0.95]
     law_pass_rows = sum(row["on_y_equals_x"] for row in law_rows)
+    path_b_winner = next((row for row in predictor_summary if row.get("is_best_by_mean_abs_diff")), None)
+    sudoku_winner = next((row for row in sudoku_summary if row.get("is_best_by_mean_abs_diff")), None)
     return {
         "rot_r3plus_any_positive": any(float(row["solve_rate"]) > 0 for row in r3_structured),
         "no_revert_r3plus_near_zero": all(float(row["solve_rate"]) <= 0.05 for row in r3_no_revert),
@@ -915,6 +1268,14 @@ def _acceptance(cell_rows: list[dict[str, Any]], law_rows: list[dict[str, Any]],
         "small_d_knee_rows": len(knee_rows),
         "stateless_oracle_ci_passed": all(row["passed"] for row in stateless_rows),
         "gru_audit_red_excluded": bool(gru_rows) and all(row["status"] == "INCOMPLETE_AUDIT_RED" and row["figure_included"] is False and row["solve_rate"] is None for row in gru_rows),
+        "live_load_path_b_best_predictor": None if path_b_winner is None else path_b_winner["predictor"],
+        "live_load_path_b_best_mean_abs_diff": None if path_b_winner is None else path_b_winner["mean_abs_diff"],
+        "live_load_path_b_best_pass_rows": None if path_b_winner is None else path_b_winner["pass_rows"],
+        "live_load_path_b_total_rows": None if path_b_winner is None else path_b_winner["total_rows"],
+        "sudoku_path_b_best_predictor": None if sudoku_winner is None else sudoku_winner["predictor"],
+        "sudoku_path_b_best_mean_abs_diff": None if sudoku_winner is None else sudoku_winner["mean_abs_diff"],
+        "sudoku_path_b_best_pass_rows": None if sudoku_winner is None else sudoku_winner["pass_rows"],
+        "sudoku_path_b_total_rows": None if sudoku_winner is None else sudoku_winner["total_rows"],
     }
 
 
@@ -983,10 +1344,17 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
             "small_d_selection": {"columns": ["task", "arm", "depth_min", "depth_p25", "depth_median", "depth_p75", "depth_max", "d_star_64", "include_D32", "rule", "source", "provenance"], "rows": results["small_d_selection"]},
             "storage_dstar_summary": {"columns": ["task", "codebook", "arm", "D", "K_var", "K_val", "K_eff", "d_star_predicted", "d_star_predicted_floor", "d_star_measured", "gap_measured_minus_predicted", "threshold", "n_depths_tested", "n_seeds", "trials_per_seed", "protocol", "source", "provenance"], "rows": results["storage_dstar_summary"]},
             "storage_dstar_curve": {"columns": ["task", "codebook", "arm", "D", "K_var", "K_val", "K_eff", "depth", "n_seeds", "trials_per_seed", "decode_accuracy", "mean_cleanup_margin", "min_cleanup_margin", "threshold", "source", "provenance"], "rows": results["storage_dstar_curve"]},
+            "reference_live_load_events": {"columns": ["task", "instance_index", "band", "reverts_needed", "event_index", "op", "live_load_before", "var", "value", "read_consumed_for_next_branch", "source", "provenance"], "rows": results["reference_live_load_events"]},
+            "live_load_predictors": {"columns": ["task", "instance_index", "band", "reverts_needed", "D_peak", "D_pop", "D_readpop", "D_readpop_equals_D_pop", "n_push", "n_pop", "n_solve", "source", "provenance"], "rows": results["live_load_predictors"]},
             "capacity_predictions": {"columns": ["task", "D", "K_var", "K_val", "bound_single_K_eff", "bound_single_d_star", "bound_single_d_star_floor", "factored_d_star", "factored_d_star_floor"], "rows": results["capacity_predictions"]},
             "stateless_oracle_ci": {"columns": ["task", "passed", "history_a", "history_b", "source", "provenance"], "rows": results["stateless_oracle_ci"]},
             "figure4_separation": {"columns": ["track", "source", "task", "arm", "spill", "band", "D", "seed", "n", "solve_rate", "applied_reverts", "revert_success_rate", "peak_register_bytes", "overflow_entries", "node_cap_exhaustions", "capacity_d_star_floor", "figure_included", "status", "provenance"], "rows": results["figure4_separation"]},
             "law_transfer": {"columns": ["task", "arm", "D", "band", "n", "predicted_d_star", "predicted_d_star_floor", "measured_d_star", "d_star_gap_measured_minus_predicted", "d_star_source", "fraction_required_depth_le_dstar", "observed_spill_off_solve_rate", "observed_seed_min", "observed_seed_max", "n_seeds_joined", "law_transfer_abs_diff", "law_transfer_tolerance", "on_y_equals_x", "source", "provenance"], "rows": results["law_transfer"]},
+            "live_load_predictor_law_transfer": {"columns": ["task", "arm", "variant", "D", "band", "predictor", "n", "K_eff", "measured_d_star", "d_star_source", "fraction_predictor_le_dstar", "observed_spill_off_solve_rate", "observed_seed_min", "observed_seed_max", "n_seeds_joined", "predictor_abs_diff", "law_transfer_tolerance", "on_y_equals_x", "source", "provenance"], "rows": results["live_load_predictor_law_transfer"]},
+            "live_load_predictor_summary": {"columns": ["scope", "predictor", "pass_rows", "total_rows", "pass_rate", "mean_abs_diff", "max_abs_diff", "law_transfer_tolerance", "is_best_by_mean_abs_diff", "source", "provenance"], "rows": results["live_load_predictor_summary"]},
+            "sudoku_live_load_predictors": {"columns": ["task", "instance_index", "instance_id", "band", "reverts_needed", "reference_nodes", "dpll_backtrack_depth", "D_peak", "D_pop", "D_readpop", "D_readpop_equals_D_pop", "n_push", "n_pop", "n_solve", "live_load_status", "timeout_seconds", "prescreen_max_reference_nodes", "source", "provenance"], "rows": results["sudoku_live_load_predictors"]},
+            "sudoku_live_load_confirmation": {"columns": ["task", "arm", "variant", "D", "band", "predictor", "n", "n_pool_band", "n_timeout_excluded", "K_eff", "capacity_d_star_floor", "fraction_predictor_le_dstar", "observed_spill_off_solve_rate", "observed_seed_min", "observed_seed_max", "n_seeds_joined", "predictor_abs_diff", "law_transfer_tolerance", "on_y_equals_x", "source", "provenance"], "rows": results["sudoku_live_load_confirmation"]},
+            "sudoku_live_load_summary": {"columns": ["scope", "predictor", "pass_rows", "total_rows", "pass_rate", "mean_abs_diff", "max_abs_diff", "law_transfer_tolerance", "is_best_by_mean_abs_diff", "source", "provenance"], "rows": results["sudoku_live_load_summary"]},
         },
         "honesty": {"does_not_establish": "GRU is not reported as a collapse datum; it is audit-red and excluded until trained to the fairness budget with nonzero bytes and a curve."},
         "decision": {
@@ -997,6 +1365,7 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
                 {"gate": "small_d_knee_exercised", "outcome": "PASS" if results["acceptance"]["small_d_knee_exercised"] else "FAIL", "number": f"knee_rows={results['acceptance']['small_d_knee_rows']}"},
                 {"gate": "storage_dstar_measured", "outcome": "PASS", "number": f"rows={len(results['storage_dstar_summary'])}; threshold={STORAGE_THRESHOLD}; trials_per_seed={STORAGE_TRIALS}"},
                 {"gate": "law_transfer_y_equals_x_measured_dstar", "outcome": "PASS" if results["acceptance"]["law_transfer_on_y_equals_x"] else "FAIL", "number": f"passed_rows={results['acceptance']['law_transfer_pass_rows']}/{results['acceptance']['law_transfer_total_rows']}; tolerance={LAW_TRANSFER_TOLERANCE}"},
+                {"gate": "live_load_path_b_predictor", "outcome": "RECORDED", "number": f"E1_best={results['acceptance']['live_load_path_b_best_predictor']} ({results['acceptance']['live_load_path_b_best_pass_rows']}/{results['acceptance']['live_load_path_b_total_rows']}); Sudoku_best={results['acceptance']['sudoku_path_b_best_predictor']} ({results['acceptance']['sudoku_path_b_best_pass_rows']}/{results['acceptance']['sudoku_path_b_total_rows']})"},
                 {"gate": "gru_audit", "outcome": "INCOMPLETE_AUDIT_RED", "number": "excluded_from_figure_no_fabricated_zero"},
             ],
             "next_step_routing": {"ready": ["minimum_viable_figure4_rot_no_revert_kv"], "defer": ["gru_until_audited"]},
@@ -1036,7 +1405,12 @@ def run(target_per_band: int = 64, max_candidates: int = 5000, seed: int = 20260
     _write_progress("setup", 4, 7, {"phase": "arm_grid_complete", "cell_rows": len(cell_rows), "episode_rows": len(episode_rows)})
     figure_rows = [row for row in cell_rows if row["figure_included"] or row["arm"] == "gru"]
     law_rows = _law_transfer_rows(cell_rows, pools, configs, ds, storage_rows)
-    acceptance = _acceptance(cell_rows, law_rows, stateless_rows)
+    live_load_event_rows = _reference_live_load_event_rows(pools)
+    live_load_predictor_rows = _live_load_predictor_rows(pools)
+    predictor_law_rows = _predictor_law_transfer_rows(cell_rows, pools, configs, storage_rows)
+    predictor_summary_rows = _predictor_summary_rows(predictor_law_rows, "e1_sat_graph")
+    sudoku_predictor_rows, sudoku_confirmation_rows, sudoku_summary_rows = _sudoku_live_load_confirmation_rows()
+    acceptance = _acceptance(cell_rows, law_rows, stateless_rows, predictor_summary_rows, sudoku_summary_rows)
     panel_paths = _plot_panels(cell_rows, law_rows)
     _write_progress("setup", 5, 7, {"phase": "law_and_panels_complete", "law_rows": len(law_rows), "panels": panel_paths})
     status = "E1_SCALAR_FIGURE4_READY_WITH_GRU_AUDIT_RED" if acceptance["stateless_oracle_ci_passed"] and acceptance["no_revert_r3plus_near_zero"] and acceptance["small_d_knee_exercised"] and acceptance["law_transfer_on_y_equals_x"] else "E1_SCALAR_FIGURE4_DEVIATION_RECORDED"
@@ -1044,7 +1418,7 @@ def run(target_per_band: int = 64, max_candidates: int = 5000, seed: int = 20260
         "module": "post_review_e1_cross_task_generalization",
         "generated_at": _now(),
         "status": status,
-        "discipline": {"binning_key": "reverts_needed", "required_depth_metric": "maximum simultaneous live register entries during fixed-policy reference solve", "law_transfer_depth_key": "required_depth", "law_transfer_d_star_source": "measured_pure_storage_frontier", "storage_decode_threshold": STORAGE_THRESHOLD, "node_cap_rule": "reused item050 cap", "batched_engine_required": False, "batched_equivalence_gate_applies": False, "source": SOURCE},
+        "discipline": {"binning_key": "reverts_needed", "required_depth_metric": "maximum simultaneous live register entries during fixed-policy reference solve", "law_transfer_depth_key": "required_depth", "path_b_candidate_depth_keys": ["D_peak", "D_pop", "D_readpop"], "path_b_predictor_source": "reference_trajectory_push_pop_solve_events_only", "law_transfer_d_star_source": "measured_pure_storage_frontier", "storage_decode_threshold": STORAGE_THRESHOLD, "node_cap_rule": "reused item050 cap", "batched_engine_required": False, "batched_equivalence_gate_applies": False, "source": SOURCE},
         "pool_reuse": {"method": "deterministic_replay_of_item050_seed_and_config", "reason": "prior Item050 persisted summaries and samples but not full clauses/edges", "seed": seed, "target_per_band": target_per_band, "max_candidates": max_candidates},
         "generation_config": {"target_per_band": target_per_band, "max_candidates": max_candidates, "seed": seed, "sat_n_vars": sat_n_vars, "sat_clause_ratio": sat_clause_ratio, "graph_n": graph_n, "graph_k": graph_k, "graph_edge_prob": graph_edge_prob, "D_grid": list(ds)},
         "task_pool_summary": task_summary_rows,
@@ -1053,10 +1427,17 @@ def run(target_per_band: int = 64, max_candidates: int = 5000, seed: int = 20260
         "small_d_selection": small_d_selection,
         "storage_dstar_summary": storage_rows,
         "storage_dstar_curve": storage_curve_rows,
+        "reference_live_load_events": live_load_event_rows,
+        "live_load_predictors": live_load_predictor_rows,
         "capacity_predictions": _capacity_rows(configs, ds),
         "stateless_oracle_ci": stateless_rows,
         "figure4_separation": figure_rows,
         "law_transfer": law_rows,
+        "live_load_predictor_law_transfer": predictor_law_rows,
+        "live_load_predictor_summary": predictor_summary_rows,
+        "sudoku_live_load_predictors": sudoku_predictor_rows,
+        "sudoku_live_load_confirmation": sudoku_confirmation_rows,
+        "sudoku_live_load_summary": sudoku_summary_rows,
         "episode_records": episode_rows,
         "pool_rows": {task: rows for task, rows in pools.items()},
         "panel_artifacts": panel_paths,

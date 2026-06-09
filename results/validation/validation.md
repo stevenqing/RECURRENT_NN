@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-09T08:57:31.155602+00:00
+Generated at: 2026-06-09T09:43:36.229511+00:00
 
-Summary: 329 PASS / 3 FAIL / 332 total.
+Summary: 335 PASS / 3 FAIL / 338 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -242,7 +242,7 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_050_number_continues_from_028 | PASS | item_number=050 |
 | contract | log_item_050_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
 | contract | log_item_050_honesty_does_not_establish | PASS | GRU is not reported as a collapse datum; it is audit-red and excluded until trained to the fairness budget with nonzero bytes and a curve. |
-| contract | log_item_050_decision_numbers_and_routing | PASS | gates=6; routing={'defer': ['gru_until_audited'], 'ready': ['minimum_viable_figure4_rot_no_revert_kv']} |
+| contract | log_item_050_decision_numbers_and_routing | PASS | gates=7; routing={'defer': ['gru_until_audited'], 'ready': ['minimum_viable_figure4_rot_no_revert_kv']} |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |
@@ -302,11 +302,11 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | post_review_e1 | post_review_e1_cross_task_generalization_present | PASS | results/post_review_e1_cross_task_generalization/results.json |
 | post_review_e1 | item050_number_present | PASS | item_number=050 |
 | post_review_e1 | item050_scalar_status | PASS | status=E1_SCALAR_FIGURE4_DEVIATION_RECORDED |
-| post_review_e1 | item050_stateless_gate_pass | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
-| post_review_e1 | item050_small_d_knee_gate_pass | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
-| post_review_e1 | item050_storage_dstar_gate_pass | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
-| post_review_e1 | item050_gru_audit_red_gate | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
-| post_review_e1 | item050_deviation_gate_recorded | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
+| post_review_e1 | item050_stateless_gate_pass | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'live_load_path_b_predictor': 'RECORDED', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
+| post_review_e1 | item050_small_d_knee_gate_pass | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'live_load_path_b_predictor': 'RECORDED', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
+| post_review_e1 | item050_storage_dstar_gate_pass | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'live_load_path_b_predictor': 'RECORDED', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
+| post_review_e1 | item050_gru_audit_red_gate | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'live_load_path_b_predictor': 'RECORDED', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
+| post_review_e1 | item050_deviation_gate_recorded | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'small_d_knee_exercised': 'PASS', 'storage_dstar_measured': 'PASS', 'law_transfer_y_equals_x_measured_dstar': 'FAIL', 'live_load_path_b_predictor': 'RECORDED', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
 | post_review_e1 | e1_bins_by_reverts_needed | PASS | binning_key=reverts_needed |
 | post_review_e1 | e1_law_uses_required_depth | PASS | law_transfer_depth_key=required_depth |
 | post_review_e1 | e1_law_uses_measured_dstar | PASS | law_transfer_d_star_source=measured_pure_storage_frontier |
@@ -331,6 +331,12 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | post_review_e1 | e1_law_seed_join_fixed | PASS | rows=96 |
 | post_review_e1 | e1_law_uses_storage_dstar_rows | PASS | rows=96 |
 | post_review_e1 | e1_law_transfer_strict_tolerance | PASS | rows=96 |
+| post_review_e1 | e1_path_b_depth_keys_recorded | PASS | keys=['D_peak', 'D_pop', 'D_readpop'] |
+| post_review_e1 | e1_live_load_predictors_present | PASS | rows=512 |
+| post_review_e1 | e1_live_load_law_transfer_present | PASS | rows=288 |
+| post_review_e1 | e1_path_b_dpop_winner | PASS | best={'is_best_by_mean_abs_diff': True, 'law_transfer_tolerance': 0.05, 'max_abs_diff': 1.0, 'mean_abs_diff': 0.13834635416666666, 'pass_rate': 0.6145833333333334, 'pass_rows': 59, 'predictor': 'D_pop', 'provenance': 'candidate_live_load_predictor_summary_against_observed_spill_off_solve_rate', 'scope': 'e1_sat_graph', 'source': 'autonomous_stage_a_run', 'total_rows': 96}; acceptance=D_pop |
+| post_review_e1 | e1_sudoku_live_load_predictors_recorded | PASS | rows=256 |
+| post_review_e1 | e1_sudoku_live_load_confirmation_present | PASS | rows=72; summary=[{'is_best_by_mean_abs_diff': False, 'law_transfer_tolerance': 0.05, 'max_abs_diff': 0.0, 'mean_abs_diff': 0.0, 'pass_rate': 1.0, 'pass_rows': 24, 'predictor': 'D_peak', 'provenance': 'candidate_live_load_predictor_summary_against_observed_spill_off_solve_rate', 'scope': 'sudoku_item047', 'source': 'autonomous_stage_a_run', 'total_rows': 24}, {'is_best_by_mean_abs_diff': True, 'law_transfer_tolerance': 0.05, 'max_abs_diff': 0.0, 'mean_abs_diff': 0.0, 'pass_rate': 1.0, 'pass_rows': 24, 'predictor': 'D_pop', 'provenance': 'candidate_live_load_predictor_summary_against_observed_spill_off_solve_rate', 'scope': 'sudoku_item047', 'source': 'autonomous_stage_a_run', 'total_rows': 24}, {'is_best_by_mean_abs_diff': False, 'law_transfer_tolerance': 0.05, 'max_abs_diff': 0.0, 'mean_abs_diff': 0.0, 'pass_rate': 1.0, 'pass_rows': 24, 'predictor': 'D_readpop', 'provenance': 'candidate_live_load_predictor_summary_against_observed_spill_off_solve_rate', 'scope': 'sudoku_item047', 'source': 'autonomous_stage_a_run', 'total_rows': 24}] |
 | post_review_e1 | e1_small_d_knee_exercised | PASS | rows=21 |
 | post_review_e1 | e1_law_transfer_ready_or_deviation_recorded | PASS | status=E1_SCALAR_FIGURE4_DEVIATION_RECORDED; law_ready=False; deviation=True |
 | post_review_e1 | e1_episode_metric_keys_present | PASS | rows=36864 |
