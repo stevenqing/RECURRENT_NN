@@ -4116,7 +4116,7 @@
       "S3.1 integration is not started."
     ]
   },
-  "generated_at": "2026-06-09T02:39:33.919119+00:00",
+  "generated_at": "2026-06-09T02:48:21.132105+00:00",
   "incremental_items": [
     [
       "001-018",
@@ -4530,7 +4530,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -5309,7 +5309,7 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 841225
+          "size_bytes": 894095
         }
       ],
       "detail_data": {
@@ -5336,14 +5336,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T17:42:26.635733+00:00"
+              "2026-06-09T02:47:33.001220+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -5356,7 +5356,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -6006,12 +6006,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         {
           "path": "specs/log_item_contract.md",
@@ -6381,14 +6381,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T17:42:26.635733+00:00"
+              "2026-06-09T02:47:33.001220+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -6396,7 +6396,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         "results/stage_a_adapter_wiring/results.json": {
           "embedded": false,
@@ -6581,7 +6581,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -9328,7 +9328,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -9806,7 +9806,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -11926,7 +11926,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -14244,12 +14244,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 203812
+          "size_bytes": 215570
         }
       ],
       "contract_data": {
@@ -15146,14 +15146,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T17:42:26.635733+00:00"
+              "2026-06-09T02:47:33.001220+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -15161,7 +15161,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         "results/stage_a_symbolic/oracle_statelessness_ci.json": {
           "embedded": false,
@@ -15334,7 +15334,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -15419,12 +15419,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 203812
+          "size_bytes": 215570
         }
       ],
       "contract_data": {
@@ -16124,14 +16124,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T17:42:26.635733+00:00"
+              "2026-06-09T02:47:33.001220+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -16139,7 +16139,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         "results/stage_a_symbolic/oracle_statelessness_ci.json": {
           "embedded": false,
@@ -16312,7 +16312,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -16367,12 +16367,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         {
           "path": "results/validation/validation.json",
@@ -16692,14 +16692,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T17:42:26.635733+00:00"
+              "2026-06-09T02:47:33.001220+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -16707,7 +16707,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         "results/trm_operator_smoke/acceptance.json": {
           "embedded": false,
@@ -16788,7 +16788,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -16878,12 +16878,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         {
           "path": "results/validation/validation.json",
@@ -17594,14 +17594,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T17:42:26.635733+00:00"
+              "2026-06-09T02:47:33.001220+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -17609,7 +17609,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json": {
           "embedded": false,
@@ -17642,7 +17642,7 @@
             ],
             [
               "updated_at",
-              "2026-06-09T02:39:28.165907+00:00"
+              "2026-06-09T02:47:58.870532+00:00"
             ]
           ],
           "path": "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json",
@@ -17890,7 +17890,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -17985,12 +17985,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         {
           "path": "results/validation/validation.json",
@@ -18412,14 +18412,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T17:42:26.635733+00:00"
+              "2026-06-09T02:47:33.001220+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -18427,7 +18427,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         "results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl": {
           "embedded": false,
@@ -18544,7 +18544,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -18617,12 +18617,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         {
           "path": "results/validation/validation.json",
@@ -18912,14 +18912,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T17:42:26.635733+00:00"
+              "2026-06-09T02:47:33.001220+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -18927,7 +18927,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -18940,7 +18940,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -18998,12 +18998,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         {
           "path": "results/validation/validation.json",
@@ -19265,14 +19265,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T17:42:26.635733+00:00"
+              "2026-06-09T02:47:33.001220+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -19280,7 +19280,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -19293,7 +19293,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -19376,12 +19376,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         {
           "path": "results/validation/validation.json",
@@ -19639,14 +19639,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T17:42:26.635733+00:00"
+              "2026-06-09T02:47:33.001220+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -19654,7 +19654,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         "results/trm_operator_compile_smoke/acceptance.json": {
           "embedded": false,
@@ -19819,7 +19819,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -19947,12 +19947,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         {
           "path": "results/validation/validation.json",
@@ -20311,14 +20311,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T17:42:26.635733+00:00"
+              "2026-06-09T02:47:33.001220+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -20326,7 +20326,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt": {
           "embedded": false,
@@ -20427,7 +20427,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -20497,12 +20497,12 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         {
           "path": "results/validation/validation.json",
@@ -20801,14 +20801,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-08T17:42:26.635733+00:00"
+              "2026-06-09T02:47:33.001220+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 841225
+          "size_bytes": 894095
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -20816,7 +20816,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 203812
+          "size_bytes": 215570
         },
         "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt": {
           "embedded": false,
@@ -20929,7 +20929,7 @@
             ],
             [
               "generated_at",
-              "2026-06-08T17:42:29.486091+00:00"
+              "2026-06-09T02:47:49.581416+00:00"
             ],
             [
               "summary",
@@ -20969,7 +20969,7 @@
         {
           "path": "results/experiment_items/item_047_deep_band_track_a_headline_overnight.json",
           "present": "yes",
-          "size_bytes": 6142
+          "size_bytes": 13111
         },
         {
           "path": "results/overnight_047_headline_preregistered",
@@ -21106,6 +21106,226 @@
         },
         "purpose": "Preregister the overnight headline run that bins 9x9 Stage A candidates by scalar-reference reverts_needed rather than minimal DPLL depth, gates Line 1 on GPU engine equivalence, and targets the R3+ separation table needed to test whether the register causally enables backtracking to the predicted depth.",
         "result_tables": {
+          "headline_r3plus_observed_summary": {
+            "columns": [
+              "band",
+              "D",
+              "n",
+              "rot_bound_single_d_star",
+              "rot_bound_single_spill_off_solve",
+              "rot_bound_single_spill_on_solve",
+              "rot_bound_single_spill_on_overflow_entries",
+              "rot_factored_d_star",
+              "rot_factored_spill_off_solve",
+              "rot_factored_spill_on_solve",
+              "rot_factored_spill_on_overflow_entries",
+              "rot_no_revert_solve",
+              "kv_snapshot_solve",
+              "legacy_gru_solve_audit_red",
+              "legacy_gru_peak_register_bytes"
+            ],
+            "rows": [
+              {
+                "D": 128,
+                "band": "R3-5",
+                "kv_snapshot_solve": 1.0,
+                "legacy_gru_peak_register_bytes": 0,
+                "legacy_gru_solve_audit_red": 0.0,
+                "n": 64,
+                "rot_bound_single_d_star": 9,
+                "rot_bound_single_spill_off_solve": 0.78125,
+                "rot_bound_single_spill_on_overflow_entries": 51,
+                "rot_bound_single_spill_on_solve": 1.0,
+                "rot_factored_d_star": 14,
+                "rot_factored_spill_off_solve": 0.96875,
+                "rot_factored_spill_on_overflow_entries": 6,
+                "rot_factored_spill_on_solve": 1.0,
+                "rot_no_revert_solve": 0.0
+              },
+              {
+                "D": 256,
+                "band": "R3-5",
+                "kv_snapshot_solve": 1.0,
+                "legacy_gru_peak_register_bytes": 0,
+                "legacy_gru_solve_audit_red": 0.0,
+                "n": 64,
+                "rot_bound_single_d_star": 19,
+                "rot_bound_single_spill_off_solve": 1.0,
+                "rot_bound_single_spill_on_overflow_entries": 0,
+                "rot_bound_single_spill_on_solve": 1.0,
+                "rot_factored_d_star": 29,
+                "rot_factored_spill_off_solve": 1.0,
+                "rot_factored_spill_on_overflow_entries": 0,
+                "rot_factored_spill_on_solve": 1.0,
+                "rot_no_revert_solve": 0.0
+              },
+              {
+                "D": 512,
+                "band": "R3-5",
+                "kv_snapshot_solve": 1.0,
+                "legacy_gru_peak_register_bytes": 0,
+                "legacy_gru_solve_audit_red": 0.0,
+                "n": 64,
+                "rot_bound_single_d_star": 38,
+                "rot_bound_single_spill_off_solve": 1.0,
+                "rot_bound_single_spill_on_overflow_entries": 0,
+                "rot_bound_single_spill_on_solve": 1.0,
+                "rot_factored_d_star": 58,
+                "rot_factored_spill_off_solve": 1.0,
+                "rot_factored_spill_on_overflow_entries": 0,
+                "rot_factored_spill_on_solve": 1.0,
+                "rot_no_revert_solve": 0.0
+              },
+              {
+                "D": 128,
+                "band": "R6+",
+                "kv_snapshot_solve": 1.0,
+                "legacy_gru_peak_register_bytes": 0,
+                "legacy_gru_solve_audit_red": 0.0,
+                "n": 64,
+                "rot_bound_single_d_star": 9,
+                "rot_bound_single_spill_off_solve": 0.53125,
+                "rot_bound_single_spill_on_overflow_entries": 119,
+                "rot_bound_single_spill_on_solve": 1.0,
+                "rot_factored_d_star": 14,
+                "rot_factored_spill_off_solve": 0.890625,
+                "rot_factored_spill_on_overflow_entries": 18,
+                "rot_factored_spill_on_solve": 1.0,
+                "rot_no_revert_solve": 0.0
+              },
+              {
+                "D": 256,
+                "band": "R6+",
+                "kv_snapshot_solve": 1.0,
+                "legacy_gru_peak_register_bytes": 0,
+                "legacy_gru_solve_audit_red": 0.0,
+                "n": 64,
+                "rot_bound_single_d_star": 19,
+                "rot_bound_single_spill_off_solve": 0.984375,
+                "rot_bound_single_spill_on_overflow_entries": 2,
+                "rot_bound_single_spill_on_solve": 1.0,
+                "rot_factored_d_star": 29,
+                "rot_factored_spill_off_solve": 1.0,
+                "rot_factored_spill_on_overflow_entries": 0,
+                "rot_factored_spill_on_solve": 1.0,
+                "rot_no_revert_solve": 0.0
+              },
+              {
+                "D": 512,
+                "band": "R6+",
+                "kv_snapshot_solve": 1.0,
+                "legacy_gru_peak_register_bytes": 0,
+                "legacy_gru_solve_audit_red": 0.0,
+                "n": 64,
+                "rot_bound_single_d_star": 38,
+                "rot_bound_single_spill_off_solve": 1.0,
+                "rot_bound_single_spill_on_overflow_entries": 0,
+                "rot_bound_single_spill_on_solve": 1.0,
+                "rot_factored_d_star": 58,
+                "rot_factored_spill_off_solve": 1.0,
+                "rot_factored_spill_on_overflow_entries": 0,
+                "rot_factored_spill_on_solve": 1.0,
+                "rot_no_revert_solve": 0.0
+              }
+            ]
+          },
+          "line1_checks_and_node_cap": {
+            "columns": [
+              "check",
+              "value"
+            ],
+            "rows": [
+              {
+                "check": "equivalence_logged_before_grid",
+                "value": true
+              },
+              {
+                "check": "gru_audit_nonzero_bytes_and_curve",
+                "value": false
+              },
+              {
+                "check": "no_revert_r3plus_solve_leq_cap",
+                "value": true
+              },
+              {
+                "check": "node_cap_status",
+                "value": "CALIBRATED_ON_SCALAR_REFERENCE"
+              },
+              {
+                "check": "node_cap_node_cap",
+                "value": 644
+              },
+              {
+                "check": "node_cap_reference_nodes_max",
+                "value": 643
+              },
+              {
+                "check": "node_cap_reference_nodes_p95",
+                "value": 242
+              },
+              {
+                "check": "node_cap_r3plus_mean_reference_nodes",
+                "value": 164.7265625
+              },
+              {
+                "check": "node_cap_rule",
+                "value": "tightest integer cap above max scalar-reference trace length in selected pool"
+              }
+            ]
+          },
+          "module1_capacity_overlay": {
+            "columns": [
+              "arm",
+              "D",
+              "capacity_d_star_floor",
+              "K_rule",
+              "provenance"
+            ],
+            "rows": [
+              {
+                "D": 128,
+                "K_rule": "K=81*9",
+                "arm": "rot_bound_single",
+                "capacity_d_star_floor": 9,
+                "provenance": "register.structured.predicted_d_star"
+              },
+              {
+                "D": 256,
+                "K_rule": "K=81*9",
+                "arm": "rot_bound_single",
+                "capacity_d_star_floor": 19,
+                "provenance": "register.structured.predicted_d_star"
+              },
+              {
+                "D": 512,
+                "K_rule": "K=81*9",
+                "arm": "rot_bound_single",
+                "capacity_d_star_floor": 38,
+                "provenance": "register.structured.predicted_d_star"
+              },
+              {
+                "D": 128,
+                "K_rule": "K=81",
+                "arm": "rot_factored",
+                "capacity_d_star_floor": 14,
+                "provenance": "register.structured.predicted_d_star"
+              },
+              {
+                "D": 256,
+                "K_rule": "K=81",
+                "arm": "rot_factored",
+                "capacity_d_star_floor": 29,
+                "provenance": "register.structured.predicted_d_star"
+              },
+              {
+                "D": 512,
+                "K_rule": "K=81",
+                "arm": "rot_factored",
+                "capacity_d_star_floor": 58,
+                "provenance": "register.structured.predicted_d_star"
+              }
+            ]
+          },
           "overnight_rollup": {
             "columns": [
               "path",
@@ -21189,12 +21409,27 @@
           "reason": "ref_only",
           "result_table_summaries": [
             {
+              "columns": 15,
+              "rows": 6,
+              "table": "headline_r3plus_observed_summary"
+            },
+            {
+              "columns": 2,
+              "rows": 9,
+              "table": "line1_checks_and_node_cap"
+            },
+            {
+              "columns": 5,
+              "rows": 6,
+              "table": "module1_capacity_overlay"
+            },
+            {
               "columns": 3,
               "rows": 6,
               "table": "overnight_rollup"
             }
           ],
-          "size_bytes": 6142
+          "size_bytes": 13111
         },
         "results/overnight_047_headline_preregistered": {
           "embedded": false,
@@ -21507,7 +21742,7 @@
       "details": [
         "purpose=Preregister the overnight headline run that bins 9x9 Stage A candidates by scalar-reference reverts_needed rather than minimal DPLL depth, gates Line 1 on GPU engine equivalence, and targets the R3+ separation table needed to test whether the register causally enables backtracking to the predicted depth.",
         "commands=1",
-        "result_tables=['overnight_rollup']",
+        "result_tables=['headline_r3plus_observed_summary', 'line1_checks_and_node_cap', 'module1_capacity_overlay', 'overnight_rollup']",
         "honesty=This preregistration alone establishes no observed separation; the observed tables must be written later under the same item/run root. If a required engine or audit is absent, the run must fail closed."
       ],
       "item": "047",
@@ -21522,7 +21757,7 @@
         {
           "path": "results/experiment_items/item_048_item047_headline_closeout.json",
           "present": "yes",
-          "size_bytes": 5935
+          "size_bytes": 29459
         },
         {
           "path": "results/closeout_047/status_corrections.json",
@@ -21668,7 +21903,7 @@
         "item_number": "048",
         "name": "Item047 headline closeout status and diagnostics",
         "provenance": {
-          "generated_at": "2026-06-09T02:39:33.883382+00:00",
+          "generated_at": "2026-06-09T02:47:01.452779+00:00",
           "repo": "/home/aiscuser/RECURRENT_NN",
           "source_item": "047",
           "track": "item047_closeout"
@@ -21696,6 +21931,66 @@
                 "artifact": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
                 "status": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
                 "task": "Task 3 Track B split"
+              }
+            ]
+          },
+          "closeout_decision_metrics": {
+            "columns": [
+              "metric",
+              "value"
+            ],
+            "rows": [
+              {
+                "metric": "headline_figure",
+                "value": "HEADLINE_FIGURE_CERTIFIED"
+              },
+              {
+                "metric": "spill_off_matches_depth_le_dstar",
+                "value": true
+              },
+              {
+                "metric": "spill_on_overflow_matches_table",
+                "value": true
+              },
+              {
+                "metric": "track_b_outcome",
+                "value": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
+              },
+              {
+                "metric": "track_b_eval_mask_only_precision",
+                "value": 0.8203236415495212
+              },
+              {
+                "metric": "track_b_eval_mask_only_recall",
+                "value": 0.8826863755226031
+              },
+              {
+                "metric": "track_b_eval_full_commit_precision",
+                "value": 0.26353581562337136
+              },
+              {
+                "metric": "track_b_eval_full_commit_recall",
+                "value": 0.25890317442257366
+              },
+              {
+                "metric": "track_b_threshold",
+                "value": 0.9
+              },
+              {
+                "metric": "gru_in_loop_arm",
+                "value": "GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS"
+              },
+              {
+                "metric": "gru_max_r3plus_solve_rate",
+                "value": 0.0
+              },
+              {
+                "metric": "gru_all_audit_pass",
+                "value": true
+              },
+              {
+                "metric": "gru_all_converged",
+                "value": true
               }
             ]
           },
@@ -21728,6 +22023,687 @@
               {
                 "label": "capacity_law_transfer",
                 "status": "CERTIFIED"
+              }
+            ]
+          },
+          "gru_cell_frontiers_and_curves": {
+            "columns": [
+              "D",
+              "seed",
+              "frontier_joint_095",
+              "joint_depth_8",
+              "joint_depth_12",
+              "joint_depth_16",
+              "joint_depth_21",
+              "joint_depth_24",
+              "best_val_loss",
+              "decoder_type",
+              "converged",
+              "result_path"
+            ],
+            "rows": [
+              {
+                "D": 128,
+                "best_val_loss": 1.669709492533002,
+                "converged": true,
+                "decoder_type": "replay",
+                "frontier_joint_095": 7.324268564594009,
+                "joint_depth_12": 0.5311381220817566,
+                "joint_depth_16": 0.39763641357421875,
+                "joint_depth_21": 0.307832270860672,
+                "joint_depth_24": 0.2892761379480362,
+                "joint_depth_8": 0.89544677734375,
+                "result_path": "results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed42/results.json",
+                "seed": 42
+              },
+              {
+                "D": 128,
+                "best_val_loss": 1.5884755669394508,
+                "converged": true,
+                "decoder_type": "replay",
+                "frontier_joint_095": 7.718789598481416,
+                "joint_depth_12": 0.5558064877986908,
+                "joint_depth_16": 0.455596923828125,
+                "joint_depth_21": 0.3373267948627472,
+                "joint_depth_24": 0.3096313625574112,
+                "joint_depth_8": 0.9372406005859375,
+                "result_path": "results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed137/results.json",
+                "seed": 137
+              },
+              {
+                "D": 256,
+                "best_val_loss": 1.1962625531014055,
+                "converged": true,
+                "decoder_type": "replay",
+                "frontier_joint_095": 9.590065154596195,
+                "joint_depth_12": 0.8013611137866974,
+                "joint_depth_16": 0.6073379516601562,
+                "joint_depth_21": 0.4699532836675644,
+                "joint_depth_24": 0.4114736020565033,
+                "joint_depth_8": 0.9858551025390625,
+                "result_path": "results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed42/results.json",
+                "seed": 42
+              },
+              {
+                "D": 256,
+                "best_val_loss": 1.1320010606432334,
+                "converged": true,
+                "decoder_type": "replay",
+                "frontier_joint_095": 10.781377299950524,
+                "joint_depth_12": 0.8519694209098816,
+                "joint_depth_16": 0.6471786499023438,
+                "joint_depth_21": 0.498046875,
+                "joint_depth_24": 0.4399261623620987,
+                "joint_depth_8": 0.9964141845703125,
+                "result_path": "results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed137/results.json",
+                "seed": 137
+              },
+              {
+                "D": 512,
+                "best_val_loss": 0.795754902290355,
+                "converged": true,
+                "decoder_type": "replay",
+                "frontier_joint_095": 13.215083566150337,
+                "joint_depth_12": 0.9747619926929474,
+                "joint_depth_16": 0.798431396484375,
+                "joint_depth_21": 0.608921617269516,
+                "joint_depth_24": 0.5323588252067566,
+                "joint_depth_8": 0.99822998046875,
+                "result_path": "results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed42/results.json",
+                "seed": 42
+              },
+              {
+                "D": 512,
+                "best_val_loss": 0.8407987355385558,
+                "converged": true,
+                "decoder_type": "replay",
+                "frontier_joint_095": 12.589756787947163,
+                "joint_depth_12": 0.9785258173942566,
+                "joint_depth_16": 0.7581558227539062,
+                "joint_depth_21": 0.5864025354385376,
+                "joint_depth_24": 0.5141550898551941,
+                "joint_depth_8": 0.9960174560546875,
+                "result_path": "results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed137/results.json",
+                "seed": 137
+              }
+            ]
+          },
+          "gru_r3plus_rerun_summary": {
+            "columns": [
+              "D",
+              "seed",
+              "frontier_joint_095",
+              "r3_5_n",
+              "r3_5_solve_rate",
+              "r6plus_n",
+              "r6plus_solve_rate",
+              "peak_register_bytes",
+              "gru_audit_pass",
+              "gru_converged",
+              "training_curve_ref"
+            ],
+            "rows": [
+              {
+                "D": 128,
+                "frontier_joint_095": 7.324268564594009,
+                "gru_audit_pass": true,
+                "gru_converged": true,
+                "peak_register_bytes": 512,
+                "r3_5_n": 64,
+                "r3_5_solve_rate": 0.0,
+                "r6plus_n": 64,
+                "r6plus_solve_rate": 0.0,
+                "seed": 42,
+                "training_curve_ref": "results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed42/results.json"
+              },
+              {
+                "D": 128,
+                "frontier_joint_095": 7.718789598481416,
+                "gru_audit_pass": true,
+                "gru_converged": true,
+                "peak_register_bytes": 512,
+                "r3_5_n": 64,
+                "r3_5_solve_rate": 0.0,
+                "r6plus_n": 64,
+                "r6plus_solve_rate": 0.0,
+                "seed": 137,
+                "training_curve_ref": "results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed137/results.json"
+              },
+              {
+                "D": 256,
+                "frontier_joint_095": 9.590065154596195,
+                "gru_audit_pass": true,
+                "gru_converged": true,
+                "peak_register_bytes": 1024,
+                "r3_5_n": 64,
+                "r3_5_solve_rate": 0.0,
+                "r6plus_n": 64,
+                "r6plus_solve_rate": 0.0,
+                "seed": 42,
+                "training_curve_ref": "results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed42/results.json"
+              },
+              {
+                "D": 256,
+                "frontier_joint_095": 10.781377299950524,
+                "gru_audit_pass": true,
+                "gru_converged": true,
+                "peak_register_bytes": 1024,
+                "r3_5_n": 64,
+                "r3_5_solve_rate": 0.0,
+                "r6plus_n": 64,
+                "r6plus_solve_rate": 0.0,
+                "seed": 137,
+                "training_curve_ref": "results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed137/results.json"
+              },
+              {
+                "D": 512,
+                "frontier_joint_095": 13.215083566150337,
+                "gru_audit_pass": true,
+                "gru_converged": true,
+                "peak_register_bytes": 2048,
+                "r3_5_n": 64,
+                "r3_5_solve_rate": 0.0,
+                "r6plus_n": 64,
+                "r6plus_solve_rate": 0.0,
+                "seed": 42,
+                "training_curve_ref": "results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed42/results.json"
+              },
+              {
+                "D": 512,
+                "frontier_joint_095": 12.589756787947163,
+                "gru_audit_pass": true,
+                "gru_converged": true,
+                "peak_register_bytes": 2048,
+                "r3_5_n": 64,
+                "r3_5_solve_rate": 0.0,
+                "r6plus_n": 64,
+                "r6plus_solve_rate": 0.0,
+                "seed": 137,
+                "training_curve_ref": "results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed137/results.json"
+              }
+            ]
+          },
+          "headline_certification_r3plus": {
+            "columns": [
+              "arm",
+              "D",
+              "band",
+              "n",
+              "predicted_d_star_floor",
+              "observed_spill_off_solve_rate",
+              "depth_le_dstar_fraction",
+              "solve_matches_depth_le_dstar"
+            ],
+            "rows": [
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "band": "R3-5",
+                "depth_le_dstar_fraction": 0.78125,
+                "n": 64,
+                "observed_spill_off_solve_rate": 0.78125,
+                "predicted_d_star_floor": 9,
+                "solve_matches_depth_le_dstar": true
+              },
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "band": "R6+",
+                "depth_le_dstar_fraction": 0.53125,
+                "n": 64,
+                "observed_spill_off_solve_rate": 0.53125,
+                "predicted_d_star_floor": 9,
+                "solve_matches_depth_le_dstar": true
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "band": "R3-5",
+                "depth_le_dstar_fraction": 1.0,
+                "n": 64,
+                "observed_spill_off_solve_rate": 1.0,
+                "predicted_d_star_floor": 19,
+                "solve_matches_depth_le_dstar": true
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "band": "R6+",
+                "depth_le_dstar_fraction": 0.984375,
+                "n": 64,
+                "observed_spill_off_solve_rate": 0.984375,
+                "predicted_d_star_floor": 19,
+                "solve_matches_depth_le_dstar": true
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "band": "R3-5",
+                "depth_le_dstar_fraction": 1.0,
+                "n": 64,
+                "observed_spill_off_solve_rate": 1.0,
+                "predicted_d_star_floor": 38,
+                "solve_matches_depth_le_dstar": true
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "band": "R6+",
+                "depth_le_dstar_fraction": 1.0,
+                "n": 64,
+                "observed_spill_off_solve_rate": 1.0,
+                "predicted_d_star_floor": 38,
+                "solve_matches_depth_le_dstar": true
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "band": "R3-5",
+                "depth_le_dstar_fraction": 0.96875,
+                "n": 64,
+                "observed_spill_off_solve_rate": 0.96875,
+                "predicted_d_star_floor": 14,
+                "solve_matches_depth_le_dstar": true
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "band": "R6+",
+                "depth_le_dstar_fraction": 0.890625,
+                "n": 64,
+                "observed_spill_off_solve_rate": 0.890625,
+                "predicted_d_star_floor": 14,
+                "solve_matches_depth_le_dstar": true
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "band": "R3-5",
+                "depth_le_dstar_fraction": 1.0,
+                "n": 64,
+                "observed_spill_off_solve_rate": 1.0,
+                "predicted_d_star_floor": 29,
+                "solve_matches_depth_le_dstar": true
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "band": "R6+",
+                "depth_le_dstar_fraction": 1.0,
+                "n": 64,
+                "observed_spill_off_solve_rate": 1.0,
+                "predicted_d_star_floor": 29,
+                "solve_matches_depth_le_dstar": true
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "band": "R3-5",
+                "depth_le_dstar_fraction": 1.0,
+                "n": 64,
+                "observed_spill_off_solve_rate": 1.0,
+                "predicted_d_star_floor": 58,
+                "solve_matches_depth_le_dstar": true
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "band": "R6+",
+                "depth_le_dstar_fraction": 1.0,
+                "n": 64,
+                "observed_spill_off_solve_rate": 1.0,
+                "predicted_d_star_floor": 58,
+                "solve_matches_depth_le_dstar": true
+              }
+            ]
+          },
+          "spill_accounting_r3plus": {
+            "columns": [
+              "arm",
+              "D",
+              "seed",
+              "band",
+              "predicted_d_star_floor",
+              "positive_overflow_entries",
+              "observed_table_overflow_entries",
+              "observed_peak_register_bytes",
+              "spill_on_solve_rate",
+              "overflow_matches_table"
+            ],
+            "rows": [
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "band": "R3-5",
+                "observed_peak_register_bytes": 656,
+                "observed_table_overflow_entries": 51,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 51,
+                "predicted_d_star_floor": 9,
+                "seed": 42,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "band": "R3-5",
+                "observed_peak_register_bytes": 656,
+                "observed_table_overflow_entries": 51,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 51,
+                "predicted_d_star_floor": 9,
+                "seed": 137,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "band": "R6+",
+                "observed_peak_register_bytes": 704,
+                "observed_table_overflow_entries": 119,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 119,
+                "predicted_d_star_floor": 9,
+                "seed": 42,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "band": "R6+",
+                "observed_peak_register_bytes": 704,
+                "observed_table_overflow_entries": 119,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 119,
+                "predicted_d_star_floor": 9,
+                "seed": 137,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "band": "R3-5",
+                "observed_peak_register_bytes": 1024,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 19,
+                "seed": 42,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "band": "R3-5",
+                "observed_peak_register_bytes": 1024,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 19,
+                "seed": 137,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "band": "R6+",
+                "observed_peak_register_bytes": 1056,
+                "observed_table_overflow_entries": 2,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 2,
+                "predicted_d_star_floor": 19,
+                "seed": 42,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "band": "R6+",
+                "observed_peak_register_bytes": 1056,
+                "observed_table_overflow_entries": 2,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 2,
+                "predicted_d_star_floor": 19,
+                "seed": 137,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "band": "R3-5",
+                "observed_peak_register_bytes": 2048,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 38,
+                "seed": 42,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "band": "R3-5",
+                "observed_peak_register_bytes": 2048,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 38,
+                "seed": 137,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "band": "R6+",
+                "observed_peak_register_bytes": 2048,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 38,
+                "seed": 42,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "band": "R6+",
+                "observed_peak_register_bytes": 2048,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 38,
+                "seed": 137,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "band": "R3-5",
+                "observed_peak_register_bytes": 576,
+                "observed_table_overflow_entries": 6,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 6,
+                "predicted_d_star_floor": 14,
+                "seed": 42,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "band": "R3-5",
+                "observed_peak_register_bytes": 576,
+                "observed_table_overflow_entries": 6,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 6,
+                "predicted_d_star_floor": 14,
+                "seed": 137,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "band": "R6+",
+                "observed_peak_register_bytes": 624,
+                "observed_table_overflow_entries": 18,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 18,
+                "predicted_d_star_floor": 14,
+                "seed": 42,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "band": "R6+",
+                "observed_peak_register_bytes": 624,
+                "observed_table_overflow_entries": 18,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 18,
+                "predicted_d_star_floor": 14,
+                "seed": 137,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "band": "R3-5",
+                "observed_peak_register_bytes": 1024,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 29,
+                "seed": 42,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "band": "R3-5",
+                "observed_peak_register_bytes": 1024,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 29,
+                "seed": 137,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "band": "R6+",
+                "observed_peak_register_bytes": 1024,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 29,
+                "seed": 42,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "band": "R6+",
+                "observed_peak_register_bytes": 1024,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 29,
+                "seed": 137,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "band": "R3-5",
+                "observed_peak_register_bytes": 2048,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 58,
+                "seed": 42,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "band": "R3-5",
+                "observed_peak_register_bytes": 2048,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 58,
+                "seed": 137,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "band": "R6+",
+                "observed_peak_register_bytes": 2048,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 58,
+                "seed": 42,
+                "spill_on_solve_rate": 1.0
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "band": "R6+",
+                "observed_peak_register_bytes": 2048,
+                "observed_table_overflow_entries": 0,
+                "overflow_matches_table": true,
+                "positive_overflow_entries": 0,
+                "predicted_d_star_floor": 58,
+                "seed": 137,
+                "spill_on_solve_rate": 1.0
+              }
+            ]
+          },
+          "track_b_mask_only_vs_full_commit": {
+            "columns": [
+              "split",
+              "n_examples",
+              "mask_only_precision",
+              "mask_only_recall",
+              "full_commit_precision",
+              "full_commit_recall",
+              "mask_proposed_cells",
+              "mask_true_cells",
+              "full_proposed_commits",
+              "full_true_forced_states",
+              "dominant_stick_reason",
+              "dominant_stick_count"
+            ],
+            "rows": [
+              {
+                "dominant_stick_count": 100157,
+                "dominant_stick_reason": "unforced_candidate_blocked",
+                "full_commit_precision": 0.28060018818729665,
+                "full_commit_recall": 0.2770677598263805,
+                "full_proposed_commits": 139223,
+                "full_true_forced_states": 140998,
+                "mask_only_precision": 0.8267064037519646,
+                "mask_only_recall": 0.8996382358390296,
+                "mask_proposed_cells": 558001,
+                "mask_true_cells": 512765,
+                "n_examples": 151871,
+                "split": "train"
+              },
+              {
+                "dominant_stick_count": 12718,
+                "dominant_stick_reason": "unforced_candidate_blocked",
+                "full_commit_precision": 0.26353581562337136,
+                "full_commit_recall": 0.25890317442257366,
+                "full_proposed_commits": 17269,
+                "full_true_forced_states": 17578,
+                "mask_only_precision": 0.8203236415495212,
+                "mask_only_recall": 0.8826863755226031,
+                "mask_proposed_cells": 68718,
+                "mask_true_cells": 63863,
+                "n_examples": 19054,
+                "split": "eval"
               }
             ]
           }
@@ -22398,7 +23374,7 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:39:33.882769+00:00"
+              "2026-06-09T02:47:01.451288+00:00"
             ]
           ],
           "path": "results/closeout_047/status_corrections.json",
@@ -22503,17 +23479,47 @@
             },
             {
               "columns": 2,
+              "rows": 13,
+              "table": "closeout_decision_metrics"
+            },
+            {
+              "columns": 2,
               "rows": 6,
               "table": "corrected_status_labels"
+            },
+            {
+              "columns": 12,
+              "rows": 6,
+              "table": "gru_cell_frontiers_and_curves"
+            },
+            {
+              "columns": 11,
+              "rows": 6,
+              "table": "gru_r3plus_rerun_summary"
+            },
+            {
+              "columns": 8,
+              "rows": 12,
+              "table": "headline_certification_r3plus"
+            },
+            {
+              "columns": 10,
+              "rows": 24,
+              "table": "spill_accounting_r3plus"
+            },
+            {
+              "columns": 12,
+              "rows": 2,
+              "table": "track_b_mask_only_vs_full_commit"
             }
           ],
-          "size_bytes": 5935
+          "size_bytes": 29459
         }
       },
       "details": [
         "purpose=Correct item047 done-but-not-done labels, certify the headline overlay/spill accounting, split Track B mask-only versus full-commit metrics, and keep the GRU in-loop arm red until real bytes/training curves/convergence exist.",
         "commands=4",
-        "result_tables=['acceptance_state', 'corrected_status_labels']",
+        "result_tables=['acceptance_state', 'closeout_decision_metrics', 'corrected_status_labels', 'gru_cell_frontiers_and_curves', 'gru_r3plus_rerun_summary', 'headline_certification_r3plus', 'spill_accounting_r3plus', 'track_b_mask_only_vs_full_commit']",
         "honesty=The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnability finding, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present."
       ],
       "item": "048",

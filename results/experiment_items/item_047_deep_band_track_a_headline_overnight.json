@@ -87,6 +87,226 @@
   },
   "purpose": "Preregister the overnight headline run that bins 9x9 Stage A candidates by scalar-reference reverts_needed rather than minimal DPLL depth, gates Line 1 on GPU engine equivalence, and targets the R3+ separation table needed to test whether the register causally enables backtracking to the predicted depth.",
   "result_tables": {
+    "headline_r3plus_observed_summary": {
+      "columns": [
+        "band",
+        "D",
+        "n",
+        "rot_bound_single_d_star",
+        "rot_bound_single_spill_off_solve",
+        "rot_bound_single_spill_on_solve",
+        "rot_bound_single_spill_on_overflow_entries",
+        "rot_factored_d_star",
+        "rot_factored_spill_off_solve",
+        "rot_factored_spill_on_solve",
+        "rot_factored_spill_on_overflow_entries",
+        "rot_no_revert_solve",
+        "kv_snapshot_solve",
+        "legacy_gru_solve_audit_red",
+        "legacy_gru_peak_register_bytes"
+      ],
+      "rows": [
+        {
+          "D": 128,
+          "band": "R3-5",
+          "kv_snapshot_solve": 1.0,
+          "legacy_gru_peak_register_bytes": 0,
+          "legacy_gru_solve_audit_red": 0.0,
+          "n": 64,
+          "rot_bound_single_d_star": 9,
+          "rot_bound_single_spill_off_solve": 0.78125,
+          "rot_bound_single_spill_on_overflow_entries": 51,
+          "rot_bound_single_spill_on_solve": 1.0,
+          "rot_factored_d_star": 14,
+          "rot_factored_spill_off_solve": 0.96875,
+          "rot_factored_spill_on_overflow_entries": 6,
+          "rot_factored_spill_on_solve": 1.0,
+          "rot_no_revert_solve": 0.0
+        },
+        {
+          "D": 256,
+          "band": "R3-5",
+          "kv_snapshot_solve": 1.0,
+          "legacy_gru_peak_register_bytes": 0,
+          "legacy_gru_solve_audit_red": 0.0,
+          "n": 64,
+          "rot_bound_single_d_star": 19,
+          "rot_bound_single_spill_off_solve": 1.0,
+          "rot_bound_single_spill_on_overflow_entries": 0,
+          "rot_bound_single_spill_on_solve": 1.0,
+          "rot_factored_d_star": 29,
+          "rot_factored_spill_off_solve": 1.0,
+          "rot_factored_spill_on_overflow_entries": 0,
+          "rot_factored_spill_on_solve": 1.0,
+          "rot_no_revert_solve": 0.0
+        },
+        {
+          "D": 512,
+          "band": "R3-5",
+          "kv_snapshot_solve": 1.0,
+          "legacy_gru_peak_register_bytes": 0,
+          "legacy_gru_solve_audit_red": 0.0,
+          "n": 64,
+          "rot_bound_single_d_star": 38,
+          "rot_bound_single_spill_off_solve": 1.0,
+          "rot_bound_single_spill_on_overflow_entries": 0,
+          "rot_bound_single_spill_on_solve": 1.0,
+          "rot_factored_d_star": 58,
+          "rot_factored_spill_off_solve": 1.0,
+          "rot_factored_spill_on_overflow_entries": 0,
+          "rot_factored_spill_on_solve": 1.0,
+          "rot_no_revert_solve": 0.0
+        },
+        {
+          "D": 128,
+          "band": "R6+",
+          "kv_snapshot_solve": 1.0,
+          "legacy_gru_peak_register_bytes": 0,
+          "legacy_gru_solve_audit_red": 0.0,
+          "n": 64,
+          "rot_bound_single_d_star": 9,
+          "rot_bound_single_spill_off_solve": 0.53125,
+          "rot_bound_single_spill_on_overflow_entries": 119,
+          "rot_bound_single_spill_on_solve": 1.0,
+          "rot_factored_d_star": 14,
+          "rot_factored_spill_off_solve": 0.890625,
+          "rot_factored_spill_on_overflow_entries": 18,
+          "rot_factored_spill_on_solve": 1.0,
+          "rot_no_revert_solve": 0.0
+        },
+        {
+          "D": 256,
+          "band": "R6+",
+          "kv_snapshot_solve": 1.0,
+          "legacy_gru_peak_register_bytes": 0,
+          "legacy_gru_solve_audit_red": 0.0,
+          "n": 64,
+          "rot_bound_single_d_star": 19,
+          "rot_bound_single_spill_off_solve": 0.984375,
+          "rot_bound_single_spill_on_overflow_entries": 2,
+          "rot_bound_single_spill_on_solve": 1.0,
+          "rot_factored_d_star": 29,
+          "rot_factored_spill_off_solve": 1.0,
+          "rot_factored_spill_on_overflow_entries": 0,
+          "rot_factored_spill_on_solve": 1.0,
+          "rot_no_revert_solve": 0.0
+        },
+        {
+          "D": 512,
+          "band": "R6+",
+          "kv_snapshot_solve": 1.0,
+          "legacy_gru_peak_register_bytes": 0,
+          "legacy_gru_solve_audit_red": 0.0,
+          "n": 64,
+          "rot_bound_single_d_star": 38,
+          "rot_bound_single_spill_off_solve": 1.0,
+          "rot_bound_single_spill_on_overflow_entries": 0,
+          "rot_bound_single_spill_on_solve": 1.0,
+          "rot_factored_d_star": 58,
+          "rot_factored_spill_off_solve": 1.0,
+          "rot_factored_spill_on_overflow_entries": 0,
+          "rot_factored_spill_on_solve": 1.0,
+          "rot_no_revert_solve": 0.0
+        }
+      ]
+    },
+    "line1_checks_and_node_cap": {
+      "columns": [
+        "check",
+        "value"
+      ],
+      "rows": [
+        {
+          "check": "equivalence_logged_before_grid",
+          "value": true
+        },
+        {
+          "check": "gru_audit_nonzero_bytes_and_curve",
+          "value": false
+        },
+        {
+          "check": "no_revert_r3plus_solve_leq_cap",
+          "value": true
+        },
+        {
+          "check": "node_cap_status",
+          "value": "CALIBRATED_ON_SCALAR_REFERENCE"
+        },
+        {
+          "check": "node_cap_node_cap",
+          "value": 644
+        },
+        {
+          "check": "node_cap_reference_nodes_max",
+          "value": 643
+        },
+        {
+          "check": "node_cap_reference_nodes_p95",
+          "value": 242
+        },
+        {
+          "check": "node_cap_r3plus_mean_reference_nodes",
+          "value": 164.7265625
+        },
+        {
+          "check": "node_cap_rule",
+          "value": "tightest integer cap above max scalar-reference trace length in selected pool"
+        }
+      ]
+    },
+    "module1_capacity_overlay": {
+      "columns": [
+        "arm",
+        "D",
+        "capacity_d_star_floor",
+        "K_rule",
+        "provenance"
+      ],
+      "rows": [
+        {
+          "D": 128,
+          "K_rule": "K=81*9",
+          "arm": "rot_bound_single",
+          "capacity_d_star_floor": 9,
+          "provenance": "register.structured.predicted_d_star"
+        },
+        {
+          "D": 256,
+          "K_rule": "K=81*9",
+          "arm": "rot_bound_single",
+          "capacity_d_star_floor": 19,
+          "provenance": "register.structured.predicted_d_star"
+        },
+        {
+          "D": 512,
+          "K_rule": "K=81*9",
+          "arm": "rot_bound_single",
+          "capacity_d_star_floor": 38,
+          "provenance": "register.structured.predicted_d_star"
+        },
+        {
+          "D": 128,
+          "K_rule": "K=81",
+          "arm": "rot_factored",
+          "capacity_d_star_floor": 14,
+          "provenance": "register.structured.predicted_d_star"
+        },
+        {
+          "D": 256,
+          "K_rule": "K=81",
+          "arm": "rot_factored",
+          "capacity_d_star_floor": 29,
+          "provenance": "register.structured.predicted_d_star"
+        },
+        {
+          "D": 512,
+          "K_rule": "K=81",
+          "arm": "rot_factored",
+          "capacity_d_star_floor": 58,
+          "provenance": "register.structured.predicted_d_star"
+        }
+      ]
+    },
     "overnight_rollup": {
       "columns": [
         "path",

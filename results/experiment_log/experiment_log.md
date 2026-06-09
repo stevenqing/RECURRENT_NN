@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-09T02:39:33.919119+00:00
+Generated at: 2026-06-09T02:48:21.132105+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -263,7 +263,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - CANONICAL_REPO.md (yes, 532 bytes)
   - analysis/validate_outputs.py (yes, 38326 bytes)
   - results/validation/validation.json (yes, 52103 bytes)
-  - results/experiment_log/experiment_log.json (yes, 841225 bytes)
+  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -387,8 +387,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/continuation_state/post_027.json (yes, 1453 bytes)
   - results/validation/validation.json (yes, 52103 bytes)
   - results/validation/validation.md (yes, 32228 bytes)
-  - results/experiment_log/experiment_log.json (yes, 841225 bytes)
-  - results/experiment_log/experiment_log.md (yes, 203812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
+  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -1191,8 +1191,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 52103 bytes)
   - results/validation/validation.md (yes, 32228 bytes)
-  - results/experiment_log/experiment_log.json (yes, 841225 bytes)
-  - results/experiment_log/experiment_log.md (yes, 203812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
+  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1320,8 +1320,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 52103 bytes)
   - results/validation/validation.md (yes, 32228 bytes)
-  - results/experiment_log/experiment_log.json (yes, 841225 bytes)
-  - results/experiment_log/experiment_log.md (yes, 203812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
+  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1408,8 +1408,8 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 50342 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 841225 bytes)
-  - results/experiment_log/experiment_log.md (yes, 203812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
+  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
   - results/validation/validation.json (yes, 52103 bytes)
   - results/validation/validation.md (yes, 32228 bytes)
 #### Referenced Result Summaries
@@ -1473,15 +1473,15 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (yes, 11255 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (yes, 11389 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (yes, 11218 bytes)
-  - results/experiment_log/experiment_log.json (yes, 841225 bytes)
-  - results/experiment_log/experiment_log.md (yes, 203812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
+  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
   - results/validation/validation.json (yes, 52103 bytes)
   - results/validation/validation.md (yes, 32228 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-09T02:39:28.165907+00:00 |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-09T02:47:58.870532+00:00 |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | GATES_UNREACHED | G1=0.03906; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | GATES_UNREACHED | G1=0.01562; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
@@ -1575,8 +1575,8 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (yes, 40421 bytes)
   - results/sudoku_engine_gpu/equivalence_1000.json (yes, 167 bytes)
   - results/trm_operator_logging_smoke/progress.jsonl (yes, 968 bytes)
-  - results/experiment_log/experiment_log.json (yes, 841225 bytes)
-  - results/experiment_log/experiment_log.md (yes, 203812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
+  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
   - results/validation/validation.json (yes, 52103 bytes)
   - results/validation/validation.md (yes, 32228 bytes)
 #### Referenced Result Summaries
@@ -1655,8 +1655,8 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (yes, 322 bytes)
-  - results/experiment_log/experiment_log.json (yes, 841225 bytes)
-  - results/experiment_log/experiment_log.md (yes, 203812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
+  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
   - results/validation/validation.json (yes, 52103 bytes)
   - results/validation/validation.md (yes, 32228 bytes)
 #### Referenced Result Summaries
@@ -1701,8 +1701,8 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 841225 bytes)
-  - results/experiment_log/experiment_log.md (yes, 203812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
+  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
   - results/validation/validation.json (yes, 52103 bytes)
   - results/validation/validation.md (yes, 32228 bytes)
 #### Referenced Result Summaries
@@ -1758,8 +1758,8 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (yes, 974 bytes)
   - results/trm_operator_compile_smoke/acceptance.json (yes, 10396 bytes)
   - results/trm_operator_compile_smoke/progress.jsonl (yes, 486 bytes)
-  - results/experiment_log/experiment_log.json (yes, 841225 bytes)
-  - results/experiment_log/experiment_log.md (yes, 203812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
+  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
   - results/validation/validation.json (yes, 52103 bytes)
   - results/validation/validation.md (yes, 32228 bytes)
 #### Referenced Result Summaries
@@ -1826,8 +1826,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (yes, 102640503 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (yes, 102514311 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (yes, 102594183 bytes)
-  - results/experiment_log/experiment_log.json (yes, 841225 bytes)
-  - results/experiment_log/experiment_log.md (yes, 203812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
+  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
   - results/validation/validation.json (yes, 52103 bytes)
   - results/validation/validation.md (yes, 32228 bytes)
 #### Referenced Result Summaries
@@ -1886,8 +1886,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 42721 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (yes, 80203 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (yes, 55287865 bytes)
-  - results/experiment_log/experiment_log.json (yes, 841225 bytes)
-  - results/experiment_log/experiment_log.md (yes, 203812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
+  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
   - results/validation/validation.json (yes, 52103 bytes)
   - results/validation/validation.md (yes, 32228 bytes)
 #### Referenced Result Summaries
@@ -1948,10 +1948,10 @@ Truncated to 24 of 27 rows.
 - Details:
   - purpose=Preregister the overnight headline run that bins 9x9 Stage A candidates by scalar-reference reverts_needed rather than minimal DPLL depth, gates Line 1 on GPU engine equivalence, and targets the R3+ separation table needed to test whether the register causally enables backtracking to the predicted depth.
   - commands=1
-  - result_tables=['overnight_rollup']
+  - result_tables=['headline_r3plus_observed_summary', 'line1_checks_and_node_cap', 'module1_capacity_overlay', 'overnight_rollup']
   - honesty=This preregistration alone establishes no observed separation; the observed tables must be written later under the same item/run root. If a required engine or audit is absent, the run must fail closed.
 - Artifact refs:
-  - results/experiment_items/item_047_deep_band_track_a_headline_overnight.json (yes, 6142 bytes)
+  - results/experiment_items/item_047_deep_band_track_a_headline_overnight.json (yes, 13111 bytes)
   - results/overnight_047_headline_preregistered (yes, 4096 bytes)
   - results/overnight_047_headline_preregistered/line1_headline/line1_headline.json (yes, 110709 bytes)
   - results/overnight_047_headline_preregistered/line2_track_b_diagnostic/track_b_forced_diagnostic.json (yes, 10401 bytes)
@@ -1975,6 +1975,42 @@ Truncated to 24 of 27 rows.
 
 #### Contract Result Tables
 
+##### headline_r3plus_observed_summary
+
+| band | D | n | rot_bound_single_d_star | rot_bound_single_spill_off_solve | rot_bound_single_spill_on_solve | rot_bound_single_spill_on_overflow_entries | rot_factored_d_star | rot_factored_spill_off_solve | rot_factored_spill_on_solve | rot_factored_spill_on_overflow_entries | rot_no_revert_solve | kv_snapshot_solve | legacy_gru_solve_audit_red | legacy_gru_peak_register_bytes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| R3-5 | 128 | 64 | 9 | 0.7812 | 1 | 51 | 14 | 0.9688 | 1 | 6 | 0 | 1 | 0 | 0 |
+| R3-5 | 256 | 64 | 19 | 1 | 1 | 0 | 29 | 1 | 1 | 0 | 0 | 1 | 0 | 0 |
+| R3-5 | 512 | 64 | 38 | 1 | 1 | 0 | 58 | 1 | 1 | 0 | 0 | 1 | 0 | 0 |
+| R6+ | 128 | 64 | 9 | 0.5312 | 1 | 119 | 14 | 0.8906 | 1 | 18 | 0 | 1 | 0 | 0 |
+| R6+ | 256 | 64 | 19 | 0.9844 | 1 | 2 | 29 | 1 | 1 | 0 | 0 | 1 | 0 | 0 |
+| R6+ | 512 | 64 | 38 | 1 | 1 | 0 | 58 | 1 | 1 | 0 | 0 | 1 | 0 | 0 |
+
+##### line1_checks_and_node_cap
+
+| check | value |
+| --- | --- |
+| equivalence_logged_before_grid | True |
+| gru_audit_nonzero_bytes_and_curve | False |
+| no_revert_r3plus_solve_leq_cap | True |
+| node_cap_status | CALIBRATED_ON_SCALAR_REFERENCE |
+| node_cap_node_cap | 644 |
+| node_cap_reference_nodes_max | 643 |
+| node_cap_reference_nodes_p95 | 242 |
+| node_cap_r3plus_mean_reference_nodes | 164.7 |
+| node_cap_rule | tightest integer cap above max scalar-reference trace length in selected pool |
+
+##### module1_capacity_overlay
+
+| arm | D | capacity_d_star_floor | K_rule | provenance |
+| --- | --- | --- | --- | --- |
+| rot_bound_single | 128 | 9 | K=81*9 | register.structured.predicted_d_star |
+| rot_bound_single | 256 | 19 | K=81*9 | register.structured.predicted_d_star |
+| rot_bound_single | 512 | 38 | K=81*9 | register.structured.predicted_d_star |
+| rot_factored | 128 | 14 | K=81 | register.structured.predicted_d_star |
+| rot_factored | 256 | 29 | K=81 | register.structured.predicted_d_star |
+| rot_factored | 512 | 58 | K=81 | register.structured.predicted_d_star |
+
 ##### overnight_rollup
 
 | path | status | fail_closed |
@@ -1996,10 +2032,10 @@ Truncated to 24 of 27 rows.
 - Details:
   - purpose=Correct item047 done-but-not-done labels, certify the headline overlay/spill accounting, split Track B mask-only versus full-commit metrics, and keep the GRU in-loop arm red until real bytes/training curves/convergence exist.
   - commands=4
-  - result_tables=['acceptance_state', 'corrected_status_labels']
+  - result_tables=['acceptance_state', 'closeout_decision_metrics', 'corrected_status_labels', 'gru_cell_frontiers_and_curves', 'gru_r3plus_rerun_summary', 'headline_certification_r3plus', 'spill_accounting_r3plus', 'track_b_mask_only_vs_full_commit']
   - honesty=The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnability finding, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present.
 - Artifact refs:
-  - results/experiment_items/item_048_item047_headline_closeout.json (yes, 5935 bytes)
+  - results/experiment_items/item_048_item047_headline_closeout.json (yes, 29459 bytes)
   - results/closeout_047/status_corrections.json (yes, 1343 bytes)
   - results/closeout_047/headline_figure/headline_figure_certification.json (yes, 39864 bytes)
   - results/closeout_047/headline_figure/headline_overlay_spilloff.png (yes, 131963 bytes)
@@ -2038,6 +2074,24 @@ Truncated to 24 of 27 rows.
 | Task 2 headline figure | HEADLINE_FIGURE_CERTIFIED | results/closeout_047/headline_figure/headline_figure_certification.json |
 | Task 3 Track B split | MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL | results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json |
 
+##### closeout_decision_metrics
+
+| metric | value |
+| --- | --- |
+| headline_figure | HEADLINE_FIGURE_CERTIFIED |
+| spill_off_matches_depth_le_dstar | True |
+| spill_on_overflow_matches_table | True |
+| track_b_outcome | MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL |
+| track_b_eval_mask_only_precision | 0.8203 |
+| track_b_eval_mask_only_recall | 0.8827 |
+| track_b_eval_full_commit_precision | 0.2635 |
+| track_b_eval_full_commit_recall | 0.2589 |
+| track_b_threshold | 0.9 |
+| gru_in_loop_arm | GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS |
+| gru_max_r3plus_solve_rate | 0 |
+| gru_all_audit_pass | True |
+| gru_all_converged | True |
+
 ##### corrected_status_labels
 
 | label | status |
@@ -2048,6 +2102,81 @@ Truncated to 24 of 27 rows.
 | track_b | MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL |
 | headline_figure | HEADLINE_FIGURE_CERTIFIED |
 | capacity_law_transfer | CERTIFIED |
+
+##### gru_cell_frontiers_and_curves
+
+| D | seed | frontier_joint_095 | joint_depth_8 | joint_depth_12 | joint_depth_16 | joint_depth_21 | joint_depth_24 | best_val_loss | decoder_type | converged | result_path |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 128 | 42 | 7.324 | 0.8954 | 0.5311 | 0.3976 | 0.3078 | 0.2893 | 1.67 | replay | True | results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed42/results.json |
+| 128 | 137 | 7.719 | 0.9372 | 0.5558 | 0.4556 | 0.3373 | 0.3096 | 1.588 | replay | True | results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed137/results.json |
+| 256 | 42 | 9.59 | 0.9859 | 0.8014 | 0.6073 | 0.47 | 0.4115 | 1.196 | replay | True | results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed42/results.json |
+| 256 | 137 | 10.78 | 0.9964 | 0.852 | 0.6472 | 0.498 | 0.4399 | 1.132 | replay | True | results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed137/results.json |
+| 512 | 42 | 13.22 | 0.9982 | 0.9748 | 0.7984 | 0.6089 | 0.5324 | 0.7958 | replay | True | results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed42/results.json |
+| 512 | 137 | 12.59 | 0.996 | 0.9785 | 0.7582 | 0.5864 | 0.5142 | 0.8408 | replay | True | results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed137/results.json |
+
+##### gru_r3plus_rerun_summary
+
+| D | seed | frontier_joint_095 | r3_5_n | r3_5_solve_rate | r6plus_n | r6plus_solve_rate | peak_register_bytes | gru_audit_pass | gru_converged | training_curve_ref |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 128 | 42 | 7.324 | 64 | 0 | 64 | 0 | 512 | True | True | results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed42/results.json |
+| 128 | 137 | 7.719 | 64 | 0 | 64 | 0 | 512 | True | True | results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed137/results.json |
+| 256 | 42 | 9.59 | 64 | 0 | 64 | 0 | 1024 | True | True | results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed42/results.json |
+| 256 | 137 | 10.78 | 64 | 0 | 64 | 0 | 1024 | True | True | results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed137/results.json |
+| 512 | 42 | 13.22 | 64 | 0 | 64 | 0 | 2048 | True | True | results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed42/results.json |
+| 512 | 137 | 12.59 | 64 | 0 | 64 | 0 | 2048 | True | True | results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed137/results.json |
+
+##### headline_certification_r3plus
+
+| arm | D | band | n | predicted_d_star_floor | observed_spill_off_solve_rate | depth_le_dstar_fraction | solve_matches_depth_le_dstar |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| rot_bound_single | 128 | R3-5 | 64 | 9 | 0.7812 | 0.7812 | True |
+| rot_bound_single | 128 | R6+ | 64 | 9 | 0.5312 | 0.5312 | True |
+| rot_bound_single | 256 | R3-5 | 64 | 19 | 1 | 1 | True |
+| rot_bound_single | 256 | R6+ | 64 | 19 | 0.9844 | 0.9844 | True |
+| rot_bound_single | 512 | R3-5 | 64 | 38 | 1 | 1 | True |
+| rot_bound_single | 512 | R6+ | 64 | 38 | 1 | 1 | True |
+| rot_factored | 128 | R3-5 | 64 | 14 | 0.9688 | 0.9688 | True |
+| rot_factored | 128 | R6+ | 64 | 14 | 0.8906 | 0.8906 | True |
+| rot_factored | 256 | R3-5 | 64 | 29 | 1 | 1 | True |
+| rot_factored | 256 | R6+ | 64 | 29 | 1 | 1 | True |
+| rot_factored | 512 | R3-5 | 64 | 58 | 1 | 1 | True |
+| rot_factored | 512 | R6+ | 64 | 58 | 1 | 1 | True |
+
+##### spill_accounting_r3plus
+
+| arm | D | seed | band | predicted_d_star_floor | positive_overflow_entries | observed_table_overflow_entries | observed_peak_register_bytes | spill_on_solve_rate | overflow_matches_table |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| rot_bound_single | 128 | 42 | R3-5 | 9 | 51 | 51 | 656 | 1 | True |
+| rot_bound_single | 128 | 137 | R3-5 | 9 | 51 | 51 | 656 | 1 | True |
+| rot_bound_single | 128 | 42 | R6+ | 9 | 119 | 119 | 704 | 1 | True |
+| rot_bound_single | 128 | 137 | R6+ | 9 | 119 | 119 | 704 | 1 | True |
+| rot_bound_single | 256 | 42 | R3-5 | 19 | 0 | 0 | 1024 | 1 | True |
+| rot_bound_single | 256 | 137 | R3-5 | 19 | 0 | 0 | 1024 | 1 | True |
+| rot_bound_single | 256 | 42 | R6+ | 19 | 2 | 2 | 1056 | 1 | True |
+| rot_bound_single | 256 | 137 | R6+ | 19 | 2 | 2 | 1056 | 1 | True |
+| rot_bound_single | 512 | 42 | R3-5 | 38 | 0 | 0 | 2048 | 1 | True |
+| rot_bound_single | 512 | 137 | R3-5 | 38 | 0 | 0 | 2048 | 1 | True |
+| rot_bound_single | 512 | 42 | R6+ | 38 | 0 | 0 | 2048 | 1 | True |
+| rot_bound_single | 512 | 137 | R6+ | 38 | 0 | 0 | 2048 | 1 | True |
+| rot_factored | 128 | 42 | R3-5 | 14 | 6 | 6 | 576 | 1 | True |
+| rot_factored | 128 | 137 | R3-5 | 14 | 6 | 6 | 576 | 1 | True |
+| rot_factored | 128 | 42 | R6+ | 14 | 18 | 18 | 624 | 1 | True |
+| rot_factored | 128 | 137 | R6+ | 14 | 18 | 18 | 624 | 1 | True |
+| rot_factored | 256 | 42 | R3-5 | 29 | 0 | 0 | 1024 | 1 | True |
+| rot_factored | 256 | 137 | R3-5 | 29 | 0 | 0 | 1024 | 1 | True |
+| rot_factored | 256 | 42 | R6+ | 29 | 0 | 0 | 1024 | 1 | True |
+| rot_factored | 256 | 137 | R6+ | 29 | 0 | 0 | 1024 | 1 | True |
+| rot_factored | 512 | 42 | R3-5 | 58 | 0 | 0 | 2048 | 1 | True |
+| rot_factored | 512 | 137 | R3-5 | 58 | 0 | 0 | 2048 | 1 | True |
+| rot_factored | 512 | 42 | R6+ | 58 | 0 | 0 | 2048 | 1 | True |
+| rot_factored | 512 | 137 | R6+ | 58 | 0 | 0 | 2048 | 1 | True |
+
+##### track_b_mask_only_vs_full_commit
+
+| split | n_examples | mask_only_precision | mask_only_recall | full_commit_precision | full_commit_recall | mask_proposed_cells | mask_true_cells | full_proposed_commits | full_true_forced_states | dominant_stick_reason | dominant_stick_count |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| train | 151871 | 0.8267 | 0.8996 | 0.2806 | 0.2771 | 558001 | 512765 | 139223 | 140998 | unforced_candidate_blocked | 100157 |
+| eval | 19054 | 0.8203 | 0.8827 | 0.2635 | 0.2589 | 68718 | 63863 | 17269 | 17578 | unforced_candidate_blocked | 12718 |
 
 - Next action: Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact.
 

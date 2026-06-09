@@ -6,7 +6,7 @@
     "track_b_not_closed_until_split_diagnostic": true
   },
   "fail_closed": false,
-  "generated_at": "2026-06-09T02:39:33.882769+00:00",
+  "generated_at": "2026-06-09T02:47:01.451288+00:00",
   "inputs": {
     "gru_rerun": "results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json",
     "headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",

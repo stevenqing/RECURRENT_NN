@@ -460,6 +460,93 @@ def preregister(args: argparse.Namespace) -> dict[str, Any]:
     return _write(ITEM_PATH, item)
 
 
+def _find_headline_row(rows: list[dict[str, Any]], arm: str, spill: str, band: str, dimension: int, seed: int = 42) -> dict[str, Any]:
+    for row in rows:
+        if row.get("arm") == arm and row.get("spill") == spill and row.get("band") == band and int(row.get("D", -1)) == dimension and int(row.get("seed", seed)) == seed:
+            return row
+    return {}
+
+
+def _line1_observed_result_tables(root: Path) -> dict[str, Any]:
+    line1 = _load(root / "line1_headline/line1_headline.json") or {}
+    if not isinstance(line1, dict):
+        return {}
+    tables = line1.get("result_tables", {})
+    headline = tables.get("headline_separation", {}) if isinstance(tables, dict) else {}
+    rows = headline.get("rows", []) if isinstance(headline, dict) else []
+    if not isinstance(rows, list):
+        rows = []
+
+    observed_rows = []
+    for band in ["R3-5", "R6+"]:
+        for dimension in DS:
+            bound_off = _find_headline_row(rows, "rot_bound_single", "spill_off", band, dimension)
+            bound_on = _find_headline_row(rows, "rot_bound_single", "spill_on", band, dimension)
+            factored_off = _find_headline_row(rows, "rot_factored", "spill_off", band, dimension)
+            factored_on = _find_headline_row(rows, "rot_factored", "spill_on", band, dimension)
+            no_revert = _find_headline_row(rows, "rot_no_revert", "na", band, dimension)
+            kv_snapshot = _find_headline_row(rows, "kv_snapshot", "na", band, dimension)
+            gru = _find_headline_row(rows, "gru", "na", band, dimension)
+            observed_rows.append({
+                "band": band,
+                "D": dimension,
+                "n": bound_off.get("n") or bound_on.get("n") or factored_off.get("n"),
+                "rot_bound_single_d_star": bound_off.get("capacity_d_star_floor"),
+                "rot_bound_single_spill_off_solve": bound_off.get("solve_rate"),
+                "rot_bound_single_spill_on_solve": bound_on.get("solve_rate"),
+                "rot_bound_single_spill_on_overflow_entries": bound_on.get("overflow_entries"),
+                "rot_factored_d_star": factored_off.get("capacity_d_star_floor"),
+                "rot_factored_spill_off_solve": factored_off.get("solve_rate"),
+                "rot_factored_spill_on_solve": factored_on.get("solve_rate"),
+                "rot_factored_spill_on_overflow_entries": factored_on.get("overflow_entries"),
+                "rot_no_revert_solve": no_revert.get("solve_rate"),
+                "kv_snapshot_solve": kv_snapshot.get("solve_rate"),
+                "legacy_gru_solve_audit_red": gru.get("solve_rate"),
+                "legacy_gru_peak_register_bytes": gru.get("peak_register_bytes"),
+            })
+
+    check_rows = []
+    checks = line1.get("checks", {}) if isinstance(line1.get("checks"), dict) else {}
+    node_cap = line1.get("node_cap_calibration", {}) if isinstance(line1.get("node_cap_calibration"), dict) else {}
+    for key, value in checks.items():
+        check_rows.append({"check": key, "value": value})
+    for key in ["status", "node_cap", "reference_nodes_max", "reference_nodes_p95", "r3plus_mean_reference_nodes", "rule"]:
+        if key in node_cap:
+            check_rows.append({"check": f"node_cap_{key}", "value": node_cap[key]})
+
+    result_tables: dict[str, Any] = {
+        "headline_r3plus_observed_summary": {
+            "columns": [
+                "band",
+                "D",
+                "n",
+                "rot_bound_single_d_star",
+                "rot_bound_single_spill_off_solve",
+                "rot_bound_single_spill_on_solve",
+                "rot_bound_single_spill_on_overflow_entries",
+                "rot_factored_d_star",
+                "rot_factored_spill_off_solve",
+                "rot_factored_spill_on_solve",
+                "rot_factored_spill_on_overflow_entries",
+                "rot_no_revert_solve",
+                "kv_snapshot_solve",
+                "legacy_gru_solve_audit_red",
+                "legacy_gru_peak_register_bytes",
+            ],
+            "rows": observed_rows,
+        },
+        "line1_checks_and_node_cap": {
+            "columns": ["check", "value"],
+            "rows": check_rows,
+        },
+    }
+
+    overlay = tables.get("module1_overlay") if isinstance(tables, dict) else None
+    if isinstance(overlay, dict):
+        result_tables["module1_capacity_overlay"] = overlay
+    return result_tables
+
+
 def rollup(args: argparse.Namespace) -> dict[str, Any]:
     root = Path(args.run_root)
     artifacts = sorted(root.glob("line*/*.json")) + sorted(root.glob("rollup_inputs/*.json"))
@@ -472,6 +559,7 @@ def rollup(args: argparse.Namespace) -> dict[str, Any]:
     if isinstance(item, dict):
         item["status"] = "OVERNIGHT_LAUNCHED_ROLLUP_AVAILABLE"
         item.setdefault("result_tables", {})["overnight_rollup"] = {"columns": ["path", "status", "fail_closed"], "rows": rows}
+        item["result_tables"].update(_line1_observed_result_tables(root))
         item["decision"] = {"gate_outcomes": [{"gate": "overnight_rollup_written", "outcome": "PASS", "number": str(root / "rollup.json")}], "next_step_routing": "Inspect Line 1 R3+ table, Line 2 close/fix decision, Line 3 Grade 2 verdict, and D3 frontier audit."}
         _write(ITEM_PATH, item)
     return _write(root / "rollup.json", {"module": "overnight_headline.rollup", "generated_at": _now(), "status": "OVERNIGHT_ROLLUP_COMPLETE", "run_root": str(root), "artifacts": rows, "fail_closed_count": sum(1 for row in rows if row.get("fail_closed"))})
