@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-09T09:43:35.123567+00:00
+Generated at: 2026-06-09T13:12:53.491892+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,7 +17,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 pre-fix record | BLOCKER | historical_continuation_G1=0.0; current_diagnostic_G1=1.0 |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=332; validation_passed=False |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=395; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Diagnostic pass, autonomous grid not proven | Sudoku6 diagnostic G1=1.0; L4_reverts=True; L4_forward=True |
 | P2 | W3 Qwen3.5 probe | cached_gdn_state_measured_with_propagation_delta | W3.0=PASS; survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; native_delta=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; propagation=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
@@ -46,6 +46,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 048 | Item047 headline closeout status and diagnostics | ITEM047_CLOSEOUT_COMPLETE | Closeout acceptance gates are resolved; keep Track B out of the critical path, run at most one value-head retrain, and quote GRU only through the real in-loop rerun artifact. |
 | 049 | Track B one-shot value-head retrain | APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL | Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL. |
 | 050 | Post-review E1 scalar cross-task generalization | E1_SCALAR_FIGURE4_DEVIATION_RECORDED | 2 keys: defer, ready |
+| 051 | Rung-1 distributed graph-coloring CBJ gate | RUNG1_PHASE0_SYMBOLIC_GATE_PASSED | Proceed to Phase 1 Qwen3.5-4B on the frozen pool if rung1_gate_pass is true; otherwise increase cut/tighten k or plant deeper chain-structured blocks and rerun Phase 0. |
+| 052 | Rung-1 gate distributed coloring v0.1 fixed-size depth curve | RUNG1_V01_FIXED_SIZE_DEPTH_CURVE_PASSED | Use the fixed-size attainable-bin pool for Phase 1 gap-vs-depth reproduction; keep Item051 deep-stress pool separate and labeled as secondary stress evidence. |
 
 ## Item Details
 
@@ -102,14 +104,14 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - The validator now reports missing legacy artifacts individually.
   - Current validation is registry-style and does not collapse missing history into one opaque required-files failure.
 - Artifact refs:
-  - analysis/validate_outputs.py (yes, 54311 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
+  - analysis/validate_outputs.py (yes, 73885 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
@@ -256,21 +258,21 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=332; validation_passed=False
+- Key result: validation_checks=395; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=329; validation_fail=3
+  - validation_pass=392; validation_fail=3
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifact refs:
   - CANONICAL_REPO.md (yes, 532 bytes)
-  - analysis/validate_outputs.py (yes, 54311 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/experiment_log/experiment_log.json (yes, 2248292 bytes)
+  - analysis/validate_outputs.py (yes, 73885 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/experiment_log/experiment_log.json (yes, 43462713 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 - Next action: Keep future reports item-first and preserve explicit red checks.
@@ -387,10 +389,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - REPRODUCIBILITY.md (yes, 3478 bytes)
   - scripts/reproduce_continuation_state.sh (yes, 1972 bytes)
   - results/continuation_state/post_027.json (yes, 1453 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
-  - results/experiment_log/experiment_log.json (yes, 2248292 bytes)
-  - results/experiment_log/experiment_log.md (yes, 251322 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
+  - results/experiment_log/experiment_log.json (yes, 43462713 bytes)
+  - results/experiment_log/experiment_log.md (yes, 344172 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -402,7 +404,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/continuation_state/post_027.json | recorded | source=user_master_runbook_2026_06_07; canonical_repo=/home/aiscuser/RECURRENT_NN |  |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/stage_a_adapter_wiring/results.json | PASS | autonomous_solve_status=NOT_RUN; grid_cells=36; preflight_status=READY; register_smoke_status=SMOKE_PASS |  |
 | results/stage_a_banded_gate_refusal/results.json | PASS | banded_datasets=8 keys: note, sudoku6_depths, sudoku6_generated_count, sudoku6_generator_present, sudoku6_status, sudoku9_generated_c... | fail_closed_cases:3r/5c |
@@ -685,8 +687,8 @@ No rows recorded.
   - results/d_stage_2/results.json (missing)
   - results/d_stage_3/results.json (missing)
   - results/verifier/results.json (missing)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -698,7 +700,7 @@ No rows recorded.
 | results/d_stage_2/results.json | missing |  |  |
 | results/d_stage_3/results.json | missing |  |  |
 | results/verifier/results.json | missing |  |  |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 
 #### Contract Result Tables
 
@@ -760,14 +762,14 @@ No rows recorded.
   - honesty=This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent state. It deliberately turns the registry red until those objects exist.
 - Artifact refs:
   - results/experiment_items/item_033_validation_object_binding.json (yes, 7073 bytes)
-  - analysis/validate_outputs.py (yes, 54311 bytes)
+  - analysis/validate_outputs.py (yes, 73885 bytes)
   - experiments/stage_a_sudoku6_bridge.py (yes, 10922 bytes)
   - experiments/w3_qwen35_probe.py (yes, 47675 bytes)
   - results/stage_a_sudoku6_bridge/results.json (yes, 4890 bytes)
   - results/w3_qwen35_probe/results.json (yes, 96087 bytes)
   - results/w3_qwen35_probe/verdicts.json (yes, 674 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -775,7 +777,7 @@ No rows recorded.
 | results/stage_a_sudoku6_bridge/results.json | DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER | G1=1; single_step_forced_accuracy=1; n_sudoku6_tasks=32; reverts_nonzero_on_L4=True; forward_floor_on_L4=True; device=cpu | single_step_forced_precision_recall_by_depth:2r/5c |
 | results/w3_qwen35_probe/results.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:8r/13c; decay_survival:5r/5c; model_card:34r/3c; native_rule_gap:3r/7c; propagation_per_task_delta:5r/7c |
 | results/w3_qwen35_probe/verdicts.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... |  |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 
 #### Contract Result Tables
 
@@ -948,8 +950,8 @@ No rows recorded.
   - results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json (yes, 19157 bytes)
   - results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json (yes, 19123 bytes)
   - results/w3_qwen35_probe/propagation_shards/logic_grid/results.json (yes, 19025 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -965,7 +967,7 @@ No rows recorded.
 | results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/logic_grid/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 
 #### Contract Result Tables
 
@@ -1191,10 +1193,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
-  - results/experiment_log/experiment_log.json (yes, 2248292 bytes)
-  - results/experiment_log/experiment_log.md (yes, 251322 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
+  - results/experiment_log/experiment_log.json (yes, 43462713 bytes)
+  - results/experiment_log/experiment_log.md (yes, 344172 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1202,7 +1204,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1320,10 +1322,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
-  - results/experiment_log/experiment_log.json (yes, 2248292 bytes)
-  - results/experiment_log/experiment_log.md (yes, 251322 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
+  - results/experiment_log/experiment_log.json (yes, 43462713 bytes)
+  - results/experiment_log/experiment_log.md (yes, 344172 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1331,7 +1333,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1410,17 +1412,17 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 2248292 bytes)
-  - results/experiment_log/experiment_log.md (yes, 251322 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
+  - results/experiment_log/experiment_log.json (yes, 43462713 bytes)
+  - results/experiment_log/experiment_log.md (yes, 344172 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/trm_operator_smoke/acceptance.json | G1_NOT_MET | G1=0.125; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 
 #### Contract Result Tables
 
@@ -1475,20 +1477,20 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (yes, 11255 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (yes, 11389 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (yes, 11218 bytes)
-  - results/experiment_log/experiment_log.json (yes, 2248292 bytes)
-  - results/experiment_log/experiment_log.md (yes, 251322 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
+  - results/experiment_log/experiment_log.json (yes, 43462713 bytes)
+  - results/experiment_log/experiment_log.md (yes, 344172 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-09T09:43:05.737828+00:00 |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-09T13:12:53.621901+00:00 |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | GATES_UNREACHED | G1=0.03906; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | GATES_UNREACHED | G1=0.01562; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 
 #### Contract Result Tables
 
@@ -1577,10 +1579,10 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (yes, 40421 bytes)
   - results/sudoku_engine_gpu/equivalence_1000.json (yes, 167 bytes)
   - results/trm_operator_logging_smoke/progress.jsonl (yes, 968 bytes)
-  - results/experiment_log/experiment_log.json (yes, 2248292 bytes)
-  - results/experiment_log/experiment_log.md (yes, 251322 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
+  - results/experiment_log/experiment_log.json (yes, 43462713 bytes)
+  - results/experiment_log/experiment_log.md (yes, 344172 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1588,7 +1590,7 @@ Truncated to 24 of 27 rows.
 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json | recorded | no_optimization_claim=True; profiled_object=experiments.train_trm_operator current Track B per-cell-token trainer; purpose=P0 profile gate before GPU efficiency optimization; semantics mirror current Track B trainer.; started_at=2026-06-08T10:02:52.744806+00:00 |  |
 | results/sudoku_engine_gpu/equivalence_1000.json | True | device=cuda:0; n_boards=1000; n_mismatches=0; name=sudoku_engine_gpu_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 
 #### Contract Result Tables
 
@@ -1657,17 +1659,17 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (yes, 322 bytes)
-  - results/experiment_log/experiment_log.json (yes, 2248292 bytes)
-  - results/experiment_log/experiment_log.md (yes, 251322 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
+  - results/experiment_log/experiment_log.json (yes, 43462713 bytes)
+  - results/experiment_log/experiment_log.md (yes, 344172 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/batched_ops/equivalence_100.json | True | device=cuda:0; n_episodes_generated=100; n_episodes_requested=100; n_mismatches=0; name=register_batched_ops_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 
 #### Contract Result Tables
 
@@ -1703,16 +1705,16 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 2248292 bytes)
-  - results/experiment_log/experiment_log.md (yes, 251322 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
+  - results/experiment_log/experiment_log.json (yes, 43462713 bytes)
+  - results/experiment_log/experiment_log.md (yes, 344172 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 
 #### Contract Result Tables
 
@@ -1760,10 +1762,10 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (yes, 974 bytes)
   - results/trm_operator_compile_smoke/acceptance.json (yes, 10396 bytes)
   - results/trm_operator_compile_smoke/progress.jsonl (yes, 486 bytes)
-  - results/experiment_log/experiment_log.json (yes, 2248292 bytes)
-  - results/experiment_log/experiment_log.md (yes, 251322 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
+  - results/experiment_log/experiment_log.json (yes, 43462713 bytes)
+  - results/experiment_log/experiment_log.md (yes, 344172 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1771,7 +1773,7 @@ Truncated to 24 of 27 rows.
 | results/trm_operator_prelaunch_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_prelaunch_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/trm_operator_compile_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_compile_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 
 #### Contract Result Tables
 
@@ -1828,17 +1830,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (yes, 102640503 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (yes, 102514311 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (yes, 102594183 bytes)
-  - results/experiment_log/experiment_log.json (yes, 2248292 bytes)
-  - results/experiment_log/experiment_log.md (yes, 251322 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
+  - results/experiment_log/experiment_log.json (yes, 43462713 bytes)
+  - results/experiment_log/experiment_log.md (yes, 344172 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/ddp_shard_smoke_track_b_20260608/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/ddp_shard_smoke_track_b_20260608/trm_operator_seed778.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 
 #### Contract Result Tables
 
@@ -1888,17 +1890,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 42721 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (yes, 80203 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (yes, 55287865 bytes)
-  - results/experiment_log/experiment_log.json (yes, 2248292 bytes)
-  - results/experiment_log/experiment_log.md (yes, 251322 bytes)
-  - results/validation/validation.json (yes, 65736 bytes)
-  - results/validation/validation.md (yes, 41347 bytes)
+  - results/experiment_log/experiment_log.json (yes, 43462713 bytes)
+  - results/experiment_log/experiment_log.md (yes, 344172 bytes)
+  - results/validation/validation.json (yes, 108346 bytes)
+  - results/validation/validation.md (yes, 79295 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=332; n_fail=3; n_pass=329 |  |
+| results/validation/validation.json | False | summary=n_checks=395; n_fail=3; n_pass=392 |  |
 
 #### Contract Result Tables
 
@@ -2243,11 +2245,12 @@ Truncated to 24 of 27 rows.
 - Details:
   - purpose=Run amended E1 on SAT and graph coloring with the scalar Stage A register loop, reusing the item050 pool/caps and removing the non-applicable batched-equivalence gate.
   - commands=1
-  - result_tables=['band_summary', 'capacity_predictions', 'figure4_separation', 'law_transfer', 'live_load_predictor_law_transfer', 'live_load_predictor_summary', 'live_load_predictors', 'reference_live_load_events', 'required_depth_histogram', 'small_d_selection', 'stateless_oracle_ci', 'storage_dstar_curve', 'storage_dstar_summary', 'sudoku_live_load_confirmation', 'sudoku_live_load_predictors', 'sudoku_live_load_summary', 'task_pool_summary']
-  - honesty=GRU is not reported as a collapse datum; it is audit-red and excluded until trained to the fairness budget with nonzero bytes and a curve.
+  - result_tables=['band_summary', 'capacity_predictions', 'compositional_product_law_transfer', 'compositional_product_predictions', 'compositional_product_summary', 'compositional_read_rules', 'figure4_separation', 'law_transfer', 'live_load_predictor_law_transfer', 'live_load_predictor_summary', 'live_load_predictors', 'reference_live_load_events', 'required_depth_histogram', 'small_d_selection', 'stateless_oracle_ci', 'storage_dstar_curve', 'storage_dstar_summary', 'sudoku_compositional_law_transfer', 'sudoku_compositional_product_predictions', 'sudoku_compositional_storage_curve', 'sudoku_compositional_summary', 'sudoku_compositional_trace_subsample', 'sudoku_live_load_confirmation', 'sudoku_live_load_predictors', 'sudoku_live_load_summary', 'task_pool_summary']
+  - honesty=GRU is not reported as a collapse datum; it is audit-red and excluded until trained to the fairness budget with nonzero bytes and a curve. The masked compositional law has no fitted parameters; C is the scalar loop capacity floor, decode curves are measured, and Sudoku rows are real DPLLOracle trace subsamples with timeout exclusions rather than saved-stats proxies.
 - Artifact refs:
-  - results/experiment_items/item_050_post_review_e1_cross_task_generalization.json (yes, 5403402 bytes)
-  - results/post_review_e1_cross_task_generalization/results.json (yes, 28531987 bytes)
+  - results/experiment_items/item_050_post_review_e1_cross_task_generalization.json (yes, 35637292 bytes)
+  - results/post_review_e1_cross_task_generalization/results.json (yes, 57774749 bytes)
+  - results/post_review_e1_cross_task_generalization/sudoku_d128_bound_single_module1_curve.json (yes, 76411 bytes)
   - results/post_review_e1_cross_task_generalization/panels/graph_coloring_figure4_scalar_panels.png (yes, 105545 bytes)
   - results/post_review_e1_cross_task_generalization/panels/sat_3sat_figure4_scalar_panels.png (yes, 104108 bytes)
 #### Referenced Result Summaries
@@ -2255,6 +2258,7 @@ Truncated to 24 of 27 rows.
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/post_review_e1_cross_task_generalization/results.json | E1_SCALAR_FIGURE4_DEVIATION_RECORDED | figure4_status=E1_SCALAR_FIGURE4_DEVIATION_RECORDED |  |
+| results/post_review_e1_cross_task_generalization/sudoku_d128_bound_single_module1_curve.json | recorded | device=cuda:0; threshold=0.95; trials=4096; batch_size=8192; summary=9 keys: variant, replacement, D, K_var, K_val, capacity_joint_095, capacity_var_095, capacity_val_095; source=autonomous_stage_a_run |  |
 
 #### Contract Result Tables
 
@@ -2287,6 +2291,92 @@ Truncated to 24 of 27 rows.
 | graph_coloring | 128 | 16 | 4 | 64 | 15.39 | 15 | 11.54 | 11 |
 | graph_coloring | 256 | 16 | 4 | 64 | 30.78 | 30 | 23.08 | 23 |
 | graph_coloring | 512 | 16 | 4 | 64 | 61.55 | 61 | 46.17 | 46 |
+
+##### compositional_product_law_transfer
+
+| task | arm | variant | D | band | candidate | model_family | mask_applied | n | n_missing_decode_curve | mean_dropped_reads | instances_with_dropped_reads | predicted_solve_rate | observed_spill_off_solve_rate | observed_seed_min | observed_seed_max | n_seeds_joined | abs_diff | residual_observed_minus_predicted | residual_nonnegative | residual_within_tolerance | residual_one_sided_tight | law_transfer_tolerance | on_y_equals_x | pre_registered_hypothesis | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | P_all | decode_curve_product | True | 64 | 0 | 3.234 | 59 | 0.05453 | 0.01562 | 0.01562 | 0.01562 | 2 | 0.0389 | -0.0389 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | P_choice | decode_curve_product | True | 64 | 0 | 3.234 | 59 | 0.05453 | 0.01562 | 0.01562 | 0.01562 | 2 | 0.0389 | -0.0389 | False | False | False | 0.01562 | False | True | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | P_pop | decode_curve_product | True | 64 | 0 | 0 | 0 | 1 | 0.01562 | 0.01562 | 0.01562 | 2 | 0.9844 | -0.9844 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | P_all_unmasked | decode_curve_product | False | 64 | 0 | 0 | 0 | 0.1649 | 0.01562 | 0.01562 | 0.01562 | 2 | 0.1493 | -0.1493 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | P_choice_unmasked | decode_curve_product | False | 64 | 0 | 0 | 0 | 0.1649 | 0.01562 | 0.01562 | 0.01562 | 2 | 0.1493 | -0.1493 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | P_pop_unmasked | decode_curve_product | False | 64 | 0 | 0 | 0 | 1 | 0.01562 | 0.01562 | 0.01562 | 2 | 0.9844 | -0.9844 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | threshold_D_peak | dstar_threshold_contrast | False | 64 | 0 | None | None | 0 | 0.01562 | 0.01562 | 0.01562 | 2 | 0.01562 | 0.01562 | True | True | True | 0.01562 | True | False | autonomous_stage_a_run | threshold_variant_contrast_against_product_law |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | threshold_D_pop | dstar_threshold_contrast | False | 64 | 0 | None | None | 1 | 0.01562 | 0.01562 | 0.01562 | 2 | 0.9844 | -0.9844 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | threshold_variant_contrast_against_product_law |
+| graph_coloring | rot_bound_single | bound_single | 32 | R1-2 | P_all | decode_curve_product | True | 64 | 0 | 3.828 | 61 | 0.02318 | 0 | 0 | 0 | 2 | 0.02318 | -0.02318 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R1-2 | P_choice | decode_curve_product | True | 64 | 0 | 3.828 | 61 | 0.02318 | 0 | 0 | 0 | 2 | 0.02318 | -0.02318 | False | False | False | 0.01562 | False | True | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R1-2 | P_pop | decode_curve_product | True | 64 | 0 | 0.6406 | 40 | 0.283 | 0 | 0 | 0 | 2 | 0.283 | -0.283 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R1-2 | P_all_unmasked | decode_curve_product | False | 64 | 0 | 0 | 0 | 0.08812 | 0 | 0 | 0 | 2 | 0.08812 | -0.08812 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R1-2 | P_choice_unmasked | decode_curve_product | False | 64 | 0 | 0 | 0 | 0.08812 | 0 | 0 | 0 | 2 | 0.08812 | -0.08812 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R1-2 | P_pop_unmasked | decode_curve_product | False | 64 | 0 | 0 | 0 | 0.573 | 0 | 0 | 0 | 2 | 0.573 | -0.573 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R1-2 | threshold_D_peak | dstar_threshold_contrast | False | 64 | 0 | None | None | 0 | 0 | 0 | 0 | 2 | 0 | 0 | True | True | True | 0.01562 | True | False | autonomous_stage_a_run | threshold_variant_contrast_against_product_law |
+| graph_coloring | rot_bound_single | bound_single | 32 | R1-2 | threshold_D_pop | dstar_threshold_contrast | False | 64 | 0 | None | None | 0 | 0 | 0 | 0 | 2 | 0 | 0 | True | True | True | 0.01562 | True | False | autonomous_stage_a_run | threshold_variant_contrast_against_product_law |
+| graph_coloring | rot_bound_single | bound_single | 32 | R3-5 | P_all | decode_curve_product | True | 64 | 0 | 6.75 | 64 | 0 | 0 | 0 | 0 | 2 | 0 | 0 | True | True | True | 0.01562 | True | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R3-5 | P_choice | decode_curve_product | True | 64 | 0 | 6.75 | 64 | 0 | 0 | 0 | 0 | 2 | 0 | 0 | True | True | True | 0.01562 | True | True | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R3-5 | P_pop | decode_curve_product | True | 64 | 0 | 3.328 | 62 | 0.01586 | 0 | 0 | 0 | 2 | 0.01586 | -0.01586 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R3-5 | P_all_unmasked | decode_curve_product | False | 64 | 0 | 0 | 0 | 0.01956 | 0 | 0 | 0 | 2 | 0.01956 | -0.01956 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R3-5 | P_choice_unmasked | decode_curve_product | False | 64 | 0 | 0 | 0 | 0.01956 | 0 | 0 | 0 | 2 | 0.01956 | -0.01956 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R3-5 | P_pop_unmasked | decode_curve_product | False | 64 | 0 | 0 | 0 | 0.1206 | 0 | 0 | 0 | 2 | 0.1206 | -0.1206 | False | False | False | 0.01562 | False | False | autonomous_stage_a_run | parameter_free_product_law_vs_observed_spill_off_solve_rate |
+| graph_coloring | rot_bound_single | bound_single | 32 | R3-5 | threshold_D_peak | dstar_threshold_contrast | False | 64 | 0 | None | None | 0 | 0 | 0 | 0 | 2 | 0 | 0 | True | True | True | 0.01562 | True | False | autonomous_stage_a_run | threshold_variant_contrast_against_product_law |
+| graph_coloring | rot_bound_single | bound_single | 32 | R3-5 | threshold_D_pop | dstar_threshold_contrast | False | 64 | 0 | None | None | 0 | 0 | 0 | 0 | 2 | 0 | 0 | True | True | True | 0.01562 | True | False | autonomous_stage_a_run | threshold_variant_contrast_against_product_law |
+
+Truncated to 24 of 768 rows.
+
+##### compositional_product_predictions
+
+| task | arm | variant | D | band | instance_index | reverts_needed | candidate | mask_applied | hard_capacity_C | n_reads | n_dropped_reads | n_surviving_reads | max_read_live_load | min_read_decode_acc | predicted_instance_solve_prob | status | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | 6 | 0 | P_all | True | 3 | 4 | 0 | 4 | 4 | 0.7546 | 0.6553 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | 6 | 0 | P_choice | True | 3 | 4 | 0 | 4 | 4 | 0.7546 | 0.6553 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | 6 | 0 | P_pop | True | 3 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | 6 | 0 | P_all_unmasked | False | 3 | 4 | 0 | 4 | 4 | 0.7546 | 0.6553 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | 6 | 0 | P_choice_unmasked | False | 3 | 4 | 0 | 4 | 4 | 0.7546 | 0.6553 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 32 | R0 | 6 | 0 | P_pop_unmasked | False | 3 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 64 | R0 | 6 | 0 | P_all | True | 7 | 4 | 0 | 4 | 4 | 0.9794 | 0.9742 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 64 | R0 | 6 | 0 | P_choice | True | 7 | 4 | 0 | 4 | 4 | 0.9794 | 0.9742 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 64 | R0 | 6 | 0 | P_pop | True | 7 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 64 | R0 | 6 | 0 | P_all_unmasked | False | 7 | 4 | 0 | 4 | 4 | 0.9794 | 0.9742 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 64 | R0 | 6 | 0 | P_choice_unmasked | False | 7 | 4 | 0 | 4 | 4 | 0.9794 | 0.9742 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 64 | R0 | 6 | 0 | P_pop_unmasked | False | 7 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 96 | R0 | 6 | 0 | P_all | True | 11 | 4 | 0 | 4 | 4 | 0.9987 | 0.9986 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 96 | R0 | 6 | 0 | P_choice | True | 11 | 4 | 0 | 4 | 4 | 0.9987 | 0.9986 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 96 | R0 | 6 | 0 | P_pop | True | 11 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 96 | R0 | 6 | 0 | P_all_unmasked | False | 11 | 4 | 0 | 4 | 4 | 0.9987 | 0.9986 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 96 | R0 | 6 | 0 | P_choice_unmasked | False | 11 | 4 | 0 | 4 | 4 | 0.9987 | 0.9986 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 96 | R0 | 6 | 0 | P_pop_unmasked | False | 11 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 128 | R0 | 6 | 0 | P_all | True | 15 | 4 | 0 | 4 | 4 | 0.9995 | 0.9994 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 128 | R0 | 6 | 0 | P_choice | True | 15 | 4 | 0 | 4 | 4 | 0.9995 | 0.9994 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 128 | R0 | 6 | 0 | P_pop | True | 15 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 128 | R0 | 6 | 0 | P_all_unmasked | False | 15 | 4 | 0 | 4 | 4 | 0.9995 | 0.9994 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 128 | R0 | 6 | 0 | P_choice_unmasked | False | 15 | 4 | 0 | 4 | 4 | 0.9995 | 0.9994 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+| graph_coloring | rot_bound_single | bound_single | 128 | R0 | 6 | 0 | P_pop_unmasked | False | 15 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | parameter_free_product_of_measured_decode_curve_over_structural_reads |
+
+Truncated to 24 of 36864 rows.
+
+##### compositional_product_summary
+
+| scope | candidate | model_family | mask_applied | pass_rows | total_rows | pass_rate | mean_abs_diff | max_abs_diff | mean_observed_minus_predicted | residual_mean | residual_min | residual_max | fraction_residual_nonnegative | fraction_residual_within_tolerance | fraction_residual_one_sided_tight | pre_registered_hypothesis | is_best_by_mean_abs_diff | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| e1_sat_graph_full_decode_curve | P_all | decode_curve_product | True | 41 | 96 | 0.4271 | 0.108 | 0.6025 | 0.1044 | 0.1044 | -0.04356 | 0.6025 | 0.9479 | 0.4271 | 0.4271 | False | False | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+| e1_sat_graph_full_decode_curve | P_choice | decode_curve_product | True | 41 | 96 | 0.4271 | 0.108 | 0.6025 | 0.1044 | 0.1044 | -0.04356 | 0.6025 | 0.9479 | 0.4271 | 0.4271 | True | False | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+| e1_sat_graph_full_decode_curve | P_pop | decode_curve_product | True | 52 | 96 | 0.5417 | 0.1063 | 1 | -0.05251 | -0.05251 | -1 | 0.4812 | 0.7604 | 0.5417 | 0.5417 | False | False | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+| e1_sat_graph_full_decode_curve | P_all_unmasked | decode_curve_product | False | 39 | 96 | 0.4062 | 0.1045 | 0.5945 | 0.08669 | 0.08669 | -0.1493 | 0.5945 | 0.9062 | 0.4062 | 0.4062 | False | True | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+| e1_sat_graph_full_decode_curve | P_choice_unmasked | decode_curve_product | False | 39 | 96 | 0.4062 | 0.1045 | 0.5945 | 0.08669 | 0.08669 | -0.1493 | 0.5945 | 0.9062 | 0.4062 | 0.4062 | False | False | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+| e1_sat_graph_full_decode_curve | P_pop_unmasked | decode_curve_product | False | 51 | 96 | 0.5312 | 0.1211 | 1 | -0.07012 | -0.07012 | -1 | 0.4687 | 0.7396 | 0.5312 | 0.5312 | False | False | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+| e1_sat_graph_full_decode_curve | threshold_D_peak | dstar_threshold_contrast | False | 46 | 96 | 0.4792 | 0.2388 | 0.8828 | 0.2388 | 0.2388 | 0 | 0.8828 | 1 | 0.4792 | 0.4792 | False | False | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+| e1_sat_graph_full_decode_curve | threshold_D_pop | dstar_threshold_contrast | False | 57 | 96 | 0.5938 | 0.1383 | 1 | 0.03467 | 0.03467 | -1 | 0.8359 | 0.8854 | 0.5938 | 0.5938 | False | False | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+
+##### compositional_read_rules
+
+| rule | value | source | provenance |
+| --- | --- | --- | --- |
+| register_entry_classification | ScalarRegisterLoop pushes only branch choices; forced propagations are returned by _oracle_ops as current assignment and are recomputable, so no FORCED register entries are written in this implementation. | autonomous_stage_a_run | inspected_ScalarRegisterLoop.run_push_pop_and_oracle_ops |
+| pop_read | ScalarRegisterLoop.pop(level,var,value) is the only operational register decode in the current loop; each pop reads the top CHOICE trail entry at live load=level. | autonomous_stage_a_run | inspected_ScalarRegisterLoop.pop |
+| forward_read | No forward register read is used to reconstruct state; _oracle_ops recomputes forced propagation from the surviving assignment. | autonomous_stage_a_run | inspected_ScalarRegisterLoop.run |
+| spill_off_write_drop | ScalarRegisterLoop.push(level,var,value): capacity_floor=floor(_capacity_dstar(task,arm,D,config)); if level > capacity_floor then overflow_entries += 1 and spill_off sets capacity_exceeded=True and returns False without writing the entry. | autonomous_stage_a_run | inspected_ScalarRegisterLoop.push |
+| write_drop_mask | For product-law masking, C is the same capacity_floor structural constant used by ScalarRegisterLoop; an entry is DROPPED when its push row live_load_before > C, and any read of that entry contributes factor 0. | autonomous_stage_a_run | pre_registered_E1_b2_write_drop_mask |
+| final_solution_readback | For the compositional certification candidate, surviving CHOICE trail entries are read back in LIFO order at solve time with live loads L,L-1,...,1; this is reported separately from pop-only. | autonomous_stage_a_run | pre_registered_E1_path_b_deeper_read_rule |
 
 ##### figure4_separation
 
@@ -2558,6 +2648,141 @@ Truncated to 24 of 804 rows.
 | graph_coloring | factored | rot_factored | 256 | 16 | 4 | 64 | 23.08 | 23 | 14 | -9.083 | 0.95 | 16 | 3 | 1024 | pure_storage_lifo_push_k_then_pop_decode_until_empty | autonomous_stage_a_run | pure_storage_lifo_push_pop_no_solving |
 | graph_coloring | factored | rot_factored | 512 | 16 | 4 | 64 | 46.17 | 46 | 16 | -30.17 | 0.95 | 16 | 3 | 1024 | pure_storage_lifo_push_k_then_pop_decode_until_empty | autonomous_stage_a_run | pure_storage_lifo_push_pop_no_solving |
 
+##### sudoku_compositional_law_transfer
+
+| task | arm | variant | D | band | candidate | model_family | mask_applied | n | n_missing_decode_curve | n_timeout_excluded | mean_dropped_reads | instances_with_dropped_reads | subsample_per_band | predicted_solve_rate | observed_spill_off_solve_rate | observed_seed_min | observed_seed_max | n_seeds_joined | abs_diff | residual_observed_minus_predicted | residual_nonnegative | residual_within_tolerance | residual_one_sided_tight | law_transfer_tolerance | on_y_equals_x | pre_registered_hypothesis | status | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R0 | P_all | decode_curve_product | True | 16 | 0 | 0 | 0 | 0 | 16 | 1 | 1 | 1 | 1 | 2 | 0 | 0 | True | True | True | 0.0625 | True | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R0 | P_choice | decode_curve_product | True | 16 | 0 | 0 | 0 | 0 | 16 | 1 | 1 | 1 | 1 | 2 | 0 | 0 | True | True | True | 0.0625 | True | True | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R0 | P_pop | decode_curve_product | True | 16 | 0 | 0 | 0 | 0 | 16 | 1 | 1 | 1 | 1 | 2 | 0 | 0 | True | True | True | 0.0625 | True | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R0 | P_all_unmasked | decode_curve_product | False | 16 | 0 | 0 | 0 | 0 | 16 | 1 | 1 | 1 | 1 | 2 | 0 | 0 | True | True | True | 0.0625 | True | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R0 | P_choice_unmasked | decode_curve_product | False | 16 | 0 | 0 | 0 | 0 | 16 | 1 | 1 | 1 | 1 | 2 | 0 | 0 | True | True | True | 0.0625 | True | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R0 | P_pop_unmasked | decode_curve_product | False | 16 | 0 | 0 | 0 | 0 | 16 | 1 | 1 | 1 | 1 | 2 | 0 | 0 | True | True | True | 0.0625 | True | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R1-2 | P_all | decode_curve_product | True | 16 | 0 | 0 | 0.375 | 3 | 16 | 0.747 | 0.9062 | 0.9062 | 0.9062 | 2 | 0.1593 | 0.1593 | True | False | False | 0.0625 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R1-2 | P_choice | decode_curve_product | True | 16 | 0 | 0 | 0.375 | 3 | 16 | 0.747 | 0.9062 | 0.9062 | 0.9062 | 2 | 0.1593 | 0.1593 | True | False | False | 0.0625 | False | True | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R1-2 | P_pop | decode_curve_product | True | 16 | 0 | 0 | 0 | 0 | 16 | 0.9874 | 0.9062 | 0.9062 | 0.9062 | 2 | 0.08119 | -0.08119 | False | False | False | 0.0625 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R1-2 | P_all_unmasked | decode_curve_product | False | 16 | 0 | 0 | 0 | 0 | 16 | 0.7682 | 0.9062 | 0.9062 | 0.9062 | 2 | 0.138 | 0.138 | True | False | False | 0.0625 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R1-2 | P_choice_unmasked | decode_curve_product | False | 16 | 0 | 0 | 0 | 0 | 16 | 0.7682 | 0.9062 | 0.9062 | 0.9062 | 2 | 0.138 | 0.138 | True | False | False | 0.0625 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R1-2 | P_pop_unmasked | decode_curve_product | False | 16 | 0 | 0 | 0 | 0 | 16 | 0.9874 | 0.9062 | 0.9062 | 0.9062 | 2 | 0.08119 | -0.08119 | False | False | False | 0.0625 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R3-5 | P_all | decode_curve_product | True | 16 | 0 | 0 | 0.0625 | 1 | 16 | 0.657 | 0.7812 | 0.7812 | 0.7812 | 2 | 0.1242 | 0.1242 | True | False | False | 0.0625 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R3-5 | P_choice | decode_curve_product | True | 16 | 0 | 0 | 0.0625 | 1 | 16 | 0.657 | 0.7812 | 0.7812 | 0.7812 | 2 | 0.1242 | 0.1242 | True | False | False | 0.0625 | False | True | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R3-5 | P_pop | decode_curve_product | True | 16 | 0 | 0 | 0 | 0 | 16 | 0.9216 | 0.7812 | 0.7812 | 0.7812 | 2 | 0.1404 | -0.1404 | False | False | False | 0.0625 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R3-5 | P_all_unmasked | decode_curve_product | False | 16 | 0 | 0 | 0 | 0 | 16 | 0.6674 | 0.7812 | 0.7812 | 0.7812 | 2 | 0.1138 | 0.1138 | True | False | False | 0.0625 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R3-5 | P_choice_unmasked | decode_curve_product | False | 16 | 0 | 0 | 0 | 0 | 16 | 0.6674 | 0.7812 | 0.7812 | 0.7812 | 2 | 0.1138 | 0.1138 | True | False | False | 0.0625 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R3-5 | P_pop_unmasked | decode_curve_product | False | 16 | 0 | 0 | 0 | 0 | 16 | 0.9216 | 0.7812 | 0.7812 | 0.7812 | 2 | 0.1404 | -0.1404 | False | False | False | 0.0625 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R6+ | P_all | decode_curve_product | True | 14 | 0 | 2 | 0.7143 | 3 | 16 | 0.4262 | 0.5312 | 0.5312 | 0.5312 | 2 | 0.1051 | 0.1051 | True | False | False | 0.07143 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R6+ | P_choice | decode_curve_product | True | 14 | 0 | 2 | 0.7143 | 3 | 16 | 0.4262 | 0.5312 | 0.5312 | 0.5312 | 2 | 0.1051 | 0.1051 | True | False | False | 0.07143 | False | True | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R6+ | P_pop | decode_curve_product | True | 14 | 0 | 2 | 0.2857 | 1 | 16 | 0.6124 | 0.5312 | 0.5312 | 0.5312 | 2 | 0.08116 | -0.08116 | False | False | False | 0.07143 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R6+ | P_all_unmasked | decode_curve_product | False | 14 | 0 | 2 | 0 | 0 | 16 | 0.4317 | 0.5312 | 0.5312 | 0.5312 | 2 | 0.09955 | 0.09955 | True | False | False | 0.07143 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R6+ | P_choice_unmasked | decode_curve_product | False | 14 | 0 | 2 | 0 | 0 | 16 | 0.4317 | 0.5312 | 0.5312 | 0.5312 | 2 | 0.09955 | 0.09955 | True | False | False | 0.07143 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+| sudoku9_item047 | rot_bound_single | bound_single | 128 | R6+ | P_pop_unmasked | decode_curve_product | False | 14 | 0 | 2 | 0 | 0 | 16 | 0.6153 | 0.5312 | 0.5312 | 0.5312 | 2 | 0.08405 | -0.08405 | False | False | False | 0.07143 | False | False | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_law_no_saved_stats_proxy |
+
+Truncated to 24 of 144 rows.
+
+##### sudoku_compositional_product_predictions
+
+| task | instance_index | band | reverts_needed | arm | variant | D | candidate | mask_applied | hard_capacity_C | n_reads | n_dropped_reads | n_surviving_reads | max_read_live_load | min_read_decode_acc | predicted_instance_solve_prob | status | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 128 | P_all | True | 9 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 128 | P_choice | True | 9 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 128 | P_pop | True | 9 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 128 | P_all_unmasked | False | 9 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 128 | P_choice_unmasked | False | 9 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 128 | P_pop_unmasked | False | 9 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 256 | P_all | True | 19 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 256 | P_choice | True | 19 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 256 | P_pop | True | 19 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 256 | P_all_unmasked | False | 19 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 256 | P_choice_unmasked | False | 19 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 256 | P_pop_unmasked | False | 19 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 512 | P_all | True | 38 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 512 | P_choice | True | 38 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 512 | P_pop | True | 38 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 512 | P_all_unmasked | False | 38 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 512 | P_choice_unmasked | False | 38 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_bound_single | bound_single | 512 | P_pop_unmasked | False | 38 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_factored | factored | 128 | P_all | True | 14 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_factored | factored | 128 | P_choice | True | 14 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_factored | factored | 128 | P_pop | True | 14 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_factored | factored | 128 | P_all_unmasked | False | 14 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_factored | factored | 128 | P_choice_unmasked | False | 14 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+| sudoku9_item047 | 0 | R0 | 0 | rot_factored | factored | 128 | P_pop_unmasked | False | 14 | 0 | 0 | 0 | 0 | None | 1 | RECORDED | autonomous_stage_a_run | sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy |
+
+Truncated to 24 of 2232 rows.
+
+##### sudoku_compositional_storage_curve
+
+| task | codebook | arm | D | K_var | K_val | K_eff | depth | decode_accuracy | threshold | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 1 | 1 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 2 | 1 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 3 | 1 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 4 | 1 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 5 | 1 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 6 | 0.9995 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 7 | 0.9972 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 8 | 0.992 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 9 | 0.9831 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 10 | 0.9672 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 11 | 0.949 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 12 | 0.9244 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 13 | 0.896 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 14 | 0.8665 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 15 | 0.8323 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 16 | 0.8002 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 17 | 0.7652 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 18 | 0.7328 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 19 | 0.6991 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 20 | 0.6691 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 21 | 0.6369 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 22 | 0.6082 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 23 | 0.5789 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+| sudoku9_item047 | bound_single | rot_bound_single | 256 | 81 | 9 | 729 | 24 | 0.5535 | 0.95 | autonomous_stage_a_run | module1_capacity_perdepth_shards_with_replacement_full_curve |
+
+Truncated to 24 of 406 rows.
+
+##### sudoku_compositional_summary
+
+| scope | candidate | model_family | mask_applied | pass_rows | total_rows | pass_rate | mean_abs_diff | max_abs_diff | mean_observed_minus_predicted | residual_mean | residual_min | residual_max | fraction_residual_nonnegative | fraction_residual_within_tolerance | fraction_residual_one_sided_tight | pre_registered_hypothesis | is_best_by_mean_abs_diff | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| sudoku9_real_trace_subsample | P_all | decode_curve_product | True | 15 | 21 | 0.7143 | 0.05512 | 0.3329 | 0.05512 | 0.05512 | 0 | 0.3329 | 1 | 0.7143 | 0.7143 | False | False | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+| sudoku9_real_trace_subsample | P_choice | decode_curve_product | True | 15 | 21 | 0.7143 | 0.05512 | 0.3329 | 0.05512 | 0.05512 | 0 | 0.3329 | 1 | 0.7143 | 0.7143 | True | False | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+| sudoku9_real_trace_subsample | P_pop | decode_curve_product | True | 17 | 21 | 0.8095 | 0.02611 | 0.1867 | -0.002718 | -0.002718 | -0.1404 | 0.1867 | 0.8571 | 0.8095 | 0.8095 | False | True | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+| sudoku9_real_trace_subsample | P_all_unmasked | decode_curve_product | False | 15 | 21 | 0.7143 | 0.05335 | 0.3329 | 0.05335 | 0.05335 | 0 | 0.3329 | 1 | 0.7143 | 0.7143 | False | False | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+| sudoku9_real_trace_subsample | P_choice_unmasked | decode_curve_product | False | 15 | 21 | 0.7143 | 0.05335 | 0.3329 | 0.05335 | 0.05335 | 0 | 0.3329 | 1 | 0.7143 | 0.7143 | False | False | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+| sudoku9_real_trace_subsample | P_pop_unmasked | decode_curve_product | False | 17 | 21 | 0.8095 | 0.02625 | 0.1867 | -0.002856 | -0.002856 | -0.1404 | 0.1867 | 0.8571 | 0.8095 | 0.8095 | False | False | autonomous_stage_a_run | parameter_free_compositional_law_summary |
+
+##### sudoku_compositional_trace_subsample
+
+| task | instance_index | band | reverts_needed | reference_nodes | status | D_peak | D_pop | D_readpop | n_reads | subsample_rule | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| sudoku9_item047 | 0 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 1 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 2 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 3 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 4 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 5 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 6 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 7 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 8 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 9 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 10 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 11 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 12 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 13 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 14 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 15 | R0 | 0 | 82 | measured | 0 | 0 | 0 | 0 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 64 | R1-2 | 1 | 86 | measured | 4 | 2 | 4 | 5 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 73 | R1-2 | 1 | 86 | measured | 5 | 1 | 5 | 6 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 83 | R1-2 | 1 | 86 | measured | 3 | 2 | 3 | 4 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 105 | R1-2 | 1 | 86 | measured | 3 | 2 | 3 | 4 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 111 | R1-2 | 1 | 86 | measured | 10 | 6 | 10 | 11 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 113 | R1-2 | 1 | 86 | measured | 5 | 2 | 5 | 6 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 86 | R1-2 | 1 | 87 | measured | 2 | 1 | 2 | 3 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+| sudoku9_item047 | 99 | R1-2 | 1 | 87 | measured | 6 | 1 | 6 | 7 | lowest_reference_nodes_per_band_16 | autonomous_stage_a_run | real_DPLLOracle_trace_subsample_no_saved_stats_proxy |
+
+Truncated to 24 of 64 rows.
+
 ##### sudoku_live_load_confirmation
 
 | task | arm | variant | D | band | predictor | n | n_pool_band | n_timeout_excluded | K_eff | capacity_d_star_floor | fraction_predictor_le_dstar | observed_spill_off_solve_rate | observed_seed_min | observed_seed_max | n_seeds_joined | predictor_abs_diff | law_transfer_tolerance | on_y_equals_x | source | provenance |
@@ -2637,6 +2862,247 @@ Truncated to 24 of 256 rows.
 
 - Next action: {'defer': ['gru_until_audited'], 'ready': ['minimum_viable_figure4_rot_no_revert_kv']}
 
+### Item 051 - Rung-1 distributed graph-coloring CBJ gate
+
+- Status: RUNG1_PHASE0_SYMBOLIC_GATE_PASSED
+- Key result: Proceed to Phase 1 Qwen3.5-4B on the frozen pool if rung1_gate_pass is true; otherwise increase cut/tighten k or plant deeper chain-structured blocks and rerun Phase 0.
+- Purpose: Run the Phase 0 symbolic Rung-1 gate on distributed graph coloring to isolate whether conflict-directed backjump targets beat chronological rollback when cross-agent root causes are deep.
+- Details:
+  - purpose=Run the Phase 0 symbolic Rung-1 gate on distributed graph coloring to isolate whether conflict-directed backjump targets beat chronological rollback when cross-agent root causes are deep.
+  - commands=1
+  - result_tables=['arm_band_summary', 'instance_arm_metrics', 'instance_manifest', 'paired_cbj_vs_chronological', 'pool_summary']
+  - honesty=This is Phase 0 with a symbolic MCV/LCV operator over instances generated by the installed reasoning-gym graph_color puzzle generator, not the Qwen3.5 multi-agent operator. It tests the recovery-target mechanism under shared bounded-register accounting; Phase 1 must swap in the LLM operator without changing pool, register, or recovery code.
+- Artifact refs:
+  - results/experiment_items/item_051_rung1_distributed_graph_coloring.json (yes, 657397 bytes)
+  - results/rung1_distributed_graph_coloring/results.json (yes, 583704 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_distributed_graph_coloring/results.json | RUNG1_PHASE0_SYMBOLIC_GATE_PASSED | schema_version=rung1_distributed_graph_coloring_v0 |  |
+
+#### Contract Result Tables
+
+##### arm_band_summary
+
+| band | arm | n | solve_rate | mean_total_retractions | mean_comm_tokens | mean_boundary_commitment_messages | mean_nogood_messages | mean_peak_register_entries | mean_backjump_distance | mean_cross_agent_backjump_distance | node_cap_exhaustions | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| R0 | forward_markov_team | 64 | 1 | 0 | 47.25 | 11.81 | 0 | 11.81 | 0 | 0 | 0 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs |
+| R0 | chronological_rollback | 64 | 1 | 0 | 47.25 | 11.81 | 0 | 11.81 | 0 | 0 | 0 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs |
+| R0 | cbj_bounded | 64 | 1 | 0 | 47.25 | 11.81 | 0 | 11.81 | 0 | 0 | 0 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs |
+| R1-2 | forward_markov_team | 64 | 0 | 0 | 26.19 | 5.047 | 1 | 5.047 | 0 | 0 | 0 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs |
+| R1-2 | chronological_rollback | 64 | 1 | 1.969 | 56.88 | 10.78 | 1.969 | 8.812 | 1 | 1 | 0 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs |
+| R1-2 | cbj_bounded | 64 | 1 | 1.812 | 53.31 | 10.62 | 1.266 | 8.812 | 1.214 | 1.219 | 0 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs |
+| R3+ | forward_markov_team | 64 | 0 | 0 | 59 | 12.25 | 1 | 12.25 | 0 | 0 | 0 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs |
+| R3+ | chronological_rollback | 64 | 0.7188 | 24.91 | 401.1 | 39.41 | 24.91 | 15.02 | 1 | 1 | 18 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs |
+| R3+ | cbj_bounded | 64 | 1 | 10.41 | 154.1 | 26.41 | 3.047 | 16 | 3.27 | 3.27 | 0 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs |
+
+##### instance_arm_metrics
+
+| instance_id | seed | band | arm | solved | status | steps_to_solve_or_cap | total_retractions | nogood_messages | boundary_commitment_messages | comm_tokens | peak_register_entries | overflow_entries | max_backjump_distance | mean_backjump_distance | mean_cross_agent_backjump_distance | reference_cross_agent_conflict_depth | boundary_conflict_exact | register_capacity | node_cap | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| rung1_s42_R0_00000 | 42 | R0 | forward_markov_team | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00000 | 42 | R0 | chronological_rollback | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00000 | 42 | R0 | cbj_bounded | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00001 | 42 | R0 | forward_markov_team | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00001 | 42 | R0 | chronological_rollback | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00001 | 42 | R0 | cbj_bounded | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00003 | 42 | R0 | forward_markov_team | True | SOLVED | 16 | 0 | 0 | 16 | 64 | 16 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00003 | 42 | R0 | chronological_rollback | True | SOLVED | 16 | 0 | 0 | 16 | 64 | 16 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00003 | 42 | R0 | cbj_bounded | True | SOLVED | 16 | 0 | 0 | 16 | 64 | 16 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00004 | 42 | R0 | forward_markov_team | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00004 | 42 | R0 | chronological_rollback | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00004 | 42 | R0 | cbj_bounded | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00005 | 42 | R0 | forward_markov_team | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00005 | 42 | R0 | chronological_rollback | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00005 | 42 | R0 | cbj_bounded | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00006 | 42 | R0 | forward_markov_team | True | SOLVED | 12 | 0 | 0 | 12 | 48 | 12 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00006 | 42 | R0 | chronological_rollback | True | SOLVED | 12 | 0 | 0 | 12 | 48 | 12 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00006 | 42 | R0 | cbj_bounded | True | SOLVED | 12 | 0 | 0 | 12 | 48 | 12 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00007 | 42 | R0 | forward_markov_team | True | SOLVED | 16 | 0 | 0 | 16 | 64 | 16 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00007 | 42 | R0 | chronological_rollback | True | SOLVED | 16 | 0 | 0 | 16 | 64 | 16 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00007 | 42 | R0 | cbj_bounded | True | SOLVED | 16 | 0 | 0 | 16 | 64 | 16 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00009 | 42 | R0 | forward_markov_team | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00009 | 42 | R0 | chronological_rollback | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+| rung1_s42_R0_00009 | 42 | R0 | cbj_bounded | True | SOLVED | 10 | 0 | 0 | 10 | 40 | 10 | 0 | 0 | 0 | 0 | 0 | True | 16 | 120 | autonomous_stage_a_run | phase0_symbolic_priority_ordered_distributed_graph_coloring |
+
+Truncated to 24 of 576 rows.
+
+##### instance_manifest
+
+| instance_id | seed | source_kind | n_vertices | k | chromatic_number | k_policy | n_agents | n_edges | boundary_edges | intra_block_edges | reference_cross_agent_conflict_depth | band | boundary_conflict_exact | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| rung1_s42_R0_00000 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.08 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 2 | 1 | 1 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00001 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.10 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 6 | 6 | 0 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00003 | 42 | reasoning_gym_graph_color_generator:n16_k4_p0.24 | 16 | 4 | 3 | chi_or_chi_plus_1 | 4 | 27 | 22 | 5 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00004 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.08 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 2 | 2 | 0 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00005 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.10 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 5 | 3 | 2 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00006 | 42 | reasoning_gym_graph_color_generator:n12_k2_p0.10 | 12 | 2 | 2 | chi_or_chi_plus_1 | 4 | 3 | 3 | 0 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00007 | 42 | reasoning_gym_graph_color_generator:n16_k4_p0.24 | 16 | 4 | 3 | chi_or_chi_plus_1 | 4 | 33 | 27 | 6 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00009 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.10 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 7 | 6 | 1 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00011 | 42 | reasoning_gym_graph_color_generator:n16_k4_p0.24 | 16 | 4 | 3 | chi_or_chi_plus_1 | 4 | 28 | 21 | 7 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00012 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.08 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 3 | 2 | 1 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00013 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.10 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 2 | 2 | 0 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00014 | 42 | reasoning_gym_graph_color_generator:n12_k2_p0.10 | 12 | 2 | 2 | chi_or_chi_plus_1 | 4 | 6 | 6 | 0 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00015 | 42 | reasoning_gym_graph_color_generator:n16_k4_p0.24 | 16 | 4 | 3 | chi_or_chi_plus_1 | 4 | 31 | 25 | 6 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00017 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.10 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 3 | 3 | 0 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00018 | 42 | reasoning_gym_graph_color_generator:n12_k2_p0.10 | 12 | 2 | 2 | chi_or_chi_plus_1 | 4 | 5 | 5 | 0 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00019 | 42 | reasoning_gym_graph_color_generator:n16_k4_p0.24 | 16 | 4 | 3 | chi_or_chi_plus_1 | 4 | 35 | 28 | 7 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00020 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.08 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 3 | 2 | 1 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00021 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.10 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 4 | 2 | 2 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00024 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.08 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 4 | 4 | 0 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00025 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.10 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 2 | 1 | 1 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00026 | 42 | reasoning_gym_graph_color_generator:n12_k2_p0.10 | 12 | 2 | 2 | chi_or_chi_plus_1 | 4 | 4 | 4 | 0 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00027 | 42 | reasoning_gym_graph_color_generator:n16_k4_p0.24 | 16 | 4 | 3 | chi_or_chi_plus_1 | 4 | 23 | 16 | 7 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00028 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.08 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 4 | 4 | 0 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+| rung1_s42_R0_00029 | 42 | reasoning_gym_graph_color_generator:n10_k2_p0.10 | 10 | 2 | 2 | chi_or_chi_plus_1 | 4 | 6 | 6 | 0 | 0 | R0 | True | autonomous_stage_a_run | reasoning_gym_graph_color_generator_rejection_sample |
+
+Truncated to 24 of 192 rows.
+
+##### paired_cbj_vs_chronological
+
+| band | n_pairs | solve_rate_delta_cbj_minus_chronological | mcnemar_one_sided_p_cbj_gt_chronological | mean_retraction_delta_cbj_minus_chronological | retraction_sign_p_cbj_less | fraction_cbj_less_retractions | mean_comm_token_delta_cbj_minus_chronological | comm_sign_p_cbj_less | fraction_cbj_less_comm_tokens | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| R0 | 64 | 0 | None | 0 | None | 0 | 0 | None | 0 | autonomous_stage_a_run | paired_instance_effects_cbj_vs_chronological |
+| R1-2 | 64 | 0 | None | -0.1562 | 0.6367 | 0.0625 | -3.562 | 0.2744 | 0.1094 | autonomous_stage_a_run | paired_instance_effects_cbj_vs_chronological |
+| R3+ | 64 | 0.2812 | 3.815e-06 | -14.5 | 3.539e-10 | 0.75 | -247 | 1.588e-15 | 0.9062 | autonomous_stage_a_run | paired_instance_effects_cbj_vs_chronological |
+
+##### pool_summary
+
+| band | n | target_n | target_met | seeds | min_cross_agent_conflict_depth | max_cross_agent_conflict_depth | mean_boundary_edges | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| R0 | 64 | 64 | True | [42, 137] | 0 | 0 | 7.953 | autonomous_stage_a_run | reference_cbj_solver_rejection_sampling_by_cross_agent_conflict_depth |
+| R1-2 | 64 | 64 | True | [42, 137] | 2 | 2 | 5.625 | autonomous_stage_a_run | reference_cbj_solver_rejection_sampling_by_cross_agent_conflict_depth |
+| R3+ | 64 | 64 | True | [42, 137] | 6 | 15 | 35.23 | autonomous_stage_a_run | reference_cbj_solver_rejection_sampling_by_cross_agent_conflict_depth |
+
+- Next action: Proceed to Phase 1 Qwen3.5-4B on the frozen pool if rung1_gate_pass is true; otherwise increase cut/tighten k or plant deeper chain-structured blocks and rerun Phase 0.
+
+### Item 052 - Rung-1 gate distributed coloring v0.1 fixed-size depth curve
+
+- Status: RUNG1_V01_FIXED_SIZE_DEPTH_CURVE_PASSED
+- Key result: Use the fixed-size attainable-bin pool for Phase 1 gap-vs-depth reproduction; keep Item051 deep-stress pool separate and labeled as secondary stress evidence.
+- Purpose: Patch the Rung-1 distributed graph-coloring gate from coarse deep-band separation to a fixed-size per-depth Phase 0 curve while keeping register, recovery, conflict-set, and loop code frozen.
+- Details:
+  - purpose=Patch the Rung-1 distributed graph-coloring gate from coarse deep-band separation to a fixed-size per-depth Phase 0 curve while keeping register, recovery, conflict-set, and loop code frozen.
+  - commands=1
+  - result_tables=['arm_depth_summary', 'cbj_register_capacity_sweep', 'gap_vs_depth_curve', 'instance_manifest', 'paired_cbj_vs_chronological_by_depth', 'pool_depth_summary']
+  - honesty=This is still Phase 0 symbolic recovery over a fixed-size graph-coloring pool, not Qwen3.5-4B. With k=4, exact depth bins 1-3 are structurally unreachable for first dead-ends because four color blockers are needed; they are reported as holes rather than filled by incompatible k values.
+- Artifact refs:
+  - results/experiment_items/item_052_rung1_gate_distributed_coloring_v01.json (yes, 341161 bytes)
+  - results/rung1_gate_distributed_coloring_v01/results.json (yes, 1252532 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_gate_distributed_coloring_v01/results.json | RUNG1_V01_FIXED_SIZE_DEPTH_CURVE_PASSED | schema_version=rung1_gate_distributed_coloring_v0_1 |  |
+
+#### Contract Result Tables
+
+##### arm_depth_summary
+
+| depth_bin | arm | n | solve_rate | mean_total_retractions | mean_comm_tokens | mean_boundary_commitment_messages | mean_nogood_messages | mean_peak_register_entries | mean_overflow_entries | fraction_instances_overflowed | mean_backjump_distance | mean_cross_agent_backjump_distance | node_cap_exhaustions | register_capacity | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | forward_markov_team | 48 | 1 | 0 | 64 | 16 | 0 | 16 | 0 | 0 | 0 | 0 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 0 | chronological_rollback | 48 | 1 | 0 | 64 | 16 | 0 | 16 | 0 | 0 | 0 | 0 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 0 | cbj_bounded | 48 | 1 | 0 | 64 | 16 | 0 | 16 | 0 | 0 | 0 | 0 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 4 | forward_markov_team | 48 | 0 | 0 | 26 | 4 | 1 | 4 | 0 | 0 | 0 | 0 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 4 | chronological_rollback | 48 | 1 | 1 | 80 | 17 | 1 | 16 | 0 | 0 | 1 | 1 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 4 | cbj_bounded | 48 | 1 | 1 | 80 | 17 | 1 | 16 | 0 | 0 | 1 | 1 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 5 | forward_markov_team | 48 | 0 | 0 | 30 | 5 | 1 | 5 | 0 | 0 | 0 | 0 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 5 | chronological_rollback | 48 | 1 | 4.854 | 134 | 20.85 | 4.854 | 16 | 0 | 0 | 1 | 1 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 5 | cbj_bounded | 48 | 1 | 2 | 86 | 18 | 1 | 16 | 0 | 0 | 2 | 2 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 6 | forward_markov_team | 48 | 0 | 0 | 34 | 6 | 1 | 6 | 0 | 0 | 0 | 0 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 6 | chronological_rollback | 48 | 1 | 19.73 | 342 | 35.73 | 19.73 | 16 | 0 | 0 | 1 | 1 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 6 | cbj_bounded | 48 | 1 | 3 | 92 | 19 | 1 | 16 | 0 | 0 | 3 | 3 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 7 | forward_markov_team | 48 | 0 | 0 | 38 | 7 | 1 | 7 | 0 | 0 | 0 | 0 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 7 | chronological_rollback | 48 | 0.1042 | 55.77 | 819 | 62.98 | 55.77 | 8.083 | 0 | 0 | 1 | 1 | 43 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 7 | cbj_bounded | 48 | 1 | 4 | 98 | 20 | 1 | 16 | 0 | 0 | 4 | 4 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 8 | forward_markov_team | 48 | 0 | 0 | 42 | 8 | 1 | 8 | 0 | 0 | 0 | 0 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 8 | chronological_rollback | 48 | 0 | 56.83 | 829.6 | 63.17 | 56.83 | 8 | 0 | 0 | 1 | 1 | 48 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 8 | cbj_bounded | 48 | 1 | 5 | 104 | 21 | 1 | 16 | 0 | 0 | 5 | 5 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 9+ | forward_markov_team | 48 | 0 | 0 | 46 | 9 | 1 | 9 | 0 | 0 | 0 | 0 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 9+ | chronological_rollback | 48 | 0 | 56.08 | 824.5 | 63.92 | 56.08 | 9 | 0 | 0 | 1 | 1 | 48 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+| 9+ | cbj_bounded | 48 | 1 | 6 | 110 | 22 | 1 | 16 | 0 | 0 | 6 | 6 | 0 | 16 | autonomous_stage_a_run | same_bounded_register_only_recovery_target_differs_fixed_size_depth_bin |
+
+##### cbj_register_capacity_sweep
+
+| depth_bin | arm | register_capacity | n | solve_rate | mean_total_retractions | mean_comm_tokens | mean_peak_register_entries | mean_overflow_entries | fraction_instances_overflowed | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 9+ | cbj_bounded | 16 | 48 | 1 | 6 | 110 | 16 | 0 | 0 | autonomous_stage_a_run | cbj_register_capacity_sweep_high_depth_fixed_pool_loop_frozen |
+| 9+ | cbj_bounded | 32 | 48 | 1 | 6 | 110 | 16 | 0 | 0 | autonomous_stage_a_run | cbj_register_capacity_sweep_high_depth_fixed_pool_loop_frozen |
+
+##### gap_vs_depth_curve
+
+| depth_bin | n | cbj_solve_rate | chronological_solve_rate | forward_solve_rate | solve_rate_gap_cbj_minus_chronological | mcnemar_one_sided_p_cbj_gt_chronological | retraction_advantage_chronological_minus_cbj | retraction_sign_p_cbj_less | comm_token_advantage_chronological_minus_cbj | comm_sign_p_cbj_less | mean_cbj_peak_register_entries | mean_cbj_overflow_entries | fraction_cbj_instances_overflowed | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | 48 | 1 | 1 | 1 | 0 | None | -0 | None | -0 | None | 16 | 0 | 0 | autonomous_stage_a_run | size_matched_gap_vs_depth_curve_fixed_n16_k4_m4 |
+| 4 | 48 | 1 | 1 | 0 | 0 | None | -0 | None | -0 | None | 16 | 0 | 0 | autonomous_stage_a_run | size_matched_gap_vs_depth_curve_fixed_n16_k4_m4 |
+| 5 | 48 | 1 | 1 | 0 | 0 | None | 2.854 | 3.553e-15 | 47.96 | 3.553e-15 | 16 | 0 | 0 | autonomous_stage_a_run | size_matched_gap_vs_depth_curve_fixed_n16_k4_m4 |
+| 6 | 48 | 1 | 1 | 0 | 0 | None | 16.73 | 3.553e-15 | 250 | 3.553e-15 | 16 | 0 | 0 | autonomous_stage_a_run | size_matched_gap_vs_depth_curve_fixed_n16_k4_m4 |
+| 7 | 48 | 1 | 0.1042 | 0 | 0.8958 | 1.137e-13 | 51.77 | 3.553e-15 | 721 | 3.553e-15 | 16 | 0 | 0 | autonomous_stage_a_run | size_matched_gap_vs_depth_curve_fixed_n16_k4_m4 |
+| 8 | 48 | 1 | 0 | 0 | 1 | 3.553e-15 | 51.83 | 3.553e-15 | 725.6 | 3.553e-15 | 16 | 0 | 0 | autonomous_stage_a_run | size_matched_gap_vs_depth_curve_fixed_n16_k4_m4 |
+| 9+ | 48 | 1 | 0 | 0 | 1 | 3.553e-15 | 50.08 | 3.553e-15 | 714.5 | 3.553e-15 | 16 | 0 | 0 | autonomous_stage_a_run | size_matched_gap_vs_depth_curve_fixed_n16_k4_m4 |
+
+##### instance_manifest
+
+| instance_id | seed | source_index | source_kind | fill_method | n_vertices | k | chromatic_number | k_policy | n_agents | n_edges | boundary_edges | intra_block_edges | reference_cross_agent_conflict_depth | depth_bin | depth_tolerance_used | boundary_conflict_exact | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| rung1v01_s42_d0_42000002 | 42 | 42000002 | reasoning_gym_graph_color_generator:n16_k4_p0.28;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 30 | 23 | 7 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000004 | 42 | 42000004 | reasoning_gym_graph_color_generator:n16_k4_p0.36;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 39 | 28 | 11 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000033 | 42 | 42000033 | reasoning_gym_graph_color_generator:n16_k4_p0.32;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 41 | 33 | 8 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000034 | 42 | 42000034 | reasoning_gym_graph_color_generator:n16_k4_p0.36;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 39 | 31 | 8 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000037 | 42 | 42000037 | reasoning_gym_graph_color_generator:n16_k4_p0.28;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 37 | 27 | 10 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000046 | 42 | 42000046 | reasoning_gym_graph_color_generator:n16_k4_p0.24;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 27 | 19 | 8 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000048 | 42 | 42000048 | reasoning_gym_graph_color_generator:n16_k4_p0.32;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 36 | 32 | 4 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000049 | 42 | 42000049 | reasoning_gym_graph_color_generator:n16_k4_p0.36;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 38 | 31 | 7 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000050 | 42 | 42000050 | reasoning_gym_graph_color_generator:n16_k4_p0.20;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 26 | 21 | 5 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000051 | 42 | 42000051 | reasoning_gym_graph_color_generator:n16_k4_p0.24;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 33 | 26 | 7 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000052 | 42 | 42000052 | reasoning_gym_graph_color_generator:n16_k4_p0.28;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 30 | 21 | 9 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000053 | 42 | 42000053 | reasoning_gym_graph_color_generator:n16_k4_p0.32;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 42 | 35 | 7 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000056 | 42 | 42000056 | reasoning_gym_graph_color_generator:n16_k4_p0.24;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 33 | 27 | 6 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000062 | 42 | 42000062 | reasoning_gym_graph_color_generator:n16_k4_p0.28;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 37 | 29 | 8 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000065 | 42 | 42000065 | reasoning_gym_graph_color_generator:n16_k4_p0.20;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 29 | 22 | 7 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000066 | 42 | 42000066 | reasoning_gym_graph_color_generator:n16_k4_p0.24;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 34 | 26 | 8 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000068 | 42 | 42000068 | reasoning_gym_graph_color_generator:n16_k4_p0.32;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 37 | 27 | 10 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000076 | 42 | 42000076 | reasoning_gym_graph_color_generator:n16_k4_p0.24;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 30 | 25 | 5 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000077 | 42 | 42000077 | reasoning_gym_graph_color_generator:n16_k4_p0.28;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 32 | 27 | 5 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000078 | 42 | 42000078 | reasoning_gym_graph_color_generator:n16_k4_p0.32;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 46 | 36 | 10 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000082 | 42 | 42000082 | reasoning_gym_graph_color_generator:n16_k4_p0.28;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 33 | 23 | 10 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000083 | 42 | 42000083 | reasoning_gym_graph_color_generator:n16_k4_p0.32;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 36 | 28 | 8 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000090 | 42 | 42000090 | reasoning_gym_graph_color_generator:n16_k4_p0.20;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 27 | 24 | 3 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+| rung1v01_s42_d0_42000102 | 42 | 42000102 | reasoning_gym_graph_color_generator:n16_k4_p0.28;fill_method=reasoning_gym_exact_rejection | reasoning_gym_exact_rejection | 16 | 4 | 4 | prefer_chi_equals_4_relax_to_chi_3_only_if_needed | 4 | 33 | 27 | 6 | 0 | 0 | False | True | autonomous_stage_a_run | fixed_n16_k4_depth_bin_manifest |
+
+Truncated to 24 of 336 rows.
+
+##### paired_cbj_vs_chronological_by_depth
+
+| depth_bin | n_pairs | solve_rate_delta_cbj_minus_chronological | mcnemar_one_sided_p_cbj_gt_chronological | mean_retraction_delta_cbj_minus_chronological | retraction_sign_p_cbj_less | fraction_cbj_less_retractions | mean_comm_token_delta_cbj_minus_chronological | comm_sign_p_cbj_less | fraction_cbj_less_comm_tokens | register_capacity | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | 48 | 0 | None | 0 | None | 0 | 0 | None | 0 | 16 | autonomous_stage_a_run | paired_instance_effects_cbj_vs_chronological_fixed_size_depth_bin |
+| 4 | 48 | 0 | None | 0 | None | 0 | 0 | None | 0 | 16 | autonomous_stage_a_run | paired_instance_effects_cbj_vs_chronological_fixed_size_depth_bin |
+| 5 | 48 | 0 | None | -2.854 | 3.553e-15 | 1 | -47.96 | 3.553e-15 | 1 | 16 | autonomous_stage_a_run | paired_instance_effects_cbj_vs_chronological_fixed_size_depth_bin |
+| 6 | 48 | 0 | None | -16.73 | 3.553e-15 | 1 | -250 | 3.553e-15 | 1 | 16 | autonomous_stage_a_run | paired_instance_effects_cbj_vs_chronological_fixed_size_depth_bin |
+| 7 | 48 | 0.8958 | 1.137e-13 | -51.77 | 3.553e-15 | 1 | -721 | 3.553e-15 | 1 | 16 | autonomous_stage_a_run | paired_instance_effects_cbj_vs_chronological_fixed_size_depth_bin |
+| 8 | 48 | 1 | 3.553e-15 | -51.83 | 3.553e-15 | 1 | -725.6 | 3.553e-15 | 1 | 16 | autonomous_stage_a_run | paired_instance_effects_cbj_vs_chronological_fixed_size_depth_bin |
+| 9+ | 48 | 1 | 3.553e-15 | -50.08 | 3.553e-15 | 1 | -714.5 | 3.553e-15 | 1 | 16 | autonomous_stage_a_run | paired_instance_effects_cbj_vs_chronological_fixed_size_depth_bin |
+
+##### pool_depth_summary
+
+| depth_bin | n | target_n | target_met | structural_hole | n_vertices | k | n_agents | seeds | actual_depth_min | actual_depth_max | mean_actual_depth | mean_n_edges | mean_boundary_edges | chromatic_number_distribution | fill_methods | source | provenance |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | 48 | 48 | True | False | 16 | 4 | 4 | [42, 137] | 0 | 0 | 0 | 35.29 | 28.1 | 4=48 | reasoning_gym_exact_rejection=48 | autonomous_stage_a_run | fixed_size_depth_bin_pool_summary |
+| 1 | 0 | 48 | False | True | 16 | 4 | 4 | [42, 137] | None | None | None | None | None | 0 keys:  | 0 keys:  | autonomous_stage_a_run | fixed_k4_structural_reachability_check |
+| 2 | 0 | 48 | False | True | 16 | 4 | 4 | [42, 137] | None | None | None | None | None | 0 keys:  | 0 keys:  | autonomous_stage_a_run | fixed_k4_structural_reachability_check |
+| 3 | 0 | 48 | False | True | 16 | 4 | 4 | [42, 137] | None | None | None | None | None | 0 keys:  | 0 keys:  | autonomous_stage_a_run | fixed_k4_structural_reachability_check |
+| 4 | 48 | 48 | True | False | 16 | 4 | 4 | [42, 137] | 4 | 4 | 4 | 13.02 | 6.583 | 4=48 | chain_structured_exact_depth_fill=48 | autonomous_stage_a_run | fixed_size_depth_bin_pool_summary |
+| 5 | 48 | 48 | True | False | 16 | 4 | 4 | [42, 137] | 5 | 5 | 5 | 16.94 | 10.4 | 4=48 | chain_structured_exact_depth_fill=48 | autonomous_stage_a_run | fixed_size_depth_bin_pool_summary |
+| 6 | 48 | 48 | True | False | 16 | 4 | 4 | [42, 137] | 6 | 6 | 6 | 21.42 | 14.75 | 4=48 | chain_structured_exact_depth_fill=48 | autonomous_stage_a_run | fixed_size_depth_bin_pool_summary |
+| 7 | 48 | 48 | True | False | 16 | 4 | 4 | [42, 137] | 7 | 7 | 7 | 24.79 | 18.38 | 4=48 | chain_structured_exact_depth_fill=48 | autonomous_stage_a_run | fixed_size_depth_bin_pool_summary |
+| 8 | 48 | 48 | True | False | 16 | 4 | 4 | [42, 137] | 8 | 8 | 8 | 13.46 | 6.896 | 4=48 | chain_structured_exact_depth_fill=48 | autonomous_stage_a_run | fixed_size_depth_bin_pool_summary |
+| 9+ | 48 | 48 | True | False | 16 | 4 | 4 | [42, 137] | 9 | 9 | 9 | 16.42 | 8.146 | 4=48 | chain_structured_exact_depth_fill=48 | autonomous_stage_a_run | fixed_size_depth_bin_pool_summary |
+
+- Next action: Use the fixed-size attainable-bin pool for Phase 1 gap-vs-depth reproduction; keep Item051 deep-stress pool separate and labeled as secondary stress evidence.
+
 
 ## Canonical Repo Decision
 
@@ -2676,7 +3142,7 @@ Truncated to 24 of 256 rows.
 | Stage A Track A symbolic | YELLOW | track=A_symbolic; operator=symbolic_oracle; autonomous_cells=43; symbolic_core={'autonomous_cells': 43, 'declared_track': 'A_symbolic', 'forward_floor_on_L4': True, 'kv_snapshot_max_depth': 3, 'operator': 'symbolic_oracle', 'reverts_nonzero_on_L4': True, 'rot_no_revert_max_depth': 3} |
 | Stage A learned track | RED | diagnostic_G1=1.0; learned_autonomous_cells=0; statuses=['PARENT_ADAPTER_REQUIRED'] |
 | W3 Qwen3.5 | YELLOW | integration_grade=cached_gdn_state_measured_with_propagation_delta; W3.0=PASS |
-| Validation | RED | checks=332; pass=329; fail=3 |
+| Validation | RED | checks=395; pass=392; fail=3 |
 
 ## Artifact Index
 
@@ -2708,6 +3174,8 @@ Truncated to 24 of 256 rows.
 | item_048_item047_headline_closeout | results/experiment_items/item_048_item047_headline_closeout.json | yes |
 | item_049_track_b_value_head_retrain | results/experiment_items/item_049_track_b_value_head_retrain.json | yes |
 | item_050_post_review_e1_cross_task_generalization | results/experiment_items/item_050_post_review_e1_cross_task_generalization.json | yes |
+| item_051_rung1_distributed_graph_coloring | results/experiment_items/item_051_rung1_distributed_graph_coloring.json | yes |
+| item_052_rung1_gate_distributed_coloring_v01 | results/experiment_items/item_052_rung1_gate_distributed_coloring_v01.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
 | qwen3_4b_instruct_download | results/model_download/qwen_download.json | yes |
@@ -2754,6 +3222,8 @@ Truncated to 24 of 256 rows.
 | track_b_compile_smoke_acceptance | results/trm_operator_compile_smoke/acceptance.json | yes |
 | track_b_value_head_retrain_acceptance | results/track_b_value_head_retrain_20260609/acceptance.json | yes |
 | post_review_e1_cross_task_generalization | results/post_review_e1_cross_task_generalization/results.json | yes |
+| rung1_distributed_graph_coloring | results/rung1_distributed_graph_coloring/results.json | yes |
+| rung1_gate_distributed_coloring_v01 | results/rung1_gate_distributed_coloring_v01/results.json | yes |
 | validation | results/validation/validation.json | yes |
 
 ## Validation Summary
@@ -2761,12 +3231,14 @@ Truncated to 24 of 256 rows.
 | tier | pass | fail |
 | --- | --- | --- |
 | closeout_047 | 15 | 0 |
-| contract | 170 | 0 |
+| contract | 182 | 0 |
 | env | 13 | 0 |
 | legacy | 7 | 0 |
 | meta | 1 | 0 |
 | p0 | 2 | 0 |
-| post_review_e1 | 37 | 0 |
+| post_review_e1 | 58 | 0 |
+| rung1 | 16 | 0 |
+| rung1_v01 | 14 | 0 |
 | tier_a | 35 | 0 |
 | tier_b | 27 | 3 |
 | tier_c | 12 | 0 |

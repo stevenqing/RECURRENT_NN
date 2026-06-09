@@ -56,12 +56,17 @@ PATHS = {
     "item_048_item047_headline_closeout": "results/experiment_items/item_048_item047_headline_closeout.json",
     "item_049_track_b_value_head_retrain": "results/experiment_items/item_049_track_b_value_head_retrain.json",
     "item_050_post_review_e1_cross_task_generalization": "results/experiment_items/item_050_post_review_e1_cross_task_generalization.json",
+    "item_051_rung1_distributed_graph_coloring": "results/experiment_items/item_051_rung1_distributed_graph_coloring.json",
+    "item_052_rung1_gate_distributed_coloring_v01": "results/experiment_items/item_052_rung1_gate_distributed_coloring_v01.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
     "closeout_047_gru_rerun": "results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json",
     "track_b_value_head_retrain_acceptance": "results/track_b_value_head_retrain_20260609/acceptance.json",
     "post_review_e1_cross_task_generalization": "results/post_review_e1_cross_task_generalization/results.json",
+    "post_review_e1_sudoku_d128_bound_single_curve": "results/post_review_e1_cross_task_generalization/sudoku_d128_bound_single_module1_curve.json",
+    "rung1_distributed_graph_coloring": "results/rung1_distributed_graph_coloring/results.json",
+    "rung1_gate_distributed_coloring_v01": "results/rung1_gate_distributed_coloring_v01/results.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
@@ -562,7 +567,9 @@ def _post_review_e1_checks(checks: list[dict[str, Any]]) -> None:
     _exists(checks, "post_review_e1_cross_task_generalization", "post_review_e1")
     item = _read_json("item_050_post_review_e1_cross_task_generalization")
     results = _read_json("post_review_e1_cross_task_generalization")
+    sudoku_d128_curve = _read_json("post_review_e1_sudoku_d128_bound_single_curve")
     allowed_statuses = {"E1_SCALAR_FIGURE4_READY_WITH_GRU_AUDIT_RED", "E1_SCALAR_FIGURE4_DEVIATION_RECORDED"}
+    _exists(checks, "post_review_e1_sudoku_d128_bound_single_curve", "post_review_e1")
     if item:
         _check(checks, item.get("item_number") == "050", "item050_number_present", f"item_number={item.get('item_number')}", "post_review_e1")
         _check(checks, item.get("status") in allowed_statuses, "item050_scalar_status", f"status={item.get('status')}", "post_review_e1")
@@ -588,6 +595,15 @@ def _post_review_e1_checks(checks: list[dict[str, Any]]) -> None:
         sudoku_live_rows = results.get("sudoku_live_load_predictors", [])
         sudoku_confirmation_rows = results.get("sudoku_live_load_confirmation", [])
         sudoku_summary = results.get("sudoku_live_load_summary", [])
+        compositional_rules = results.get("compositional_read_rules", [])
+        compositional_product_rows = results.get("compositional_product_predictions", [])
+        compositional_law_rows = results.get("compositional_product_law_transfer", [])
+        compositional_summary = results.get("compositional_product_summary", [])
+        sudoku_comp_curve_rows = results.get("sudoku_compositional_storage_curve", [])
+        sudoku_comp_trace_rows = results.get("sudoku_compositional_trace_subsample", [])
+        sudoku_comp_product_rows = results.get("sudoku_compositional_product_predictions", [])
+        sudoku_comp_law_rows = results.get("sudoku_compositional_law_transfer", [])
+        sudoku_comp_summary = results.get("sudoku_compositional_summary", [])
         episode_rows = results.get("episode_records", [])
         depth_hist_rows = results.get("required_depth_histogram", [])
         small_d_selection = results.get("small_d_selection", [])
@@ -634,6 +650,37 @@ def _post_review_e1_checks(checks: list[dict[str, Any]]) -> None:
         _check(checks, e1_best is not None and e1_best.get("predictor") == "D_pop" and acceptance.get("live_load_path_b_best_predictor") == "D_pop", "e1_path_b_dpop_winner", f"best={e1_best}; acceptance={acceptance.get('live_load_path_b_best_predictor')}", "post_review_e1")
         _check(checks, bool(sudoku_live_rows) and all(row.get("live_load_status") in {"measured", "timeout", "prescreen_timeout", "summary_proxy"} for row in sudoku_live_rows), "e1_sudoku_live_load_predictors_recorded", f"rows={len(sudoku_live_rows)}", "post_review_e1")
         _check(checks, bool(sudoku_confirmation_rows) and bool(sudoku_summary), "e1_sudoku_live_load_confirmation_present", f"rows={len(sudoku_confirmation_rows)}; summary={sudoku_summary}", "post_review_e1")
+        _check(checks, discipline.get("path_b_deeper_law") == "product_decode_accuracy_over_structural_choice_reads" and discipline.get("path_b_deeper_pre_registered_candidate") == "P_choice" and discipline.get("path_b_deeper_no_free_parameters") is True and "floor(_capacity_dstar" in str(discipline.get("path_b_deeper_write_drop_rule")), "e1_compositional_law_preregistered", f"discipline={discipline}", "post_review_e1")
+        rule_names = {row.get("rule") for row in compositional_rules}
+        _check(checks, {"register_entry_classification", "pop_read", "forward_read", "spill_off_write_drop", "write_drop_mask", "final_solution_readback"}.issubset(rule_names), "e1_compositional_read_rules_recorded", f"rules={rule_names}", "post_review_e1")
+        comp_candidates = {row.get("candidate") for row in compositional_law_rows}
+        _check(checks, bool(compositional_law_rows) and {"P_all", "P_choice", "P_pop", "P_all_unmasked", "P_choice_unmasked", "P_pop_unmasked", "threshold_D_peak", "threshold_D_pop"}.issubset(comp_candidates), "e1_compositional_candidates_present", f"candidates={comp_candidates}; rows={len(compositional_law_rows)}", "post_review_e1")
+        masked_product_rows = [row for row in compositional_product_rows if row.get("candidate") in {"P_all", "P_choice", "P_pop"}]
+        _check(checks, bool(masked_product_rows) and all(row.get("mask_applied") is True and row.get("hard_capacity_C") is not None and {"n_dropped_reads", "n_surviving_reads"}.issubset(row) for row in masked_product_rows), "e1_compositional_write_drop_mask_fields", f"rows={len(masked_product_rows)}", "post_review_e1")
+        _check(checks, bool(compositional_law_rows) and all({"residual_observed_minus_predicted", "residual_nonnegative", "residual_within_tolerance", "residual_one_sided_tight"}.issubset(row) for row in compositional_law_rows), "e1_compositional_residual_fields_recorded", f"rows={len(compositional_law_rows)}", "post_review_e1")
+        comp_choice = next((row for row in compositional_summary if row.get("candidate") == "P_choice"), None)
+        _check(checks, comp_choice is not None and comp_choice.get("pre_registered_hypothesis") is True and comp_choice.get("mask_applied") is True and comp_choice.get("fraction_residual_nonnegative") is not None and acceptance.get("compositional_pre_registered_candidate") == "P_choice" and acceptance.get("compositional_no_free_parameters") is True, "e1_compositional_pchoice_preregistered", f"P_choice={comp_choice}; acceptance={acceptance}", "post_review_e1")
+        sudoku_comp_trace_statuses = {row.get("status") for row in sudoku_comp_trace_rows}
+        _check(checks, bool(sudoku_comp_trace_rows) and len(sudoku_comp_trace_rows) == 64 and "measured" in sudoku_comp_trace_statuses and sudoku_comp_trace_statuses.issubset({"measured", "timeout"}) and all("summary_proxy" not in str(row.get("provenance")) for row in sudoku_comp_trace_rows), "e1_sudoku_compositional_real_trace_subsample", f"rows={len(sudoku_comp_trace_rows)}; statuses={sudoku_comp_trace_statuses}", "post_review_e1")
+        sudoku_curve_ds = {(row.get("arm"), row.get("D")) for row in sudoku_comp_curve_rows}
+        sudoku_d128_rows = [row for row in sudoku_comp_curve_rows if row.get("arm") == "rot_bound_single" and row.get("D") == 128]
+        _check(checks, ("rot_bound_single", 128) in sudoku_curve_ds and ("rot_bound_single", 256) in sudoku_curve_ds and ("rot_factored", 512) in sudoku_curve_ds and {row.get("depth") for row in sudoku_d128_rows} == set(range(1, 59)) and all(row.get("K_eff") == 729 and row.get("threshold") == 0.95 for row in sudoku_d128_rows), "e1_sudoku_compositional_curve_sources_recorded", f"curve_keys_sample={sorted(sudoku_curve_ds)[:8]}; d128_depths={len(sudoku_d128_rows)}; rows={len(sudoku_comp_curve_rows)}", "post_review_e1")
+        sudoku_comp_candidates = {row.get("candidate") for row in sudoku_comp_law_rows}
+        d128_bound_recorded = any(row.get("arm") == "rot_bound_single" and row.get("D") == 128 and row.get("status") == "RECORDED" for row in sudoku_comp_law_rows)
+        _check(checks, bool(sudoku_comp_law_rows) and sudoku_comp_candidates == {"P_all", "P_choice", "P_pop", "P_all_unmasked", "P_choice_unmasked", "P_pop_unmasked"} and all("summary_proxy" not in str(row.get("provenance")) for row in sudoku_comp_law_rows) and d128_bound_recorded, "e1_sudoku_compositional_no_proxy_d128_measured", f"candidates={sudoku_comp_candidates}; d128_bound_recorded={d128_bound_recorded}; rows={len(sudoku_comp_law_rows)}", "post_review_e1")
+        sudoku_masked_product_rows = [row for row in sudoku_comp_product_rows if row.get("candidate") in {"P_all", "P_choice", "P_pop"}]
+        _check(checks, bool(sudoku_masked_product_rows) and all(row.get("mask_applied") is True and row.get("hard_capacity_C") is not None and {"n_dropped_reads", "n_surviving_reads"}.issubset(row) for row in sudoku_masked_product_rows), "e1_sudoku_compositional_write_drop_mask_fields", f"rows={len(sudoku_masked_product_rows)}", "post_review_e1")
+        _check(checks, bool(sudoku_comp_law_rows) and all(row.get("status") in {"RECORDED", "MISSING_DECODE_CURVE_OR_TRACE"} and "n_timeout_excluded" in row and {"residual_observed_minus_predicted", "residual_nonnegative", "residual_within_tolerance", "residual_one_sided_tight"}.issubset(row) for row in sudoku_comp_law_rows), "e1_sudoku_compositional_residual_timeout_fields", f"rows={len(sudoku_comp_law_rows)}", "post_review_e1")
+        sudoku_comp_choice = next((row for row in sudoku_comp_summary if row.get("candidate") == "P_choice"), None)
+        _check(checks, sudoku_comp_choice is not None and sudoku_comp_choice.get("pre_registered_hypothesis") is True and sudoku_comp_choice.get("model_family") == "decode_curve_product" and sudoku_comp_choice.get("mask_applied") is True and sudoku_comp_choice.get("fraction_residual_nonnegative") is not None, "e1_sudoku_compositional_pchoice_recorded", f"P_choice={sudoku_comp_choice}; summary_rows={len(sudoku_comp_summary)}", "post_review_e1")
+    if sudoku_d128_curve:
+        summary = sudoku_d128_curve.get("summary", {})
+        raw_rows = sudoku_d128_curve.get("raw_rows", [])
+        depths = {int(row.get("depth", -1)) for row in raw_rows}
+        seeds = {int(row.get("seed", -1)) for row in raw_rows}
+        _check(checks, summary.get("variant") == "bound_single" and summary.get("replacement") == "with_replacement" and int(summary.get("D", -1)) == 128 and int(summary.get("K_var", -1)) == 81 and int(summary.get("K_val", -1)) == 9, "e1_sudoku_d128_curve_identity", f"summary={summary}", "post_review_e1")
+        _check(checks, sudoku_d128_curve.get("threshold") == 0.95 and depths == set(range(1, 59)) and seeds == {42, 137, 256} and len(raw_rows) == 174, "e1_sudoku_d128_curve_full_protocol", f"threshold={sudoku_d128_curve.get('threshold')}; depths={len(depths)}; seeds={sorted(seeds)}; raw_rows={len(raw_rows)}", "post_review_e1")
+    if results:
         small_d_knee_rows = [row for row in law_rows if row.get("D", 999) < 128 and 0.05 <= float(row.get("fraction_required_depth_le_dstar", 0.0)) <= 0.95]
         _check(checks, bool(small_d_knee_rows) and acceptance.get("small_d_knee_exercised") is True, "e1_small_d_knee_exercised", f"rows={len(small_d_knee_rows)}", "post_review_e1")
         law_ready = bool(law_rows) and all(row.get("on_y_equals_x") is True for row in law_rows)
@@ -645,6 +692,92 @@ def _post_review_e1_checks(checks: list[dict[str, Any]]) -> None:
         panels = results.get("panel_artifacts", {})
         panels_present = bool(panels) and all((REPO_ROOT / path).exists() for path in panels.values())
         _check(checks, panels_present, "e1_figure4_panel_artifacts_present", f"panels={panels}", "post_review_e1")
+
+
+def _rung1_distributed_graph_coloring_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "item_051_rung1_distributed_graph_coloring", "rung1")
+    _exists(checks, "rung1_distributed_graph_coloring", "rung1")
+    item = _read_json("item_051_rung1_distributed_graph_coloring")
+    results = _read_json("rung1_distributed_graph_coloring")
+    if item:
+        _check(checks, item.get("item_number") == "051", "item051_number_present", f"item_number={item.get('item_number')}", "rung1")
+        _check(checks, item.get("status") in {"RUNG1_PHASE0_SYMBOLIC_GATE_PASSED", "RUNG1_PHASE0_SYMBOLIC_DEEPEN_AND_RERUN"}, "item051_status_valid", f"status={item.get('status')}", "rung1")
+        gates = {row.get("gate"): row.get("outcome") for row in item.get("decision", {}).get("gate_outcomes", [])}
+        _check(checks, {"deep_cbj_solve_rate_gt_chronological", "deep_cbj_total_retractions_less", "deep_cbj_comm_tokens_less", "deep_forward_markov_near_zero"}.issubset(gates), "item051_gate_rows_present", f"gates={gates}", "rung1")
+    if results:
+        discipline = results.get("discipline", {})
+        acceptance = results.get("acceptance", {})
+        pool_rows = results.get("pool_summary", [])
+        arm_rows = results.get("arm_band_summary", [])
+        pair_rows = results.get("paired_cbj_vs_chronological", [])
+        metric_rows = results.get("instance_arm_metrics", [])
+        manifest_rows = results.get("instance_manifest", [])
+        generation = results.get("generation_config", {})
+        _check(checks, results.get("schema_version") == "rung1_distributed_graph_coloring_v0", "rung1_schema_version", f"schema={results.get('schema_version')}", "rung1")
+        _check(checks, discipline.get("only_variable") == "RECOVERY backjump target rule" and discipline.get("shared_register") == "bounded reversible boundary commitment register" and discipline.get("phase") == "0_symbolic_operator", "rung1_shared_register_discipline", f"discipline={discipline}", "rung1")
+        gym_manifest_ok = bool(manifest_rows) and all(str(row.get("source_kind", "")).startswith("reasoning_gym_graph_color_generator:") and row.get("provenance") == "reasoning_gym_graph_color_generator_rejection_sample" for row in manifest_rows)
+        _check(checks, generation.get("generator_package") == "reasoning-gym" and str(generation.get("generator_version", "")) and generation.get("generator_api") == "reasoning_gym.algorithmic.graph_color.generate_graph_coloring_puzzle" and gym_manifest_ok, "rung1_reasoning_gym_generation_used", f"generator={generation.get('generator_package')} {generation.get('generator_version')}; rows={len(manifest_rows)}; gym_manifest_ok={gym_manifest_ok}", "rung1")
+        pool_by_band = {row.get("band"): row for row in pool_rows}
+        _check(checks, set(pool_by_band) == {"R0", "R1-2", "R3+"} and all(row.get("n") == 64 and row.get("target_met") is True for row in pool_by_band.values()), "rung1_pool_bands_complete", f"pool={pool_rows}", "rung1")
+        deep_manifest = [row for row in manifest_rows if row.get("band") == "R3+"]
+        _check(checks, bool(deep_manifest) and all(int(row.get("reference_cross_agent_conflict_depth", 0)) >= 3 and row.get("boundary_conflict_exact") is True for row in deep_manifest), "rung1_deep_band_boundary_exact", f"deep_rows={len(deep_manifest)}", "rung1")
+        arms = {(row.get("band"), row.get("arm")) for row in arm_rows}
+        _check(checks, {(band, arm) for band in {"R0", "R1-2", "R3+"} for arm in {"forward_markov_team", "chronological_rollback", "cbj_bounded"}}.issubset(arms), "rung1_arm_band_rows_complete", f"arms={sorted(arms)}", "rung1")
+        deep_arm = {row.get("arm"): row for row in arm_rows if row.get("band") == "R3+"}
+        deep_pair = next((row for row in pair_rows if row.get("band") == "R3+"), {})
+        _check(checks, float(deep_arm.get("cbj_bounded", {}).get("solve_rate", 0.0)) > float(deep_arm.get("chronological_rollback", {}).get("solve_rate", 1.0)) and float(deep_pair.get("solve_rate_delta_cbj_minus_chronological", 0.0)) >= 0.20, "rung1_deep_cbj_solve_gt_chronological", f"deep_arm={deep_arm}; pair={deep_pair}", "rung1")
+        _check(checks, float(deep_pair.get("mean_retraction_delta_cbj_minus_chronological", 1.0)) < 0 and float(deep_pair.get("mean_comm_token_delta_cbj_minus_chronological", 1.0)) < 0, "rung1_deep_cbj_less_retractions_and_comm", f"pair={deep_pair}", "rung1")
+        _check(checks, float(deep_arm.get("forward_markov_team", {}).get("solve_rate", 1.0)) <= 0.05, "rung1_deep_forward_near_zero", f"forward={deep_arm.get('forward_markov_team')}", "rung1")
+        _check(checks, acceptance.get("rung1_gate_pass") is True and results.get("status") == "RUNG1_PHASE0_SYMBOLIC_GATE_PASSED", "rung1_phase0_gate_passed", f"acceptance={acceptance}; status={results.get('status')}", "rung1")
+        _check(checks, bool(metric_rows) and all(row.get("register_capacity") == 16 and row.get("node_cap") == 120 and row.get("provenance") == "phase0_symbolic_priority_ordered_distributed_graph_coloring" for row in metric_rows[:50]), "rung1_metric_rows_register_accounting", f"rows={len(metric_rows)}", "rung1")
+
+
+def _rung1_gate_distributed_coloring_v01_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "item_052_rung1_gate_distributed_coloring_v01", "rung1_v01")
+    _exists(checks, "rung1_gate_distributed_coloring_v01", "rung1_v01")
+    item = _read_json("item_052_rung1_gate_distributed_coloring_v01")
+    results = _read_json("rung1_gate_distributed_coloring_v01")
+    if item:
+        _check(checks, item.get("item_number") == "052", "item052_number_present", f"item_number={item.get('item_number')}", "rung1_v01")
+        _check(checks, item.get("status") in {"RUNG1_V01_FIXED_SIZE_DEPTH_CURVE_PASSED", "RUNG1_V01_FIXED_SIZE_DEPTH_CURVE_REVIEW"}, "item052_status_valid", f"status={item.get('status')}", "rung1_v01")
+        gates = {row.get("gate"): row.get("outcome") for row in item.get("decision", {}).get("gate_outcomes", [])}
+        required_gates = {"fixed_size_attainable_bins_filled", "structural_shallow_holes_recorded", "solve_gap_monotonic_and_crossover", "forward_ge1_near_zero", "cbj_cap_sweep_complete"}
+        _check(checks, required_gates.issubset(gates) and all(gates.get(gate) == "PASS" for gate in required_gates), "item052_gate_rows_pass", f"gates={gates}", "rung1_v01")
+    if results:
+        discipline = results.get("discipline", {})
+        generation = results.get("generation_config", {})
+        acceptance = results.get("acceptance", {})
+        pool_rows = results.get("pool_depth_summary", [])
+        gap_rows = results.get("gap_vs_depth_curve", [])
+        arm_rows = results.get("arm_depth_summary", [])
+        cap_rows = results.get("cbj_register_capacity_sweep", [])
+        metric_rows = results.get("instance_arm_metrics", [])
+        manifest_rows = results.get("instance_manifest", [])
+        pool_by_bin = {row.get("depth_bin"): row for row in pool_rows}
+        attainable_bins = {"0", "4", "5", "6", "7", "8", "9+"}
+        structural_bins = {"1", "2", "3"}
+        _check(checks, results.get("schema_version") == "rung1_gate_distributed_coloring_v0_1", "rung1_v01_schema_version", f"schema={results.get('schema_version')}", "rung1_v01")
+        frozen = set(discipline.get("frozen_from_item051", []))
+        _check(checks, discipline.get("phase") == "0_symbolic_operator" and {"register mechanism", "recovery target rules", "priority ordered protocol", "symbolic conflict set", "solve loop"}.issubset(frozen), "rung1_v01_frozen_loop_discipline", f"discipline={discipline}", "rung1_v01")
+        _check(checks, generation.get("n_vertices") == 16 and generation.get("k") == 4 and generation.get("n_agents") == 4 and generation.get("target_per_depth_bin") == 48 and generation.get("generator_package") == "reasoning-gym", "rung1_v01_fixed_size_generation", f"generation={generation}", "rung1_v01")
+        attainable_ok = attainable_bins.issubset(pool_by_bin) and all(pool_by_bin[bin_name].get("n") == 48 and pool_by_bin[bin_name].get("target_met") is True and pool_by_bin[bin_name].get("n_vertices") == 16 and pool_by_bin[bin_name].get("k") == 4 and pool_by_bin[bin_name].get("n_agents") == 4 for bin_name in attainable_bins)
+        holes_ok = structural_bins.issubset(pool_by_bin) and all(pool_by_bin[bin_name].get("structural_hole") is True and pool_by_bin[bin_name].get("n") == 0 for bin_name in structural_bins)
+        _check(checks, attainable_ok and holes_ok, "rung1_v01_depth_bins_filled_or_structural", f"attainable_ok={attainable_ok}; holes_ok={holes_ok}; pool={pool_rows}", "rung1_v01")
+        chi_ok = bool(manifest_rows) and all(row.get("n_vertices") == 16 and row.get("k") == 4 and row.get("chromatic_number") == 4 and row.get("boundary_conflict_exact") is True for row in manifest_rows)
+        _check(checks, chi_ok, "rung1_v01_manifest_fixed_chi4_boundary_exact", f"rows={len(manifest_rows)}", "rung1_v01")
+        gaps = [float(row.get("solve_rate_gap_cbj_minus_chronological", -1.0)) for row in gap_rows]
+        monotonic = bool(gaps) and all(gaps[index] <= gaps[index + 1] + 1e-12 for index in range(len(gaps) - 1))
+        post_crossover = [row for row in gap_rows if row.get("depth_bin") in {"7", "8", "9+"}]
+        post_sig = bool(post_crossover) and all(row.get("mcnemar_one_sided_p_cbj_gt_chronological") is not None and float(row.get("mcnemar_one_sided_p_cbj_gt_chronological")) <= 0.05 for row in post_crossover)
+        forward_ok = bool(gap_rows) and all(float(row.get("forward_solve_rate", 1.0)) <= 0.05 for row in gap_rows if row.get("depth_bin") != "0")
+        _check(checks, monotonic and post_sig and forward_ok and acceptance.get("crossover_depth_bin") == "7", "rung1_v01_gap_curve_pass", f"gaps={gaps}; crossover={acceptance.get('crossover_depth_bin')}; post_sig={post_sig}; forward_ok={forward_ok}", "rung1_v01")
+        overflow_columns_ok = bool(arm_rows) and all("mean_overflow_entries" in row and "fraction_instances_overflowed" in row for row in arm_rows)
+        _check(checks, overflow_columns_ok, "rung1_v01_overflow_summary_columns", f"rows={len(arm_rows)}", "rung1_v01")
+        sweep_caps = {row.get("register_capacity") for row in cap_rows if row.get("depth_bin") == "9+" and row.get("arm") == "cbj_bounded"}
+        sweep_ok = sweep_caps == {16, 32} and all(row.get("n") == 48 and row.get("solve_rate") == 1.0 for row in cap_rows)
+        _check(checks, sweep_ok, "rung1_v01_cbj_cap_sweep_complete", f"cap_rows={cap_rows}", "rung1_v01")
+        metric_ok = bool(metric_rows) and all(row.get("register_capacity") == 16 and row.get("node_cap") == 120 and row.get("provenance") == "phase0_symbolic_priority_ordered_distributed_graph_coloring_loop_frozen_from_item051" for row in metric_rows[:50])
+        _check(checks, metric_ok and acceptance.get("rung1_v01_gate_pass") is True and results.get("status") == "RUNG1_V01_FIXED_SIZE_DEPTH_CURVE_PASSED", "rung1_v01_gate_passed", f"acceptance={acceptance}; metric_rows={len(metric_rows)}", "rung1_v01")
 
 
 def _canonical_checks(checks: list[dict[str, Any]]) -> None:
@@ -689,6 +822,8 @@ def validate_outputs(output_dir: str = "results/validation") -> dict[str, Any]:
     _closeout_047_checks(checks)
     _track_b_value_head_retrain_checks(checks)
     _post_review_e1_checks(checks)
+    _rung1_distributed_graph_coloring_checks(checks)
+    _rung1_gate_distributed_coloring_v01_checks(checks)
     _legacy_checks(checks)
 
     passed = all(check["status"] == "PASS" for check in checks)

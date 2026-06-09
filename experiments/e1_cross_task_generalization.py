@@ -15,7 +15,8 @@ import json
 import math
 from pathlib import Path
 import random
-from statistics import mean, median, quantiles
+import signal
+from statistics import mean, median, pstdev, quantiles
 from typing import Any, Literal
 
 import torch
@@ -35,8 +36,17 @@ PROGRESS_PATH = RUN_ROOT / "progress.json"
 PROGRESS_LOG_PATH = RUN_ROOT / "progress.jsonl"
 SUDOKU_POOL_PATH = REPO_ROOT / "results/overnight_047_headline_preregistered/line1_headline/reverts_needed_pool.json"
 SUDOKU_HEADLINE_PATH = REPO_ROOT / "results/overnight_047_headline_preregistered/line1_headline/line1_headline.json"
+SUDOKU_MODULE1_CURVES_PATH = REPO_ROOT / "results/module1_capacity_perdepth_shards/curves.json"
+SUDOKU_D128_BOUND_SINGLE_CURVE_PATH = RUN_ROOT / "sudoku_d128_bound_single_module1_curve.json"
 SUDOKU_LIVE_LOAD_TIMEOUT_SECONDS = 3
 SUDOKU_LIVE_LOAD_PRESCREEN_MAX_NODES = 0
+SUDOKU_COMPOSITION_SUBSAMPLE_PER_BAND = 16
+SUDOKU_MODULE1_D128_TRIALS = 4096
+SUDOKU_MODULE1_D128_BATCH_SIZE = 8192
+
+
+class _SudokuTraceTimeout(Exception):
+    pass
 BANDS = ("R0", "R1-2", "R3-5", "R6+")
 BASE_DS = (64, 96, 128, 256, 512)
 SEEDS = (42, 137)
@@ -1065,6 +1075,651 @@ def _predictor_summary_rows(rows: list[dict[str, Any]], scope: str) -> list[dict
     return summary
 
 
+def _composition_read_rule_rows() -> list[dict[str, Any]]:
+    return [
+        {"rule": "register_entry_classification", "value": "ScalarRegisterLoop pushes only branch choices; forced propagations are returned by _oracle_ops as current assignment and are recomputable, so no FORCED register entries are written in this implementation.", "source": SOURCE, "provenance": "inspected_ScalarRegisterLoop.run_push_pop_and_oracle_ops"},
+        {"rule": "pop_read", "value": "ScalarRegisterLoop.pop(level,var,value) is the only operational register decode in the current loop; each pop reads the top CHOICE trail entry at live load=level.", "source": SOURCE, "provenance": "inspected_ScalarRegisterLoop.pop"},
+        {"rule": "forward_read", "value": "No forward register read is used to reconstruct state; _oracle_ops recomputes forced propagation from the surviving assignment.", "source": SOURCE, "provenance": "inspected_ScalarRegisterLoop.run"},
+        {"rule": "spill_off_write_drop", "value": "ScalarRegisterLoop.push(level,var,value): capacity_floor=floor(_capacity_dstar(task,arm,D,config)); if level > capacity_floor then overflow_entries += 1 and spill_off sets capacity_exceeded=True and returns False without writing the entry.", "source": SOURCE, "provenance": "inspected_ScalarRegisterLoop.push"},
+        {"rule": "write_drop_mask", "value": "For product-law masking, C is the same capacity_floor structural constant used by ScalarRegisterLoop; an entry is DROPPED when its push row live_load_before > C, and any read of that entry contributes factor 0.", "source": SOURCE, "provenance": "pre_registered_E1_b2_write_drop_mask"},
+        {"rule": "final_solution_readback", "value": "For the compositional certification candidate, surviving CHOICE trail entries are read back in LIFO order at solve time with live loads L,L-1,...,1; this is reported separately from pop-only.", "source": SOURCE, "provenance": "pre_registered_E1_path_b_deeper_read_rule"},
+    ]
+
+
+def _composition_capacity_floor(task: str, arm: str, D: int, configs: dict[str, dict[str, Any]] | None = None, sudoku_capacity_lookup: dict[tuple[str, int], int] | None = None) -> int | None:
+    if task == "sudoku9_item047":
+        return None if sudoku_capacity_lookup is None else sudoku_capacity_lookup.get((arm, int(D)))
+    if configs is None or task not in configs or arm not in STRUCTURED_ARMS:
+        return None
+    return math.floor(_capacity_dstar(task, arm, int(D), configs[task]))
+
+
+def _composition_read_rows_for_events(task: str, row: dict[str, Any], events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    stack: list[dict[str, Any]] = []
+    reads: list[dict[str, Any]] = []
+    for event in events:
+        op = event["op"]
+        if op == "push":
+            stack.append({
+                "entry_id": len(stack) + len(reads),
+                "entry_type": "CHOICE",
+                "var": event.get("var"),
+                "value": event.get("value"),
+                "push_event_index": event["event_index"],
+                "push_live_load": int(event["live_load_before"]),
+                "push_live_load_after": int(event["live_load_before"]) + 1,
+            })
+        elif op == "pop":
+            entry = stack.pop() if stack else {"entry_id": None, "entry_type": "CHOICE", "var": event.get("var"), "value": event.get("value")}
+            reads.append({
+                "task": task,
+                "instance_index": row["instance_index"],
+                "band": row["band"],
+                "reverts_needed": row["reverts_needed"],
+                "read_index": len(reads),
+                "read_op": "pop",
+                "entry_type": entry["entry_type"],
+                "entry_push_live_load": entry.get("push_live_load"),
+                "live_load": int(event["live_load_before"]),
+                "var": entry.get("var"),
+                "value": entry.get("value"),
+                "source": SOURCE,
+                "provenance": "reference_trajectory_structural_choice_read_set",
+            })
+        elif op == "solve":
+            live_load = len(stack)
+            for entry in reversed(stack):
+                reads.append({
+                    "task": task,
+                    "instance_index": row["instance_index"],
+                    "band": row["band"],
+                    "reverts_needed": row["reverts_needed"],
+                    "read_index": len(reads),
+                    "read_op": "final_solution_readback",
+                    "entry_type": entry["entry_type"],
+                    "entry_push_live_load": entry.get("push_live_load"),
+                    "live_load": live_load,
+                    "var": entry.get("var"),
+                    "value": entry.get("value"),
+                    "source": SOURCE,
+                    "provenance": "reference_trajectory_structural_choice_read_set",
+                })
+                live_load -= 1
+    return reads
+
+
+def _composition_read_rows(pools: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for task, pool_rows in pools.items():
+        for row in pool_rows:
+            rows.extend(_composition_read_rows_for_events(task, row, row.get("reference_live_load_events", [])))
+    return rows
+
+
+def _curve_lookup(curve_rows: list[dict[str, Any]]) -> dict[tuple[str, str, int, int], float]:
+    lookup: dict[tuple[str, str, int, int], float] = {}
+    for row in curve_rows:
+        lookup[(row["task"], row["arm"], int(row["D"]), int(row["depth"]))] = float(row["decode_accuracy"])
+    return lookup
+
+
+def _decode_acc(lookup: dict[tuple[str, str, int, int], float], task: str, arm: str, D: int, live_load: int) -> float | None:
+    if live_load <= 0:
+        return 1.0
+    key = (task, arm, int(D), int(live_load))
+    if key in lookup:
+        return lookup[key]
+    available = sorted(depth for task_key, arm_key, D_key, depth in lookup if task_key == task and arm_key == arm and D_key == int(D))
+    if not available:
+        return None
+    if live_load > available[-1]:
+        return lookup[(task, arm, int(D), available[-1])]
+    return None
+
+
+def _candidate_base(candidate: str) -> str:
+    return candidate[:-9] if candidate.endswith("_unmasked") else candidate
+
+
+def _candidate_is_masked(candidate: str) -> bool:
+    return not candidate.endswith("_unmasked") and candidate in {"P_all", "P_choice", "P_pop"}
+
+
+def _composition_candidates(include_unmasked: bool = True) -> tuple[str, ...]:
+    masked = ("P_all", "P_choice", "P_pop")
+    if not include_unmasked:
+        return masked
+    return masked + ("P_all_unmasked", "P_choice_unmasked", "P_pop_unmasked")
+
+
+def _product_for_reads(reads: list[dict[str, Any]], lookup: dict[tuple[str, str, int, int], float], task: str, arm: str, D: int, candidate: str, capacity_floor: int | None = None) -> tuple[float | None, int, int, float | None, int, int]:
+    base_candidate = _candidate_base(candidate)
+    if base_candidate == "P_all":
+        selected = reads
+    elif base_candidate == "P_choice":
+        selected = [row for row in reads if row["entry_type"] == "CHOICE"]
+    elif base_candidate == "P_pop":
+        selected = [row for row in reads if row["read_op"] == "pop"]
+    else:
+        raise ValueError(f"unknown compositional candidate={candidate}")
+    dropped_selected = []
+    if _candidate_is_masked(candidate) and capacity_floor is not None:
+        dropped_selected = [row for row in selected if row.get("entry_push_live_load") is not None and int(row["entry_push_live_load"]) > int(capacity_floor)]
+    if dropped_selected:
+        return 0.0, len(selected), max((int(row["live_load"]) for row in selected), default=0), 0.0, len(dropped_selected), len(selected) - len(dropped_selected)
+    log_prob = 0.0
+    min_acc: float | None = None
+    dropped_reads = 0
+    surviving_reads = 0
+    for read in selected:
+        surviving_reads += 1
+        acc = _decode_acc(lookup, task, arm, D, int(read["live_load"]))
+        if acc is None:
+            return None, len(selected), int(read["live_load"]), None, dropped_reads, surviving_reads
+        acc = min(max(acc, 0.0), 1.0)
+        min_acc = acc if min_acc is None else min(min_acc, acc)
+        if acc <= 0.0:
+            return 0.0, len(selected), int(read["live_load"]), 0.0, dropped_reads, surviving_reads
+        log_prob += math.log(acc)
+    return math.exp(log_prob), len(selected), max((int(row["live_load"]) for row in selected), default=0), min_acc, dropped_reads, surviving_reads
+
+
+def _composition_instance_rows(pools: dict[str, list[dict[str, Any]]], curve_rows: list[dict[str, Any]], ds: tuple[int, ...], configs: dict[str, dict[str, Any]] | None = None, sudoku_capacity_lookup: dict[tuple[str, int], int] | None = None) -> list[dict[str, Any]]:
+    lookup = _curve_lookup(curve_rows)
+    rows: list[dict[str, Any]] = []
+    for task, pool_rows in pools.items():
+        for row in pool_rows:
+            reads = _composition_read_rows_for_events(task, row, row.get("reference_live_load_events", []))
+            for arm in STRUCTURED_ARMS:
+                for D in ds:
+                    capacity_floor = _composition_capacity_floor(task, arm, D, configs, sudoku_capacity_lookup)
+                    for candidate in _composition_candidates(include_unmasked=True):
+                        product, n_reads, max_live_load, min_read_acc, dropped_reads, surviving_reads = _product_for_reads(reads, lookup, task, arm, D, candidate, capacity_floor)
+                        rows.append({
+                            "task": task,
+                            "arm": arm,
+                            "variant": _variant_for_arm(arm),
+                            "D": D,
+                            "band": row["band"],
+                            "instance_index": row["instance_index"],
+                            "reverts_needed": row["reverts_needed"],
+                            "candidate": candidate,
+                            "mask_applied": _candidate_is_masked(candidate),
+                            "hard_capacity_C": capacity_floor,
+                            "n_reads": n_reads,
+                            "n_dropped_reads": dropped_reads,
+                            "n_surviving_reads": surviving_reads,
+                            "max_read_live_load": max_live_load,
+                            "min_read_decode_acc": min_read_acc,
+                            "predicted_instance_solve_prob": product,
+                            "status": "RECORDED" if product is not None else "MISSING_DECODE_CURVE",
+                            "source": SOURCE,
+                            "provenance": "parameter_free_product_of_measured_decode_curve_over_structural_reads",
+                        })
+    return rows
+
+
+def _composition_law_rows(instance_rows: list[dict[str, Any]], threshold_rows: list[dict[str, Any]], cell_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    keys = sorted({(row["task"], row["arm"], int(row["D"]), row["band"]) for row in instance_rows})
+    for task, arm, D, band in keys:
+        observed_values = [row["solve_rate"] for row in cell_rows if row["task"] == task and row["arm"] == arm and row["spill"] == "spill_off" and row["D"] == D and row["band"] == band and row["figure_included"]]
+        observed = mean(observed_values) if observed_values else None
+        for candidate in _composition_candidates(include_unmasked=True):
+            subset = [row for row in instance_rows if row["task"] == task and row["arm"] == arm and int(row["D"]) == D and row["band"] == band and row["candidate"] == candidate]
+            valid = [row for row in subset if row["predicted_instance_solve_prob"] is not None]
+            predicted = mean(float(row["predicted_instance_solve_prob"]) for row in valid) if valid else None
+            tolerance = 1.0 / max(len(valid), 1)
+            abs_diff = None if observed is None or predicted is None else abs(observed - predicted)
+            residual = None if observed is None or predicted is None else observed - predicted
+            rows.append({
+                "task": task,
+                "arm": arm,
+                "variant": _variant_for_arm(arm),
+                "D": D,
+                "band": band,
+                "candidate": candidate,
+                "model_family": "decode_curve_product",
+                "mask_applied": _candidate_is_masked(candidate),
+                "n": len(valid),
+                "n_missing_decode_curve": len(subset) - len(valid),
+                "mean_dropped_reads": mean(float(row["n_dropped_reads"]) for row in valid) if valid else None,
+                "instances_with_dropped_reads": sum(int(row["n_dropped_reads"] > 0) for row in valid),
+                "predicted_solve_rate": predicted,
+                "observed_spill_off_solve_rate": observed,
+                "observed_seed_min": min(observed_values) if observed_values else None,
+                "observed_seed_max": max(observed_values) if observed_values else None,
+                "n_seeds_joined": len(observed_values),
+                "abs_diff": abs_diff,
+                "residual_observed_minus_predicted": residual,
+                "residual_nonnegative": residual is not None and residual >= -tolerance,
+                "residual_within_tolerance": residual is not None and abs(residual) <= tolerance,
+                "residual_one_sided_tight": residual is not None and residual >= -tolerance and residual <= tolerance,
+                "law_transfer_tolerance": tolerance,
+                "on_y_equals_x": abs_diff is not None and abs_diff <= tolerance,
+                "pre_registered_hypothesis": candidate == "P_choice",
+                "source": SOURCE,
+                "provenance": "parameter_free_product_law_vs_observed_spill_off_solve_rate",
+            })
+        for predictor in ("D_peak", "D_pop"):
+            threshold = next((row for row in threshold_rows if row["task"] == task and row["arm"] == arm and int(row["D"]) == D and row["band"] == band and row["predictor"] == predictor), None)
+            if threshold is None:
+                continue
+            predicted = float(threshold["fraction_predictor_le_dstar"])
+            n = int(threshold["n"])
+            tolerance = 1.0 / max(n, 1)
+            abs_diff = None if observed is None else abs(observed - predicted)
+            residual = None if observed is None else observed - predicted
+            rows.append({
+                "task": task,
+                "arm": arm,
+                "variant": _variant_for_arm(arm),
+                "D": D,
+                "band": band,
+                "candidate": f"threshold_{predictor}",
+                "model_family": "dstar_threshold_contrast",
+                "mask_applied": False,
+                "n": n,
+                "n_missing_decode_curve": 0,
+                "mean_dropped_reads": None,
+                "instances_with_dropped_reads": None,
+                "predicted_solve_rate": predicted,
+                "observed_spill_off_solve_rate": observed,
+                "observed_seed_min": min(observed_values) if observed_values else None,
+                "observed_seed_max": max(observed_values) if observed_values else None,
+                "n_seeds_joined": len(observed_values),
+                "abs_diff": abs_diff,
+                "residual_observed_minus_predicted": residual,
+                "residual_nonnegative": residual is not None and residual >= -tolerance,
+                "residual_within_tolerance": residual is not None and abs(residual) <= tolerance,
+                "residual_one_sided_tight": residual is not None and residual >= -tolerance and residual <= tolerance,
+                "law_transfer_tolerance": tolerance,
+                "on_y_equals_x": abs_diff is not None and abs_diff <= tolerance,
+                "pre_registered_hypothesis": False,
+                "source": SOURCE,
+                "provenance": "threshold_variant_contrast_against_product_law",
+            })
+    return rows
+
+
+def _composition_summary_rows(rows: list[dict[str, Any]], scope: str) -> list[dict[str, Any]]:
+    summary = []
+    preferred_order = list(_composition_candidates(include_unmasked=True)) + ["threshold_D_peak", "threshold_D_pop"]
+    candidates = [candidate for candidate in preferred_order if any(row.get("candidate") == candidate for row in rows)]
+    candidates.extend(sorted({row.get("candidate") for row in rows if row.get("candidate") not in set(candidates)}))
+    for candidate in candidates:
+        subset = [row for row in rows if row.get("candidate") == candidate and row.get("abs_diff") is not None]
+        if not subset:
+            continue
+        diffs = [float(row["abs_diff"]) for row in subset]
+        pass_rows = sum(bool(row["on_y_equals_x"]) for row in subset)
+        observed_exceeds = [float(row["observed_spill_off_solve_rate"]) - float(row["predicted_solve_rate"]) for row in subset if row.get("observed_spill_off_solve_rate") is not None and row.get("predicted_solve_rate") is not None]
+        residuals = [float(row["residual_observed_minus_predicted"]) for row in subset if row.get("residual_observed_minus_predicted") is not None]
+        summary.append({
+            "scope": scope,
+            "candidate": candidate,
+            "model_family": subset[0].get("model_family"),
+            "mask_applied": subset[0].get("mask_applied", False),
+            "pass_rows": pass_rows,
+            "total_rows": len(subset),
+            "pass_rate": pass_rows / max(len(subset), 1),
+            "mean_abs_diff": mean(diffs),
+            "max_abs_diff": max(diffs),
+            "mean_observed_minus_predicted": mean(observed_exceeds) if observed_exceeds else None,
+            "residual_mean": mean(residuals) if residuals else None,
+            "residual_min": min(residuals) if residuals else None,
+            "residual_max": max(residuals) if residuals else None,
+            "fraction_residual_nonnegative": sum(bool(row.get("residual_nonnegative")) for row in subset) / max(len(subset), 1),
+            "fraction_residual_within_tolerance": sum(bool(row.get("residual_within_tolerance")) for row in subset) / max(len(subset), 1),
+            "fraction_residual_one_sided_tight": sum(bool(row.get("residual_one_sided_tight")) for row in subset) / max(len(subset), 1),
+            "pre_registered_hypothesis": candidate == "P_choice",
+            "source": SOURCE,
+            "provenance": "parameter_free_compositional_law_summary",
+        })
+    if summary:
+        best = min(summary, key=lambda row: (row["mean_abs_diff"], -row["pass_rows"], row["candidate"] != "P_choice"))
+        for row in summary:
+            row["is_best_by_mean_abs_diff"] = row["candidate"] == best["candidate"]
+    return summary
+
+
+def _module1_sudoku_curve_rows() -> list[dict[str, Any]]:
+    if not SUDOKU_MODULE1_CURVES_PATH.exists():
+        return []
+    payload = json.loads(SUDOKU_MODULE1_CURVES_PATH.read_text())
+    rows: list[dict[str, Any]] = []
+    for summary in payload.get("summary", []):
+        if summary.get("K_var") != 81 or summary.get("K_val") != 9:
+            continue
+        if summary.get("replacement") != "with_replacement":
+            continue
+        variant = summary.get("variant")
+        if variant not in {"bound_single", "factored"}:
+            continue
+        arm = _arm_for_variant(variant)
+        for curve_row in summary.get("curve", []):
+            rows.append({
+                "task": "sudoku9_item047",
+                "codebook": variant,
+                "arm": arm,
+                "D": int(summary["D"]),
+                "K_var": 81,
+                "K_val": 9,
+                "K_eff": 729 if variant == "bound_single" else 81,
+                "depth": int(curve_row["depth"]),
+                "decode_accuracy": float(curve_row["joint_accuracy"]),
+                "threshold": STORAGE_THRESHOLD,
+                "source": SOURCE,
+                "provenance": "module1_capacity_perdepth_shards_with_replacement_full_curve",
+            })
+    rows.extend(_sudoku_d128_bound_single_curve_rows())
+    return rows
+
+
+def _curve_crossing(curve: list[dict[str, Any]], metric: str, threshold: float = STORAGE_THRESHOLD) -> float:
+    ordered = sorted(curve, key=lambda row: row["depth"])
+    if not ordered or ordered[0][metric] < threshold:
+        return 0.0
+    last = ordered[0]
+    for row in ordered[1:]:
+        if row[metric] < threshold:
+            denom = last[metric] - row[metric]
+            if denom <= 0:
+                return float(last["depth"])
+            frac = (last[metric] - threshold) / denom
+            return float(last["depth"] + frac * (row["depth"] - last["depth"]))
+        last = row
+    return float(ordered[-1]["depth"])
+
+
+def _measure_sudoku_d128_bound_single_curve() -> dict[str, Any]:
+    from experiments.module1_capacity_perdepth import _run_bound_single
+
+    RUN_ROOT.mkdir(parents=True, exist_ok=True)
+    device = "cuda:0" if torch.cuda.is_available() else "cpu"
+    raw_rows: list[dict[str, Any]] = []
+    for seed in STORAGE_SEEDS:
+        for depth in range(1, 59):
+            result = _run_bound_single(128, 81, 9, depth, seed, SUDOKU_MODULE1_D128_TRIALS, SUDOKU_MODULE1_D128_BATCH_SIZE, device, "with_replacement")
+            raw_rows.append({
+                "variant": "bound_single",
+                "replacement": "with_replacement",
+                "D": 128,
+                "K_var": 81,
+                "K_val": 9,
+                "seed": seed,
+                "depth": depth,
+                **result,
+            })
+    curve = []
+    for depth in range(1, 59):
+        depth_rows = [row for row in raw_rows if row["depth"] == depth]
+        curve.append({
+            "depth": depth,
+            "joint_accuracy": mean(row["joint_accuracy"] for row in depth_rows),
+            "var_accuracy": mean(row["var_accuracy"] for row in depth_rows),
+            "val_accuracy": mean(row["val_accuracy"] for row in depth_rows),
+            "std_joint_accuracy": pstdev(row["joint_accuracy"] for row in depth_rows),
+            "mean_margin": mean(row["mean_margin"] for row in depth_rows),
+        })
+    summary = {
+        "variant": "bound_single",
+        "replacement": "with_replacement",
+        "D": 128,
+        "K_var": 81,
+        "K_val": 9,
+        "capacity_joint_095": _curve_crossing(curve, "joint_accuracy"),
+        "capacity_var_095": _curve_crossing(curve, "var_accuracy"),
+        "capacity_val_095": _curve_crossing(curve, "val_accuracy"),
+        "curve": curve,
+    }
+    payload = {
+        "module": "module1_capacity_perdepth_targeted_sudoku_d128_bound_single",
+        "device": device,
+        "threshold": STORAGE_THRESHOLD,
+        "trials": SUDOKU_MODULE1_D128_TRIALS,
+        "batch_size": SUDOKU_MODULE1_D128_BATCH_SIZE,
+        "seeds": list(STORAGE_SEEDS),
+        "raw_rows": raw_rows,
+        "summary": summary,
+        "source": SOURCE,
+        "provenance": "targeted_module1_capacity_perdepth_with_replacement_full_curve",
+    }
+    SUDOKU_D128_BOUND_SINGLE_CURVE_PATH.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return payload
+
+
+def _sudoku_d128_bound_single_curve_rows() -> list[dict[str, Any]]:
+    if SUDOKU_D128_BOUND_SINGLE_CURVE_PATH.exists():
+        payload = json.loads(SUDOKU_D128_BOUND_SINGLE_CURVE_PATH.read_text())
+    else:
+        payload = _measure_sudoku_d128_bound_single_curve()
+    summary = payload.get("summary", {})
+    rows = []
+    if summary.get("variant") != "bound_single" or int(summary.get("D", -1)) != 128:
+        return rows
+    for curve_row in summary.get("curve", []):
+        rows.append({
+            "task": "sudoku9_item047",
+            "codebook": "bound_single",
+            "arm": "rot_bound_single",
+            "D": 128,
+            "K_var": 81,
+            "K_val": 9,
+            "K_eff": 729,
+            "depth": int(curve_row["depth"]),
+            "decode_accuracy": float(curve_row["joint_accuracy"]),
+            "threshold": STORAGE_THRESHOLD,
+            "source": SOURCE,
+            "provenance": "targeted_module1_capacity_perdepth_D128_bound_single_with_replacement_full_curve",
+        })
+    return rows
+
+
+def _sudoku_domains_from_givens(givens: Any) -> dict[int, set[int]]:
+    domains = {var: set(range(1, 10)) for var in range(81)}
+    if isinstance(givens, dict):
+        iterator = givens.items()
+        for key, value in iterator:
+            if isinstance(key, str) and "," in key:
+                r, c = (int(part) for part in key.split(","))
+                var = r * 9 + c
+            else:
+                var = int(key)
+            domains[var] = {int(value)}
+    else:
+        for idx, value in enumerate(givens):
+            if int(value) != 0:
+                domains[idx] = {int(value)}
+    return domains
+
+
+def _sudoku_subsample_trace_rows() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    if not SUDOKU_POOL_PATH.exists():
+        return [], []
+    payload = json.loads(SUDOKU_POOL_PATH.read_text())
+    pool_rows = payload.get("selected_instances", [])
+    selected: list[tuple[int, dict[str, Any]]] = []
+    for band in BANDS:
+        band_rows = [(index, row) for index, row in enumerate(pool_rows) if row.get("reverts_band") == band]
+        selected.extend(sorted(band_rows, key=lambda item: (int(item[1].get("reference_nodes", 10**12)), item[0]))[:SUDOKU_COMPOSITION_SUBSAMPLE_PER_BAND])
+    predictor_rows: list[dict[str, Any]] = []
+    read_rows: list[dict[str, Any]] = []
+    oracle = DPLLOracle()
+    constraints = constraints_9x9()
+    variables = list(range(81))
+
+    def timeout_handler(signum: int, frame: Any) -> None:
+        raise _SudokuTraceTimeout(f"DPLLOracle solve exceeded {SUDOKU_LIVE_LOAD_TIMEOUT_SECONDS}s")
+
+    for index, row in selected:
+        try:
+            domains = _sudoku_domains_from_givens(row.get("givens", {}))
+            previous_handler = signal.signal(signal.SIGALRM, timeout_handler)
+            signal.alarm(SUDOKU_LIVE_LOAD_TIMEOUT_SECONDS)
+            try:
+                trace = oracle.solve(variables, domains, constraints)
+            finally:
+                signal.alarm(0)
+                signal.signal(signal.SIGALRM, previous_handler)
+            events = _oracle_trace_live_load_events(trace)
+            live_loads = [int(event["live_load_before"]) for event in events]
+            reads = _composition_read_rows_for_events("sudoku9_item047", {
+                "instance_index": index,
+                "band": row["reverts_band"],
+                "reverts_needed": int(row["reverts_needed"]),
+            }, events)
+            predictor_row = {
+                "task": "sudoku9_item047",
+                "instance_index": index,
+                "band": row["reverts_band"],
+                "reverts_needed": int(row["reverts_needed"]),
+                "reference_nodes": int(row.get("reference_nodes", 0)),
+                "status": "measured",
+                "D_peak": max(live_loads) if live_loads else 0,
+                "D_pop": max((int(event["live_load_before"]) for event in events if event["op"] == "pop"), default=0),
+                "D_readpop": max((int(read["live_load"]) for read in reads), default=0),
+                "n_reads": len(reads),
+                "subsample_rule": f"lowest_reference_nodes_per_band_{SUDOKU_COMPOSITION_SUBSAMPLE_PER_BAND}",
+                "source": SOURCE,
+                "provenance": "real_DPLLOracle_trace_subsample_no_saved_stats_proxy",
+            }
+        except _SudokuTraceTimeout as exc:
+            predictor_row = {
+                "task": "sudoku9_item047",
+                "instance_index": index,
+                "band": row.get("reverts_band"),
+                "reverts_needed": int(row.get("reverts_needed", -1)),
+                "reference_nodes": int(row.get("reference_nodes", 0)),
+                "status": "timeout",
+                "error": repr(exc),
+                "D_peak": None,
+                "D_pop": None,
+                "D_readpop": None,
+                "n_reads": 0,
+                "subsample_rule": f"lowest_reference_nodes_per_band_{SUDOKU_COMPOSITION_SUBSAMPLE_PER_BAND}",
+                "source": SOURCE,
+                "provenance": "real_DPLLOracle_trace_subsample_no_saved_stats_proxy",
+            }
+            reads = []
+        except Exception as exc:
+            predictor_row = {
+                "task": "sudoku9_item047",
+                "instance_index": index,
+                "band": row.get("reverts_band"),
+                "reverts_needed": int(row.get("reverts_needed", -1)),
+                "reference_nodes": int(row.get("reference_nodes", 0)),
+                "status": "error",
+                "error": repr(exc),
+                "D_peak": None,
+                "D_pop": None,
+                "D_readpop": None,
+                "n_reads": 0,
+                "subsample_rule": f"lowest_reference_nodes_per_band_{SUDOKU_COMPOSITION_SUBSAMPLE_PER_BAND}",
+                "source": SOURCE,
+                "provenance": "real_DPLLOracle_trace_subsample_no_saved_stats_proxy",
+            }
+            reads = []
+        predictor_rows.append(predictor_row)
+        read_rows.extend(reads)
+    return predictor_rows, read_rows
+
+
+def _sudoku_compositional_rows() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+    curve_rows = _module1_sudoku_curve_rows()
+    curve_lookup = _curve_lookup(curve_rows)
+    predictor_rows, read_rows = _sudoku_subsample_trace_rows()
+    reads_by_instance: dict[int, list[dict[str, Any]]] = {}
+    for read in read_rows:
+        reads_by_instance.setdefault(int(read["instance_index"]), []).append(read)
+    headline = json.loads(SUDOKU_HEADLINE_PATH.read_text()) if SUDOKU_HEADLINE_PATH.exists() else {}
+    headline_rows = headline.get("result_tables", {}).get("headline_separation", {}).get("rows", [])
+    headline_ds = sorted({int(row["D"]) for row in headline_rows if row.get("arm") in STRUCTURED_ARMS})
+    sudoku_capacity_lookup = {
+        (row["arm"], int(row["D"])): int(row["capacity_d_star_floor"])
+        for row in headline_rows
+        if row.get("arm") in STRUCTURED_ARMS and row.get("capacity_d_star_floor") is not None
+    }
+    product_rows: list[dict[str, Any]] = []
+    comparison_rows: list[dict[str, Any]] = []
+    for live_row in predictor_rows:
+        if live_row.get("status") != "measured":
+            continue
+        reads = reads_by_instance.get(int(live_row["instance_index"]), [])
+        for arm in STRUCTURED_ARMS:
+            for D in headline_ds:
+                capacity_floor = _composition_capacity_floor("sudoku9_item047", arm, D, None, sudoku_capacity_lookup)
+                for candidate in _composition_candidates(include_unmasked=True):
+                    product, n_reads, max_live_load, min_read_acc, dropped_reads, surviving_reads = _product_for_reads(reads, curve_lookup, "sudoku9_item047", arm, D, candidate, capacity_floor)
+                    product_rows.append({
+                        "task": "sudoku9_item047",
+                        "instance_index": live_row["instance_index"],
+                        "band": live_row["band"],
+                        "reverts_needed": live_row["reverts_needed"],
+                        "arm": arm,
+                        "variant": _variant_for_arm(arm),
+                        "D": D,
+                        "candidate": candidate,
+                        "mask_applied": _candidate_is_masked(candidate),
+                        "hard_capacity_C": capacity_floor,
+                        "n_reads": n_reads,
+                        "n_dropped_reads": dropped_reads,
+                        "n_surviving_reads": surviving_reads,
+                        "max_read_live_load": max_live_load,
+                        "min_read_decode_acc": min_read_acc,
+                        "predicted_instance_solve_prob": product,
+                        "status": "RECORDED" if product is not None else "MISSING_DECODE_CURVE",
+                        "source": SOURCE,
+                        "provenance": "sudoku_real_trace_subsample_product_of_full_decode_curve_no_saved_stats_proxy",
+                    })
+    for arm in STRUCTURED_ARMS:
+        for D in headline_ds:
+            for band in BANDS:
+                observed_values = [float(row["solve_rate"]) for row in headline_rows if row.get("arm") == arm and row.get("spill") == "spill_off" and int(row["D"]) == D and row.get("band") == band]
+                observed = mean(observed_values) if observed_values else None
+                for candidate in _composition_candidates(include_unmasked=True):
+                    subset = [row for row in product_rows if row["arm"] == arm and int(row["D"]) == D and row["band"] == band and row["candidate"] == candidate]
+                    valid = [row for row in subset if row["predicted_instance_solve_prob"] is not None]
+                    predicted = mean(float(row["predicted_instance_solve_prob"]) for row in valid) if valid else None
+                    tolerance = 1 / max(len(valid), 1)
+                    abs_diff = None if observed is None or predicted is None else abs(observed - predicted)
+                    residual = None if observed is None or predicted is None else observed - predicted
+                    comparison_rows.append({
+                        "task": "sudoku9_item047",
+                        "arm": arm,
+                        "variant": _variant_for_arm(arm),
+                        "D": D,
+                        "band": band,
+                        "candidate": candidate,
+                        "model_family": "decode_curve_product",
+                        "mask_applied": _candidate_is_masked(candidate),
+                        "n": len(valid),
+                        "n_missing_decode_curve": len(subset) - len(valid),
+                        "n_timeout_excluded": sum(1 for row in predictor_rows if row.get("band") == band and row.get("status") == "timeout"),
+                        "mean_dropped_reads": mean(float(row["n_dropped_reads"]) for row in valid) if valid else None,
+                        "instances_with_dropped_reads": sum(int(row["n_dropped_reads"] > 0) for row in valid),
+                        "subsample_per_band": SUDOKU_COMPOSITION_SUBSAMPLE_PER_BAND,
+                        "predicted_solve_rate": predicted,
+                        "observed_spill_off_solve_rate": observed,
+                        "observed_seed_min": min(observed_values) if observed_values else None,
+                        "observed_seed_max": max(observed_values) if observed_values else None,
+                        "n_seeds_joined": len(observed_values),
+                        "abs_diff": abs_diff,
+                        "residual_observed_minus_predicted": residual,
+                        "residual_nonnegative": residual is not None and residual >= -tolerance,
+                        "residual_within_tolerance": residual is not None and abs(residual) <= tolerance,
+                        "residual_one_sided_tight": residual is not None and residual >= -tolerance and residual <= tolerance,
+                        "law_transfer_tolerance": tolerance,
+                        "on_y_equals_x": abs_diff is not None and abs_diff <= tolerance,
+                        "pre_registered_hypothesis": candidate == "P_choice",
+                        "status": "RECORDED" if valid else "MISSING_DECODE_CURVE_OR_TRACE",
+                        "source": SOURCE,
+                        "provenance": "sudoku_real_trace_subsample_product_law_no_saved_stats_proxy",
+                    })
+    summary_rows = _composition_summary_rows(comparison_rows, "sudoku9_real_trace_subsample")
+    return curve_rows, predictor_rows, read_rows, product_rows, comparison_rows, summary_rows
+
+
 def _oracle_trace_live_load_events(trace: Any) -> list[dict[str, Any]]:
     events: list[dict[str, Any]] = []
     for step in trace.steps:
@@ -1323,6 +1978,65 @@ def _plot_panels(cell_rows: list[dict[str, Any]], law_rows: list[dict[str, Any]]
     return paths
 
 
+def _record_compositional_tables(results: dict[str, Any]) -> None:
+    pools = results.get("pool_rows", {})
+    storage_curve_rows = results.get("storage_dstar_curve", [])
+    ds = tuple(sorted({int(row["D"]) for row in storage_curve_rows}))
+    generation = results.get("generation_config", {})
+    configs = {
+        "sat_3sat": {"n_vars": int(generation.get("sat_n_vars", 18)), "clause_ratio": float(generation.get("sat_clause_ratio", 4.2))},
+        "graph_coloring": {"n": int(generation.get("graph_n", 16)), "k": int(generation.get("graph_k", 4)), "edge_prob": float(generation.get("graph_edge_prob", 0.45))},
+    }
+    read_rows = _composition_read_rows(pools)
+    product_rows = _composition_instance_rows(pools, storage_curve_rows, ds, configs)
+    law_rows = _composition_law_rows(product_rows, results.get("live_load_predictor_law_transfer", []), results.get("figure4_separation", []))
+    summary_rows = _composition_summary_rows(law_rows, "e1_sat_graph_full_decode_curve")
+    sudoku_curve_rows, sudoku_predictor_rows, sudoku_read_rows, sudoku_product_rows, sudoku_law_rows, sudoku_summary_rows = _sudoku_compositional_rows()
+    results["compositional_read_rules"] = _composition_read_rule_rows()
+    results["compositional_read_rows"] = read_rows
+    results["compositional_product_predictions"] = product_rows
+    results["compositional_product_law_transfer"] = law_rows
+    results["compositional_product_summary"] = summary_rows
+    results["sudoku_compositional_storage_curve"] = sudoku_curve_rows
+    results["sudoku_compositional_trace_subsample"] = sudoku_predictor_rows
+    results["sudoku_compositional_read_rows"] = sudoku_read_rows
+    results["sudoku_compositional_product_predictions"] = sudoku_product_rows
+    results["sudoku_compositional_law_transfer"] = sudoku_law_rows
+    results["sudoku_compositional_summary"] = sudoku_summary_rows
+    results.setdefault("discipline", {}).update({
+        "path_b_deeper_law": "product_decode_accuracy_over_structural_choice_reads",
+        "path_b_deeper_pre_registered_candidate": "P_choice",
+        "path_b_deeper_no_free_parameters": True,
+        "path_b_deeper_decode_curve_source": "E1 measured storage_dstar_curve; Sudoku uses module1_capacity_perdepth full curves plus targeted D128 bound_single curve where available",
+        "path_b_deeper_read_rule": "online pop reads plus explicit final solution readback; forced propagations are recomputed and not register reads",
+        "path_b_deeper_write_drop_rule": "spill_off entries with push live_load_before > floor(_capacity_dstar(...)) are not written; masked products assign factor 0 when such entries are read",
+        "path_b_deeper_write_drop_C_source": "ScalarRegisterLoop.capacity_floor = floor(_capacity_dstar(task, arm, D, config)); push drops when level > capacity_floor",
+        "path_b_deeper_masked_candidates": ["P_all", "P_choice", "P_pop"],
+        "path_b_deeper_unmasked_candidates_visible": ["P_all_unmasked", "P_choice_unmasked", "P_pop_unmasked"],
+        "path_b_deeper_residual": "observed_spill_off_solve_rate - masked_product_prediction",
+    })
+    e1_winner = next((row for row in summary_rows if row.get("is_best_by_mean_abs_diff")), None)
+    sudoku_winner = next((row for row in sudoku_summary_rows if row.get("is_best_by_mean_abs_diff")), None)
+    e1_choice = next((row for row in summary_rows if row.get("candidate") == "P_choice"), None)
+    sudoku_choice = next((row for row in sudoku_summary_rows if row.get("candidate") == "P_choice"), None)
+    results.setdefault("acceptance", {}).update({
+        "compositional_pre_registered_candidate": "P_choice",
+        "compositional_no_free_parameters": True,
+        "compositional_e1_best_candidate": None if e1_winner is None else e1_winner["candidate"],
+        "compositional_e1_best_pass_rows": None if e1_winner is None else e1_winner["pass_rows"],
+        "compositional_e1_total_rows": None if e1_winner is None else e1_winner["total_rows"],
+        "compositional_e1_pchoice_residual_mean": None if e1_choice is None else e1_choice.get("residual_mean"),
+        "compositional_e1_pchoice_residual_fraction_nonnegative": None if e1_choice is None else e1_choice.get("fraction_residual_nonnegative"),
+        "compositional_e1_pchoice_residual_fraction_within_tolerance": None if e1_choice is None else e1_choice.get("fraction_residual_within_tolerance"),
+        "compositional_sudoku_best_candidate": None if sudoku_winner is None else sudoku_winner["candidate"],
+        "compositional_sudoku_best_pass_rows": None if sudoku_winner is None else sudoku_winner["pass_rows"],
+        "compositional_sudoku_total_rows": None if sudoku_winner is None else sudoku_winner["total_rows"],
+        "compositional_sudoku_pchoice_residual_mean": None if sudoku_choice is None else sudoku_choice.get("residual_mean"),
+        "compositional_sudoku_pchoice_residual_fraction_nonnegative": None if sudoku_choice is None else sudoku_choice.get("fraction_residual_nonnegative"),
+        "compositional_sudoku_pchoice_residual_fraction_within_tolerance": None if sudoku_choice is None else sudoku_choice.get("fraction_residual_within_tolerance"),
+    })
+
+
 def _build_item(results: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": "log_item_contract_v1",
@@ -1335,7 +2049,7 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
             {"path": "analysis/validate_outputs.py", "change": "Validates amended E1 scalar Figure 4 discipline."},
         ],
         "commands": [{"command": ".venv/bin/python -m experiments.e1_cross_task_generalization --reuse-item050", "purpose": "Run amended E1 scalar fast path and regenerate Item050."}],
-        "artifacts": [_rel(RESULTS_PATH), _rel(ITEM_PATH), *results["panel_artifacts"].values()],
+        "artifacts": [_rel(RESULTS_PATH), _rel(ITEM_PATH), *([_rel(SUDOKU_D128_BOUND_SINGLE_CURVE_PATH)] if SUDOKU_D128_BOUND_SINGLE_CURVE_PATH.exists() else []), *results["panel_artifacts"].values()],
         "provenance": {"repo": str(REPO_ROOT), "generated_at": results["generated_at"], "source": SOURCE, "binning_key": "reverts_needed", "pool_reuse": results["pool_reuse"]},
         "result_tables": {
             "task_pool_summary": {"columns": ["task", "selected_instances", "target_per_band", "node_cap", "r3plus_no_revert_solve_rate", "pool_complete"], "rows": results["task_pool_summary"]},
@@ -1355,8 +2069,17 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
             "sudoku_live_load_predictors": {"columns": ["task", "instance_index", "instance_id", "band", "reverts_needed", "reference_nodes", "dpll_backtrack_depth", "D_peak", "D_pop", "D_readpop", "D_readpop_equals_D_pop", "n_push", "n_pop", "n_solve", "live_load_status", "timeout_seconds", "prescreen_max_reference_nodes", "source", "provenance"], "rows": results["sudoku_live_load_predictors"]},
             "sudoku_live_load_confirmation": {"columns": ["task", "arm", "variant", "D", "band", "predictor", "n", "n_pool_band", "n_timeout_excluded", "K_eff", "capacity_d_star_floor", "fraction_predictor_le_dstar", "observed_spill_off_solve_rate", "observed_seed_min", "observed_seed_max", "n_seeds_joined", "predictor_abs_diff", "law_transfer_tolerance", "on_y_equals_x", "source", "provenance"], "rows": results["sudoku_live_load_confirmation"]},
             "sudoku_live_load_summary": {"columns": ["scope", "predictor", "pass_rows", "total_rows", "pass_rate", "mean_abs_diff", "max_abs_diff", "law_transfer_tolerance", "is_best_by_mean_abs_diff", "source", "provenance"], "rows": results["sudoku_live_load_summary"]},
+            "compositional_read_rules": {"columns": ["rule", "value", "source", "provenance"], "rows": results.get("compositional_read_rules", [])},
+            "compositional_product_predictions": {"columns": ["task", "arm", "variant", "D", "band", "instance_index", "reverts_needed", "candidate", "mask_applied", "hard_capacity_C", "n_reads", "n_dropped_reads", "n_surviving_reads", "max_read_live_load", "min_read_decode_acc", "predicted_instance_solve_prob", "status", "source", "provenance"], "rows": results.get("compositional_product_predictions", [])},
+            "compositional_product_law_transfer": {"columns": ["task", "arm", "variant", "D", "band", "candidate", "model_family", "mask_applied", "n", "n_missing_decode_curve", "mean_dropped_reads", "instances_with_dropped_reads", "predicted_solve_rate", "observed_spill_off_solve_rate", "observed_seed_min", "observed_seed_max", "n_seeds_joined", "abs_diff", "residual_observed_minus_predicted", "residual_nonnegative", "residual_within_tolerance", "residual_one_sided_tight", "law_transfer_tolerance", "on_y_equals_x", "pre_registered_hypothesis", "source", "provenance"], "rows": results.get("compositional_product_law_transfer", [])},
+            "compositional_product_summary": {"columns": ["scope", "candidate", "model_family", "mask_applied", "pass_rows", "total_rows", "pass_rate", "mean_abs_diff", "max_abs_diff", "mean_observed_minus_predicted", "residual_mean", "residual_min", "residual_max", "fraction_residual_nonnegative", "fraction_residual_within_tolerance", "fraction_residual_one_sided_tight", "pre_registered_hypothesis", "is_best_by_mean_abs_diff", "source", "provenance"], "rows": results.get("compositional_product_summary", [])},
+            "sudoku_compositional_storage_curve": {"columns": ["task", "codebook", "arm", "D", "K_var", "K_val", "K_eff", "depth", "decode_accuracy", "threshold", "source", "provenance"], "rows": results.get("sudoku_compositional_storage_curve", [])},
+            "sudoku_compositional_trace_subsample": {"columns": ["task", "instance_index", "band", "reverts_needed", "reference_nodes", "status", "D_peak", "D_pop", "D_readpop", "n_reads", "subsample_rule", "source", "provenance"], "rows": results.get("sudoku_compositional_trace_subsample", [])},
+            "sudoku_compositional_product_predictions": {"columns": ["task", "instance_index", "band", "reverts_needed", "arm", "variant", "D", "candidate", "mask_applied", "hard_capacity_C", "n_reads", "n_dropped_reads", "n_surviving_reads", "max_read_live_load", "min_read_decode_acc", "predicted_instance_solve_prob", "status", "source", "provenance"], "rows": results.get("sudoku_compositional_product_predictions", [])},
+            "sudoku_compositional_law_transfer": {"columns": ["task", "arm", "variant", "D", "band", "candidate", "model_family", "mask_applied", "n", "n_missing_decode_curve", "n_timeout_excluded", "mean_dropped_reads", "instances_with_dropped_reads", "subsample_per_band", "predicted_solve_rate", "observed_spill_off_solve_rate", "observed_seed_min", "observed_seed_max", "n_seeds_joined", "abs_diff", "residual_observed_minus_predicted", "residual_nonnegative", "residual_within_tolerance", "residual_one_sided_tight", "law_transfer_tolerance", "on_y_equals_x", "pre_registered_hypothesis", "status", "source", "provenance"], "rows": results.get("sudoku_compositional_law_transfer", [])},
+            "sudoku_compositional_summary": {"columns": ["scope", "candidate", "model_family", "mask_applied", "pass_rows", "total_rows", "pass_rate", "mean_abs_diff", "max_abs_diff", "mean_observed_minus_predicted", "residual_mean", "residual_min", "residual_max", "fraction_residual_nonnegative", "fraction_residual_within_tolerance", "fraction_residual_one_sided_tight", "pre_registered_hypothesis", "is_best_by_mean_abs_diff", "source", "provenance"], "rows": results.get("sudoku_compositional_summary", [])},
         },
-        "honesty": {"does_not_establish": "GRU is not reported as a collapse datum; it is audit-red and excluded until trained to the fairness budget with nonzero bytes and a curve."},
+        "honesty": {"does_not_establish": "GRU is not reported as a collapse datum; it is audit-red and excluded until trained to the fairness budget with nonzero bytes and a curve. The masked compositional law has no fitted parameters; C is the scalar loop capacity floor, decode curves are measured, and Sudoku rows are real DPLLOracle trace subsamples with timeout exclusions rather than saved-stats proxies."},
         "decision": {
             "outcome": results["status"],
             "gate_outcomes": [
@@ -1366,6 +2089,7 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
                 {"gate": "storage_dstar_measured", "outcome": "PASS", "number": f"rows={len(results['storage_dstar_summary'])}; threshold={STORAGE_THRESHOLD}; trials_per_seed={STORAGE_TRIALS}"},
                 {"gate": "law_transfer_y_equals_x_measured_dstar", "outcome": "PASS" if results["acceptance"]["law_transfer_on_y_equals_x"] else "FAIL", "number": f"passed_rows={results['acceptance']['law_transfer_pass_rows']}/{results['acceptance']['law_transfer_total_rows']}; tolerance={LAW_TRANSFER_TOLERANCE}"},
                 {"gate": "live_load_path_b_predictor", "outcome": "RECORDED", "number": f"E1_best={results['acceptance']['live_load_path_b_best_predictor']} ({results['acceptance']['live_load_path_b_best_pass_rows']}/{results['acceptance']['live_load_path_b_total_rows']}); Sudoku_best={results['acceptance']['sudoku_path_b_best_predictor']} ({results['acceptance']['sudoku_path_b_best_pass_rows']}/{results['acceptance']['sudoku_path_b_total_rows']})"},
+                {"gate": "compositional_full_curve_path_b", "outcome": "RECORDED", "number": f"pre_registered=P_choice; E1_best={results['acceptance'].get('compositional_e1_best_candidate')} ({results['acceptance'].get('compositional_e1_best_pass_rows')}/{results['acceptance'].get('compositional_e1_total_rows')}); Sudoku_best={results['acceptance'].get('compositional_sudoku_best_candidate')} ({results['acceptance'].get('compositional_sudoku_best_pass_rows')}/{results['acceptance'].get('compositional_sudoku_total_rows')})"},
                 {"gate": "gru_audit", "outcome": "INCOMPLETE_AUDIT_RED", "number": "excluded_from_figure_no_fabricated_zero"},
             ],
             "next_step_routing": {"ready": ["minimum_viable_figure4_rot_no_revert_kv"], "defer": ["gru_until_audited"]},
@@ -1444,6 +2168,7 @@ def run(target_per_band: int = 64, max_candidates: int = 5000, seed: int = 20260
         "acceptance": acceptance,
         "figure4_status": status,
     }
+    _record_compositional_tables(results)
     _write_json(RESULTS_PATH, results)
     _write_json(ITEM_PATH, _build_item(results))
     _write_progress("complete", 7, 7, {"phase": "artifacts_written", "status": status, "results_path": _rel(RESULTS_PATH), "item_path": _rel(ITEM_PATH)}, status="complete")
