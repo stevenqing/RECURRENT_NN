@@ -15,7 +15,7 @@ import json
 import math
 from pathlib import Path
 import random
-from statistics import mean
+from statistics import mean, median, quantiles
 from typing import Any, Literal
 
 from analysis.capacity_theory import d_star_factored, d_star_product
@@ -28,7 +28,7 @@ RESULTS_PATH = RUN_ROOT / "results.json"
 ITEM_PATH = REPO_ROOT / "results/experiment_items/item_050_post_review_e1_cross_task_generalization.json"
 PANEL_DIR = RUN_ROOT / "panels"
 BANDS = ("R0", "R1-2", "R3-5", "R6+")
-DS = (128, 256, 512)
+BASE_DS = (64, 96, 128, 256, 512)
 SEEDS = (42, 137)
 STRUCTURED_ARMS = ("rot_bound_single", "rot_factored")
 CONTROL_ARMS = ("rot_no_revert", "gru", "kv_snapshot")
@@ -81,6 +81,10 @@ def _band(reverts_needed: int) -> str:
     if reverts_needed <= 5:
         return "R3-5"
     return "R6+"
+
+
+def _required_depth(row: dict[str, Any]) -> int:
+    return int(row.get("required_depth", row["max_depth_observed"]))
 
 
 def _sat_clause_state(clause: list[int], assignment: dict[int, int]) -> tuple[bool, list[int]]:
@@ -268,6 +272,7 @@ def _recover_item050_pool(task: str, target: int, max_candidates: int, seed: int
             "reverts_needed": reference.reverts_needed,
             "trace_length": reference.trace_length,
             "nodes_visited": reference.nodes_visited,
+            "required_depth": reference.max_depth,
             "max_depth_observed": reference.max_depth,
             "contradiction_count": reference.contradictions,
             "no_revert_solved": no_revert.solved,
@@ -343,7 +348,7 @@ class ScalarRegisterLoop:
         self.stats = {"trace": 0, "nodes": 0, "applied_reverts": 0, "successful_reverts": 0, "decode_failures": 0, "overflow_entries": 0, "peak_depth": 0, "node_cap_exhausted": False, "capacity_exceeded": False}
 
     def push(self, level: int, var: int, value: int) -> bool:
-        self.stats["peak_depth"] = max(self.stats["peak_depth"], level + 1)
+        self.stats["peak_depth"] = max(self.stats["peak_depth"], level)
         if self.arm == "kv_snapshot":
             return True
         if self.arm == "rot_no_revert":
@@ -406,12 +411,13 @@ class ScalarRegisterLoop:
                 return False
             var, values = choice
             for value in values:
-                if not self.push(depth, var, value):
+                live_depth = depth + 1
+                if not self.push(live_depth, var, value):
                     return False
                 solved = dfs({**current, var: value}, depth + 1)
                 if solved:
                     return True
-                if not self.pop(depth, var, value):
+                if not self.pop(live_depth, var, value):
                     return False
             return False
 
@@ -462,7 +468,8 @@ def _pool_summaries(task: str, rows: list[dict[str, Any]], target: int) -> tuple
             "min_reverts_needed": min((row["reverts_needed"] for row in selected), default=None),
             "max_reverts_needed": max((row["reverts_needed"] for row in selected), default=None),
             "max_trace_length": max((row["trace_length"] for row in selected), default=0),
-            "max_depth_observed": max((row["max_depth_observed"] for row in selected), default=0),
+            "max_depth_observed": max((_required_depth(row) for row in selected), default=0),
+            "max_required_depth": max((_required_depth(row) for row in selected), default=0),
             "no_revert_solve_rate": sum(row["no_revert_solved"] for row in selected) / len(selected) if selected else None,
         })
     r3plus = [row for row in rows if row["band"] in {"R3-5", "R6+"}]
@@ -477,12 +484,62 @@ def _pool_summaries(task: str, rows: list[dict[str, Any]], target: int) -> tuple
     return task_summary, band_rows
 
 
-def _capacity_rows(configs: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+def _depth_percentiles(rows: list[dict[str, Any]]) -> dict[str, float | int | None]:
+    depths = sorted(_required_depth(row) for row in rows)
+    if not depths:
+        return {"min": None, "p25": None, "median": None, "p75": None, "max": None}
+    qs = quantiles(depths, n=4)
+    return {"min": depths[0], "p25": qs[0], "median": median(depths), "p75": qs[2], "max": depths[-1]}
+
+
+def _required_depth_histogram_rows(pools: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
+    rows = []
+    for task, pool_rows in pools.items():
+        for band in BANDS:
+            selected = [row for row in pool_rows if row["band"] == band]
+            n = len(selected)
+            counts: dict[int, int] = {}
+            for row in selected:
+                counts[_required_depth(row)] = counts.get(_required_depth(row), 0) + 1
+            for depth, count in sorted(counts.items()):
+                rows.append({"task": task, "band": band, "required_depth": depth, "count": count, "fraction": count / max(n, 1), "n": n, "source": SOURCE, "provenance": SOURCE})
+    return rows
+
+
+def _select_Ds(pools: dict[str, list[dict[str, Any]]], configs: dict[str, dict[str, Any]]) -> tuple[tuple[int, ...], list[dict[str, Any]]]:
+    selection_rows = []
+    include_32 = False
+    for task, rows in pools.items():
+        percentiles = _depth_percentiles(rows)
+        p25 = float(percentiles["p25"] or 0.0)
+        for arm in STRUCTURED_ARMS:
+            d64 = _capacity_dstar(task, arm, 64, configs[task])
+            arm_include_32 = p25 < d64
+            include_32 = include_32 or arm_include_32
+            selection_rows.append({
+                "task": task,
+                "arm": arm,
+                "depth_min": percentiles["min"],
+                "depth_p25": percentiles["p25"],
+                "depth_median": percentiles["median"],
+                "depth_p75": percentiles["p75"],
+                "depth_max": percentiles["max"],
+                "d_star_64": d64,
+                "include_D32": arm_include_32,
+                "rule": "include D32 when depth_p25 < d_star(64); always include 64,96,128,256,512",
+                "source": SOURCE,
+                "provenance": SOURCE,
+            })
+    ds = tuple(([32] if include_32 else []) + list(BASE_DS))
+    return ds, selection_rows
+
+
+def _capacity_rows(configs: dict[str, dict[str, Any]], ds: tuple[int, ...]) -> list[dict[str, Any]]:
     rows = []
     for task, config in configs.items():
         k_var = config["n_vars"] if task == "sat_3sat" else config["n"]
         k_val = 2 if task == "sat_3sat" else config["k"]
-        for D in DS:
+        for D in ds:
             rows.append({
                 "task": task,
                 "D": D,
@@ -497,14 +554,14 @@ def _capacity_rows(configs: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
     return rows
 
 
-def _run_arm_grid(pools: dict[str, list[dict[str, Any]]], configs: dict[str, dict[str, Any]], task_summaries: dict[str, dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+def _run_arm_grid(pools: dict[str, list[dict[str, Any]]], configs: dict[str, dict[str, Any]], task_summaries: dict[str, dict[str, Any]], ds: tuple[int, ...]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     episode_rows: list[dict[str, Any]] = []
     cell_rows: list[dict[str, Any]] = []
     for task, rows in pools.items():
         node_cap = int(task_summaries[task]["node_cap"])
         config = configs[task]
         by_band = {band: [row for row in rows if row["band"] == band] for band in BANDS}
-        for D in DS:
+        for D in ds:
             for seed in SEEDS:
                 for band, band_rows in by_band.items():
                     arm_specs: list[tuple[str, str]] = [(arm, spill) for arm in STRUCTURED_ARMS for spill in ("spill_off", "spill_on")]
@@ -536,6 +593,8 @@ def _run_arm_grid(pools: dict[str, list[dict[str, Any]]], configs: dict[str, dic
                                 "spill": spill,
                                 "D": D,
                                 "seed": seed,
+                                "required_depth": _required_depth(row),
+                                "reverts_needed": row["reverts_needed"],
                                 "solve": result.solved,
                                 "applied_reverts": result.applied_reverts,
                                 "revert_success": result.revert_success,
@@ -604,17 +663,17 @@ def _aggregate_cell(task: str, arm: str, spill: str, band: str, D: int, seed: in
     }
 
 
-def _law_transfer_rows(cell_rows: list[dict[str, Any]], pools: dict[str, list[dict[str, Any]]], configs: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+def _law_transfer_rows(cell_rows: list[dict[str, Any]], pools: dict[str, list[dict[str, Any]]], configs: dict[str, dict[str, Any]], ds: tuple[int, ...]) -> list[dict[str, Any]]:
     rows = []
     for task, pool_rows in pools.items():
         for arm in STRUCTURED_ARMS:
-            for D in DS:
+            for D in ds:
                 cap = math.floor(_capacity_dstar(task, arm, D, configs[task]))
                 for band in BANDS:
                     band_rows = [row for row in pool_rows if row["band"] == band]
-                    expected = sum(int(row["max_depth_observed"]) <= cap for row in band_rows) / max(len(band_rows), 1)
-                    observed_values = sorted({row["solve_rate"] for row in cell_rows if row["task"] == task and row["arm"] == arm and row["spill"] == "spill_off" and row["D"] == D and row["band"] == band and row["figure_included"]})
-                    observed = observed_values[0] if len(observed_values) == 1 else None
+                    expected = sum(_required_depth(row) <= cap for row in band_rows) / max(len(band_rows), 1)
+                    observed_values = [row["solve_rate"] for row in cell_rows if row["task"] == task and row["arm"] == arm and row["spill"] == "spill_off" and row["D"] == D and row["band"] == band and row["figure_included"]]
+                    observed = mean(observed_values) if observed_values else None
                     rows.append({
                         "task": task,
                         "arm": arm,
@@ -624,6 +683,9 @@ def _law_transfer_rows(cell_rows: list[dict[str, Any]], pools: dict[str, list[di
                         "predicted_d_star_floor": cap,
                         "fraction_required_depth_le_dstar": expected,
                         "observed_spill_off_solve_rate": observed,
+                        "observed_seed_min": min(observed_values) if observed_values else None,
+                        "observed_seed_max": max(observed_values) if observed_values else None,
+                        "n_seeds_joined": len(observed_values),
                         "on_y_equals_x": observed is not None and abs(observed - expected) < 1e-12,
                         "source": SOURCE,
                         "provenance": SOURCE,
@@ -635,10 +697,13 @@ def _acceptance(cell_rows: list[dict[str, Any]], law_rows: list[dict[str, Any]],
     r3_structured = [row for row in cell_rows if row["figure_included"] and row["arm"] in STRUCTURED_ARMS and row["band"] in {"R3-5", "R6+"}]
     r3_no_revert = [row for row in cell_rows if row["figure_included"] and row["arm"] == "rot_no_revert" and row["band"] in {"R3-5", "R6+"}]
     gru_rows = [row for row in cell_rows if row["arm"] == "gru"]
+    knee_rows = [row for row in law_rows if row["D"] < 128 and 0.05 <= float(row["fraction_required_depth_le_dstar"]) <= 0.95]
     return {
         "rot_r3plus_any_positive": any(float(row["solve_rate"]) > 0 for row in r3_structured),
         "no_revert_r3plus_near_zero": all(float(row["solve_rate"]) <= 0.05 for row in r3_no_revert),
         "law_transfer_on_y_equals_x": all(row["on_y_equals_x"] for row in law_rows),
+        "small_d_knee_exercised": bool(knee_rows),
+        "small_d_knee_rows": len(knee_rows),
         "stateless_oracle_ci_passed": all(row["passed"] for row in stateless_rows),
         "gru_audit_red_excluded": bool(gru_rows) and all(row["status"] == "INCOMPLETE_AUDIT_RED" and row["figure_included"] is False and row["solve_rate"] is None for row in gru_rows),
     }
@@ -653,7 +718,8 @@ def _plot_panels(cell_rows: list[dict[str, Any]], law_rows: list[dict[str, Any]]
     paths: dict[str, str] = {}
     for task in TASKS:
         fig, axes = plt.subplots(1, 2, figsize=(13, 4.8))
-        sep_rows = [row for row in cell_rows if row["task"] == task and row["figure_included"] and row["D"] == 512 and row["seed"] == 42]
+        sep_D = 64 if any(row["task"] == task and row["D"] == 64 for row in cell_rows) else 512
+        sep_rows = [row for row in cell_rows if row["task"] == task and row["figure_included"] and row["D"] == sep_D and row["seed"] == 42]
         labels = []
         values = []
         for arm in ["rot_bound_single", "rot_factored", "rot_no_revert", "kv_snapshot"]:
@@ -665,7 +731,7 @@ def _plot_panels(cell_rows: list[dict[str, Any]], law_rows: list[dict[str, Any]]
         axes[0].bar(range(len(values)), values, color="#2563eb")
         axes[0].set_ylim(-0.05, 1.05)
         axes[0].set_ylabel("solve rate")
-        axes[0].set_title(f"{task} separation, D=512 seed=42")
+        axes[0].set_title(f"{task} separation, D={sep_D} seed=42")
         axes[0].set_xticks(range(len(values)))
         axes[0].set_xticklabels(labels, rotation=80, ha="right", fontsize=7)
         task_law = [row for row in law_rows if row["task"] == task]
@@ -704,10 +770,12 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
         "result_tables": {
             "task_pool_summary": {"columns": ["task", "selected_instances", "target_per_band", "node_cap", "r3plus_no_revert_solve_rate", "pool_complete"], "rows": results["task_pool_summary"]},
             "band_summary": {"columns": ["task", "band", "n", "target_n", "target_met", "min_reverts_needed", "max_reverts_needed", "max_trace_length", "max_depth_observed", "no_revert_solve_rate"], "rows": results["band_summary"]},
+            "required_depth_histogram": {"columns": ["task", "band", "required_depth", "count", "fraction", "n", "source", "provenance"], "rows": results["required_depth_histogram"]},
+            "small_d_selection": {"columns": ["task", "arm", "depth_min", "depth_p25", "depth_median", "depth_p75", "depth_max", "d_star_64", "include_D32", "rule", "source", "provenance"], "rows": results["small_d_selection"]},
             "capacity_predictions": {"columns": ["task", "D", "K_var", "K_val", "bound_single_K_eff", "bound_single_d_star", "bound_single_d_star_floor", "factored_d_star", "factored_d_star_floor"], "rows": results["capacity_predictions"]},
             "stateless_oracle_ci": {"columns": ["task", "passed", "history_a", "history_b", "source", "provenance"], "rows": results["stateless_oracle_ci"]},
             "figure4_separation": {"columns": ["track", "source", "task", "arm", "spill", "band", "D", "seed", "n", "solve_rate", "applied_reverts", "revert_success_rate", "peak_register_bytes", "overflow_entries", "node_cap_exhaustions", "capacity_d_star_floor", "figure_included", "status", "provenance"], "rows": results["figure4_separation"]},
-            "law_transfer": {"columns": ["task", "arm", "D", "band", "n", "predicted_d_star_floor", "fraction_required_depth_le_dstar", "observed_spill_off_solve_rate", "on_y_equals_x", "source", "provenance"], "rows": results["law_transfer"]},
+            "law_transfer": {"columns": ["task", "arm", "D", "band", "n", "predicted_d_star_floor", "fraction_required_depth_le_dstar", "observed_spill_off_solve_rate", "observed_seed_min", "observed_seed_max", "n_seeds_joined", "on_y_equals_x", "source", "provenance"], "rows": results["law_transfer"]},
         },
         "honesty": {"does_not_establish": "GRU is not reported as a collapse datum; it is audit-red and excluded until trained to the fairness budget with nonzero bytes and a curve."},
         "decision": {
@@ -715,6 +783,7 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
             "gate_outcomes": [
                 {"gate": "stateless_oracle_ci", "outcome": "PASS" if results["acceptance"]["stateless_oracle_ci_passed"] else "FAIL", "number": "2/2 tasks"},
                 {"gate": "r3plus_rot_vs_no_revert", "outcome": "PASS" if results["acceptance"]["rot_r3plus_any_positive"] and results["acceptance"]["no_revert_r3plus_near_zero"] else "FAIL", "number": f"rot_positive={results['acceptance']['rot_r3plus_any_positive']}; no_revert_near_zero={results['acceptance']['no_revert_r3plus_near_zero']}"},
+                {"gate": "small_d_knee_exercised", "outcome": "PASS" if results["acceptance"]["small_d_knee_exercised"] else "FAIL", "number": f"knee_rows={results['acceptance']['small_d_knee_rows']}"},
                 {"gate": "law_transfer_y_equals_x", "outcome": "PASS" if results["acceptance"]["law_transfer_on_y_equals_x"] else "FAIL", "number": str(results["acceptance"]["law_transfer_on_y_equals_x"])},
                 {"gate": "gru_audit", "outcome": "INCOMPLETE_AUDIT_RED", "number": "excluded_from_figure_no_fabricated_zero"},
             ],
@@ -743,22 +812,25 @@ def run(target_per_band: int = 64, max_candidates: int = 5000, seed: int = 20260
         task_summary_rows.append(summary)
         band_summary_rows.extend(bands)
     stateless_rows = [_stateless_oracle_ci(task, pools[task][0], configs[task]) for task in TASKS]
-    cell_rows, episode_rows = _run_arm_grid(pools, configs, task_summaries)
+    ds, small_d_selection = _select_Ds(pools, configs)
+    cell_rows, episode_rows = _run_arm_grid(pools, configs, task_summaries, ds)
     figure_rows = [row for row in cell_rows if row["figure_included"] or row["arm"] == "gru"]
-    law_rows = _law_transfer_rows(cell_rows, pools, configs)
+    law_rows = _law_transfer_rows(cell_rows, pools, configs, ds)
     acceptance = _acceptance(cell_rows, law_rows, stateless_rows)
     panel_paths = _plot_panels(cell_rows, law_rows)
-    status = "E1_SCALAR_FIGURE4_READY_WITH_GRU_AUDIT_RED" if acceptance["stateless_oracle_ci_passed"] and acceptance["no_revert_r3plus_near_zero"] and acceptance["law_transfer_on_y_equals_x"] else "E1_SCALAR_FIGURE4_DEVIATION_RECORDED"
+    status = "E1_SCALAR_FIGURE4_READY_WITH_GRU_AUDIT_RED" if acceptance["stateless_oracle_ci_passed"] and acceptance["no_revert_r3plus_near_zero"] and acceptance["small_d_knee_exercised"] and acceptance["law_transfer_on_y_equals_x"] else "E1_SCALAR_FIGURE4_DEVIATION_RECORDED"
     results = {
         "module": "post_review_e1_cross_task_generalization",
         "generated_at": _now(),
         "status": status,
-        "discipline": {"binning_key": "reverts_needed", "node_cap_rule": "reused item050 cap", "batched_engine_required": False, "batched_equivalence_gate_applies": False, "source": SOURCE},
+        "discipline": {"binning_key": "reverts_needed", "required_depth_metric": "maximum simultaneous live register entries during fixed-policy reference solve", "law_transfer_depth_key": "required_depth", "node_cap_rule": "reused item050 cap", "batched_engine_required": False, "batched_equivalence_gate_applies": False, "source": SOURCE},
         "pool_reuse": {"method": "deterministic_replay_of_item050_seed_and_config", "reason": "prior Item050 persisted summaries and samples but not full clauses/edges", "seed": seed, "target_per_band": target_per_band, "max_candidates": max_candidates},
-        "generation_config": {"target_per_band": target_per_band, "max_candidates": max_candidates, "seed": seed, "sat_n_vars": sat_n_vars, "sat_clause_ratio": sat_clause_ratio, "graph_n": graph_n, "graph_k": graph_k, "graph_edge_prob": graph_edge_prob},
+        "generation_config": {"target_per_band": target_per_band, "max_candidates": max_candidates, "seed": seed, "sat_n_vars": sat_n_vars, "sat_clause_ratio": sat_clause_ratio, "graph_n": graph_n, "graph_k": graph_k, "graph_edge_prob": graph_edge_prob, "D_grid": list(ds)},
         "task_pool_summary": task_summary_rows,
         "band_summary": band_summary_rows,
-        "capacity_predictions": _capacity_rows(configs),
+        "required_depth_histogram": _required_depth_histogram_rows(pools),
+        "small_d_selection": small_d_selection,
+        "capacity_predictions": _capacity_rows(configs, ds),
         "stateless_oracle_ci": stateless_rows,
         "figure4_separation": figure_rows,
         "law_transfer": law_rows,

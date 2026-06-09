@@ -569,6 +569,7 @@ def _post_review_e1_checks(checks: list[dict[str, Any]]) -> None:
         gates = item.get("decision", {}).get("gate_outcomes", [])
         gate_map = {row.get("gate"): row.get("outcome") for row in gates}
         _check(checks, gate_map.get("stateless_oracle_ci") == "PASS", "item050_stateless_gate_pass", f"gates={gate_map}", "post_review_e1")
+        _check(checks, gate_map.get("small_d_knee_exercised") == "PASS", "item050_small_d_knee_gate_pass", f"gates={gate_map}", "post_review_e1")
         _check(checks, gate_map.get("gru_audit") == "INCOMPLETE_AUDIT_RED", "item050_gru_audit_red_gate", f"gates={gate_map}", "post_review_e1")
         if item.get("status") == "E1_SCALAR_FIGURE4_DEVIATION_RECORDED":
             _check(checks, "FAIL" in gate_map.values(), "item050_deviation_gate_recorded", f"gates={gate_map}", "post_review_e1")
@@ -581,12 +582,18 @@ def _post_review_e1_checks(checks: list[dict[str, Any]]) -> None:
         figure_rows = results.get("figure4_separation", [])
         law_rows = results.get("law_transfer", [])
         episode_rows = results.get("episode_records", [])
+        depth_hist_rows = results.get("required_depth_histogram", [])
+        small_d_selection = results.get("small_d_selection", [])
+        d_grid = results.get("generation_config", {}).get("D_grid", [])
         acceptance = results.get("acceptance", {})
         _check(checks, discipline.get("binning_key") == "reverts_needed", "e1_bins_by_reverts_needed", f"binning_key={discipline.get('binning_key')}", "post_review_e1")
+        _check(checks, discipline.get("law_transfer_depth_key") == "required_depth", "e1_law_uses_required_depth", f"law_transfer_depth_key={discipline.get('law_transfer_depth_key')}", "post_review_e1")
         _check(checks, status in allowed_statuses, "e1_scalar_status", f"status={status}", "post_review_e1")
         _check(checks, discipline.get("source") == "autonomous_stage_a_run", "e1_autonomous_source", f"source={discipline.get('source')}", "post_review_e1")
         _check(checks, discipline.get("batched_engine_required") is False, "e1_no_batched_engine_required", f"batched_engine_required={discipline.get('batched_engine_required')}", "post_review_e1")
         _check(checks, discipline.get("batched_equivalence_gate_applies") is False, "e1_no_batched_equivalence_gate", f"batched_equivalence_gate_applies={discipline.get('batched_equivalence_gate_applies')}", "post_review_e1")
+        _check(checks, {64, 96, 128, 256, 512}.issubset(set(d_grid)), "e1_small_d_grid_present", f"D_grid={d_grid}", "post_review_e1")
+        _check(checks, bool(small_d_selection) and any(row.get("include_D32") is True for row in small_d_selection) and 32 in d_grid, "e1_d32_adaptive_rule_recorded", f"D_grid={d_grid}; rows={small_d_selection}", "post_review_e1")
         _check(checks, node_caps == {"sat_3sat": 162, "graph_coloring": 144}, "e1_item050_node_caps_reused", f"node_caps={node_caps}", "post_review_e1")
         _check(checks, bool(task_rows) and all(row.get("selected_instances") == 256 and row.get("pool_complete") is True for row in task_rows), "e1_item050_pools_reused", f"rows={task_rows}", "post_review_e1")
         _check(checks, bool(stateless_rows) and {row.get("task") for row in stateless_rows} == {"sat_3sat", "graph_coloring"} and all(row.get("passed") is True for row in stateless_rows), "e1_stateless_oracle_ci_pass", f"rows={len(stateless_rows)}", "post_review_e1")
@@ -594,12 +601,17 @@ def _post_review_e1_checks(checks: list[dict[str, Any]]) -> None:
         band_rows = results.get("band_summary", [])
         band_keys_ok = bool(band_rows) and all("min_reverts_needed" in row and "max_reverts_needed" in row for row in band_rows)
         _check(checks, band_keys_ok, "e1_band_rows_revert_metrics_present", f"rows={len(band_rows)}", "post_review_e1")
+        hist_tasks = {(row.get("task"), row.get("band")) for row in depth_hist_rows}
+        _check(checks, bool(depth_hist_rows) and hist_tasks == {(task, band) for task in {"sat_3sat", "graph_coloring"} for band in {"R0", "R1-2", "R3-5", "R6+"}}, "e1_required_depth_histogram_present", f"rows={len(depth_hist_rows)}", "post_review_e1")
         arms = {row.get("arm") for row in figure_rows}
         _check(checks, {"rot_bound_single", "rot_factored", "rot_no_revert", "kv_snapshot", "gru"}.issubset(arms), "e1_figure4_arm_rows_present", f"arms={sorted(arms)}", "post_review_e1")
         _check(checks, bool(figure_rows) and all(row.get("source") == "autonomous_stage_a_run" and row.get("provenance") == "autonomous_stage_a_run" for row in figure_rows), "e1_figure4_rows_sourced", f"rows={len(figure_rows)}", "post_review_e1")
         gru_rows = [row for row in figure_rows if row.get("arm") == "gru"]
         _check(checks, bool(gru_rows) and all(row.get("status") == "INCOMPLETE_AUDIT_RED" and row.get("figure_included") is False and row.get("solve_rate") is None for row in gru_rows), "e1_gru_audit_red_excluded", f"rows={len(gru_rows)}", "post_review_e1")
         _check(checks, bool(law_rows) and all(row.get("source") == "autonomous_stage_a_run" and row.get("provenance") == "autonomous_stage_a_run" for row in law_rows), "e1_law_rows_sourced", f"rows={len(law_rows)}", "post_review_e1")
+        _check(checks, bool(law_rows) and all(row.get("observed_spill_off_solve_rate") is not None and row.get("n_seeds_joined") == 2 for row in law_rows), "e1_law_seed_join_fixed", f"rows={len(law_rows)}", "post_review_e1")
+        small_d_knee_rows = [row for row in law_rows if row.get("D", 999) < 128 and 0.05 <= float(row.get("fraction_required_depth_le_dstar", 0.0)) <= 0.95]
+        _check(checks, bool(small_d_knee_rows) and acceptance.get("small_d_knee_exercised") is True, "e1_small_d_knee_exercised", f"rows={len(small_d_knee_rows)}", "post_review_e1")
         law_ready = bool(law_rows) and all(row.get("on_y_equals_x") is True for row in law_rows)
         law_deviation_recorded = status == "E1_SCALAR_FIGURE4_DEVIATION_RECORDED" and bool(law_rows) and any(row.get("on_y_equals_x") is False for row in law_rows) and acceptance.get("law_transfer_on_y_equals_x") is False
         _check(checks, law_ready or law_deviation_recorded, "e1_law_transfer_ready_or_deviation_recorded", f"status={status}; law_ready={law_ready}; deviation={law_deviation_recorded}", "post_review_e1")
