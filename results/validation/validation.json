@@ -1387,13 +1387,13 @@
       "tier": "contract"
     },
     {
-      "detail": "This is not Figure 4 evidence and logs no optimized solve rates; the required SAT/coloring batched equivalence gate is absent.",
+      "detail": "GRU is not reported as a collapse datum; it is audit-red and excluded until trained to the fairness budget with nonzero bytes and a curve.",
       "name": "log_item_050_honesty_does_not_establish",
       "status": "PASS",
       "tier": "contract"
     },
     {
-      "detail": "gates=4; routing={'do_not_log_yet': ['Figure4_optimized_panels', 'StageA_cross_task_solve_rates'], 'implement_next': ['sat_batched_gpu_engine', 'graph_coloring_batched_gpu_engine', '100_episode_equivalence_tests']}",
+      "detail": "gates=4; routing={'defer': ['gru_until_audited'], 'ready': ['minimum_viable_figure4_rot_no_revert_kv']}",
       "name": "log_item_050_decision_numbers_and_routing",
       "status": "PASS",
       "tier": "contract"
@@ -1747,8 +1747,26 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "status=E1_FAIL_CLOSED_NON_SUDOKU_BATCHED_ENGINE_MISSING",
-      "name": "item050_fail_closed_status",
+      "detail": "status=E1_SCALAR_FIGURE4_DEVIATION_RECORDED",
+      "name": "item050_scalar_status",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'law_transfer_y_equals_x': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'}",
+      "name": "item050_stateless_gate_pass",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'law_transfer_y_equals_x': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'}",
+      "name": "item050_gru_audit_red_gate",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'law_transfer_y_equals_x': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'}",
+      "name": "item050_deviation_gate_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
@@ -1759,32 +1777,98 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "equivalence_required=True",
-      "name": "e1_equivalence_first_policy",
+      "detail": "status=E1_SCALAR_FIGURE4_DEVIATION_RECORDED",
+      "name": "e1_scalar_status",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "optimized_results_logged=False",
-      "name": "e1_no_optimized_results_logged",
+      "detail": "source=autonomous_stage_a_run",
+      "name": "e1_autonomous_source",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "batched_engine_required=False",
+      "name": "e1_no_batched_engine_required",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "batched_equivalence_gate_applies=False",
+      "name": "e1_no_batched_equivalence_gate",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "node_caps={'sat_3sat': 162, 'graph_coloring': 144}",
+      "name": "e1_item050_node_caps_reused",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "rows=[{'node_cap': 162, 'pool_complete': True, 'r3plus_no_revert_solve_rate': 0.0, 'selected_instances': 256, 'target_per_band': 64, 'task': 'sat_3sat'}, {'node_cap': 144, 'pool_complete': True, 'r3plus_no_revert_solve_rate': 0.0, 'selected_instances': 256, 'target_per_band': 64, 'task': 'graph_coloring'}]",
+      "name": "e1_item050_pools_reused",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
       "detail": "rows=2",
-      "name": "e1_equivalence_gate_fail_closed",
+      "name": "e1_stateless_oracle_ci_pass",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "rows=84",
-      "name": "e1_optimized_rows_blocked",
+      "detail": "rows=2",
+      "name": "e1_stateless_rows_sourced",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
       "detail": "rows=8",
       "name": "e1_band_rows_revert_metrics_present",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "arms=['gru', 'kv_snapshot', 'rot_bound_single', 'rot_factored', 'rot_no_revert']",
+      "name": "e1_figure4_arm_rows_present",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "rows=336",
+      "name": "e1_figure4_rows_sourced",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "rows=48",
+      "name": "e1_gru_audit_red_excluded",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "rows=48",
+      "name": "e1_law_rows_sourced",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "status=E1_SCALAR_FIGURE4_DEVIATION_RECORDED; law_ready=False; deviation=True",
+      "name": "e1_law_transfer_ready_or_deviation_recorded",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "rows=18432",
+      "name": "e1_episode_metric_keys_present",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "panels={'graph_coloring': 'results/post_review_e1_cross_task_generalization/panels/graph_coloring_figure4_scalar_panels.png', 'sat_3sat': 'results/post_review_e1_cross_task_generalization/panels/sat_3sat_figure4_scalar_panels.png'}",
+      "name": "e1_figure4_panel_artifacts_present",
       "status": "PASS",
       "tier": "post_review_e1"
     },
@@ -1831,11 +1915,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-09T07:07:02.107903+00:00",
+  "generated_at": "2026-06-09T07:29:38.043812+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 305,
+    "n_checks": 319,
     "n_fail": 3,
-    "n_pass": 302
+    "n_pass": 316
   }
 }

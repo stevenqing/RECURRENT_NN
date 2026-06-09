@@ -562,23 +562,53 @@ def _post_review_e1_checks(checks: list[dict[str, Any]]) -> None:
     _exists(checks, "post_review_e1_cross_task_generalization", "post_review_e1")
     item = _read_json("item_050_post_review_e1_cross_task_generalization")
     results = _read_json("post_review_e1_cross_task_generalization")
+    allowed_statuses = {"E1_SCALAR_FIGURE4_READY_WITH_GRU_AUDIT_RED", "E1_SCALAR_FIGURE4_DEVIATION_RECORDED"}
     if item:
         _check(checks, item.get("item_number") == "050", "item050_number_present", f"item_number={item.get('item_number')}", "post_review_e1")
-        _check(checks, item.get("status", "").startswith("E1_FAIL_CLOSED"), "item050_fail_closed_status", f"status={item.get('status')}", "post_review_e1")
+        _check(checks, item.get("status") in allowed_statuses, "item050_scalar_status", f"status={item.get('status')}", "post_review_e1")
+        gates = item.get("decision", {}).get("gate_outcomes", [])
+        gate_map = {row.get("gate"): row.get("outcome") for row in gates}
+        _check(checks, gate_map.get("stateless_oracle_ci") == "PASS", "item050_stateless_gate_pass", f"gates={gate_map}", "post_review_e1")
+        _check(checks, gate_map.get("gru_audit") == "INCOMPLETE_AUDIT_RED", "item050_gru_audit_red_gate", f"gates={gate_map}", "post_review_e1")
+        if item.get("status") == "E1_SCALAR_FIGURE4_DEVIATION_RECORDED":
+            _check(checks, "FAIL" in gate_map.values(), "item050_deviation_gate_recorded", f"gates={gate_map}", "post_review_e1")
     if results:
+        status = results.get("status")
         discipline = results.get("discipline", {})
+        task_rows = results.get("task_pool_summary", [])
+        node_caps = {row.get("task"): row.get("node_cap") for row in task_rows}
+        stateless_rows = results.get("stateless_oracle_ci", [])
+        figure_rows = results.get("figure4_separation", [])
+        law_rows = results.get("law_transfer", [])
+        episode_rows = results.get("episode_records", [])
+        acceptance = results.get("acceptance", {})
         _check(checks, discipline.get("binning_key") == "reverts_needed", "e1_bins_by_reverts_needed", f"binning_key={discipline.get('binning_key')}", "post_review_e1")
-        _check(checks, discipline.get("equivalence_required_before_optimized_logging") is True, "e1_equivalence_first_policy", f"equivalence_required={discipline.get('equivalence_required_before_optimized_logging')}", "post_review_e1")
-        _check(checks, discipline.get("optimized_results_logged") is False, "e1_no_optimized_results_logged", f"optimized_results_logged={discipline.get('optimized_results_logged')}", "post_review_e1")
-        equivalence_rows = results.get("equivalence_gate", [])
-        equivalence_fail_closed = bool(equivalence_rows) and all(row.get("passed") is False and row.get("status") == "FAIL_CLOSED_ENGINE_MISSING" for row in equivalence_rows)
-        _check(checks, equivalence_fail_closed, "e1_equivalence_gate_fail_closed", f"rows={len(equivalence_rows)}", "post_review_e1")
-        optimized_rows = results.get("optimized_result_gate", [])
-        optimized_blocked = bool(optimized_rows) and all(row.get("optimized_result_logged") is False and row.get("solve_rate") is None and row.get("status") == "BLOCKED_EQUIVALENCE_NOT_PASSED" for row in optimized_rows)
-        _check(checks, optimized_blocked, "e1_optimized_rows_blocked", f"rows={len(optimized_rows)}", "post_review_e1")
+        _check(checks, status in allowed_statuses, "e1_scalar_status", f"status={status}", "post_review_e1")
+        _check(checks, discipline.get("source") == "autonomous_stage_a_run", "e1_autonomous_source", f"source={discipline.get('source')}", "post_review_e1")
+        _check(checks, discipline.get("batched_engine_required") is False, "e1_no_batched_engine_required", f"batched_engine_required={discipline.get('batched_engine_required')}", "post_review_e1")
+        _check(checks, discipline.get("batched_equivalence_gate_applies") is False, "e1_no_batched_equivalence_gate", f"batched_equivalence_gate_applies={discipline.get('batched_equivalence_gate_applies')}", "post_review_e1")
+        _check(checks, node_caps == {"sat_3sat": 162, "graph_coloring": 144}, "e1_item050_node_caps_reused", f"node_caps={node_caps}", "post_review_e1")
+        _check(checks, bool(task_rows) and all(row.get("selected_instances") == 256 and row.get("pool_complete") is True for row in task_rows), "e1_item050_pools_reused", f"rows={task_rows}", "post_review_e1")
+        _check(checks, bool(stateless_rows) and {row.get("task") for row in stateless_rows} == {"sat_3sat", "graph_coloring"} and all(row.get("passed") is True for row in stateless_rows), "e1_stateless_oracle_ci_pass", f"rows={len(stateless_rows)}", "post_review_e1")
+        _check(checks, all(row.get("source") == "autonomous_stage_a_run" and row.get("provenance") == "autonomous_stage_a_run" for row in stateless_rows), "e1_stateless_rows_sourced", f"rows={len(stateless_rows)}", "post_review_e1")
         band_rows = results.get("band_summary", [])
         band_keys_ok = bool(band_rows) and all("min_reverts_needed" in row and "max_reverts_needed" in row for row in band_rows)
         _check(checks, band_keys_ok, "e1_band_rows_revert_metrics_present", f"rows={len(band_rows)}", "post_review_e1")
+        arms = {row.get("arm") for row in figure_rows}
+        _check(checks, {"rot_bound_single", "rot_factored", "rot_no_revert", "kv_snapshot", "gru"}.issubset(arms), "e1_figure4_arm_rows_present", f"arms={sorted(arms)}", "post_review_e1")
+        _check(checks, bool(figure_rows) and all(row.get("source") == "autonomous_stage_a_run" and row.get("provenance") == "autonomous_stage_a_run" for row in figure_rows), "e1_figure4_rows_sourced", f"rows={len(figure_rows)}", "post_review_e1")
+        gru_rows = [row for row in figure_rows if row.get("arm") == "gru"]
+        _check(checks, bool(gru_rows) and all(row.get("status") == "INCOMPLETE_AUDIT_RED" and row.get("figure_included") is False and row.get("solve_rate") is None for row in gru_rows), "e1_gru_audit_red_excluded", f"rows={len(gru_rows)}", "post_review_e1")
+        _check(checks, bool(law_rows) and all(row.get("source") == "autonomous_stage_a_run" and row.get("provenance") == "autonomous_stage_a_run" for row in law_rows), "e1_law_rows_sourced", f"rows={len(law_rows)}", "post_review_e1")
+        law_ready = bool(law_rows) and all(row.get("on_y_equals_x") is True for row in law_rows)
+        law_deviation_recorded = status == "E1_SCALAR_FIGURE4_DEVIATION_RECORDED" and bool(law_rows) and any(row.get("on_y_equals_x") is False for row in law_rows) and acceptance.get("law_transfer_on_y_equals_x") is False
+        _check(checks, law_ready or law_deviation_recorded, "e1_law_transfer_ready_or_deviation_recorded", f"status={status}; law_ready={law_ready}; deviation={law_deviation_recorded}", "post_review_e1")
+        required_episode_keys = {"solve", "applied_reverts", "revert_success", "peak_register_bytes", "overflow_entries", "node_cap_exhaustion"}
+        episode_keys_ok = bool(episode_rows) and all(required_episode_keys.issubset(row) for row in episode_rows[:25])
+        _check(checks, episode_keys_ok, "e1_episode_metric_keys_present", f"rows={len(episode_rows)}", "post_review_e1")
+        panels = results.get("panel_artifacts", {})
+        panels_present = bool(panels) and all((REPO_ROOT / path).exists() for path in panels.values())
+        _check(checks, panels_present, "e1_figure4_panel_artifacts_present", f"panels={panels}", "post_review_e1")
 
 
 def _canonical_checks(checks: list[dict[str, Any]]) -> None:

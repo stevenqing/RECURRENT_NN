@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-09T07:07:02.107903+00:00
+Generated at: 2026-06-09T07:29:38.043812+00:00
 
-Summary: 302 PASS / 3 FAIL / 305 total.
+Summary: 316 PASS / 3 FAIL / 319 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -241,8 +241,8 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_050_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_050_number_continues_from_028 | PASS | item_number=050 |
 | contract | log_item_050_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
-| contract | log_item_050_honesty_does_not_establish | PASS | This is not Figure 4 evidence and logs no optimized solve rates; the required SAT/coloring batched equivalence gate is absent. |
-| contract | log_item_050_decision_numbers_and_routing | PASS | gates=4; routing={'do_not_log_yet': ['Figure4_optimized_panels', 'StageA_cross_task_solve_rates'], 'implement_next': ['sat_batched_gpu_engine', 'graph_coloring_batched_gpu_engine', '100_episode_equivalence_tests']} |
+| contract | log_item_050_honesty_does_not_establish | PASS | GRU is not reported as a collapse datum; it is audit-red and excluded until trained to the fairness budget with nonzero bytes and a curve. |
+| contract | log_item_050_decision_numbers_and_routing | PASS | gates=4; routing={'defer': ['gru_until_audited'], 'ready': ['minimum_viable_figure4_rot_no_revert_kv']} |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |
@@ -301,13 +301,27 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | post_review_e1 | item_050_post_review_e1_cross_task_generalization_present | PASS | results/experiment_items/item_050_post_review_e1_cross_task_generalization.json |
 | post_review_e1 | post_review_e1_cross_task_generalization_present | PASS | results/post_review_e1_cross_task_generalization/results.json |
 | post_review_e1 | item050_number_present | PASS | item_number=050 |
-| post_review_e1 | item050_fail_closed_status | PASS | status=E1_FAIL_CLOSED_NON_SUDOKU_BATCHED_ENGINE_MISSING |
+| post_review_e1 | item050_scalar_status | PASS | status=E1_SCALAR_FIGURE4_DEVIATION_RECORDED |
+| post_review_e1 | item050_stateless_gate_pass | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'law_transfer_y_equals_x': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
+| post_review_e1 | item050_gru_audit_red_gate | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'law_transfer_y_equals_x': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
+| post_review_e1 | item050_deviation_gate_recorded | PASS | gates={'stateless_oracle_ci': 'PASS', 'r3plus_rot_vs_no_revert': 'PASS', 'law_transfer_y_equals_x': 'FAIL', 'gru_audit': 'INCOMPLETE_AUDIT_RED'} |
 | post_review_e1 | e1_bins_by_reverts_needed | PASS | binning_key=reverts_needed |
-| post_review_e1 | e1_equivalence_first_policy | PASS | equivalence_required=True |
-| post_review_e1 | e1_no_optimized_results_logged | PASS | optimized_results_logged=False |
-| post_review_e1 | e1_equivalence_gate_fail_closed | PASS | rows=2 |
-| post_review_e1 | e1_optimized_rows_blocked | PASS | rows=84 |
+| post_review_e1 | e1_scalar_status | PASS | status=E1_SCALAR_FIGURE4_DEVIATION_RECORDED |
+| post_review_e1 | e1_autonomous_source | PASS | source=autonomous_stage_a_run |
+| post_review_e1 | e1_no_batched_engine_required | PASS | batched_engine_required=False |
+| post_review_e1 | e1_no_batched_equivalence_gate | PASS | batched_equivalence_gate_applies=False |
+| post_review_e1 | e1_item050_node_caps_reused | PASS | node_caps={'sat_3sat': 162, 'graph_coloring': 144} |
+| post_review_e1 | e1_item050_pools_reused | PASS | rows=[{'node_cap': 162, 'pool_complete': True, 'r3plus_no_revert_solve_rate': 0.0, 'selected_instances': 256, 'target_per_band': 64, 'task': 'sat_3sat'}, {'node_cap': 144, 'pool_complete': True, 'r3plus_no_revert_solve_rate': 0.0, 'selected_instances': 256, 'target_per_band': 64, 'task': 'graph_coloring'}] |
+| post_review_e1 | e1_stateless_oracle_ci_pass | PASS | rows=2 |
+| post_review_e1 | e1_stateless_rows_sourced | PASS | rows=2 |
 | post_review_e1 | e1_band_rows_revert_metrics_present | PASS | rows=8 |
+| post_review_e1 | e1_figure4_arm_rows_present | PASS | arms=['gru', 'kv_snapshot', 'rot_bound_single', 'rot_factored', 'rot_no_revert'] |
+| post_review_e1 | e1_figure4_rows_sourced | PASS | rows=336 |
+| post_review_e1 | e1_gru_audit_red_excluded | PASS | rows=48 |
+| post_review_e1 | e1_law_rows_sourced | PASS | rows=48 |
+| post_review_e1 | e1_law_transfer_ready_or_deviation_recorded | PASS | status=E1_SCALAR_FIGURE4_DEVIATION_RECORDED; law_ready=False; deviation=True |
+| post_review_e1 | e1_episode_metric_keys_present | PASS | rows=18432 |
+| post_review_e1 | e1_figure4_panel_artifacts_present | PASS | panels={'graph_coloring': 'results/post_review_e1_cross_task_generalization/panels/graph_coloring_figure4_scalar_panels.png', 'sat_3sat': 'results/post_review_e1_cross_task_generalization/panels/sat_3sat_figure4_scalar_panels.png'} |
 | legacy | ttt_legacy_present | PASS | results/ttt/results.json |
 | legacy | legacy_two_by_two_archived_or_absent_ok | PASS | state=absent_ok; path=results/two_by_two/results.json |
 | legacy | legacy_d_stage_1_archived_or_absent_ok | PASS | state=absent_ok; path=results/d_stage_1/results.json |
