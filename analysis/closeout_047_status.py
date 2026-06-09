@@ -87,7 +87,13 @@ def build_item(status_payload: dict[str, Any]) -> dict[str, Any]:
     if track_b_resolved:
         artifacts.append("results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json")
     if status_payload["inputs"].get("gru_rerun"):
+        artifacts.append("results/closeout_047/gru_in_loop/gru_in_loop_grid.json")
         artifacts.append("results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json")
+        artifacts.extend([
+            f"results/closeout_047/gru_in_loop/cells/D{D}_Kv81_Ku9_with_replacement_seed{seed}/results.json"
+            for D in (128, 256, 512)
+            for seed in (42, 137)
+        ])
     if gru_resolved and track_b_resolved:
         item_status = "ITEM047_CLOSEOUT_COMPLETE"
         honesty_text = "The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnability finding, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present."

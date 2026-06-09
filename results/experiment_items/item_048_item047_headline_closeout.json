@@ -5,7 +5,14 @@
     "results/closeout_047/headline_figure/headline_overlay_spilloff.png",
     "results/experiment_items/item_048_item047_headline_closeout.json",
     "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
-    "results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json"
+    "results/closeout_047/gru_in_loop/gru_in_loop_grid.json",
+    "results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json",
+    "results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed42/results.json",
+    "results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed137/results.json",
+    "results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed42/results.json",
+    "results/closeout_047/gru_in_loop/cells/D256_Kv81_Ku9_with_replacement_seed137/results.json",
+    "results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed42/results.json",
+    "results/closeout_047/gru_in_loop/cells/D512_Kv81_Ku9_with_replacement_seed137/results.json"
   ],
   "code_added_used": [
     {
@@ -74,7 +81,7 @@
   "item_number": "048",
   "name": "Item047 headline closeout status and diagnostics",
   "provenance": {
-    "generated_at": "2026-06-08T17:42:26.600789+00:00",
+    "generated_at": "2026-06-09T02:39:33.883382+00:00",
     "repo": "/home/aiscuser/RECURRENT_NN",
     "source_item": "047",
     "track": "item047_closeout"
