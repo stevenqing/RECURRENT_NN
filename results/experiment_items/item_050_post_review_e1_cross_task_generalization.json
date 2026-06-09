@@ -1,0 +1,1160 @@
+{
+  "artifacts": [
+    "results/post_review_e1_cross_task_generalization/results.json",
+    "results/experiment_items/item_050_post_review_e1_cross_task_generalization.json"
+  ],
+  "code_added_used": [
+    {
+      "change": "Adds scalar E1 task mining, node-cap calibration, capacity predictions, and optimized-result gate.",
+      "path": "experiments/e1_cross_task_generalization.py"
+    },
+    {
+      "change": "Registers Item050 and E1 result artifact.",
+      "path": "analysis/experiment_log.py"
+    },
+    {
+      "change": "Validates E1 fail-closed discipline.",
+      "path": "analysis/validate_outputs.py"
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m experiments.e1_cross_task_generalization --target-per-band 64",
+      "purpose": "Run the E1 scalar preflight and fail-closed gate."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [
+      {
+        "gate": "reverts_needed_binning",
+        "number": "all selected rows carry reverts_needed and band",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "scalar_pool_population",
+        "number": "64 examples per task per band, including R6+",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "batched_equivalence",
+        "number": "0/2 non-Sudoku batched engines available",
+        "outcome": "FAIL_CLOSED"
+      },
+      {
+        "gate": "optimized_logging",
+        "number": "0 optimized solve-rate rows logged",
+        "outcome": "PASS"
+      }
+    ],
+    "next_step": "Implement SAT and graph-coloring batched GPU engines, pass 100-episode equivalence, then run optimized Stage A arms.",
+    "next_step_routing": {
+      "do_not_log_yet": [
+        "Figure4_optimized_panels",
+        "StageA_cross_task_solve_rates"
+      ],
+      "implement_next": [
+        "sat_batched_gpu_engine",
+        "graph_coloring_batched_gpu_engine",
+        "100_episode_equivalence_tests"
+      ]
+    },
+    "outcome": "E1_FAIL_CLOSED_NON_SUDOKU_BATCHED_ENGINE_MISSING"
+  },
+  "honesty": {
+    "does_not_establish": "This is not Figure 4 evidence and logs no optimized solve rates; the required SAT/coloring batched equivalence gate is absent."
+  },
+  "item_number": "050",
+  "name": "Post-review E1 cross-task generalization preflight",
+  "provenance": {
+    "binning_key": "reverts_needed",
+    "generated_at": "2026-06-09T07:07:01.615080+00:00",
+    "optimized_results_logged": false,
+    "repo": "/home/aiscuser/RECURRENT_NN",
+    "task_scope_visible_in_user_request": "E1 only; E2-E8 details were not present in the prompt body received by this run."
+  },
+  "purpose": "Prepare SAT and graph-coloring E1 under reverts_needed binning and equivalence-first logging; fail closed because non-Sudoku batched engines are missing.",
+  "result_tables": {
+    "band_summary": {
+      "columns": [
+        "task",
+        "band",
+        "n",
+        "target_n",
+        "target_met",
+        "min_reverts_needed",
+        "max_reverts_needed",
+        "max_trace_length",
+        "no_revert_solve_rate"
+      ],
+      "rows": [
+        {
+          "band": "R0",
+          "max_reverts_needed": 0,
+          "max_trace_length": 19,
+          "min_reverts_needed": 0,
+          "n": 64,
+          "no_revert_solve_rate": 1.0,
+          "target_met": true,
+          "target_n": 64,
+          "task": "sat_3sat"
+        },
+        {
+          "band": "R1-2",
+          "max_reverts_needed": 2,
+          "max_trace_length": 47,
+          "min_reverts_needed": 1,
+          "n": 64,
+          "no_revert_solve_rate": 0.0,
+          "target_met": true,
+          "target_n": 64,
+          "task": "sat_3sat"
+        },
+        {
+          "band": "R3-5",
+          "max_reverts_needed": 5,
+          "max_trace_length": 64,
+          "min_reverts_needed": 3,
+          "n": 64,
+          "no_revert_solve_rate": 0.0,
+          "target_met": true,
+          "target_n": 64,
+          "task": "sat_3sat"
+        },
+        {
+          "band": "R6+",
+          "max_reverts_needed": 21,
+          "max_trace_length": 161,
+          "min_reverts_needed": 6,
+          "n": 64,
+          "no_revert_solve_rate": 0.0,
+          "target_met": true,
+          "target_n": 64,
+          "task": "sat_3sat"
+        },
+        {
+          "band": "R0",
+          "max_reverts_needed": 0,
+          "max_trace_length": 17,
+          "min_reverts_needed": 0,
+          "n": 64,
+          "no_revert_solve_rate": 1.0,
+          "target_met": true,
+          "target_n": 64,
+          "task": "graph_coloring"
+        },
+        {
+          "band": "R1-2",
+          "max_reverts_needed": 2,
+          "max_trace_length": 34,
+          "min_reverts_needed": 1,
+          "n": 64,
+          "no_revert_solve_rate": 0.0,
+          "target_met": true,
+          "target_n": 64,
+          "task": "graph_coloring"
+        },
+        {
+          "band": "R3-5",
+          "max_reverts_needed": 5,
+          "max_trace_length": 51,
+          "min_reverts_needed": 3,
+          "n": 64,
+          "no_revert_solve_rate": 0.0,
+          "target_met": true,
+          "target_n": 64,
+          "task": "graph_coloring"
+        },
+        {
+          "band": "R6+",
+          "max_reverts_needed": 29,
+          "max_trace_length": 143,
+          "min_reverts_needed": 6,
+          "n": 64,
+          "no_revert_solve_rate": 0.0,
+          "target_met": true,
+          "target_n": 64,
+          "task": "graph_coloring"
+        }
+      ]
+    },
+    "capacity_predictions": {
+      "columns": [
+        "task",
+        "D",
+        "K_var",
+        "K_val",
+        "bound_single_K_eff",
+        "bound_single_d_star",
+        "factored_d_star"
+      ],
+      "rows": [
+        {
+          "D": 128,
+          "K_val": 2,
+          "K_var": 18,
+          "bound_single_K_eff": 36,
+          "bound_single_d_star": 17.85954004963991,
+          "factored_d_star": 11.071240200358195,
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "K_val": 2,
+          "K_var": 18,
+          "bound_single_K_eff": 36,
+          "bound_single_d_star": 35.71908009927982,
+          "factored_d_star": 22.14248040071639,
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "K_val": 2,
+          "K_var": 18,
+          "bound_single_K_eff": 36,
+          "bound_single_d_star": 71.43816019855964,
+          "factored_d_star": 44.28496080143278,
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "K_val": 4,
+          "K_var": 16,
+          "bound_single_K_eff": 64,
+          "bound_single_d_star": 15.38874710281561,
+          "factored_d_star": 11.541560327111707,
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "K_val": 4,
+          "K_var": 16,
+          "bound_single_K_eff": 64,
+          "bound_single_d_star": 30.77749420563122,
+          "factored_d_star": 23.083120654223414,
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "K_val": 4,
+          "K_var": 16,
+          "bound_single_K_eff": 64,
+          "bound_single_d_star": 61.55498841126244,
+          "factored_d_star": 46.16624130844683,
+          "task": "graph_coloring"
+        }
+      ]
+    },
+    "equivalence_gate": {
+      "columns": [
+        "task",
+        "n_episodes_required",
+        "passed",
+        "status",
+        "reason"
+      ],
+      "rows": [
+        {
+          "n_episodes_required": 100,
+          "passed": false,
+          "reason": "SAT batched GPU tensor engine is absent.",
+          "status": "FAIL_CLOSED_ENGINE_MISSING",
+          "task": "sat_3sat"
+        },
+        {
+          "n_episodes_required": 100,
+          "passed": false,
+          "reason": "Graph-coloring batched GPU tensor engine is absent.",
+          "status": "FAIL_CLOSED_ENGINE_MISSING",
+          "task": "graph_coloring"
+        }
+      ]
+    },
+    "optimized_result_gate": {
+      "columns": [
+        "task",
+        "arm",
+        "spill_mode",
+        "D",
+        "seed",
+        "optimized_result_logged",
+        "status",
+        "solve_rate"
+      ],
+      "rows": [
+        {
+          "D": 128,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "rot_no_revert",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "rot_no_revert",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "rot_no_revert",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "rot_no_revert",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "rot_no_revert",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "rot_no_revert",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "gru",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "gru",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "gru",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "gru",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "gru",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "gru",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "kv_snapshot",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "kv_snapshot",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "kv_snapshot",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 256,
+          "arm": "kv_snapshot",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "kv_snapshot",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 512,
+          "arm": "kv_snapshot",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "sat_3sat"
+        },
+        {
+          "D": 128,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 128,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 128,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 128,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "rot_bound_single",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 128,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 128,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_off",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 128,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 128,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "rot_factored",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "spill_on",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 128,
+          "arm": "rot_no_revert",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 128,
+          "arm": "rot_no_revert",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "rot_no_revert",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "rot_no_revert",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "rot_no_revert",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "rot_no_revert",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 128,
+          "arm": "gru",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 128,
+          "arm": "gru",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "gru",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "gru",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "gru",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "gru",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 128,
+          "arm": "kv_snapshot",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 128,
+          "arm": "kv_snapshot",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "kv_snapshot",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 256,
+          "arm": "kv_snapshot",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "kv_snapshot",
+          "optimized_result_logged": false,
+          "seed": 42,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        },
+        {
+          "D": 512,
+          "arm": "kv_snapshot",
+          "optimized_result_logged": false,
+          "seed": 137,
+          "solve_rate": null,
+          "spill_mode": "not_applicable",
+          "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+          "task": "graph_coloring"
+        }
+      ]
+    },
+    "task_pool_summary": {
+      "columns": [
+        "task",
+        "selected_instances",
+        "target_per_band",
+        "node_cap",
+        "r3plus_no_revert_solve_rate",
+        "node_cap_recalibration_required",
+        "pool_complete"
+      ],
+      "rows": [
+        {
+          "node_cap": 162,
+          "node_cap_recalibration_required": false,
+          "pool_complete": true,
+          "r3plus_no_revert_solve_rate": 0.0,
+          "selected_instances": 256,
+          "target_per_band": 64,
+          "task": "sat_3sat"
+        },
+        {
+          "node_cap": 144,
+          "node_cap_recalibration_required": false,
+          "pool_complete": true,
+          "r3plus_no_revert_solve_rate": 0.0,
+          "selected_instances": 256,
+          "target_per_band": 64,
+          "task": "graph_coloring"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "E1_FAIL_CLOSED_NON_SUDOKU_BATCHED_ENGINE_MISSING"
+}

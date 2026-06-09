@@ -36,6 +36,7 @@ ARTIFACT_INDEX = {
     "item_047_deep_band_track_a_headline_overnight": "results/experiment_items/item_047_deep_band_track_a_headline_overnight.json",
     "item_048_item047_headline_closeout": "results/experiment_items/item_048_item047_headline_closeout.json",
     "item_049_track_b_value_head_retrain": "results/experiment_items/item_049_track_b_value_head_retrain.json",
+    "item_050_post_review_e1_cross_task_generalization": "results/experiment_items/item_050_post_review_e1_cross_task_generalization.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "model_readiness": "results/model_readiness/readiness.json",
     "qwen3_4b_instruct_download": "results/model_download/qwen_download.json",
@@ -81,6 +82,7 @@ ARTIFACT_INDEX = {
     "track_b_prelaunch_smoke_acceptance": "results/trm_operator_prelaunch_smoke/acceptance.json",
     "track_b_compile_smoke_acceptance": "results/trm_operator_compile_smoke/acceptance.json",
     "track_b_value_head_retrain_acceptance": "results/track_b_value_head_retrain_20260609/acceptance.json",
+    "post_review_e1_cross_task_generalization": "results/post_review_e1_cross_task_generalization/results.json",
     "validation": "results/validation/validation.json",
 }
 

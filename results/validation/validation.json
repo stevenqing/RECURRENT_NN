@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=22",
+      "detail": "count=23",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -1363,6 +1363,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_050_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_050_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=050",
+      "name": "log_item_050_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_050_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This is not Figure 4 evidence and logs no optimized solve rates; the required SAT/coloring batched equivalence gate is absent.",
+      "name": "log_item_050_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing={'do_not_log_yet': ['Figure4_optimized_panels', 'StageA_cross_task_solve_rates'], 'implement_next': ['sat_batched_gpu_engine', 'graph_coloring_batched_gpu_engine', '100_episode_equivalence_tests']}",
+      "name": "log_item_050_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -1693,6 +1729,66 @@
       "tier": "track_b_value_head"
     },
     {
+      "detail": "results/experiment_items/item_050_post_review_e1_cross_task_generalization.json",
+      "name": "item_050_post_review_e1_cross_task_generalization_present",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "results/post_review_e1_cross_task_generalization/results.json",
+      "name": "post_review_e1_cross_task_generalization_present",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "item_number=050",
+      "name": "item050_number_present",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "status=E1_FAIL_CLOSED_NON_SUDOKU_BATCHED_ENGINE_MISSING",
+      "name": "item050_fail_closed_status",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "binning_key=reverts_needed",
+      "name": "e1_bins_by_reverts_needed",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "equivalence_required=True",
+      "name": "e1_equivalence_first_policy",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "optimized_results_logged=False",
+      "name": "e1_no_optimized_results_logged",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "rows=2",
+      "name": "e1_equivalence_gate_fail_closed",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "rows=84",
+      "name": "e1_optimized_rows_blocked",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
+      "detail": "rows=8",
+      "name": "e1_band_rows_revert_metrics_present",
+      "status": "PASS",
+      "tier": "post_review_e1"
+    },
+    {
       "detail": "results/ttt/results.json",
       "name": "ttt_legacy_present",
       "status": "PASS",
@@ -1735,11 +1831,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-09T04:56:22.430165+00:00",
+  "generated_at": "2026-06-09T07:07:02.107903+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 289,
+    "n_checks": 305,
     "n_fail": 3,
-    "n_pass": 286
+    "n_pass": 302
   }
 }

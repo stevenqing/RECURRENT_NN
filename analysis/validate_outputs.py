@@ -55,11 +55,13 @@ PATHS = {
     "item_031_p2_w3_survival_delta_propagation": "results/experiment_items/item_031_p2_w3_survival_delta_propagation.json",
     "item_048_item047_headline_closeout": "results/experiment_items/item_048_item047_headline_closeout.json",
     "item_049_track_b_value_head_retrain": "results/experiment_items/item_049_track_b_value_head_retrain.json",
+    "item_050_post_review_e1_cross_task_generalization": "results/experiment_items/item_050_post_review_e1_cross_task_generalization.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
     "closeout_047_gru_rerun": "results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json",
     "track_b_value_head_retrain_acceptance": "results/track_b_value_head_retrain_20260609/acceptance.json",
+    "post_review_e1_cross_task_generalization": "results/post_review_e1_cross_task_generalization/results.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
@@ -555,6 +557,30 @@ def _track_b_value_head_retrain_checks(checks: list[dict[str, Any]]) -> None:
         _check(checks, item.get("item_number") == "049", "item049_number_present", f"item_number={item.get('item_number')}", "track_b_value_head")
 
 
+def _post_review_e1_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "item_050_post_review_e1_cross_task_generalization", "post_review_e1")
+    _exists(checks, "post_review_e1_cross_task_generalization", "post_review_e1")
+    item = _read_json("item_050_post_review_e1_cross_task_generalization")
+    results = _read_json("post_review_e1_cross_task_generalization")
+    if item:
+        _check(checks, item.get("item_number") == "050", "item050_number_present", f"item_number={item.get('item_number')}", "post_review_e1")
+        _check(checks, item.get("status", "").startswith("E1_FAIL_CLOSED"), "item050_fail_closed_status", f"status={item.get('status')}", "post_review_e1")
+    if results:
+        discipline = results.get("discipline", {})
+        _check(checks, discipline.get("binning_key") == "reverts_needed", "e1_bins_by_reverts_needed", f"binning_key={discipline.get('binning_key')}", "post_review_e1")
+        _check(checks, discipline.get("equivalence_required_before_optimized_logging") is True, "e1_equivalence_first_policy", f"equivalence_required={discipline.get('equivalence_required_before_optimized_logging')}", "post_review_e1")
+        _check(checks, discipline.get("optimized_results_logged") is False, "e1_no_optimized_results_logged", f"optimized_results_logged={discipline.get('optimized_results_logged')}", "post_review_e1")
+        equivalence_rows = results.get("equivalence_gate", [])
+        equivalence_fail_closed = bool(equivalence_rows) and all(row.get("passed") is False and row.get("status") == "FAIL_CLOSED_ENGINE_MISSING" for row in equivalence_rows)
+        _check(checks, equivalence_fail_closed, "e1_equivalence_gate_fail_closed", f"rows={len(equivalence_rows)}", "post_review_e1")
+        optimized_rows = results.get("optimized_result_gate", [])
+        optimized_blocked = bool(optimized_rows) and all(row.get("optimized_result_logged") is False and row.get("solve_rate") is None and row.get("status") == "BLOCKED_EQUIVALENCE_NOT_PASSED" for row in optimized_rows)
+        _check(checks, optimized_blocked, "e1_optimized_rows_blocked", f"rows={len(optimized_rows)}", "post_review_e1")
+        band_rows = results.get("band_summary", [])
+        band_keys_ok = bool(band_rows) and all("min_reverts_needed" in row and "max_reverts_needed" in row for row in band_rows)
+        _check(checks, band_keys_ok, "e1_band_rows_revert_metrics_present", f"rows={len(band_rows)}", "post_review_e1")
+
+
 def _canonical_checks(checks: list[dict[str, Any]]) -> None:
     _check(checks, REPO_ROOT == Path("/home/aiscuser/RECURRENT_NN"), "canonical_repo_is_recurrent_nn", f"repo_root={REPO_ROOT}", "p0")
     old_repo = Path("/home/aiscuser/stage_d_llm")
@@ -596,6 +622,7 @@ def validate_outputs(output_dir: str = "results/validation") -> dict[str, Any]:
     _item_contract_checks(checks)
     _closeout_047_checks(checks)
     _track_b_value_head_retrain_checks(checks)
+    _post_review_e1_checks(checks)
     _legacy_checks(checks)
 
     passed = all(check["status"] == "PASS" for check in checks)

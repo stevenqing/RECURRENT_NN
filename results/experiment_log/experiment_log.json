@@ -30,6 +30,7 @@
     "item_047_deep_band_track_a_headline_overnight": "results/experiment_items/item_047_deep_band_track_a_headline_overnight.json",
     "item_048_item047_headline_closeout": "results/experiment_items/item_048_item047_headline_closeout.json",
     "item_049_track_b_value_head_retrain": "results/experiment_items/item_049_track_b_value_head_retrain.json",
+    "item_050_post_review_e1_cross_task_generalization": "results/experiment_items/item_050_post_review_e1_cross_task_generalization.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "m2_operator_fix_rescale": "results/m2_operator_probe/report_fix_rescale.json",
     "m2_operator_probe": "results/m2_operator_probe/report.json",
@@ -41,6 +42,7 @@
     "post026_banded_gate_refusal": "results/stage_a_banded_gate_refusal/results.json",
     "post027_sudoku6_bridge": "results/stage_a_sudoku6_bridge/results.json",
     "post_027_continuation_state": "results/continuation_state/post_027.json",
+    "post_review_e1_cross_task_generalization": "results/post_review_e1_cross_task_generalization/results.json",
     "qwen3_4b_instruct_download": "results/model_download/qwen_download.json",
     "qwen3_4b_thinking_download": "results/model_download/thinking/qwen_download.json",
     "qwen3_5_4b_download": "results/model_download/qwen3_5_4b/qwen_download.json",
@@ -4118,7 +4120,7 @@
       "S3.1 integration is not started."
     ]
   },
-  "generated_at": "2026-06-09T04:56:12.997528+00:00",
+  "generated_at": "2026-06-09T07:07:01.661361+00:00",
   "incremental_items": [
     [
       "001-018",
@@ -4178,7 +4180,7 @@
       "P0",
       "ledger and validation housekeeping",
       "Updated",
-      "validation_checks=289; validation_passed=False"
+      "validation_checks=305; validation_passed=False"
     ],
     [
       "W3.0",
@@ -4341,6 +4343,22 @@
       "Track B one-shot value-head retrain",
       "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
       "Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL."
+    ],
+    [
+      "050",
+      "Post-review E1 cross-task generalization preflight",
+      "E1_FAIL_CLOSED_NON_SUDOKU_BATCHED_ENGINE_MISSING",
+      {
+        "do_not_log_yet": [
+          "Figure4_optimized_panels",
+          "StageA_cross_task_solve_rates"
+        ],
+        "implement_next": [
+          "sat_batched_gpu_engine",
+          "graph_coloring_batched_gpu_engine",
+          "100_episode_equivalence_tests"
+        ]
+      }
     ]
   ],
   "items": [
@@ -4505,17 +4523,17 @@
         {
           "path": "analysis/validate_outputs.py",
           "present": "yes",
-          "size_bytes": 42101
+          "size_bytes": 44839
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       ],
       "detail_data": {
@@ -4525,7 +4543,7 @@
           "path": "analysis/validate_outputs.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 42101
+          "size_bytes": 44839
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -4538,18 +4556,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -4557,7 +4575,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       },
       "details": [
@@ -5307,17 +5325,17 @@
         {
           "path": "analysis/validate_outputs.py",
           "present": "yes",
-          "size_bytes": 42101
+          "size_bytes": 44839
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 916582
+          "size_bytes": 965706
         }
       ],
       "detail_data": {
@@ -5335,7 +5353,7 @@
           "path": "analysis/validate_outputs.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 42101
+          "size_bytes": 44839
         },
         "results/experiment_log/experiment_log.json": {
           "embedded": false,
@@ -5344,14 +5362,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T04:53:52.624852+00:00"
+              "2026-06-09T07:06:05.711653+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -5364,27 +5382,27 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         }
       },
       "details": [
         "Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.",
-        "validation_pass=286; validation_fail=3",
+        "validation_pass=301; validation_fail=4",
         "Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure."
       ],
       "item": "P0",
-      "key_result": "validation_checks=289; validation_passed=False",
+      "key_result": "validation_checks=305; validation_passed=False",
       "name": "ledger and validation housekeeping",
       "next_action": "Keep future reports item-first and preserve explicit red checks.",
       "status": "Updated"
@@ -6004,22 +6022,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         {
           "path": "specs/log_item_contract.md",
@@ -6389,14 +6407,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T04:53:52.624852+00:00"
+              "2026-06-09T07:06:05.711653+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -6404,7 +6422,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         "results/stage_a_adapter_wiring/results.json": {
           "embedded": false,
@@ -6589,18 +6607,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -6608,7 +6626,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -8846,12 +8864,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       ],
       "contract_data": {
@@ -9336,18 +9354,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -9355,7 +9373,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         },
         "results/verifier/results.json": {
           "path": "results/verifier/results.json",
@@ -9393,7 +9411,7 @@
         {
           "path": "analysis/validate_outputs.py",
           "present": "yes",
-          "size_bytes": 42101
+          "size_bytes": 44839
         },
         {
           "path": "experiments/stage_a_sudoku6_bridge.py",
@@ -9423,12 +9441,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       ],
       "contract_data": {
@@ -9639,7 +9657,7 @@
           "path": "analysis/validate_outputs.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 42101
+          "size_bytes": 44839
         },
         "experiments/stage_a_sudoku6_bridge.py": {
           "embedded": false,
@@ -9814,18 +9832,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -9833,7 +9851,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -10929,12 +10947,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       ],
       "contract_data": {
@@ -11934,18 +11952,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -11953,7 +11971,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         },
         "results/w3_qwen35_probe/propagation_shards/general_sat/results.json": {
           "embedded": false,
@@ -14242,22 +14260,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 220525
+          "size_bytes": 228045
         }
       ],
       "contract_data": {
@@ -15154,14 +15172,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T04:53:52.624852+00:00"
+              "2026-06-09T07:06:05.711653+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -15169,7 +15187,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         "results/stage_a_symbolic/oracle_statelessness_ci.json": {
           "embedded": false,
@@ -15342,18 +15360,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -15361,7 +15379,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       },
       "details": [
@@ -15417,22 +15435,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 220525
+          "size_bytes": 228045
         }
       ],
       "contract_data": {
@@ -16132,14 +16150,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T04:53:52.624852+00:00"
+              "2026-06-09T07:06:05.711653+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -16147,7 +16165,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         "results/stage_a_symbolic/oracle_statelessness_ci.json": {
           "embedded": false,
@@ -16320,18 +16338,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -16339,7 +16357,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       },
       "details": [
@@ -16375,22 +16393,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       ],
       "contract_data": {
@@ -16700,14 +16718,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T04:53:52.624852+00:00"
+              "2026-06-09T07:06:05.711653+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -16715,7 +16733,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         "results/trm_operator_smoke/acceptance.json": {
           "embedded": false,
@@ -16796,18 +16814,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -16815,7 +16833,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       },
       "details": [
@@ -16886,22 +16904,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       ],
       "contract_data": {
@@ -17602,14 +17620,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T04:53:52.624852+00:00"
+              "2026-06-09T07:06:05.711653+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -17617,7 +17635,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json": {
           "embedded": false,
@@ -17650,7 +17668,7 @@
             ],
             [
               "updated_at",
-              "2026-06-09T04:56:09.589488+00:00"
+              "2026-06-09T07:06:50.715671+00:00"
             ]
           ],
           "path": "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json",
@@ -17898,18 +17916,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -17917,7 +17935,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       },
       "details": [
@@ -17993,22 +18011,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       ],
       "contract_data": {
@@ -18420,14 +18438,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T04:53:52.624852+00:00"
+              "2026-06-09T07:06:05.711653+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -18435,7 +18453,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         "results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl": {
           "embedded": false,
@@ -18552,18 +18570,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -18571,7 +18589,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         },
         "sudoku_engine_gpu.py": {
           "embedded": false,
@@ -18625,22 +18643,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       ],
       "contract_data": {
@@ -18920,14 +18938,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T04:53:52.624852+00:00"
+              "2026-06-09T07:06:05.711653+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -18935,7 +18953,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -18948,18 +18966,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -18967,7 +18985,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         },
         "sudoku_engine_gpu.py": {
           "embedded": false,
@@ -19006,22 +19024,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       ],
       "contract_data": {
@@ -19273,14 +19291,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T04:53:52.624852+00:00"
+              "2026-06-09T07:06:05.711653+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -19288,7 +19306,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -19301,18 +19319,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -19320,7 +19338,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         },
         "specs/track_b_retry_plan.md": {
           "embedded": false,
@@ -19384,22 +19402,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       ],
       "contract_data": {
@@ -19647,14 +19665,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T04:53:52.624852+00:00"
+              "2026-06-09T07:06:05.711653+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -19662,7 +19680,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         "results/trm_operator_compile_smoke/acceptance.json": {
           "embedded": false,
@@ -19827,18 +19845,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -19846,7 +19864,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         },
         "specs/track_b_retry_plan.md": {
           "embedded": false,
@@ -19955,22 +19973,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       ],
       "contract_data": {
@@ -20319,14 +20337,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T04:53:52.624852+00:00"
+              "2026-06-09T07:06:05.711653+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -20334,7 +20352,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt": {
           "embedded": false,
@@ -20435,18 +20453,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -20454,7 +20472,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       },
       "details": [
@@ -20505,22 +20523,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       ],
       "contract_data": {
@@ -20809,14 +20827,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T04:53:52.624852+00:00"
+              "2026-06-09T07:06:05.711653+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 916582
+          "size_bytes": 965706
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -20824,7 +20842,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 220525
+          "size_bytes": 228045
         },
         "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt": {
           "embedded": false,
@@ -20937,18 +20955,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T04:54:05.135106+00:00"
+              "2026-06-09T07:06:06.156134+00:00"
             ],
             [
               "summary",
-              "n_checks=289; n_fail=3; n_pass=286"
+              "n_checks=305; n_fail=4; n_pass=301"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 55685
+          "size_bytes": 58417
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -20956,7 +20974,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 34478
+          "size_bytes": 36026
         }
       },
       "details": [
@@ -24175,6 +24193,1308 @@
       "next_action": "Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL.",
       "purpose": "Execute exactly one off-critical-path Track B value-head/commit-conjunction retrain after the mask/full diagnostic showed high mask-only P/R but low full-commit P/R.",
       "status": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/experiment_items/item_050_post_review_e1_cross_task_generalization.json",
+          "present": "yes",
+          "size_bytes": 33838
+        },
+        {
+          "path": "results/post_review_e1_cross_task_generalization/results.json",
+          "present": "yes",
+          "size_bytes": 40368
+        }
+      ],
+      "contract_data": {
+        "artifacts": [
+          "results/post_review_e1_cross_task_generalization/results.json",
+          "results/experiment_items/item_050_post_review_e1_cross_task_generalization.json"
+        ],
+        "code_added_used": [
+          {
+            "change": "Adds scalar E1 task mining, node-cap calibration, capacity predictions, and optimized-result gate.",
+            "path": "experiments/e1_cross_task_generalization.py"
+          },
+          {
+            "change": "Registers Item050 and E1 result artifact.",
+            "path": "analysis/experiment_log.py"
+          },
+          {
+            "change": "Validates E1 fail-closed discipline.",
+            "path": "analysis/validate_outputs.py"
+          }
+        ],
+        "commands": [
+          {
+            "command": ".venv/bin/python -m experiments.e1_cross_task_generalization --target-per-band 64",
+            "purpose": "Run the E1 scalar preflight and fail-closed gate."
+          }
+        ],
+        "decision": {
+          "gate_outcomes": [
+            {
+              "gate": "reverts_needed_binning",
+              "number": "all selected rows carry reverts_needed and band",
+              "outcome": "PASS"
+            },
+            {
+              "gate": "scalar_pool_population",
+              "number": "64 examples per task per band, including R6+",
+              "outcome": "PASS"
+            },
+            {
+              "gate": "batched_equivalence",
+              "number": "0/2 non-Sudoku batched engines available",
+              "outcome": "FAIL_CLOSED"
+            },
+            {
+              "gate": "optimized_logging",
+              "number": "0 optimized solve-rate rows logged",
+              "outcome": "PASS"
+            }
+          ],
+          "next_step": "Implement SAT and graph-coloring batched GPU engines, pass 100-episode equivalence, then run optimized Stage A arms.",
+          "next_step_routing": {
+            "do_not_log_yet": [
+              "Figure4_optimized_panels",
+              "StageA_cross_task_solve_rates"
+            ],
+            "implement_next": [
+              "sat_batched_gpu_engine",
+              "graph_coloring_batched_gpu_engine",
+              "100_episode_equivalence_tests"
+            ]
+          },
+          "outcome": "E1_FAIL_CLOSED_NON_SUDOKU_BATCHED_ENGINE_MISSING"
+        },
+        "honesty": {
+          "does_not_establish": "This is not Figure 4 evidence and logs no optimized solve rates; the required SAT/coloring batched equivalence gate is absent."
+        },
+        "item_number": "050",
+        "name": "Post-review E1 cross-task generalization preflight",
+        "provenance": {
+          "binning_key": "reverts_needed",
+          "generated_at": "2026-06-09T07:07:01.615080+00:00",
+          "optimized_results_logged": false,
+          "repo": "/home/aiscuser/RECURRENT_NN",
+          "task_scope_visible_in_user_request": "E1 only; E2-E8 details were not present in the prompt body received by this run."
+        },
+        "purpose": "Prepare SAT and graph-coloring E1 under reverts_needed binning and equivalence-first logging; fail closed because non-Sudoku batched engines are missing.",
+        "result_tables": {
+          "band_summary": {
+            "columns": [
+              "task",
+              "band",
+              "n",
+              "target_n",
+              "target_met",
+              "min_reverts_needed",
+              "max_reverts_needed",
+              "max_trace_length",
+              "no_revert_solve_rate"
+            ],
+            "rows": [
+              {
+                "band": "R0",
+                "max_reverts_needed": 0,
+                "max_trace_length": 19,
+                "min_reverts_needed": 0,
+                "n": 64,
+                "no_revert_solve_rate": 1.0,
+                "target_met": true,
+                "target_n": 64,
+                "task": "sat_3sat"
+              },
+              {
+                "band": "R1-2",
+                "max_reverts_needed": 2,
+                "max_trace_length": 47,
+                "min_reverts_needed": 1,
+                "n": 64,
+                "no_revert_solve_rate": 0.0,
+                "target_met": true,
+                "target_n": 64,
+                "task": "sat_3sat"
+              },
+              {
+                "band": "R3-5",
+                "max_reverts_needed": 5,
+                "max_trace_length": 64,
+                "min_reverts_needed": 3,
+                "n": 64,
+                "no_revert_solve_rate": 0.0,
+                "target_met": true,
+                "target_n": 64,
+                "task": "sat_3sat"
+              },
+              {
+                "band": "R6+",
+                "max_reverts_needed": 21,
+                "max_trace_length": 161,
+                "min_reverts_needed": 6,
+                "n": 64,
+                "no_revert_solve_rate": 0.0,
+                "target_met": true,
+                "target_n": 64,
+                "task": "sat_3sat"
+              },
+              {
+                "band": "R0",
+                "max_reverts_needed": 0,
+                "max_trace_length": 17,
+                "min_reverts_needed": 0,
+                "n": 64,
+                "no_revert_solve_rate": 1.0,
+                "target_met": true,
+                "target_n": 64,
+                "task": "graph_coloring"
+              },
+              {
+                "band": "R1-2",
+                "max_reverts_needed": 2,
+                "max_trace_length": 34,
+                "min_reverts_needed": 1,
+                "n": 64,
+                "no_revert_solve_rate": 0.0,
+                "target_met": true,
+                "target_n": 64,
+                "task": "graph_coloring"
+              },
+              {
+                "band": "R3-5",
+                "max_reverts_needed": 5,
+                "max_trace_length": 51,
+                "min_reverts_needed": 3,
+                "n": 64,
+                "no_revert_solve_rate": 0.0,
+                "target_met": true,
+                "target_n": 64,
+                "task": "graph_coloring"
+              },
+              {
+                "band": "R6+",
+                "max_reverts_needed": 29,
+                "max_trace_length": 143,
+                "min_reverts_needed": 6,
+                "n": 64,
+                "no_revert_solve_rate": 0.0,
+                "target_met": true,
+                "target_n": 64,
+                "task": "graph_coloring"
+              }
+            ]
+          },
+          "capacity_predictions": {
+            "columns": [
+              "task",
+              "D",
+              "K_var",
+              "K_val",
+              "bound_single_K_eff",
+              "bound_single_d_star",
+              "factored_d_star"
+            ],
+            "rows": [
+              {
+                "D": 128,
+                "K_val": 2,
+                "K_var": 18,
+                "bound_single_K_eff": 36,
+                "bound_single_d_star": 17.85954004963991,
+                "factored_d_star": 11.071240200358195,
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "K_val": 2,
+                "K_var": 18,
+                "bound_single_K_eff": 36,
+                "bound_single_d_star": 35.71908009927982,
+                "factored_d_star": 22.14248040071639,
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "K_val": 2,
+                "K_var": 18,
+                "bound_single_K_eff": 36,
+                "bound_single_d_star": 71.43816019855964,
+                "factored_d_star": 44.28496080143278,
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "K_val": 4,
+                "K_var": 16,
+                "bound_single_K_eff": 64,
+                "bound_single_d_star": 15.38874710281561,
+                "factored_d_star": 11.541560327111707,
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "K_val": 4,
+                "K_var": 16,
+                "bound_single_K_eff": 64,
+                "bound_single_d_star": 30.77749420563122,
+                "factored_d_star": 23.083120654223414,
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "K_val": 4,
+                "K_var": 16,
+                "bound_single_K_eff": 64,
+                "bound_single_d_star": 61.55498841126244,
+                "factored_d_star": 46.16624130844683,
+                "task": "graph_coloring"
+              }
+            ]
+          },
+          "equivalence_gate": {
+            "columns": [
+              "task",
+              "n_episodes_required",
+              "passed",
+              "status",
+              "reason"
+            ],
+            "rows": [
+              {
+                "n_episodes_required": 100,
+                "passed": false,
+                "reason": "SAT batched GPU tensor engine is absent.",
+                "status": "FAIL_CLOSED_ENGINE_MISSING",
+                "task": "sat_3sat"
+              },
+              {
+                "n_episodes_required": 100,
+                "passed": false,
+                "reason": "Graph-coloring batched GPU tensor engine is absent.",
+                "status": "FAIL_CLOSED_ENGINE_MISSING",
+                "task": "graph_coloring"
+              }
+            ]
+          },
+          "optimized_result_gate": {
+            "columns": [
+              "task",
+              "arm",
+              "spill_mode",
+              "D",
+              "seed",
+              "optimized_result_logged",
+              "status",
+              "solve_rate"
+            ],
+            "rows": [
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "rot_no_revert",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "rot_no_revert",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "rot_no_revert",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "rot_no_revert",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "rot_no_revert",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "rot_no_revert",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "gru",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "gru",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "gru",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "gru",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "gru",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "gru",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "kv_snapshot",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "kv_snapshot",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "kv_snapshot",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 256,
+                "arm": "kv_snapshot",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "kv_snapshot",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 512,
+                "arm": "kv_snapshot",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "sat_3sat"
+              },
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 128,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "rot_bound_single",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_off",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 128,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "rot_factored",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "spill_on",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 128,
+                "arm": "rot_no_revert",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 128,
+                "arm": "rot_no_revert",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "rot_no_revert",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "rot_no_revert",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "rot_no_revert",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "rot_no_revert",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 128,
+                "arm": "gru",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 128,
+                "arm": "gru",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "gru",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "gru",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "gru",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "gru",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 128,
+                "arm": "kv_snapshot",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 128,
+                "arm": "kv_snapshot",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "kv_snapshot",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 256,
+                "arm": "kv_snapshot",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "kv_snapshot",
+                "optimized_result_logged": false,
+                "seed": 42,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              },
+              {
+                "D": 512,
+                "arm": "kv_snapshot",
+                "optimized_result_logged": false,
+                "seed": 137,
+                "solve_rate": null,
+                "spill_mode": "not_applicable",
+                "status": "BLOCKED_EQUIVALENCE_NOT_PASSED",
+                "task": "graph_coloring"
+              }
+            ]
+          },
+          "task_pool_summary": {
+            "columns": [
+              "task",
+              "selected_instances",
+              "target_per_band",
+              "node_cap",
+              "r3plus_no_revert_solve_rate",
+              "node_cap_recalibration_required",
+              "pool_complete"
+            ],
+            "rows": [
+              {
+                "node_cap": 162,
+                "node_cap_recalibration_required": false,
+                "pool_complete": true,
+                "r3plus_no_revert_solve_rate": 0.0,
+                "selected_instances": 256,
+                "target_per_band": 64,
+                "task": "sat_3sat"
+              },
+              {
+                "node_cap": 144,
+                "node_cap_recalibration_required": false,
+                "pool_complete": true,
+                "r3plus_no_revert_solve_rate": 0.0,
+                "selected_instances": 256,
+                "target_per_band": 64,
+                "task": "graph_coloring"
+              }
+            ]
+          }
+        },
+        "schema_version": "log_item_contract_v1",
+        "status": "E1_FAIL_CLOSED_NON_SUDOKU_BATCHED_ENGINE_MISSING"
+      },
+      "detail_data": {
+        "results/experiment_items/item_050_post_review_e1_cross_task_generalization.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": "050",
+          "json_summary": [
+            [
+              "status",
+              "E1_FAIL_CLOSED_NON_SUDOKU_BATCHED_ENGINE_MISSING"
+            ],
+            [
+              "decision",
+              "4 keys: gate_outcomes, next_step, next_step_routing, outcome"
+            ],
+            [
+              "honesty",
+              "does_not_establish=This is not Figure 4 evidence and logs no optimized solve rates; the required SAT/coloring batched equivalence gate is absent."
+            ],
+            [
+              "item_number",
+              "050"
+            ],
+            [
+              "name",
+              "Post-review E1 cross-task generalization preflight"
+            ],
+            [
+              "purpose",
+              "Prepare SAT and graph-coloring E1 under reverts_needed binning and equivalence-first logging; fail closed because non-Sudoku batched engines are missing."
+            ],
+            [
+              "schema_version",
+              "log_item_contract_v1"
+            ]
+          ],
+          "path": "results/experiment_items/item_050_post_review_e1_cross_task_generalization.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 9,
+              "rows": 8,
+              "table": "band_summary"
+            },
+            {
+              "columns": 7,
+              "rows": 6,
+              "table": "capacity_predictions"
+            },
+            {
+              "columns": 5,
+              "rows": 2,
+              "table": "equivalence_gate"
+            },
+            {
+              "columns": 8,
+              "rows": 84,
+              "table": "optimized_result_gate"
+            },
+            {
+              "columns": 7,
+              "rows": 2,
+              "table": "task_pool_summary"
+            }
+          ],
+          "size_bytes": 33838
+        },
+        "results/post_review_e1_cross_task_generalization/results.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "post_review_e1_cross_task_generalization"
+            ],
+            [
+              "status",
+              "E1_FAIL_CLOSED_NON_SUDOKU_BATCHED_ENGINE_MISSING"
+            ],
+            [
+              "figure4_status",
+              "NOT_PRODUCED_EQUIVALENCE_GATE_FAILED"
+            ],
+            [
+              "generated_at",
+              "2026-06-09T07:07:01.615080+00:00"
+            ]
+          ],
+          "path": "results/post_review_e1_cross_task_generalization/results.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 40368
+        }
+      },
+      "details": [
+        "purpose=Prepare SAT and graph-coloring E1 under reverts_needed binning and equivalence-first logging; fail closed because non-Sudoku batched engines are missing.",
+        "commands=1",
+        "result_tables=['band_summary', 'capacity_predictions', 'equivalence_gate', 'optimized_result_gate', 'task_pool_summary']",
+        "honesty=This is not Figure 4 evidence and logs no optimized solve rates; the required SAT/coloring batched equivalence gate is absent."
+      ],
+      "item": "050",
+      "key_result": {
+        "do_not_log_yet": [
+          "Figure4_optimized_panels",
+          "StageA_cross_task_solve_rates"
+        ],
+        "implement_next": [
+          "sat_batched_gpu_engine",
+          "graph_coloring_batched_gpu_engine",
+          "100_episode_equivalence_tests"
+        ]
+      },
+      "name": "Post-review E1 cross-task generalization preflight",
+      "next_action": {
+        "do_not_log_yet": [
+          "Figure4_optimized_panels",
+          "StageA_cross_task_solve_rates"
+        ],
+        "implement_next": [
+          "sat_batched_gpu_engine",
+          "graph_coloring_batched_gpu_engine",
+          "100_episode_equivalence_tests"
+        ]
+      },
+      "purpose": "Prepare SAT and graph-coloring E1 under reverts_needed binning and equivalence-first logging; fail closed because non-Sudoku batched engines are missing.",
+      "status": "E1_FAIL_CLOSED_NON_SUDOKU_BATCHED_ENGINE_MISSING"
     }
   ],
   "legacy_archive": {
@@ -24195,8 +25515,8 @@
     "verifier": "results/verifier/results.json"
   },
   "validation_summary": {
-    "n_checks": 289,
-    "n_fail": 3,
-    "n_pass": 286
+    "n_checks": 305,
+    "n_fail": 4,
+    "n_pass": 301
   }
 }
