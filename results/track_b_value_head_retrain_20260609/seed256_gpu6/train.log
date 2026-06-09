@@ -1,0 +1,93 @@
+{"event": "generate_6x6_start", "min_depth": 1, "max_depth": 2, "n_instances": 4096, "seed": 256}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 256, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 512, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 768, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 1024, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 1280, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 1536, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 1792, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 2048, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 2304, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 2560, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 2816, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 3072, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 3328, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 3584, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 3840, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 4096, "target": 4096, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_done", "min_depth": 1, "max_depth": 2, "instances": 4096, "examples": 152004}
+{"event": "generate_6x6_start", "min_depth": 1, "max_depth": 2, "n_instances": 512, "seed": 1256}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 256, "target": 512, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_progress", "min_depth": 1, "max_depth": 2, "instances": 512, "target": 512, "last_chunk": 256, "generation_workers": 4}
+{"event": "generate_6x6_done", "min_depth": 1, "max_depth": 2, "instances": 512, "examples": 18992}
+{"event": "generate_6x6_start", "min_depth": 4, "max_depth": 8, "n_instances": 128, "seed": 2256}
+{"event": "generate_6x6_progress", "min_depth": 4, "max_depth": 8, "instances": 128, "target": 128, "last_chunk": 128, "generation_workers": 4}
+{"event": "generate_6x6_done", "min_depth": 4, "max_depth": 8, "instances": 128, "examples": 5087}
+{"event": "episode_tasks_start", "label": "eval", "n_instances": 512, "workers": 4}
+{"event": "episode_tasks_progress", "label": "eval", "instances": 64, "target": 512, "workers": 4}
+{"event": "episode_tasks_progress", "label": "eval", "instances": 128, "target": 512, "workers": 4}
+{"event": "episode_tasks_progress", "label": "eval", "instances": 192, "target": 512, "workers": 4}
+{"event": "episode_tasks_progress", "label": "eval", "instances": 256, "target": 512, "workers": 4}
+{"event": "episode_tasks_progress", "label": "eval", "instances": 320, "target": 512, "workers": 4}
+{"event": "episode_tasks_progress", "label": "eval", "instances": 384, "target": 512, "workers": 4}
+{"event": "episode_tasks_progress", "label": "eval", "instances": 448, "target": 512, "workers": 4}
+{"event": "episode_tasks_progress", "label": "eval", "instances": 512, "target": 512, "workers": 4}
+{"event": "episode_tasks_done", "label": "eval", "instances": 512, "workers": 4}
+{"event": "episode_tasks_start", "label": "l4", "n_instances": 128, "workers": 4}
+{"event": "episode_tasks_progress", "label": "l4", "instances": 64, "target": 128, "workers": 4}
+{"event": "episode_tasks_progress", "label": "l4", "instances": 128, "target": 128, "workers": 4}
+{"event": "episode_tasks_done", "label": "l4", "instances": 128, "workers": 4}
+{"event": "tensorize_start", "label": "train", "examples": 152004, "augment_digits": true, "workers": 4}
+{"event": "tensorize_progress", "label": "train", "rows": 38001, "target": 152004, "last_chunk": 38001, "workers": 4}
+{"event": "tensorize_progress", "label": "train", "rows": 76002, "target": 152004, "last_chunk": 38001, "workers": 4}
+{"event": "tensorize_progress", "label": "train", "rows": 114003, "target": 152004, "last_chunk": 38001, "workers": 4}
+{"event": "tensorize_progress", "label": "train", "rows": 152004, "target": 152004, "last_chunk": 38001, "workers": 4}
+{"event": "tensorize_done", "label": "train", "examples": 152004, "rows": 152004, "workers": 4}
+{"event": "tensorize_start", "label": "eval", "examples": 18992, "augment_digits": false, "workers": 4}
+{"event": "tensorize_progress", "label": "eval", "rows": 4748, "target": 18992, "last_chunk": 4748, "workers": 4}
+{"event": "tensorize_progress", "label": "eval", "rows": 9496, "target": 18992, "last_chunk": 4748, "workers": 4}
+{"event": "tensorize_progress", "label": "eval", "rows": 14244, "target": 18992, "last_chunk": 4748, "workers": 4}
+{"event": "tensorize_progress", "label": "eval", "rows": 18992, "target": 18992, "last_chunk": 4748, "workers": 4}
+{"event": "tensorize_done", "label": "eval", "examples": 18992, "rows": 18992, "workers": 4}
+{"event": "tensorize_start", "label": "l4", "examples": 5087, "augment_digits": false, "workers": 4}
+{"event": "tensorize_progress", "label": "l4", "rows": 1272, "target": 5087, "last_chunk": 1272, "workers": 4}
+{"event": "tensorize_progress", "label": "l4", "rows": 2543, "target": 5087, "last_chunk": 1271, "workers": 4}
+{"event": "tensorize_progress", "label": "l4", "rows": 3815, "target": 5087, "last_chunk": 1272, "workers": 4}
+{"event": "tensorize_progress", "label": "l4", "rows": 5087, "target": 5087, "last_chunk": 1272, "workers": 4}
+{"event": "tensorize_done", "label": "l4", "examples": 5087, "rows": 5087, "workers": 4}
+{"event": "dataset_cache_write", "path": "results/track_b_value_head_retrain_20260609/seed256_gpu6/dataset_cache/track_b_trm_seed256_train4096_eval512_l4128.pt"}
+Traceback (most recent call last):
+  File "/opt/conda/envs/ptca/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/opt/conda/envs/ptca/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/aiscuser/RECURRENT_NN/experiments/train_trm_operator.py", line 1182, in <module>
+    main()
+  File "/home/aiscuser/RECURRENT_NN/experiments/train_trm_operator.py", line 1143, in main
+    train_trm_operator(
+  File "/home/aiscuser/RECURRENT_NN/experiments/train_trm_operator.py", line 812, in train_trm_operator
+    model.load_state_dict(state, strict=False)
+  File "/home/aiscuser/RECURRENT_NN/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 2638, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for PerCellTokenRecurrentOperator:
+	size mismatch for input_proj.weight: copying a param with shape torch.Size([768, 25]) from checkpoint, the shape in current model is torch.Size([384, 25]).
+	size mismatch for input_proj.bias: copying a param with shape torch.Size([768]) from checkpoint, the shape in current model is torch.Size([384]).
+	size mismatch for layer.self_attn.in_proj_weight: copying a param with shape torch.Size([2304, 768]) from checkpoint, the shape in current model is torch.Size([1152, 384]).
+	size mismatch for layer.self_attn.in_proj_bias: copying a param with shape torch.Size([2304]) from checkpoint, the shape in current model is torch.Size([1152]).
+	size mismatch for layer.self_attn.out_proj.weight: copying a param with shape torch.Size([768, 768]) from checkpoint, the shape in current model is torch.Size([384, 384]).
+	size mismatch for layer.self_attn.out_proj.bias: copying a param with shape torch.Size([768]) from checkpoint, the shape in current model is torch.Size([384]).
+	size mismatch for layer.linear1.weight: copying a param with shape torch.Size([3072, 768]) from checkpoint, the shape in current model is torch.Size([8192, 384]).
+	size mismatch for layer.linear1.bias: copying a param with shape torch.Size([3072]) from checkpoint, the shape in current model is torch.Size([8192]).
+	size mismatch for layer.linear2.weight: copying a param with shape torch.Size([768, 3072]) from checkpoint, the shape in current model is torch.Size([384, 8192]).
+	size mismatch for layer.linear2.bias: copying a param with shape torch.Size([768]) from checkpoint, the shape in current model is torch.Size([384]).
+	size mismatch for layer.norm1.weight: copying a param with shape torch.Size([768]) from checkpoint, the shape in current model is torch.Size([384]).
+	size mismatch for layer.norm1.bias: copying a param with shape torch.Size([768]) from checkpoint, the shape in current model is torch.Size([384]).
+	size mismatch for layer.norm2.weight: copying a param with shape torch.Size([768]) from checkpoint, the shape in current model is torch.Size([384]).
+	size mismatch for layer.norm2.bias: copying a param with shape torch.Size([768]) from checkpoint, the shape in current model is torch.Size([384]).
+	size mismatch for norm.weight: copying a param with shape torch.Size([768]) from checkpoint, the shape in current model is torch.Size([384]).
+	size mismatch for norm.bias: copying a param with shape torch.Size([768]) from checkpoint, the shape in current model is torch.Size([384]).
+	size mismatch for action_head.weight: copying a param with shape torch.Size([4, 768]) from checkpoint, the shape in current model is torch.Size([4, 384]).
+	size mismatch for var_head.weight: copying a param with shape torch.Size([1, 768]) from checkpoint, the shape in current model is torch.Size([1, 384]).
+	size mismatch for val_head.weight: copying a param with shape torch.Size([6, 768]) from checkpoint, the shape in current model is torch.Size([6, 384]).
+	size mismatch for forced_mask_head.weight: copying a param with shape torch.Size([1, 768]) from checkpoint, the shape in current model is torch.Size([1, 384]).
+	size mismatch for dead_head.weight: copying a param with shape torch.Size([1, 768]) from checkpoint, the shape in current model is torch.Size([1, 384]).

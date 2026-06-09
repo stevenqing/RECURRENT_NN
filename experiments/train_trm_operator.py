@@ -32,6 +32,7 @@ from experiments.train_recurrent_operator import (
     _cuda_device_ids,
     _evaluate,
     _forced_mask,
+    _forced_mask_loss,
     _forced_mask_pos_weight,
     _forced_values_for_example,
     _generate_band,
@@ -54,6 +55,7 @@ class TrackBConfig:
     feedforward_dim: int
     recurrence_steps: int
     dropout: float
+    value_head_mode: str = "global"
 
 
 @dataclass(frozen=True)
@@ -63,6 +65,7 @@ class GpuResidentDataset:
     var: torch.Tensor
     val: torch.Tensor
     forced_mask: torch.Tensor
+    forced_value_target: torch.Tensor
 
 
 def _box_id(var: int) -> int:
@@ -236,7 +239,10 @@ class PerCellTokenRecurrentOperator(torch.nn.Module):
             pooled = normed.mean(dim=1)
             outputs["action"].append(self.action_head(pooled))
             outputs["var"].append(self.var_head(normed).squeeze(-1))
-            outputs["val"].append(self.val_head(pooled))
+            if self.config.value_head_mode == "per_cell":
+                outputs["val"].append(self.val_head(normed))
+            else:
+                outputs["val"].append(self.val_head(pooled))
             outputs["forced_mask"].append(self.forced_mask_head(normed).squeeze(-1))
             outputs["dead"].append(self.dead_head(pooled))
         return outputs
@@ -541,10 +547,20 @@ def _gpu_resident_dataset(rows: list[TensorExample], device: str) -> GpuResident
         var=torch.tensor([row.var for row in rows], dtype=torch.long, device=device),
         val=torch.tensor([row.val for row in rows], dtype=torch.long, device=device),
         forced_mask=torch.stack([row.forced_mask for row in rows]).to(device),
+        forced_value_target=_forced_value_target_tensor(rows).to(device),
     )
 
 
-def _batch_gpu_resident(dataset: GpuResidentDataset, batch_size: int, seed: int) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+def _forced_value_target_tensor(rows: list[TensorExample]) -> torch.Tensor:
+    target = torch.full((len(rows), MAX_VARS), -100, dtype=torch.long)
+    for row_index, row in enumerate(rows):
+        for var, value in row.forced_values.items():
+            if 0 <= int(var) < MAX_VARS and 1 <= int(value) <= MAX_VALS:
+                target[row_index, int(var)] = int(value) - 1
+    return target
+
+
+def _batch_gpu_resident(dataset: GpuResidentDataset, batch_size: int, seed: int) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
     generator = torch.Generator().manual_seed(seed)
     indices = torch.randint(0, dataset.x.shape[0], (batch_size,), generator=generator).to(dataset.x.device)
     return (
@@ -553,7 +569,120 @@ def _batch_gpu_resident(dataset: GpuResidentDataset, batch_size: int, seed: int)
         dataset.var.index_select(0, indices),
         dataset.val.index_select(0, indices),
         dataset.forced_mask.index_select(0, indices),
+        dataset.forced_value_target.index_select(0, indices),
     )
+
+
+def _batch_track_b(rows: list[TensorExample], batch_size: int, device: str, seed: int) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    x, action, var, val, forced_mask = _batch(rows, batch_size, device, seed)
+    generator = torch.Generator().manual_seed(seed)
+    indices = torch.randint(0, len(rows), (batch_size,), generator=generator).tolist()
+    selected = [rows[index] for index in indices]
+    forced_value_target = _forced_value_target_tensor(selected).to(device)
+    return x, action, var, val, forced_mask, forced_value_target
+
+
+def _track_b_loss(
+    outputs: dict[str, list[torch.Tensor]],
+    action: torch.Tensor,
+    var: torch.Tensor,
+    val: torch.Tensor,
+    forced_mask: torch.Tensor,
+    forced_value_target: torch.Tensor,
+    pos_weight: torch.Tensor | None = None,
+    forced_loss: str = "bce",
+    focal_gamma: float = 2.0,
+) -> tuple[torch.Tensor, float, float]:
+    losses = []
+    forced_losses = []
+    value_losses = []
+    propagate_mask = action == ACTION_TO_ID["propagate"]
+    for action_logits, var_logits, val_logits, forced_logits, dead_logits in zip(outputs["action"], outputs["var"], outputs["val"], outputs["forced_mask"], outputs["dead"]):
+        forced_step_loss = _forced_mask_loss(forced_logits, forced_mask, pos_weight, forced_loss, focal_gamma)
+        forced_losses.append(forced_step_loss.detach())
+        step_loss = forced_step_loss + 0.0 * dead_logits.sum()
+        var_mask = var >= 0
+        val_mask = val >= 0
+        if var_mask.any():
+            step_loss = step_loss + torch.nn.functional.cross_entropy(var_logits[var_mask], var[var_mask])
+        if val_logits.dim() == 3:
+            forced_value_mask = forced_value_target >= 0
+            if forced_value_mask.any():
+                value_step_loss = torch.nn.functional.cross_entropy(val_logits[forced_value_mask], forced_value_target[forced_value_mask])
+                value_losses.append(value_step_loss.detach())
+                step_loss = step_loss + value_step_loss
+        elif val_mask.any():
+            value_step_loss = torch.nn.functional.cross_entropy(val_logits[val_mask], val[val_mask])
+            value_losses.append(value_step_loss.detach())
+            step_loss = step_loss + value_step_loss
+        if propagate_mask.any():
+            step_loss = step_loss + 0.25 * torch.nn.functional.cross_entropy(action_logits, action)
+        losses.append(step_loss)
+    mean_forced = float((sum(forced_losses) / len(forced_losses)).item()) if forced_losses else 0.0
+    mean_value = float((sum(value_losses) / len(value_losses)).item()) if value_losses else 0.0
+    return sum(losses) / len(losses), mean_forced, mean_value
+
+
+@torch.no_grad()
+def _mask_full_commit_metrics_token(model: torch.nn.Module, rows: list[TensorExample], device: str, tau: float, batch_size: int = 512) -> dict[str, Any]:
+    totals = Counter()
+    reason_hist = Counter()
+    block_audit = Counter()
+    model.eval()
+    for start in range(0, len(rows), batch_size):
+        chunk = rows[start:start + batch_size]
+        x = torch.stack([row.x for row in chunk]).to(device)
+        outputs = model(x)
+        forced_logits = outputs["forced_mask"][-1].detach().float().cpu()
+        forced_probs = torch.sigmoid(forced_logits)
+        val_logits = outputs["val"][-1].detach().float().cpu()
+        forced_top = torch.topk(forced_probs, k=2, dim=-1)
+        for index, row in enumerate(chunk):
+            target = {int(cell): int(value) for cell, value in row.forced_values.items()}
+            target_cells = set(target)
+            mask_cells = {int(cell) for cell in torch.nonzero(forced_probs[index] >= 0.5, as_tuple=False).flatten().tolist()}
+            mask_hits = mask_cells & target_cells
+            totals["mask_proposed_cells"] += len(mask_cells)
+            totals["mask_true_cells"] += len(target_cells)
+            totals["mask_hits"] += len(mask_hits)
+
+            candidate_var = int(forced_top.indices[index, 0].item())
+            selected_val_logits = val_logits[index, candidate_var] if val_logits.dim() == 3 else val_logits[index]
+            val_top = torch.topk(selected_val_logits, k=2)
+            candidate_val = int(val_top.indices[0].item()) + 1
+            forced_score = float(forced_top.values[index, 0].item())
+            forced_margin = float((forced_top.values[index, 0] - forced_top.values[index, 1]).item())
+            val_margin = float((val_top.values[0] - val_top.values[1]).item())
+            full_proposed = forced_score >= 0.5 and forced_margin > tau and val_margin > tau
+            full_hit = full_proposed and target.get(candidate_var) == candidate_val
+            totals["full_true_states"] += int(bool(target))
+            totals["full_proposed_commits"] += int(full_proposed)
+            totals["full_hits"] += int(full_hit)
+            totals["full_covered"] += int(bool(target) and full_hit)
+
+            single_outputs = {name: [step[index:index + 1] for step in steps] for name, steps in outputs.items()}
+            decision = forced_only_commit_decision(single_outputs, tau, allowed_forced=target)
+            reason_hist[decision.reason] += 1
+            if decision.reason == "unforced_candidate_blocked":
+                if decision.var in target:
+                    block_audit["wrong_value"] += 1
+                else:
+                    block_audit["unforced_cell"] += 1
+            elif decision.reason in {"forced_mask_not_singleton", "value_argmax_not_singleton"}:
+                block_audit[decision.reason] += 1
+    return {
+        "n_examples": len(rows),
+        "mask_only_precision": totals["mask_hits"] / max(totals["mask_proposed_cells"], 1),
+        "mask_only_recall": totals["mask_hits"] / max(totals["mask_true_cells"], 1),
+        "mask_proposed_cells": totals["mask_proposed_cells"],
+        "mask_true_cells": totals["mask_true_cells"],
+        "full_commit_precision": totals["full_hits"] / max(totals["full_proposed_commits"], 1),
+        "full_commit_recall": totals["full_covered"] / max(totals["full_true_states"], 1),
+        "full_proposed_commits": totals["full_proposed_commits"],
+        "full_true_forced_states": totals["full_true_states"],
+        "stick_reason_histogram": dict(sorted(reason_hist.items())),
+        "commit_block_audit": dict(sorted(block_audit.items())),
+    }
 
 
 def _autocast_context(device: str, amp_bf16: bool):
@@ -635,6 +764,9 @@ def train_trm_operator(
     require_param_max: int = 0,
     dataset_cache_dir: str = "",
     progress_eval_episodes: int = -1,
+    value_head_mode: str = "global",
+    init_checkpoint: str = "",
+    train_value_head_only: bool = False,
 ) -> dict[str, Any]:
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -669,8 +801,15 @@ def train_trm_operator(
     l4_rows = dataset_payload["l4_rows"]
     eval_episode_tasks = [_episode_eval_task(row) for row in dataset_payload["eval_episode_rows"]]
     l4_episode_tasks = [_episode_eval_task(row) for row in dataset_payload["l4_episode_rows"]]
-    config = TrackBConfig(hidden_dim=hidden_dim, nhead=nhead, feedforward_dim=feedforward_dim, recurrence_steps=recurrence_steps, dropout=0.0)
+    config = TrackBConfig(hidden_dim=hidden_dim, nhead=nhead, feedforward_dim=feedforward_dim, recurrence_steps=recurrence_steps, dropout=0.0, value_head_mode=value_head_mode)
     model: torch.nn.Module = PerCellTokenRecurrentOperator(config).to(device)
+    init_checkpoint_payload = None
+    if init_checkpoint:
+        init_checkpoint_payload = _load_torch_payload(Path(init_checkpoint))
+        state = init_checkpoint_payload.get("state_dict") or init_checkpoint_payload.get("ema_state_dict")
+        if state is None:
+            raise ValueError(f"init checkpoint has no state_dict/ema_state_dict: {init_checkpoint}")
+        model.load_state_dict(state, strict=False)
     parameter_count = _parameter_count(model)
     if require_param_min > 0 and parameter_count < require_param_min:
         raise ValueError(f"parameter_count={parameter_count} below required minimum {require_param_min}")
@@ -684,7 +823,13 @@ def train_trm_operator(
         model = DistributedDataParallel(model, device_ids=[ddp.device_index], output_device=ddp.device_index, broadcast_buffers=False)
     elif len(device_ids) > 1:
         model = torch.nn.DataParallel(model, device_ids=device_ids)
-    optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
+    if train_value_head_only:
+        for name, parameter in _base_trm_model(model).named_parameters():
+            parameter.requires_grad = name.startswith("val_head.")
+    trainable_parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
+    if not trainable_parameters:
+        raise ValueError("no trainable parameters selected")
+    optimizer = torch.optim.AdamW(trainable_parameters, lr=lr)
     if ddp.enabled:
         pos_weight_tensor, pos_weight_record = _forced_mask_pos_weight_distributed(train_rows, device, None if forced_pos_weight < 0 else forced_pos_weight, ddp)
     else:
@@ -701,6 +846,7 @@ def train_trm_operator(
     last_progress_time = time.perf_counter()
     last_progress_step = 0
     initial_forced_loss = None
+    initial_value_loss = None
     completed_step = 0
     train_status = "G1_NOT_MET"
     fuse = {"enabled": fuse_step > 0, "step": fuse_step, "min_loss_drop": fuse_min_loss_drop, "status": "NOT_REACHED" if fuse_step > 0 else "DISABLED"}
@@ -717,16 +863,19 @@ def train_trm_operator(
         completed_step = step
         model.train()
         if train_dataset is not None:
-            x, action, var, val, forced_mask = _batch_gpu_resident(train_dataset, per_rank_batch_size, seed * 100000 + step * ddp.world_size + ddp.rank)
+            x, action, var, val, forced_mask, forced_value_target = _batch_gpu_resident(train_dataset, per_rank_batch_size, seed * 100000 + step * ddp.world_size + ddp.rank)
         else:
-            x, action, var, val, forced_mask = _batch(train_rows, per_rank_batch_size, device, seed * 100000 + step * ddp.world_size + ddp.rank)
+            x, action, var, val, forced_mask, forced_value_target = _batch_track_b(train_rows, per_rank_batch_size, device, seed * 100000 + step * ddp.world_size + ddp.rank)
         with _autocast_context(device, amp_bf16):
             outputs = model(x)
-            loss, forced_loss_value = _loss(outputs, action, var, val, forced_mask, pos_weight_tensor, forced_loss, focal_gamma)
+            loss, forced_loss_value, value_loss_value = _track_b_loss(outputs, action, var, val, forced_mask, forced_value_target, pos_weight_tensor, forced_loss, focal_gamma)
         local_loss_value = float(loss.detach().item())
         local_forced_loss_value = forced_loss_value
+        local_value_loss_value = value_loss_value
         if initial_forced_loss is None:
             initial_forced_loss = _ddp_mean_float(local_forced_loss_value, device, ddp)
+        if initial_value_loss is None:
+            initial_value_loss = _ddp_mean_float(local_value_loss_value, device, ddp)
         optimizer.zero_grad()
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
@@ -736,9 +885,12 @@ def train_trm_operator(
                 ema_state[key].mul_(ema_decay).add_(value.detach(), alpha=1.0 - ema_decay)
         if fuse_step > 0 and step == fuse_step and initial_forced_loss is not None:
             forced_loss_value = _ddp_mean_float(local_forced_loss_value, device, ddp)
-            required = initial_forced_loss * (1.0 - fuse_min_loss_drop)
-            fuse.update({"initial_forced_loss": initial_forced_loss, "forced_loss_at_fuse": forced_loss_value, "required_below": required})
-            if forced_loss_value >= required:
+            value_loss_value = _ddp_mean_float(local_value_loss_value, device, ddp)
+            fuse_metric = value_loss_value if train_value_head_only else forced_loss_value
+            fuse_initial = initial_value_loss if train_value_head_only else initial_forced_loss
+            required = (fuse_initial or fuse_metric) * (1.0 - fuse_min_loss_drop)
+            fuse.update({"initial_forced_loss": initial_forced_loss, "forced_loss_at_fuse": forced_loss_value, "initial_value_loss": initial_value_loss, "value_loss_at_fuse": value_loss_value, "required_below": required, "metric": "value_loss" if train_value_head_only else "forced_loss"})
+            if fuse_metric >= required:
                 fuse["status"] = "FUSE_BLOWN_WIRING_BUG"
                 train_status = "FUSE_BLOWN_WIRING_BUG"
                 row = {"event": "trm_operator_fuse_blown", "step": step, **fuse}
@@ -750,6 +902,7 @@ def train_trm_operator(
         if step == 1 or step == steps or step % eval_interval == 0:
             loss_value = _ddp_mean_float(local_loss_value, device, ddp)
             forced_loss_value = _ddp_mean_float(local_forced_loss_value, device, ddp)
+            value_loss_value = _ddp_mean_float(local_value_loss_value, device, ddp)
             should_stop = False
             if is_main:
                 progress_now = time.perf_counter()
@@ -774,6 +927,7 @@ def train_trm_operator(
                     "steps": steps,
                     "loss": loss_value,
                     "forced_mask_loss": forced_loss_value,
+                    "value_loss": value_loss_value,
                     "forced_precision": quick_forced["forced_precision"],
                     "forced_recall": quick_forced["forced_recall"],
                     "G1_forced_fixpoint": g1_quick["fixpoint_reach_rate"],
@@ -825,11 +979,14 @@ def train_trm_operator(
     tau_calibration = _calibrate_tau(eval_model, eval_rows, device)
     tau = tau_calibration["selected_tau"]
     forced_single_step = _forced_single_step_metrics_token(eval_model, eval_rows, device, tau)
+    train_mask_full_commit = _mask_full_commit_metrics_token(eval_model, train_rows, device, tau)
+    eval_mask_full_commit = _mask_full_commit_metrics_token(eval_model, eval_rows, device, tau)
     g1_forced = _evaluate_forced_episodes_token(eval_model, eval_episode_tasks, device, tau)
     g2_forced = _evaluate_forced_episodes_token(eval_model, l4_episode_tasks, device, tau)
     legacy_g1 = _evaluate(eval_model, eval_rows, device)
     legacy_g2 = _evaluate(eval_model, l4_rows, device)
     passed = g1_forced["fixpoint_reach_rate"] >= 0.95 and g2_forced["solve_rate"] <= 0.05 and train_status != "FUSE_BLOWN_WIRING_BUG"
+    leading_indicator_success = eval_mask_full_commit["full_commit_precision"] >= 0.8 and eval_mask_full_commit["full_commit_recall"] >= 0.8
     if passed and train_status != "G1_PASS_EARLY_STOP":
         train_status = "G1_PASS"
     elif train_status not in {"FUSE_BLOWN_WIRING_BUG", "G1_PASS_EARLY_STOP"}:
@@ -846,6 +1003,7 @@ def train_trm_operator(
         "devices": run_devices,
         "checkpoint": str(checkpoint_path),
         "parameter_count": parameter_count,
+        "trainable_parameter_count": sum(parameter.numel() for parameter in _base_trm_model(model).parameters() if parameter.requires_grad),
         "dataset": {
             "train_instances_requested": train_instances,
             "train_instances_generated": len(train_instances_rows),
@@ -873,6 +1031,9 @@ def train_trm_operator(
             "commit_function": "experiments.train_recurrent_operator.forced_only_commit_decision",
             "forced_loss": forced_loss,
             "forced_pos_weight": pos_weight_record,
+            "value_head_mode": value_head_mode,
+            "init_checkpoint": init_checkpoint,
+            "train_value_head_only": train_value_head_only,
             "focal_gamma": focal_gamma,
             "fuse": fuse,
             "gpu_resident_batches": gpu_resident_batches,
@@ -897,12 +1058,29 @@ def train_trm_operator(
             "G1_forced_fixpoint": g1_forced,
             "G2_forced_l4": g2_forced,
         },
+        "value_head_fix": {
+            "calibrated_tau": tau,
+            "train_mask_only_vs_full_commit": train_mask_full_commit,
+            "eval_mask_only_vs_full_commit": eval_mask_full_commit,
+            "leading_indicator_target": "full_commit P/R should climb toward mask-only P/R (~0.85)",
+            "leading_indicator_success": leading_indicator_success,
+            "decision": "TRACK_B_GATE_PASSED" if passed else "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+        },
         "acceptance": {
             "operator_type": "learned_recurrent",
             "architecture_class": "trm_per_cell_tokens",
             "G1_threshold": 0.95,
             "G1_pass": passed,
-            "leading_indicator_success": forced_single_step["forced_precision"] >= 0.95 and forced_single_step["forced_recall"] >= 0.95,
+            "leading_indicator_success": leading_indicator_success,
+            "calibrated_tau": tau,
+            "mask_only_vs_full_commit_after_value_fix": {
+                "train": train_mask_full_commit,
+                "eval": eval_mask_full_commit,
+            },
+            "gate_or_appendix_decision": "TRACK_B_GATE_PASSED" if passed else "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+            "one_retrain_attempt": True,
+            "no_second_retrain": True,
+            "no_dagger_rl": True,
             "autonomous_stage_a_run": False,
             "stage_a_autonomous_cells": 0,
         },
@@ -958,6 +1136,9 @@ def main() -> None:
     parser.add_argument("--require-param-max", type=int, default=0)
     parser.add_argument("--dataset-cache-dir", default="")
     parser.add_argument("--progress-eval-episodes", type=int, default=-1, help="Progress rollout episodes per G1/G2 band; -1=all, 0=skip rollout during training, final acceptance remains full.")
+    parser.add_argument("--value-head-mode", choices=["global", "per_cell"], default="global")
+    parser.add_argument("--init-checkpoint", default="")
+    parser.add_argument("--train-value-head-only", action="store_true")
     args = parser.parse_args()
     train_trm_operator(
         output_dir=args.output_dir,
@@ -991,6 +1172,9 @@ def main() -> None:
         require_param_max=args.require_param_max,
         dataset_cache_dir=args.dataset_cache_dir,
         progress_eval_episodes=args.progress_eval_episodes,
+        value_head_mode=args.value_head_mode,
+        init_checkpoint=args.init_checkpoint,
+        train_value_head_only=args.train_value_head_only,
     )
 
 

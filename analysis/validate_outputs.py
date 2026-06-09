@@ -54,10 +54,12 @@ PATHS = {
     "item_030_p2_w3_hook_capacity": "results/experiment_items/item_030_p2_w3_hook_capacity.json",
     "item_031_p2_w3_survival_delta_propagation": "results/experiment_items/item_031_p2_w3_survival_delta_propagation.json",
     "item_048_item047_headline_closeout": "results/experiment_items/item_048_item047_headline_closeout.json",
+    "item_049_track_b_value_head_retrain": "results/experiment_items/item_049_track_b_value_head_retrain.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
     "closeout_047_gru_rerun": "results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json",
+    "track_b_value_head_retrain_acceptance": "results/track_b_value_head_retrain_20260609/acceptance.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
@@ -485,6 +487,11 @@ def _legacy_checks(checks: list[dict[str, Any]]) -> None:
 
 
 def _closeout_047_checks(checks: list[dict[str, Any]]) -> None:
+    corrected_track_b_label = "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL"
+    wrong_track_b_labels = {
+        "CLOSE_AS_TARGET_METRIC_OR_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
+        "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
+    }
     _exists(checks, "item_048_item047_headline_closeout", "closeout_047")
     status = _read_json("closeout_047_status")
     figure = _read_json("closeout_047_headline_figure")
@@ -496,7 +503,7 @@ def _closeout_047_checks(checks: list[dict[str, Any]]) -> None:
         labels = status.get("labels", {})
         _check(checks, labels.get("rot_vs_no_revert_causal_result") == "SOLID", "item047_rot_vs_no_revert_solid", f"label={labels.get('rot_vs_no_revert_causal_result')}", "closeout_047")
         _check(checks, labels.get("gru_rows_quotable") is True, "item047_gru_in_loop_audit_pass", f"gru_label={labels.get('gru_in_loop_arm')}; quotable={labels.get('gru_rows_quotable')}", "closeout_047")
-        _check(checks, labels.get("track_b") not in {None, "DIAGNOSIS_PENDING", "CLOSE_AS_TARGET_METRIC_OR_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"}, "item047_track_b_split_diagnosis_resolved", f"track_b_label={labels.get('track_b')}", "closeout_047")
+        _check(checks, labels.get("track_b") == corrected_track_b_label, "item047_track_b_value_commit_bug_label", f"track_b_label={labels.get('track_b')}", "closeout_047")
         _check(checks, labels.get("headline_figure") == "HEADLINE_FIGURE_CERTIFIED", "item047_headline_figure_certified", f"headline_figure={labels.get('headline_figure')}", "closeout_047")
     if figure:
         figure_checks = figure.get("checks", {})
@@ -504,10 +511,17 @@ def _closeout_047_checks(checks: list[dict[str, Any]]) -> None:
         _check(checks, figure_checks.get("spill_off_solve_matches_depth_le_dstar") is True, "item047_spilloff_matches_dstar", f"value={figure_checks.get('spill_off_solve_matches_depth_le_dstar')}", "closeout_047")
         _check(checks, figure_checks.get("spill_on_overflow_entries_match_depth_minus_dstar") is True, "item047_spillon_overflow_accounted", f"value={figure_checks.get('spill_on_overflow_entries_match_depth_minus_dstar')}", "closeout_047")
     if track_b:
-        _check(checks, track_b.get("status") != "CLOSE_AS_TARGET_METRIC_OR_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL", "item047_track_b_not_old_close_label", f"status={track_b.get('status')}", "closeout_047")
+        _check(checks, track_b.get("status") == corrected_track_b_label, "item047_track_b_split_corrected_label", f"status={track_b.get('status')}", "closeout_047")
+        _check(checks, track_b.get("status") not in wrong_track_b_labels, "item047_track_b_wrong_labels_absent", f"status={track_b.get('status')}", "closeout_047")
         rows = track_b.get("result_tables", {}).get("mask_only_vs_full_commit_pr", {}).get("rows", [])
         splits = {row.get("split") for row in rows}
         _check(checks, {"train", "eval"}.issubset(splits), "item047_track_b_mask_full_train_eval_present", f"splits={sorted(splits)}", "closeout_047")
+        eval_rows = [row for row in rows if row.get("split") == "eval"]
+        if eval_rows:
+            eval_row = eval_rows[0]
+            mask_high = float(eval_row.get("mask_only_precision") or 0.0) >= 0.8 and float(eval_row.get("mask_only_recall") or 0.0) >= 0.8
+            full_low = float(eval_row.get("full_commit_precision") or 0.0) < 0.9 or float(eval_row.get("full_commit_recall") or 0.0) < 0.9
+            _check(checks, mask_high and full_low, "item047_track_b_mask_high_full_commit_low", f"eval_mask_p={eval_row.get('mask_only_precision')}; eval_mask_r={eval_row.get('mask_only_recall')}; eval_full_p={eval_row.get('full_commit_precision')}; eval_full_r={eval_row.get('full_commit_recall')}", "closeout_047")
     else:
         _check(checks, False, "item047_track_b_mask_full_train_eval_present", "diagnosis_pending; artifact not written yet", "closeout_047")
     if gru:
@@ -516,6 +530,29 @@ def _closeout_047_checks(checks: list[dict[str, Any]]) -> None:
         _check(checks, audit_ok, "item047_gru_rows_real_bytes_curve_converged", f"rows={len(rows)}; status={gru.get('status')}", "closeout_047")
     else:
         _check(checks, False, "item047_gru_rows_real_bytes_curve_converged", "INCOMPLETE_AUDIT_RED; GRU in-loop rerun artifact not written yet", "closeout_047")
+
+
+def _track_b_value_head_retrain_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "item_049_track_b_value_head_retrain", "track_b_value_head")
+    _exists(checks, "track_b_value_head_retrain_acceptance", "track_b_value_head")
+    acceptance = _read_json("track_b_value_head_retrain_acceptance")
+    item = _read_json("item_049_track_b_value_head_retrain")
+    if acceptance:
+        _check(checks, acceptance.get("attempt_count") == 1, "track_b_value_head_single_attempt", f"attempt_count={acceptance.get('attempt_count')}", "track_b_value_head")
+        _check(checks, acceptance.get("no_second_retrain") is True and acceptance.get("no_dagger_rl") is True, "track_b_value_head_no_second_no_dagger", f"no_second={acceptance.get('no_second_retrain')}; no_dagger_rl={acceptance.get('no_dagger_rl')}", "track_b_value_head")
+        _check(checks, acceptance.get("headline_locked_without_track_b") is True, "track_b_value_head_off_critical_path", f"headline_locked_without_track_b={acceptance.get('headline_locked_without_track_b')}", "track_b_value_head")
+        rows = acceptance.get("result_tables", {}).get("seed_acceptance_summary", {}).get("rows", [])
+        seeds = {row.get("seed") for row in rows if row.get("present")}
+        _check(checks, seeds == {102, 137, 256}, "track_b_value_head_three_seed_acceptances", f"seeds={sorted(seeds)}", "track_b_value_head")
+        has_tau_and_pr = bool(rows) and all(row.get("calibrated_tau") is not None and row.get("eval_mask_only_precision") is not None and row.get("eval_full_commit_precision") is not None for row in rows)
+        _check(checks, has_tau_and_pr, "track_b_value_head_tau_and_pr_recorded", f"rows={len(rows)}", "track_b_value_head")
+        status = acceptance.get("status")
+        allowed = {"TRACK_B_VALUE_HEAD_RETRAIN_GATE_PASSED", "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL"}
+        _check(checks, status in allowed, "track_b_value_head_gate_or_appendix_decision", f"status={status}", "track_b_value_head")
+        if status != "TRACK_B_VALUE_HEAD_RETRAIN_GATE_PASSED":
+            _check(checks, all(not bool(row.get("G1_pass")) for row in rows), "track_b_value_head_nonpassing_reflected", f"G1_passes={[row.get('G1_pass') for row in rows]}", "track_b_value_head")
+    if item:
+        _check(checks, item.get("item_number") == "049", "item049_number_present", f"item_number={item.get('item_number')}", "track_b_value_head")
 
 
 def _canonical_checks(checks: list[dict[str, Any]]) -> None:
@@ -558,6 +595,7 @@ def validate_outputs(output_dir: str = "results/validation") -> dict[str, Any]:
     _w3_checks(checks)
     _item_contract_checks(checks)
     _closeout_047_checks(checks)
+    _track_b_value_head_retrain_checks(checks)
     _legacy_checks(checks)
 
     passed = all(check["status"] == "PASS" for check in checks)

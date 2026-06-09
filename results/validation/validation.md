@@ -1,8 +1,8 @@
 # RECURRENT_NN Validation Report
 
-Generated at: 2026-06-09T02:48:23.270840+00:00
+Generated at: 2026-06-09T04:56:22.430165+00:00
 
-Summary: 268 PASS / 3 FAIL / 271 total.
+Summary: 286 PASS / 3 FAIL / 289 total.
 
 The current expected state is not all-green: explicit red checks mark remaining blockers rather than hiding them behind a collapsed required-files failure.
 
@@ -104,7 +104,7 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | tier_c | w3_propagation_scale_not_mixed | PASS | verdict=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
 | tier_c | w3_propagation_per_task_delta_measured | PASS | rows=5 |
 | contract | log_item_contract_spec_present | PASS | specs/log_item_contract.md |
-| contract | log_item_artifacts_present | PASS | count=21 |
+| contract | log_item_artifacts_present | PASS | count=22 |
 | contract | log_item_028_required_fields | PASS | missing=[] |
 | contract | log_item_028_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_028_number_continues_from_028 | PASS | item_number=028 |
@@ -229,8 +229,14 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | contract | log_item_048_schema_version | PASS | schema=log_item_contract_v1 |
 | contract | log_item_048_number_continues_from_028 | PASS | item_number=048 |
 | contract | log_item_048_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
-| contract | log_item_048_honesty_does_not_establish | PASS | The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnabili |
-| contract | log_item_048_decision_numbers_and_routing | PASS | gates=4; routing=Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact. |
+| contract | log_item_048_honesty_does_not_establish | PASS | The closeout locks the causal structured-register headline with certified figure/spill accounting, corrects Track B to a value-head/commit-conjunction bug with  |
+| contract | log_item_048_decision_numbers_and_routing | PASS | gates=4; routing=Closeout acceptance gates are resolved; keep Track B out of the critical path, run at most one value-head retrain, and quote GRU only through the real in-loop rerun artifact. |
+| contract | log_item_049_required_fields | PASS | missing=[] |
+| contract | log_item_049_schema_version | PASS | schema=log_item_contract_v1 |
+| contract | log_item_049_number_continues_from_028 | PASS | item_number=049 |
+| contract | log_item_049_artifacts_exist | PASS | missing=[]; archived_or_absent_ok=[] |
+| contract | log_item_049_honesty_does_not_establish | PASS | This one retrain does not affect the certified Track A headline. Track B is a passing learned operator only if the retrain gates and learned_recurrent autonomou |
+| contract | log_item_049_decision_numbers_and_routing | PASS | gates=2; routing=Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL. |
 | contract | item_028_p0_housekeeping_present | PASS | results/experiment_items/item_028_p0_housekeeping.json |
 | contract | item_028_validation_registry_before_after_present | PASS | rows=2 |
 | contract | item_028_ledger_reconciliation_present | PASS | rows=6 |
@@ -266,14 +272,26 @@ The current expected state is not all-green: explicit red checks mark remaining 
 | closeout_047 | closeout_047_headline_figure_present | PASS | results/closeout_047/headline_figure/headline_figure_certification.json |
 | closeout_047 | item047_rot_vs_no_revert_solid | PASS | label=SOLID |
 | closeout_047 | item047_gru_in_loop_audit_pass | PASS | gru_label=GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS; quotable=True |
-| closeout_047 | item047_track_b_split_diagnosis_resolved | PASS | track_b_label=MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL |
+| closeout_047 | item047_track_b_value_commit_bug_label | PASS | track_b_label=VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL |
 | closeout_047 | item047_headline_figure_certified | PASS | headline_figure=HEADLINE_FIGURE_CERTIFIED |
 | closeout_047 | item047_overlay_certified_with_footnote | PASS | status=HEADLINE_FIGURE_CERTIFIED_WITH_FACTORED_CODEBOOK_FOOTNOTE |
 | closeout_047 | item047_spilloff_matches_dstar | PASS | value=True |
 | closeout_047 | item047_spillon_overflow_accounted | PASS | value=True |
-| closeout_047 | item047_track_b_not_old_close_label | PASS | status=MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL |
+| closeout_047 | item047_track_b_split_corrected_label | PASS | status=VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL |
+| closeout_047 | item047_track_b_wrong_labels_absent | PASS | status=VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL |
 | closeout_047 | item047_track_b_mask_full_train_eval_present | PASS | splits=['eval', 'train'] |
+| closeout_047 | item047_track_b_mask_high_full_commit_low | PASS | eval_mask_p=0.8203236415495212; eval_mask_r=0.8826863755226031; eval_full_p=0.26353581562337136; eval_full_r=0.25890317442257366 |
 | closeout_047 | item047_gru_rows_real_bytes_curve_converged | PASS | rows=12; status=GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS |
+| track_b_value_head | item_049_track_b_value_head_retrain_present | PASS | results/experiment_items/item_049_track_b_value_head_retrain.json |
+| track_b_value_head | track_b_value_head_retrain_acceptance_present | PASS | results/track_b_value_head_retrain_20260609/acceptance.json |
+| track_b_value_head | track_b_value_head_single_attempt | PASS | attempt_count=1 |
+| track_b_value_head | track_b_value_head_no_second_no_dagger | PASS | no_second=True; no_dagger_rl=True |
+| track_b_value_head | track_b_value_head_off_critical_path | PASS | headline_locked_without_track_b=True |
+| track_b_value_head | track_b_value_head_three_seed_acceptances | PASS | seeds=[102, 137, 256] |
+| track_b_value_head | track_b_value_head_tau_and_pr_recorded | PASS | rows=3 |
+| track_b_value_head | track_b_value_head_gate_or_appendix_decision | PASS | status=APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL |
+| track_b_value_head | track_b_value_head_nonpassing_reflected | PASS | G1_passes=[False, False, False] |
+| track_b_value_head | item049_number_present | PASS | item_number=049 |
 | legacy | ttt_legacy_present | PASS | results/ttt/results.json |
 | legacy | legacy_two_by_two_archived_or_absent_ok | PASS | state=absent_ok; path=results/two_by_two/results.json |
 | legacy | legacy_d_stage_1_archived_or_absent_ok | PASS | state=absent_ok; path=results/d_stage_1/results.json |

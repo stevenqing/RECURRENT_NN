@@ -1,0 +1,140 @@
+{
+  "all_seed_acceptances_present": true,
+  "attempt_count": 1,
+  "base_checkpoint_for_completed_attempt": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt",
+  "completed_attempt_logs": [
+    "results/track_b_value_head_retrain_20260609/seed137_gpu1/train_rerun.log",
+    "results/track_b_value_head_retrain_20260609/seed256_gpu6/train_rerun.log"
+  ],
+  "decision": {
+    "next_step": "Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL.",
+    "outcome": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+    "passing_seed_count": 0
+  },
+  "fail_closed": false,
+  "gate_requirements": {
+    "G1_threshold": 0.95,
+    "G2_requires_learned_recurrent_autonomous_stage_a_cells": true,
+    "learned_recurrent_autonomous_stage_a_cells_present": false
+  },
+  "generated_at": "2026-06-09T04:56:12.962235+00:00",
+  "headline_locked_without_track_b": true,
+  "launch_correction_note": "The first seed137/seed256 launches used their older hidden_dim=768 checkpoints and failed before training at state_dict shape load. The completed reruns used the same 6.9M seed102 DDP Track B base checkpoint as seed102 so the parameter count and mask head stayed fixed; this completed the single authorized attempt rather than starting a second retrain.",
+  "launch_diagnostic_logs": [
+    "results/track_b_value_head_retrain_20260609/seed137_gpu1/train.log",
+    "results/track_b_value_head_retrain_20260609/seed256_gpu6/train.log"
+  ],
+  "module": "track_b_value_head_retrain_closeout",
+  "no_dagger_rl": true,
+  "no_second_retrain": true,
+  "off_critical_path": true,
+  "result_tables": {
+    "seed_acceptance_summary": {
+      "columns": [
+        "seed",
+        "status",
+        "completed_step",
+        "parameter_count",
+        "trainable_parameter_count",
+        "calibrated_tau",
+        "G1",
+        "G2",
+        "G1_pass",
+        "leading_indicator_success",
+        "eval_mask_only_precision",
+        "eval_mask_only_recall",
+        "eval_full_commit_precision",
+        "eval_full_commit_recall",
+        "dominant_stick_reason",
+        "dominant_block_audit",
+        "gate_or_appendix_decision"
+      ],
+      "rows": [
+        {
+          "G1": 0.103515625,
+          "G1_pass": false,
+          "G2": 0.0,
+          "acceptance": "results/track_b_value_head_retrain_20260609/seed102_gpu0/acceptance.json",
+          "calibrated_tau": 0.0,
+          "completed_step": 3000,
+          "dirname": "seed102_gpu0",
+          "dominant_block_audit": "unforced_cell",
+          "dominant_stick_reason": "commit_forced",
+          "eval_full_commit_precision": 0.8918871967108691,
+          "eval_full_commit_recall": 0.8762088974854932,
+          "eval_full_proposed_commits": 17269,
+          "eval_full_true_forced_states": 17578,
+          "eval_mask_only_precision": 0.8203236415495212,
+          "eval_mask_only_recall": 0.8826863755226031,
+          "gate_or_appendix_decision": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+          "leading_indicator_success": true,
+          "parameter_count": 6908685,
+          "present": true,
+          "seed": 102,
+          "status": "G1_NOT_MET",
+          "trainable_parameter_count": 2310
+        },
+        {
+          "G1": 0.091796875,
+          "G1_pass": false,
+          "G2": 0.0,
+          "acceptance": "results/track_b_value_head_retrain_20260609/seed137_gpu1/acceptance.json",
+          "calibrated_tau": 0.0,
+          "completed_step": 3000,
+          "dirname": "seed137_gpu1",
+          "dominant_block_audit": "unforced_cell",
+          "dominant_stick_reason": "commit_forced",
+          "eval_full_commit_precision": 0.8890738933226159,
+          "eval_full_commit_recall": 0.8787311315401203,
+          "eval_full_proposed_commits": 17417,
+          "eval_full_true_forced_states": 17622,
+          "eval_mask_only_precision": 0.8131330408269503,
+          "eval_mask_only_recall": 0.8885548043167338,
+          "gate_or_appendix_decision": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+          "leading_indicator_success": true,
+          "parameter_count": 6908685,
+          "present": true,
+          "seed": 137,
+          "status": "G1_NOT_MET",
+          "trainable_parameter_count": 2310
+        },
+        {
+          "G1": 0.07421875,
+          "G1_pass": false,
+          "G2": 0.0,
+          "acceptance": "results/track_b_value_head_retrain_20260609/seed256_gpu6/acceptance.json",
+          "calibrated_tau": 0.0,
+          "completed_step": 3000,
+          "dirname": "seed256_gpu6",
+          "dominant_block_audit": "unforced_cell",
+          "dominant_stick_reason": "commit_forced",
+          "eval_full_commit_precision": 0.898064368342687,
+          "eval_full_commit_recall": 0.8849387732069296,
+          "eval_full_proposed_commits": 17462,
+          "eval_full_true_forced_states": 17721,
+          "eval_mask_only_precision": 0.8249808322297344,
+          "eval_mask_only_recall": 0.897319262493935,
+          "gate_or_appendix_decision": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+          "leading_indicator_success": true,
+          "parameter_count": 6908685,
+          "present": true,
+          "seed": 256,
+          "status": "G1_NOT_MET",
+          "trainable_parameter_count": 2310
+        }
+      ]
+    }
+  },
+  "run_root": "results/track_b_value_head_retrain_20260609",
+  "seed_acceptance_paths": [
+    "results/track_b_value_head_retrain_20260609/seed102_gpu0/acceptance.json",
+    "results/track_b_value_head_retrain_20260609/seed137_gpu1/acceptance.json",
+    "results/track_b_value_head_retrain_20260609/seed256_gpu6/acceptance.json"
+  ],
+  "seeds": [
+    102,
+    137,
+    256
+  ],
+  "status": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL"
+}

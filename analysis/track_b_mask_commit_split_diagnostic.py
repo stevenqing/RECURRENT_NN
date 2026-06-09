@@ -40,6 +40,7 @@ def _load_model(checkpoint: Path, device: str) -> torch.nn.Module:
         feedforward_dim=int(config.get("feedforward_dim", 8192)),
         recurrence_steps=int(config.get("recurrence_steps", 12)),
         dropout=float(config.get("dropout", 0.0)),
+        value_head_mode=str(config.get("value_head_mode", "global")),
     )).to(device)
     state = payload.get("state_dict")
     if state is None:
@@ -69,7 +70,6 @@ def _metrics(model: torch.nn.Module, rows: list[Any], device: str, batch_size: i
         forced_probs = torch.sigmoid(forced_logits)
         val_logits = outputs["val"][-1].detach().float().cpu()
         forced_top = torch.topk(forced_probs, k=2, dim=-1)
-        val_top = torch.topk(val_logits, k=2, dim=-1)
         for index, row in enumerate(chunk):
             target = {int(cell): int(value) for cell, value in row.forced_values.items()}
             target_cells = set(target)
@@ -80,10 +80,12 @@ def _metrics(model: torch.nn.Module, rows: list[Any], device: str, batch_size: i
             totals["mask_hits"] += len(mask_hits)
 
             candidate_var = int(forced_top.indices[index, 0].item())
-            candidate_val = int(val_top.indices[index, 0].item()) + 1
+            selected_val_logits = val_logits[index, candidate_var] if val_logits.dim() == 3 else val_logits[index]
+            val_top = torch.topk(selected_val_logits, k=2)
+            candidate_val = int(val_top.indices[0].item()) + 1
             forced_score = float(forced_top.values[index, 0].item())
             forced_margin = float((forced_top.values[index, 0] - forced_top.values[index, 1]).item())
-            val_margin = float((val_top.values[index, 0] - val_top.values[index, 1]).item())
+            val_margin = float((val_top.values[0] - val_top.values[1]).item())
             full_proposed = forced_score >= 0.5 and forced_margin > 0.0 and val_margin > 0.0
             full_hit = full_proposed and target.get(candidate_var) == candidate_val
             totals["full_true_states"] += int(bool(target))
@@ -100,7 +102,7 @@ def _metrics(model: torch.nn.Module, rows: list[Any], device: str, batch_size: i
                     "target_forced": target,
                     "mask_logits_top": _top_values(forced_logits[index], k=8),
                     "mask_probs_ge_0_5_cells": sorted(mask_cells),
-                    "value_logits_top": [{"value": int(item["index"]) + 1, "logit": item["logit"]} for item in _top_values(val_logits[index], k=6)],
+                    "value_logits_top": [{"value": int(item["index"]) + 1, "logit": item["logit"]} for item in _top_values(selected_val_logits, k=6)],
                     "commit_rule": {
                         "commit": decision.commit,
                         "var": decision.var,
@@ -127,19 +129,37 @@ def _metrics(model: torch.nn.Module, rows: list[Any], device: str, batch_size: i
     return metrics, examples
 
 
+CORRECTED_VALUE_HEAD_LABEL = "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL"
+
+
 def _decision(train: dict[str, Any], eval_: dict[str, Any], threshold: float) -> dict[str, Any]:
-    mask_high = train["mask_only_precision"] >= threshold and train["mask_only_recall"] >= threshold
+    mask_identification_high = (
+        train["mask_only_precision"] >= 0.8
+        and train["mask_only_recall"] >= 0.8
+        and eval_["mask_only_precision"] >= 0.8
+        and eval_["mask_only_recall"] >= 0.8
+    )
     full_low = train["full_commit_precision"] < threshold or train["full_commit_recall"] < threshold
-    if mask_high and full_low:
-        outcome = "COMMIT_RULE_OR_VALUE_HEAD_BUG_FIX_ALLOWED_NO_DAGGER_RL"
-        next_step = "Run one short supervised retrain with a per-cell value head or commit rule that does not conjoin a global value argmax with the selected forced cell."
-    elif not mask_high:
+    if mask_identification_high and full_low:
+        outcome = CORRECTED_VALUE_HEAD_LABEL
+        next_step = "Run exactly one supervised value-head/commit-conjunction retrain; no DAgger and no RL."
+    elif not mask_identification_high:
         outcome = "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
         next_step = "Close Track B as an off-critical-path operator learnability finding."
     else:
         outcome = "MASK_AND_FULL_COMMIT_BOTH_HIGH_UNEXPECTED_RECHECK_ROLLOUT"
         next_step = "Recheck rollout wiring because single-step diagnostic no longer explains low G1."
-    return {"outcome": outcome, "threshold": threshold, "no_dagger_rl": True, "next_step": next_step, "train_mask_high": mask_high, "train_full_low": full_low, "eval_mask_only_precision": eval_["mask_only_precision"], "eval_mask_only_recall": eval_["mask_only_recall"]}
+    return {
+        "outcome": outcome,
+        "threshold": threshold,
+        "no_dagger_rl": True,
+        "next_step": next_step,
+        "train_mask_high": mask_identification_high,
+        "train_full_low": full_low,
+        "eval_mask_only_precision": eval_["mask_only_precision"],
+        "eval_mask_only_recall": eval_["mask_only_recall"],
+        "localization": "value_head_or_commit_conjunction" if mask_identification_high and full_low else "mask_or_rollout_recheck",
+    }
 
 
 def run(args: argparse.Namespace) -> dict[str, Any]:

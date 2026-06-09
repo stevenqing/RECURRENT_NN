@@ -69,19 +69,20 @@
       },
       {
         "gate": "track_b_split_diagnostic",
-        "number": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
+        "number": "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL",
         "outcome": "PASS"
       }
     ],
-    "next_step_routing": "Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact."
+    "next_step_routing": "Closeout acceptance gates are resolved; keep Track B out of the critical path, run at most one value-head retrain, and quote GRU only through the real in-loop rerun artifact."
   },
   "honesty": {
-    "does_not_establish": "The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnability finding, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present."
+    "does_not_establish": "The closeout locks the causal structured-register headline with certified figure/spill accounting, corrects Track B to a value-head/commit-conjunction bug with one retrain authorized off the critical path, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present.",
+    "track_b_label_correction": "Prior label said mask-head low; corrected after reading mask-only P/R 0.82/0.88 (high). Failure localizes to the value head / commit conjunction (dominant stick unforced_candidate_blocked), which is fixable; one retrain authorized. Track B is still NOT a passing learned operator until that retrain gates."
   },
   "item_number": "048",
   "name": "Item047 headline closeout status and diagnostics",
   "provenance": {
-    "generated_at": "2026-06-09T02:47:01.452779+00:00",
+    "generated_at": "2026-06-09T04:53:50.161363+00:00",
     "repo": "/home/aiscuser/RECURRENT_NN",
     "source_item": "047",
     "track": "item047_closeout"
@@ -107,7 +108,7 @@
         },
         {
           "artifact": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
-          "status": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
+          "status": "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL",
           "task": "Task 3 Track B split"
         }
       ]
@@ -132,7 +133,7 @@
         },
         {
           "metric": "track_b_outcome",
-          "value": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
+          "value": "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL"
         },
         {
           "metric": "track_b_eval_mask_only_precision",
@@ -192,7 +193,7 @@
         },
         {
           "label": "track_b",
-          "status": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
+          "status": "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL"
         },
         {
           "label": "headline_figure",

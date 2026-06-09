@@ -29,6 +29,7 @@
     "item_046_track_b_ddp_sharded_seed102_final": "results/experiment_items/item_046_track_b_ddp_sharded_seed102_final.json",
     "item_047_deep_band_track_a_headline_overnight": "results/experiment_items/item_047_deep_band_track_a_headline_overnight.json",
     "item_048_item047_headline_closeout": "results/experiment_items/item_048_item047_headline_closeout.json",
+    "item_049_track_b_value_head_retrain": "results/experiment_items/item_049_track_b_value_head_retrain.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "m2_operator_fix_rescale": "results/m2_operator_probe/report_fix_rescale.json",
     "m2_operator_probe": "results/m2_operator_probe/report.json",
@@ -66,6 +67,7 @@
     "track_b_trm_full_seed256_acceptance": "results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json",
     "track_b_trm_operator_smoke_acceptance": "results/trm_operator_smoke/acceptance.json",
     "track_b_trm_operator_trainer": "experiments/train_trm_operator.py",
+    "track_b_value_head_retrain_acceptance": "results/track_b_value_head_retrain_20260609/acceptance.json",
     "validation": "results/validation/validation.json",
     "w3_qwen35_probe": "results/w3_qwen35_probe/results.json",
     "w3_qwen35_probe_spec": "specs/w3_qwen35_probe_spec.md"
@@ -4116,7 +4118,7 @@
       "S3.1 integration is not started."
     ]
   },
-  "generated_at": "2026-06-09T02:48:21.132105+00:00",
+  "generated_at": "2026-06-09T04:56:12.997528+00:00",
   "incremental_items": [
     [
       "001-018",
@@ -4176,7 +4178,7 @@
       "P0",
       "ledger and validation housekeeping",
       "Updated",
-      "validation_checks=271; validation_passed=False"
+      "validation_checks=289; validation_passed=False"
     ],
     [
       "W3.0",
@@ -4332,7 +4334,13 @@
       "048",
       "Item047 headline closeout status and diagnostics",
       "ITEM047_CLOSEOUT_COMPLETE",
-      "Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact."
+      "Closeout acceptance gates are resolved; keep Track B out of the critical path, run at most one value-head retrain, and quote GRU only through the real in-loop rerun artifact."
+    ],
+    [
+      "049",
+      "Track B one-shot value-head retrain",
+      "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+      "Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL."
     ]
   ],
   "items": [
@@ -4497,17 +4505,17 @@
         {
           "path": "analysis/validate_outputs.py",
           "present": "yes",
-          "size_bytes": 38326
+          "size_bytes": 42101
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       ],
       "detail_data": {
@@ -4517,7 +4525,7 @@
           "path": "analysis/validate_outputs.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 38326
+          "size_bytes": 42101
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -4530,18 +4538,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -4549,7 +4557,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       },
       "details": [
@@ -5299,17 +5307,17 @@
         {
           "path": "analysis/validate_outputs.py",
           "present": "yes",
-          "size_bytes": 38326
+          "size_bytes": 42101
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 894095
+          "size_bytes": 916582
         }
       ],
       "detail_data": {
@@ -5327,7 +5335,7 @@
           "path": "analysis/validate_outputs.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 38326
+          "size_bytes": 42101
         },
         "results/experiment_log/experiment_log.json": {
           "embedded": false,
@@ -5336,14 +5344,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T02:47:33.001220+00:00"
+              "2026-06-09T04:53:52.624852+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -5356,27 +5364,27 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         }
       },
       "details": [
         "Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.",
-        "validation_pass=268; validation_fail=3",
+        "validation_pass=286; validation_fail=3",
         "Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure."
       ],
       "item": "P0",
-      "key_result": "validation_checks=271; validation_passed=False",
+      "key_result": "validation_checks=289; validation_passed=False",
       "name": "ledger and validation housekeeping",
       "next_action": "Keep future reports item-first and preserve explicit red checks.",
       "status": "Updated"
@@ -5996,22 +6004,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         {
           "path": "specs/log_item_contract.md",
@@ -6381,14 +6389,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T02:47:33.001220+00:00"
+              "2026-06-09T04:53:52.624852+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -6396,7 +6404,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         "results/stage_a_adapter_wiring/results.json": {
           "embedded": false,
@@ -6581,18 +6589,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -6600,7 +6608,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -8838,12 +8846,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       ],
       "contract_data": {
@@ -9328,18 +9336,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -9347,7 +9355,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         },
         "results/verifier/results.json": {
           "path": "results/verifier/results.json",
@@ -9385,7 +9393,7 @@
         {
           "path": "analysis/validate_outputs.py",
           "present": "yes",
-          "size_bytes": 38326
+          "size_bytes": 42101
         },
         {
           "path": "experiments/stage_a_sudoku6_bridge.py",
@@ -9415,12 +9423,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       ],
       "contract_data": {
@@ -9631,7 +9639,7 @@
           "path": "analysis/validate_outputs.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 38326
+          "size_bytes": 42101
         },
         "experiments/stage_a_sudoku6_bridge.py": {
           "embedded": false,
@@ -9806,18 +9814,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -9825,7 +9833,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         },
         "results/w3_qwen35_probe/results.json": {
           "embedded": false,
@@ -10921,12 +10929,12 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       ],
       "contract_data": {
@@ -11926,18 +11934,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -11945,7 +11953,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         },
         "results/w3_qwen35_probe/propagation_shards/general_sat/results.json": {
           "embedded": false,
@@ -14234,22 +14242,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 215570
+          "size_bytes": 220525
         }
       ],
       "contract_data": {
@@ -15146,14 +15154,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T02:47:33.001220+00:00"
+              "2026-06-09T04:53:52.624852+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -15161,7 +15169,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         "results/stage_a_symbolic/oracle_statelessness_ci.json": {
           "embedded": false,
@@ -15334,18 +15342,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -15353,7 +15361,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       },
       "details": [
@@ -15409,22 +15417,22 @@
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         },
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 215570
+          "size_bytes": 220525
         }
       ],
       "contract_data": {
@@ -16124,14 +16132,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T02:47:33.001220+00:00"
+              "2026-06-09T04:53:52.624852+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -16139,7 +16147,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         "results/stage_a_symbolic/oracle_statelessness_ci.json": {
           "embedded": false,
@@ -16312,18 +16320,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -16331,7 +16339,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       },
       "details": [
@@ -16357,7 +16365,7 @@
         {
           "path": "experiments/train_trm_operator.py",
           "present": "yes",
-          "size_bytes": 50342
+          "size_bytes": 61184
         },
         {
           "path": "results/trm_operator_smoke/acceptance.json",
@@ -16367,22 +16375,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       ],
       "contract_data": {
@@ -16622,7 +16630,7 @@
           "path": "experiments/train_trm_operator.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 50342
+          "size_bytes": 61184
         },
         "results/experiment_items/item_039_track_b_trm_operator_smoke.json": {
           "embedded": false,
@@ -16692,14 +16700,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T02:47:33.001220+00:00"
+              "2026-06-09T04:53:52.624852+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -16707,7 +16715,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         "results/trm_operator_smoke/acceptance.json": {
           "embedded": false,
@@ -16788,18 +16796,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -16807,7 +16815,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       },
       "details": [
@@ -16833,7 +16841,7 @@
         {
           "path": "experiments/train_trm_operator.py",
           "present": "yes",
-          "size_bytes": 50342
+          "size_bytes": 61184
         },
         {
           "path": "analysis/monitor_track_b_trm.py",
@@ -16878,22 +16886,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       ],
       "contract_data": {
@@ -17519,7 +17527,7 @@
           "path": "experiments/train_trm_operator.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 50342
+          "size_bytes": 61184
         },
         "results/experiment_items/item_040_track_b_trm_full_3x8gpu_negative.json": {
           "embedded": false,
@@ -17594,14 +17602,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T02:47:33.001220+00:00"
+              "2026-06-09T04:53:52.624852+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -17609,7 +17617,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json": {
           "embedded": false,
@@ -17642,7 +17650,7 @@
             ],
             [
               "updated_at",
-              "2026-06-09T02:47:58.870532+00:00"
+              "2026-06-09T04:56:09.589488+00:00"
             ]
           ],
           "path": "results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json",
@@ -17890,18 +17898,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -17909,7 +17917,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       },
       "details": [
@@ -17940,7 +17948,7 @@
         {
           "path": "experiments/train_trm_operator.py",
           "present": "yes",
-          "size_bytes": 50342
+          "size_bytes": 61184
         },
         {
           "path": "sudoku_engine_gpu.py",
@@ -17985,22 +17993,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       ],
       "contract_data": {
@@ -18337,7 +18345,7 @@
           "path": "experiments/train_trm_operator.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 50342
+          "size_bytes": 61184
         },
         "results/experiment_items/item_041_gpu_efficiency_p0_profile_and_sudoku_engine.json": {
           "embedded": false,
@@ -18412,14 +18420,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T02:47:33.001220+00:00"
+              "2026-06-09T04:53:52.624852+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -18427,7 +18435,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         "results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl": {
           "embedded": false,
@@ -18544,18 +18552,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -18563,7 +18571,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         },
         "sudoku_engine_gpu.py": {
           "embedded": false,
@@ -18617,22 +18625,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       ],
       "contract_data": {
@@ -18912,14 +18920,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T02:47:33.001220+00:00"
+              "2026-06-09T04:53:52.624852+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -18927,7 +18935,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -18940,18 +18948,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -18959,7 +18967,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         },
         "sudoku_engine_gpu.py": {
           "embedded": false,
@@ -18998,22 +19006,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       ],
       "contract_data": {
@@ -19265,14 +19273,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T02:47:33.001220+00:00"
+              "2026-06-09T04:53:52.624852+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -19280,7 +19288,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         "results/validation/validation.json": {
           "embedded": false,
@@ -19293,18 +19301,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -19312,7 +19320,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         },
         "specs/track_b_retry_plan.md": {
           "embedded": false,
@@ -19346,7 +19354,7 @@
         {
           "path": "experiments/train_trm_operator.py",
           "present": "yes",
-          "size_bytes": 50342
+          "size_bytes": 61184
         },
         {
           "path": "specs/track_b_retry_plan.md",
@@ -19376,22 +19384,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       ],
       "contract_data": {
@@ -19574,7 +19582,7 @@
           "path": "experiments/train_trm_operator.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 50342
+          "size_bytes": 61184
         },
         "results/experiment_items/item_044_trainer_prelaunch_gates.json": {
           "embedded": false,
@@ -19639,14 +19647,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T02:47:33.001220+00:00"
+              "2026-06-09T04:53:52.624852+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -19654,7 +19662,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         "results/trm_operator_compile_smoke/acceptance.json": {
           "embedded": false,
@@ -19819,18 +19827,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -19838,7 +19846,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         },
         "specs/track_b_retry_plan.md": {
           "embedded": false,
@@ -19872,12 +19880,12 @@
         {
           "path": "experiments/train_trm_operator.py",
           "present": "yes",
-          "size_bytes": 50342
+          "size_bytes": 61184
         },
         {
           "path": "experiments/train_recurrent_operator.py",
           "present": "yes",
-          "size_bytes": 40388
+          "size_bytes": 40896
         },
         {
           "path": "results/ddp_shard_smoke_track_b_20260608/acceptance.json",
@@ -19947,22 +19955,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       ],
       "contract_data": {
@@ -20167,7 +20175,7 @@
           "path": "experiments/train_recurrent_operator.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 40388
+          "size_bytes": 40896
         },
         "experiments/train_trm_operator.py": {
           "embedded": false,
@@ -20175,7 +20183,7 @@
           "path": "experiments/train_trm_operator.py",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 50342
+          "size_bytes": 61184
         },
         "results/ddp_shard_smoke_track_b_20260608/acceptance.json": {
           "embedded": false,
@@ -20311,14 +20319,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T02:47:33.001220+00:00"
+              "2026-06-09T04:53:52.624852+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -20326,7 +20334,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt": {
           "embedded": false,
@@ -20427,18 +20435,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -20446,7 +20454,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       },
       "details": [
@@ -20497,22 +20505,22 @@
         {
           "path": "results/experiment_log/experiment_log.json",
           "present": "yes",
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         {
           "path": "results/experiment_log/experiment_log.md",
           "present": "yes",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         {
           "path": "results/validation/validation.json",
           "present": "yes",
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         {
           "path": "results/validation/validation.md",
           "present": "yes",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       ],
       "contract_data": {
@@ -20801,14 +20809,14 @@
           "json_summary": [
             [
               "generated_at",
-              "2026-06-09T02:47:33.001220+00:00"
+              "2026-06-09T04:53:52.624852+00:00"
             ]
           ],
           "path": "results/experiment_log/experiment_log.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 894095
+          "size_bytes": 916582
         },
         "results/experiment_log/experiment_log.md": {
           "embedded": false,
@@ -20816,7 +20824,7 @@
           "path": "results/experiment_log/experiment_log.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 215570
+          "size_bytes": 220525
         },
         "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt": {
           "embedded": false,
@@ -20929,18 +20937,18 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:49.581416+00:00"
+              "2026-06-09T04:54:05.135106+00:00"
             ],
             [
               "summary",
-              "n_checks=271; n_fail=3; n_pass=268"
+              "n_checks=289; n_fail=3; n_pass=286"
             ]
           ],
           "path": "results/validation/validation.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 52103
+          "size_bytes": 55685
         },
         "results/validation/validation.md": {
           "embedded": false,
@@ -20948,7 +20956,7 @@
           "path": "results/validation/validation.md",
           "present": true,
           "reason": "ref_only",
-          "size_bytes": 32228
+          "size_bytes": 34478
         }
       },
       "details": [
@@ -21757,12 +21765,12 @@
         {
           "path": "results/experiment_items/item_048_item047_headline_closeout.json",
           "present": "yes",
-          "size_bytes": 29459
+          "size_bytes": 29915
         },
         {
           "path": "results/closeout_047/status_corrections.json",
           "present": "yes",
-          "size_bytes": 1343
+          "size_bytes": 1354
         },
         {
           "path": "results/closeout_047/headline_figure/headline_figure_certification.json",
@@ -21777,7 +21785,7 @@
         {
           "path": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
           "present": "yes",
-          "size_bytes": 23828
+          "size_bytes": 23923
         },
         {
           "path": "results/closeout_047/gru_in_loop/gru_in_loop_grid.json",
@@ -21891,19 +21899,20 @@
             },
             {
               "gate": "track_b_split_diagnostic",
-              "number": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
+              "number": "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL",
               "outcome": "PASS"
             }
           ],
-          "next_step_routing": "Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact."
+          "next_step_routing": "Closeout acceptance gates are resolved; keep Track B out of the critical path, run at most one value-head retrain, and quote GRU only through the real in-loop rerun artifact."
         },
         "honesty": {
-          "does_not_establish": "The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnability finding, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present."
+          "does_not_establish": "The closeout locks the causal structured-register headline with certified figure/spill accounting, corrects Track B to a value-head/commit-conjunction bug with one retrain authorized off the critical path, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present.",
+          "track_b_label_correction": "Prior label said mask-head low; corrected after reading mask-only P/R 0.82/0.88 (high). Failure localizes to the value head / commit conjunction (dominant stick unforced_candidate_blocked), which is fixable; one retrain authorized. Track B is still NOT a passing learned operator until that retrain gates."
         },
         "item_number": "048",
         "name": "Item047 headline closeout status and diagnostics",
         "provenance": {
-          "generated_at": "2026-06-09T02:47:01.452779+00:00",
+          "generated_at": "2026-06-09T04:53:50.161363+00:00",
           "repo": "/home/aiscuser/RECURRENT_NN",
           "source_item": "047",
           "track": "item047_closeout"
@@ -21929,7 +21938,7 @@
               },
               {
                 "artifact": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
-                "status": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
+                "status": "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL",
                 "task": "Task 3 Track B split"
               }
             ]
@@ -21954,7 +21963,7 @@
               },
               {
                 "metric": "track_b_outcome",
-                "value": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
+                "value": "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL"
               },
               {
                 "metric": "track_b_eval_mask_only_precision",
@@ -22014,7 +22023,7 @@
               },
               {
                 "label": "track_b",
-                "status": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
+                "status": "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL"
               },
               {
                 "label": "headline_figure",
@@ -23374,14 +23383,14 @@
             ],
             [
               "generated_at",
-              "2026-06-09T02:47:01.451288+00:00"
+              "2026-06-09T04:53:50.159552+00:00"
             ]
           ],
           "path": "results/closeout_047/status_corrections.json",
           "present": true,
           "reason": "ref_only",
           "result_table_summaries": [],
-          "size_bytes": 1343
+          "size_bytes": 1354
         },
         "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json": {
           "embedded": false,
@@ -23394,11 +23403,11 @@
             ],
             [
               "status",
-              "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
+              "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL"
             ],
             [
               "decision",
-              "eval_mask_only_precision=0.8203; eval_mask_only_recall=0.8827; next_step=Close Track B as an off-critical-path operator learnability finding.; no_dagger_rl=True; outcome=MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL; threshold=0.9; train_full_low=True; train_mask_high=False"
+              "9 keys: eval_mask_only_precision, eval_mask_only_recall, localization, next_step, no_dagger_rl, outcome, threshold, train_full_low"
             ],
             [
               "device",
@@ -23432,7 +23441,7 @@
               "table": "training_trace_examples"
             }
           ],
-          "size_bytes": 23828
+          "size_bytes": 23923
         },
         "results/experiment_items/item_048_item047_headline_closeout.json": {
           "embedded": false,
@@ -23449,7 +23458,7 @@
             ],
             [
               "honesty",
-              "does_not_establish=The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnability finding, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present."
+              "does_not_establish=The closeout locks the causal structured-register headline with certified figure/spill accounting, corrects Track B to a value-head/commit-conjunction bug with one retrain authorized off the critical path, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present.; track_b_label_correction=Prior label said mask-head low; corrected after reading mask-only P/R 0.82/0.88 (high). Failure localizes to the value head / commit conjunction (dominant stick unforced_candidate_blocked), which is fixable; one retrain authorized. Track B is still NOT a passing learned operator until that retrain gates."
             ],
             [
               "item_number",
@@ -23513,21 +23522,659 @@
               "table": "track_b_mask_only_vs_full_commit"
             }
           ],
-          "size_bytes": 29459
+          "size_bytes": 29915
         }
       },
       "details": [
         "purpose=Correct item047 done-but-not-done labels, certify the headline overlay/spill accounting, split Track B mask-only versus full-commit metrics, and keep the GRU in-loop arm red until real bytes/training curves/convergence exist.",
         "commands=4",
         "result_tables=['acceptance_state', 'closeout_decision_metrics', 'corrected_status_labels', 'gru_cell_frontiers_and_curves', 'gru_r3plus_rerun_summary', 'headline_certification_r3plus', 'spill_accounting_r3plus', 'track_b_mask_only_vs_full_commit']",
-        "honesty=The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnability finding, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present."
+        "honesty=The closeout locks the causal structured-register headline with certified figure/spill accounting, corrects Track B to a value-head/commit-conjunction bug with one retrain authorized off the critical path, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present."
       ],
       "item": "048",
-      "key_result": "Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact.",
+      "key_result": "Closeout acceptance gates are resolved; keep Track B out of the critical path, run at most one value-head retrain, and quote GRU only through the real in-loop rerun artifact.",
       "name": "Item047 headline closeout status and diagnostics",
-      "next_action": "Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact.",
+      "next_action": "Closeout acceptance gates are resolved; keep Track B out of the critical path, run at most one value-head retrain, and quote GRU only through the real in-loop rerun artifact.",
       "purpose": "Correct item047 done-but-not-done labels, certify the headline overlay/spill accounting, split Track B mask-only versus full-commit metrics, and keep the GRU in-loop arm red until real bytes/training curves/convergence exist.",
       "status": "ITEM047_CLOSEOUT_COMPLETE"
+    },
+    {
+      "artifacts": [
+        {
+          "path": "results/experiment_items/item_049_track_b_value_head_retrain.json",
+          "present": "yes",
+          "size_bytes": 9075
+        },
+        {
+          "path": "results/track_b_value_head_retrain_20260609/acceptance.json",
+          "present": "yes",
+          "size_bytes": 5925
+        },
+        {
+          "path": "results/track_b_value_head_retrain_20260609/seed102_gpu0/acceptance.json",
+          "present": "yes",
+          "size_bytes": 22236
+        },
+        {
+          "path": "results/track_b_value_head_retrain_20260609/seed137_gpu1/acceptance.json",
+          "present": "yes",
+          "size_bytes": 22451
+        },
+        {
+          "path": "results/track_b_value_head_retrain_20260609/seed256_gpu6/acceptance.json",
+          "present": "yes",
+          "size_bytes": 22372
+        },
+        {
+          "path": "results/track_b_value_head_retrain_20260609/seed137_gpu1/train.log",
+          "present": "yes",
+          "size_bytes": 10948
+        },
+        {
+          "path": "results/track_b_value_head_retrain_20260609/seed256_gpu6/train.log",
+          "present": "yes",
+          "size_bytes": 10948
+        },
+        {
+          "path": "results/track_b_value_head_retrain_20260609/seed137_gpu1/train_rerun.log",
+          "present": "yes",
+          "size_bytes": 26711
+        },
+        {
+          "path": "results/track_b_value_head_retrain_20260609/seed256_gpu6/train_rerun.log",
+          "present": "yes",
+          "size_bytes": 26609
+        }
+      ],
+      "contract_data": {
+        "artifacts": [
+          "results/track_b_value_head_retrain_20260609/acceptance.json",
+          "results/experiment_items/item_049_track_b_value_head_retrain.json",
+          "results/track_b_value_head_retrain_20260609/seed102_gpu0/acceptance.json",
+          "results/track_b_value_head_retrain_20260609/seed137_gpu1/acceptance.json",
+          "results/track_b_value_head_retrain_20260609/seed256_gpu6/acceptance.json",
+          "results/track_b_value_head_retrain_20260609/seed137_gpu1/train.log",
+          "results/track_b_value_head_retrain_20260609/seed256_gpu6/train.log",
+          "results/track_b_value_head_retrain_20260609/seed137_gpu1/train_rerun.log",
+          "results/track_b_value_head_retrain_20260609/seed256_gpu6/train_rerun.log"
+        ],
+        "code_added_used": [
+          {
+            "change": "Adds per-cell value-head mode, value-head-only checkpoint initialization, per-cell forced-value CE, tau-calibrated post-fix mask/full metrics, and one-attempt acceptance fields.",
+            "path": "experiments/train_trm_operator.py"
+          },
+          {
+            "change": "Allows shared commit/eval helpers to consume per-cell value logits.",
+            "path": "experiments/train_recurrent_operator.py"
+          },
+          {
+            "change": "Aggregates the three seed acceptances into this item and the root acceptance.json.",
+            "path": "analysis/track_b_value_head_retrain_closeout.py"
+          }
+        ],
+        "commands": [
+          {
+            "command": "CUDA_VISIBLE_DEVICES={0,1,6} .venv/bin/python -m experiments.train_trm_operator --value-head-mode per_cell --train-value-head-only --init-checkpoint results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt --steps 3000 --batch-size 2048 --amp-bf16 --torch-compile",
+            "purpose": "Run the completed single authorized value-head retrain attempt for seeds 102, 137, and 256 using the fixed 6.9M Track B base checkpoint."
+          },
+          {
+            "command": ".venv/bin/python -m analysis.track_b_value_head_retrain_closeout",
+            "purpose": "Write the root acceptance.json and item049 summary after all three seed acceptances exist."
+          }
+        ],
+        "decision": {
+          "gate_outcomes": [
+            {
+              "gate": "single_authorized_retrain_attempt",
+              "number": "attempt_count=1; no_second_retrain=true; no_dagger_rl=true",
+              "outcome": "PASS"
+            },
+            {
+              "gate": "track_b_learned_operator_gate",
+              "number": "passing_seed_count=0; learned_cells_present=False",
+              "outcome": "FAIL"
+            }
+          ],
+          "next_step_routing": "Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL."
+        },
+        "honesty": {
+          "does_not_establish": "This one retrain does not affect the certified Track A headline. Track B is a passing learned operator only if the retrain gates and learned_recurrent autonomous Stage A cells are present; otherwise it closes as mask-identification-works / value-selection-hard appendix evidence."
+        },
+        "item_number": "049",
+        "name": "Track B one-shot value-head retrain",
+        "provenance": {
+          "attempt_count": 1,
+          "base_checkpoint_for_completed_attempt": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt",
+          "generated_at": "2026-06-09T04:56:12.962833+00:00",
+          "launch_correction_note": "The first seed137/seed256 launches used their older hidden_dim=768 checkpoints and failed before training at state_dict shape load. The completed reruns used the same 6.9M seed102 DDP Track B base checkpoint as seed102 so the parameter count and mask head stayed fixed; this completed the single authorized attempt rather than starting a second retrain.",
+          "repo": "/home/aiscuser/RECURRENT_NN",
+          "run_root": "results/track_b_value_head_retrain_20260609",
+          "track": "B_value_head_commit_conjunction_retrain"
+        },
+        "purpose": "Execute exactly one off-critical-path Track B value-head/commit-conjunction retrain after the mask/full diagnostic showed high mask-only P/R but low full-commit P/R.",
+        "result_tables": {
+          "attempt_policy": {
+            "columns": [
+              "policy",
+              "value"
+            ],
+            "rows": [
+              {
+                "policy": "attempt_count",
+                "value": 1
+              },
+              {
+                "policy": "no_second_retrain",
+                "value": true
+              },
+              {
+                "policy": "no_dagger_rl",
+                "value": true
+              },
+              {
+                "policy": "headline_locked_without_track_b",
+                "value": true
+              },
+              {
+                "policy": "all_seed_acceptances_present",
+                "value": true
+              },
+              {
+                "policy": "base_checkpoint_for_completed_attempt",
+                "value": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt"
+              },
+              {
+                "policy": "launch_correction",
+                "value": "The first seed137/seed256 launches used their older hidden_dim=768 checkpoints and failed before training at state_dict shape load. The completed reruns used the same 6.9M seed102 DDP Track B base checkpoint as seed102 so the parameter count and mask head stayed fixed; this completed the single authorized attempt rather than starting a second retrain."
+              }
+            ]
+          },
+          "seed_acceptance_summary": {
+            "columns": [
+              "seed",
+              "status",
+              "completed_step",
+              "parameter_count",
+              "trainable_parameter_count",
+              "calibrated_tau",
+              "G1",
+              "G2",
+              "G1_pass",
+              "leading_indicator_success",
+              "eval_mask_only_precision",
+              "eval_mask_only_recall",
+              "eval_full_commit_precision",
+              "eval_full_commit_recall",
+              "dominant_stick_reason",
+              "dominant_block_audit",
+              "gate_or_appendix_decision"
+            ],
+            "rows": [
+              {
+                "G1": 0.103515625,
+                "G1_pass": false,
+                "G2": 0.0,
+                "acceptance": "results/track_b_value_head_retrain_20260609/seed102_gpu0/acceptance.json",
+                "calibrated_tau": 0.0,
+                "completed_step": 3000,
+                "dirname": "seed102_gpu0",
+                "dominant_block_audit": "unforced_cell",
+                "dominant_stick_reason": "commit_forced",
+                "eval_full_commit_precision": 0.8918871967108691,
+                "eval_full_commit_recall": 0.8762088974854932,
+                "eval_full_proposed_commits": 17269,
+                "eval_full_true_forced_states": 17578,
+                "eval_mask_only_precision": 0.8203236415495212,
+                "eval_mask_only_recall": 0.8826863755226031,
+                "gate_or_appendix_decision": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+                "leading_indicator_success": true,
+                "parameter_count": 6908685,
+                "present": true,
+                "seed": 102,
+                "status": "G1_NOT_MET",
+                "trainable_parameter_count": 2310
+              },
+              {
+                "G1": 0.091796875,
+                "G1_pass": false,
+                "G2": 0.0,
+                "acceptance": "results/track_b_value_head_retrain_20260609/seed137_gpu1/acceptance.json",
+                "calibrated_tau": 0.0,
+                "completed_step": 3000,
+                "dirname": "seed137_gpu1",
+                "dominant_block_audit": "unforced_cell",
+                "dominant_stick_reason": "commit_forced",
+                "eval_full_commit_precision": 0.8890738933226159,
+                "eval_full_commit_recall": 0.8787311315401203,
+                "eval_full_proposed_commits": 17417,
+                "eval_full_true_forced_states": 17622,
+                "eval_mask_only_precision": 0.8131330408269503,
+                "eval_mask_only_recall": 0.8885548043167338,
+                "gate_or_appendix_decision": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+                "leading_indicator_success": true,
+                "parameter_count": 6908685,
+                "present": true,
+                "seed": 137,
+                "status": "G1_NOT_MET",
+                "trainable_parameter_count": 2310
+              },
+              {
+                "G1": 0.07421875,
+                "G1_pass": false,
+                "G2": 0.0,
+                "acceptance": "results/track_b_value_head_retrain_20260609/seed256_gpu6/acceptance.json",
+                "calibrated_tau": 0.0,
+                "completed_step": 3000,
+                "dirname": "seed256_gpu6",
+                "dominant_block_audit": "unforced_cell",
+                "dominant_stick_reason": "commit_forced",
+                "eval_full_commit_precision": 0.898064368342687,
+                "eval_full_commit_recall": 0.8849387732069296,
+                "eval_full_proposed_commits": 17462,
+                "eval_full_true_forced_states": 17721,
+                "eval_mask_only_precision": 0.8249808322297344,
+                "eval_mask_only_recall": 0.897319262493935,
+                "gate_or_appendix_decision": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+                "leading_indicator_success": true,
+                "parameter_count": 6908685,
+                "present": true,
+                "seed": 256,
+                "status": "G1_NOT_MET",
+                "trainable_parameter_count": 2310
+              }
+            ]
+          }
+        },
+        "schema_version": "log_item_contract_v1",
+        "status": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL"
+      },
+      "detail_data": {
+        "results/experiment_items/item_049_track_b_value_head_retrain.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": "049",
+          "json_summary": [
+            [
+              "status",
+              "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL"
+            ],
+            [
+              "decision",
+              "2 keys: gate_outcomes, next_step_routing"
+            ],
+            [
+              "honesty",
+              "does_not_establish=This one retrain does not affect the certified Track A headline. Track B is a passing learned operator only if the retrain gates and learned_recurrent autonomous Stage A cells are present; otherwise it closes as mask-identification-works / value-selection-hard appendix evidence."
+            ],
+            [
+              "item_number",
+              "049"
+            ],
+            [
+              "name",
+              "Track B one-shot value-head retrain"
+            ],
+            [
+              "purpose",
+              "Execute exactly one off-critical-path Track B value-head/commit-conjunction retrain after the mask/full diagnostic showed high mask-only P/R but low full-commit P/R."
+            ],
+            [
+              "schema_version",
+              "log_item_contract_v1"
+            ]
+          ],
+          "path": "results/experiment_items/item_049_track_b_value_head_retrain.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 2,
+              "rows": 7,
+              "table": "attempt_policy"
+            },
+            {
+              "columns": 17,
+              "rows": 3,
+              "table": "seed_acceptance_summary"
+            }
+          ],
+          "size_bytes": 9075
+        },
+        "results/track_b_value_head_retrain_20260609/acceptance.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "track_b_value_head_retrain_closeout"
+            ],
+            [
+              "status",
+              "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL"
+            ],
+            [
+              "decision",
+              "next_step=Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL.; outcome=APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL; passing_seed_count=0"
+            ],
+            [
+              "all_seed_acceptances_present",
+              "True"
+            ],
+            [
+              "attempt_count",
+              "1"
+            ],
+            [
+              "base_checkpoint_for_completed_attempt",
+              "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt"
+            ],
+            [
+              "fail_closed",
+              "False"
+            ],
+            [
+              "generated_at",
+              "2026-06-09T04:56:12.962235+00:00"
+            ],
+            [
+              "headline_locked_without_track_b",
+              "True"
+            ],
+            [
+              "launch_correction_note",
+              "The first seed137/seed256 launches used their older hidden_dim=768 checkpoints and failed before training at state_dict shape load. The completed reruns used the same 6.9M seed102 DDP Track B base checkpoint as seed102 so the parameter count and mask head stayed fixed; this completed the single authorized attempt rather than starting a second retrain."
+            ],
+            [
+              "no_dagger_rl",
+              "True"
+            ],
+            [
+              "no_second_retrain",
+              "True"
+            ],
+            [
+              "off_critical_path",
+              "True"
+            ],
+            [
+              "run_root",
+              "results/track_b_value_head_retrain_20260609"
+            ]
+          ],
+          "path": "results/track_b_value_head_retrain_20260609/acceptance.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [
+            {
+              "columns": 17,
+              "rows": 3,
+              "table": "seed_acceptance_summary"
+            }
+          ],
+          "size_bytes": 5925
+        },
+        "results/track_b_value_head_retrain_20260609/seed102_gpu0/acceptance.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "train_trm_operator"
+            ],
+            [
+              "status",
+              "G1_NOT_MET"
+            ],
+            [
+              "G1",
+              "0.1035"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "G2",
+              "0"
+            ],
+            [
+              "architecture_class",
+              "trm_per_cell_tokens"
+            ],
+            [
+              "checkpoint",
+              "results/track_b_value_head_retrain_20260609/seed102_gpu0/trm_operator_seed102.pt"
+            ],
+            [
+              "generated_at",
+              "2026-06-09T04:25:16.021233+00:00"
+            ],
+            [
+              "honesty",
+              "does_not_establish=Track B acceptance is per-seed learned-operator evidence only. It does not become Stage A evidence unless a later run consumes the checkpoint and reports operator=learned_recurrent autonomous cells side by side with Track A."
+            ],
+            [
+              "operator_type",
+              "learned_recurrent"
+            ],
+            [
+              "parameter_count",
+              "6908685"
+            ],
+            [
+              "seed",
+              "102"
+            ],
+            [
+              "source",
+              "track_b_trm_class_training_run"
+            ],
+            [
+              "trainable_parameter_count",
+              "2310"
+            ],
+            [
+              "training_curve_summary",
+              "19 keys: amp_bf16, batch_size, completed_step, data_parallel_devices, distributed_data_parallel_devices, episode_workers, eval_every, generation_workers"
+            ]
+          ],
+          "path": "results/track_b_value_head_retrain_20260609/seed102_gpu0/acceptance.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 22236
+        },
+        "results/track_b_value_head_retrain_20260609/seed137_gpu1/acceptance.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "train_trm_operator"
+            ],
+            [
+              "status",
+              "G1_NOT_MET"
+            ],
+            [
+              "G1",
+              "0.0918"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "G2",
+              "0"
+            ],
+            [
+              "architecture_class",
+              "trm_per_cell_tokens"
+            ],
+            [
+              "checkpoint",
+              "results/track_b_value_head_retrain_20260609/seed137_gpu1/trm_operator_seed137.pt"
+            ],
+            [
+              "generated_at",
+              "2026-06-09T04:51:14.064980+00:00"
+            ],
+            [
+              "honesty",
+              "does_not_establish=Track B acceptance is per-seed learned-operator evidence only. It does not become Stage A evidence unless a later run consumes the checkpoint and reports operator=learned_recurrent autonomous cells side by side with Track A."
+            ],
+            [
+              "operator_type",
+              "learned_recurrent"
+            ],
+            [
+              "parameter_count",
+              "6908685"
+            ],
+            [
+              "seed",
+              "137"
+            ],
+            [
+              "source",
+              "track_b_trm_class_training_run"
+            ],
+            [
+              "trainable_parameter_count",
+              "2310"
+            ],
+            [
+              "training_curve_summary",
+              "19 keys: amp_bf16, batch_size, completed_step, data_parallel_devices, distributed_data_parallel_devices, episode_workers, eval_every, generation_workers"
+            ]
+          ],
+          "path": "results/track_b_value_head_retrain_20260609/seed137_gpu1/acceptance.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 22451
+        },
+        "results/track_b_value_head_retrain_20260609/seed137_gpu1/train.log": {
+          "embedded": false,
+          "format": "log",
+          "path": "results/track_b_value_head_retrain_20260609/seed137_gpu1/train.log",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 10948
+        },
+        "results/track_b_value_head_retrain_20260609/seed137_gpu1/train_rerun.log": {
+          "embedded": false,
+          "format": "log",
+          "path": "results/track_b_value_head_retrain_20260609/seed137_gpu1/train_rerun.log",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 26711
+        },
+        "results/track_b_value_head_retrain_20260609/seed256_gpu6/acceptance.json": {
+          "embedded": false,
+          "format": "json",
+          "json_item_number": null,
+          "json_summary": [
+            [
+              "module",
+              "train_trm_operator"
+            ],
+            [
+              "status",
+              "G1_NOT_MET"
+            ],
+            [
+              "G1",
+              "0.07422"
+            ],
+            [
+              "device",
+              "cuda:0"
+            ],
+            [
+              "G2",
+              "0"
+            ],
+            [
+              "architecture_class",
+              "trm_per_cell_tokens"
+            ],
+            [
+              "checkpoint",
+              "results/track_b_value_head_retrain_20260609/seed256_gpu6/trm_operator_seed256.pt"
+            ],
+            [
+              "generated_at",
+              "2026-06-09T04:53:01.200612+00:00"
+            ],
+            [
+              "honesty",
+              "does_not_establish=Track B acceptance is per-seed learned-operator evidence only. It does not become Stage A evidence unless a later run consumes the checkpoint and reports operator=learned_recurrent autonomous cells side by side with Track A."
+            ],
+            [
+              "operator_type",
+              "learned_recurrent"
+            ],
+            [
+              "parameter_count",
+              "6908685"
+            ],
+            [
+              "seed",
+              "256"
+            ],
+            [
+              "source",
+              "track_b_trm_class_training_run"
+            ],
+            [
+              "trainable_parameter_count",
+              "2310"
+            ],
+            [
+              "training_curve_summary",
+              "19 keys: amp_bf16, batch_size, completed_step, data_parallel_devices, distributed_data_parallel_devices, episode_workers, eval_every, generation_workers"
+            ]
+          ],
+          "path": "results/track_b_value_head_retrain_20260609/seed256_gpu6/acceptance.json",
+          "present": true,
+          "reason": "ref_only",
+          "result_table_summaries": [],
+          "size_bytes": 22372
+        },
+        "results/track_b_value_head_retrain_20260609/seed256_gpu6/train.log": {
+          "embedded": false,
+          "format": "log",
+          "path": "results/track_b_value_head_retrain_20260609/seed256_gpu6/train.log",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 10948
+        },
+        "results/track_b_value_head_retrain_20260609/seed256_gpu6/train_rerun.log": {
+          "embedded": false,
+          "format": "log",
+          "path": "results/track_b_value_head_retrain_20260609/seed256_gpu6/train_rerun.log",
+          "present": true,
+          "reason": "ref_only",
+          "size_bytes": 26609
+        }
+      },
+      "details": [
+        "purpose=Execute exactly one off-critical-path Track B value-head/commit-conjunction retrain after the mask/full diagnostic showed high mask-only P/R but low full-commit P/R.",
+        "commands=2",
+        "result_tables=['attempt_policy', 'seed_acceptance_summary']",
+        "honesty=This one retrain does not affect the certified Track A headline. Track B is a passing learned operator only if the retrain gates and learned_recurrent autonomous Stage A cells are present; otherwise it closes as mask-identification-works / value-selection-hard appendix evidence."
+      ],
+      "item": "049",
+      "key_result": "Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL.",
+      "name": "Track B one-shot value-head retrain",
+      "next_action": "Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL.",
+      "purpose": "Execute exactly one off-critical-path Track B value-head/commit-conjunction retrain after the mask/full diagnostic showed high mask-only P/R but low full-commit P/R.",
+      "status": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL"
     }
   ],
   "legacy_archive": {
@@ -23548,8 +24195,8 @@
     "verifier": "results/verifier/results.json"
   },
   "validation_summary": {
-    "n_checks": 271,
+    "n_checks": 289,
     "n_fail": 3,
-    "n_pass": 268
+    "n_pass": 286
   }
 }

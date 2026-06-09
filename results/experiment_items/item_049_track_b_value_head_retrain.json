@@ -1,0 +1,202 @@
+{
+  "artifacts": [
+    "results/track_b_value_head_retrain_20260609/acceptance.json",
+    "results/experiment_items/item_049_track_b_value_head_retrain.json",
+    "results/track_b_value_head_retrain_20260609/seed102_gpu0/acceptance.json",
+    "results/track_b_value_head_retrain_20260609/seed137_gpu1/acceptance.json",
+    "results/track_b_value_head_retrain_20260609/seed256_gpu6/acceptance.json",
+    "results/track_b_value_head_retrain_20260609/seed137_gpu1/train.log",
+    "results/track_b_value_head_retrain_20260609/seed256_gpu6/train.log",
+    "results/track_b_value_head_retrain_20260609/seed137_gpu1/train_rerun.log",
+    "results/track_b_value_head_retrain_20260609/seed256_gpu6/train_rerun.log"
+  ],
+  "code_added_used": [
+    {
+      "change": "Adds per-cell value-head mode, value-head-only checkpoint initialization, per-cell forced-value CE, tau-calibrated post-fix mask/full metrics, and one-attempt acceptance fields.",
+      "path": "experiments/train_trm_operator.py"
+    },
+    {
+      "change": "Allows shared commit/eval helpers to consume per-cell value logits.",
+      "path": "experiments/train_recurrent_operator.py"
+    },
+    {
+      "change": "Aggregates the three seed acceptances into this item and the root acceptance.json.",
+      "path": "analysis/track_b_value_head_retrain_closeout.py"
+    }
+  ],
+  "commands": [
+    {
+      "command": "CUDA_VISIBLE_DEVICES={0,1,6} .venv/bin/python -m experiments.train_trm_operator --value-head-mode per_cell --train-value-head-only --init-checkpoint results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt --steps 3000 --batch-size 2048 --amp-bf16 --torch-compile",
+      "purpose": "Run the completed single authorized value-head retrain attempt for seeds 102, 137, and 256 using the fixed 6.9M Track B base checkpoint."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.track_b_value_head_retrain_closeout",
+      "purpose": "Write the root acceptance.json and item049 summary after all three seed acceptances exist."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [
+      {
+        "gate": "single_authorized_retrain_attempt",
+        "number": "attempt_count=1; no_second_retrain=true; no_dagger_rl=true",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "track_b_learned_operator_gate",
+        "number": "passing_seed_count=0; learned_cells_present=False",
+        "outcome": "FAIL"
+      }
+    ],
+    "next_step_routing": "Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL."
+  },
+  "honesty": {
+    "does_not_establish": "This one retrain does not affect the certified Track A headline. Track B is a passing learned operator only if the retrain gates and learned_recurrent autonomous Stage A cells are present; otherwise it closes as mask-identification-works / value-selection-hard appendix evidence."
+  },
+  "item_number": "049",
+  "name": "Track B one-shot value-head retrain",
+  "provenance": {
+    "attempt_count": 1,
+    "base_checkpoint_for_completed_attempt": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt",
+    "generated_at": "2026-06-09T04:56:12.962833+00:00",
+    "launch_correction_note": "The first seed137/seed256 launches used their older hidden_dim=768 checkpoints and failed before training at state_dict shape load. The completed reruns used the same 6.9M seed102 DDP Track B base checkpoint as seed102 so the parameter count and mask head stayed fixed; this completed the single authorized attempt rather than starting a second retrain.",
+    "repo": "/home/aiscuser/RECURRENT_NN",
+    "run_root": "results/track_b_value_head_retrain_20260609",
+    "track": "B_value_head_commit_conjunction_retrain"
+  },
+  "purpose": "Execute exactly one off-critical-path Track B value-head/commit-conjunction retrain after the mask/full diagnostic showed high mask-only P/R but low full-commit P/R.",
+  "result_tables": {
+    "attempt_policy": {
+      "columns": [
+        "policy",
+        "value"
+      ],
+      "rows": [
+        {
+          "policy": "attempt_count",
+          "value": 1
+        },
+        {
+          "policy": "no_second_retrain",
+          "value": true
+        },
+        {
+          "policy": "no_dagger_rl",
+          "value": true
+        },
+        {
+          "policy": "headline_locked_without_track_b",
+          "value": true
+        },
+        {
+          "policy": "all_seed_acceptances_present",
+          "value": true
+        },
+        {
+          "policy": "base_checkpoint_for_completed_attempt",
+          "value": "results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt"
+        },
+        {
+          "policy": "launch_correction",
+          "value": "The first seed137/seed256 launches used their older hidden_dim=768 checkpoints and failed before training at state_dict shape load. The completed reruns used the same 6.9M seed102 DDP Track B base checkpoint as seed102 so the parameter count and mask head stayed fixed; this completed the single authorized attempt rather than starting a second retrain."
+        }
+      ]
+    },
+    "seed_acceptance_summary": {
+      "columns": [
+        "seed",
+        "status",
+        "completed_step",
+        "parameter_count",
+        "trainable_parameter_count",
+        "calibrated_tau",
+        "G1",
+        "G2",
+        "G1_pass",
+        "leading_indicator_success",
+        "eval_mask_only_precision",
+        "eval_mask_only_recall",
+        "eval_full_commit_precision",
+        "eval_full_commit_recall",
+        "dominant_stick_reason",
+        "dominant_block_audit",
+        "gate_or_appendix_decision"
+      ],
+      "rows": [
+        {
+          "G1": 0.103515625,
+          "G1_pass": false,
+          "G2": 0.0,
+          "acceptance": "results/track_b_value_head_retrain_20260609/seed102_gpu0/acceptance.json",
+          "calibrated_tau": 0.0,
+          "completed_step": 3000,
+          "dirname": "seed102_gpu0",
+          "dominant_block_audit": "unforced_cell",
+          "dominant_stick_reason": "commit_forced",
+          "eval_full_commit_precision": 0.8918871967108691,
+          "eval_full_commit_recall": 0.8762088974854932,
+          "eval_full_proposed_commits": 17269,
+          "eval_full_true_forced_states": 17578,
+          "eval_mask_only_precision": 0.8203236415495212,
+          "eval_mask_only_recall": 0.8826863755226031,
+          "gate_or_appendix_decision": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+          "leading_indicator_success": true,
+          "parameter_count": 6908685,
+          "present": true,
+          "seed": 102,
+          "status": "G1_NOT_MET",
+          "trainable_parameter_count": 2310
+        },
+        {
+          "G1": 0.091796875,
+          "G1_pass": false,
+          "G2": 0.0,
+          "acceptance": "results/track_b_value_head_retrain_20260609/seed137_gpu1/acceptance.json",
+          "calibrated_tau": 0.0,
+          "completed_step": 3000,
+          "dirname": "seed137_gpu1",
+          "dominant_block_audit": "unforced_cell",
+          "dominant_stick_reason": "commit_forced",
+          "eval_full_commit_precision": 0.8890738933226159,
+          "eval_full_commit_recall": 0.8787311315401203,
+          "eval_full_proposed_commits": 17417,
+          "eval_full_true_forced_states": 17622,
+          "eval_mask_only_precision": 0.8131330408269503,
+          "eval_mask_only_recall": 0.8885548043167338,
+          "gate_or_appendix_decision": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+          "leading_indicator_success": true,
+          "parameter_count": 6908685,
+          "present": true,
+          "seed": 137,
+          "status": "G1_NOT_MET",
+          "trainable_parameter_count": 2310
+        },
+        {
+          "G1": 0.07421875,
+          "G1_pass": false,
+          "G2": 0.0,
+          "acceptance": "results/track_b_value_head_retrain_20260609/seed256_gpu6/acceptance.json",
+          "calibrated_tau": 0.0,
+          "completed_step": 3000,
+          "dirname": "seed256_gpu6",
+          "dominant_block_audit": "unforced_cell",
+          "dominant_stick_reason": "commit_forced",
+          "eval_full_commit_precision": 0.898064368342687,
+          "eval_full_commit_recall": 0.8849387732069296,
+          "eval_full_proposed_commits": 17462,
+          "eval_full_true_forced_states": 17721,
+          "eval_mask_only_precision": 0.8249808322297344,
+          "eval_mask_only_recall": 0.897319262493935,
+          "gate_or_appendix_decision": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+          "leading_indicator_success": true,
+          "parameter_count": 6908685,
+          "present": true,
+          "seed": 256,
+          "status": "G1_NOT_MET",
+          "trainable_parameter_count": 2310
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL"
+}

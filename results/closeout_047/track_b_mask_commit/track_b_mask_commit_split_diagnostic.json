@@ -10,12 +10,13 @@
   "decision": {
     "eval_mask_only_precision": 0.8203236415495212,
     "eval_mask_only_recall": 0.8826863755226031,
-    "next_step": "Close Track B as an off-critical-path operator learnability finding.",
+    "localization": "value_head_or_commit_conjunction",
+    "next_step": "Run exactly one supervised value-head/commit-conjunction retrain; no DAgger and no RL.",
     "no_dagger_rl": true,
-    "outcome": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
+    "outcome": "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL",
     "threshold": 0.9,
     "train_full_low": true,
-    "train_mask_high": false
+    "train_mask_high": true
   },
   "device": "cuda:0",
   "fail_closed": false,
@@ -936,5 +937,5 @@
       ]
     }
   },
-  "status": "MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL"
+  "status": "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL"
 }

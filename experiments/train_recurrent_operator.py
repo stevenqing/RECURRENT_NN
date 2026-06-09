@@ -344,7 +344,11 @@ def forced_only_commit_decision(
     forced_var = int(forced_top.indices[0].item())
     forced_score = float(forced_top.values[0].item())
     forced_margin = float((forced_top.values[0] - forced_top.values[1]).item())
-    val_top = torch.topk(val_logits, k=2)
+    if val_logits.dim() == 2:
+        selected_val_logits = val_logits[forced_var]
+    else:
+        selected_val_logits = val_logits
+    val_top = torch.topk(selected_val_logits, k=2)
     val = int(val_top.indices[0].item()) + 1
     val_margin = float((val_top.values[0] - val_top.values[1]).item())
     if forced_score < forced_threshold:
@@ -373,13 +377,14 @@ def _forced_single_step_metrics(model: torch.nn.Module, rows: list[TensorExample
         val_logits = outputs["val"][-1].detach().float().cpu()
         forced_probs = torch.sigmoid(forced_logits)
         forced_top = torch.topk(forced_probs, k=2, dim=-1)
-        val_top = torch.topk(val_logits, k=2, dim=-1)
         for index, row in enumerate(chunk):
             candidate_var = int(forced_top.indices[index, 0].item())
-            candidate_val = int(val_top.indices[index, 0].item()) + 1
+            selected_val_logits = val_logits[index, candidate_var] if val_logits.dim() == 3 else val_logits[index]
+            val_top = torch.topk(selected_val_logits, k=2)
+            candidate_val = int(val_top.indices[0].item()) + 1
             forced_score = float(forced_top.values[index, 0].item())
             forced_margin = float((forced_top.values[index, 0] - forced_top.values[index, 1]).item())
-            val_margin = float((val_top.values[index, 0] - val_top.values[index, 1]).item())
+            val_margin = float((val_top.values[0] - val_top.values[1]).item())
             proposed = forced_score >= 0.5 and forced_margin > tau and val_margin > tau
             hit = proposed and row.forced_values.get(candidate_var) == candidate_val
             counter = by_depth.setdefault(row.depth_into_solution, Counter())
@@ -486,7 +491,13 @@ def _evaluate(model: WeightTiedRecurrentOperator, rows: list[TensorExample], dev
         outputs = model(x)
         pred_action = outputs["action"][-1].argmax(dim=-1)
         pred_var = outputs["var"][-1].argmax(dim=-1)
-        pred_val = outputs["val"][-1].argmax(dim=-1)
+        val_logits = outputs["val"][-1]
+        if val_logits.dim() == 3:
+            safe_var = var.clamp(min=0)
+            batch_indices = torch.arange(len(chunk), device=device)
+            pred_val = val_logits[batch_indices, safe_var].argmax(dim=-1)
+        else:
+            pred_val = val_logits.argmax(dim=-1)
         var_mask = var >= 0
         val_mask = val >= 0
         totals["n"] += len(chunk)

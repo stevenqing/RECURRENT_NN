@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-09T02:48:21.132105+00:00
+Generated at: 2026-06-09T04:56:12.997528+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,7 +17,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 pre-fix record | BLOCKER | historical_continuation_G1=0.0; current_diagnostic_G1=1.0 |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=271; validation_passed=False |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=289; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Diagnostic pass, autonomous grid not proven | Sudoku6 diagnostic G1=1.0; L4_reverts=True; L4_forward=True |
 | P2 | W3 Qwen3.5 probe | cached_gdn_state_measured_with_propagation_delta | W3.0=PASS; survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; native_delta=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; propagation=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
@@ -43,7 +43,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 045 | Track B DDP sharded-cache retry launched | DDP_SHARDED_RETRY_ACTIVE_STEP1000 | Continue monitoring the active seed102 DDP run until completion, then record final acceptance.json and compare final learned G1/G2 against item040 and item043 expectations. |
 | 046 | Track B DDP sharded seed102 final result | DDP_SHARDED_SEED102_FINAL_NEGATIVE | Do not continue this supervised-imitation recipe as-is. Use the checkpoint and failure evidence to design a DAgger/RL-style rollout-refinement run with periodic checkpoints and mid-run acceptance probes. |
 | 047 | Deep-band Track A headline overnight preregistration | OVERNIGHT_LAUNCHED_ROLLUP_AVAILABLE | Inspect Line 1 R3+ table, Line 2 close/fix decision, Line 3 Grade 2 verdict, and D3 frontier audit. |
-| 048 | Item047 headline closeout status and diagnostics | ITEM047_CLOSEOUT_COMPLETE | Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact. |
+| 048 | Item047 headline closeout status and diagnostics | ITEM047_CLOSEOUT_COMPLETE | Closeout acceptance gates are resolved; keep Track B out of the critical path, run at most one value-head retrain, and quote GRU only through the real in-loop rerun artifact. |
+| 049 | Track B one-shot value-head retrain | APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL | Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL. |
 
 ## Item Details
 
@@ -100,14 +101,14 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - The validator now reports missing legacy artifacts individually.
   - Current validation is registry-style and does not collapse missing history into one opaque required-files failure.
 - Artifact refs:
-  - analysis/validate_outputs.py (yes, 38326 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
+  - analysis/validate_outputs.py (yes, 42101 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
@@ -254,21 +255,21 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=271; validation_passed=False
+- Key result: validation_checks=289; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=268; validation_fail=3
+  - validation_pass=286; validation_fail=3
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifact refs:
   - CANONICAL_REPO.md (yes, 532 bytes)
-  - analysis/validate_outputs.py (yes, 38326 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
+  - analysis/validate_outputs.py (yes, 42101 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/experiment_log/experiment_log.json (yes, 916582 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 - Next action: Keep future reports item-first and preserve explicit red checks.
@@ -385,10 +386,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - REPRODUCIBILITY.md (yes, 3478 bytes)
   - scripts/reproduce_continuation_state.sh (yes, 1972 bytes)
   - results/continuation_state/post_027.json (yes, 1453 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
-  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
-  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
+  - results/experiment_log/experiment_log.json (yes, 916582 bytes)
+  - results/experiment_log/experiment_log.md (yes, 220525 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -400,7 +401,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/continuation_state/post_027.json | recorded | source=user_master_runbook_2026_06_07; canonical_repo=/home/aiscuser/RECURRENT_NN |  |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/stage_a_adapter_wiring/results.json | PASS | autonomous_solve_status=NOT_RUN; grid_cells=36; preflight_status=READY; register_smoke_status=SMOKE_PASS |  |
 | results/stage_a_banded_gate_refusal/results.json | PASS | banded_datasets=8 keys: note, sudoku6_depths, sudoku6_generated_count, sudoku6_generator_present, sudoku6_status, sudoku9_generated_c... | fail_closed_cases:3r/5c |
@@ -683,8 +684,8 @@ No rows recorded.
   - results/d_stage_2/results.json (missing)
   - results/d_stage_3/results.json (missing)
   - results/verifier/results.json (missing)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -696,7 +697,7 @@ No rows recorded.
 | results/d_stage_2/results.json | missing |  |  |
 | results/d_stage_3/results.json | missing |  |  |
 | results/verifier/results.json | missing |  |  |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 
 #### Contract Result Tables
 
@@ -758,14 +759,14 @@ No rows recorded.
   - honesty=This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent state. It deliberately turns the registry red until those objects exist.
 - Artifact refs:
   - results/experiment_items/item_033_validation_object_binding.json (yes, 7073 bytes)
-  - analysis/validate_outputs.py (yes, 38326 bytes)
+  - analysis/validate_outputs.py (yes, 42101 bytes)
   - experiments/stage_a_sudoku6_bridge.py (yes, 10922 bytes)
   - experiments/w3_qwen35_probe.py (yes, 47675 bytes)
   - results/stage_a_sudoku6_bridge/results.json (yes, 4890 bytes)
   - results/w3_qwen35_probe/results.json (yes, 96087 bytes)
   - results/w3_qwen35_probe/verdicts.json (yes, 674 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -773,7 +774,7 @@ No rows recorded.
 | results/stage_a_sudoku6_bridge/results.json | DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER | G1=1; single_step_forced_accuracy=1; n_sudoku6_tasks=32; reverts_nonzero_on_L4=True; forward_floor_on_L4=True; device=cpu | single_step_forced_precision_recall_by_depth:2r/5c |
 | results/w3_qwen35_probe/results.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:8r/13c; decay_survival:5r/5c; model_card:34r/3c; native_rule_gap:3r/7c; propagation_per_task_delta:5r/7c |
 | results/w3_qwen35_probe/verdicts.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... |  |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 
 #### Contract Result Tables
 
@@ -946,8 +947,8 @@ No rows recorded.
   - results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json (yes, 19157 bytes)
   - results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json (yes, 19123 bytes)
   - results/w3_qwen35_probe/propagation_shards/logic_grid/results.json (yes, 19025 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -963,7 +964,7 @@ No rows recorded.
 | results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/logic_grid/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 
 #### Contract Result Tables
 
@@ -1189,10 +1190,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
-  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
-  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
+  - results/experiment_log/experiment_log.json (yes, 916582 bytes)
+  - results/experiment_log/experiment_log.md (yes, 220525 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1200,7 +1201,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1318,10 +1319,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
-  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
-  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
+  - results/experiment_log/experiment_log.json (yes, 916582 bytes)
+  - results/experiment_log/experiment_log.md (yes, 220525 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1329,7 +1330,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1406,19 +1407,19 @@ Truncated to 24 of 27 rows.
   - honesty=This item establishes the Track B code path and one tiny GPU smoke artifact only. It does not establish Track B acceptance, does not pass the leading-indicator criterion, does not launch the requested three full seeds because all GPUs were already occupied by an external process, and does not create learned_recurrent Stage A cells.
 - Artifact refs:
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
-  - experiments/train_trm_operator.py (yes, 50342 bytes)
+  - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
-  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
+  - results/experiment_log/experiment_log.json (yes, 916582 bytes)
+  - results/experiment_log/experiment_log.md (yes, 220525 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/trm_operator_smoke/acceptance.json | G1_NOT_MET | G1=0.125; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 
 #### Contract Result Tables
 
@@ -1464,7 +1465,7 @@ Truncated to 24 of 27 rows.
   - honesty=This item does not establish Track B learned acceptance, does not establish autonomous learned Stage A cells, does not establish L4 solve transfer, and does not supersede Track A symbolic evidence. It records a clean negative learned_recurrent result: all three full seeds completed but G2 remained 0.0 and G1 stayed far below the 0.95 gate.
 - Artifact refs:
   - results/experiment_items/item_040_track_b_trm_full_3x8gpu_negative.json (yes, 20522 bytes)
-  - experiments/train_trm_operator.py (yes, 50342 bytes)
+  - experiments/train_trm_operator.py (yes, 61184 bytes)
   - analysis/monitor_track_b_trm.py (yes, 10550 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json (yes, 9895 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json (yes, 26636 bytes)
@@ -1473,20 +1474,20 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (yes, 11255 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (yes, 11389 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (yes, 11218 bytes)
-  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
-  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
+  - results/experiment_log/experiment_log.json (yes, 916582 bytes)
+  - results/experiment_log/experiment_log.md (yes, 220525 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-09T02:47:58.870532+00:00 |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-09T04:56:09.589488+00:00 |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | GATES_UNREACHED | G1=0.03906; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | GATES_UNREACHED | G1=0.01562; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 
 #### Contract Result Tables
 
@@ -1566,7 +1567,7 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_041_gpu_efficiency_p0_profile_and_sudoku_engine.json (yes, 12794 bytes)
   - analysis/profile_track_b_pipeline.py (yes, 21048 bytes)
-  - experiments/train_trm_operator.py (yes, 50342 bytes)
+  - experiments/train_trm_operator.py (yes, 61184 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - analysis/test_sudoku_engine_gpu.py (yes, 4258 bytes)
   - results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json (yes, 7912 bytes)
@@ -1575,10 +1576,10 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (yes, 40421 bytes)
   - results/sudoku_engine_gpu/equivalence_1000.json (yes, 167 bytes)
   - results/trm_operator_logging_smoke/progress.jsonl (yes, 968 bytes)
-  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
-  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
+  - results/experiment_log/experiment_log.json (yes, 916582 bytes)
+  - results/experiment_log/experiment_log.md (yes, 220525 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1586,7 +1587,7 @@ Truncated to 24 of 27 rows.
 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json | recorded | no_optimization_claim=True; profiled_object=experiments.train_trm_operator current Track B per-cell-token trainer; purpose=P0 profile gate before GPU efficiency optimization; semantics mirror current Track B trainer.; started_at=2026-06-08T10:02:52.744806+00:00 |  |
 | results/sudoku_engine_gpu/equivalence_1000.json | True | device=cuda:0; n_boards=1000; n_mismatches=0; name=sudoku_engine_gpu_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 
 #### Contract Result Tables
 
@@ -1655,17 +1656,17 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (yes, 322 bytes)
-  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
-  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
+  - results/experiment_log/experiment_log.json (yes, 916582 bytes)
+  - results/experiment_log/experiment_log.md (yes, 220525 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/batched_ops/equivalence_100.json | True | device=cuda:0; n_episodes_generated=100; n_episodes_requested=100; n_mismatches=0; name=register_batched_ops_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 
 #### Contract Result Tables
 
@@ -1701,16 +1702,16 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
-  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
+  - results/experiment_log/experiment_log.json (yes, 916582 bytes)
+  - results/experiment_log/experiment_log.md (yes, 220525 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 
 #### Contract Result Tables
 
@@ -1752,16 +1753,16 @@ Truncated to 24 of 27 rows.
   - honesty=This item does not establish a speedup, does not run the full retry, and does not establish learned Track B acceptance. It only validates that the trainer now supports the prelaunch flags required by item043.
 - Artifact refs:
   - results/experiment_items/item_044_trainer_prelaunch_gates.json (yes, 7823 bytes)
-  - experiments/train_trm_operator.py (yes, 50342 bytes)
+  - experiments/train_trm_operator.py (yes, 61184 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
   - results/trm_operator_prelaunch_smoke/acceptance.json (yes, 12066 bytes)
   - results/trm_operator_prelaunch_smoke/progress.jsonl (yes, 974 bytes)
   - results/trm_operator_compile_smoke/acceptance.json (yes, 10396 bytes)
   - results/trm_operator_compile_smoke/progress.jsonl (yes, 486 bytes)
-  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
-  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
+  - results/experiment_log/experiment_log.json (yes, 916582 bytes)
+  - results/experiment_log/experiment_log.md (yes, 220525 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1769,7 +1770,7 @@ Truncated to 24 of 27 rows.
 | results/trm_operator_prelaunch_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_prelaunch_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/trm_operator_compile_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_compile_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 
 #### Contract Result Tables
 
@@ -1811,8 +1812,8 @@ Truncated to 24 of 27 rows.
   - honesty=This item does not establish final learned Track B acceptance. The seed102 DDP run is still active, and G1/G2 rollout metrics are intentionally null in progress rows because expensive progress rollout eval was disabled. Final acceptance must be read from the eventual acceptance.json after the run completes.
 - Artifact refs:
   - results/experiment_items/item_045_track_b_ddp_sharded_retry_launch.json (yes, 9802 bytes)
-  - experiments/train_trm_operator.py (yes, 50342 bytes)
-  - experiments/train_recurrent_operator.py (yes, 40388 bytes)
+  - experiments/train_trm_operator.py (yes, 61184 bytes)
+  - experiments/train_recurrent_operator.py (yes, 40896 bytes)
   - results/ddp_shard_smoke_track_b_20260608/acceptance.json (yes, 13437 bytes)
   - results/ddp_shard_smoke_track_b_20260608/progress.jsonl (yes, 1166 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt (yes, 689 bytes)
@@ -1826,17 +1827,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (yes, 102640503 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (yes, 102514311 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (yes, 102594183 bytes)
-  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
-  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
+  - results/experiment_log/experiment_log.json (yes, 916582 bytes)
+  - results/experiment_log/experiment_log.md (yes, 220525 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/ddp_shard_smoke_track_b_20260608/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/ddp_shard_smoke_track_b_20260608/trm_operator_seed778.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 
 #### Contract Result Tables
 
@@ -1886,17 +1887,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 42721 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (yes, 80203 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (yes, 55287865 bytes)
-  - results/experiment_log/experiment_log.json (yes, 894095 bytes)
-  - results/experiment_log/experiment_log.md (yes, 215570 bytes)
-  - results/validation/validation.json (yes, 52103 bytes)
-  - results/validation/validation.md (yes, 32228 bytes)
+  - results/experiment_log/experiment_log.json (yes, 916582 bytes)
+  - results/experiment_log/experiment_log.md (yes, 220525 bytes)
+  - results/validation/validation.json (yes, 55685 bytes)
+  - results/validation/validation.md (yes, 34478 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=271; n_fail=3; n_pass=268 |  |
+| results/validation/validation.json | False | summary=n_checks=289; n_fail=3; n_pass=286 |  |
 
 #### Contract Result Tables
 
@@ -2027,19 +2028,19 @@ Truncated to 24 of 27 rows.
 ### Item 048 - Item047 headline closeout status and diagnostics
 
 - Status: ITEM047_CLOSEOUT_COMPLETE
-- Key result: Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact.
+- Key result: Closeout acceptance gates are resolved; keep Track B out of the critical path, run at most one value-head retrain, and quote GRU only through the real in-loop rerun artifact.
 - Purpose: Correct item047 done-but-not-done labels, certify the headline overlay/spill accounting, split Track B mask-only versus full-commit metrics, and keep the GRU in-loop arm red until real bytes/training curves/convergence exist.
 - Details:
   - purpose=Correct item047 done-but-not-done labels, certify the headline overlay/spill accounting, split Track B mask-only versus full-commit metrics, and keep the GRU in-loop arm red until real bytes/training curves/convergence exist.
   - commands=4
   - result_tables=['acceptance_state', 'closeout_decision_metrics', 'corrected_status_labels', 'gru_cell_frontiers_and_curves', 'gru_r3plus_rerun_summary', 'headline_certification_r3plus', 'spill_accounting_r3plus', 'track_b_mask_only_vs_full_commit']
-  - honesty=The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnability finding, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present.
+  - honesty=The closeout locks the causal structured-register headline with certified figure/spill accounting, corrects Track B to a value-head/commit-conjunction bug with one retrain authorized off the critical path, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present.
 - Artifact refs:
-  - results/experiment_items/item_048_item047_headline_closeout.json (yes, 29459 bytes)
-  - results/closeout_047/status_corrections.json (yes, 1343 bytes)
+  - results/experiment_items/item_048_item047_headline_closeout.json (yes, 29915 bytes)
+  - results/closeout_047/status_corrections.json (yes, 1354 bytes)
   - results/closeout_047/headline_figure/headline_figure_certification.json (yes, 39864 bytes)
   - results/closeout_047/headline_figure/headline_overlay_spilloff.png (yes, 131963 bytes)
-  - results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json (yes, 23828 bytes)
+  - results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json (yes, 23923 bytes)
   - results/closeout_047/gru_in_loop/gru_in_loop_grid.json (yes, 34435 bytes)
   - results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json (yes, 7722 bytes)
   - results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed42/results.json (yes, 26771 bytes)
@@ -2054,7 +2055,7 @@ Truncated to 24 of 27 rows.
 | --- | --- | --- | --- |
 | results/closeout_047/status_corrections.json | ITEM047_CLOSEOUT_STATUS_RECORDED | fail_closed=False |  |
 | results/closeout_047/headline_figure/headline_figure_certification.json | HEADLINE_FIGURE_CERTIFIED_WITH_FACTORED_CODEBOOK_FOOTNOTE | fail_closed=False | band_depth_summary:4r/8c; factored_codebook_audit:3r/4c; module1_overlay_certification:24r/11c; spill_accounting:48r/14c |
-| results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json | MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL | device=cuda:0; checkpoint=results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt; fail_closed=False | mask_only_vs_full_commit_pr:2r/10c; training_trace_examples:10r/7c |
+| results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json | VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL | device=cuda:0; checkpoint=results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt; fail_closed=False | mask_only_vs_full_commit_pr:2r/10c; training_trace_examples:10r/7c |
 | results/closeout_047/gru_in_loop/gru_in_loop_grid.json | GRU_IN_LOOP_ARM_TRAINED_AUDIT_READY | eval_max_depth_r3plus=21; fail_closed=False; pool_ref=results/overnight_047_headline_preregistered/line1_headline/reverts_needed_pool.json; train_max_depth=24 |  |
 | results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json | GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS | fail_closed=False; line1_prior_status=HEADLINE_TABLE_READY_WITH_AUDIT_RED | gru_r3plus_rerun:12r/13c |
 | results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed42/results.json | recorded | D=128; K_val=9; K_var=81; batch_size=4096; bounded_state_only=True; checkpoint=results/closeout_047/gru_in_loop/cells/D128_Kv81_Ku9_with_replacement_seed42/gru_stack_best.pt |  |
@@ -2072,7 +2073,7 @@ Truncated to 24 of 27 rows.
 | --- | --- | --- |
 | Task 1 GRU arm | GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS | results/closeout_047/gru_in_loop/gru_in_loop_r3plus_rerun.json |
 | Task 2 headline figure | HEADLINE_FIGURE_CERTIFIED | results/closeout_047/headline_figure/headline_figure_certification.json |
-| Task 3 Track B split | MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL | results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json |
+| Task 3 Track B split | VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL | results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json |
 
 ##### closeout_decision_metrics
 
@@ -2081,7 +2082,7 @@ Truncated to 24 of 27 rows.
 | headline_figure | HEADLINE_FIGURE_CERTIFIED |
 | spill_off_matches_depth_le_dstar | True |
 | spill_on_overflow_matches_table | True |
-| track_b_outcome | MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL |
+| track_b_outcome | VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL |
 | track_b_eval_mask_only_precision | 0.8203 |
 | track_b_eval_mask_only_recall | 0.8827 |
 | track_b_eval_full_commit_precision | 0.2635 |
@@ -2099,7 +2100,7 @@ Truncated to 24 of 27 rows.
 | rot_vs_no_revert_causal_result | SOLID |
 | gru_in_loop_arm | GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS |
 | gru_rows_quotable | True |
-| track_b | MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL |
+| track_b | VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL |
 | headline_figure | HEADLINE_FIGURE_CERTIFIED |
 | capacity_law_transfer | CERTIFIED |
 
@@ -2178,7 +2179,60 @@ Truncated to 24 of 27 rows.
 | train | 151871 | 0.8267 | 0.8996 | 0.2806 | 0.2771 | 558001 | 512765 | 139223 | 140998 | unforced_candidate_blocked | 100157 |
 | eval | 19054 | 0.8203 | 0.8827 | 0.2635 | 0.2589 | 68718 | 63863 | 17269 | 17578 | unforced_candidate_blocked | 12718 |
 
-- Next action: Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact.
+- Next action: Closeout acceptance gates are resolved; keep Track B out of the critical path, run at most one value-head retrain, and quote GRU only through the real in-loop rerun artifact.
+
+### Item 049 - Track B one-shot value-head retrain
+
+- Status: APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL
+- Key result: Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL.
+- Purpose: Execute exactly one off-critical-path Track B value-head/commit-conjunction retrain after the mask/full diagnostic showed high mask-only P/R but low full-commit P/R.
+- Details:
+  - purpose=Execute exactly one off-critical-path Track B value-head/commit-conjunction retrain after the mask/full diagnostic showed high mask-only P/R but low full-commit P/R.
+  - commands=2
+  - result_tables=['attempt_policy', 'seed_acceptance_summary']
+  - honesty=This one retrain does not affect the certified Track A headline. Track B is a passing learned operator only if the retrain gates and learned_recurrent autonomous Stage A cells are present; otherwise it closes as mask-identification-works / value-selection-hard appendix evidence.
+- Artifact refs:
+  - results/experiment_items/item_049_track_b_value_head_retrain.json (yes, 9075 bytes)
+  - results/track_b_value_head_retrain_20260609/acceptance.json (yes, 5925 bytes)
+  - results/track_b_value_head_retrain_20260609/seed102_gpu0/acceptance.json (yes, 22236 bytes)
+  - results/track_b_value_head_retrain_20260609/seed137_gpu1/acceptance.json (yes, 22451 bytes)
+  - results/track_b_value_head_retrain_20260609/seed256_gpu6/acceptance.json (yes, 22372 bytes)
+  - results/track_b_value_head_retrain_20260609/seed137_gpu1/train.log (yes, 10948 bytes)
+  - results/track_b_value_head_retrain_20260609/seed256_gpu6/train.log (yes, 10948 bytes)
+  - results/track_b_value_head_retrain_20260609/seed137_gpu1/train_rerun.log (yes, 26711 bytes)
+  - results/track_b_value_head_retrain_20260609/seed256_gpu6/train_rerun.log (yes, 26609 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/track_b_value_head_retrain_20260609/acceptance.json | APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL | all_seed_acceptances_present=True; attempt_count=1; base_checkpoint_for_completed_attempt=results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt; fail_closed=False; headline_locked_without_track_b=True; launch_correction_note=The first seed137/seed256 launches used their older hidden_dim=768 checkpoints and failed before training at state_di... | seed_acceptance_summary:3r/17c |
+| results/track_b_value_head_retrain_20260609/seed102_gpu0/acceptance.json | G1_NOT_MET | G1=0.1035; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_value_head_retrain_20260609/seed102_gpu0/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
+| results/track_b_value_head_retrain_20260609/seed137_gpu1/acceptance.json | G1_NOT_MET | G1=0.0918; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_value_head_retrain_20260609/seed137_gpu1/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
+| results/track_b_value_head_retrain_20260609/seed256_gpu6/acceptance.json | G1_NOT_MET | G1=0.07422; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_value_head_retrain_20260609/seed256_gpu6/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
+
+#### Contract Result Tables
+
+##### attempt_policy
+
+| policy | value |
+| --- | --- |
+| attempt_count | 1 |
+| no_second_retrain | True |
+| no_dagger_rl | True |
+| headline_locked_without_track_b | True |
+| all_seed_acceptances_present | True |
+| base_checkpoint_for_completed_attempt | results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt |
+| launch_correction | The first seed137/seed256 launches used their older hidden_dim=768 checkpoints and failed before training at state_dict shape load. The completed reruns used the same 6.9M seed102 DDP Track B base checkpoint as seed102 so the parameter count and mask head stayed fixed; this completed the single authorized attempt rather than starting a second retrain. |
+
+##### seed_acceptance_summary
+
+| seed | status | completed_step | parameter_count | trainable_parameter_count | calibrated_tau | G1 | G2 | G1_pass | leading_indicator_success | eval_mask_only_precision | eval_mask_only_recall | eval_full_commit_precision | eval_full_commit_recall | dominant_stick_reason | dominant_block_audit | gate_or_appendix_decision |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 102 | G1_NOT_MET | 3000 | 6908685 | 2310 | 0 | 0.1035 | 0 | False | True | 0.8203 | 0.8827 | 0.8919 | 0.8762 | commit_forced | unforced_cell | APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL |
+| 137 | G1_NOT_MET | 3000 | 6908685 | 2310 | 0 | 0.0918 | 0 | False | True | 0.8131 | 0.8886 | 0.8891 | 0.8787 | commit_forced | unforced_cell | APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL |
+| 256 | G1_NOT_MET | 3000 | 6908685 | 2310 | 0 | 0.07422 | 0 | False | True | 0.825 | 0.8973 | 0.8981 | 0.8849 | commit_forced | unforced_cell | APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL |
+
+- Next action: Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL.
 
 
 ## Canonical Repo Decision
@@ -2219,7 +2273,7 @@ Truncated to 24 of 27 rows.
 | Stage A Track A symbolic | YELLOW | track=A_symbolic; operator=symbolic_oracle; autonomous_cells=43; symbolic_core={'autonomous_cells': 43, 'declared_track': 'A_symbolic', 'forward_floor_on_L4': True, 'kv_snapshot_max_depth': 3, 'operator': 'symbolic_oracle', 'reverts_nonzero_on_L4': True, 'rot_no_revert_max_depth': 3} |
 | Stage A learned track | RED | diagnostic_G1=1.0; learned_autonomous_cells=0; statuses=['PARENT_ADAPTER_REQUIRED'] |
 | W3 Qwen3.5 | YELLOW | integration_grade=cached_gdn_state_measured_with_propagation_delta; W3.0=PASS |
-| Validation | RED | checks=271; pass=268; fail=3 |
+| Validation | RED | checks=289; pass=286; fail=3 |
 
 ## Artifact Index
 
@@ -2249,6 +2303,7 @@ Truncated to 24 of 27 rows.
 | item_046_track_b_ddp_sharded_seed102_final | results/experiment_items/item_046_track_b_ddp_sharded_seed102_final.json | yes |
 | item_047_deep_band_track_a_headline_overnight | results/experiment_items/item_047_deep_band_track_a_headline_overnight.json | yes |
 | item_048_item047_headline_closeout | results/experiment_items/item_048_item047_headline_closeout.json | yes |
+| item_049_track_b_value_head_retrain | results/experiment_items/item_049_track_b_value_head_retrain.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
 | qwen3_4b_instruct_download | results/model_download/qwen_download.json | yes |
@@ -2293,14 +2348,15 @@ Truncated to 24 of 27 rows.
 | track_b_retry_plan | specs/track_b_retry_plan.md | yes |
 | track_b_prelaunch_smoke_acceptance | results/trm_operator_prelaunch_smoke/acceptance.json | yes |
 | track_b_compile_smoke_acceptance | results/trm_operator_compile_smoke/acceptance.json | yes |
+| track_b_value_head_retrain_acceptance | results/track_b_value_head_retrain_20260609/acceptance.json | yes |
 | validation | results/validation/validation.json | yes |
 
 ## Validation Summary
 
 | tier | pass | fail |
 | --- | --- | --- |
-| closeout_047 | 13 | 0 |
-| contract | 158 | 0 |
+| closeout_047 | 15 | 0 |
+| contract | 164 | 0 |
 | env | 13 | 0 |
 | legacy | 7 | 0 |
 | meta | 1 | 0 |
@@ -2308,6 +2364,7 @@ Truncated to 24 of 27 rows.
 | tier_a | 35 | 0 |
 | tier_b | 27 | 3 |
 | tier_c | 12 | 0 |
+| track_b_value_head | 10 | 0 |
 
 ## P0/P1/P2/P3 Execution Notes
 

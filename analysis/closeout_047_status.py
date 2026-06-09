@@ -11,6 +11,8 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[1]
 STATUS_PATH = REPO_ROOT / "results/closeout_047/status_corrections.json"
 ITEM_PATH = REPO_ROOT / "results/experiment_items/item_048_item047_headline_closeout.json"
+TRACK_B_VALUE_HEAD_LABEL = "VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL"
+TRACK_B_LABEL_CORRECTION_NOTE = "Prior label said mask-head low; corrected after reading mask-only P/R 0.82/0.88 (high). Failure localizes to the value head / commit conjunction (dominant stick unforced_candidate_blocked), which is fixable; one retrain authorized. Track B is still NOT a passing learned operator until that retrain gates."
 
 
 def _now() -> str:
@@ -272,8 +274,8 @@ def build_item(status_payload: dict[str, Any]) -> dict[str, Any]:
         ])
     if gru_resolved and track_b_resolved:
         item_status = "ITEM047_CLOSEOUT_COMPLETE"
-        honesty_text = "The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnability finding, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present."
-        next_step_routing = "Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact."
+        honesty_text = "The closeout locks the causal structured-register headline with certified figure/spill accounting, corrects Track B to a value-head/commit-conjunction bug with one retrain authorized off the critical path, and only quotes GRU rows after nonzero bytes, training curve refs, and converged=true are present."
+        next_step_routing = "Closeout acceptance gates are resolved; keep Track B out of the critical path, run at most one value-head retrain, and quote GRU only through the real in-loop rerun artifact."
     else:
         item_status = "ITEM047_CLOSEOUT_IN_PROGRESS"
         missing = []
@@ -331,6 +333,7 @@ def build_item(status_payload: dict[str, Any]) -> dict[str, Any]:
         },
         "honesty": {
             "does_not_establish": honesty_text,
+            "track_b_label_correction": TRACK_B_LABEL_CORRECTION_NOTE,
         },
         "decision": {
             "gate_outcomes": [

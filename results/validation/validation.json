@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=21",
+      "detail": "count=22",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -1315,14 +1315,50 @@
       "tier": "contract"
     },
     {
-      "detail": "The closeout locks the causal structured-register headline with certified figure/spill accounting, resolves Track B as an off-critical-path mask-head learnabili",
+      "detail": "The closeout locks the causal structured-register headline with certified figure/spill accounting, corrects Track B to a value-head/commit-conjunction bug with ",
       "name": "log_item_048_honesty_does_not_establish",
       "status": "PASS",
       "tier": "contract"
     },
     {
-      "detail": "gates=4; routing=Closeout acceptance gates are resolved; keep Track B out of the critical path and quote GRU only through the real in-loop rerun artifact.",
+      "detail": "gates=4; routing=Closeout acceptance gates are resolved; keep Track B out of the critical path, run at most one value-head retrain, and quote GRU only through the real in-loop rerun artifact.",
       "name": "log_item_048_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_049_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_049_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=049",
+      "name": "log_item_049_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_049_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This one retrain does not affect the certified Track A headline. Track B is a passing learned operator only if the retrain gates and learned_recurrent autonomou",
+      "name": "log_item_049_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=2; routing=Close in appendix as mask-identification-works / value-selection-hard if no seed gates; no second retrain, no DAgger, no RL.",
+      "name": "log_item_049_decision_numbers_and_routing",
       "status": "PASS",
       "tier": "contract"
     },
@@ -1537,8 +1573,8 @@
       "tier": "closeout_047"
     },
     {
-      "detail": "track_b_label=MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
-      "name": "item047_track_b_split_diagnosis_resolved",
+      "detail": "track_b_label=VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL",
+      "name": "item047_track_b_value_commit_bug_label",
       "status": "PASS",
       "tier": "closeout_047"
     },
@@ -1567,8 +1603,14 @@
       "tier": "closeout_047"
     },
     {
-      "detail": "status=MASK_HEAD_LOW_CLOSE_AS_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL",
-      "name": "item047_track_b_not_old_close_label",
+      "detail": "status=VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL",
+      "name": "item047_track_b_split_corrected_label",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
+      "detail": "status=VALUE_HEAD_COMMIT_CONJUNCTION_BUG_DIAGNOSED_ONE_RETRAIN_ALLOWED_NO_DAGGER_RL",
+      "name": "item047_track_b_wrong_labels_absent",
       "status": "PASS",
       "tier": "closeout_047"
     },
@@ -1579,10 +1621,76 @@
       "tier": "closeout_047"
     },
     {
+      "detail": "eval_mask_p=0.8203236415495212; eval_mask_r=0.8826863755226031; eval_full_p=0.26353581562337136; eval_full_r=0.25890317442257366",
+      "name": "item047_track_b_mask_high_full_commit_low",
+      "status": "PASS",
+      "tier": "closeout_047"
+    },
+    {
       "detail": "rows=12; status=GRU_IN_LOOP_R3PLUS_RERUN_AUDIT_PASS",
       "name": "item047_gru_rows_real_bytes_curve_converged",
       "status": "PASS",
       "tier": "closeout_047"
+    },
+    {
+      "detail": "results/experiment_items/item_049_track_b_value_head_retrain.json",
+      "name": "item_049_track_b_value_head_retrain_present",
+      "status": "PASS",
+      "tier": "track_b_value_head"
+    },
+    {
+      "detail": "results/track_b_value_head_retrain_20260609/acceptance.json",
+      "name": "track_b_value_head_retrain_acceptance_present",
+      "status": "PASS",
+      "tier": "track_b_value_head"
+    },
+    {
+      "detail": "attempt_count=1",
+      "name": "track_b_value_head_single_attempt",
+      "status": "PASS",
+      "tier": "track_b_value_head"
+    },
+    {
+      "detail": "no_second=True; no_dagger_rl=True",
+      "name": "track_b_value_head_no_second_no_dagger",
+      "status": "PASS",
+      "tier": "track_b_value_head"
+    },
+    {
+      "detail": "headline_locked_without_track_b=True",
+      "name": "track_b_value_head_off_critical_path",
+      "status": "PASS",
+      "tier": "track_b_value_head"
+    },
+    {
+      "detail": "seeds=[102, 137, 256]",
+      "name": "track_b_value_head_three_seed_acceptances",
+      "status": "PASS",
+      "tier": "track_b_value_head"
+    },
+    {
+      "detail": "rows=3",
+      "name": "track_b_value_head_tau_and_pr_recorded",
+      "status": "PASS",
+      "tier": "track_b_value_head"
+    },
+    {
+      "detail": "status=APPENDIX_VALUE_HEAD_LEARNABILITY_FINDING_NO_SECOND_RETRAIN_NO_DAGGER_RL",
+      "name": "track_b_value_head_gate_or_appendix_decision",
+      "status": "PASS",
+      "tier": "track_b_value_head"
+    },
+    {
+      "detail": "G1_passes=[False, False, False]",
+      "name": "track_b_value_head_nonpassing_reflected",
+      "status": "PASS",
+      "tier": "track_b_value_head"
+    },
+    {
+      "detail": "item_number=049",
+      "name": "item049_number_present",
+      "status": "PASS",
+      "tier": "track_b_value_head"
     },
     {
       "detail": "results/ttt/results.json",
@@ -1627,11 +1735,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-09T02:48:23.270840+00:00",
+  "generated_at": "2026-06-09T04:56:22.430165+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 271,
+    "n_checks": 289,
     "n_fail": 3,
-    "n_pass": 268
+    "n_pass": 286
   }
 }
