@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-09T13:43:00.930684+00:00
+Generated at: 2026-06-09T18:25:39.974235+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,7 +17,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 pre-fix record | BLOCKER | historical_continuation_G1=0.0; current_diagnostic_G1=1.0 |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=414; validation_passed=False |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=472; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Diagnostic pass, autonomous grid not proven | Sudoku6 diagnostic G1=1.0; L4_reverts=True; L4_forward=True |
 | P2 | W3 Qwen3.5 probe | cached_gdn_state_measured_with_propagation_delta | W3.0=PASS; survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; native_delta=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; propagation=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
@@ -49,6 +49,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 051 | Rung-1 distributed graph-coloring CBJ gate | RUNG1_PHASE0_SYMBOLIC_GATE_PASSED | Proceed to Phase 1 Qwen3.5-4B on the frozen pool if rung1_gate_pass is true; otherwise increase cut/tighten k or plant deeper chain-structured blocks and rerun Phase 0. |
 | 052 | Rung-1 gate distributed coloring v0.1 fixed-size depth curve | RUNG1_V01_FIXED_SIZE_DEPTH_CURVE_PASSED | Use the fixed-size attainable-bin pool for Phase 1 gap-vs-depth reproduction; keep Item051 deep-stress pool separate and labeled as secondary stress evidence. |
 | 053 | Rung-1 graph-coloring RG-native hard pool and one-shot baseline | RUNG1_V02_RG_NATIVE_HARD_BASELINE_RECORDED | Use Item053 as the RG-native hard baseline pool for Phase 1 comparability; keep Item052 chain-structured fixed-size curve as the mechanism stress curve and do not mix the two distributions. |
+| 054 | Rung-1 Phase 1 spec v0.1 revision | RUNG1_PHASE1_SPEC_V01_ACCEPTED | Run R4 RG-native lead-in generation for depths 4,5,6,exact 9, then R3 qwen_one_shot hardness anchor before node-cap symbolic sweeps and Phase 1 P1a/P1b/P1c. |
+| 055 | Rung-1 Phase 1 R4 RG-native natural pool lead-in | RUNG1_PHASE1_R4_NATURAL_POOL_READY | Run R3 qwen_one_shot direct-answer and with-CoT on this exact edge manifest before node-cap symbolic sweeps. |
+| 056 | Rung-1 Phase 1 R3 Qwen one-shot hardness anchor | RUNG1_PHASE1_R3_QWEN_ONESHOT_HEALTH_FAIL_RERUN | Proceed to Phase 1 only if generation_health passes and with_cot valid solve remains below the too-easy threshold. |
+| 057 | Rung-1 Phase 1 R2 symbolic node-cap budget sweep | RUNG1_PHASE1_R2_SYMBOLIC_BUDGET_SWEEP_RECORDED | If R3 hardness gate passes, proceed to Phase 1 P1a/P1b/P1c with efficiency-gap survival as primary. |
 
 ## Item Details
 
@@ -105,14 +109,14 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - The validator now reports missing legacy artifacts individually.
   - Current validation is registry-style and does not collapse missing history into one opaque required-files failure.
 - Artifact refs:
-  - analysis/validate_outputs.py (yes, 79993 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
+  - analysis/validate_outputs.py (yes, 93175 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
@@ -259,21 +263,21 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=414; validation_passed=False
+- Key result: validation_checks=472; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=411; validation_fail=3
+  - validation_pass=469; validation_fail=3
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifact refs:
   - CANONICAL_REPO.md (yes, 532 bytes)
-  - analysis/validate_outputs.py (yes, 79993 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/experiment_log/experiment_log.json (yes, 43858981 bytes)
+  - analysis/validate_outputs.py (yes, 93175 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/experiment_log/experiment_log.json (yes, 51215230 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 - Next action: Keep future reports item-first and preserve explicit red checks.
@@ -390,10 +394,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - REPRODUCIBILITY.md (yes, 3478 bytes)
   - scripts/reproduce_continuation_state.sh (yes, 1972 bytes)
   - results/continuation_state/post_027.json (yes, 1453 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
-  - results/experiment_log/experiment_log.json (yes, 43858981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 365696 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
+  - results/experiment_log/experiment_log.json (yes, 51215230 bytes)
+  - results/experiment_log/experiment_log.md (yes, 444288 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -405,7 +409,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/continuation_state/post_027.json | recorded | source=user_master_runbook_2026_06_07; canonical_repo=/home/aiscuser/RECURRENT_NN |  |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/stage_a_adapter_wiring/results.json | PASS | autonomous_solve_status=NOT_RUN; grid_cells=36; preflight_status=READY; register_smoke_status=SMOKE_PASS |  |
 | results/stage_a_banded_gate_refusal/results.json | PASS | banded_datasets=8 keys: note, sudoku6_depths, sudoku6_generated_count, sudoku6_generator_present, sudoku6_status, sudoku9_generated_c... | fail_closed_cases:3r/5c |
@@ -688,8 +692,8 @@ No rows recorded.
   - results/d_stage_2/results.json (missing)
   - results/d_stage_3/results.json (missing)
   - results/verifier/results.json (missing)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -701,7 +705,7 @@ No rows recorded.
 | results/d_stage_2/results.json | missing |  |  |
 | results/d_stage_3/results.json | missing |  |  |
 | results/verifier/results.json | missing |  |  |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 
 #### Contract Result Tables
 
@@ -763,14 +767,14 @@ No rows recorded.
   - honesty=This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent state. It deliberately turns the registry red until those objects exist.
 - Artifact refs:
   - results/experiment_items/item_033_validation_object_binding.json (yes, 7073 bytes)
-  - analysis/validate_outputs.py (yes, 79993 bytes)
+  - analysis/validate_outputs.py (yes, 93175 bytes)
   - experiments/stage_a_sudoku6_bridge.py (yes, 10922 bytes)
   - experiments/w3_qwen35_probe.py (yes, 47675 bytes)
   - results/stage_a_sudoku6_bridge/results.json (yes, 4890 bytes)
   - results/w3_qwen35_probe/results.json (yes, 96087 bytes)
   - results/w3_qwen35_probe/verdicts.json (yes, 674 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -778,7 +782,7 @@ No rows recorded.
 | results/stage_a_sudoku6_bridge/results.json | DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER | G1=1; single_step_forced_accuracy=1; n_sudoku6_tasks=32; reverts_nonzero_on_L4=True; forward_floor_on_L4=True; device=cpu | single_step_forced_precision_recall_by_depth:2r/5c |
 | results/w3_qwen35_probe/results.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:8r/13c; decay_survival:5r/5c; model_card:34r/3c; native_rule_gap:3r/7c; propagation_per_task_delta:5r/7c |
 | results/w3_qwen35_probe/verdicts.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... |  |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 
 #### Contract Result Tables
 
@@ -951,8 +955,8 @@ No rows recorded.
   - results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json (yes, 19157 bytes)
   - results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json (yes, 19123 bytes)
   - results/w3_qwen35_probe/propagation_shards/logic_grid/results.json (yes, 19025 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -968,7 +972,7 @@ No rows recorded.
 | results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/logic_grid/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 
 #### Contract Result Tables
 
@@ -1194,10 +1198,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
-  - results/experiment_log/experiment_log.json (yes, 43858981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 365696 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
+  - results/experiment_log/experiment_log.json (yes, 51215230 bytes)
+  - results/experiment_log/experiment_log.md (yes, 444288 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1205,7 +1209,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1323,10 +1327,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
-  - results/experiment_log/experiment_log.json (yes, 43858981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 365696 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
+  - results/experiment_log/experiment_log.json (yes, 51215230 bytes)
+  - results/experiment_log/experiment_log.md (yes, 444288 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1334,7 +1338,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1413,17 +1417,17 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 43858981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 365696 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
+  - results/experiment_log/experiment_log.json (yes, 51215230 bytes)
+  - results/experiment_log/experiment_log.md (yes, 444288 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/trm_operator_smoke/acceptance.json | G1_NOT_MET | G1=0.125; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 
 #### Contract Result Tables
 
@@ -1478,20 +1482,20 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (yes, 11255 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (yes, 11389 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (yes, 11218 bytes)
-  - results/experiment_log/experiment_log.json (yes, 43858981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 365696 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
+  - results/experiment_log/experiment_log.json (yes, 51215230 bytes)
+  - results/experiment_log/experiment_log.md (yes, 444288 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-09T13:42:56.105547+00:00 |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-09T18:25:19.016544+00:00 |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | GATES_UNREACHED | G1=0.03906; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | GATES_UNREACHED | G1=0.01562; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 
 #### Contract Result Tables
 
@@ -1580,10 +1584,10 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (yes, 40421 bytes)
   - results/sudoku_engine_gpu/equivalence_1000.json (yes, 167 bytes)
   - results/trm_operator_logging_smoke/progress.jsonl (yes, 968 bytes)
-  - results/experiment_log/experiment_log.json (yes, 43858981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 365696 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
+  - results/experiment_log/experiment_log.json (yes, 51215230 bytes)
+  - results/experiment_log/experiment_log.md (yes, 444288 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1591,7 +1595,7 @@ Truncated to 24 of 27 rows.
 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json | recorded | no_optimization_claim=True; profiled_object=experiments.train_trm_operator current Track B per-cell-token trainer; purpose=P0 profile gate before GPU efficiency optimization; semantics mirror current Track B trainer.; started_at=2026-06-08T10:02:52.744806+00:00 |  |
 | results/sudoku_engine_gpu/equivalence_1000.json | True | device=cuda:0; n_boards=1000; n_mismatches=0; name=sudoku_engine_gpu_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 
 #### Contract Result Tables
 
@@ -1660,17 +1664,17 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (yes, 322 bytes)
-  - results/experiment_log/experiment_log.json (yes, 43858981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 365696 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
+  - results/experiment_log/experiment_log.json (yes, 51215230 bytes)
+  - results/experiment_log/experiment_log.md (yes, 444288 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/batched_ops/equivalence_100.json | True | device=cuda:0; n_episodes_generated=100; n_episodes_requested=100; n_mismatches=0; name=register_batched_ops_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 
 #### Contract Result Tables
 
@@ -1706,16 +1710,16 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 43858981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 365696 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
+  - results/experiment_log/experiment_log.json (yes, 51215230 bytes)
+  - results/experiment_log/experiment_log.md (yes, 444288 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 
 #### Contract Result Tables
 
@@ -1763,10 +1767,10 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (yes, 974 bytes)
   - results/trm_operator_compile_smoke/acceptance.json (yes, 10396 bytes)
   - results/trm_operator_compile_smoke/progress.jsonl (yes, 486 bytes)
-  - results/experiment_log/experiment_log.json (yes, 43858981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 365696 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
+  - results/experiment_log/experiment_log.json (yes, 51215230 bytes)
+  - results/experiment_log/experiment_log.md (yes, 444288 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1774,7 +1778,7 @@ Truncated to 24 of 27 rows.
 | results/trm_operator_prelaunch_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_prelaunch_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/trm_operator_compile_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_compile_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 
 #### Contract Result Tables
 
@@ -1831,17 +1835,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (yes, 102640503 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (yes, 102514311 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (yes, 102594183 bytes)
-  - results/experiment_log/experiment_log.json (yes, 43858981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 365696 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
+  - results/experiment_log/experiment_log.json (yes, 51215230 bytes)
+  - results/experiment_log/experiment_log.md (yes, 444288 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/ddp_shard_smoke_track_b_20260608/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/ddp_shard_smoke_track_b_20260608/trm_operator_seed778.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 
 #### Contract Result Tables
 
@@ -1891,17 +1895,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 42721 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (yes, 80203 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (yes, 55287865 bytes)
-  - results/experiment_log/experiment_log.json (yes, 43858981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 365696 bytes)
-  - results/validation/validation.json (yes, 115600 bytes)
-  - results/validation/validation.md (yes, 85143 bytes)
+  - results/experiment_log/experiment_log.json (yes, 51215230 bytes)
+  - results/experiment_log/experiment_log.md (yes, 444288 bytes)
+  - results/validation/validation.json (yes, 132391 bytes)
+  - results/validation/validation.md (yes, 97642 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=414; n_fail=3; n_pass=411 |  |
+| results/validation/validation.json | False | summary=n_checks=472; n_fail=3; n_pass=469 |  |
 
 #### Contract Result Tables
 
@@ -3210,6 +3214,351 @@ Truncated to 24 of 144 rows.
 
 - Next action: Use Item053 as the RG-native hard baseline pool for Phase 1 comparability; keep Item052 chain-structured fixed-size curve as the mechanism stress curve and do not mix the two distributions.
 
+### Item 054 - Rung-1 Phase 1 spec v0.1 revision
+
+- Status: RUNG1_PHASE1_SPEC_V01_ACCEPTED
+- Key result: Run R4 RG-native lead-in generation for depths 4,5,6,exact 9, then R3 qwen_one_shot hardness anchor before node-cap symbolic sweeps and Phase 1 P1a/P1b/P1c.
+- Purpose: Revise Phase 1 after Item053 showed natural RG-hard solve-rate separation is significant only in the 9+ tail while paired communication and retraction efficiency gaps are robust across hard depths.
+- Details:
+  - purpose=Revise Phase 1 after Item053 showed natural RG-hard solve-rate separation is significant only in the 9+ tail while paired communication and retraction efficiency gaps are robust across hard depths.
+  - commands=1
+  - result_tables=['claim_reorder', 'node_cap_policy', 'baseline_policy', 'pool_policy', 'operator_ladder_refocus', 'run_order']
+  - honesty=This is a planning/spec revision, not a new Phase 1 measurement. It does not establish Qwen one-shot hardness, node-cap budget curves, or fallible-operator efficiency-gap survival until those runs are executed.
+- Artifact refs:
+  - results/experiment_items/item_054_rung1_phase1_spec_v01.json (yes, 8063 bytes)
+  - specs/rung1_phase1_spec_v01.md (yes, 5014 bytes)
+#### Contract Result Tables
+
+##### claim_reorder
+
+| rank | claim | metrics | pool | figure_order | status |
+| --- | --- | --- | --- | --- | --- |
+| primary | CBJ reduces inter-agent communication and retractions on natural RG-hard instances. | comm_tokens,total_retractions paired per instance by depth | Item053 RG-native headline pool plus RG-native lead-in bins | 1 | accepted |
+| secondary | Solve-rate advantage is budget-contingent and significant mainly at the deepest tail. | solve_rate vs node_cap,budget@95%_solve | Item053 RG-native headline pool plus RG-native lead-in bins | 2 | accepted |
+
+##### node_cap_policy
+
+| node_caps | reference_budget | derived_metric | per_depth | per_arm | interpretation |
+| --- | --- | --- | --- | --- | --- |
+| [60, 120, 240, 480, 960] | 120 | budget@95%_solve | True | True | Efficiency is primary; solve-vs-budget quantifies how recovery cost converts to solve under finite budget. |
+
+##### baseline_policy
+
+| baseline | role | variants | reporting | gate |
+| --- | --- | --- | --- | --- |
+| rg_greedy_one_shot | pool-construction footnote only | [] | not a headline baseline because reverse-greedy filtering makes it zero by construction | none |
+| qwen_one_shot | non-agentic task-hardness anchor | ["direct-answer", "with-CoT"] | oneshot_llm_solve_rate and invalid rate by depth | if Qwen one-shot solves a large fraction, stop and choose harder substrate |
+
+##### pool_policy
+
+| pool | role | depths | allowed_in_headline | mix_with_other_pool |
+| --- | --- | --- | --- | --- |
+| Item053 RG-native natural hard pool | headline | [4, 5, 6, 7, 8, "9", "9+"] | True | False |
+| Item052 chain-planted fixed-size pool | controlled stress isolation | [0, 4, 5, 6, 7, 8, "9+"] | False | False |
+
+##### operator_ladder_refocus
+
+| quantity | phase1_role | definition |
+| --- | --- | --- |
+| efficiency_gap_survival | primary | Whether CBJ still reduces comm_tokens and total_retractions under fallible Qwen operators. |
+| cbj_cost_deviation_from_integer_line | attribution | How far observed CBJ cost deviates from the symbolic cost line. |
+| false_pos_false_neg_spurious_backjump | attribution | Operator error rates and spurious-backjump share explaining any efficiency-gap erosion. |
+| solve_crossover | secondary | Reported only through solve-vs-budget curves. |
+
+##### run_order
+
+| step | action | stop_condition |
+| --- | --- | --- |
+| 1 | Extend RG-native pool with depth 4,5,6,exact 9. | generation infeasible within declared rejection budget |
+| 2 | Run qwen_one_shot direct-answer and with-CoT. | Qwen solves a large fraction; switch to harder substrate |
+| 3 | Run symbolic efficiency curve and node-cap solve sweep. | Phase 0 reordered conclusion fails |
+| 4 | Run Phase 1 P1a then P1b then P1c. | efficiency gap erased or attributed to operator failure |
+
+- Next action: Run R4 RG-native lead-in generation for depths 4,5,6,exact 9, then R3 qwen_one_shot hardness anchor before node-cap symbolic sweeps and Phase 1 P1a/P1b/P1c.
+
+### Item 055 - Rung-1 Phase 1 R4 RG-native natural pool lead-in
+
+- Status: RUNG1_PHASE1_R4_NATURAL_POOL_READY
+- Key result: Run R3 qwen_one_shot direct-answer and with-CoT on this exact edge manifest before node-cap symbolic sweeps.
+- Purpose: Generate the RG-native reverse-greedy natural pool lead-in for Phase 1, adding exact depth bins 4, 5, 6, and 9 while preserving natural distribution boundaries and saving edge lists for Qwen one-shot scoring.
+- Details:
+  - purpose=Generate the RG-native reverse-greedy natural pool lead-in for Phase 1, adding exact depth bins 4, 5, 6, and 9 while preserving natural distribution boundaries and saving edge lists for Qwen one-shot scoring.
+  - commands=1
+  - result_tables=['generation_rejection_summary', 'instance_manifest', 'pool_depth_summary']
+  - honesty=This artifact only generates the natural RG-native pool. It does not run Qwen one-shot, node-cap budget sweeps, or Phase 1 fallible-operator recovery.
+- Artifact refs:
+  - results/experiment_items/item_055_rung1_phase1_r4_natural_pool.json (yes, 1234738 bytes)
+  - results/rung1_phase1_r4_natural_pool/results.json (yes, 967671 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_phase1_r4_natural_pool/results.json | RUNG1_PHASE1_R4_NATURAL_POOL_READY | schema_version=rung1_phase1_r4_natural_pool_v0 |  |
+
+#### Contract Result Tables
+
+##### generation_rejection_summary
+
+| attempts | depth_bin | n | p_range | provenance | rejection_counters | seed | source | target_met | target_n |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 338864 | 4 | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | 12 keys: accepted, chi_relaxed_rejected, depth_0_rejected, depth_5_rejected, depth_6_rejected, depth_7_rejected, depth_8_rejected, depth_9+_rejected | 42 | autonomous_stage_a_run | True | 24 |
+| 189378 | 5 | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | 12 keys: accepted, chi_relaxed_rejected, depth_0_rejected, depth_4_rejected, depth_6_rejected, depth_7_rejected, depth_8_rejected, depth_9+_rejected | 42 | autonomous_stage_a_run | True | 24 |
+| 75087 | 6 | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | 12 keys: accepted, chi_relaxed_rejected, depth_0_rejected, depth_4_rejected, depth_5_rejected, depth_7_rejected, depth_8_rejected, depth_9+_rejected | 42 | autonomous_stage_a_run | True | 24 |
+| 33553 | 7 | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | 12 keys: accepted, chi_relaxed_rejected, depth_0_rejected, depth_4_rejected, depth_5_rejected, depth_6_rejected, depth_8_rejected, depth_9+_rejected | 42 | autonomous_stage_a_run | True | 24 |
+| 7297 | 8 | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | 10 keys: accepted, chi_relaxed_rejected, depth_0_rejected, depth_6_rejected, depth_7_rejected, depth_9+_rejected, depth_9_rejected, reference_cbj_rejected | 42 | autonomous_stage_a_run | True | 24 |
+| 10303 | 9 | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | 10 keys: accepted, chi_relaxed_rejected, depth_0_rejected, depth_6_rejected, depth_7_rejected, depth_8_rejected, depth_9+_rejected, reference_cbj_rejected | 42 | autonomous_stage_a_run | True | 24 |
+| 875 | 9+ | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | accepted=24; chi_relaxed_rejected=5; depth_0_rejected=67; depth_8_rejected=1; depth_9_rejected=3; reference_cbj_rejected=260; rg_greedy_one_shot_solved_rejected=171; unsat_rejected=344 | 42 | autonomous_stage_a_run | True | 24 |
+| 305819 | 4 | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | 12 keys: accepted, chi_relaxed_rejected, depth_0_rejected, depth_5_rejected, depth_6_rejected, depth_7_rejected, depth_8_rejected, depth_9+_rejected | 137 | autonomous_stage_a_run | True | 24 |
+| 181344 | 5 | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | 12 keys: accepted, chi_relaxed_rejected, depth_0_rejected, depth_4_rejected, depth_6_rejected, depth_7_rejected, depth_8_rejected, depth_9+_rejected | 137 | autonomous_stage_a_run | True | 24 |
+| 62487 | 6 | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | 12 keys: accepted, chi_relaxed_rejected, depth_0_rejected, depth_4_rejected, depth_5_rejected, depth_7_rejected, depth_8_rejected, depth_9+_rejected | 137 | autonomous_stage_a_run | True | 24 |
+| 27136 | 7 | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | 12 keys: accepted, chi_relaxed_rejected, depth_0_rejected, depth_4_rejected, depth_5_rejected, depth_6_rejected, depth_8_rejected, depth_9+_rejected | 137 | autonomous_stage_a_run | True | 24 |
+| 8384 | 8 | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | 11 keys: accepted, chi_relaxed_rejected, depth_0_rejected, depth_5_rejected, depth_6_rejected, depth_7_rejected, depth_9+_rejected, depth_9_rejected | 137 | autonomous_stage_a_run | True | 24 |
+| 10394 | 9 | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | 12 keys: accepted, chi_relaxed_rejected, depth_0_rejected, depth_4_rejected, depth_5_rejected, depth_6_rejected, depth_7_rejected, depth_8_rejected | 137 | autonomous_stage_a_run | True | 24 |
+| 535 | 9+ | 24 | [0.3, 0.48] | reasoning_gym_generate_random_graph_reverse_greedy_filter_r4 | 9 keys: accepted, chi_relaxed_rejected, depth_0_rejected, depth_7_rejected, depth_8_rejected, depth_9_rejected, reference_cbj_rejected, rg_greedy_one_shot_solved_rejected | 137 | autonomous_stage_a_run | True | 24 |
+
+##### instance_manifest
+
+| boundary_conflict_exact | boundary_edges | chromatic_number | depth_bin | edges | fill_method | instance_id | intra_block_edges | k | n_agents | n_edges | n_vertices | provenance | reference_cross_agent_conflict_depth | rg_greedy_one_shot_solved | rg_verified_sat | seed | source | source_index | source_kind |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| True | 35 | 4 | 4 | 42 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_011625 | 7 | 4 | 4 | 42 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42411625 | reasoning_gym_generate_random_graph:n16_k4_p0.346372;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 25 | 4 | 4 | 34 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_023883 | 9 | 4 | 4 | 34 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42423883 | reasoning_gym_generate_random_graph:n16_k4_p0.347610;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 32 | 4 | 4 | 37 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_032344 | 5 | 4 | 4 | 37 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42432344 | reasoning_gym_generate_random_graph:n16_k4_p0.396825;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 26 | 4 | 4 | 34 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_043183 | 8 | 4 | 4 | 34 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42443183 | reasoning_gym_generate_random_graph:n16_k4_p0.333277;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 35 | 4 | 4 | 40 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_084476 | 5 | 4 | 4 | 40 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42484476 | reasoning_gym_generate_random_graph:n16_k4_p0.368658;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 27 | 4 | 4 | 38 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_087345 | 11 | 4 | 4 | 38 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42487345 | reasoning_gym_generate_random_graph:n16_k4_p0.361603;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 35 | 4 | 4 | 46 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_089249 | 11 | 4 | 4 | 46 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42489249 | reasoning_gym_generate_random_graph:n16_k4_p0.394467;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 35 | 4 | 4 | 43 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_090383 | 8 | 4 | 4 | 43 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42490383 | reasoning_gym_generate_random_graph:n16_k4_p0.335232;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 32 | 4 | 4 | 46 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_117509 | 14 | 4 | 4 | 46 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42517509 | reasoning_gym_generate_random_graph:n16_k4_p0.328430;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 34 | 4 | 4 | 43 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_146503 | 9 | 4 | 4 | 43 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42546503 | reasoning_gym_generate_random_graph:n16_k4_p0.420515;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 26 | 4 | 4 | 34 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_160476 | 8 | 4 | 4 | 34 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42560476 | reasoning_gym_generate_random_graph:n16_k4_p0.305264;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 29 | 4 | 4 | 38 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_163076 | 9 | 4 | 4 | 38 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42563076 | reasoning_gym_generate_random_graph:n16_k4_p0.306532;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 36 | 4 | 4 | 47 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_171722 | 11 | 4 | 4 | 47 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42571722 | reasoning_gym_generate_random_graph:n16_k4_p0.372645;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 35 | 4 | 4 | 41 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_199003 | 6 | 4 | 4 | 41 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42599003 | reasoning_gym_generate_random_graph:n16_k4_p0.413665;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 42 | 4 | 4 | 52 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_207531 | 10 | 4 | 4 | 52 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42607531 | reasoning_gym_generate_random_graph:n16_k4_p0.363147;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 35 | 4 | 4 | 49 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_216248 | 14 | 4 | 4 | 49 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42616248 | reasoning_gym_generate_random_graph:n16_k4_p0.412988;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 28 | 4 | 4 | 40 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_240773 | 12 | 4 | 4 | 40 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42640773 | reasoning_gym_generate_random_graph:n16_k4_p0.381746;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 40 | 4 | 4 | 50 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_273663 | 10 | 4 | 4 | 50 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42673663 | reasoning_gym_generate_random_graph:n16_k4_p0.410507;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 35 | 4 | 4 | 46 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_289950 | 11 | 4 | 4 | 46 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42689950 | reasoning_gym_generate_random_graph:n16_k4_p0.421079;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 30 | 4 | 4 | 37 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_290864 | 7 | 4 | 4 | 37 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42690864 | reasoning_gym_generate_random_graph:n16_k4_p0.317292;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 39 | 4 | 4 | 50 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_297853 | 11 | 4 | 4 | 50 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42697853 | reasoning_gym_generate_random_graph:n16_k4_p0.355245;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 32 | 4 | 4 | 41 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_317286 | 9 | 4 | 4 | 41 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42717286 | reasoning_gym_generate_random_graph:n16_k4_p0.339254;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 29 | 4 | 4 | 36 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_336851 | 7 | 4 | 4 | 36 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42736851 | reasoning_gym_generate_random_graph:n16_k4_p0.369156;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+| True | 25 | 4 | 4 | 36 items | rg_native_reverse_greedy_exact_depth_r4 | rung1p1r4_s42_d4_338864 | 11 | 4 | 4 | 36 | 16 | rg_native_generate_random_graph_reverse_greedy_r4_manifest_with_edges | 4 | False | True | 42 | autonomous_stage_a_run | 42738864 | reasoning_gym_generate_random_graph:n16_k4_p0.316615;fill_method=rg_native_reverse_greedy_exact_depth_r4 |
+
+Truncated to 24 of 336 rows.
+
+##### pool_depth_summary
+
+| actual_depth_max | actual_depth_min | chromatic_number_distribution | depth_bin | k | mean_actual_depth | mean_boundary_edges | mean_n_edges | n | n_agents | n_vertices | provenance | source | target_met | target_n |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 4 | 4 | 4=48 | 4 | 4 | 4 | 32.44 | 41.56 | 48 | 4 | 16 | rg_native_natural_pool_r4_depth_summary | autonomous_stage_a_run | True | 48 |
+| 5 | 5 | 4=48 | 5 | 4 | 5 | 33.02 | 41.94 | 48 | 4 | 16 | rg_native_natural_pool_r4_depth_summary | autonomous_stage_a_run | True | 48 |
+| 6 | 6 | 4=48 | 6 | 4 | 6 | 36.02 | 45.23 | 48 | 4 | 16 | rg_native_natural_pool_r4_depth_summary | autonomous_stage_a_run | True | 48 |
+| 7 | 7 | 4=48 | 7 | 4 | 7 | 34.38 | 42.88 | 48 | 4 | 16 | rg_native_natural_pool_r4_depth_summary | autonomous_stage_a_run | True | 48 |
+| 8 | 8 | 4=48 | 8 | 4 | 8 | 34.81 | 43.33 | 48 | 4 | 16 | rg_native_natural_pool_r4_depth_summary | autonomous_stage_a_run | True | 48 |
+| 9 | 9 | 4=48 | 9 | 4 | 9 | 34.62 | 42.75 | 48 | 4 | 16 | rg_native_natural_pool_r4_depth_summary | autonomous_stage_a_run | True | 48 |
+| 15 | 10 | 4=48 | 9+ | 4 | 12.06 | 36.69 | 44.69 | 48 | 4 | 16 | rg_native_natural_pool_r4_depth_summary | autonomous_stage_a_run | True | 48 |
+
+- Next action: Run R3 qwen_one_shot direct-answer and with-CoT on this exact edge manifest before node-cap symbolic sweeps.
+
+### Item 056 - Rung-1 Phase 1 R3 Qwen one-shot hardness anchor
+
+- Status: RUNG1_PHASE1_R3_QWEN_ONESHOT_HEALTH_FAIL_RERUN
+- Key result: Proceed to Phase 1 only if generation_health passes and with_cot valid solve remains below the too-easy threshold.
+- Purpose: Run Qwen3.5-4B temperature-zero one-shot graph-coloring baselines on the exact R4 RG-native natural pool while separating truncation, formatting, and reasoning failures.
+- Details:
+  - purpose=Run Qwen3.5-4B temperature-zero one-shot graph-coloring baselines on the exact R4 RG-native natural pool while separating truncation, formatting, and reasoning failures.
+  - commands=1
+  - result_tables=['oneshot_generation_health', 'oneshot_instance_rows', 'oneshot_outcome_breakdown', 'oneshot_wrongness', 'raw_text_samples']
+  - honesty=This is a non-agentic one-shot hardness anchor only. It does not test register recovery, CBJ efficiency, or fallible multi-step operator behavior.
+- Artifact refs:
+  - results/experiment_items/item_056_rung1_phase1_r3_qwen_oneshot.json (yes, 967108 bytes)
+  - results/rung1_phase1_r3_qwen_oneshot/results.json (yes, 924084 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_phase1_r3_qwen_oneshot/results.json | RUNG1_PHASE1_R3_QWEN_ONESHOT_HEALTH_FAIL_RERUN | schema_version=rung1_phase1_r3_qwen_oneshot_v1 |  |
+
+#### Contract Result Tables
+
+##### oneshot_generation_health
+
+| depth_bin | fallback_rate | frac_finish_reason_length | max_tokens_setting | mean_output_tokens | mean_thinking_tokens | n | provenance | source | variant |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 4 | 0.7292 | 0.75 | 4096 | 3925 | 336.5 | 48 | qwen35_4b_temp0_generation_health_v1 | autonomous_stage_a_run | with_cot |
+| 5 | 0.75 | 0.75 | 4096 | 3908 | 292.8 | 48 | qwen35_4b_temp0_generation_health_v1 | autonomous_stage_a_run | with_cot |
+| 6 | 0.7083 | 0.7292 | 4096 | 3811 | 318.1 | 48 | qwen35_4b_temp0_generation_health_v1 | autonomous_stage_a_run | with_cot |
+| 7 | 0.8333 | 0.8333 | 4096 | 3932 | 185.4 | 48 | qwen35_4b_temp0_generation_health_v1 | autonomous_stage_a_run | with_cot |
+| 8 | 0.8333 | 0.8542 | 4096 | 3947 | 186.3 | 48 | qwen35_4b_temp0_generation_health_v1 | autonomous_stage_a_run | with_cot |
+| 9 | 0.7708 | 0.7917 | 4096 | 3866 | 247.1 | 48 | qwen35_4b_temp0_generation_health_v1 | autonomous_stage_a_run | with_cot |
+| 9+ | 0.8125 | 0.8125 | 4096 | 3935 | 228.3 | 48 | qwen35_4b_temp0_generation_health_v1 | autonomous_stage_a_run | with_cot |
+
+##### oneshot_instance_rows
+
+| answer | assignment_complete | colors_used | depth_bin | fallback_used | finish_reason | first_finish_reason | first_output_tokens | instance_id | json_extracted | max_tokens | model_id | model_source | num_assigned_vertices | num_conflicting_edges | num_shards | output_tokens | over_k_colors | provenance | raw_text | rg_score | seed | shard_index | solved | source | temperature | thinking_tokens | variant |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| {"0": 2, "1": 3, "10": 1, "11": 1, "12": 3, "13": 2, "14": 1, "15": 4, "2": 2, "3": 1, "4": 4, "5": 3, "6": 4, "7": 2, "8": 3, "9": 2} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_009759 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 1 | 8 | 4232 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {<br>  "0": 2,<br>  "1": 3,<br>  "2": 2,<br>  "3": 1,<br>  "4": 4,<br>  "5": 3,<br>  "6": 4,<br>  "7": 2,<br>  "8": 3,<br>  "9": 2,<br>  "10": 1,<br>  "11": 1,<br>  "12": 3,<br>  "13": 2,<br>  "14": 1,<br>  "15": 4<br>} | 0.01 | 137 | 0 | False | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 1, "1": 2, "10": 1, "11": 3, "12": 4, "13": 1, "14": 2, "15": 4, "2": 2, "3": 1, "4": 4, "5": 3, "6": 2, "7": 1, "8": 3, "9": 4} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_037679 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 1, "1": 2, "2": 2, "3": 1, "4": 4, "5": 3, "6": 2, "7": 1, "8": 3, "9": 4, "10": 1, "11": 3, "12": 4, "13": 1, "14": 2, "15": 4} | 1 | 137 | 1 | True | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 1, "1": 2, "10": 1, "11": 2, "12": 4, "13": 1, "14": 3, "15": 4, "2": 3, "3": 4, "4": 3, "5": 2, "6": 2, "7": 1, "8": 4, "9": 1} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_040339 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 1, "1": 2, "2": 3, "3": 4, "4": 3, "5": 2, "6": 2, "7": 1, "8": 4, "9": 1, "10": 1, "11": 2, "12": 4, "13": 1, "14": 3, "15": 4} | 1 | 137 | 2 | True | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 1, "1": 2, "10": 3, "11": 4, "12": 1, "13": 4, "14": 3, "15": 1, "2": 1, "3": 2, "4": 3, "5": 4, "6": 3, "7": 1, "8": 1, "9": 2} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_046952 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 3 | 8 | 4232 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {<br>  "0": 1,<br>  "1": 2,<br>  "2": 1,<br>  "3": 2,<br>  "4": 3,<br>  "5": 4,<br>  "6": 3,<br>  "7": 1,<br>  "8": 1,<br>  "9": 2,<br>  "10": 3,<br>  "11": 4,<br>  "12": 1,<br>  "13": 4,<br>  "14": 3,<br>  "15": 1<br>} | 0.01 | 137 | 3 | False | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 1, "1": 1, "10": 2, "11": 4, "12": 3, "13": 1, "14": 3, "15": 2, "2": 2, "3": 1, "4": 2, "5": 1, "6": 3, "7": 1, "8": 3, "9": 4} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_059835 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 1, "1": 1, "2": 2, "3": 1, "4": 2, "5": 1, "6": 3, "7": 1, "8": 3, "9": 4, "10": 2, "11": 4, "12": 3, "13": 1, "14": 3, "15": 2} | 1 | 137 | 4 | True | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 2, "1": 1, "10": 1, "11": 2, "12": 4, "13": 1, "14": 1, "15": 2, "2": 3, "3": 4, "4": 3, "5": 1, "6": 2, "7": 3, "8": 4, "9": 4} | True | 4 | 4 | False | stop | stop | 3677 | rung1p1r4_s137_d4_060379 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 3677 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | To solve this graph coloring problem, I will first analyze the graph's structure and identify cliques (complete subgraphs) to determine the minimum number of colors required. The problem specifies 4 colors are available, so if the chromatic number is $\le 4$, a solution exists.<br><br>1.  **Analyze Cliques**:<br>    *   Look at vertices {0, 1, 2, 3, 4, 5, 6, 7, 8}.<br>    *   Check edges within {0, 1, 2, 3, 4, 5, 6, 7, 8}:<br>        *   0 connects to 1, 5, 7.<br>        *   1 connects to 2, 6.<br>        *   2 connects to 9, 11, 14.<br>        *   Let's check a specific subset: {0, 1, 5, 6, 7, 8}.<br>        *   Edges: (0,1), (0,5), (0,7). (1,6). (5,6), (5,7), (5,8). (6,7), (6,8). (7,8).<br>        *   This looks like a large clique. Let's verify connectivity between all pairs in {0, 1, 5, 6, 7, 8}.<br>        *   Pairs missing? (0,6)? No edge listed. (0,8)? No edge. (1,5)? No edge. (1,7)? No edge. (1,8)? No edge.<br>        *   So {0, 1, 5, 6, 7, 8} is not a clique.<br>    *   Let's try {5, 6, 7, 8}.<br>        *   Edges: (5,6), (5,7), (5,8), (6,7), (6,8), (7,8).<br>        *   This is a $K_4$ (complete graph of 4 vertices). Vertices 5, 6, 7, 8 must all have different colors.<br>    *   Let's try {3, 5, 6, 7, 10, 11, 14, 15}.<br>        *   Check {3, 5, 6, 7}. Edges: (3,5), (3,6), (3,7), (5,6), (5,7), (6,7). This is a $K_4$.<br>        *   Check {3, 5, 6, 7, 10}. Edges: (3,10), (5,10)? No. (6,10)? No. (7,10). So not a $K_5$.<br>    *   Let's re-examine {5, 6, 7, 8}. They form a $K_4$. Colors must be distinct: $c(5) \neq c(6) \neq c(7) \neq c(8)$.<br>    *   Let's look at {3, 5, 6, 7}. They form a $K_4$.<br>    *   Let's look at {3, 5, 6, 7, 11}. Edges: (3,11), (5,11)? No.<br>    *   Let's look at {3, 5, 6, 7, 14}. Edges: (3,14), (5,14)? No.<br>    *   Let's look at {3, 5, 6, 7, 15}. Edges: (3,15), (5,15)? No.<br><br>    Let's try a greedy coloring approach starting with the densest nodes or identifying specific constraints.<br>    Constraint 1: 5, 6, 7, 8 are mutually connected. Assign colors:<br>    $c(5)=1, c(6)=2, c(7)=3, c(8)=4$.<br><br>    Constraint 2: 3 is connected to 5, 6, 7. So $c(3)$ cannot be 1, 2, 3. Thus $c(3)=4$.<br>    Check 3's other neighbors: 10, 11, 14, 15.<br>    $c(3)=4$.<br><br>    Constraint 3: 0 is connected to 1, 5, 7, 10, 12.<br>    $c(5)=1, c(7)=3$. So $c(0) \neq 1, 3$.<br>    $c(0)$ can be 2 or 4.<br><br>    Constraint 4: 1 is connected to 0, 2, 6, 11, 12.<br>    $c(6)=2$. So $c(1) \neq 2$.<br>    Also $c(1) \neq c(0)$.<br><br>    Let's refine.<br>    Set $C = \{1, 2, 3, 4\}$.<br>    Fixed: $c(5)=1, c(6)=2, c(7)=3, c(8)=4$.<br>    From $K_4$ {3, 5, 6, 7}: $c(3)$ must be 4 (since 1,2,3 taken by 5,6,7).<br>    So $c(3)=4$.<br><br>    Now consider vertex 4. Neighbors: 5, 6, 8, 10, 14.<br>    $c(5)=1, c(6)=2, c(8)=4$. So $c(4) \neq 1, 2, 4$.<br>    Thus $c(4)=3$.<br><br>    Now consider vertex 2. Neighbors: 1, 9, 11, 14.<br>    Consider vertex 9. Neighbors: 2, 7, 13.<br>    $c(7)=3$. So $c(9) \neq 3$.<br>    Consider vertex 13. Neighbors: 6, 9, 11, 15.<br>    $c(6)=2$. So $c(13) \neq 2$.<br><br>    Let's try to assign colors to remaining nodes: 0, 1, 2, 3(4), 4(3), 5(1), 6(2), 7(3), 8(4), 9, 10, 11, 12, 13, 14, 15.<br>    Current assignments:<br>    3: 4<br>    4: 3<br>    5: 1<br>    6: 2<br>    7: 3<br>    8: 4<br><br>    Check vertex 10. Neighbors: 0, 3, 4, 7.<br>    $c(3)=4, c(4)=3, c(7)=3$.<br>    So $c(10) \neq 3, 4$. $c(10)$ can be 1 or 2.<br><br>    Check vertex 12. Neighbors: 0, 1, 6, 7, 13.<br>    $c(6)=2, c(7)=3$.<br>    So $c(12) \neq 2, 3$. $c(12)$ can be 1 or 4.<br><br>    Check vertex 14. Neighbors: 2, 3, 4, 6, 7, 15.<br>    $c(3)=4, c(4)=3, c(6)=2, c(7)=3$.<br>    So $c(14) \neq 2, 3, 4$.<br>    Thus $c(14)=1$.<br><br>    Check vertex 15. Neighbors: 3, 7, 13, 14.<br>    $c(3)=4, c(7)=3, c(14)=1$.<br>    So $c(15) \neq 1, 3, 4$.<br>    Thus $c(15)=2$.<br><br>    Check vertex 11. Neighbors: 1, 2, 3, 8, 13.<br>    $c(3)=4, c(8)=4$.<br>    So $c(11) \neq 4$.<br><br>    Check vertex 9. Neighbors: 2, 7, 13.<br>    $c(7)=3$.<br>    So $c(9) \neq 3$.<br><br>    Check vertex 13. Neighbors: 6, 9, 11, 15.<br>    $c(6)=2, c(15)=2$.<br>    So $c(13) \neq 2$.<br><br>    Let's look at the chain 9-13-11-2-14.<br>    $c(14)=1$.<br>    $c(15)=2$.<br>    $c(13) \neq 2$ (from 6, 15).<br>    $c(11) \neq 4$ (from 3, 8).<br>    $c(9) \neq 3$ (from 7).<br><br>    Let's try to set $c(13)=1$.<br>    Then $c(9)$ cannot be 1 (neighbor of 13). $c(9) \neq 3$ (neighbor 7). So $c(9) \in \{2, 4\}$.<br>    $c(11)$ cannot be 1 (neighbor 13). $c(11) \neq 4$ (neighbors 3, 8). So $c(11) \in \{2, 3\}$.<br><br>    Let's try $c(11)=2$.<br>    Then $c(2)$ cannot be 2 (neighbor 11).<br>    $c(2)$ neighbors: 1, 9, 11, 14.<br>    $c(14)=1, c(11)=2$.<br>    So $c(2) \neq 1, 2$. $c(2) \in \{3, 4\}$.<br><br>    Let's try $c(9)=4$.<br>    Then $c(2)$ cannot be 4 (neighbor 9).<br>    So $c(2)=3$.<br>    Check $c(2)=3$: Neighbors 1, 9(4), 11(2), 14(1). No conflict.<br><br>    Now we have:<br>    2: 3<br>    3: 4<br>    4: 3<br>    5: 1<br>    6: 2<br>    7: 3<br>    8: 4<br>    9: 4<br>    11: 2<br>    13: 1<br>    14: 1<br>    15: 2<br><br>    Remaining: 0, 1, 10, 12.<br>    Constraints on 10: Neighbors 0, 3(4), 4(3), 7(3).<br>    $c(10) \neq 3, 4$. $c(10) \in \{1, 2\}$.<br><br>    Constraints on 12: Neighbors 0, 1, 6(2), 7(3), 13(1).<br>    $c(12) \neq 1, 2, 3$.<br>    So $c(12)=4$.<br><br>    Constraints on 1: Neighbors 0, 2(3), 6(2), 11(2), 12(4).<br>    $c(1) \neq 2, 3, 4$.<br>    So $c(1)=1$.<br><br>    Constraints on 0: Neighbors 1(1), 5(1), 7(3), 10, 12(4).<br>    $c(0) \neq 1, 3, 4$.<br>    So $c(0)=2$.<br><br>    Now check 10 again. Neighbors 0(2), 3(4), 4(3), 7(3).<br>    $c(10) \neq 2, 3, 4$.<br>    So $c(10)=1$.<br><br>    Let's verify the full assignment:<br>    0: 2<br>    1: 1<br>    2: 3<br>    3: 4<br>    4: 3<br>    5: 1<br>    6: 2<br>    7: 3<br>    8: 4<br>    9: 4<br>    10: 1<br>    11: 2<br>    12: 4<br>    13: 1<br>    14: 1<br>    15: 2<br><br>    Verification of edges:<br>    (0,1): 2-1 OK<br>    (0,5): 2-1 OK<br>    (0,7): 2-3 OK<br>    (0,10): 2-1 OK<br>    (0,12): 2-4 OK<br>    (1,2): 1-3 OK<br>    (1,6): 1-2 OK<br>    (1,11): 1-2 OK<br>    (1,12): 1-4 OK<br>    (2,9): 3-4 OK<br>    (2,11): 3-2 OK<br>    (2,14): 3-1 OK<br>    (3,5): 4-1 OK<br>    (3,6): 4-2 OK<br>    (3,7): 4-3 OK<br>    (3,10): 4-1 OK<br>    (3,11): 4-2 OK<br>    (3,14): 4-1 OK<br>    (3,15): 4-2 OK<br>    (4,5): 3-1 OK<br>    (4,6): 3-2 OK<br>    (4,8): 3-4 OK<br>    (4,10): 3-1 OK<br>    (4,14): 3-1 OK<br>    (5,6): 1-2 OK<br>    (5,7): 1-3 OK<br>    (5,8): 1-4 OK<br>    (6,7): 2-3 OK<br>    (6,8): 2-4 OK<br>    (6,12): 2-4 OK<br>    (6,13): 2-1 OK<br>    (6,14): 2-1 OK<br>    (7,8): 3-4 OK<br>    (7,9): 3-4 OK<br>    (7,10): 3-1 OK<br>    (7,12): 3-4 OK<br>    (7,14): 3-1 OK<br>    (7,15): 3-2 OK<br>    (8,11): 4-2 OK<br>    (9,13): 4-1 OK<br>    (11,13): 2-1 OK<br>    (12,13): 4-1 OK<br>    (13,15): 1-2 OK<br>    (14,15): 1-2 OK<br><br>    All edges connect vertices of different colors. The solution is valid.<br><br>FINAL_JSON: {"0": 2, "1": 1, "2": 3, "3": 4, "4": 3, "5": 1, "6": 2, "7": 3, "8": 4, "9": 4, "10": 1, "11": 2, "12": 4, "13": 1, "14": 1, "15": 2} | 1 | 137 | 5 | True | autonomous_stage_a_run | 0 | 1082 | with_cot |
+| {"0": 1, "1": 3, "10": 1, "11": 4, "12": 4, "13": 2, "14": 2, "15": 4, "2": 2, "3": 4, "4": 1, "5": 2, "6": 2, "7": 3, "8": 3, "9": 1} | True | 4 | 4 | False | stop | stop | 3988 | rung1p1r4_s137_d4_070829 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 3988 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | To solve this graph coloring problem, I need to assign colors from the set {1, 2, 3, 4} to vertices 0 through 15 such that no two adjacent vertices share the same color. This is equivalent to finding a valid 4-coloring.<br><br>First, I will analyze the graph's structure and identify any cliques or high-degree nodes that constrain the coloring.<br>- Vertex 1 is connected to {2, 3, 5, 6, 12, 13, 14}. It has degree 7.<br>- Vertex 4 is connected to {3, 5, 6, 7, 8, 11, 12, 13}. It has degree 8.<br>- Vertex 6 is connected to {1, 3, 4, 7, 9, 11, 15}. It has degree 7.<br>- Vertex 7 is connected to {0, 2, 4, 6, 11, 12, 15}. It has degree 7.<br>- Vertex 12 is connected to {1, 2, 4, 7, 10}. Degree 5.<br>- Vertex 15 is connected to {0, 6, 7, 9, 10, 14}. Degree 6.<br><br>Let's try a greedy coloring approach starting with high-degree nodes or simply iterating through vertices 0 to 15, assigning the first available color that doesn't conflict with already colored neighbors.<br><br>**Step-by-step assignment:**<br>1.  **Vertex 0**: Neighbors {2, 7, 14, 15}. No neighbors colored yet. Assign **Color 1**.<br>2.  **Vertex 1**: Neighbors {2, 3, 5, 6, 12, 13, 14}. No neighbors colored yet. Assign **Color 2**.<br>3.  **Vertex 2**: Neighbors {0, 1, 7, 9, 10, 12}.<br>    - 0 is Color 1.<br>    - 1 is Color 2.<br>    - Available: {3, 4}. Assign **Color 3**.<br>4.  **Vertex 3**: Neighbors {1, 4, 6, 8}.<br>    - 1 is Color 2.<br>    - Available: {1, 3, 4}. Assign **Color 1**.<br>5.  **Vertex 4**: Neighbors {3, 5, 6, 7, 8, 11, 12, 13}.<br>    - 3 is Color 1.<br>    - Available: {2, 3, 4}. Assign **Color 2**.<br>6.  **Vertex 5**: Neighbors {1, 4, 8, 10, 11}.<br>    - 1 is Color 2.<br>    - 4 is Color 2.<br>    - Available: {1, 3, 4}. Assign **Color 3**.<br>7.  **Vertex 6**: Neighbors {1, 3, 4, 7, 9, 11, 15}.<br>    - 1 is Color 2.<br>    - 3 is Color 1.<br>    - 4 is Color 2.<br>    - Available: {3, 4}. Assign **Color 3**.<br>8.  **Vertex 7**: Neighbors {0, 2, 4, 6, 11, 12, 15}.<br>    - 0 is Color 1.<br>    - 2 is Color 3.<br>    - 4 is Color 2.<br>    - 6 is Color 3.<br>    - Available: {4}. Assign **Color 4**.<br>9.  **Vertex 8**: Neighbors {3, 4, 5}.<br>    - 3 is Color 1.<br>    - 4 is Color 2.<br>    - 5 is Color 3.<br>    - Available: {4}. Assign **Color 4**.<br>10. **Vertex 9**: Neighbors {2, 6, 11, 15}.<br>    - 2 is Color 3.<br>    - 6 is Color 3.<br>    - Available: {1, 2, 4}. Assign **Color 1**.<br>11. **Vertex 10**: Neighbors {2, 5, 12, 15}.<br>    - 2 is Color 3.<br>    - 5 is Color 3.<br>    - Available: {1, 2, 4}. Assign **Color 1**.<br>12. **Vertex 11**: Neighbors {4, 5, 6, 7, 9}.<br>    - 4 is Color 2.<br>    - 5 is Color 3.<br>    - 6 is Color 3.<br>    - 7 is Color 4.<br>    - 9 is Color 1.<br>    - All colors {1, 2, 3, 4} are used by neighbors.<br>    - Wait, let's re-check neighbors of 11: (4,11), (5,11), (6,11), (7,11), (9,11).<br>    - Colors: 4->2, 5->3, 6->3, 7->4, 9->1.<br>    - Neighbors have colors {1, 2, 3, 4}. Vertex 11 cannot take any color?<br>    - Let's re-evaluate previous assignments to avoid this conflict. The greedy order might have forced a bad state.<br><br>**Backtracking/Re-evaluation:**<br>Let's try a different order or specific assignments for the dense cluster {4, 5, 6, 7, 11}.<br>Cluster analysis:<br>- 4 connects to 5, 6, 7, 11.<br>- 5 connects to 6? No. 5 connects to 4, 8, 10, 11.<br>- 6 connects to 4, 7, 11.<br>- 7 connects to 4, 6, 11.<br>- 11 connects to 4, 5, 6, 7.<br>Subgraph induced by {4, 5, 6, 7, 11}:<br>Edges: (4,5), (4,6), (4,7), (4,11), (5,11), (6,7), (6,11), (7,11).<br>Missing edges in this set: (5,6).<br>This is almost a K5. A K5 requires 5 colors. Since we only have 4, this subgraph must not be a K5. Indeed, 5 and 6 are not connected.<br>So we can color {4, 5, 6, 7, 11} with 4 colors.<br>Let's fix colors for this core first.<br>Let 4 = 1.<br>Then 5, 6, 7, 11 must be colored from {2, 3, 4}.<br>Since 5 and 6 are not connected, they can share a color.<br>Let 5 = 2, 6 = 2.<br>Then 7 and 11 are connected to 4(1), 5(2), 6(2). So 7 and 11 must be from {3, 4}.<br>7 and 11 are connected. So one is 3, one is 4.<br>Let 7 = 3, 11 = 4.<br>Check consistency with other nodes:<br>- 4(1) neighbors: 3, 5(2), 6(2), 7(3), 8, 11(4), 12, 13. OK.<br>- 5(2) neighbors: 1, 4(1), 8, 10, 11(4). OK.<br>- 6(2) neighbors: 1, 3, 4(1), 7(3), 9, 11(4), 15. OK.<br>- 7(3) neighbors: 0, 2, 4(1), 6(2), 11(4), 12, 15. OK.<br>- 11(4) neighbors: 4(1), 5(2), 6(2), 7(3), 9. OK.<br><br>Now propagate to others:<br>- **Vertex 1**: Neighbors {2, 3, 5(2), 6(2), 12, 13, 14}.<br>  - 5 and 6 are Color 2.<br>  - 1 cannot be 2.<br>- **Vertex 3**: Neighbors {1, 4(1), 6(2), 8}.<br>  - 4 is 1, 6 is 2.<br>  - 3 cannot be 1 or 2.<br>- **Vertex 8**: Neighbors {3, 4(1), 5(2)}.<br>  - 4 is 1, 5 is 2.<br>  - 8 cannot be 1 or 2.<br>- **Vertex 15**: Neighbors {0, 6(2), 7(3), 9, 10, 14}.<br>  - 6 is 2, 7 is 3.<br>  - 15 cannot be 2 or 3.<br><br>Let's restart the full assignment with these fixed core colors:<br>**Fixed:**<br>4: 1<br>5: 2<br>6: 2<br>7: 3<br>11: 4<br><br>**Assignments:**<br>- **0**: Neighbors {2, 7(3), 14, 15}.<br>- **1**: Neighbors {2, 3, 5(2), 6(2), 12, 13, 14}. (Cannot be 2).<br>- **2**: Neighbors {0, 1, 7(3), 9, 10, 12}. (Cannot be 3).<br>- **3**: Neighbors {1, 4(1), 6(2), 8}. (Cannot be 1, 2).<br>- **8**: Neighbors {3, 4(1), 5(2)}. (Cannot be 1, 2).<br>- **9**: Neighbors {2, 6(2), 11(4), 15}. (Cannot be 2, 4).<br>- **10**: Neighbors {2, 5(2), 12, 15}. (Cannot be 2).<br>- **12**: Neighbors {1, 2, 4(1), 7(3), 10}. (Cannot be 1, 3).<br>- **13**: Neighbors {1, 4(1)}. (Cannot be 1).<br>- **14**: Neighbors {0, 1, 15}.<br>- **15**: Neighbors {0, 6(2), 7(3), 9, 10, 14}. (Cannot be 2, 3).<br><br>Let's try to assign sequentially:<br>1. **0**: Pick **1**.<br>2. **1**: Neighbors {2, 3, 5(2), 6(2), 12, 13, 14}. Cannot be 2. Pick **3**.<br>3. **2**: Neighbors {0(1), 1(3), 7(3), 9, 10, 12}. Cannot be 1, 3. Pick **2**.<br>4. **3**: Neighbors {1(3), 4(1), 6(2), 8}. Cannot be 1, 2, 3. Pick **4**.<br>5. **8**: Neighbors {3(4), 4(1), 5(2)}. Cannot be 1, 2, 4. Pick **3**.<br>6. **9**: Neighbors {2(2), 6(2), 11(4), 15}. Cannot be 2, 4. Pick **1**.<br>7. **10**: Neighbors {2(2), 5(2), 12, 15}. Cannot be 2. Pick **1**.<br>8. **12**: Neighbors {1(3), 2(2), 4(1), 7(3), 10(1)}.<br>   - Neighbors colors: 1(3), 2(2), 4(1), 7(3), 10(1).<br>   - Used: {1, 2, 3}.<br>   - Available: **4**.<br>9. **13**: Neighbors {1(3), 4(1)}.<br>   - Used: {1, 3}.<br>   - Available: {2, 4}. Pick **2**.<br>10. **14**: Neighbors {0(1), 1(3), 15}.<br>    - Used: {1, 3}.<br>    - Available: {2, 4}.<br>11. **15**: Neighbors {0(1), 6(2), 7(3), 9(1), 10(1), 14}.<br>    - Neighbors colors: 0(1), 6(2), 7(3), 9(1), 10(1).<br>    - Used: {1, 2, 3}.<br>    - Available: **4**.<br>    - So 15 must be **4**.<br>    - Now back to 14: Neighbors {0(1), 1(3), 15(4)}.<br>    - Used: {1, 3, 4}.<br>    - Available: **2**.<br>    - So 14 is **2**.<br><br>Let's verify the full map:<br>0: 1<br>1: 3<br>2: 2<br>3: 4<br>4: 1<br>5: 2<br>6: 2<br>7: 3<br>8: 3<br>9: 1<br>10: 1<br>11: 4<br>12: 4<br>13: 2<br>14: 2<br>15: 4<br><br>**Verification of Edges:**<br>- (0,2): 1-2 OK<br>- (0,7): 1-3 OK<br>- (0,14): 1-2 OK<br>- (0,15): 1-4 OK<br>- (1,2): 3-2 OK<br>- (1,3): 3-4 OK<br>- (1,5): 3-2 OK<br>- (1,6): 3-2 OK<br>- (1,12): 3-4 OK<br>- (1,13): 3-2 OK<br>- (1,14): 3-2 OK<br>- (2,7): 2-3 OK<br>- (2,9): 2-1 OK<br>- (2,10): 2-1 OK<br>- (2,12): 2-4 OK<br>- (3,4): 4-1 OK<br>- (3,6): 4-2 OK<br>- (3,8): 4-3 OK<br>- (4,5): 1-2 OK<br>- (4,6): 1-2 OK<br>- (4,7): 1-3 OK<br>- (4,8): 1-3 OK<br>- (4,11): 1-4 OK<br>- (4,12): 1-4 OK<br>- (4,13): 1-2 OK<br>- (5,8): 2-3 OK<br>- (5,10): 2-1 OK<br>- (5,11): 2-4 OK<br>- (6,7): 2-3 OK<br>- (6,9): 2-1 OK<br>- (6,11): 2-4 OK<br>- (6,15): 2-4 OK<br>- (7,11): 3-4 OK<br>- (7,12): 3-4 OK<br>- (7,15): 3-4 OK<br>- (9,11): 1-4 OK<br>- (9,15): 1-4 OK<br>- (10,12): 1-4 OK<br>- (10,15): 1-4 OK<br>- (14,15): 2-4 OK<br><br>All edges satisfy the condition. The coloring is valid.<br><br>Final JSON construction:<br>{"0": 1, "1": 3, "2": 2, "3": 4, "4": 1, "5": 2, "6": 2, "7": 3, "8": 3, "9": 1, "10": 1, "11": 4, "12": 4, "13": 2, "14": 2, "15": 4}<br><br>FINAL_JSON: {"0": 1, "1": 3, "2": 2, "3": 4, "4": 1, "5": 2, "6": 2, "7": 3, "8": 3, "9": 1, "10": 1, "11": 4, "12": 4, "13": 2, "14": 2, "15": 4} | 1 | 137 | 6 | True | autonomous_stage_a_run | 0 | 1501 | with_cot |
+| {"0": 1, "1": 2, "10": 1, "11": 1, "12": 3, "13": 3, "14": 1, "15": 2, "2": 3, "3": 4, "4": 1, "5": 3, "6": 1, "7": 4, "8": 2, "9": 3} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_102669 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 2 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 1, "1": 2, "2": 3, "3": 4, "4": 1, "5": 3, "6": 1, "7": 4, "8": 2, "9": 3, "10": 1, "11": 1, "12": 3, "13": 3, "14": 1, "15": 2} | 0.01 | 137 | 7 | False | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 1, "1": 1, "10": 3, "11": 1, "12": 3, "13": 2, "14": 2, "15": 1, "2": 2, "3": 1, "4": 1, "5": 3, "6": 3, "7": 3, "8": 2, "9": 1} | True | 3 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_105118 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 9 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 1, "1": 1, "2": 2, "3": 1, "4": 1, "5": 3, "6": 3, "7": 3, "8": 2, "9": 1, "10": 3, "11": 1, "12": 3, "13": 2, "14": 2, "15": 1} | 0.01 | 137 | 0 | False | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 1, "1": 2, "10": 4, "11": 1, "12": 2, "13": 4, "14": 3, "15": 2, "2": 3, "3": 4, "4": 1, "5": 2, "6": 3, "7": 1, "8": 3, "9": 2} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_106440 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 7 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 1, "1": 2, "2": 3, "3": 4, "4": 1, "5": 2, "6": 3, "7": 1, "8": 3, "9": 2, "10": 4, "11": 1, "12": 2, "13": 4, "14": 3, "15": 2} | 0.01 | 137 | 1 | False | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 2, "1": 1, "10": 1, "11": 4, "12": 1, "13": 3, "14": 3, "15": 2, "2": 1, "3": 4, "4": 1, "5": 2, "6": 3, "7": 2, "8": 4, "9": 1} | True | 4 | 4 | False | stop | stop | 2951 | rung1p1r4_s137_d4_156812 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 2951 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | To solve this graph coloring problem, I will analyze the graph's structure and constraints to assign colors from the set {1, 2, 3, 4} such that no two adjacent vertices share the same color.<br><br>First, I will identify the degree of each vertex and look for cliques or high-degree nodes that constrain the coloring.<br>- Vertex 2 is connected to {0, 3, 5, 6, 7, 13}. Degree = 6.<br>- Vertex 5 is connected to {2, 3, 6, 8, 13, 14}. Degree = 6.<br>- Vertex 13 is connected to {1, 2, 4, 5, 11}. Degree = 5.<br>- Vertex 4 is connected to {0, 7, 8, 13, 15}. Degree = 5.<br>- Vertex 6 is connected to {0, 2, 5, 8, 10}. Degree = 5.<br>- Vertex 8 is connected to {4, 5, 6, 7, 15}. Degree = 5.<br>- Vertex 15 is connected to {4, 8, 10, 11}. Degree = 4.<br>- Vertex 10 is connected to {3, 6, 11, 15}. Degree = 4.<br>- Vertex 11 is connected to {9, 10, 13, 15}. Degree = 4.<br>- Vertex 12 is connected to {3, 7, 14}. Degree = 3.<br>- Vertex 14 is connected to {3, 5, 12}. Degree = 3.<br>- Vertex 0 is connected to {2, 4, 6}. Degree = 3.<br>- Vertex 1 is connected to {13}. Degree = 1.<br>- Vertex 3 is connected to {2, 5, 10, 12, 14}. Degree = 5.<br>- Vertex 7 is connected to {2, 4, 8, 12}. Degree = 4.<br>- Vertex 9 is connected to {11}. Degree = 1.<br><br>Let's try a greedy coloring approach starting with high-degree nodes or finding a valid assignment.<br>Let's assign Color 1 to Vertex 2.<br>Neighbors of 2: {0, 3, 5, 6, 7, 13}. These cannot be Color 1.<br>Let's assign Color 2 to Vertex 5.<br>Neighbors of 5: {2, 3, 6, 8, 13, 14}. These cannot be Color 2.<br>Note: 2 and 5 are connected, so they must have different colors. This works.<br>Now consider Vertex 13. Neighbors: {1, 2, 4, 5, 11}.<br>2 is C1, 5 is C2. So 13 can be C3.<br>Let's assign Color 3 to Vertex 13.<br>Neighbors of 13: {1, 4, 11} cannot be C3.<br>Now consider Vertex 4. Neighbors: {0, 7, 8, 13, 15}.<br>13 is C3. So 4 can be C1 or C2.<br>Let's try assigning Color 1 to Vertex 4.<br>Neighbors of 4: {0, 7, 8, 15} cannot be C1.<br>Now consider Vertex 6. Neighbors: {0, 2, 5, 8, 10}.<br>2 is C1, 5 is C2. So 6 can be C3.<br>Let's assign Color 3 to Vertex 6.<br>Neighbors of 6: {0, 8, 10} cannot be C3.<br>Now consider Vertex 8. Neighbors: {4, 5, 6, 7, 15}.<br>4 is C1, 5 is C2, 6 is C3. So 8 must be C4.<br>Let's assign Color 4 to Vertex 8.<br>Neighbors of 8: {7, 15} cannot be C4.<br>Now consider Vertex 7. Neighbors: {2, 4, 8, 12}.<br>2 is C1, 4 is C1, 8 is C4. So 7 can be C2 or C3.<br>Let's assign Color 2 to Vertex 7.<br>Neighbors of 7: {12} cannot be C2.<br>Now consider Vertex 15. Neighbors: {4, 8, 10, 11}.<br>4 is C1, 8 is C4. So 15 can be C2 or C3.<br>Let's assign Color 2 to Vertex 15.<br>Neighbors of 15: {10, 11} cannot be C2.<br>Now consider Vertex 10. Neighbors: {3, 6, 11, 15}.<br>6 is C3, 15 is C2. So 10 can be C1 or C4.<br>Let's assign Color 1 to Vertex 10.<br>Neighbors of 10: {3, 11} cannot be C1.<br>Now consider Vertex 11. Neighbors: {9, 10, 13, 15}.<br>10 is C1, 13 is C3, 15 is C2. So 11 must be C4.<br>Let's assign Color 4 to Vertex 11.<br>Neighbors of 11: {9} cannot be C4.<br>Now consider Vertex 9. Neighbor: {11}.<br>11 is C4. So 9 can be C1, C2, or C3. Let's assign C1.<br>Now consider Vertex 1. Neighbor: {13}.<br>13 is C3. So 1 can be C1, C2, or C4. Let's assign C1.<br>Now consider Vertex 3. Neighbors: {2, 5, 10, 12, 14}.<br>2 is C1, 5 is C2, 10 is C1. So 3 cannot be C1 or C2.<br>3 can be C3 or C4.<br>Let's check constraints on 3's neighbors again.<br>If 3 is C3: Neighbors 12, 14 cannot be C3.<br>If 3 is C4: Neighbors 12, 14 cannot be C4.<br>Let's try assigning Color 4 to Vertex 3.<br>Neighbors of 3: {12, 14} cannot be C4.<br>Now consider Vertex 12. Neighbors: {3, 7, 14}.<br>3 is C4, 7 is C2. So 12 can be C1 or C3.<br>Let's assign Color 1 to Vertex 12.<br>Neighbors of 12: {14} cannot be C1.<br>Now consider Vertex 14. Neighbors: {3, 5, 12}.<br>3 is C4, 5 is C2, 12 is C1. So 14 must be C3.<br>Let's assign Color 3 to Vertex 14.<br>Check consistency:<br>- 14 (C3) connected to 3 (C4), 5 (C2), 12 (C1). OK.<br>- 3 (C4) connected to 2 (C1), 5 (C2), 10 (C1), 12 (C1), 14 (C3). OK.<br>- 12 (C1) connected to 3 (C4), 7 (C2), 14 (C3). OK.<br>- 7 (C2) connected to 2 (C1), 4 (C1), 8 (C4), 12 (C1). OK.<br>- 4 (C1) connected to 0, 7 (C2), 8 (C4), 13 (C3), 15 (C2).<br>  - Need to assign 0. Neighbors of 0: {2, 4, 6}.<br>  - 2 is C1, 4 is C1, 6 is C3.<br>  - So 0 cannot be C1 or C3. 0 can be C2 or C4.<br>  - Let's assign C2 to 0.<br>  - Check 0 (C2) neighbors: 2 (C1), 4 (C1), 6 (C3). OK.<br>- 6 (C3) neighbors: 0 (C2), 2 (C1), 5 (C2), 8 (C4), 10 (C1). OK.<br>- 8 (C4) neighbors: 4 (C1), 5 (C2), 6 (C3), 7 (C2), 15 (C2). OK.<br>- 15 (C2) neighbors: 4 (C1), 8 (C4), 10 (C1), 11 (C4). OK.<br>- 10 (C1) neighbors: 3 (C4), 6 (C3), 11 (C4), 15 (C2). OK.<br>- 11 (C4) neighbors: 9 (C1), 10 (C1), 13 (C3), 15 (C2). OK.<br>- 9 (C1) neighbor: 11 (C4). OK.<br>- 1 (C1) neighbor: 13 (C3). OK.<br>- 13 (C3) neighbors: 1 (C1), 2 (C1), 4 (C1), 5 (C2), 11 (C4). OK.<br>- 2 (C1) neighbors: 0 (C2), 3 (C4), 5 (C2), 6 (C3), 7 (C2), 13 (C3). OK.<br>- 5 (C2) neighbors: 2 (C1), 3 (C4), 6 (C3), 8 (C4), 13 (C3), 14 (C3). OK.<br><br>The assignment seems valid.<br>Summary of colors:<br>0: 2<br>1: 1<br>2: 1<br>3: 4<br>4: 1<br>5: 2<br>6: 3<br>7: 2<br>8: 4<br>9: 1<br>10: 1<br>11: 4<br>12: 1<br>13: 3<br>14: 3<br>15: 2<br><br>Let's double check specific edges:<br>(0,2): 2-1 OK<br>(0,4): 2-1 OK<br>(0,6): 2-3 OK<br>(1,13): 1-3 OK<br>(2,3): 1-4 OK<br>(2,5): 1-2 OK<br>(2,6): 1-3 OK<br>(2,7): 1-2 OK<br>(2,13): 1-3 OK<br>(3,5): 4-2 OK<br>(3,10): 4-1 OK<br>(3,12): 4-1 OK<br>(3,14): 4-3 OK<br>(4,7): 1-2 OK<br>(4,8): 1-4 OK<br>(4,13): 1-3 OK<br>(4,15): 1-2 OK<br>(5,6): 2-3 OK<br>(5,8): 2-4 OK<br>(5,13): 2-3 OK<br>(5,14): 2-3 OK<br>(6,8): 3-4 OK<br>(6,10): 3-1 OK<br>(7,8): 2-4 OK<br>(7,12): 2-1 OK<br>(8,15): 4-2 OK<br>(9,11): 1-4 OK<br>(10,11): 1-4 OK<br>(10,15): 1-2 OK<br>(11,13): 4-3 OK<br>(11,15): 4-2 OK<br>(12,14): 1-3 OK<br><br>All edges satisfy the condition. The solution uses colors 1, 2, 3, 4.<br><br>FINAL_JSON: {"0": 2, "1": 1, "2": 1, "3": 4, "4": 1, "5": 2, "6": 3, "7": 2, "8": 4, "9": 1, "10": 1, "11": 4, "12": 1, "13": 3, "14": 3, "15": 2} | 1 | 137 | 2 | True | autonomous_stage_a_run | 0 | 1222 | with_cot |
+| {"0": 1, "1": 2, "10": 3, "11": 4, "12": 1, "13": 2, "14": 3, "15": 4, "2": 3, "3": 4, "4": 1, "5": 2, "6": 3, "7": 4, "8": 1, "9": 2} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_169230 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 6 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 1, "1": 2, "2": 3, "3": 4, "4": 1, "5": 2, "6": 3, "7": 4, "8": 1, "9": 2, "10": 3, "11": 4, "12": 1, "13": 2, "14": 3, "15": 4} | 0.01 | 137 | 3 | False | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 4, "1": 2, "10": 3, "11": 3, "12": 2, "13": 2, "14": 3, "15": 4, "2": 1, "3": 3, "4": 1, "5": 1, "6": 2, "7": 3, "8": 4, "9": 4} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_189944 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 6 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 4, "1": 2, "2": 1, "3": 3, "4": 1, "5": 1, "6": 2, "7": 3, "8": 4, "9": 4, "10": 3, "11": 3, "12": 2, "13": 2, "14": 3, "15": 4} | 0.01 | 137 | 4 | False | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 1, "1": 1, "10": 3, "11": 3, "12": 4, "13": 1, "14": 4, "15": 2, "2": 2, "3": 2, "4": 3, "5": 2, "6": 2, "7": 4, "8": 1, "9": 3} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_194772 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 1 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 1, "1": 1, "2": 2, "3": 2, "4": 3, "5": 2, "6": 2, "7": 4, "8": 1, "9": 3, "10": 3, "11": 3, "12": 4, "13": 1, "14": 4, "15": 2} | 0.01 | 137 | 5 | False | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 1, "1": 2, "10": 2, "11": 4, "12": 4, "13": 1, "14": 3, "15": 3, "2": 3, "3": 1, "4": 2, "5": 2, "6": 1, "7": 3, "8": 2, "9": 1} | True | 4 | 4 | False | stop | stop | 3705 | rung1p1r4_s137_d4_203536 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 3705 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | To solve this graph coloring problem, I need to assign colors from the set {1, 2, 3, 4} to vertices 0 through 15 such that no two adjacent vertices share the same color. This is equivalent to finding a valid 4-coloring.<br><br>First, I will analyze the graph's structure and identify any cliques or high-degree nodes that constrain the coloring.<br>- Vertex 2 is connected to 1, 3, 5, 10, 11, 13. It has degree 6.<br>- Vertex 3 is connected to 2, 4, 5, 7, 8, 11, 15. It has degree 7.<br>- Vertex 11 is connected to 2, 3, 4, 6, 8, 9, 10, 13, 14, 15. It has degree 10.<br>- Vertex 15 is connected to 3, 4, 5, 9, 11. Degree 5.<br>- Vertex 14 is connected to 8, 9, 10, 11, 12. Degree 5.<br><br>Let's try a greedy coloring approach, processing vertices in an order that might minimize conflicts, perhaps starting with high-degree nodes or just iterating 0 to 15.<br><br>**Step-by-step assignment:**<br><br>1.  **Vertex 0**: Neighbors: {10}. Assign **Color 1**.<br>2.  **Vertex 1**: Neighbors: {2, 7}. Assign **Color 2**.<br>3.  **Vertex 2**: Neighbors: {1, 3, 5, 10, 11, 13}.<br>    - Used by neighbors: 1(C2), 10(C1).<br>    - Available: {3, 4}. Assign **Color 3**.<br>4.  **Vertex 3**: Neighbors: {2, 4, 5, 7, 8, 11, 15}.<br>    - Used by neighbors: 2(C3).<br>    - Available: {1, 2, 4}. Assign **Color 1**.<br>5.  **Vertex 4**: Neighbors: {3, 7, 11, 12, 15}.<br>    - Used by neighbors: 3(C1).<br>    - Available: {2, 3, 4}. Assign **Color 2**.<br>6.  **Vertex 5**: Neighbors: {2, 3, 6, 9, 15}.<br>    - Used by neighbors: 2(C3), 3(C1).<br>    - Available: {2, 4}. Assign **Color 2**.<br>7.  **Vertex 6**: Neighbors: {5, 11, 12}.<br>    - Used by neighbors: 5(C2).<br>    - Available: {1, 3, 4}. Assign **Color 1**.<br>8.  **Vertex 7**: Neighbors: {1, 3, 4, 9, 10}.<br>    - Used by neighbors: 1(C2), 3(C1), 4(C2), 10(C1).<br>    - Available: {3, 4}. Assign **Color 3**.<br>9.  **Vertex 8**: Neighbors: {3, 11, 12, 14}.<br>    - Used by neighbors: 3(C1).<br>    - Available: {2, 3, 4}. Assign **Color 2**.<br>10. **Vertex 9**: Neighbors: {5, 7, 11, 14, 15}.<br>    - Used by neighbors: 5(C2), 7(C3).<br>    - Available: {1, 4}. Assign **Color 1**.<br>11. **Vertex 10**: Neighbors: {0, 2, 7, 11, 13, 14}.<br>    - Used by neighbors: 0(C1), 2(C3), 7(C3), 14(?), 13(?).<br>    - Let's hold on 10 and 13, 14. Let's process 11 first as it has many neighbors.<br>    - Wait, I need to assign 10 now based on current knowns. Known neighbors of 10: 0(C1), 2(C3), 7(C3).<br>    - Available for 10: {2, 4}. Assign **Color 2**.<br>12. **Vertex 11**: Neighbors: {2, 3, 4, 6, 8, 9, 10, 13, 14, 15}.<br>    - Current neighbor colors: 2(C3), 3(C1), 4(C2), 6(C1), 8(C2), 9(C1), 10(C2).<br>    - Used: {1, 2, 3}.<br>    - Available: {4}. Assign **Color 4**.<br>13. **Vertex 12**: Neighbors: {4, 6, 8, 14}.<br>    - Current neighbor colors: 4(C2), 6(C1), 8(C2).<br>    - Used: {1, 2}.<br>    - Available: {3, 4}. Assign **Color 3**.<br>14. **Vertex 13**: Neighbors: {2, 10, 11}.<br>    - Current neighbor colors: 2(C3), 10(C2), 11(C4).<br>    - Used: {2, 3, 4}.<br>    - Available: {1}. Assign **Color 1**.<br>15. **Vertex 14**: Neighbors: {8, 9, 10, 11, 12}.<br>    - Current neighbor colors: 8(C2), 9(C1), 10(C2), 11(C4), 12(C3).<br>    - Used: {1, 2, 3, 4}.<br>    - **Conflict!** Vertex 14 is connected to 8(C2), 9(C1), 10(C2), 11(C4), 12(C3). All 4 colors are used by its neighbors.<br>    - This means my previous assignments created a situation where 14 cannot be colored. I need to backtrack or re-evaluate the order/choices.<br><br>**Backtracking Strategy:**<br>The conflict is at Vertex 14. Its neighbors are {8, 9, 10, 11, 12}.<br>Colors assigned to neighbors: 8(C2), 9(C1), 10(C2), 11(C4), 12(C3).<br>To fix this, I need to change the color of one of 8, 9, 10, 11, or 12.<br>Let's try changing **Vertex 10**.<br>Current 10: C2. Neighbors of 10: {0, 2, 7, 11, 13, 14}.<br>If I change 10 to C4?<br>- Check 10's neighbors: 0(C1), 2(C3), 7(C3), 11(C4), 13(C1).<br>- Conflict with 11(C4). So 10 cannot be C4.<br>- Can 10 be C1? Conflict with 0(C1).<br>- Can 10 be C3? Conflict with 2(C3), 7(C3).<br>So 10 must be C2 or C4. Since 11 is C4, 10 must be C2. That seems fixed given 11 is C4.<br><br>Let's try changing **Vertex 11**.<br>Current 11: C4. Neighbors: {2, 3, 4, 6, 8, 9, 10, 13, 14, 15}.<br>If I change 11 to C1?<br>- Neighbors of 11: 2(C3), 3(C1), 4(C2), 6(C1), 8(C2), 9(C1), 10(C2), 13(C1).<br>- Conflict with 3, 6, 9, 13 (all C1). So 11 cannot be C1.<br>If I change 11 to C2?<br>- Conflict with 4, 8, 10 (all C2).<br>If I change 11 to C3?<br>- Conflict with 2 (C3).<br>So 11 must be C4 given the current setup.<br><br>Let's try changing **Vertex 12**.<br>Current 12: C3. Neighbors: {4, 6, 8, 14}.<br>If 12 becomes C4?<br>- Neighbors: 4(C2), 6(C1), 8(C2). No conflict.<br>- If 12 is C4, then 14's neighbors colors become: 8(C2), 9(C1), 10(C2), 11(C4), 12(C4).<br>- Used by 14's neighbors: {1, 2, 4}.<br>- 14 can be C3.<br>- Does 12=C4 conflict with anything else?<br>- 12 neighbors: 4(C2), 6(C1), 8(C2), 14(C3). No conflict.<br>- So, changing 12 from C3 to C4 works.<br><br>Let's verify the full coloring with this change:<br>- 0: 1<br>- 1: 2<br>- 2: 3<br>- 3: 1<br>- 4: 2<br>- 5: 2<br>- 6: 1<br>- 7: 3<br>- 8: 2<br>- 9: 1<br>- 10: 2<br>- 11: 4<br>- 12: 4 (Changed)<br>- 13: 1<br>- 14: 3 (New assignment)<br>- 15: ?<br><br>Now check **Vertex 15**.<br>Neighbors of 15: {3, 4, 5, 9, 11}.<br>Colors: 3(C1), 4(C2), 5(C2), 9(C1), 11(C4).<br>Used: {1, 2, 4}.<br>Available: {3}.<br>Assign **Vertex 15: 3**.<br>Check 15's neighbors again: 3(C1), 4(C2), 5(C2), 9(C1), 11(C4). No conflict with 3.<br><br>Now let's double check all edges for conflicts with this new set:<br>- (0,10): 1-2 OK<br>- (1,2): 2-3 OK<br>- (1,7): 2-3 OK<br>- (2,3): 3-1 OK<br>- (2,5): 3-2 OK<br>- (2,10): 3-2 OK<br>- (2,11): 3-4 OK<br>- (2,13): 3-1 OK<br>- (3,4): 1-2 OK<br>- (3,5): 1-2 OK<br>- (3,7): 1-3 OK<br>- (3,8): 1-2 OK<br>- (3,11): 1-4 OK<br>- (3,15): 1-3 OK<br>- (4,7): 2-3 OK<br>- (4,11): 2-4 OK<br>- (4,12): 2-4 OK<br>- (4,15): 2-3 OK<br>- (5,6): 2-1 OK<br>- (5,9): 2-1 OK<br>- (5,15): 2-3 OK<br>- (6,11): 1-4 OK<br>- (6,12): 1-4 OK<br>- (7,9): 3-1 OK<br>- (7,10): 3-2 OK<br>- (8,11): 2-4 OK<br>- (8,12): 2-4 OK<br>- (8,14): 2-3 OK<br>- (9,11): 1-4 OK<br>- (9,14): 1-3 OK<br>- (9,15): 1-3 OK<br>- (10,11): 2-4 OK<br>- (10,13): 2-1 OK<br>- (10,14): 2-3 OK<br>- (11,13): 4-1 OK<br>- (11,14): 4-3 OK<br>- (11,15): 4-3 OK<br>- (12,14): 4-3 OK<br><br>All edges are valid. The coloring uses colors {1, 2, 3, 4}.<br>Final Map:<br>0:1, 1:2, 2:3, 3:1, 4:2, 5:2, 6:1, 7:3, 8:2, 9:1, 10:2, 11:4, 12:4, 13:1, 14:3, 15:3.<br><br>Wait, let's re-verify 12 and 14.<br>Edge (12, 14): 12 is 4, 14 is 3. OK.<br>Edge (8, 12): 8 is 2, 12 is 4. OK.<br>Edge (6, 12): 6 is 1, 12 is 4. OK.<br>Edge (4, 12): 4 is 2, 12 is 4. OK.<br>Edge (8, 14): 8 is 2, 14 is 3. OK.<br>Edge (9, 14): 9 is 1, 14 is 3. OK.<br>Edge (10, 14): 10 is 2, 14 is 3. OK.<br>Edge (11, 14): 11 is 4, 14 is 3. OK.<br>Edge (12, 14): 12 is 4, 14 is 3. OK.<br><br>Looks consistent.<br><br>Final JSON construction:<br>{"0": 1, "1": 2, "2": 3, "3": 1, "4": 2, "5": 2, "6": 1, "7": 3, "8": 2, "9": 1, "10": 2, "11": 4, "12": 4, "13": 1, "14": 3, "15": 3}<br><br>One final check on vertex 5 and 15.<br>Edge (5, 15): 5 is 2, 15 is 3. OK.<br>Edge (3, 5): 3 is 1, 5 is 2. OK.<br>Edge (2, 5): 2 is 3, 5 is 2. OK.<br>Edge (5, 6): 5 is 2, 6 is 1. OK.<br>Edge (5, 9): 5 is 2, 9 is 1. OK.<br><br>One final check on vertex 13.<br>Neighbors: 2(3), 10(2), 11(4).<br>Color 1. OK.<br><br>One final check on vertex 0.<br>Neighbor: 10(2).<br>Color 1. OK.<br><br>The solution is valid.<br><br>FINAL_JSON: {"0": 1, "1": 2, "2": 3, "3": 1, "4": 2, "5": 2, "6": 1, "7": 3, "8": 2, "9": 1, "10": 2, "11": 4, "12": 4, "13": 1, "14": 3, "15": 3} | 1 | 137 | 6 | True | autonomous_stage_a_run | 0 | 1377 | with_cot |
+| {"0": 1, "1": 3, "10": 4, "11": 4, "12": 2, "13": 4, "14": 3, "15": 3, "2": 2, "3": 2, "4": 1, "5": 3, "6": 3, "7": 2, "8": 1, "9": 1} | True | 4 | 4 | False | stop | stop | 3648 | rung1p1r4_s137_d4_209575 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 3648 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | To solve this graph coloring problem, I need to assign colors from the set {1, 2, 3, 4} to vertices 0 through 15 such that no two adjacent vertices share the same color. This is equivalent to finding a valid 4-coloring.<br><br>First, I will analyze the graph's structure and identify any cliques or high-degree vertices that constrain the coloring.<br>- Vertex 0 is connected to {2, 3, 5, 11, 13, 15}.<br>- Vertex 1 is connected to {2, 3, 4, 7, 9, 13}.<br>- Vertex 2 is connected to {0, 1, 6, 9, 10, 13, 14}.<br>- Vertex 3 is connected to {0, 1, 6, 8, 9, 14}.<br>- Vertex 4 is connected to {1, 6}.<br>- Vertex 5 is connected to {0, 7, 8, 9}.<br>- Vertex 6 is connected to {2, 3, 4, 8, 13}.<br>- Vertex 7 is connected to {1, 5, 9}.<br>- Vertex 8 is connected to {3, 5, 6, 11, 12, 14}.<br>- Vertex 9 is connected to {1, 2, 3, 5, 7, 10, 12, 15}.<br>- Vertex 10 is connected to {2, 9, 12, 14, 15}.<br>- Vertex 11 is connected to {0, 8, 12, 15}.<br>- Vertex 12 is connected to {8, 9, 10, 11, 13, 14, 15}.<br>- Vertex 13 is connected to {0, 1, 2, 6, 12}.<br>- Vertex 14 is connected to {2, 3, 8, 10, 12}.<br>- Vertex 15 is connected to {0, 9, 10, 11, 12}.<br><br>Let's try a greedy coloring approach starting with high-degree vertices or those involved in dense subgraphs.<br>Consider the subgraph induced by {9, 12, 15, 10, 2, 3, 1, 0}.<br>Let's attempt to color systematically.<br><br>**Step 1: Color Vertex 9**<br>Vertex 9 has degree 8. Let's assign Color 1 to Vertex 9.<br>Neighbors of 9: {1, 2, 3, 5, 7, 10, 12, 15}. These cannot be Color 1.<br><br>**Step 2: Color Vertex 12**<br>Vertex 12 is connected to 9. Let's assign Color 2 to Vertex 12.<br>Neighbors of 12: {8, 9, 10, 11, 13, 14, 15}. These cannot be Color 2.<br><br>**Step 3: Color Vertex 15**<br>Vertex 15 is connected to 9 (Color 1) and 12 (Color 2).<br>Let's assign Color 3 to Vertex 15.<br>Neighbors of 15: {0, 9, 10, 11, 12}. So 0, 10, 11 cannot be Color 3.<br><br>**Step 4: Color Vertex 10**<br>Vertex 10 is connected to 9 (Color 1), 12 (Color 2), 15 (Color 3).<br>Available colors for 10: {4}.<br>Assign Color 4 to Vertex 10.<br>Neighbors of 10: {2, 9, 12, 14, 15}. So 2, 14 cannot be Color 4.<br><br>**Step 5: Color Vertex 2**<br>Vertex 2 is connected to 9 (Color 1), 10 (Color 4).<br>Neighbors of 2 also include 0, 1, 6, 13, 14.<br>Let's look at Vertex 14. It is connected to 2, 3, 8, 10 (Color 4), 12 (Color 2).<br>Let's try to color 2 first.<br>If 2 is Color 2? No, 12 is Color 2 and 2 is not connected to 12. Wait, 2 is connected to 14, 10, 9, 13, 1, 0, 6.<br>Let's re-evaluate constraints on 2.<br>Neighbors of 2: {0, 1, 6, 9(C1), 10(C4), 13, 14}.<br>So 2 cannot be C1 or C4.<br>Let's try Color 2 for Vertex 2.<br>Then 14 cannot be C2.<br>Neighbors of 14: {2(C2), 3, 8, 10(C4), 12(C2)}.<br>So 14 cannot be C2 or C4.<br>Let's try Color 3 for Vertex 14.<br>Then 3 and 8 cannot be C3.<br><br>**Step 6: Color Vertex 3**<br>Neighbors of 3: {0, 1, 6, 8, 9(C1), 14(C3)}.<br>So 3 cannot be C1 or C3.<br>Let's try Color 2 for Vertex 3.<br>Then 0, 1, 6, 8 cannot be C2.<br><br>**Step 7: Color Vertex 8**<br>Neighbors of 8: {3(C2), 5, 6, 11, 12(C2), 14(C3)}.<br>So 8 cannot be C2 or C3.<br>Let's try Color 1 for Vertex 8.<br>Then 5, 6, 11 cannot be C1.<br><br>**Step 8: Color Vertex 6**<br>Neighbors of 6: {2(C2), 3(C2), 4, 8(C1), 13}.<br>So 6 cannot be C1 or C2.<br>Let's try Color 3 for Vertex 6.<br>Then 4, 13 cannot be C3.<br><br>**Step 9: Color Vertex 4**<br>Neighbors of 4: {1, 6(C3)}.<br>So 4 cannot be C3.<br>Let's try Color 1 for Vertex 4.<br>Then 1 cannot be C1.<br><br>**Step 10: Color Vertex 1**<br>Neighbors of 1: {2(C2), 3(C2), 4(C1), 7, 9(C1), 13}.<br>So 1 cannot be C1 or C2.<br>Let's try Color 3 for Vertex 1.<br>Then 7, 13 cannot be C3.<br><br>**Step 11: Color Vertex 7**<br>Neighbors of 7: {1(C3), 5, 9(C1)}.<br>So 7 cannot be C1 or C3.<br>Let's try Color 2 for Vertex 7.<br>Then 5 cannot be C2.<br><br>**Step 12: Color Vertex 5**<br>Neighbors of 5: {0, 7(C2), 8(C1), 9(C1)}.<br>So 5 cannot be C1 or C2.<br>Let's try Color 3 for Vertex 5.<br>Then 0 cannot be C3.<br><br>**Step 13: Color Vertex 0**<br>Neighbors of 0: {2(C2), 3(C2), 5(C3), 11, 13, 15(C3)}.<br>So 0 cannot be C2 or C3.<br>Let's try Color 1 for Vertex 0.<br>Then 11, 13 cannot be C1.<br><br>**Step 14: Color Vertex 13**<br>Neighbors of 13: {0(C1), 1(C3), 2(C2), 6(C3), 12(C2)}.<br>So 13 cannot be C1, C2, C3.<br>Must be Color 4.<br>Assign Color 4 to Vertex 13.<br>Check consistency: 13 is connected to 0(C1), 1(C3), 2(C2), 6(C3), 12(C2). No conflict.<br><br>**Step 15: Color Vertex 11**<br>Neighbors of 11: {0(C1), 8(C1), 12(C2), 15(C3)}.<br>So 11 cannot be C1, C2, C3.<br>Must be Color 4.<br>Assign Color 4 to Vertex 11.<br>Check consistency: 11 connected to 0(C1), 8(C1), 12(C2), 15(C3). No conflict.<br><br>**Step 16: Color Vertex 14** (Revisit)<br>Neighbors of 14: {2(C2), 3(C2), 8(C1), 10(C4), 12(C2)}.<br>So 14 cannot be C1, C2, C4.<br>Must be Color 3.<br>Assign Color 3 to Vertex 14.<br>Check consistency: 14 connected to 2(C2), 3(C2), 8(C1), 10(C4), 12(C2). No conflict.<br><br>**Step 17: Color Vertex 10** (Revisit)<br>Already assigned C4. Neighbors: 2(C2), 9(C1), 12(C2), 14(C3), 15(C3). OK.<br><br>**Step 18: Color Vertex 15** (Revisit)<br>Already assigned C3. Neighbors: 0(C1), 9(C1), 10(C4), 11(C4), 12(C2). OK.<br><br>**Step 19: Color Vertex 12** (Revisit)<br>Already assigned C2. Neighbors: 8(C1), 9(C1), 10(C4), 11(C4), 13(C4), 14(C3), 15(C3). OK.<br><br>**Step 20: Color Vertex 8** (Revisit)<br>Already assigned C1. Neighbors: 3(C2), 5(C3), 6(C3), 11(C4), 12(C2), 14(C3). OK.<br><br>**Step 21: Color Vertex 6** (Revisit)<br>Already assigned C3. Neighbors: 2(C2), 3(C2), 4(C1), 8(C1), 13(C4). OK.<br><br>**Step 22: Color Vertex 4** (Revisit)<br>Already assigned C1. Neighbors: 1(C3), 6(C3). OK.<br><br>**Step 23: Color Vertex 7** (Revisit)<br>Already assigned C2. Neighbors: 1(C3), 5(C3), 9(C1). OK.<br><br>**Step 24: Color Vertex 5** (Revisit)<br>Already assigned C3. Neighbors: 0(C1), 7(C2), 8(C1), 9(C1). OK.<br><br>**Step 25: Color Vertex 1** (Revisit)<br>Already assigned C3. Neighbors: 2(C2), 3(C2), 4(C1), 7(C2), 9(C1), 13(C4). OK.<br><br>**Step 26: Color Vertex 3** (Revisit)<br>Already assigned C2. Neighbors: 0(C1), 1(C3), 6(C3), 8(C1), 9(C1), 14(C3). OK.<br><br>**Step 27: Color Vertex 2** (Revisit)<br>Already assigned C2. Neighbors: 0(C1), 1(C3), 6(C3), 9(C1), 10(C4), 13(C4), 14(C3). OK.<br><br>**Step 28: Color Vertex 0** (Revisit)<br>Already assigned C1. Neighbors: 2(C2), 3(C2), 5(C3), 11(C4), 13(C4), 15(C3). OK.<br><br>All vertices are colored. Let's list the final assignment:<br>0: 1<br>1: 3<br>2: 2<br>3: 2<br>4: 1<br>5: 3<br>6: 3<br>7: 2<br>8: 1<br>9: 1<br>10: 4<br>11: 4<br>12: 2<br>13: 4<br>14: 3<br>15: 3<br><br>Let's double check a few critical edges:<br>(0,2): 1-2 OK<br>(0,3): 1-2 OK<br>(0,5): 1-3 OK<br>(0,11): 1-4 OK<br>(0,13): 1-4 OK<br>(0,15): 1-3 OK<br>(1,2): 3-2 OK<br>(1,3): 3-2 OK<br>(1,4): 3-1 OK<br>(1,7): 3-2 OK<br>(1,9): 3-1 OK<br>(1,13): 3-4 OK<br>(2,6): 2-3 OK<br>(2,9): 2-1 OK<br>(2,10): 2-4 OK<br>(2,13): 2-4 OK<br>(2,14): 2-3 OK<br>(3,6): 2-3 OK<br>(3,8): 2-1 OK<br>(3,9): 2-1 OK<br>(3,14): 2-3 OK<br>(4,6): 1-3 OK<br>(5,7): 3-2 OK<br>(5,8): 3-1 OK<br>(5,9): 3-1 OK<br>(6,8): 3-1 OK<br>(6,13): 3-4 OK<br>(7,9): 2-1 OK<br>(8,11): 1-4 OK<br>(8,12): 1-2 OK<br>(8,14): 1-3 OK<br>(9,10): 1-4 OK<br>(9,12): 1-2 OK<br>(9,15): 1-3 OK<br>(10,12): 4-2 OK<br>(10,14): 4-3 OK<br>(10,15): 4-3 OK<br>(11,12): 4-2 OK<br>(11,15): 4-3 OK<br>(12,13): 2-4 OK<br>(12,14): 2-3 OK<br>(12,15): 2-3 OK<br><br>The coloring is valid.<br><br>Final JSON map construction:<br>{"0": 1, "1": 3, "2": 2, "3": 2, "4": 1, "5": 3, "6": 3, "7": 2, "8": 1, "9": 1, "10": 4, "11": 4, "12": 2, "13": 4, "14": 3, "15": 3}<br><br>FINAL_JSON: {"0": 1, "1": 3, "2": 2, "3": 2, "4": 1, "5": 3, "6": 3, "7": 2, "8": 1, "9": 1, "10": 4, "11": 4, "12": 2, "13": 4, "14": 3, "15": 3} | 1 | 137 | 7 | True | autonomous_stage_a_run | 0 | 1361 | with_cot |
+| {"0": 1, "1": 2, "10": 1, "11": 3, "12": 4, "13": 3, "14": 3, "15": 2, "2": 2, "3": 3, "4": 2, "5": 3, "6": 4, "7": 2, "8": 2, "9": 1} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_222219 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 1, "1": 2, "2": 2, "3": 3, "4": 2, "5": 3, "6": 4, "7": 2, "8": 2, "9": 1, "10": 1, "11": 3, "12": 4, "13": 3, "14": 3, "15": 2} | 1 | 137 | 0 | True | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 1, "1": 4, "10": 3, "11": 2, "12": 2, "13": 3, "14": 1, "15": 3, "2": 4, "3": 1, "4": 2, "5": 2, "6": 4, "7": 3, "8": 1, "9": 2} | True | 4 | 4 | False | length | length | 4096 | rung1p1r4_s137_d4_223464 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 4096 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | To solve this graph coloring problem, I will analyze the graph's structure and constraints. The goal is to assign colors from {1, 2, 3, 4} such that no two adjacent vertices share the same color. This is equivalent to finding a valid 4-coloring.<br><br>First, I will identify the maximum degree of any vertex to understand the density.<br>- Vertex 0 connects to: 1, 2, 4, 6, 11, 13, 15 (Degree 7)<br>- Vertex 8 connects to: 4, 5, 6, 7, 9, 10, 12, 13, 15 (Degree 9)<br>- Vertex 15 connects to: 0, 4, 5, 6, 8, 9 (Degree 6)<br>- Vertex 10 connects to: 1, 2, 6, 8, 12 (Degree 5)<br>- Vertex 12 connects to: 6, 7, 8, 10 (Degree 4)<br>- Vertex 13 connects to: 0, 1, 8, 9 (Degree 4)<br>- Vertex 1 connects to: 0, 3, 4, 10, 13 (Degree 5)<br>- Vertex 2 connects to: 0, 7, 9, 10, 11, 14 (Degree 6)<br>- Vertex 3 connects to: 1, 7 (Degree 2)<br>- Vertex 4 connects to: 0, 1, 7, 8, 15 (Degree 5)<br>- Vertex 5 connects to: 8, 15 (Degree 2)<br>- Vertex 6 connects to: 0, 8, 10, 12, 15 (Degree 5)<br>- Vertex 7 connects to: 2, 3, 4, 8, 12 (Degree 5)<br>- Vertex 9 connects to: 2, 8, 13, 15 (Degree 4)<br>- Vertex 11 connects to: 0, 2 (Degree 2)<br>- Vertex 14 connects to: 2 (Degree 1)<br><br>Since the maximum degree is 9, a greedy approach might fail if not ordered carefully, but with 4 colors available, we need to be strategic. Let's try a greedy coloring starting from the highest degree vertices or simply iterate through vertices 0 to 15, assigning the smallest available color not used by neighbors.<br><br>Let's attempt a manual greedy assignment:<br>1. **Vertex 0**: No neighbors yet. Assign **Color 1**.<br>2. **Vertex 1**: Neighbor 0 (C1). Assign **Color 2**.<br>3. **Vertex 2**: Neighbors 0 (C1). Assign **Color 1**.<br>4. **Vertex 3**: Neighbors 1 (C2). Assign **Color 1**.<br>5. **Vertex 4**: Neighbors 0 (C1), 1 (C2). Assign **Color 3**.<br>6. **Vertex 5**: Neighbors 8, 15. (8 and 15 not colored yet). Assign **Color 1**.<br>7. **Vertex 6**: Neighbors 0 (C1), 8, 10, 12, 15. Assign **Color 2**.<br>8. **Vertex 7**: Neighbors 2 (C1), 3 (C1), 4 (C3), 8, 12. Used: {1, 3}. Assign **Color 2**.<br>9. **Vertex 8**: Neighbors 4 (C3), 5 (C1), 6 (C2), 7 (C2), 9, 10, 12, 13, 15. Used: {1, 2, 3}. Assign **Color 4**.<br>10. **Vertex 9**: Neighbors 2 (C1), 8 (C4), 13, 15. Used: {1, 4}. Assign **Color 2**.<br>11. **Vertex 10**: Neighbors 1 (C2), 2 (C1), 6 (C2), 8 (C4), 12. Used: {1, 2, 4}. Assign **Color 3**.<br>12. **Vertex 11**: Neighbors 0 (C1), 2 (C1). Used: {1}. Assign **Color 2**.<br>13. **Vertex 12**: Neighbors 6 (C2), 7 (C2), 8 (C4), 10 (C3). Used: {2, 3, 4}. Assign **Color 1**.<br>14. **Vertex 13**: Neighbors 0 (C1), 1 (C2), 8 (C4), 9 (C2). Used: {1, 2, 4}. Assign **Color 3**.<br>15. **Vertex 14**: Neighbor 2 (C1). Used: {1}. Assign **Color 2**.<br>16. **Vertex 15**: Neighbors 0 (C1), 4 (C3), 5 (C1), 6 (C2), 8 (C4), 9 (C2). Used: {1, 2, 3, 4}.<br>    - Wait, Vertex 15 has neighbors with colors: 0(C1), 4(C3), 5(C1), 6(C2), 8(C4), 9(C2).<br>    - Colors used by neighbors of 15: {1, 2, 3, 4}.<br>    - This greedy assignment fails for Vertex 15. I need to backtrack or reorder.<br><br>Let's try a different order or specific assignment for the high-degree cluster around 8, 15, 0, 4, 6.<br>Let's re-evaluate the core cluster: 0, 4, 8, 15, 6, 9, 5.<br>Edges: (0,4), (0,15), (4,8), (4,15), (5,8), (5,15), (6,8), (6,15).<br>Also (0,6) is an edge.<br>Let's try to color the "hard" part first.<br>Vertices involved in many edges: 0, 4, 6, 8, 9, 10, 12, 13, 15.<br><br>Let's try a specific configuration:<br>Set **0 = 1**.<br>Set **4 = 2** (neighbor of 0).<br>Set **15 = 3** (neighbor of 0, 4).<br>Set **6 = 4** (neighbor of 0, 15). Check 6-4? No edge. 6-15 yes. 6-0 yes.<br>Set **8**: Neighbors 4(2), 5(?), 6(4), 7(?), 9(?), 10(?), 12(?), 13(?), 15(3).<br>Current neighbors of 8: 4(C2), 6(C4), 15(C3). Available: {1}. So **8 = 1**.<br>Set **5**: Neighbors 8(1), 15(3). Available: {2, 4}. Let's pick **5 = 2**.<br>Set **9**: Neighbors 2(?), 8(1), 13(?), 15(3). Available: {2, 4}. Let's pick **9 = 2**.<br>Set **10**: Neighbors 1(?), 2(?), 6(4), 8(1), 12(?). Available: {2, 3}. Let's pick **10 = 3**.<br>Set **12**: Neighbors 6(4), 7(?), 8(1), 10(3). Available: {2}. So **12 = 2**.<br>Set **13**: Neighbors 0(1), 1(?), 8(1), 9(2). Available: {3, 4}. Let's pick **13 = 3**.<br>Set **1**: Neighbors 0(1), 3(?), 4(2), 10(3), 13(3). Available: {4}. So **1 = 4**.<br>Set **3**: Neighbors 1(4), 7(?). Available: {1, 2, 3}. Let's pick **3 = 1**.<br>Set **7**: Neighbors 2(?), 3(1), 4(2), 8(1), 12(2). Available: {3, 4}. Let's pick **7 = 3**.<br>Set **2**: Neighbors 0(1), 7(3), 9(2), 10(3), 11(?), 14(?). Available: {4}. So **2 = 4**.<br>Set **11**: Neighbors 0(1), 2(4). Available: {2, 3}. Let's pick **11 = 2**.<br>Set **14**: Neighbor 2(4). Available: {1, 2, 3}. Let's pick **14 = 1**.<br><br>Let's verify this assignment:<br>0:1, 1:4, 2:4, 3:1, 4:2, 5:2, 6:4, 7:3, 8:1, 9:2, 10:3, 11:2, 12:2, 13:3, 14:1, 15:3.<br><br>Check edges:<br>(0,1): 1-4 OK<br>(0,2): 1-4 OK<br>(0,4): 1-2 OK<br>(0,6): 1-4 OK<br>(0,11): 1-2 OK<br>(0,13): 1-3 OK<br>(0,15): 1-3 OK<br>(1,3): 4-1 OK<br>(1,4): 4-2 OK<br>(1,10): 4-3 OK<br>(1,13): 4-3 OK<br>(2,7): 4-3 OK<br>(2,9): 4-2 OK<br>(2,10): 4-3 OK<br>(2,11): 4-2 OK<br>(2,14): 4-1 OK<br>(3,7): 1-3 OK<br>(4,7): 2-3 OK<br>(4,8): 2-1 OK<br>(4,15): 2-3 OK<br>(5,8): 2-1 OK<br>(5,15): 2-3 OK<br>(6,8): 4-1 OK<br>(6,10): 4-3 OK<br>(6,12): 4-2 OK<br>(6,15): 4-3 OK<br>(7,8): 3-1 OK<br>(7,12): 3-2 OK<br>(8,9): 1-2 OK<br>(8,10): 1-3 OK<br>(8,12): 1-2 OK<br>(8,13): 1-3 OK<br>(8,15): 1-3 OK<br>(9,13): 2-3 OK<br>(9,15): 2-3 OK<br>(10,12): 3-2 OK<br><br>All edges are valid. The colors used are {1, 2, 3, 4}.<br>Mapping:<br>0:1, 1:4, 2:4, 3:1, 4:2, 5:2, 6:4, 7:3, 8:1, 9:2, 10:3, 11:2, 12:2, 13:3, 14:1, 15:3.<br><br>Wait, check vertex 12 again. Neighbors: 6(4), 7(3), 8(1), 10(3). Colors used: {1, 3, 4}. Assigned 2. OK.<br>Check vertex 11. Neighbors: 0(1), 2(4). Colors used: {1, 4}. Assigned 2. OK.<br>Check vertex 14. Neighbor: 2(4). Assigned 1. OK.<br>Check vertex 5. Neighbors: 8(1), 15(3). Assigned 2. OK.<br>Check vertex 9. Neighbors: 2(4), 8(1), 13(3), 15(3). Assigned 2. OK.<br>Check vertex 10. Neighbors: 1(4), 2(4), 6(4), 8(1), 12(2). Colors used: {1, 2, 4}. Assigned 3. OK.<br>Check vertex 13. Neighbors: 0(1), 1(4), 8(1), 9(2). Colors used: {1, 2, 4}. Assigned 3. OK.<br><br>The solution seems consistent.<br><br>Final JSON construction:<br>{"0": 1, "1": 4, "2": 4, "3": 1, "4": 2, "5": 2, "6": 4, "7": 3, "8": 1, "9": 2, "10": 3, "11": 2, "12": 2, "13": 3, "14": 1, "15": 3}<br><br>Double check vertex 12 neighbors again.<br>Edges for 12: (6, 12), (7, 12), (8, 12), (10, 12).<br>Colors: 6->4, 7->3, 8->1, 10->3.<br>Used: {1, 3, 4}. 12 gets 2. Correct.<br><br>Double check vertex 10 neighbors.<br>Edges for 10: (1, 10), (2, 10), (6, 10), (8, 10), (10, 12).<br>Colors: 1->4, 2->4, 6->4, 8->1, 12->2.<br>Used: {1, 2, 4}. 10 gets 3. Correct.<br><br>Double check vertex 13 neighbors.<br>Edges for 13: (0, 13), (1, 13), (8, 13), (9, 13).<br>Colors: 0->1, 1->4, 8->1, 9->2.<br>Used: {1, 2, 4}. 13 gets 3. Correct.<br><br>Double check vertex 15 neighbors.<br>Edges for 15: (0, 15), (4, 15), (5, 15), (6, 15), (8, 15), (9, 15).<br>Colors: 0->1, 4->2, 5->2, 6->4, 8->1, 9->2.<br>Used: {1, 2, 4}. 15 gets 3. Correct.<br><br>Double check vertex 8 neighbors.<br>Edges for 8: (4, 8), (5, 8), (6, 8), (7, 8), (8, 9), (8, 10), (8, 12), (8, 13), (8, 15).<br>Colors: 4->2, 5->2, 6->4, 7->3, 9->2, 10->3, 12->2, 13->3, 15->3.<br>Used: {2, 3, 4}. 8 gets 1. Correct.<br><br>Double check vertex 6 neighbors.<br>Edges for 6: (0, 6), (6, 8), (6, 10), (6, 12), (6, 15).<br>Colors: 0->1, 8->1, 10->3, 12->2, 15->3.<br>Used: {1, 2, 3}. 6 gets 4. Correct.<br><br>Double check vertex 7 neighbors.<br>Edges for 7: (2, 7), (3, 7), (4, 7), (7, 8), (7, 12).<br>Colors: 2->4, 3->1, 4->2, 8->1, 12->2.<br>Used: {1, 2, 4}. 7 gets 3. Correct.<br><br>Double check vertex 2 neighbors.<br>Edges for 2: (0, 2), (2, 7), (2, 9), (2, 10), (2, 11), (2, 14).<br>Colors: 0->1, 7->3, 9->2, 10->3, 11->2, 14->1.<br>Used: {1, 2, 3}. 2 gets 4. Correct.<br><br>Double check vertex 1 neighbors.<br>Edges for 1: (0, 1), (1, 3), (1, 4), (1, 10), (1, 13).<br>Colors: 0->1, 3->1, 4->2, 10->3, 13->3.<br>Used: {1, 2, 3}. 1 gets 4. Correct.<br><br>Double check vertex 0 neighbors.<br>Edges for 0: (0, 1), (0, 2), (0, 4), | 1 | 137 | 1 | True | autonomous_stage_a_run | 0 | 1121 | with_cot |
+| {"0": 1, "1": 1, "10": 4, "11": 4, "12": 2, "13": 3, "14": 2, "15": 2, "2": 2, "3": 3, "4": 3, "5": 4, "6": 2, "7": 3, "8": 2, "9": 1} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_231968 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 4 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 1, "1": 1, "2": 2, "3": 3, "4": 3, "5": 4, "6": 2, "7": 3, "8": 2, "9": 1, "10": 4, "11": 4, "12": 2, "13": 3, "14": 2, "15": 2} | 0.01 | 137 | 2 | False | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 3, "1": 1, "10": 1, "11": 4, "12": 1, "13": 3, "14": 4, "15": 3, "2": 2, "3": 2, "4": 1, "5": 2, "6": 3, "7": 2, "8": 4, "9": 3} | True | 4 | 4 | False | stop | stop | 3508 | rung1p1r4_s137_d4_252536 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 3508 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | To solve this graph coloring problem, I need to assign colors from the set {1, 2, 3, 4} to vertices 0 through 15 such that no two adjacent vertices share the same color. This is equivalent to finding a valid 4-coloring.<br><br>First, I will analyze the graph's structure and identify any cliques or high-degree vertices that constrain the coloring.<br>- Vertex 4 is connected to {0, 5, 6, 7, 9, 11, 14}. It has degree 7.<br>- Vertex 1 is connected to {2, 3, 6, 8, 13}.<br>- Vertex 6 is connected to {1, 2, 4, 7, 8, 11, 14}. Degree 7.<br>- Vertex 7 is connected to {0, 4, 6, 11, 12, 14, 15}. Degree 7.<br>- Vertex 11 is connected to {4, 5, 6, 7, 9, 13}. Degree 6.<br>- Vertex 14 is connected to {2, 3, 4, 6, 7, 9, 10}. Degree 7.<br><br>Let's try a greedy coloring approach starting with high-degree vertices or simply iterating through vertices 0 to 15, assigning the first available color that doesn't conflict with already colored neighbors.<br><br>**Step-by-step assignment:**<br>1.  **Vertex 0**: Neighbors {4, 7, 10}. Assign **Color 1**.<br>2.  **Vertex 1**: Neighbors {2, 3, 6, 8, 13}. No neighbors colored yet. Assign **Color 1**.<br>3.  **Vertex 2**: Neighbors {1, 6, 10, 14, 15}. Neighbor 1 is Color 1. Assign **Color 2**.<br>4.  **Vertex 3**: Neighbors {1, 8, 14}. Neighbor 1 is Color 1. Assign **Color 2**.<br>5.  **Vertex 4**: Neighbors {0, 5, 6, 7, 9, 11, 14}. Neighbor 0 is Color 1. Assign **Color 2**.<br>6.  **Vertex 5**: Neighbors {4, 9, 11, 13}. Neighbor 4 is Color 2. Assign **Color 1**.<br>7.  **Vertex 6**: Neighbors {1, 2, 4, 7, 8, 11, 14}.<br>    - 1: Color 1<br>    - 2: Color 2<br>    - 4: Color 2<br>    - Used: {1, 2}. Available: {3, 4}. Assign **Color 3**.<br>8.  **Vertex 7**: Neighbors {0, 4, 6, 11, 12, 14, 15}.<br>    - 0: Color 1<br>    - 4: Color 2<br>    - 6: Color 3<br>    - Used: {1, 2, 3}. Available: {4}. Assign **Color 4**.<br>9.  **Vertex 8**: Neighbors {1, 3, 6}.<br>    - 1: Color 1<br>    - 3: Color 2<br>    - 6: Color 3<br>    - Used: {1, 2, 3}. Available: {4}. Assign **Color 4**.<br>10. **Vertex 9**: Neighbors {4, 5, 11, 14}.<br>    - 4: Color 2<br>    - 5: Color 1<br>    - Used: {1, 2}. Available: {3, 4}. Assign **Color 3**.<br>11. **Vertex 10**: Neighbors {0, 2, 14}.<br>    - 0: Color 1<br>    - 2: Color 2<br>    - Used: {1, 2}. Available: {3, 4}. Assign **Color 3**.<br>12. **Vertex 11**: Neighbors {4, 5, 6, 7, 9, 13}.<br>    - 4: Color 2<br>    - 5: Color 1<br>    - 6: Color 3<br>    - 7: Color 4<br>    - 9: Color 3<br>    - Used: {1, 2, 3, 4}. All colors used by neighbors. This is a problem. Vertex 11 is connected to vertices with colors 1, 2, 3, 4.<br>    - Let's re-evaluate the assignment for neighbors of 11.<br>    - Neighbors of 11: 4, 5, 6, 7, 9, 13.<br>    - Current assignments: 4(C2), 5(C1), 6(C3), 7(C4), 9(C3).<br>    - We need to change one of these to free up a color for 11.<br>    - Let's backtrack and adjust **Vertex 9**.<br>    - Previously assigned 9 to Color 3. Neighbors of 9 are 4(C2), 5(C1), 11(?), 14(?).<br>    - If I assign 9 to **Color 4** instead?<br>        - Check 9's neighbors: 4(C2), 5(C1). 4 and 5 are not Color 4. OK.<br>        - Now 11's neighbors: 4(C2), 5(C1), 6(C3), 7(C4), 9(C4).<br>        - Colors used by 11's neighbors: {1, 2, 3, 4}. Still all 4 colors.<br>    - Let's adjust **Vertex 7**.<br>    - Neighbors of 7: 0(C1), 4(C2), 6(C3), 11(?), 12(?), 14(?), 15(?).<br>    - If I assign 7 to **Color 1**?<br>        - Check 7's neighbors: 0(C1). Conflict! 0 and 7 are connected. Cannot be Color 1.<br>    - If I assign 7 to **Color 2**?<br>        - Check 7's neighbors: 4(C2). Conflict! 4 and 7 are connected.<br>    - If I assign 7 to **Color 3**?<br>        - Check 7's neighbors: 6(C3). Conflict! 6 and 7 are connected.<br>    - So 7 MUST be Color 4 given 0(C1), 4(C2), 6(C3).<br>    - Let's adjust **Vertex 6**.<br>    - Neighbors of 6: 1(C1), 2(C2), 4(C2), 7(C4), 8(C4), 11(?), 14(?).<br>    - Current 6 is Color 3. Neighbors colors: 1, 2, 4. OK.<br>    - Can 6 be Color 4? No, 7 is Color 4.<br>    - Can 6 be Color 1? No, 1 is Color 1.<br>    - Can 6 be Color 2? No, 2 is Color 2.<br>    - So 6 MUST be Color 3.<br>    - Let's adjust **Vertex 4**.<br>    - Neighbors of 4: 0(C1), 5(C1), 6(C3), 7(C4), 9(C3), 11(?), 14(?).<br>    - Current 4 is Color 2. Neighbors colors: 1, 3, 4. OK.<br>    - Can 4 be Color 1? No, 0 and 5 are Color 1.<br>    - Can 4 be Color 3? No, 6 and 9 are Color 3.<br>    - Can 4 be Color 4? No, 7 is Color 4.<br>    - So 4 MUST be Color 2.<br>    - Let's adjust **Vertex 0**.<br>    - Neighbors of 0: 4(C2), 7(C4), 10(?).<br>    - Current 0 is Color 1. OK.<br>    - Can 0 be Color 2? No, 4 is Color 2.<br>    - Can 0 be Color 4? No, 7 is Color 4.<br>    - Can 0 be Color 3? Yes. Let's try **Color 3** for 0.<br>    - Re-evaluate chain with 0 = Color 3.<br>    - **Vertex 0**: Color 3.<br>    - **Vertex 1**: Color 1 (neighbors 2,3,6,8,13).<br>    - **Vertex 2**: Color 2 (neighbor 1 is C1).<br>    - **Vertex 3**: Color 2 (neighbor 1 is C1).<br>    - **Vertex 4**: Neighbors 0(C3), 5, 6, 7, 9, 11, 14.<br>        - Try Color 1. (Neighbors 0 is C3, others uncolored). OK.<br>    - **Vertex 5**: Neighbors 4(C1), 9, 11, 13.<br>        - Try Color 2. OK.<br>    - **Vertex 6**: Neighbors 1(C1), 2(C2), 4(C1), 7, 8, 11, 14.<br>        - Used: {1, 2}. Try Color 3. OK.<br>    - **Vertex 7**: Neighbors 0(C3), 4(C1), 6(C3), 11, 12, 14, 15.<br>        - Used: {1, 3}. Try Color 2. OK.<br>    - **Vertex 8**: Neighbors 1(C1), 3(C2), 6(C3).<br>        - Used: {1, 2, 3}. Must be **Color 4**.<br>    - **Vertex 9**: Neighbors 4(C1), 5(C2), 11, 14.<br>        - Used: {1, 2}. Try Color 3. OK.<br>    - **Vertex 10**: Neighbors 0(C3), 2(C2), 14.<br>        - Used: {2, 3}. Try Color 1. OK.<br>    - **Vertex 11**: Neighbors 4(C1), 5(C2), 6(C3), 7(C2), 9(C3), 13.<br>        - Used: {1, 2, 3}. Available: {4}. Assign **Color 4**.<br>    - **Vertex 12**: Neighbors 7(C2), 13.<br>        - Used: {2}. Try Color 1. OK.<br>    - **Vertex 13**: Neighbors 1(C1), 5(C2), 11(C4), 12(C1).<br>        - Used: {1, 2, 4}. Available: {3}. Assign **Color 3**.<br>    - **Vertex 14**: Neighbors 2(C2), 3(C2), 4(C1), 6(C3), 7(C2), 9(C3), 10(C1).<br>        - Used: {1, 2, 3}. Available: {4}. Assign **Color 4**.<br>    - **Vertex 15**: Neighbors 2(C2), 7(C2), 12(C1).<br>        - Used: {1, 2}. Available: {3, 4}. Assign **Color 3**.<br><br>Let's double check the conflicts with this new assignment:<br>- 0: 3. Neighbors: 4(1), 7(2), 10(1). OK.<br>- 1: 1. Neighbors: 2(2), 3(2), 6(3), 8(4), 13(3). OK.<br>- 2: 2. Neighbors: 1(1), 6(3), 10(1), 14(4), 15(3). OK.<br>- 3: 2. Neighbors: 1(1), 8(4), 14(4). OK.<br>- 4: 1. Neighbors: 0(3), 5(2), 6(3), 7(2), 9(3), 11(4), 14(4). OK.<br>- 5: 2. Neighbors: 4(1), 9(3), 11(4), 13(3). OK.<br>- 6: 3. Neighbors: 1(1), 2(2), 4(1), 7(2), 8(4), 11(4), 14(4). OK.<br>- 7: 2. Neighbors: 0(3), 4(1), 6(3), 11(4), 12(1), 14(4), 15(3). OK.<br>- 8: 4. Neighbors: 1(1), 3(2), 6(3). OK.<br>- 9: 3. Neighbors: 4(1), 5(2), 11(4), 14(4). OK.<br>- 10: 1. Neighbors: 0(3), 2(2), 14(4). OK.<br>- 11: 4. Neighbors: 4(1), 5(2), 6(3), 7(2), 9(3), 13(3). OK.<br>- 12: 1. Neighbors: 7(2), 13(3). OK.<br>- 13: 3. Neighbors: 1(1), 5(2), 11(4), 12(1). OK.<br>- 14: 4. Neighbors: 2(2), 3(2), 4(1), 6(3), 7(2), 9(3), 10(1). OK.<br>- 15: 3. Neighbors: 2(2), 7(2), 12(1). OK.<br><br>All constraints satisfied. The mapping is valid.<br><br>Final JSON construction:<br>{"0": 3, "1": 1, "2": 2, "3": 2, "4": 1, "5": 2, "6": 3, "7": 2, "8": 4, "9": 3, "10": 1, "11": 4, "12": 1, "13": 3, "14": 4, "15": 3}<br><br>FINAL_JSON: {"0": 3, "1": 1, "2": 2, "3": 2, "4": 1, "5": 2, "6": 3, "7": 2, "8": 4, "9": 3, "10": 1, "11": 4, "12": 1, "13": 3, "14": 4, "15": 3} | 1 | 137 | 3 | True | autonomous_stage_a_run | 0 | 1318 | with_cot |
+| {"0": 4, "1": 2, "10": 4, "11": 3, "12": 4, "13": 2, "14": 3, "15": 2, "2": 1, "3": 2, "4": 1, "5": 1, "6": 2, "7": 3, "8": 4, "9": 2} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_262611 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 4, "1": 2, "2": 1, "3": 2, "4": 1, "5": 1, "6": 2, "7": 3, "8": 4, "9": 2, "10": 4, "11": 3, "12": 4, "13": 2, "14": 3, "15": 2} | 1 | 137 | 4 | True | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 1, "1": 2, "10": 4, "11": 3, "12": 2, "13": 3, "14": 2, "15": 1, "2": 1, "3": 2, "4": 2, "5": 3, "6": 4, "7": 2, "8": 2, "9": 1} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_269873 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 1, "1": 2, "2": 1, "3": 2, "4": 2, "5": 3, "6": 4, "7": 2, "8": 2, "9": 1, "10": 4, "11": 3, "12": 2, "13": 3, "14": 2, "15": 1} | 1 | 137 | 5 | True | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 1, "1": 2, "10": 1, "11": 2, "12": 2, "13": 1, "14": 3, "15": 4, "2": 1, "3": 1, "4": 4, "5": 3, "6": 3, "7": 2, "8": 4, "9": 1} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_296514 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 1, "1": 2, "2": 1, "3": 1, "4": 4, "5": 3, "6": 3, "7": 2, "8": 4, "9": 1, "10": 1, "11": 2, "12": 2, "13": 1, "14": 3, "15": 4} | 1 | 137 | 6 | True | autonomous_stage_a_run | 0 | 0 | with_cot |
+| {"0": 2, "1": 1, "10": 2, "11": 3, "12": 3, "13": 2, "14": 2, "15": 4, "2": 4, "3": 1, "4": 2, "5": 2, "6": 3, "7": 4, "8": 1, "9": 1} | True | 4 | 4 | True | stop | length | 4096 | rung1p1r4_s137_d4_305819 | True | 4096 | Qwen/Qwen3.5-4B | /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a | 16 | 0 | 8 | 4198 | False | qwen35_4b_temp0_rg_graph_color_score_answer_v1 | {"0": 2, "1": 1, "2": 4, "3": 1, "4": 2, "5": 2, "6": 3, "7": 4, "8": 1, "9": 1, "10": 2, "11": 3, "12": 3, "13": 2, "14": 2, "15": 4} | 1 | 137 | 7 | True | autonomous_stage_a_run | 0 | 0 | with_cot |
+
+Truncated to 24 of 336 rows.
+
+##### oneshot_outcome_breakdown
+
+| depth_bin | frac_over_k_colors | frac_parsable_invalid | frac_truncated_no_answer | frac_valid_solve | n | provenance | source | variant |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 4 | 0 | 0.5 | 0 | 0.5 | 48 | qwen35_4b_temp0_outcome_breakdown_v1 | autonomous_stage_a_run | with_cot |
+| 5 | 0 | 0.375 | 0 | 0.625 | 48 | qwen35_4b_temp0_outcome_breakdown_v1 | autonomous_stage_a_run | with_cot |
+| 6 | 0 | 0.6042 | 0 | 0.3958 | 48 | qwen35_4b_temp0_outcome_breakdown_v1 | autonomous_stage_a_run | with_cot |
+| 7 | 0 | 0.5208 | 0 | 0.4792 | 48 | qwen35_4b_temp0_outcome_breakdown_v1 | autonomous_stage_a_run | with_cot |
+| 8 | 0 | 0.6458 | 0 | 0.3542 | 48 | qwen35_4b_temp0_outcome_breakdown_v1 | autonomous_stage_a_run | with_cot |
+| 9 | 0 | 0.5417 | 0 | 0.4583 | 48 | qwen35_4b_temp0_outcome_breakdown_v1 | autonomous_stage_a_run | with_cot |
+| 9+ | 0 | 0.5625 | 0 | 0.4375 | 48 | qwen35_4b_temp0_outcome_breakdown_v1 | autonomous_stage_a_run | with_cot |
+
+##### oneshot_wrongness
+
+| depth_bin | frac_complete_assignment | mean_colors_used | mean_num_conflicting_edges | n_parseable | provenance | source | variant |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 4 | 1 | 3.979 | 2.042 | 48 | qwen35_4b_temp0_wrongness_conditional_parseable_v1 | autonomous_stage_a_run | with_cot |
+| 5 | 1 | 3.979 | 1.688 | 48 | qwen35_4b_temp0_wrongness_conditional_parseable_v1 | autonomous_stage_a_run | with_cot |
+| 6 | 1 | 4 | 3.604 | 48 | qwen35_4b_temp0_wrongness_conditional_parseable_v1 | autonomous_stage_a_run | with_cot |
+| 7 | 1 | 4 | 2.917 | 48 | qwen35_4b_temp0_wrongness_conditional_parseable_v1 | autonomous_stage_a_run | with_cot |
+| 8 | 1 | 3.979 | 3.438 | 48 | qwen35_4b_temp0_wrongness_conditional_parseable_v1 | autonomous_stage_a_run | with_cot |
+| 9 | 1 | 4 | 3.583 | 48 | qwen35_4b_temp0_wrongness_conditional_parseable_v1 | autonomous_stage_a_run | with_cot |
+| 9+ | 1 | 3.979 | 3.75 | 48 | qwen35_4b_temp0_wrongness_conditional_parseable_v1 | autonomous_stage_a_run | with_cot |
+
+##### raw_text_samples
+
+| bucket | depth_bin | fallback_used | finish_reason | first_finish_reason | instance_id | raw_text | variant |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| valid_solve | 4 | True | stop | length | rung1p1r4_s137_d4_037679 | {"0": 1, "1": 2, "2": 2, "3": 1, "4": 4, "5": 3, "6": 2, "7": 1, "8": 3, "9": 4, "10": 1, "11": 3, "12": 4, "13": 1, "14": 2, "15": 4} | with_cot |
+| valid_solve | 4 | True | stop | length | rung1p1r4_s137_d4_040339 | {"0": 1, "1": 2, "2": 3, "3": 4, "4": 3, "5": 2, "6": 2, "7": 1, "8": 4, "9": 1, "10": 1, "11": 2, "12": 4, "13": 1, "14": 3, "15": 4} | with_cot |
+| valid_solve | 4 | True | stop | length | rung1p1r4_s137_d4_059835 | {"0": 1, "1": 1, "2": 2, "3": 1, "4": 2, "5": 1, "6": 3, "7": 1, "8": 3, "9": 4, "10": 2, "11": 4, "12": 3, "13": 1, "14": 3, "15": 2} | with_cot |
+| parseable_invalid | 4 | True | stop | length | rung1p1r4_s137_d4_009759 | {<br>  "0": 2,<br>  "1": 3,<br>  "2": 2,<br>  "3": 1,<br>  "4": 4,<br>  "5": 3,<br>  "6": 4,<br>  "7": 2,<br>  "8": 3,<br>  "9": 2,<br>  "10": 1,<br>  "11": 1,<br>  "12": 3,<br>  "13": 2,<br>  "14": 1,<br>  "15": 4<br>} | with_cot |
+| parseable_invalid | 4 | True | stop | length | rung1p1r4_s137_d4_046952 | {<br>  "0": 1,<br>  "1": 2,<br>  "2": 1,<br>  "3": 2,<br>  "4": 3,<br>  "5": 4,<br>  "6": 3,<br>  "7": 1,<br>  "8": 1,<br>  "9": 2,<br>  "10": 3,<br>  "11": 4,<br>  "12": 1,<br>  "13": 4,<br>  "14": 3,<br>  "15": 1<br>} | with_cot |
+| parseable_invalid | 4 | True | stop | length | rung1p1r4_s137_d4_102669 | {"0": 1, "1": 2, "2": 3, "3": 4, "4": 1, "5": 3, "6": 1, "7": 4, "8": 2, "9": 3, "10": 1, "11": 1, "12": 3, "13": 3, "14": 1, "15": 2} | with_cot |
+
+- Next action: Proceed to Phase 1 only if generation_health passes and with_cot valid solve remains below the too-easy threshold.
+
+### Item 057 - Rung-1 Phase 1 R2 symbolic node-cap budget sweep
+
+- Status: RUNG1_PHASE1_R2_SYMBOLIC_BUDGET_SWEEP_RECORDED
+- Key result: If R3 hardness gate passes, proceed to Phase 1 P1a/P1b/P1c with efficiency-gap survival as primary.
+- Purpose: Run the Phase 0 symbolic confirmation for the reordered Phase 1 claim: paired efficiency is primary and solve-rate is reported as a node-cap budget curve on the R4 RG-native natural pool.
+- Details:
+  - purpose=Run the Phase 0 symbolic confirmation for the reordered Phase 1 claim: paired efficiency is primary and solve-rate is reported as a node-cap budget curve on the R4 RG-native natural pool.
+  - commands=1
+  - result_tables=['efficiency_gap_by_depth', 'instance_arm_node_cap_metrics', 'solve_rate_vs_node_cap']
+  - honesty=This is the Phase 0 symbolic budget confirmation only. It does not run Qwen one-shot or fallible Phase 1 operators.
+- Artifact refs:
+  - results/experiment_items/item_057_rung1_phase1_r2_budget_sweep.json (yes, 3737088 bytes)
+  - results/rung1_phase1_r2_budget_sweep/results.json (yes, 3326571 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_phase1_r2_budget_sweep/results.json | RUNG1_PHASE1_R2_SYMBOLIC_BUDGET_SWEEP_RECORDED | schema_version=rung1_phase1_r2_budget_sweep_v0 |  |
+
+#### Contract Result Tables
+
+##### efficiency_gap_by_depth
+
+| cbj_solve_rate | chronological_solve_rate | comm_sign_p_cbj_less | comm_token_advantage_chronological_minus_cbj | depth_bin | mcnemar_one_sided_p_cbj_gt_chronological | mean_comm_token_delta_cbj_minus_chronological | mean_retraction_delta_cbj_minus_chronological | n_pairs | node_cap | provenance | retraction_advantage_chronological_minus_cbj | retraction_sign_p_cbj_less | solve_rate_delta_cbj_minus_chronological | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 1 | 0.01953 | 9.958 | 4 | None | -9.958 | -0.1875 | 48 | 120 | paired_efficiency_primary_reference_budget_rg_native_natural_pool | 0.1875 | 0.03516 | 0 | autonomous_stage_a_run |
+| 1 | 0.9792 | 5.821e-11 | 52.25 | 5 | 0.5 | -52.25 | -2.646 | 48 | 120 | paired_efficiency_primary_reference_budget_rg_native_natural_pool | 2.646 | 3.815e-05 | 0.02083 | autonomous_stage_a_run |
+| 1 | 1 | 1.232e-07 | 56.67 | 6 | None | -56.67 | -2.812 | 48 | 120 | paired_efficiency_primary_reference_budget_rg_native_natural_pool | 2.812 | 7.826e-05 | 0 | autonomous_stage_a_run |
+| 1 | 0.9583 | 2.037e-09 | 84.96 | 7 | 0.25 | -84.96 | -4.5 | 48 | 120 | paired_efficiency_primary_reference_budget_rg_native_natural_pool | 4.5 | 4.399e-05 | 0.04167 | autonomous_stage_a_run |
+| 1 | 0.9375 | 3.638e-12 | 109.2 | 8 | 0.125 | -109.2 | -6.292 | 48 | 120 | paired_efficiency_primary_reference_budget_rg_native_natural_pool | 6.292 | 2.887e-08 | 0.0625 | autonomous_stage_a_run |
+| 1 | 0.8542 | 1.538e-11 | 194.8 | 9 | 0.007812 | -194.8 | -10.6 | 48 | 120 | paired_efficiency_primary_reference_budget_rg_native_natural_pool | 10.6 | 5.24e-09 | 0.1458 | autonomous_stage_a_run |
+| 1 | 0.7917 | 1.421e-14 | 230.7 | 9+ | 0.0009766 | -230.7 | -13.52 | 48 | 120 | paired_efficiency_primary_reference_budget_rg_native_natural_pool | 13.52 | 2.055e-10 | 0.2083 | autonomous_stage_a_run |
+
+##### instance_arm_node_cap_metrics
+
+| arm | boundary_conflict_exact | comm_tokens | depth_bin | instance_id | node_cap | overflow_entries | overflowed | peak_register_entries | provenance | reference_cross_agent_conflict_depth | register_capacity | seed | solved | source | status | steps_to_solve_or_cap | total_retractions |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| forward_markov_team | True | 42 | 4 | rung1p1r4_s42_d4_011625 | 60 | 0 | False | 8 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 9 | 0 |
+| chronological_rollback | True | 80 | 4 | rung1p1r4_s42_d4_011625 | 60 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| cbj_bounded | True | 80 | 4 | rung1p1r4_s42_d4_011625 | 60 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| forward_markov_team | True | 42 | 4 | rung1p1r4_s42_d4_011625 | 120 | 0 | False | 8 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 9 | 0 |
+| chronological_rollback | True | 80 | 4 | rung1p1r4_s42_d4_011625 | 120 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| cbj_bounded | True | 80 | 4 | rung1p1r4_s42_d4_011625 | 120 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| forward_markov_team | True | 42 | 4 | rung1p1r4_s42_d4_011625 | 240 | 0 | False | 8 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 9 | 0 |
+| chronological_rollback | True | 80 | 4 | rung1p1r4_s42_d4_011625 | 240 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| cbj_bounded | True | 80 | 4 | rung1p1r4_s42_d4_011625 | 240 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| forward_markov_team | True | 42 | 4 | rung1p1r4_s42_d4_011625 | 480 | 0 | False | 8 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 9 | 0 |
+| chronological_rollback | True | 80 | 4 | rung1p1r4_s42_d4_011625 | 480 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| cbj_bounded | True | 80 | 4 | rung1p1r4_s42_d4_011625 | 480 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| forward_markov_team | True | 42 | 4 | rung1p1r4_s42_d4_011625 | 960 | 0 | False | 8 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 9 | 0 |
+| chronological_rollback | True | 80 | 4 | rung1p1r4_s42_d4_011625 | 960 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| cbj_bounded | True | 80 | 4 | rung1p1r4_s42_d4_011625 | 960 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| forward_markov_team | True | 42 | 4 | rung1p1r4_s42_d4_023883 | 60 | 0 | False | 8 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 9 | 0 |
+| chronological_rollback | True | 80 | 4 | rung1p1r4_s42_d4_023883 | 60 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| cbj_bounded | True | 80 | 4 | rung1p1r4_s42_d4_023883 | 60 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| forward_markov_team | True | 42 | 4 | rung1p1r4_s42_d4_023883 | 120 | 0 | False | 8 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 9 | 0 |
+| chronological_rollback | True | 80 | 4 | rung1p1r4_s42_d4_023883 | 120 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| cbj_bounded | True | 80 | 4 | rung1p1r4_s42_d4_023883 | 120 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| forward_markov_team | True | 42 | 4 | rung1p1r4_s42_d4_023883 | 240 | 0 | False | 8 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 9 | 0 |
+| chronological_rollback | True | 80 | 4 | rung1p1r4_s42_d4_023883 | 240 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+| cbj_bounded | True | 80 | 4 | rung1p1r4_s42_d4_023883 | 240 | 0 | False | 16 | phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep | 4 | 16 | 42 | True | autonomous_stage_a_run | SOLVED | 18 | 1 |
+
+Truncated to 24 of 5040 rows.
+
+##### solve_rate_vs_node_cap
+
+| arm | budget_at_95_solve | depth_bin | mean_comm_tokens | mean_total_retractions | n | node_cap | node_cap_exhaustions | provenance | solve_rate | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| forward_markov_team | not_reached | 4 | 45.67 | 0 | 48 | 60 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 0 | autonomous_stage_a_run |
+| forward_markov_team | not_reached | 4 | 45.67 | 0 | 48 | 120 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 0 | autonomous_stage_a_run |
+| forward_markov_team | not_reached | 4 | 45.67 | 0 | 48 | 240 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 0 | autonomous_stage_a_run |
+| forward_markov_team | not_reached | 4 | 45.67 | 0 | 48 | 480 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 0 | autonomous_stage_a_run |
+| forward_markov_team | not_reached | 4 | 45.67 | 0 | 48 | 960 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 0 | autonomous_stage_a_run |
+| chronological_rollback | 60 | 4 | 104.7 | 2.75 | 48 | 60 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 1 | autonomous_stage_a_run |
+| chronological_rollback | 60 | 4 | 104.7 | 2.75 | 48 | 120 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 1 | autonomous_stage_a_run |
+| chronological_rollback | 60 | 4 | 104.7 | 2.75 | 48 | 240 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 1 | autonomous_stage_a_run |
+| chronological_rollback | 60 | 4 | 104.7 | 2.75 | 48 | 480 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 1 | autonomous_stage_a_run |
+| chronological_rollback | 60 | 4 | 104.7 | 2.75 | 48 | 960 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 1 | autonomous_stage_a_run |
+| cbj_bounded | 60 | 4 | 93.62 | 2.5 | 48 | 60 | 1 | solve_rate_vs_node_cap_rg_native_natural_pool | 0.9792 | autonomous_stage_a_run |
+| cbj_bounded | 60 | 4 | 94.71 | 2.562 | 48 | 120 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 1 | autonomous_stage_a_run |
+| cbj_bounded | 60 | 4 | 94.71 | 2.562 | 48 | 240 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 1 | autonomous_stage_a_run |
+| cbj_bounded | 60 | 4 | 94.71 | 2.562 | 48 | 480 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 1 | autonomous_stage_a_run |
+| cbj_bounded | 60 | 4 | 94.71 | 2.562 | 48 | 960 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 1 | autonomous_stage_a_run |
+| forward_markov_team | not_reached | 5 | 48.67 | 0 | 48 | 60 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 0 | autonomous_stage_a_run |
+| forward_markov_team | not_reached | 5 | 48.67 | 0 | 48 | 120 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 0 | autonomous_stage_a_run |
+| forward_markov_team | not_reached | 5 | 48.67 | 0 | 48 | 240 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 0 | autonomous_stage_a_run |
+| forward_markov_team | not_reached | 5 | 48.67 | 0 | 48 | 480 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 0 | autonomous_stage_a_run |
+| forward_markov_team | not_reached | 5 | 48.67 | 0 | 48 | 960 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 0 | autonomous_stage_a_run |
+| chronological_rollback | 120 | 5 | 135.1 | 5.125 | 48 | 60 | 5 | solve_rate_vs_node_cap_rg_native_natural_pool | 0.8958 | autonomous_stage_a_run |
+| chronological_rollback | 120 | 5 | 158.8 | 6.854 | 48 | 120 | 1 | solve_rate_vs_node_cap_rg_native_natural_pool | 0.9792 | autonomous_stage_a_run |
+| chronological_rollback | 120 | 5 | 159.8 | 6.854 | 48 | 240 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 1 | autonomous_stage_a_run |
+| chronological_rollback | 120 | 5 | 159.8 | 6.854 | 48 | 480 | 0 | solve_rate_vs_node_cap_rg_native_natural_pool | 1 | autonomous_stage_a_run |
+
+Truncated to 24 of 105 rows.
+
+- Next action: If R3 hardness gate passes, proceed to Phase 1 P1a/P1b/P1c with efficiency-gap survival as primary.
+
 
 ## Canonical Repo Decision
 
@@ -3249,7 +3598,7 @@ Truncated to 24 of 144 rows.
 | Stage A Track A symbolic | YELLOW | track=A_symbolic; operator=symbolic_oracle; autonomous_cells=43; symbolic_core={'autonomous_cells': 43, 'declared_track': 'A_symbolic', 'forward_floor_on_L4': True, 'kv_snapshot_max_depth': 3, 'operator': 'symbolic_oracle', 'reverts_nonzero_on_L4': True, 'rot_no_revert_max_depth': 3} |
 | Stage A learned track | RED | diagnostic_G1=1.0; learned_autonomous_cells=0; statuses=['PARENT_ADAPTER_REQUIRED'] |
 | W3 Qwen3.5 | YELLOW | integration_grade=cached_gdn_state_measured_with_propagation_delta; W3.0=PASS |
-| Validation | RED | checks=414; pass=411; fail=3 |
+| Validation | RED | checks=472; pass=469; fail=3 |
 
 ## Artifact Index
 
@@ -3284,7 +3633,12 @@ Truncated to 24 of 144 rows.
 | item_051_rung1_distributed_graph_coloring | results/experiment_items/item_051_rung1_distributed_graph_coloring.json | yes |
 | item_052_rung1_gate_distributed_coloring_v01 | results/experiment_items/item_052_rung1_gate_distributed_coloring_v01.json | yes |
 | item_053_rung1_gate_distributed_coloring_v02 | results/experiment_items/item_053_rung1_gate_distributed_coloring_v02.json | yes |
+| item_054_rung1_phase1_spec_v01 | results/experiment_items/item_054_rung1_phase1_spec_v01.json | yes |
+| item_055_rung1_phase1_r4_natural_pool | results/experiment_items/item_055_rung1_phase1_r4_natural_pool.json | yes |
+| item_056_rung1_phase1_r3_qwen_oneshot | results/experiment_items/item_056_rung1_phase1_r3_qwen_oneshot.json | yes |
+| item_057_rung1_phase1_r2_budget_sweep | results/experiment_items/item_057_rung1_phase1_r2_budget_sweep.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
+| rung1_phase1_spec_v01 | specs/rung1_phase1_spec_v01.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
 | qwen3_4b_instruct_download | results/model_download/qwen_download.json | yes |
 | qwen3_4b_thinking_download | results/model_download/thinking/qwen_download.json | yes |
@@ -3333,6 +3687,9 @@ Truncated to 24 of 144 rows.
 | rung1_distributed_graph_coloring | results/rung1_distributed_graph_coloring/results.json | yes |
 | rung1_gate_distributed_coloring_v01 | results/rung1_gate_distributed_coloring_v01/results.json | yes |
 | rung1_gate_distributed_coloring_v02 | results/rung1_gate_distributed_coloring_v02/results.json | yes |
+| rung1_phase1_r4_natural_pool | results/rung1_phase1_r4_natural_pool/results.json | yes |
+| rung1_phase1_r3_qwen_oneshot | results/rung1_phase1_r3_qwen_oneshot/results.json | yes |
+| rung1_phase1_r2_budget_sweep | results/rung1_phase1_r2_budget_sweep/results.json | yes |
 | validation | results/validation/validation.json | yes |
 
 ## Validation Summary
@@ -3340,13 +3697,17 @@ Truncated to 24 of 144 rows.
 | tier | pass | fail |
 | --- | --- | --- |
 | closeout_047 | 15 | 0 |
-| contract | 188 | 0 |
+| contract | 212 | 0 |
 | env | 13 | 0 |
 | legacy | 7 | 0 |
 | meta | 1 | 0 |
 | p0 | 2 | 0 |
 | post_review_e1 | 58 | 0 |
 | rung1 | 16 | 0 |
+| rung1_phase1_r2 | 8 | 0 |
+| rung1_phase1_r3 | 8 | 0 |
+| rung1_phase1_r4 | 9 | 0 |
+| rung1_phase1_spec | 9 | 0 |
 | rung1_v01 | 14 | 0 |
 | rung1_v02 | 13 | 0 |
 | tier_a | 35 | 0 |

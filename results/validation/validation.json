@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=26",
+      "detail": "count=30",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -1507,6 +1507,150 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_054_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_054_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=054",
+      "name": "log_item_054_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_054_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This is a planning/spec revision, not a new Phase 1 measurement. It does not establish Qwen one-shot hardness, node-cap budget curves, or fallible-operator effi",
+      "name": "log_item_054_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=5; routing=Run R4 RG-native lead-in generation for depths 4,5,6,exact 9, then R3 qwen_one_shot hardness anchor before node-cap symbolic sweeps and Phase 1 P1a/P1b/P1c.",
+      "name": "log_item_054_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_055_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_055_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=055",
+      "name": "log_item_055_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_055_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This artifact only generates the natural RG-native pool. It does not run Qwen one-shot, node-cap budget sweeps, or Phase 1 fallible-operator recovery.",
+      "name": "log_item_055_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=3; routing=Run R3 qwen_one_shot direct-answer and with-CoT on this exact edge manifest before node-cap symbolic sweeps.",
+      "name": "log_item_055_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_056_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_056_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=056",
+      "name": "log_item_056_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_056_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This is a non-agentic one-shot hardness anchor only. It does not test register recovery, CBJ efficiency, or fallible multi-step operator behavior.",
+      "name": "log_item_056_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=2; routing=Proceed to Phase 1 only if generation_health passes and with_cot valid solve remains below the too-easy threshold.",
+      "name": "log_item_056_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_057_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_057_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=057",
+      "name": "log_item_057_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_057_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This is the Phase 0 symbolic budget confirmation only. It does not run Qwen one-shot or fallible Phase 1 operators.",
+      "name": "log_item_057_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=2; routing=If R3 hardness gate passes, proceed to Phase 1 P1a/P1b/P1c with efficiency-gap survival as primary.",
+      "name": "log_item_057_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -2083,13 +2227,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'spill_off_write_drop', 'write_drop_mask', 'forward_read', 'pop_read', 'final_solution_readback', 'register_entry_classification'}",
+      "detail": "rules={'register_entry_classification', 'pop_read', 'write_drop_mask', 'spill_off_write_drop', 'final_solution_readback', 'forward_read'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop', 'P_pop_unmasked', 'P_all', 'threshold_D_peak', 'P_all_unmasked', 'P_choice_unmasked', 'P_choice', 'threshold_D_pop'}; rows=768",
+      "detail": "candidates={'P_choice_unmasked', 'P_all_unmasked', 'P_choice', 'threshold_D_peak', 'P_all', 'P_pop_unmasked', 'P_pop', 'threshold_D_pop'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2125,7 +2269,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop', 'P_pop_unmasked', 'P_all', 'P_all_unmasked', 'P_choice_unmasked', 'P_choice'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_choice_unmasked', 'P_all_unmasked', 'P_choice', 'P_all', 'P_pop_unmasked', 'P_pop'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2443,6 +2587,210 @@
       "tier": "rung1_v02"
     },
     {
+      "detail": "results/experiment_items/item_054_rung1_phase1_spec_v01.json",
+      "name": "item_054_rung1_phase1_spec_v01_present",
+      "status": "PASS",
+      "tier": "rung1_phase1_spec"
+    },
+    {
+      "detail": "specs/rung1_phase1_spec_v01.md",
+      "name": "rung1_phase1_spec_v01_present",
+      "status": "PASS",
+      "tier": "rung1_phase1_spec"
+    },
+    {
+      "detail": "item_number=054",
+      "name": "item054_number_present",
+      "status": "PASS",
+      "tier": "rung1_phase1_spec"
+    },
+    {
+      "detail": "status=RUNG1_PHASE1_SPEC_V01_ACCEPTED",
+      "name": "item054_status_valid",
+      "status": "PASS",
+      "tier": "rung1_phase1_spec"
+    },
+    {
+      "detail": "tables=['baseline_policy', 'claim_reorder', 'node_cap_policy', 'operator_ladder_refocus', 'pool_policy', 'run_order']",
+      "name": "item054_required_tables_present",
+      "status": "PASS",
+      "tier": "rung1_phase1_spec"
+    },
+    {
+      "detail": "gates={'primary_metric_reordered_to_efficiency': 'PASS', 'solve_rate_marked_budget_contingent': 'PASS', 'qwen_one_shot_replaces_greedy_report_baseline': 'PASS', 'distribution_roles_separated': 'PASS', 'operator_ladder_refocused': 'PASS'}",
+      "name": "item054_revision_gates_pass",
+      "status": "PASS",
+      "tier": "rung1_phase1_spec"
+    },
+    {
+      "detail": "caps=[60, 120, 240, 480, 960]; rows=[{'node_caps': [60, 120, 240, 480, 960], 'reference_budget': 120, 'derived_metric': 'budget@95%_solve', 'per_depth': True, 'per_arm': True, 'interpretation': 'Efficiency is primary; solve-vs-budget quantifies how recovery cost converts to solve under finite budget.'}]",
+      "name": "item054_node_cap_policy",
+      "status": "PASS",
+      "tier": "rung1_phase1_spec"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "rung1_phase1_spec_v01_required_content",
+      "status": "PASS",
+      "tier": "rung1_phase1_spec"
+    },
+    {
+      "detail": "Item053 headline, Item052 stress only",
+      "name": "rung1_phase1_spec_pool_roles_separated",
+      "status": "PASS",
+      "tier": "rung1_phase1_spec"
+    },
+    {
+      "detail": "results/experiment_items/item_055_rung1_phase1_r4_natural_pool.json",
+      "name": "item_055_rung1_phase1_r4_natural_pool_present",
+      "status": "PASS",
+      "tier": "rung1_phase1_r4"
+    },
+    {
+      "detail": "results/rung1_phase1_r4_natural_pool/results.json",
+      "name": "rung1_phase1_r4_natural_pool_present",
+      "status": "PASS",
+      "tier": "rung1_phase1_r4"
+    },
+    {
+      "detail": "item_number=055",
+      "name": "item055_number_present",
+      "status": "PASS",
+      "tier": "rung1_phase1_r4"
+    },
+    {
+      "detail": "status=RUNG1_PHASE1_R4_NATURAL_POOL_READY",
+      "name": "item055_status_valid",
+      "status": "PASS",
+      "tier": "rung1_phase1_r4"
+    },
+    {
+      "detail": "gates={'rg_native_depth_bins_filled': 'PASS', 'edge_manifest_saved': 'PASS', 'reverse_greedy_filter_effective': 'PASS'}",
+      "name": "item055_gate_rows_pass",
+      "status": "PASS",
+      "tier": "rung1_phase1_r4"
+    },
+    {
+      "detail": "schema=rung1_phase1_r4_natural_pool_v0",
+      "name": "rung1_phase1_r4_schema_version",
+      "status": "PASS",
+      "tier": "rung1_phase1_r4"
+    },
+    {
+      "detail": "generation={'generator_api': 'reasoning_gym.algorithmic.graph_color.generate_random_graph', 'generator_package': 'reasoning-gym', 'generator_version': '0.1.25', 'k': 4, 'max_attempts_per_seed_bin': 900000, 'n_agents': 4, 'n_vertices': 16, 'p_range': [0.3, 0.48], 'seeds': [42, 137], 'source': 'autonomous_stage_a_run', 'target_depth_bins': ['4', '5', '6', '7', '8', '9', '9+'], 'target_per_depth_bin': 48, 'target_per_seed_depth_bin': 24, 'verifier_api': 'reasoning_gym.algorithmic.graph_color.verify_graph_coloring_solution', 'workers': 8}",
+      "name": "rung1_phase1_r4_rg_native_generation",
+      "status": "PASS",
+      "tier": "rung1_phase1_r4"
+    },
+    {
+      "detail": "pool=[{'actual_depth_max': 4, 'actual_depth_min': 4, 'chromatic_number_distribution': {'4': 48}, 'depth_bin': '4', 'k': 4, 'mean_actual_depth': 4.0, 'mean_boundary_edges': 32.4375, 'mean_n_edges': 41.5625, 'n': 48, 'n_agents': 4, 'n_vertices': 16, 'provenance': 'rg_native_natural_pool_r4_depth_summary', 'source': 'autonomous_stage_a_run', 'target_met': True, 'target_n': 48}, {'actual_depth_max': 5, 'actual_depth_min': 5, 'chromatic_number_distribution': {'4': 48}, 'depth_bin': '5', 'k': 4, 'mean_actual_depth': 5.0, 'mean_boundary_edges': 33.020833333333336, 'mean_n_edges': 41.9375, 'n': 48, 'n_agents': 4, 'n_vertices': 16, 'provenance': 'rg_native_natural_pool_r4_depth_summary', 'source': 'autonomous_stage_a_run', 'target_met': True, 'target_n': 48}, {'actual_depth_max': 6, 'actual_depth_min': 6, 'chromatic_number_distribution': {'4': 48}, 'depth_bin': '6', 'k': 4, 'mean_actual_depth': 6.0, 'mean_boundary_edges': 36.020833333333336, 'mean_n_edges': 45.229166666666664, 'n': 48, 'n_agents': 4, 'n_vertices': 16, 'provenance': 'rg_native_natural_pool_r4_depth_summary', 'source': 'autonomous_stage_a_run', 'target_met': True, 'target_n': 48}, {'actual_depth_max': 7, 'actual_depth_min': 7, 'chromatic_number_distribution': {'4': 48}, 'depth_bin': '7', 'k': 4, 'mean_actual_depth': 7.0, 'mean_boundary_edges': 34.375, 'mean_n_edges': 42.875, 'n': 48, 'n_agents': 4, 'n_vertices': 16, 'provenance': 'rg_native_natural_pool_r4_depth_summary', 'source': 'autonomous_stage_a_run', 'target_met': True, 'target_n': 48}, {'actual_depth_max': 8, 'actual_depth_min': 8, 'chromatic_number_distribution': {'4': 48}, 'depth_bin': '8', 'k': 4, 'mean_actual_depth': 8.0, 'mean_boundary_edges': 34.8125, 'mean_n_edges': 43.333333333333336, 'n': 48, 'n_agents': 4, 'n_vertices': 16, 'provenance': 'rg_native_natural_pool_r4_depth_summary', 'source': 'autonomous_stage_a_run', 'target_met': True, 'target_n': 48}, {'actual_depth_max': 9, 'actual_depth_min': 9, 'chromatic_number_distribution': {'4': 48}, 'depth_bin': '9', 'k': 4, 'mean_actual_depth': 9.0, 'mean_boundary_edges': 34.625, 'mean_n_edges': 42.75, 'n': 48, 'n_agents': 4, 'n_vertices': 16, 'provenance': 'rg_native_natural_pool_r4_depth_summary', 'source': 'autonomous_stage_a_run', 'target_met': True, 'target_n': 48}, {'actual_depth_max': 15, 'actual_depth_min': 10, 'chromatic_number_distribution': {'4': 48}, 'depth_bin': '9+', 'k': 4, 'mean_actual_depth': 12.0625, 'mean_boundary_edges': 36.6875, 'mean_n_edges': 44.6875, 'n': 48, 'n_agents': 4, 'n_vertices': 16, 'provenance': 'rg_native_natural_pool_r4_depth_summary', 'source': 'autonomous_stage_a_run', 'target_met': True, 'target_n': 48}]",
+      "name": "rung1_phase1_r4_bins_complete",
+      "status": "PASS",
+      "tier": "rung1_phase1_r4"
+    },
+    {
+      "detail": "rows=336; acceptance={'all_bins_filled': True, 'edge_manifest_saved': True, 'reverse_greedy_filter_effective': True}",
+      "name": "rung1_phase1_r4_edge_manifest_ready",
+      "status": "PASS",
+      "tier": "rung1_phase1_r4"
+    },
+    {
+      "detail": "results/experiment_items/item_056_rung1_phase1_r3_qwen_oneshot.json",
+      "name": "item_056_rung1_phase1_r3_qwen_oneshot_present",
+      "status": "PASS",
+      "tier": "rung1_phase1_r3"
+    },
+    {
+      "detail": "results/rung1_phase1_r3_qwen_oneshot/results.json",
+      "name": "rung1_phase1_r3_qwen_oneshot_present",
+      "status": "PASS",
+      "tier": "rung1_phase1_r3"
+    },
+    {
+      "detail": "item_number=056",
+      "name": "item056_number_present",
+      "status": "PASS",
+      "tier": "rung1_phase1_r3"
+    },
+    {
+      "detail": "status=RUNG1_PHASE1_R3_QWEN_ONESHOT_HEALTH_FAIL_RERUN",
+      "name": "item056_status_valid",
+      "status": "PASS",
+      "tier": "rung1_phase1_r3"
+    },
+    {
+      "detail": "gates={'generation_health': 'RERUN', 'task_hardness_gate': 'NO_CONCLUSION'}",
+      "name": "item056_gate_rows_recorded",
+      "status": "PASS",
+      "tier": "rung1_phase1_r3"
+    },
+    {
+      "detail": "schema=rung1_phase1_r3_qwen_oneshot_v1; status=RUNG1_PHASE1_R3_QWEN_ONESHOT_HEALTH_FAIL_RERUN",
+      "name": "rung1_phase1_r3_schema_status",
+      "status": "PASS",
+      "tier": "rung1_phase1_r3"
+    },
+    {
+      "detail": "generation={'batch_size': 2, 'device': '8x_data_parallel_shards', 'dtype': 'bfloat16', 'fallback_on_no_json': True, 'limit': None, 'max_tokens_by_variant': {'direct_answer': 1024, 'with_cot': 4096}, 'model_id': 'Qwen/Qwen3.5-4B', 'model_source': '/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a', 'num_shards': 8, 'qwen_native_thinking': False, 'r4_results_path': 'results/rung1_phase1_r4_natural_pool/results.json', 'scoring_api': 'reasoning_gym.algorithmic.graph_color.GraphColorDataset.score_answer', 'shard_index': None, 'shard_result_paths': ['results/_scratch/rung1_phase1_r3_qwen_oneshot_v1_nothink_shards/shard_0/results.json', 'results/_scratch/rung1_phase1_r3_qwen_oneshot_v1_nothink_shards/shard_1/results.json', 'results/_scratch/rung1_phase1_r3_qwen_oneshot_v1_nothink_shards/shard_2/results.json', 'results/_scratch/rung1_phase1_r3_qwen_oneshot_v1_nothink_shards/shard_3/results.json', 'results/_scratch/rung1_phase1_r3_qwen_oneshot_v1_nothink_shards/shard_4/results.json', 'results/_scratch/rung1_phase1_r3_qwen_oneshot_v1_nothink_shards/shard_5/results.json', 'results/_scratch/rung1_phase1_r3_qwen_oneshot_v1_nothink_shards/shard_6/results.json', 'results/_scratch/rung1_phase1_r3_qwen_oneshot_v1_nothink_shards/shard_7/results.json'], 'temperature': 0, 'variants': ['with_cot'], 'verifier_api': 'reasoning_gym.algorithmic.graph_color.verify_graph_coloring_solution via GraphColorDataset.score_answer'}",
+      "name": "rung1_phase1_r3_model_scoring",
+      "status": "PASS",
+      "tier": "rung1_phase1_r3"
+    },
+    {
+      "detail": "rows=336; variants={'with_cot'}; acceptance={'health_pass': False, 'max_allowed_frac_finish_reason_length': 0.1, 'max_frac_finish_reason_length': 0.8541666666666666, 'max_variant_solve_rate': 0.4642857142857143, 'too_easy': False, 'variant_solve_rates': {'with_cot': 0.4642857142857143}, 'with_cot_valid_solve_rate': 0.4642857142857143}",
+      "name": "rung1_phase1_r3_qwen_rows_recorded_v1",
+      "status": "PASS",
+      "tier": "rung1_phase1_r3"
+    },
+    {
+      "detail": "results/experiment_items/item_057_rung1_phase1_r2_budget_sweep.json",
+      "name": "item_057_rung1_phase1_r2_budget_sweep_present",
+      "status": "PASS",
+      "tier": "rung1_phase1_r2"
+    },
+    {
+      "detail": "results/rung1_phase1_r2_budget_sweep/results.json",
+      "name": "rung1_phase1_r2_budget_sweep_present",
+      "status": "PASS",
+      "tier": "rung1_phase1_r2"
+    },
+    {
+      "detail": "item_number=057",
+      "name": "item057_number_present",
+      "status": "PASS",
+      "tier": "rung1_phase1_r2"
+    },
+    {
+      "detail": "status=RUNG1_PHASE1_R2_SYMBOLIC_BUDGET_SWEEP_RECORDED",
+      "name": "item057_status_valid",
+      "status": "PASS",
+      "tier": "rung1_phase1_r2"
+    },
+    {
+      "detail": "gates={'node_cap_sweep_complete': 'PASS', 'efficiency_advantage_all_depths': 'PASS'}",
+      "name": "item057_node_cap_gate_pass",
+      "status": "PASS",
+      "tier": "rung1_phase1_r2"
+    },
+    {
+      "detail": "schema=rung1_phase1_r2_budget_sweep_v0; generation={'arms': ['forward_markov_team', 'chronological_rollback', 'cbj_bounded'], 'budget_solve_threshold': 0.95, 'node_caps': [60, 120, 240, 480, 960], 'r4_results_path': 'results/rung1_phase1_r4_natural_pool/results.json', 'reference_node_cap': 120, 'register_capacity': 16, 'source': 'autonomous_stage_a_run'}",
+      "name": "rung1_phase1_r2_schema_generation",
+      "status": "PASS",
+      "tier": "rung1_phase1_r2"
+    },
+    {
+      "detail": "rows=5040; caps=[60, 120, 240, 480, 960]; arms=['cbj_bounded', 'chronological_rollback', 'forward_markov_team']",
+      "name": "rung1_phase1_r2_metric_rows_complete",
+      "status": "PASS",
+      "tier": "rung1_phase1_r2"
+    },
+    {
+      "detail": "budget_rows=105; efficiency_rows=7",
+      "name": "rung1_phase1_r2_tables_recorded",
+      "status": "PASS",
+      "tier": "rung1_phase1_r2"
+    },
+    {
       "detail": "results/ttt/results.json",
       "name": "ttt_legacy_present",
       "status": "PASS",
@@ -2485,11 +2833,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-09T13:42:59.638423+00:00",
+  "generated_at": "2026-06-09T18:25:38.540937+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 414,
+    "n_checks": 472,
     "n_fail": 3,
-    "n_pass": 411
+    "n_pass": 469
   }
 }

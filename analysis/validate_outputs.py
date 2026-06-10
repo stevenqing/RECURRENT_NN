@@ -59,6 +59,10 @@ PATHS = {
     "item_051_rung1_distributed_graph_coloring": "results/experiment_items/item_051_rung1_distributed_graph_coloring.json",
     "item_052_rung1_gate_distributed_coloring_v01": "results/experiment_items/item_052_rung1_gate_distributed_coloring_v01.json",
     "item_053_rung1_gate_distributed_coloring_v02": "results/experiment_items/item_053_rung1_gate_distributed_coloring_v02.json",
+    "item_054_rung1_phase1_spec_v01": "results/experiment_items/item_054_rung1_phase1_spec_v01.json",
+    "item_055_rung1_phase1_r4_natural_pool": "results/experiment_items/item_055_rung1_phase1_r4_natural_pool.json",
+    "item_056_rung1_phase1_r3_qwen_oneshot": "results/experiment_items/item_056_rung1_phase1_r3_qwen_oneshot.json",
+    "item_057_rung1_phase1_r2_budget_sweep": "results/experiment_items/item_057_rung1_phase1_r2_budget_sweep.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
@@ -69,6 +73,10 @@ PATHS = {
     "rung1_distributed_graph_coloring": "results/rung1_distributed_graph_coloring/results.json",
     "rung1_gate_distributed_coloring_v01": "results/rung1_gate_distributed_coloring_v01/results.json",
     "rung1_gate_distributed_coloring_v02": "results/rung1_gate_distributed_coloring_v02/results.json",
+    "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
+    "rung1_phase1_r4_natural_pool": "results/rung1_phase1_r4_natural_pool/results.json",
+    "rung1_phase1_r3_qwen_oneshot": "results/rung1_phase1_r3_qwen_oneshot/results.json",
+    "rung1_phase1_r2_budget_sweep": "results/rung1_phase1_r2_budget_sweep/results.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
@@ -825,6 +833,125 @@ def _rung1_gate_distributed_coloring_v02_checks(checks: list[dict[str, Any]]) ->
         _check(checks, metric_ok and acceptance.get("rung1_v02_recorded") is True and results.get("status") == "RUNG1_V02_RG_NATIVE_HARD_BASELINE_RECORDED", "rung1_v02_recorded_status", f"acceptance={acceptance}; metric_rows={len(metric_rows)}", "rung1_v02")
 
 
+def _rung1_phase1_spec_v01_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "item_054_rung1_phase1_spec_v01", "rung1_phase1_spec")
+    _exists(checks, "rung1_phase1_spec_v01", "rung1_phase1_spec")
+    item = _read_json("item_054_rung1_phase1_spec_v01")
+    spec_path = _path("rung1_phase1_spec_v01")
+    spec_text = spec_path.read_text(encoding="utf-8") if spec_path.exists() else ""
+    if item:
+        _check(checks, item.get("item_number") == "054", "item054_number_present", f"item_number={item.get('item_number')}", "rung1_phase1_spec")
+        _check(checks, item.get("status") == "RUNG1_PHASE1_SPEC_V01_ACCEPTED", "item054_status_valid", f"status={item.get('status')}", "rung1_phase1_spec")
+        tables = item.get("result_tables", {})
+        required_tables = {"claim_reorder", "node_cap_policy", "baseline_policy", "pool_policy", "operator_ladder_refocus", "run_order"}
+        _check(checks, required_tables.issubset(tables), "item054_required_tables_present", f"tables={sorted(tables)}", "rung1_phase1_spec")
+        gates = {row.get("gate"): row.get("outcome") for row in item.get("decision", {}).get("gate_outcomes", [])}
+        required_gates = {"primary_metric_reordered_to_efficiency", "solve_rate_marked_budget_contingent", "qwen_one_shot_replaces_greedy_report_baseline", "distribution_roles_separated", "operator_ladder_refocused"}
+        _check(checks, required_gates.issubset(gates) and all(gates.get(gate) == "PASS" for gate in required_gates), "item054_revision_gates_pass", f"gates={gates}", "rung1_phase1_spec")
+        policy_rows = tables.get("node_cap_policy", {}).get("rows", [])
+        caps = policy_rows[0].get("node_caps") if policy_rows else []
+        _check(checks, caps == [60, 120, 240, 480, 960] and policy_rows and policy_rows[0].get("derived_metric") == "budget@95%_solve", "item054_node_cap_policy", f"caps={caps}; rows={policy_rows}", "rung1_phase1_spec")
+    required_phrases = [
+        "Primary metrics",
+        "comm_tokens",
+        "total_retractions",
+        "budget@95%_solve",
+        "qwen_one_shot",
+        "direct-answer",
+        "with-CoT",
+        "depth 4, 5, 6, and exact 9",
+        "efficiency-gap survival",
+        "Do not use Item052 chain-planted solve gaps as the headline figure",
+    ]
+    missing = [phrase for phrase in required_phrases if phrase not in spec_text]
+    _check(checks, not missing, "rung1_phase1_spec_v01_required_content", f"missing={missing}", "rung1_phase1_spec")
+    _check(checks, "Headline pool: Item053 RG-native" in spec_text and "Stress isolation pool: Item052 chain-planted" in spec_text and "Do not mix chain-planted and RG-native rows" in spec_text, "rung1_phase1_spec_pool_roles_separated", "Item053 headline, Item052 stress only", "rung1_phase1_spec")
+
+
+def _rung1_phase1_r4_natural_pool_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "item_055_rung1_phase1_r4_natural_pool", "rung1_phase1_r4")
+    _exists(checks, "rung1_phase1_r4_natural_pool", "rung1_phase1_r4")
+    item = _read_json("item_055_rung1_phase1_r4_natural_pool")
+    results = _read_json("rung1_phase1_r4_natural_pool")
+    target_bins = {"4", "5", "6", "7", "8", "9", "9+"}
+    if item:
+        _check(checks, item.get("item_number") == "055", "item055_number_present", f"item_number={item.get('item_number')}", "rung1_phase1_r4")
+        _check(checks, item.get("status") == "RUNG1_PHASE1_R4_NATURAL_POOL_READY", "item055_status_valid", f"status={item.get('status')}", "rung1_phase1_r4")
+        gates = {row.get("gate"): row.get("outcome") for row in item.get("decision", {}).get("gate_outcomes", [])}
+        _check(checks, gates.get("rg_native_depth_bins_filled") == "PASS" and gates.get("edge_manifest_saved") == "PASS", "item055_gate_rows_pass", f"gates={gates}", "rung1_phase1_r4")
+    if results:
+        generation = results.get("generation_config", {})
+        acceptance = results.get("acceptance", {})
+        pool_rows = results.get("pool_depth_summary", [])
+        manifest_rows = results.get("instance_manifest", [])
+        pool_by_bin = {row.get("depth_bin"): row for row in pool_rows}
+        _check(checks, results.get("schema_version") == "rung1_phase1_r4_natural_pool_v0", "rung1_phase1_r4_schema_version", f"schema={results.get('schema_version')}", "rung1_phase1_r4")
+        _check(checks, generation.get("target_per_depth_bin") == 48 and generation.get("generator_api") == "reasoning_gym.algorithmic.graph_color.generate_random_graph" and generation.get("verifier_api") == "reasoning_gym.algorithmic.graph_color.verify_graph_coloring_solution", "rung1_phase1_r4_rg_native_generation", f"generation={generation}", "rung1_phase1_r4")
+        bins_ok = set(pool_by_bin) == target_bins and all(pool_by_bin[bin_name].get("n") == 48 and pool_by_bin[bin_name].get("target_met") is True for bin_name in target_bins)
+        _check(checks, bins_ok, "rung1_phase1_r4_bins_complete", f"pool={pool_rows}", "rung1_phase1_r4")
+        manifest_ok = bool(manifest_rows) and len(manifest_rows) == 336 and all(row.get("n_vertices") == 16 and row.get("k") == 4 and row.get("chromatic_number") == 4 and row.get("rg_verified_sat") is True and row.get("rg_greedy_one_shot_solved") is False and len(row.get("edges", [])) > 0 and str(row.get("source_kind", "")).startswith("reasoning_gym_generate_random_graph:") for row in manifest_rows)
+        _check(checks, manifest_ok and acceptance.get("all_bins_filled") is True and results.get("status") == "RUNG1_PHASE1_R4_NATURAL_POOL_READY", "rung1_phase1_r4_edge_manifest_ready", f"rows={len(manifest_rows)}; acceptance={acceptance}", "rung1_phase1_r4")
+
+
+def _rung1_phase1_r3_qwen_oneshot_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "item_056_rung1_phase1_r3_qwen_oneshot", "rung1_phase1_r3")
+    _exists(checks, "rung1_phase1_r3_qwen_oneshot", "rung1_phase1_r3")
+    item = _read_json("item_056_rung1_phase1_r3_qwen_oneshot")
+    results = _read_json("rung1_phase1_r3_qwen_oneshot")
+    allowed_statuses = {"RUNG1_PHASE1_R3_QWEN_ONESHOT_RECORDED_V1", "RUNG1_PHASE1_R3_QWEN_ONESHOT_HEALTH_FAIL_RERUN", "RUNG1_PHASE1_R3_QWEN_ONESHOT_TOO_EASY_STOP"}
+    if item:
+        _check(checks, item.get("item_number") == "056", "item056_number_present", f"item_number={item.get('item_number')}", "rung1_phase1_r3")
+        _check(checks, item.get("status") in allowed_statuses, "item056_status_valid", f"status={item.get('status')}", "rung1_phase1_r3")
+        gates = {row.get("gate"): row.get("outcome") for row in item.get("decision", {}).get("gate_outcomes", [])}
+        _check(checks, gates.get("generation_health") in {"PASS", "RERUN"} and gates.get("task_hardness_gate") in {"PASS", "STOP", "NO_CONCLUSION"}, "item056_gate_rows_recorded", f"gates={gates}", "rung1_phase1_r3")
+    if results:
+        generation = results.get("generation_config", {})
+        acceptance = results.get("acceptance", {})
+        outcome_rows = results.get("oneshot_outcome_breakdown", [])
+        health_rows = results.get("oneshot_generation_health", [])
+        wrongness_rows = results.get("oneshot_wrongness", [])
+        instance_rows = results.get("oneshot_instance_rows", [])
+        raw_text_samples = results.get("raw_text_samples", [])
+        variants = {row.get("variant") for row in instance_rows}
+        depth_bins = {row.get("depth_bin") for row in instance_rows}
+        _check(checks, results.get("schema_version") == "rung1_phase1_r3_qwen_oneshot_v1" and results.get("status") in allowed_statuses, "rung1_phase1_r3_schema_status", f"schema={results.get('schema_version')}; status={results.get('status')}", "rung1_phase1_r3")
+        _check(checks, generation.get("model_id") == "Qwen/Qwen3.5-4B" and generation.get("temperature") == 0 and generation.get("scoring_api") == "reasoning_gym.algorithmic.graph_color.GraphColorDataset.score_answer", "rung1_phase1_r3_model_scoring", f"generation={generation}", "rung1_phase1_r3")
+        required_row_keys = {"instance_id", "seed", "depth_bin", "variant", "max_tokens", "finish_reason", "output_tokens", "thinking_tokens", "json_extracted", "assignment_complete", "num_conflicting_edges", "colors_used", "rg_score", "solved", "model_id", "fallback_used", "first_finish_reason"}
+        row_keys_ok = bool(instance_rows) and all(required_row_keys.issubset(set(row)) and row.get("rg_score") in {0.0, 0.01, 1.0} and row.get("model_id") == "Qwen/Qwen3.5-4B" and row.get("finish_reason") in {"stop", "length", "unknown"} for row in instance_rows)
+        table_ok = bool(outcome_rows) and bool(health_rows) and bool(wrongness_rows) and isinstance(raw_text_samples, list)
+        variants_ok = variants.issubset({"direct_answer", "with_cot"}) and "with_cot" in variants
+        depth_ok = {"4", "5", "6", "7", "8", "9", "9+"}.issubset(depth_bins)
+        health_status_ok = (acceptance.get("health_pass") is False) == (results.get("status") == "RUNG1_PHASE1_R3_QWEN_ONESHOT_HEALTH_FAIL_RERUN")
+        too_easy_status_ok = (acceptance.get("too_easy") is True) == (results.get("status") == "RUNG1_PHASE1_R3_QWEN_ONESHOT_TOO_EASY_STOP") if acceptance.get("health_pass") is not False else results.get("status") == "RUNG1_PHASE1_R3_QWEN_ONESHOT_HEALTH_FAIL_RERUN"
+        _check(checks, row_keys_ok and table_ok and variants_ok and depth_ok and health_status_ok and too_easy_status_ok, "rung1_phase1_r3_qwen_rows_recorded_v1", f"rows={len(instance_rows)}; variants={variants}; acceptance={acceptance}", "rung1_phase1_r3")
+
+
+def _rung1_phase1_r2_budget_sweep_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "item_057_rung1_phase1_r2_budget_sweep", "rung1_phase1_r2")
+    _exists(checks, "rung1_phase1_r2_budget_sweep", "rung1_phase1_r2")
+    item = _read_json("item_057_rung1_phase1_r2_budget_sweep")
+    results = _read_json("rung1_phase1_r2_budget_sweep")
+    expected_caps = {60, 120, 240, 480, 960}
+    if item:
+        _check(checks, item.get("item_number") == "057", "item057_number_present", f"item_number={item.get('item_number')}", "rung1_phase1_r2")
+        _check(checks, item.get("status") == "RUNG1_PHASE1_R2_SYMBOLIC_BUDGET_SWEEP_RECORDED", "item057_status_valid", f"status={item.get('status')}", "rung1_phase1_r2")
+        gates = {row.get("gate"): row.get("outcome") for row in item.get("decision", {}).get("gate_outcomes", [])}
+        _check(checks, gates.get("node_cap_sweep_complete") == "PASS", "item057_node_cap_gate_pass", f"gates={gates}", "rung1_phase1_r2")
+    if results:
+        generation = results.get("generation_config", {})
+        metric_rows = results.get("instance_arm_node_cap_metrics", [])
+        budget_rows = results.get("solve_rate_vs_node_cap", [])
+        efficiency_rows = results.get("efficiency_gap_by_depth", [])
+        caps = {int(row.get("node_cap")) for row in metric_rows}
+        arms = {row.get("arm") for row in metric_rows}
+        _check(checks, results.get("schema_version") == "rung1_phase1_r2_budget_sweep_v0" and generation.get("node_caps") == [60, 120, 240, 480, 960] and generation.get("reference_node_cap") == 120, "rung1_phase1_r2_schema_generation", f"schema={results.get('schema_version')}; generation={generation}", "rung1_phase1_r2")
+        metric_ok = caps == expected_caps and arms == {"forward_markov_team", "chronological_rollback", "cbj_bounded"} and bool(metric_rows) and all(row.get("register_capacity") == 16 and row.get("provenance") == "phase0_symbolic_loop_frozen_from_item051_r4_natural_pool_node_cap_sweep" for row in metric_rows[:100])
+        _check(checks, metric_ok, "rung1_phase1_r2_metric_rows_complete", f"rows={len(metric_rows)}; caps={sorted(caps)}; arms={sorted(arms)}", "rung1_phase1_r2")
+        budget_ok = bool(budget_rows) and all(row.get("budget_at_95_solve") is not None for row in budget_rows)
+        efficiency_ok = bool(efficiency_rows) and all(row.get("node_cap") == 120 and "comm_token_advantage_chronological_minus_cbj" in row and "retraction_advantage_chronological_minus_cbj" in row for row in efficiency_rows)
+        _check(checks, budget_ok and efficiency_ok and results.get("status") == "RUNG1_PHASE1_R2_SYMBOLIC_BUDGET_SWEEP_RECORDED", "rung1_phase1_r2_tables_recorded", f"budget_rows={len(budget_rows)}; efficiency_rows={len(efficiency_rows)}", "rung1_phase1_r2")
+
+
 def _canonical_checks(checks: list[dict[str, Any]]) -> None:
     _check(checks, REPO_ROOT == Path("/home/aiscuser/RECURRENT_NN"), "canonical_repo_is_recurrent_nn", f"repo_root={REPO_ROOT}", "p0")
     old_repo = Path("/home/aiscuser/stage_d_llm")
@@ -870,6 +997,10 @@ def validate_outputs(output_dir: str = "results/validation") -> dict[str, Any]:
     _rung1_distributed_graph_coloring_checks(checks)
     _rung1_gate_distributed_coloring_v01_checks(checks)
     _rung1_gate_distributed_coloring_v02_checks(checks)
+    _rung1_phase1_spec_v01_checks(checks)
+    _rung1_phase1_r4_natural_pool_checks(checks)
+    _rung1_phase1_r3_qwen_oneshot_checks(checks)
+    _rung1_phase1_r2_budget_sweep_checks(checks)
     _legacy_checks(checks)
 
     passed = all(check["status"] == "PASS" for check in checks)

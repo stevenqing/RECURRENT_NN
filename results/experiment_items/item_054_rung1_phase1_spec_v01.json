@@ -1,0 +1,166 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "054",
+  "name": "Rung-1 Phase 1 spec v0.1 revision",
+  "status": "RUNG1_PHASE1_SPEC_V01_ACCEPTED",
+  "purpose": "Revise Phase 1 after Item053 showed natural RG-hard solve-rate separation is significant only in the 9+ tail while paired communication and retraction efficiency gaps are robust across hard depths.",
+  "code_added_used": [
+    {
+      "path": "specs/rung1_phase1_spec_v01.md",
+      "change": "Defines Phase 1 v0.1 claim order, pool roles, node-cap sweep, Qwen one-shot anchor, RG-native lead-in generation, and operator-ladder metric refocus."
+    },
+    {
+      "path": "analysis/validate_outputs.py",
+      "change": "Registers and validates the Phase 1 v0.1 revision contract and spec invariants."
+    },
+    {
+      "path": "analysis/experiment_log.py",
+      "change": "Adds the Phase 1 v0.1 spec and Item054 contract to the canonical ledger."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python - <<'PY'\nfrom analysis.validate_outputs import validate_outputs\nfrom analysis.experiment_log import generate_experiment_log\nvalidate_outputs(); generate_experiment_log()\nPY",
+      "purpose": "Regenerate validation and experiment ledger after adding the Phase 1 v0.1 spec."
+    }
+  ],
+  "artifacts": [
+    "specs/rung1_phase1_spec_v01.md",
+    "results/experiment_items/item_054_rung1_phase1_spec_v01.json"
+  ],
+  "provenance": {
+    "revision_basis_item": "053",
+    "basis_artifact": "results/rung1_gate_distributed_coloring_v02/results.json",
+    "generated_at": "2026-06-09T14:59:53+00:00",
+    "headline_pool": "Item053 RG-native natural hard pool",
+    "stress_pool": "Item052 chain-planted fixed-size pool",
+    "phase": "Phase 1 planning revision",
+    "generator_api_required": "reasoning_gym.algorithmic.graph_color.generate_random_graph",
+    "verifier_api_required": "reasoning_gym graph-color verifier or score_answer-compatible RG scoring",
+    "source": "user_revision_phase1_spec_v0_to_v0_1"
+  },
+  "result_tables": {
+    "claim_reorder": {
+      "columns": ["rank", "claim", "metrics", "pool", "figure_order", "status"],
+      "rows": [
+        {
+          "rank": "primary",
+          "claim": "CBJ reduces inter-agent communication and retractions on natural RG-hard instances.",
+          "metrics": "comm_tokens,total_retractions paired per instance by depth",
+          "pool": "Item053 RG-native headline pool plus RG-native lead-in bins",
+          "figure_order": 1,
+          "status": "accepted"
+        },
+        {
+          "rank": "secondary",
+          "claim": "Solve-rate advantage is budget-contingent and significant mainly at the deepest tail.",
+          "metrics": "solve_rate vs node_cap,budget@95%_solve",
+          "pool": "Item053 RG-native headline pool plus RG-native lead-in bins",
+          "figure_order": 2,
+          "status": "accepted"
+        }
+      ]
+    },
+    "node_cap_policy": {
+      "columns": ["node_caps", "reference_budget", "derived_metric", "per_depth", "per_arm", "interpretation"],
+      "rows": [
+        {
+          "node_caps": [60, 120, 240, 480, 960],
+          "reference_budget": 120,
+          "derived_metric": "budget@95%_solve",
+          "per_depth": true,
+          "per_arm": true,
+          "interpretation": "Efficiency is primary; solve-vs-budget quantifies how recovery cost converts to solve under finite budget."
+        }
+      ]
+    },
+    "baseline_policy": {
+      "columns": ["baseline", "role", "variants", "reporting", "gate"],
+      "rows": [
+        {
+          "baseline": "rg_greedy_one_shot",
+          "role": "pool-construction footnote only",
+          "variants": [],
+          "reporting": "not a headline baseline because reverse-greedy filtering makes it zero by construction",
+          "gate": "none"
+        },
+        {
+          "baseline": "qwen_one_shot",
+          "role": "non-agentic task-hardness anchor",
+          "variants": ["direct-answer", "with-CoT"],
+          "reporting": "oneshot_llm_solve_rate and invalid rate by depth",
+          "gate": "if Qwen one-shot solves a large fraction, stop and choose harder substrate"
+        }
+      ]
+    },
+    "pool_policy": {
+      "columns": ["pool", "role", "depths", "allowed_in_headline", "mix_with_other_pool"],
+      "rows": [
+        {
+          "pool": "Item053 RG-native natural hard pool",
+          "role": "headline",
+          "depths": [4, 5, 6, 7, 8, "9", "9+"],
+          "allowed_in_headline": true,
+          "mix_with_other_pool": false
+        },
+        {
+          "pool": "Item052 chain-planted fixed-size pool",
+          "role": "controlled stress isolation",
+          "depths": [0, 4, 5, 6, 7, 8, "9+"],
+          "allowed_in_headline": false,
+          "mix_with_other_pool": false
+        }
+      ]
+    },
+    "operator_ladder_refocus": {
+      "columns": ["quantity", "phase1_role", "definition"],
+      "rows": [
+        {
+          "quantity": "efficiency_gap_survival",
+          "phase1_role": "primary",
+          "definition": "Whether CBJ still reduces comm_tokens and total_retractions under fallible Qwen operators."
+        },
+        {
+          "quantity": "cbj_cost_deviation_from_integer_line",
+          "phase1_role": "attribution",
+          "definition": "How far observed CBJ cost deviates from the symbolic cost line."
+        },
+        {
+          "quantity": "false_pos_false_neg_spurious_backjump",
+          "phase1_role": "attribution",
+          "definition": "Operator error rates and spurious-backjump share explaining any efficiency-gap erosion."
+        },
+        {
+          "quantity": "solve_crossover",
+          "phase1_role": "secondary",
+          "definition": "Reported only through solve-vs-budget curves."
+        }
+      ]
+    },
+    "run_order": {
+      "columns": ["step", "action", "stop_condition"],
+      "rows": [
+        {"step": 1, "action": "Extend RG-native pool with depth 4,5,6,exact 9.", "stop_condition": "generation infeasible within declared rejection budget"},
+        {"step": 2, "action": "Run qwen_one_shot direct-answer and with-CoT.", "stop_condition": "Qwen solves a large fraction; switch to harder substrate"},
+        {"step": 3, "action": "Run symbolic efficiency curve and node-cap solve sweep.", "stop_condition": "Phase 0 reordered conclusion fails"},
+        {"step": 4, "action": "Run Phase 1 P1a then P1b then P1c.", "stop_condition": "efficiency gap erased or attributed to operator failure"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This is a planning/spec revision, not a new Phase 1 measurement. It does not establish Qwen one-shot hardness, node-cap budget curves, or fallible-operator efficiency-gap survival until those runs are executed.",
+    "item053_interpretation": "Natural RG-hard solve gaps at depth 7 and 8 are recorded but not significant; the 9+ solve gap is significant; efficiency gaps are the primary Phase 1 target.",
+    "distribution_boundary": "Item052 chain-planted rows are controlled stress isolation only and must not be mixed into the RG-native headline curve."
+  },
+  "decision": {
+    "gate_outcomes": [
+      {"gate": "primary_metric_reordered_to_efficiency", "outcome": "PASS", "number": "primary metrics=comm_tokens,total_retractions"},
+      {"gate": "solve_rate_marked_budget_contingent", "outcome": "PASS", "number": "node_caps=[60,120,240,480,960]; derived=budget@95%_solve"},
+      {"gate": "qwen_one_shot_replaces_greedy_report_baseline", "outcome": "PASS", "number": "variants=direct-answer,with-CoT; temp=0"},
+      {"gate": "distribution_roles_separated", "outcome": "PASS", "number": "headline=Item053 RG-native; stress=Item052 chain-planted"},
+      {"gate": "operator_ladder_refocused", "outcome": "PASS", "number": "primary=efficiency_gap_survival; solve_crossover=secondary"}
+    ],
+    "next_step_routing": "Run R4 RG-native lead-in generation for depths 4,5,6,exact 9, then R3 qwen_one_shot hardness anchor before node-cap symbolic sweeps and Phase 1 P1a/P1b/P1c.",
+    "outcome": "RUNG1_PHASE1_SPEC_V01_ACCEPTED"
+  }
+}

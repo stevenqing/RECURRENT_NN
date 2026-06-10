@@ -40,7 +40,12 @@ ARTIFACT_INDEX = {
     "item_051_rung1_distributed_graph_coloring": "results/experiment_items/item_051_rung1_distributed_graph_coloring.json",
     "item_052_rung1_gate_distributed_coloring_v01": "results/experiment_items/item_052_rung1_gate_distributed_coloring_v01.json",
     "item_053_rung1_gate_distributed_coloring_v02": "results/experiment_items/item_053_rung1_gate_distributed_coloring_v02.json",
+    "item_054_rung1_phase1_spec_v01": "results/experiment_items/item_054_rung1_phase1_spec_v01.json",
+    "item_055_rung1_phase1_r4_natural_pool": "results/experiment_items/item_055_rung1_phase1_r4_natural_pool.json",
+    "item_056_rung1_phase1_r3_qwen_oneshot": "results/experiment_items/item_056_rung1_phase1_r3_qwen_oneshot.json",
+    "item_057_rung1_phase1_r2_budget_sweep": "results/experiment_items/item_057_rung1_phase1_r2_budget_sweep.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
+    "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
     "model_readiness": "results/model_readiness/readiness.json",
     "qwen3_4b_instruct_download": "results/model_download/qwen_download.json",
     "qwen3_4b_thinking_download": "results/model_download/thinking/qwen_download.json",
@@ -89,6 +94,9 @@ ARTIFACT_INDEX = {
     "rung1_distributed_graph_coloring": "results/rung1_distributed_graph_coloring/results.json",
     "rung1_gate_distributed_coloring_v01": "results/rung1_gate_distributed_coloring_v01/results.json",
     "rung1_gate_distributed_coloring_v02": "results/rung1_gate_distributed_coloring_v02/results.json",
+    "rung1_phase1_r4_natural_pool": "results/rung1_phase1_r4_natural_pool/results.json",
+    "rung1_phase1_r3_qwen_oneshot": "results/rung1_phase1_r3_qwen_oneshot/results.json",
+    "rung1_phase1_r2_budget_sweep": "results/rung1_phase1_r2_budget_sweep/results.json",
     "validation": "results/validation/validation.json",
 }
 

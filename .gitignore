@@ -18,6 +18,12 @@ results/**
 !results/rung1_gate_distributed_coloring_v01/results.json
 !results/rung1_gate_distributed_coloring_v02/
 !results/rung1_gate_distributed_coloring_v02/results.json
+!results/rung1_phase1_r4_natural_pool/
+!results/rung1_phase1_r4_natural_pool/results.json
+!results/rung1_phase1_r3_qwen_oneshot/
+!results/rung1_phase1_r3_qwen_oneshot/results.json
+!results/rung1_phase1_r2_budget_sweep/
+!results/rung1_phase1_r2_budget_sweep/results.json
 !results/model_readiness/
 !results/model_readiness/readiness.json
 !results/model_download/
