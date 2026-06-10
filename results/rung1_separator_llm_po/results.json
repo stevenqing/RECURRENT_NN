@@ -1,0 +1,176 @@
+{
+  "budget_at_95_solve": [],
+  "dstar_vs_inflated_keff": [],
+  "efficiency_gap_survival": [],
+  "gate_preflight": {
+    "blockers": [],
+    "gate": "symbolic_separator_v0_2_3_fairness_and_p1a_forward_truncation_required_before_recovery",
+    "p1a_forward_gate_config_ok": true,
+    "p1a_forward_gate_hardness_ok": true,
+    "p1a_forward_gate_max_all_frac_truncated_no_answer": 0.0,
+    "p1a_forward_gate_max_deep_frac_truncated_no_answer": 0.0,
+    "p1a_forward_gate_max_new_tokens": 8192,
+    "p1a_forward_gate_prompt_contract": "p1a_json_only_branch_value_no_reasoning_v1",
+    "p1a_forward_gate_schema_observed": "rung1_separator_llm_po_forward_gate_v1",
+    "p1a_forward_gate_schema_required": "rung1_separator_llm_po_forward_gate_v1",
+    "p1a_forward_gate_solve_rate": 0.0,
+    "p1a_forward_gate_status_observed": "RUNG1_SEPARATOR_LLM_PO_FORWARD_GATE_PASS",
+    "p1a_forward_gate_truncation_ok": true,
+    "pass": true,
+    "provenance": "rung1_separator_llm_po_fail_closed_gate_v0",
+    "qwen35_download_recorded": true,
+    "requested_gpus": 4,
+    "source": "autonomous_stage_a_run",
+    "symbolic_fairness_corner_clean": true,
+    "symbolic_llm_version_allowed": true,
+    "symbolic_overall_pass": true,
+    "symbolic_schema_observed": "rung1_separator_scaling_symbolic_v0_2_3",
+    "symbolic_schema_required": "rung1_separator_scaling_symbolic_v0_2_3",
+    "symbolic_status_observed": "RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS",
+    "visible_gpus": 8
+  },
+  "generated_at": "2026-06-10T10:46:56.042465+00:00",
+  "gpu_inventory": {
+    "available": true,
+    "gpus": [
+      {
+        "index": 0,
+        "memory_total": "81920 MiB",
+        "memory_used": "20871 MiB",
+        "name": "NVIDIA A100-SXM4-80GB"
+      },
+      {
+        "index": 1,
+        "memory_total": "81920 MiB",
+        "memory_used": "20621 MiB",
+        "name": "NVIDIA A100-SXM4-80GB"
+      },
+      {
+        "index": 2,
+        "memory_total": "81920 MiB",
+        "memory_used": "20621 MiB",
+        "name": "NVIDIA A100-SXM4-80GB"
+      },
+      {
+        "index": 3,
+        "memory_total": "81920 MiB",
+        "memory_used": "20621 MiB",
+        "name": "NVIDIA A100-SXM4-80GB"
+      },
+      {
+        "index": 4,
+        "memory_total": "81920 MiB",
+        "memory_used": "69775 MiB",
+        "name": "NVIDIA A100-SXM4-80GB"
+      },
+      {
+        "index": 5,
+        "memory_total": "81920 MiB",
+        "memory_used": "69101 MiB",
+        "name": "NVIDIA A100-SXM4-80GB"
+      },
+      {
+        "index": 6,
+        "memory_total": "81920 MiB",
+        "memory_used": "69101 MiB",
+        "name": "NVIDIA A100-SXM4-80GB"
+      },
+      {
+        "index": 7,
+        "memory_total": "81920 MiB",
+        "memory_used": "69389 MiB",
+        "name": "NVIDIA A100-SXM4-80GB"
+      }
+    ],
+    "n_visible": 8,
+    "provenance": "nvidia_smi_preflight_v0",
+    "returncode": 0,
+    "source": "autonomous_stage_a_run",
+    "stderr": ""
+  },
+  "instance_arm_metrics": [],
+  "keff_inflation": [],
+  "operator_error_breakdown": [],
+  "planned_run_config": {
+    "comm_budget_sweep": [
+      64,
+      128,
+      192,
+      256,
+      384,
+      512,
+      768,
+      1024
+    ],
+    "first_rung": "P1a_branch_only_sound",
+    "forward_gate_truncation_threshold": 0.1,
+    "frozen_symbolic_components": [
+      "register",
+      "recovery_routing",
+      "boundary_message_protocol",
+      "symbolic_guard_for_P1a"
+    ],
+    "generation_contract": "P1a returns compact JSON-only branch values; extract last parseable JSON; record truncated_no_answer/parsable_invalid/valid plus finish_reason, output_tokens, thinking_tokens",
+    "gpu_device_ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "max_new_tokens_minimum": 8192,
+    "model_id": "Qwen/Qwen3.5-4B",
+    "n_per_cell": 24,
+    "n_seeds": 2,
+    "oom_retry_batch_size_per_gpu": 1,
+    "p1a_prompt_contract": "p1a_json_only_branch_value_no_reasoning_v1",
+    "p1a_thinking_disabled": true,
+    "per_instance_llm_call_cap": 200,
+    "planned_cells": [
+      "corner_local_heavy",
+      "dg_m2_dl5_b2",
+      "dg_m4_dl5_b2",
+      "dg_m6_dl5_b2",
+      "b_b12_mid_dglobal"
+    ],
+    "po_visibility": "agent sees own block, incident boundary edges, and messaged boundary-neighbor colors only; no global graph view",
+    "provenance": "rung1_separator_llm_po_phase2_plan_v1",
+    "recommended_initial_batch_size_per_gpu": 2,
+    "requested_gpus": 4,
+    "required_forward_gate_schema": "rung1_separator_llm_po_forward_gate_v1",
+    "rungs": [
+      "P1a_branch_only_sound",
+      "P1b_llm_propagation_guarded",
+      "P1c_operator_triggered_unguarded"
+    ],
+    "source": "autonomous_stage_a_run",
+    "temperature": 0
+  },
+  "schema_version": "rung1_separator_llm_po_preflight_v0",
+  "status": "RUNG1_SEPARATOR_LLM_PO_PREFLIGHT_READY_NOT_RUN",
+  "verdict": [
+    {
+      "check": "symbolic_separator_v0_2_3_fairness_gate",
+      "observed": "pass=True; blockers=[]",
+      "pass": true,
+      "predicted": "must pass before any Qwen call",
+      "provenance": "rung1_separator_llm_po_preflight_verdict_v0",
+      "source": "autonomous_stage_a_run"
+    },
+    {
+      "check": "forward_gate_truncation_ok",
+      "observed": "hardness_ok=True; truncation_ok=True; max_deep=0.0; max_all=0.0",
+      "pass": true,
+      "predicted": "P1a forward gate v1 must pass with max truncated_no_answer <= 0.10",
+      "provenance": "rung1_separator_llm_po_preflight_verdict_v1",
+      "source": "autonomous_stage_a_run"
+    },
+    {
+      "check": "llm_run_started",
+      "observed": "llm_run_started=False; recovery_prelaunch_ready=True",
+      "pass": true,
+      "predicted": "preflight records readiness only; recovery body is not launched by this command",
+      "provenance": "rung1_separator_llm_po_preflight_verdict_v1",
+      "source": "autonomous_stage_a_run"
+    }
+  ]
+}

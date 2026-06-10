@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-10T06:36:12.317964+00:00
+Generated at: 2026-06-10T10:47:03.103733+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,7 +17,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 pre-fix record | BLOCKER | historical_continuation_G1=0.0; current_diagnostic_G1=1.0 |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=492; validation_passed=False |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=508; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Diagnostic pass, autonomous grid not proven | Sudoku6 diagnostic G1=1.0; L4_reverts=True; L4_forward=True |
 | P2 | W3 Qwen3.5 probe | cached_gdn_state_measured_with_propagation_delta | W3.0=PASS; survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; native_delta=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; propagation=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
@@ -53,7 +53,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 055 | Rung-1 Phase 1 R4 RG-native natural pool lead-in | RUNG1_PHASE1_R4_NATURAL_POOL_READY | Run R3 qwen_one_shot direct-answer and with-CoT on this exact edge manifest before node-cap symbolic sweeps. |
 | 056 | Rung-1 Phase 1 R3 Qwen one-shot hardness anchor | RUNG1_PHASE1_R3_QWEN_ONESHOT_HEALTH_FAIL_RERUN | Proceed to Phase 1 only if generation_health passes and with_cot valid solve remains below the too-easy threshold. |
 | 057 | Rung-1 Phase 1 R2 symbolic node-cap budget sweep | RUNG1_PHASE1_R2_SYMBOLIC_BUDGET_SWEEP_RECORDED | If R3 hardness gate passes, proceed to Phase 1 P1a/P1b/P1c with efficiency-gap survival as primary. |
-| 058 | Rung-1 separator-scaling symbolic double-dissociation patch v0.1 | RUNG1_SEPARATOR_SCALING_SYMBOLIC_KILL_RECORDED | Proceed to LLM only if overall_pass=True. |
+| 058 | Rung-1 separator-scaling enforced-register fairness addendum v0.2.3 | RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS | Proceed to LLM only if overall_pass=True. |
+| 059 | Rung-1 LLM-operator PO separator experiment gated preflight | RUNG1_SEPARATOR_LLM_PO_PREFLIGHT_READY_NOT_RUN | Launch the P1a recovery sweep only after symbolic v0.2.3 and forward_gate_truncation_ok both pass; this preflight does not start the recovery body. |
 
 ## Item Details
 
@@ -110,14 +111,14 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - The validator now reports missing legacy artifacts individually.
   - Current validation is registry-style and does not collapse missing history into one opaque required-files failure.
 - Artifact refs:
-  - analysis/validate_outputs.py (yes, 100891 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
+  - analysis/validate_outputs.py (yes, 112881 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
@@ -264,21 +265,21 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=492; validation_passed=False
+- Key result: validation_checks=508; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=489; validation_fail=3
+  - validation_pass=505; validation_fail=3
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifact refs:
   - CANONICAL_REPO.md (yes, 532 bytes)
-  - analysis/validate_outputs.py (yes, 100891 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/experiment_log/experiment_log.json (yes, 75345638 bytes)
+  - analysis/validate_outputs.py (yes, 112881 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 - Next action: Keep future reports item-first and preserve explicit red checks.
@@ -395,10 +396,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - REPRODUCIBILITY.md (yes, 3478 bytes)
   - scripts/reproduce_continuation_state.sh (yes, 1972 bytes)
   - results/continuation_state/post_027.json (yes, 1453 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
-  - results/experiment_log/experiment_log.json (yes, 75345638 bytes)
-  - results/experiment_log/experiment_log.md (yes, 528155 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
+  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -410,7 +411,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/continuation_state/post_027.json | recorded | source=user_master_runbook_2026_06_07; canonical_repo=/home/aiscuser/RECURRENT_NN |  |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/stage_a_adapter_wiring/results.json | PASS | autonomous_solve_status=NOT_RUN; grid_cells=36; preflight_status=READY; register_smoke_status=SMOKE_PASS |  |
 | results/stage_a_banded_gate_refusal/results.json | PASS | banded_datasets=8 keys: note, sudoku6_depths, sudoku6_generated_count, sudoku6_generator_present, sudoku6_status, sudoku9_generated_c... | fail_closed_cases:3r/5c |
@@ -693,8 +694,8 @@ No rows recorded.
   - results/d_stage_2/results.json (missing)
   - results/d_stage_3/results.json (missing)
   - results/verifier/results.json (missing)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -706,7 +707,7 @@ No rows recorded.
 | results/d_stage_2/results.json | missing |  |  |
 | results/d_stage_3/results.json | missing |  |  |
 | results/verifier/results.json | missing |  |  |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 
 #### Contract Result Tables
 
@@ -768,14 +769,14 @@ No rows recorded.
   - honesty=This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent state. It deliberately turns the registry red until those objects exist.
 - Artifact refs:
   - results/experiment_items/item_033_validation_object_binding.json (yes, 7073 bytes)
-  - analysis/validate_outputs.py (yes, 100891 bytes)
+  - analysis/validate_outputs.py (yes, 112881 bytes)
   - experiments/stage_a_sudoku6_bridge.py (yes, 10922 bytes)
   - experiments/w3_qwen35_probe.py (yes, 47675 bytes)
   - results/stage_a_sudoku6_bridge/results.json (yes, 4890 bytes)
   - results/w3_qwen35_probe/results.json (yes, 96087 bytes)
   - results/w3_qwen35_probe/verdicts.json (yes, 674 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -783,7 +784,7 @@ No rows recorded.
 | results/stage_a_sudoku6_bridge/results.json | DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER | G1=1; single_step_forced_accuracy=1; n_sudoku6_tasks=32; reverts_nonzero_on_L4=True; forward_floor_on_L4=True; device=cpu | single_step_forced_precision_recall_by_depth:2r/5c |
 | results/w3_qwen35_probe/results.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:8r/13c; decay_survival:5r/5c; model_card:34r/3c; native_rule_gap:3r/7c; propagation_per_task_delta:5r/7c |
 | results/w3_qwen35_probe/verdicts.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... |  |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 
 #### Contract Result Tables
 
@@ -956,8 +957,8 @@ No rows recorded.
   - results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json (yes, 19157 bytes)
   - results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json (yes, 19123 bytes)
   - results/w3_qwen35_probe/propagation_shards/logic_grid/results.json (yes, 19025 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -973,7 +974,7 @@ No rows recorded.
 | results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/logic_grid/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 
 #### Contract Result Tables
 
@@ -1199,10 +1200,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
-  - results/experiment_log/experiment_log.json (yes, 75345638 bytes)
-  - results/experiment_log/experiment_log.md (yes, 528155 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
+  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1210,7 +1211,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1328,10 +1329,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
-  - results/experiment_log/experiment_log.json (yes, 75345638 bytes)
-  - results/experiment_log/experiment_log.md (yes, 528155 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
+  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1339,7 +1340,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1418,17 +1419,17 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 75345638 bytes)
-  - results/experiment_log/experiment_log.md (yes, 528155 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
+  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/trm_operator_smoke/acceptance.json | G1_NOT_MET | G1=0.125; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 
 #### Contract Result Tables
 
@@ -1483,20 +1484,20 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (yes, 11255 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (yes, 11389 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (yes, 11218 bytes)
-  - results/experiment_log/experiment_log.json (yes, 75345638 bytes)
-  - results/experiment_log/experiment_log.md (yes, 528155 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
+  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-10T06:35:48.043631+00:00 |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-10T10:46:38.242733+00:00 |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | GATES_UNREACHED | G1=0.03906; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | GATES_UNREACHED | G1=0.01562; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 
 #### Contract Result Tables
 
@@ -1585,10 +1586,10 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (yes, 40421 bytes)
   - results/sudoku_engine_gpu/equivalence_1000.json (yes, 167 bytes)
   - results/trm_operator_logging_smoke/progress.jsonl (yes, 968 bytes)
-  - results/experiment_log/experiment_log.json (yes, 75345638 bytes)
-  - results/experiment_log/experiment_log.md (yes, 528155 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
+  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1596,7 +1597,7 @@ Truncated to 24 of 27 rows.
 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json | recorded | no_optimization_claim=True; profiled_object=experiments.train_trm_operator current Track B per-cell-token trainer; purpose=P0 profile gate before GPU efficiency optimization; semantics mirror current Track B trainer.; started_at=2026-06-08T10:02:52.744806+00:00 |  |
 | results/sudoku_engine_gpu/equivalence_1000.json | True | device=cuda:0; n_boards=1000; n_mismatches=0; name=sudoku_engine_gpu_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 
 #### Contract Result Tables
 
@@ -1665,17 +1666,17 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (yes, 322 bytes)
-  - results/experiment_log/experiment_log.json (yes, 75345638 bytes)
-  - results/experiment_log/experiment_log.md (yes, 528155 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
+  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/batched_ops/equivalence_100.json | True | device=cuda:0; n_episodes_generated=100; n_episodes_requested=100; n_mismatches=0; name=register_batched_ops_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 
 #### Contract Result Tables
 
@@ -1711,16 +1712,16 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 75345638 bytes)
-  - results/experiment_log/experiment_log.md (yes, 528155 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
+  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 
 #### Contract Result Tables
 
@@ -1768,10 +1769,10 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (yes, 974 bytes)
   - results/trm_operator_compile_smoke/acceptance.json (yes, 10396 bytes)
   - results/trm_operator_compile_smoke/progress.jsonl (yes, 486 bytes)
-  - results/experiment_log/experiment_log.json (yes, 75345638 bytes)
-  - results/experiment_log/experiment_log.md (yes, 528155 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
+  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1779,7 +1780,7 @@ Truncated to 24 of 27 rows.
 | results/trm_operator_prelaunch_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_prelaunch_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/trm_operator_compile_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_compile_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 
 #### Contract Result Tables
 
@@ -1836,17 +1837,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (yes, 102640503 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (yes, 102514311 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (yes, 102594183 bytes)
-  - results/experiment_log/experiment_log.json (yes, 75345638 bytes)
-  - results/experiment_log/experiment_log.md (yes, 528155 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
+  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/ddp_shard_smoke_track_b_20260608/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/ddp_shard_smoke_track_b_20260608/trm_operator_seed778.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 
 #### Contract Result Tables
 
@@ -1896,17 +1897,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 42721 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (yes, 80203 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (yes, 55287865 bytes)
-  - results/experiment_log/experiment_log.json (yes, 75345638 bytes)
-  - results/experiment_log/experiment_log.md (yes, 528155 bytes)
-  - results/validation/validation.json (yes, 142993 bytes)
-  - results/validation/validation.md (yes, 106764 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
+  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
+  - results/validation/validation.json (yes, 151120 bytes)
+  - results/validation/validation.md (yes, 113707 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=492; n_fail=3; n_pass=489 |  |
+| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
 
 #### Contract Result Tables
 
@@ -3560,24 +3561,24 @@ Truncated to 24 of 105 rows.
 
 - Next action: If R3 hardness gate passes, proceed to Phase 1 P1a/P1b/P1c with efficiency-gap survival as primary.
 
-### Item 058 - Rung-1 separator-scaling symbolic double-dissociation patch v0.1
+### Item 058 - Rung-1 separator-scaling enforced-register fairness addendum v0.2.3
 
-- Status: RUNG1_SEPARATOR_SCALING_SYMBOLIC_KILL_RECORDED
+- Status: RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS
 - Key result: Proceed to LLM only if overall_pass=True.
-- Purpose: Patch Item058 with larger local blocks, independent d_global and b axes, local_contribution, axes precheck, pooled interaction verdict, and high-thrash diagnostics before any LLM operator run.
+- Purpose: Patch Item058 v0.2.2 by anchoring fairness to the enforced capacity-law register and treating expanded assignment counters as diagnostics only before any LLM recovery sweep.
 - Details:
-  - purpose=Patch Item058 with larger local blocks, independent d_global and b axes, local_contribution, axes precheck, pooled interaction verdict, and high-thrash diagnostics before any LLM operator run.
+  - purpose=Patch Item058 v0.2.2 by anchoring fairness to the enforced capacity-law register and treating expanded assignment counters as diagnostics only before any LLM recovery sweep.
   - commands=1
-  - result_tables=['axes_independence_check', 'capacity_leg', 'double_dissociation_detail', 'double_dissociation_regression', 'high_thrash_diagnostics', 'instance_arm_metrics', 'instance_manifest', 'keff_by_cell', 'verdict']
-  - honesty=Symbolic patch only; no Qwen/LLM operator run.
+  - result_tables=['axes_independence_check', 'capacity_leg', 'double_dissociation_detail', 'double_dissociation_regression', 'fairness_corner_resource', 'high_thrash_diagnostics', 'instance_arm_metrics', 'instance_manifest', 'keff_by_cell', 'recovery_dynamics_v02_vs_v023', 'verdict']
+  - honesty=Symbolic patch only; no fresh Qwen/LLM recovery sweep.
 - Artifact refs:
-  - results/experiment_items/item_058_rung1_separator_scaling.json (yes, 18693219 bytes)
-  - results/rung1_separator_scaling/results.json (yes, 15000612 bytes)
+  - results/experiment_items/item_058_rung1_separator_scaling.json (yes, 24723494 bytes)
+  - results/rung1_separator_scaling/results.json (yes, 20547249 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/rung1_separator_scaling/results.json | RUNG1_SEPARATOR_SCALING_SYMBOLIC_KILL_RECORDED | schema_version=rung1_separator_scaling_symbolic_v0_1 |  |
+| results/rung1_separator_scaling/results.json | RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS | schema_version=rung1_separator_scaling_symbolic_v0_2_3 |  |
 
 #### Contract Result Tables
 
@@ -3585,36 +3586,36 @@ Truncated to 24 of 105 rows.
 
 | axes_independent | corr_d_global_b | min_unique_b_per_d_global | min_unique_d_global_per_b | provenance | source | unique_b_by_d_global | unique_d_global_by_b | vif_d_global_b |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| True | -0.02797 | 4 | 7 | separator_scaling_axes_independence_check_v0_1 | autonomous_stage_a_run | 7 keys: 10, 12, 4, 5, 6, 7, 9 | 4 keys: 12, 2, 4, 8 | 1.001 |
+| True | -0.02797 | 4 | 7 | separator_scaling_axes_independence_check_v0_2 | autonomous_stage_a_run | 7 keys: 10, 12, 4, 5, 6, 7, 9 | 4 keys: 12, 2, 4, 8 | 1.001 |
 
 ##### capacity_leg
 
 | arm | b_bin | d_global_bin | mean_peak_register_entries | n | observed_solve_at_this_dglobal | overflow_rate | predicted_collapse_d | provenance | solve_rate | source |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | monolith_cbj | 2 | 4 | 5.792 | 96 | 0.9375 | 0.0625 | 5.827 | separator_scaling_capacity_leg_v0 | 0.9375 | autonomous_stage_a_run |
-| forward_markov_team | 2 | 4 | 3 | 96 | 0 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
-| chronological_rollback_team | 2 | 4 | 8 | 96 | 0 | 0.9792 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
-| cbj_bounded_team | 2 | 4 | 8 | 96 | 0 | 1 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
+| forward_markov_team | 2 | 4 | 4 | 96 | 0 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
+| chronological_rollback_team | 2 | 4 | 4 | 96 | 0.9792 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0.9792 | autonomous_stage_a_run |
+| cbj_bounded_team | 2 | 4 | 4 | 96 | 1 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 1 | autonomous_stage_a_run |
 | monolith_cbj | 4 | 4 | 18.4 | 48 | 0.5625 | 0.4375 | 5.827 | separator_scaling_capacity_leg_v0 | 0.5625 | autonomous_stage_a_run |
-| forward_markov_team | 4 | 4 | 2 | 48 | 0 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
-| chronological_rollback_team | 4 | 4 | 4 | 48 | 0 | 1 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
-| cbj_bounded_team | 4 | 4 | 4 | 48 | 0 | 1 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
+| forward_markov_team | 4 | 4 | 5 | 48 | 0 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
+| chronological_rollback_team | 4 | 4 | 5 | 48 | 0.25 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0.25 | autonomous_stage_a_run |
+| cbj_bounded_team | 4 | 4 | 5 | 48 | 0.9167 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0.9167 | autonomous_stage_a_run |
 | monolith_cbj | 8 | 4 | 28.15 | 48 | 0.125 | 0.875 | 5.827 | separator_scaling_capacity_leg_v0 | 0.125 | autonomous_stage_a_run |
-| forward_markov_team | 8 | 4 | 2 | 48 | 0 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
-| chronological_rollback_team | 8 | 4 | 4 | 48 | 0 | 1 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
-| cbj_bounded_team | 8 | 4 | 4 | 48 | 0 | 1 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
+| forward_markov_team | 8 | 4 | 5 | 48 | 0 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
+| chronological_rollback_team | 8 | 4 | 5 | 48 | 0.1875 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0.1875 | autonomous_stage_a_run |
+| cbj_bounded_team | 8 | 4 | 5 | 48 | 0.6042 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0.6042 | autonomous_stage_a_run |
 | monolith_cbj | 12 | 4 | 29.77 | 48 | 0.08333 | 0.9167 | 5.827 | separator_scaling_capacity_leg_v0 | 0.08333 | autonomous_stage_a_run |
-| forward_markov_team | 12 | 4 | 2 | 48 | 0 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
-| chronological_rollback_team | 12 | 4 | 4 | 48 | 0 | 0.9792 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
-| cbj_bounded_team | 12 | 4 | 4 | 48 | 0 | 1 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
+| forward_markov_team | 12 | 4 | 5 | 48 | 0 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
+| chronological_rollback_team | 12 | 4 | 5 | 48 | 0.2292 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0.2292 | autonomous_stage_a_run |
+| cbj_bounded_team | 12 | 4 | 5 | 48 | 0.6667 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0.6667 | autonomous_stage_a_run |
 | monolith_cbj | 2 | 5 | 13.17 | 48 | 0.75 | 0.25 | 5.827 | separator_scaling_capacity_leg_v0 | 0.75 | autonomous_stage_a_run |
-| forward_markov_team | 2 | 5 | 2 | 48 | 0 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
-| chronological_rollback_team | 2 | 5 | 4 | 48 | 0 | 1 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
-| cbj_bounded_team | 2 | 5 | 4 | 48 | 0 | 1 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
+| forward_markov_team | 2 | 5 | 3 | 48 | 0 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
+| chronological_rollback_team | 2 | 5 | 3 | 48 | 0.8542 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0.8542 | autonomous_stage_a_run |
+| cbj_bounded_team | 2 | 5 | 3 | 48 | 0.9167 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0.9167 | autonomous_stage_a_run |
 | monolith_cbj | 4 | 5 | 19.35 | 48 | 0.5417 | 0.4583 | 5.827 | separator_scaling_capacity_leg_v0 | 0.5417 | autonomous_stage_a_run |
-| forward_markov_team | 4 | 5 | 2 | 48 | 0 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
-| chronological_rollback_team | 4 | 5 | 4 | 48 | 0 | 1 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
-| cbj_bounded_team | 4 | 5 | 4 | 48 | 0 | 1 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
+| forward_markov_team | 4 | 5 | 5 | 48 | 0 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0 | autonomous_stage_a_run |
+| chronological_rollback_team | 4 | 5 | 5 | 48 | 0.6458 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0.6458 | autonomous_stage_a_run |
+| cbj_bounded_team | 4 | 5 | 5 | 48 | 0.9375 | 0 | 5.827 | separator_scaling_capacity_leg_v0 | 0.9375 | autonomous_stage_a_run |
 
 Truncated to 24 of 112 rows.
 
@@ -3622,30 +3623,30 @@ Truncated to 24 of 112 rows.
 
 | arm | b_bin | d_global_bin | mean_comm_tokens | mean_total_retractions | n | provenance | source |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| cbj_bounded_team | 2 | 4 | 95.17 | 4.438 | 96 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 4 | 4 | 92.5 | 4.062 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 8 | 4 | 92 | 4 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 12 | 4 | 94.46 | 4.333 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 2 | 5 | 98 | 5 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 4 | 5 | 98 | 5 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 8 | 5 | 102 | 5.542 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 12 | 5 | 98.62 | 5.083 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 2 | 6 | 108 | 6.469 | 96 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 4 | 6 | 104.9 | 6.125 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 8 | 6 | 109.9 | 6.833 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 12 | 6 | 109.3 | 6.573 | 96 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 2 | 7 | 110.4 | 7.042 | 96 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 4 | 7 | 110.2 | 7.021 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 8 | 7 | 111.6 | 7.146 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 12 | 7 | 115.4 | 7.625 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 2 | 9 | 122.2 | 9.021 | 96 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 4 | 9 | 128.7 | 9.771 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 8 | 9 | 147.3 | 11.5 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 12 | 9 | 169.5 | 15.23 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 2 | 10 | 128.5 | 10.06 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 4 | 10 | 128 | 10 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 8 | 10 | 146.8 | 11.92 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
-| cbj_bounded_team | 12 | 10 | 146.2 | 12.33 | 48 | separator_scaling_double_dissociation_cell_means_v0_1 | autonomous_stage_a_run |
+| cbj_bounded_team | 2 | 4 | 153.9 | 8.604 | 96 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 4 | 4 | 603.3 | 66.73 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 8 | 4 | 893 | 115.3 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 12 | 4 | 889.8 | 111.4 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 2 | 5 | 345 | 23.38 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 4 | 5 | 510.9 | 50.92 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 8 | 5 | 780.9 | 95.38 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 12 | 5 | 754.5 | 90.4 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 2 | 6 | 275.4 | 12.5 | 96 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 4 | 6 | 631 | 71.94 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 8 | 6 | 635.5 | 69.62 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 12 | 6 | 563.3 | 64.27 | 96 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 2 | 7 | 291 | 15.23 | 96 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 4 | 7 | 540 | 55.75 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 8 | 7 | 796 | 98.88 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 12 | 7 | 799.1 | 95.88 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 2 | 9 | 268.5 | 11.92 | 96 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 4 | 9 | 639.9 | 73.33 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 8 | 9 | 799.5 | 96.67 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 12 | 9 | 834.9 | 103.9 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 2 | 10 | 392.8 | 16.48 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 4 | 10 | 601.1 | 66.19 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 8 | 10 | 853 | 106 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
+| cbj_bounded_team | 12 | 10 | 915 | 114.2 | 48 | separator_scaling_double_dissociation_cell_means_v0_2 | autonomous_stage_a_run |
 
 Truncated to 24 of 56 rows.
 
@@ -3653,72 +3654,81 @@ Truncated to 24 of 56 rows.
 
 | beta | ci | n | provenance | r2 | source | term |
 | --- | --- | --- | --- | --- | --- | --- |
-| 48.55 | [21.515279846243228, 75.57847869340452] | 3264 | separator_scaling_pooled_interaction_ols_v0_1 | 0.8666 | autonomous_stage_a_run | intercept |
-| -328.4 | [-366.5934103139226, -290.1365012789937] | 3264 | separator_scaling_pooled_interaction_ols_v0_1 | 0.8666 | autonomous_stage_a_run | arm_chrono |
-| 8.199 | [5.203319181351231, 11.195462039613817] | 3264 | separator_scaling_pooled_interaction_ols_v0_1 | 0.8666 | autonomous_stage_a_run | d_global |
-| 1.712 | [-0.2866795352984337, 3.710164259570363] | 3264 | separator_scaling_pooled_interaction_ols_v0_1 | 0.8666 | autonomous_stage_a_run | b |
-| 131.3 | [127.0450618528519, 135.51923155068394] | 3264 | separator_scaling_pooled_interaction_ols_v0_1 | 0.8666 | autonomous_stage_a_run | arm_chrono_x_d_global |
-| -2.099 | [-4.924787141085047, 0.7276035603051545] | 3264 | separator_scaling_pooled_interaction_ols_v0_1 | 0.8666 | autonomous_stage_a_run | arm_chrono_x_b |
+| 138.6 | [83.56695642135851, 193.53974746207138] | 3264 | separator_scaling_pooled_interaction_ols_v0_2 | 0.4201 | autonomous_stage_a_run | intercept |
+| 231.9 | [154.14115669369852, 309.666169275497] | 3264 | separator_scaling_pooled_interaction_ols_v0_2 | 0.4201 | autonomous_stage_a_run | arm_chrono |
+| 20.12 | [14.024684019670266, 26.21361638937247] | 3264 | separator_scaling_pooled_interaction_ols_v0_2 | 0.4201 | autonomous_stage_a_run | d_global |
+| 47.95 | [43.88535566672717, 52.01554546030716] | 3264 | separator_scaling_pooled_interaction_ols_v0_2 | 0.4201 | autonomous_stage_a_run | b |
+| 41.36 | [32.742907647018015, 49.980661115099295] | 3264 | separator_scaling_pooled_interaction_ols_v0_2 | 0.4201 | autonomous_stage_a_run | arm_chrono_x_d_global |
+| -21.81 | [-27.554507154135457, -16.056682483387327] | 3264 | separator_scaling_pooled_interaction_ols_v0_2 | 0.4201 | autonomous_stage_a_run | arm_chrono_x_b |
+
+##### fairness_corner_resource
+
+| arm | corner_clean_component | corner_label | local_register_capacity_per_agent | max_peak_local_register_per_agent | max_peak_shared_channel | max_single_register_peak | n | provenance | shared_channel_capacity | single_register_capacity | solve_rate | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| monolith_cbj | True | intended_m6_dlocal5_b2 | None | None | None | 12 | 48 | separator_scaling_fairness_corner_resource_v0_2_3 | None | 6 | 0 | autonomous_stage_a_run |
+| cbj_bounded_team | True | intended_m6_dlocal5_b2 | 6 | 5 | 3 | None | 48 | separator_scaling_fairness_corner_resource_v0_2_3 | 16 | None | 1 | autonomous_stage_a_run |
+| monolith_cbj | True | corner_local_heavy | None | None | None | 15 | 48 | separator_scaling_fairness_corner_resource_v0_2_3 | None | 6 | 0 | autonomous_stage_a_run |
+| cbj_bounded_team | True | corner_local_heavy | 6 | 6 | 4 | None | 48 | separator_scaling_fairness_corner_resource_v0_2_3 | 16 | None | 0.9167 | autonomous_stage_a_run |
 
 ##### high_thrash_diagnostics
 
 | arm | b_bin | culprit_trace_available | d_global_bin | high_thrash_count | iqr_steps | median_steps | n | provenance | source | thrash_threshold |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| cbj_bounded_team | 2 | False | 4 | 2 | 0 | 22 | 96 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 22 |
-| chronological_rollback_team | 2 | False | 4 | 2 | 0 | 49 | 96 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 49 |
-| cbj_bounded_team | 4 | False | 4 | 1 | 0 | 22 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 22 |
-| chronological_rollback_team | 4 | False | 4 | 1 | 0 | 49 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 49 |
-| cbj_bounded_team | 8 | False | 4 | 0 | 0 | 22 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 22 |
-| chronological_rollback_team | 8 | False | 4 | 0 | 0 | 49 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 49 |
-| cbj_bounded_team | 12 | False | 4 | 3 | 0 | 22 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 22 |
-| chronological_rollback_team | 12 | False | 4 | 3 | 0 | 49 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 49 |
-| cbj_bounded_team | 2 | False | 5 | 0 | 0 | 23 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 23 |
-| chronological_rollback_team | 2 | False | 5 | 0 | 0 | 49 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 49 |
-| cbj_bounded_team | 4 | False | 5 | 0 | 0 | 23 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 23 |
-| chronological_rollback_team | 4 | False | 5 | 0 | 0 | 49 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 49 |
-| cbj_bounded_team | 8 | False | 5 | 2 | 0 | 23 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 23 |
-| chronological_rollback_team | 8 | False | 5 | 2 | 0 | 49 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 49 |
-| cbj_bounded_team | 12 | False | 5 | 1 | 0 | 23 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 23 |
-| chronological_rollback_team | 12 | False | 5 | 0 | 0 | 49 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 49 |
-| cbj_bounded_team | 2 | False | 6 | 1 | 0 | 24 | 96 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 24 |
-| chronological_rollback_team | 2 | False | 6 | 1 | 0 | 97 | 96 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 97 |
-| cbj_bounded_team | 4 | False | 6 | 1 | 0 | 24 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 24 |
-| chronological_rollback_team | 4 | False | 6 | 0 | 0 | 97 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 97 |
-| cbj_bounded_team | 8 | False | 6 | 4 | 0 | 24 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 24 |
-| chronological_rollback_team | 8 | False | 6 | 0 | 0 | 97 | 48 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 97 |
-| cbj_bounded_team | 12 | False | 6 | 10 | 0 | 24 | 96 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 24 |
-| chronological_rollback_team | 12 | False | 6 | 2 | 0 | 97 | 96 | separator_scaling_high_thrash_iqr_v0_1 | autonomous_stage_a_run | 97 |
+| cbj_bounded_team | 2 | False | 4 | 6 | 0 | 29 | 96 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 29 |
+| chronological_rollback_team | 2 | False | 4 | 6 | 0 | 56 | 96 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 56 |
+| cbj_bounded_team | 4 | False | 4 | 0 | 110 | 100 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 265 |
+| chronological_rollback_team | 4 | False | 4 | 0 | 0 | 240 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 240 |
+| cbj_bounded_team | 8 | False | 4 | 0 | 161 | 182.5 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 424 |
+| chronological_rollback_team | 8 | False | 4 | 0 | 0 | 240 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 240 |
+| cbj_bounded_team | 12 | False | 4 | 0 | 150 | 170.5 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 395.5 |
+| chronological_rollback_team | 12 | False | 4 | 0 | 0 | 240 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 240 |
+| cbj_bounded_team | 2 | False | 5 | 8 | 18 | 54 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 81 |
+| chronological_rollback_team | 2 | False | 5 | 11 | 2 | 80 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 83 |
+| cbj_bounded_team | 4 | False | 5 | 4 | 94 | 79 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 220 |
+| chronological_rollback_team | 4 | False | 5 | 0 | 160 | 80 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 320 |
+| cbj_bounded_team | 8 | False | 5 | 0 | 145 | 130.5 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 348 |
+| chronological_rollback_team | 8 | False | 5 | 0 | 0 | 240 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 240 |
+| cbj_bounded_team | 12 | False | 5 | 0 | 178 | 142 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 409 |
+| chronological_rollback_team | 12 | False | 5 | 0 | 118 | 240 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 417 |
+| cbj_bounded_team | 2 | False | 6 | 2 | 48 | 79 | 96 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 151 |
+| chronological_rollback_team | 2 | False | 6 | 12 | 48 | 134 | 96 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 206 |
+| cbj_bounded_team | 4 | False | 6 | 0 | 121 | 89 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 270.5 |
+| chronological_rollback_team | 4 | False | 6 | 0 | 112 | 167 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 335 |
+| cbj_bounded_team | 8 | False | 6 | 0 | 84 | 114 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 240 |
+| chronological_rollback_team | 8 | False | 6 | 0 | 0 | 240 | 48 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 240 |
+| cbj_bounded_team | 12 | False | 6 | 0 | 120 | 77.5 | 96 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 257.5 |
+| chronological_rollback_team | 12 | False | 6 | 0 | 124 | 240 | 96 | separator_scaling_high_thrash_iqr_v0_2 | autonomous_stage_a_run | 426 |
 
 Truncated to 24 of 56 rows.
 
 ##### instance_arm_metrics
 
-| arm | b | cell_id | comm_budget_C | comm_tokens | d_boundary | d_global_reference | d_local | instance_id | local_contribution | m_blocks | node_cap | overflowed | peak_register_entries | provenance | register_capacity_D | seed | solved | source | status | steps_to_solve_or_cap | sweep | total_retractions |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| monolith_cbj | 2 | dg_m2_dl3 | 16 | 0 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000001 | 2 | 2 | 240 | False | 5 | monolith_global_cbj_effective_capacity_law_v0 | 6 | 480 | True | autonomous_stage_a_run | SOLVED | 57 | sweep_dglobal | 17 |
-| forward_markov_team | 2 | dg_m2_dl3 | 16 | 24 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000001 | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 6 | sweep_dglobal | 0 |
-| chronological_rollback_team | 2 | dg_m2_dl3 | 16 | 204 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000001 | 2 | 2 | 240 | True | 8 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 49 | sweep_dglobal | 16 |
-| cbj_bounded_team | 2 | dg_m2_dl3 | 16 | 92 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000001 | 2 | 2 | 240 | True | 8 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 22 | sweep_dglobal | 4 |
-| monolith_cbj | 2 | dg_m2_dl3 | 16 | 0 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000002 | 2 | 2 | 240 | False | 5 | monolith_global_cbj_effective_capacity_law_v0 | 6 | 480 | True | autonomous_stage_a_run | SOLVED | 57 | sweep_dglobal | 17 |
-| forward_markov_team | 2 | dg_m2_dl3 | 16 | 24 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000002 | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 6 | sweep_dglobal | 0 |
-| chronological_rollback_team | 2 | dg_m2_dl3 | 16 | 204 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000002 | 2 | 2 | 240 | True | 8 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 49 | sweep_dglobal | 16 |
-| cbj_bounded_team | 2 | dg_m2_dl3 | 16 | 92 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000002 | 2 | 2 | 240 | True | 8 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 22 | sweep_dglobal | 4 |
-| monolith_cbj | 2 | dg_m2_dl3 | 16 | 0 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000003 | 2 | 2 | 240 | False | 5 | monolith_global_cbj_effective_capacity_law_v0 | 6 | 480 | True | autonomous_stage_a_run | SOLVED | 57 | sweep_dglobal | 17 |
-| forward_markov_team | 2 | dg_m2_dl3 | 16 | 24 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000003 | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 6 | sweep_dglobal | 0 |
-| chronological_rollback_team | 2 | dg_m2_dl3 | 16 | 204 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000003 | 2 | 2 | 240 | True | 8 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 49 | sweep_dglobal | 16 |
-| cbj_bounded_team | 2 | dg_m2_dl3 | 16 | 92 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000003 | 2 | 2 | 240 | True | 8 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 22 | sweep_dglobal | 4 |
-| monolith_cbj | 2 | dg_m2_dl3 | 16 | 0 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000004 | 2 | 2 | 240 | False | 5 | monolith_global_cbj_effective_capacity_law_v0 | 6 | 480 | True | autonomous_stage_a_run | SOLVED | 57 | sweep_dglobal | 17 |
-| forward_markov_team | 2 | dg_m2_dl3 | 16 | 24 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000004 | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 6 | sweep_dglobal | 0 |
-| chronological_rollback_team | 2 | dg_m2_dl3 | 16 | 204 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000004 | 2 | 2 | 240 | True | 8 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 49 | sweep_dglobal | 16 |
-| cbj_bounded_team | 2 | dg_m2_dl3 | 16 | 92 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000004 | 2 | 2 | 240 | True | 8 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 22 | sweep_dglobal | 4 |
-| monolith_cbj | 2 | dg_m2_dl3 | 16 | 0 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000005 | 2 | 2 | 240 | False | 5 | monolith_global_cbj_effective_capacity_law_v0 | 6 | 480 | True | autonomous_stage_a_run | SOLVED | 57 | sweep_dglobal | 17 |
-| forward_markov_team | 2 | dg_m2_dl3 | 16 | 24 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000005 | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 6 | sweep_dglobal | 0 |
-| chronological_rollback_team | 2 | dg_m2_dl3 | 16 | 204 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000005 | 2 | 2 | 240 | True | 8 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 49 | sweep_dglobal | 16 |
-| cbj_bounded_team | 2 | dg_m2_dl3 | 16 | 92 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000005 | 2 | 2 | 240 | True | 8 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 22 | sweep_dglobal | 4 |
-| monolith_cbj | 2 | dg_m2_dl3 | 16 | 0 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000006 | 2 | 2 | 240 | False | 5 | monolith_global_cbj_effective_capacity_law_v0 | 6 | 480 | True | autonomous_stage_a_run | SOLVED | 57 | sweep_dglobal | 17 |
-| forward_markov_team | 2 | dg_m2_dl3 | 16 | 24 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000006 | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | FORWARD_DEAD_END | 6 | sweep_dglobal | 0 |
-| chronological_rollback_team | 2 | dg_m2_dl3 | 16 | 204 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000006 | 2 | 2 | 240 | True | 8 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 49 | sweep_dglobal | 16 |
-| cbj_bounded_team | 2 | dg_m2_dl3 | 16 | 92 | 2 | 4 | 3 | sep_s480_dg_m2_dl3_000006 | 2 | 2 | 240 | True | 8 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0 | 6 | 480 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 22 | sweep_dglobal | 4 |
+| arm | b | capacity_law_single_register_peak | cell_id | comm_budget_C | comm_tokens | d_boundary | d_global_reference | d_local | fairness_register_peak | fairness_register_reproduces_capacity_law_peak | instance_id | legacy_peak_register_entries_note | local_contribution | m_blocks | node_cap | overflowed | peak_register_entries | provenance | register_capacity_D | seed | single_register_capacity | single_register_peak | solved | source | status | steps_to_solve_or_cap | sweep | team_global_register_capacity | total_retractions | instrumentation_reads_enforced_register | local_register_capacity_per_agent | non_fairness_diagnostic_only | peak_local_register_per_agent | peak_shared_channel | raw_peak_local_register_per_agent | raw_peak_register_entries | raw_sum_local_register_across_agents | recovery_loop_match_v02 | shared_channel_capacity | sum_local_register_across_agents | v02_reference_comm_tokens | v02_reference_solved | v02_reference_status | v02_reference_total_retractions |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| monolith_cbj | 2 | 5 | dg_m2_dl3 | 16 | 0 | 2 | 4 | 3 | 5 | True | sep_s480_dg_m2_dl3_000001 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 5 | monolith_global_cbj_effective_capacity_law_v0 | 6 | 480 | 6 | 5 | True | autonomous_stage_a_run | SOLVED | 57 | sweep_dglobal | 32 | 17 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| forward_markov_team | 2 |  | dg_m2_dl3 | 16 | 24 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000001 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | False | autonomous_stage_a_run | FORWARD_DEAD_END | 6 | sweep_dglobal | 32 | 0 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 4 | 5 | 5 | True | 16 | 5 | 24 | False | FORWARD_DEAD_END | 0 |
+| chronological_rollback_team | 2 |  | dg_m2_dl3 | 16 | 236 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000001 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | True | autonomous_stage_a_run | SOLVED | 56 | sweep_dglobal | 32 | 16 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 12 | 24 | 24 | True | 16 | 24 | 236 | True | SOLVED | 16 |
+| cbj_bounded_team | 2 |  | dg_m2_dl3 | 16 | 124 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000001 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | True | autonomous_stage_a_run | SOLVED | 29 | sweep_dglobal | 32 | 4 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 12 | 24 | 24 | True | 16 | 24 | 124 | True | SOLVED | 4 |
+| monolith_cbj | 2 | 5 | dg_m2_dl3 | 16 | 0 | 2 | 4 | 3 | 5 | True | sep_s480_dg_m2_dl3_000002 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 5 | monolith_global_cbj_effective_capacity_law_v0 | 6 | 480 | 6 | 5 | True | autonomous_stage_a_run | SOLVED | 57 | sweep_dglobal | 32 | 17 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| forward_markov_team | 2 |  | dg_m2_dl3 | 16 | 24 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000002 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | False | autonomous_stage_a_run | FORWARD_DEAD_END | 6 | sweep_dglobal | 32 | 0 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 4 | 5 | 5 | True | 16 | 5 | 24 | False | FORWARD_DEAD_END | 0 |
+| chronological_rollback_team | 2 |  | dg_m2_dl3 | 16 | 236 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000002 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | True | autonomous_stage_a_run | SOLVED | 56 | sweep_dglobal | 32 | 16 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 12 | 24 | 24 | True | 16 | 24 | 236 | True | SOLVED | 16 |
+| cbj_bounded_team | 2 |  | dg_m2_dl3 | 16 | 124 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000002 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | True | autonomous_stage_a_run | SOLVED | 29 | sweep_dglobal | 32 | 4 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 12 | 24 | 24 | True | 16 | 24 | 124 | True | SOLVED | 4 |
+| monolith_cbj | 2 | 5 | dg_m2_dl3 | 16 | 0 | 2 | 4 | 3 | 5 | True | sep_s480_dg_m2_dl3_000003 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 5 | monolith_global_cbj_effective_capacity_law_v0 | 6 | 480 | 6 | 5 | True | autonomous_stage_a_run | SOLVED | 57 | sweep_dglobal | 32 | 17 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| forward_markov_team | 2 |  | dg_m2_dl3 | 16 | 24 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000003 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | False | autonomous_stage_a_run | FORWARD_DEAD_END | 6 | sweep_dglobal | 32 | 0 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 4 | 5 | 5 | True | 16 | 5 | 24 | False | FORWARD_DEAD_END | 0 |
+| chronological_rollback_team | 2 |  | dg_m2_dl3 | 16 | 236 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000003 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | True | autonomous_stage_a_run | SOLVED | 56 | sweep_dglobal | 32 | 16 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 2 | 12 | 24 | 24 | True | 16 | 24 | 236 | True | SOLVED | 16 |
+| cbj_bounded_team | 2 |  | dg_m2_dl3 | 16 | 124 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000003 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | True | autonomous_stage_a_run | SOLVED | 29 | sweep_dglobal | 32 | 4 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 2 | 12 | 24 | 24 | True | 16 | 24 | 124 | True | SOLVED | 4 |
+| monolith_cbj | 2 | 5 | dg_m2_dl3 | 16 | 0 | 2 | 4 | 3 | 5 | True | sep_s480_dg_m2_dl3_000004 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 5 | monolith_global_cbj_effective_capacity_law_v0 | 6 | 480 | 6 | 5 | True | autonomous_stage_a_run | SOLVED | 57 | sweep_dglobal | 32 | 17 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| forward_markov_team | 2 |  | dg_m2_dl3 | 16 | 24 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000004 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | False | autonomous_stage_a_run | FORWARD_DEAD_END | 6 | sweep_dglobal | 32 | 0 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 4 | 5 | 5 | True | 16 | 5 | 24 | False | FORWARD_DEAD_END | 0 |
+| chronological_rollback_team | 2 |  | dg_m2_dl3 | 16 | 236 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000004 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | True | autonomous_stage_a_run | SOLVED | 56 | sweep_dglobal | 32 | 16 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 12 | 24 | 24 | True | 16 | 24 | 236 | True | SOLVED | 16 |
+| cbj_bounded_team | 2 |  | dg_m2_dl3 | 16 | 124 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000004 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | True | autonomous_stage_a_run | SOLVED | 29 | sweep_dglobal | 32 | 4 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 12 | 24 | 24 | True | 16 | 24 | 124 | True | SOLVED | 4 |
+| monolith_cbj | 2 | 5 | dg_m2_dl3 | 16 | 0 | 2 | 4 | 3 | 5 | True | sep_s480_dg_m2_dl3_000005 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 5 | monolith_global_cbj_effective_capacity_law_v0 | 6 | 480 | 6 | 5 | True | autonomous_stage_a_run | SOLVED | 57 | sweep_dglobal | 32 | 17 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| forward_markov_team | 2 |  | dg_m2_dl3 | 16 | 24 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000005 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | False | autonomous_stage_a_run | FORWARD_DEAD_END | 6 | sweep_dglobal | 32 | 0 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 4 | 5 | 5 | True | 16 | 5 | 24 | False | FORWARD_DEAD_END | 0 |
+| chronological_rollback_team | 2 |  | dg_m2_dl3 | 16 | 236 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000005 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | True | autonomous_stage_a_run | SOLVED | 56 | sweep_dglobal | 32 | 16 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 12 | 24 | 24 | True | 16 | 24 | 236 | True | SOLVED | 16 |
+| cbj_bounded_team | 2 |  | dg_m2_dl3 | 16 | 124 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000005 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | True | autonomous_stage_a_run | SOLVED | 29 | sweep_dglobal | 32 | 4 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 12 | 24 | 24 | True | 16 | 24 | 124 | True | SOLVED | 4 |
+| monolith_cbj | 2 | 5 | dg_m2_dl3 | 16 | 0 | 2 | 4 | 3 | 5 | True | sep_s480_dg_m2_dl3_000006 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 5 | monolith_global_cbj_effective_capacity_law_v0 | 6 | 480 | 6 | 5 | True | autonomous_stage_a_run | SOLVED | 57 | sweep_dglobal | 32 | 17 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| forward_markov_team | 2 |  | dg_m2_dl3 | 16 | 24 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000006 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | False | autonomous_stage_a_run | FORWARD_DEAD_END | 6 | sweep_dglobal | 32 | 0 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 1 | 4 | 5 | 5 | True | 16 | 5 | 24 | False | FORWARD_DEAD_END | 0 |
+| chronological_rollback_team | 2 |  | dg_m2_dl3 | 16 | 236 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000006 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | True | autonomous_stage_a_run | SOLVED | 56 | sweep_dglobal | 32 | 16 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 2 | 12 | 24 | 24 | True | 16 | 24 | 236 | True | SOLVED | 16 |
+| cbj_bounded_team | 2 |  | dg_m2_dl3 | 16 | 124 | 2 | 4 | 3 |  |  | sep_s480_dg_m2_dl3_000006 | retained_for_v0_2_compatibility_not_a_fairness_criterion | 2 | 2 | 240 | False | 3 | phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023 | 6 | 480 |  |  | True | autonomous_stage_a_run | SOLVED | 29 | sweep_dglobal | 32 | 4 | True | 6 | ["raw_peak_register_entries", "raw_peak_local_register_per_agent", "raw_sum_local_register_across_agents", "sum_local_register_across_agents"] | 3 | 2 | 12 | 24 | 24 | True | 16 | 24 | 124 | True | SOLVED | 4 |
 
 Truncated to 24 of 6528 rows.
 
@@ -3784,25 +3794,175 @@ Truncated to 24 of 1632 rows.
 
 Truncated to 24 of 28 rows.
 
+##### recovery_dynamics_v02_vs_v023
+
+| all_rows_match_v02 | arm | b_bin | d_global_bin | n | provenance | source | v023_mean_comm_tokens | v023_mean_total_retractions | v02_mean_comm_tokens | v02_mean_total_retractions |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| True | cbj_bounded_team | 2 | 4 | 96 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 153.9 | 8.604 | 153.9 | 8.604 |
+| True | chronological_rollback_team | 2 | 4 | 96 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 258.9 | 18.48 | 258.9 | 18.48 |
+| True | forward_markov_team | 2 | 4 | 96 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 24 | 0 | 24 | 0 |
+| True | cbj_bounded_team | 4 | 4 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 603.3 | 66.73 | 603.3 | 66.73 |
+| True | chronological_rollback_team | 4 | 4 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 968.8 | 80.75 | 968.8 | 80.75 |
+| True | forward_markov_team | 4 | 4 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 24 | 0 | 24 | 0 |
+| True | cbj_bounded_team | 8 | 4 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 893 | 115.3 | 893 | 115.3 |
+| True | chronological_rollback_team | 8 | 4 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 1070 | 86.23 | 1070 | 86.23 |
+| True | forward_markov_team | 8 | 4 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 24 | 0 | 24 | 0 |
+| True | cbj_bounded_team | 12 | 4 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 889.8 | 111.4 | 889.8 | 111.4 |
+| True | chronological_rollback_team | 12 | 4 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 1129 | 87.42 | 1129 | 87.42 |
+| True | forward_markov_team | 12 | 4 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 24 | 0 | 24 | 0 |
+| True | cbj_bounded_team | 2 | 5 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 345 | 23.38 | 345 | 23.38 |
+| True | chronological_rollback_team | 2 | 5 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 473 | 30.83 | 473 | 30.83 |
+| True | forward_markov_team | 2 | 5 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 24 | 0 | 24 | 0 |
+| True | cbj_bounded_team | 4 | 5 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 510.9 | 50.92 | 510.9 | 50.92 |
+| True | chronological_rollback_team | 4 | 5 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 637.1 | 47.25 | 637.1 | 47.25 |
+| True | forward_markov_team | 4 | 5 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 24 | 0 | 24 | 0 |
+| True | cbj_bounded_team | 8 | 5 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 780.9 | 95.38 | 780.9 | 95.38 |
+| True | chronological_rollback_team | 8 | 5 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 1024 | 81.98 | 1024 | 81.98 |
+| True | forward_markov_team | 8 | 5 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 24 | 0 | 24 | 0 |
+| True | cbj_bounded_team | 12 | 5 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 754.5 | 90.4 | 754.5 | 90.4 |
+| True | chronological_rollback_team | 12 | 5 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 1023 | 78.5 | 1023 | 78.5 |
+| True | forward_markov_team | 12 | 5 | 48 | separator_scaling_recovery_dynamics_v02_vs_v023 | autonomous_stage_a_run | 24 | 0 | 24 | 0 |
+
+Truncated to 24 of 84 rows.
+
 ##### verdict
 
 | check | observed | pass | predicted | provenance | source |
 | --- | --- | --- | --- | --- | --- |
-| pool_targets_met | True | True | all cells target_met=True | separator_scaling_preregistered_verdict_v0_1 | autonomous_stage_a_run |
-| axes_independence_check | corr=-0.0280; vif=1.0008; min_d_per_b=7; min_b_per_d=4 | True | \|corr\|<0.35, VIF<2, >=3 crossed bins each way | separator_scaling_preregistered_verdict_v0_1 | autonomous_stage_a_run |
-| local_contribution_positive | True | True | local_contribution > 0 | separator_scaling_preregistered_verdict_v0_1 | autonomous_stage_a_run |
-| keff_constant | True | True | K_eff within +/-11% across cells | separator_scaling_preregistered_verdict_v0_1 | autonomous_stage_a_run |
-| cap_monolith_collapse | observed=4; predicted=5.419 | True | monolith solve drops at predicted capacity | separator_scaling_preregistered_verdict_v0_1 | autonomous_stage_a_run |
-| cap_team_survives | cbj=0.000; mono=0.000 | False | cbj_team high solve where small-b monolith collapses | separator_scaling_preregistered_verdict_v0_1 | autonomous_stage_a_run |
-| dd_interaction_chrono_dglobal_positive | beta=131.2821; ci=[127.0450618528519, 135.51923155068394] | True | beta(chrono:d_global)>0 | separator_scaling_preregistered_verdict_v0_1 | autonomous_stage_a_run |
-| dd_interaction_chrono_b_negative | beta=-2.0986; ci=[-4.924787141085047, 0.7276035603051545] | False | beta(chrono:b)<0 | separator_scaling_preregistered_verdict_v0_1 | autonomous_stage_a_run |
-| quant_collapse_matches_law | observed=4; predicted=5.419; tolerance=3.0 | True | observed collapse within D/ln K_eff +/- constant | separator_scaling_preregistered_verdict_v0_1 | autonomous_stage_a_run |
-| kill_interaction_dglobal_not_positive | beta=131.2821; ci=[127.0450618528519, 135.51923155068394] | True | must be false | separator_scaling_kill_check_v0_1 | autonomous_stage_a_run |
-| kill_capacity_law_mismatch | observed=4; predicted=5.419 | True | must be false | separator_scaling_kill_check_v0_1 | autonomous_stage_a_run |
-| kill_forced_not_better | cbj=0.000; mono=0.000 | False | must be false | separator_scaling_kill_check_v0_1 | autonomous_stage_a_run |
-| overall_pass | overall_pass=False | False | all preregistered checks pass | separator_scaling_preregistered_verdict_v0_1 | autonomous_stage_a_run |
+| pool_targets_met | True | True | all cells target_met=True | separator_scaling_preregistered_verdict_v0_2_3 | autonomous_stage_a_run |
+| axes_independence_check | corr=-0.0280; vif=1.0008; min_d_per_b=7; min_b_per_d=4 | True | \|corr\|<0.35, VIF<2, >=3 crossed bins each way | separator_scaling_preregistered_verdict_v0_2_3 | autonomous_stage_a_run |
+| local_contribution_positive | True | True | local_contribution > 0 | separator_scaling_preregistered_verdict_v0_2_3 | autonomous_stage_a_run |
+| keff_constant | True | True | K_eff within +/-11% across cells | separator_scaling_preregistered_verdict_v0_2_3 | autonomous_stage_a_run |
+| cap_monolith_collapse | observed=4; predicted=5.419 | True | monolith solve drops at predicted capacity | separator_scaling_preregistered_verdict_v0_2_3 | autonomous_stage_a_run |
+| cap_team_survives | cbj=0.917; mono=0.000 | True | cbj_team high solve where small-b monolith collapses | separator_scaling_preregistered_verdict_v0_2_3 | autonomous_stage_a_run |
+| dd_interaction_chrono_dglobal_positive | beta=41.3618; ci=[32.742907647018015, 49.980661115099295] | True | beta(chrono:d_global)>0 | separator_scaling_preregistered_verdict_v0_2_3 | autonomous_stage_a_run |
+| dd_interaction_chrono_b_negative | beta=-21.8056; ci=[-27.554507154135457, -16.056682483387327] | True | beta(chrono:b)<0 | separator_scaling_preregistered_verdict_v0_2_3 | autonomous_stage_a_run |
+| quant_collapse_matches_law | observed=4; predicted=5.419; tolerance=3.0 | True | observed collapse within D/ln K_eff +/- constant | separator_scaling_preregistered_verdict_v0_2_3 | autonomous_stage_a_run |
+| fairness_per_agent_cap_equals_D | D=6; team_rows=4896; monolith_rows=1632 | True | team local_register_capacity_per_agent equals monolith single_register_capacity D | separator_scaling_fairness_verdict_v0_2_3 | autonomous_stage_a_run |
+| fairness_team_within_D_on_solved | solved=1378; solved_overflow=0; max_enforced_peak=6; D=6 | True | cbj_team solved instances have no enforced per-agent register overflow | separator_scaling_fairness_verdict_v0_2_3 | autonomous_stage_a_run |
+| fairness_shared_channel_accounted | C=16; max_peak_shared=5 | True | team shared channel is separately logged and peak_shared_channel <= C | separator_scaling_fairness_verdict_v0_2_3 | autonomous_stage_a_run |
+| fairness_corner_clean | intended_m6_dlocal5_b2:monolith_cbj:solve=0.0:single=12:local=None:shared=None:pass=True; intended_m6_dlocal5_b2:cbj_bounded_team:solve=1.0:single=None:local=5:shared=3:pass=True; corner_local_heavy:monolith_cbj:solve=0.0:single=15:local=None:shared=None:pass=True; corner_local_heavy:cbj_bounded_team:solve=0.9166666666666666:single=None:local=6:shared=4:pass=True | True | corner monolith overflows while cbj_team solves without enforced local overflow and shared peak <=C | separator_scaling_fairness_verdict_v0_2_3 | autonomous_stage_a_run |
+| recovery_loop_regression_ok | rows=4896; mismatched_groups=[] | True | v0.2.3 read-only observer reproduces v0.2 frozen loop comm/retractions/status rowwise | separator_scaling_fairness_verdict_v0_2_3 | autonomous_stage_a_run |
+| fairness_register_reproduces_capacity_law | monolith_rows=1632; all_reproduced=True | True | monolith single_register_peak equals capacity_law_single_register_peak | separator_scaling_fairness_verdict_v0_2_3 | autonomous_stage_a_run |
+| instrumentation_reads_enforced_register | team_rows=4896; misread_rows=0; examples=[] | True | no row has overflowed=False and peak_local_register_per_agent>D | separator_scaling_fairness_verdict_v0_2_3 | autonomous_stage_a_run |
+| peak_local_not_pinned_to_block_size | n_per_block=12; unique_peaks=[3, 5, 6]; peak_by_dlocal={3: {3}, 5: {5}, 7: {6}} | True | peak_local_register_per_agent is not pinned to n_per_block and varies across cells | separator_scaling_fairness_verdict_v0_2_3 | autonomous_stage_a_run |
+| kill_interaction_dglobal_not_positive | beta=41.3618; ci=[32.742907647018015, 49.980661115099295] | True | must be false | separator_scaling_kill_check_v0_2_3 | autonomous_stage_a_run |
+| kill_capacity_law_mismatch | observed=4; predicted=5.419 | True | must be false | separator_scaling_kill_check_v0_2_3 | autonomous_stage_a_run |
+| kill_forced_not_better | cbj=0.917; mono=0.000 | True | must be false | separator_scaling_kill_check_v0_2_3 | autonomous_stage_a_run |
+| kill_team_exceeds_D | solved=1378; solved_overflow=0; max_enforced_peak=6; D=6 | True | must be false; measurement-misread signatures are handled by instrumentation_reads_enforced_register | separator_scaling_kill_check_v0_2_3 | autonomous_stage_a_run |
+| overall_pass | overall_pass=True | True | all preregistered, fairness, recovery-loop, and instrumentation checks pass | separator_scaling_preregistered_verdict_v0_2_3 | autonomous_stage_a_run |
 
 - Next action: Proceed to LLM only if overall_pass=True.
+
+### Item 059 - Rung-1 LLM-operator PO separator experiment gated preflight
+
+- Status: RUNG1_SEPARATOR_LLM_PO_PREFLIGHT_READY_NOT_RUN
+- Key result: Launch the P1a recovery sweep only after symbolic v0.2.3 and forward_gate_truncation_ok both pass; this preflight does not start the recovery body.
+- Purpose: Fail-closed preflight for the 8-GPU Qwen3.5 PO separator Phase 2 experiment. It records GPU/model readiness and refuses to launch recovery sweeps unless symbolic separator-scaling v0.2.3 and the P1a forward truncation gate both pass.
+- Details:
+  - purpose=Fail-closed preflight for the 8-GPU Qwen3.5 PO separator Phase 2 experiment. It records GPU/model readiness and refuses to launch recovery sweeps unless symbolic separator-scaling v0.2.3 and the P1a forward truncation gate both pass.
+  - commands=2
+  - result_tables=['forward_gate_budget_at_95_solve', 'forward_gate_keff_inflation', 'forward_gate_operator_error_breakdown', 'forward_gate_prelaunch_truncation_gate', 'forward_gate_recovery_sweep_cost_estimate', 'forward_gate_verdict', 'gate_preflight', 'gpu_inventory', 'planned_run_config', 'verdict']
+  - honesty=A preflight-only status does not establish decoupling survival or d* under fallible operators. If the forward-gate artifact is present, it measures only the P1a forward-only hardness gate, not recovery sweeps.
+- Artifact refs:
+  - results/experiment_items/item_059_rung1_separator_llm_po.json (yes, 19686 bytes)
+  - results/rung1_separator_llm_po/results.json (yes, 5817 bytes)
+  - results/rung1_separator_llm_po/p1a_forward_gate.json (yes, 211565 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_separator_llm_po/results.json | RUNG1_SEPARATOR_LLM_PO_PREFLIGHT_READY_NOT_RUN | schema_version=rung1_separator_llm_po_preflight_v0 |  |
+| results/rung1_separator_llm_po/p1a_forward_gate.json | RUNG1_SEPARATOR_LLM_PO_FORWARD_GATE_PASS | schema_version=rung1_separator_llm_po_forward_gate_v1 |  |
+
+#### Contract Result Tables
+
+##### forward_gate_budget_at_95_solve
+
+| arm | b_bin | d_global_bin | n | provenance | solve_rate | source |
+| --- | --- | --- | --- | --- | --- | --- |
+| forward_markov_team_qwen_p1a | 2 | 4 | 24 | qwen35_p1a_forward_gate_solve_rate_v0 | 0 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | 2 | 7 | 24 | qwen35_p1a_forward_gate_solve_rate_v0 | 0 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | 12 | 7 | 24 | qwen35_p1a_forward_gate_solve_rate_v0 | 0 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | 12 | 9 | 24 | qwen35_p1a_forward_gate_solve_rate_v0 | 0 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | 2 | 10 | 24 | qwen35_p1a_forward_gate_solve_rate_v0 | 0 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | 2 | 12 | 24 | qwen35_p1a_forward_gate_solve_rate_v0 | 0 | autonomous_stage_a_run |
+
+##### forward_gate_keff_inflation
+
+| b_bin | d_global_bin | k_eff_clean | k_eff_inflated | n | provenance | rho | rung | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 4 | 2.8 | 1 | 24 | qwen35_p1a_keff_inflation_v0 | 0.3571 | P1a_branch_only_sound_forward_gate | autonomous_stage_a_run |
+| 2 | 7 | 3.065 | 1 | 24 | qwen35_p1a_keff_inflation_v0 | 0.3268 | P1a_branch_only_sound_forward_gate | autonomous_stage_a_run |
+| 12 | 7 | 3.048 | 1 | 24 | qwen35_p1a_keff_inflation_v0 | 0.3292 | P1a_branch_only_sound_forward_gate | autonomous_stage_a_run |
+| 12 | 9 | 3.134 | 1 | 24 | qwen35_p1a_keff_inflation_v0 | 0.3195 | P1a_branch_only_sound_forward_gate | autonomous_stage_a_run |
+| 2 | 10 | 3.3 | 1 | 24 | qwen35_p1a_keff_inflation_v0 | 0.3033 | P1a_branch_only_sound_forward_gate | autonomous_stage_a_run |
+| 2 | 12 | 3.358 | 1 | 24 | qwen35_p1a_keff_inflation_v0 | 0.2982 | P1a_branch_only_sound_forward_gate | autonomous_stage_a_run |
+
+##### forward_gate_operator_error_breakdown
+
+| b_bin | d_global_bin | false_neg_missed_conflict_rate | false_pos_deadend_rate | format_failure_rate | frac_parsable_invalid | frac_truncated_no_answer | frac_valid | n | provenance | rung | source | value_misselection_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 4 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_operator_error_breakdown_v0 | P1a_branch_only_sound_forward_gate | autonomous_stage_a_run | 0 |
+| 2 | 7 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_operator_error_breakdown_v0 | P1a_branch_only_sound_forward_gate | autonomous_stage_a_run | 0 |
+| 12 | 7 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_operator_error_breakdown_v0 | P1a_branch_only_sound_forward_gate | autonomous_stage_a_run | 0 |
+| 12 | 9 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_operator_error_breakdown_v0 | P1a_branch_only_sound_forward_gate | autonomous_stage_a_run | 0 |
+| 2 | 10 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_operator_error_breakdown_v0 | P1a_branch_only_sound_forward_gate | autonomous_stage_a_run | 0 |
+| 2 | 12 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_operator_error_breakdown_v0 | P1a_branch_only_sound_forward_gate | autonomous_stage_a_run | 0 |
+
+##### forward_gate_prelaunch_truncation_gate
+
+| deepest_d_global | gate | max_all_frac_truncated_no_answer | max_deep_frac_truncated_no_answer | pass | provenance | source | threshold |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 12 | forward_gate_truncation_ok | 0 | 0 | True | qwen35_p1a_forward_gate_truncation_prelaunch_v1 | autonomous_stage_a_run | 0.1 |
+
+##### forward_gate_recovery_sweep_cost_estimate
+
+| arms | comm_budget_sweep_len_if_applied | estimated_qwen_calls_with_comm_budget_sweep | estimated_qwen_calls_without_comm_budget_sweep | n_cells | n_per_cell | pilot_median_calls_per_instance | provenance | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ["forward_markov_team_qwen_p1a", "chronological_rollback_team_qwen_p1a", "cbj_bounded_team_qwen_p1a"] | 8 | 27648 | 3456 | 6 | 24 | 8 | qwen35_p1a_recovery_sweep_call_estimate_v1 | autonomous_stage_a_run |
+
+##### forward_gate_verdict
+
+| check | observed | pass | predicted | provenance | source |
+| --- | --- | --- | --- | --- | --- |
+| kill_po_too_easy | solve_rate=0.0000 | True | forward-only LLM solve rate < 0.30 | qwen35_p1a_forward_gate_verdict_v1 | autonomous_stage_a_run |
+| forward_gate_truncation_ok | deepest_d_global=12; max_deep=0.0000; max_all=0.0000 | True | deepest and all-cell truncated_no_answer fraction <= 0.10 | qwen35_p1a_forward_gate_verdict_v1 | autonomous_stage_a_run |
+
+##### gate_preflight
+
+| blockers | gate | p1a_forward_gate_config_ok | p1a_forward_gate_hardness_ok | p1a_forward_gate_max_all_frac_truncated_no_answer | p1a_forward_gate_max_deep_frac_truncated_no_answer | p1a_forward_gate_max_new_tokens | p1a_forward_gate_prompt_contract | p1a_forward_gate_schema_observed | p1a_forward_gate_schema_required | p1a_forward_gate_solve_rate | p1a_forward_gate_status_observed | p1a_forward_gate_truncation_ok | pass | provenance | qwen35_download_recorded | requested_gpus | source | symbolic_fairness_corner_clean | symbolic_llm_version_allowed | symbolic_overall_pass | symbolic_schema_observed | symbolic_schema_required | symbolic_status_observed | visible_gpus |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| [] | symbolic_separator_v0_2_3_fairness_and_p1a_forward_truncation_required_before_recovery | True | True | 0 | 0 | 8192 | p1a_json_only_branch_value_no_reasoning_v1 | rung1_separator_llm_po_forward_gate_v1 | rung1_separator_llm_po_forward_gate_v1 | 0 | RUNG1_SEPARATOR_LLM_PO_FORWARD_GATE_PASS | True | True | rung1_separator_llm_po_fail_closed_gate_v0 | True | 4 | autonomous_stage_a_run | True | True | True | rung1_separator_scaling_symbolic_v0_2_3 | rung1_separator_scaling_symbolic_v0_2_3 | RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS | 8 |
+
+##### gpu_inventory
+
+| index | memory_total | memory_used | name |
+| --- | --- | --- | --- |
+| 0 | 81920 MiB | 20871 MiB | NVIDIA A100-SXM4-80GB |
+| 1 | 81920 MiB | 20621 MiB | NVIDIA A100-SXM4-80GB |
+| 2 | 81920 MiB | 20621 MiB | NVIDIA A100-SXM4-80GB |
+| 3 | 81920 MiB | 20621 MiB | NVIDIA A100-SXM4-80GB |
+| 4 | 81920 MiB | 69775 MiB | NVIDIA A100-SXM4-80GB |
+| 5 | 81920 MiB | 69101 MiB | NVIDIA A100-SXM4-80GB |
+| 6 | 81920 MiB | 69101 MiB | NVIDIA A100-SXM4-80GB |
+| 7 | 81920 MiB | 69389 MiB | NVIDIA A100-SXM4-80GB |
+
+##### planned_run_config
+
+| comm_budget_sweep | first_rung | forward_gate_truncation_threshold | frozen_symbolic_components | generation_contract | gpu_device_ids | max_new_tokens_minimum | model_id | n_per_cell | n_seeds | oom_retry_batch_size_per_gpu | p1a_prompt_contract | p1a_thinking_disabled | per_instance_llm_call_cap | planned_cells | po_visibility | provenance | recommended_initial_batch_size_per_gpu | requested_gpus | required_forward_gate_schema | rungs | source | temperature |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| [64, 128, 192, 256, 384, 512, 768, 1024] | P1a_branch_only_sound | 0.1 | ["register", "recovery_routing", "boundary_message_protocol", "symbolic_guard_for_P1a"] | P1a returns compact JSON-only branch values; extract last parseable JSON; record truncated_no_answer/parsable_invalid/valid plus finish_reason, output_tokens, thinking_tokens | [0, 1, 2, 3] | 8192 | Qwen/Qwen3.5-4B | 24 | 2 | 1 | p1a_json_only_branch_value_no_reasoning_v1 | True | 200 | ["corner_local_heavy", "dg_m2_dl5_b2", "dg_m4_dl5_b2", "dg_m6_dl5_b2", "b_b12_mid_dglobal"] | agent sees own block, incident boundary edges, and messaged boundary-neighbor colors only; no global graph view | rung1_separator_llm_po_phase2_plan_v1 | 2 | 4 | rung1_separator_llm_po_forward_gate_v1 | ["P1a_branch_only_sound", "P1b_llm_propagation_guarded", "P1c_operator_triggered_unguarded"] | autonomous_stage_a_run | 0 |
+
+##### verdict
+
+| check | observed | pass | predicted | provenance | source |
+| --- | --- | --- | --- | --- | --- |
+| symbolic_separator_v0_2_3_fairness_gate | pass=True; blockers=[] | True | must pass before any Qwen call | rung1_separator_llm_po_preflight_verdict_v0 | autonomous_stage_a_run |
+| forward_gate_truncation_ok | hardness_ok=True; truncation_ok=True; max_deep=0.0; max_all=0.0 | True | P1a forward gate v1 must pass with max truncated_no_answer <= 0.10 | rung1_separator_llm_po_preflight_verdict_v1 | autonomous_stage_a_run |
+| llm_run_started | llm_run_started=False; recovery_prelaunch_ready=True | True | preflight records readiness only; recovery body is not launched by this command | rung1_separator_llm_po_preflight_verdict_v1 | autonomous_stage_a_run |
+
+- Next action: Launch the P1a recovery sweep only after symbolic v0.2.3 and forward_gate_truncation_ok both pass; this preflight does not start the recovery body.
 
 
 ## Canonical Repo Decision
@@ -3843,7 +4003,7 @@ Truncated to 24 of 28 rows.
 | Stage A Track A symbolic | YELLOW | track=A_symbolic; operator=symbolic_oracle; autonomous_cells=43; symbolic_core={'autonomous_cells': 43, 'declared_track': 'A_symbolic', 'forward_floor_on_L4': True, 'kv_snapshot_max_depth': 3, 'operator': 'symbolic_oracle', 'reverts_nonzero_on_L4': True, 'rot_no_revert_max_depth': 3} |
 | Stage A learned track | RED | diagnostic_G1=1.0; learned_autonomous_cells=0; statuses=['PARENT_ADAPTER_REQUIRED'] |
 | W3 Qwen3.5 | YELLOW | integration_grade=cached_gdn_state_measured_with_propagation_delta; W3.0=PASS |
-| Validation | RED | checks=492; pass=489; fail=3 |
+| Validation | RED | checks=508; pass=505; fail=3 |
 
 ## Artifact Index
 
@@ -3883,6 +4043,7 @@ Truncated to 24 of 28 rows.
 | item_056_rung1_phase1_r3_qwen_oneshot | results/experiment_items/item_056_rung1_phase1_r3_qwen_oneshot.json | yes |
 | item_057_rung1_phase1_r2_budget_sweep | results/experiment_items/item_057_rung1_phase1_r2_budget_sweep.json | yes |
 | item_058_rung1_separator_scaling | results/experiment_items/item_058_rung1_separator_scaling.json | yes |
+| item_059_rung1_separator_llm_po | results/experiment_items/item_059_rung1_separator_llm_po.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | rung1_phase1_spec_v01 | specs/rung1_phase1_spec_v01.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
@@ -3937,6 +4098,8 @@ Truncated to 24 of 28 rows.
 | rung1_phase1_r3_qwen_oneshot | results/rung1_phase1_r3_qwen_oneshot/results.json | yes |
 | rung1_phase1_r2_budget_sweep | results/rung1_phase1_r2_budget_sweep/results.json | yes |
 | rung1_separator_scaling | results/rung1_separator_scaling/results.json | yes |
+| rung1_separator_llm_po | results/rung1_separator_llm_po/results.json | yes |
+| rung1_separator_llm_po_forward_gate | results/rung1_separator_llm_po/p1a_forward_gate.json | yes |
 | validation | results/validation/validation.json | yes |
 
 ## Validation Summary
@@ -3944,7 +4107,7 @@ Truncated to 24 of 28 rows.
 | tier | pass | fail |
 | --- | --- | --- |
 | closeout_047 | 15 | 0 |
-| contract | 218 | 0 |
+| contract | 224 | 0 |
 | env | 13 | 0 |
 | legacy | 7 | 0 |
 | meta | 1 | 0 |
@@ -3955,6 +4118,7 @@ Truncated to 24 of 28 rows.
 | rung1_phase1_r3 | 8 | 0 |
 | rung1_phase1_r4 | 9 | 0 |
 | rung1_phase1_spec | 9 | 0 |
+| rung1_separator_llm_po | 10 | 0 |
 | rung1_separator_scaling | 14 | 0 |
 | rung1_v01 | 14 | 0 |
 | rung1_v02 | 13 | 0 |

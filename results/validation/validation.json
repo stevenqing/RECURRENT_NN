@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=31",
+      "detail": "count=32",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -1675,14 +1675,50 @@
       "tier": "contract"
     },
     {
-      "detail": "Symbolic patch only; no Qwen/LLM operator run.",
+      "detail": "Symbolic patch only; no fresh Qwen/LLM recovery sweep.",
       "name": "log_item_058_honesty_does_not_establish",
       "status": "PASS",
       "tier": "contract"
     },
     {
-      "detail": "gates=13; routing=Proceed to LLM only if overall_pass=True.",
+      "detail": "gates=22; routing=Proceed to LLM only if overall_pass=True.",
       "name": "log_item_058_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_059_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_059_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=059",
+      "name": "log_item_059_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_059_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "A preflight-only status does not establish decoupling survival or d* under fallible operators. If the forward-gate artifact is present, it measures only the P1a",
+      "name": "log_item_059_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=Launch the P1a recovery sweep only after symbolic v0.2.3 and forward_gate_truncation_ok both pass; this preflight does not start the recovery body.",
+      "name": "log_item_059_decision_numbers_and_routing",
       "status": "PASS",
       "tier": "contract"
     },
@@ -2263,13 +2299,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'register_entry_classification', 'pop_read', 'spill_off_write_drop', 'write_drop_mask', 'forward_read', 'final_solution_readback'}",
+      "detail": "rules={'forward_read', 'final_solution_readback', 'write_drop_mask', 'register_entry_classification', 'pop_read', 'spill_off_write_drop'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop', 'threshold_D_peak', 'P_choice_unmasked', 'P_choice', 'P_all', 'threshold_D_pop', 'P_pop_unmasked', 'P_all_unmasked'}; rows=768",
+      "detail": "candidates={'P_pop_unmasked', 'P_choice', 'P_choice_unmasked', 'P_pop', 'P_all', 'threshold_D_pop', 'P_all_unmasked', 'threshold_D_peak'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2293,7 +2329,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rows=64; statuses={'timeout', 'measured'}",
+      "detail": "rows=64; statuses={'measured', 'timeout'}",
       "name": "e1_sudoku_compositional_real_trace_subsample",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2305,7 +2341,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop', 'P_choice_unmasked', 'P_choice', 'P_all', 'P_pop_unmasked', 'P_all_unmasked'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_pop_unmasked', 'P_choice', 'P_choice_unmasked', 'P_pop', 'P_all', 'P_all_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2845,31 +2881,31 @@
       "tier": "rung1_separator_scaling"
     },
     {
-      "detail": "status=RUNG1_SEPARATOR_SCALING_SYMBOLIC_KILL_RECORDED",
+      "detail": "status=RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS",
       "name": "item058_status_valid",
       "status": "PASS",
       "tier": "rung1_separator_scaling"
     },
     {
-      "detail": "tables=['axes_independence_check', 'capacity_leg', 'double_dissociation_detail', 'double_dissociation_regression', 'high_thrash_diagnostics', 'instance_arm_metrics', 'instance_manifest', 'keff_by_cell', 'verdict']",
+      "detail": "tables=['axes_independence_check', 'capacity_leg', 'double_dissociation_detail', 'double_dissociation_regression', 'fairness_corner_resource', 'high_thrash_diagnostics', 'instance_arm_metrics', 'instance_manifest', 'keff_by_cell', 'recovery_dynamics_v02_vs_v023', 'verdict']",
       "name": "item058_required_tables_present",
       "status": "PASS",
       "tier": "rung1_separator_scaling"
     },
     {
-      "detail": "gates={'pool_targets_met': 'PASS', 'axes_independence_check': 'PASS', 'local_contribution_positive': 'PASS', 'keff_constant': 'PASS', 'cap_monolith_collapse': 'PASS', 'cap_team_survives': 'FAIL', 'dd_interaction_chrono_dglobal_positive': 'PASS', 'dd_interaction_chrono_b_negative': 'FAIL', 'quant_collapse_matches_law': 'PASS', 'kill_interaction_dglobal_not_positive': 'PASS', 'kill_capacity_law_mismatch': 'PASS', 'kill_forced_not_better': 'FAIL', 'overall_pass': 'FAIL'}",
+      "detail": "gates={'pool_targets_met': 'PASS', 'axes_independence_check': 'PASS', 'local_contribution_positive': 'PASS', 'keff_constant': 'PASS', 'cap_monolith_collapse': 'PASS', 'cap_team_survives': 'PASS', 'dd_interaction_chrono_dglobal_positive': 'PASS', 'dd_interaction_chrono_b_negative': 'PASS', 'quant_collapse_matches_law': 'PASS', 'fairness_per_agent_cap_equals_D': 'PASS', 'fairness_team_within_D_on_solved': 'PASS', 'fairness_shared_channel_accounted': 'PASS', 'fairness_corner_clean': 'PASS', 'recovery_loop_regression_ok': 'PASS', 'fairness_register_reproduces_capacity_law': 'PASS', 'instrumentation_reads_enforced_register': 'PASS', 'peak_local_not_pinned_to_block_size': 'PASS', 'kill_interaction_dglobal_not_positive': 'PASS', 'kill_capacity_law_mismatch': 'PASS', 'kill_forced_not_better': 'PASS', 'kill_team_exceeds_D': 'PASS', 'overall_pass': 'PASS'}",
       "name": "item058_verdict_gate_recorded",
       "status": "PASS",
       "tier": "rung1_separator_scaling"
     },
     {
-      "detail": "schema=rung1_separator_scaling_symbolic_v0_1; status=RUNG1_SEPARATOR_SCALING_SYMBOLIC_KILL_RECORDED",
+      "detail": "schema=rung1_separator_scaling_symbolic_v0_2_3; status=RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS",
       "name": "rung1_separator_schema_status",
       "status": "PASS",
       "tier": "rung1_separator_scaling"
     },
     {
-      "detail": "generation={'arms': ['monolith_cbj', 'forward_markov_team', 'chronological_rollback_team', 'cbj_bounded_team'], 'cell_specs': [{'b': 2, 'cell_id': 'dg_m2_dl3', 'd_boundary': 2, 'd_local': 3, 'm_blocks': 2, 'sweep': 'sweep_dglobal', 'target_d_global': 4}, {'b': 2, 'cell_id': 'dg_m2_dl5', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 2, 'sweep': 'sweep_dglobal', 'target_d_global': 4}, {'b': 2, 'cell_id': 'dg_m2_dl7', 'd_boundary': 2, 'd_local': 7, 'm_blocks': 2, 'sweep': 'sweep_dglobal', 'target_d_global': 6}, {'b': 2, 'cell_id': 'dg_m4_dl3', 'd_boundary': 2, 'd_local': 3, 'm_blocks': 4, 'sweep': 'sweep_dglobal', 'target_d_global': 5}, {'b': 2, 'cell_id': 'dg_m4_dl5', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_dglobal', 'target_d_global': 7}, {'b': 2, 'cell_id': 'dg_m4_dl7', 'd_boundary': 2, 'd_local': 7, 'm_blocks': 4, 'sweep': 'sweep_dglobal', 'target_d_global': 9}, {'b': 2, 'cell_id': 'dg_m6_dl3', 'd_boundary': 2, 'd_local': 3, 'm_blocks': 6, 'sweep': 'sweep_dglobal', 'target_d_global': 6}, {'b': 2, 'cell_id': 'dg_m6_dl5', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 6, 'sweep': 'sweep_dglobal', 'target_d_global': 10}, {'b': 2, 'cell_id': 'dg_m6_dl7', 'd_boundary': 2, 'd_local': 7, 'm_blocks': 6, 'sweep': 'sweep_dglobal', 'target_d_global': 12}, {'b': 2, 'cell_id': 'b_b2_db2', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 7}, {'b': 2, 'cell_id': 'b_b2_db4', 'd_boundary': 4, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 9}, {'b': 4, 'cell_id': 'b_b4_db2', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 7}, {'b': 4, 'cell_id': 'b_b4_db4', 'd_boundary': 4, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 9}, {'b': 8, 'cell_id': 'b_b8_db2', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 7}, {'b': 8, 'cell_id': 'b_b8_db4', 'd_boundary': 4, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 9}, {'b': 12, 'cell_id': 'b_b12_db2', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 7}, {'b': 12, 'cell_id': 'b_b12_db4', 'd_boundary': 4, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 9}, {'b': 2, 'cell_id': 'corner_local_heavy', 'd_boundary': 2, 'd_local': 7, 'm_blocks': 6, 'sweep': 'corner_local_heavy', 'target_d_global': 12}, {'b': 12, 'cell_id': 'corner_boundary_heavy', 'd_boundary': 4, 'd_local': 3, 'm_blocks': 2, 'sweep': 'corner_boundary_heavy', 'target_d_global': 6}, {'b': 4, 'cell_id': 'axis_balance_b4_d4', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 4}, {'b': 4, 'cell_id': 'axis_balance_b4_d5', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 5}, {'b': 4, 'cell_id': 'axis_balance_b4_d6', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 6}, {'b': 4, 'cell_id': 'axis_balance_b4_d10', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 10}, {'b': 4, 'cell_id': 'axis_balance_b4_d12', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 12}, {'b': 8, 'cell_id': 'axis_balance_b8_d4', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 4}, {'b': 8, 'cell_id': 'axis_balance_b8_d5', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 5}, {'b': 8, 'cell_id': 'axis_balance_b8_d6', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 6}, {'b': 8, 'cell_id': 'axis_balance_b8_d10', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 10}, {'b': 8, 'cell_id': 'axis_balance_b8_d12', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 12}, {'b': 12, 'cell_id': 'axis_balance_b12_d4', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 4}, {'b': 12, 'cell_id': 'axis_balance_b12_d5', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 5}, {'b': 12, 'cell_id': 'axis_balance_b12_d6', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 6}, {'b': 12, 'cell_id': 'axis_balance_b12_d10', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 10}, {'b': 12, 'cell_id': 'axis_balance_b12_d12', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 12}], 'comm_budget_C': 16, 'grid_version': 'separator_scaling_v0_1', 'k': 4, 'monolith_provenance': 'global_cbj_effective_register_capacity_D_over_ln_keff_v0', 'n_instances_per_cell': 48, 'n_per_block': 12, 'node_cap': 240, 'register_capacity_D': 6, 'seeds': [42, 137, 211, 307], 'source': 'autonomous_stage_a_run', 'team_loop_provenance': 'phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0'}",
+      "detail": "generation={'arms': ['monolith_cbj', 'forward_markov_team', 'chronological_rollback_team', 'cbj_bounded_team'], 'cell_specs': [{'b': 2, 'cell_id': 'dg_m2_dl3', 'd_boundary': 2, 'd_local': 3, 'm_blocks': 2, 'sweep': 'sweep_dglobal', 'target_d_global': 4}, {'b': 2, 'cell_id': 'dg_m2_dl5', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 2, 'sweep': 'sweep_dglobal', 'target_d_global': 4}, {'b': 2, 'cell_id': 'dg_m2_dl7', 'd_boundary': 2, 'd_local': 7, 'm_blocks': 2, 'sweep': 'sweep_dglobal', 'target_d_global': 6}, {'b': 2, 'cell_id': 'dg_m4_dl3', 'd_boundary': 2, 'd_local': 3, 'm_blocks': 4, 'sweep': 'sweep_dglobal', 'target_d_global': 5}, {'b': 2, 'cell_id': 'dg_m4_dl5', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_dglobal', 'target_d_global': 7}, {'b': 2, 'cell_id': 'dg_m4_dl7', 'd_boundary': 2, 'd_local': 7, 'm_blocks': 4, 'sweep': 'sweep_dglobal', 'target_d_global': 9}, {'b': 2, 'cell_id': 'dg_m6_dl3', 'd_boundary': 2, 'd_local': 3, 'm_blocks': 6, 'sweep': 'sweep_dglobal', 'target_d_global': 6}, {'b': 2, 'cell_id': 'dg_m6_dl5', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 6, 'sweep': 'sweep_dglobal', 'target_d_global': 10}, {'b': 2, 'cell_id': 'dg_m6_dl7', 'd_boundary': 2, 'd_local': 7, 'm_blocks': 6, 'sweep': 'sweep_dglobal', 'target_d_global': 12}, {'b': 2, 'cell_id': 'b_b2_db2', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 7}, {'b': 2, 'cell_id': 'b_b2_db4', 'd_boundary': 4, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 9}, {'b': 4, 'cell_id': 'b_b4_db2', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 7}, {'b': 4, 'cell_id': 'b_b4_db4', 'd_boundary': 4, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 9}, {'b': 8, 'cell_id': 'b_b8_db2', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 7}, {'b': 8, 'cell_id': 'b_b8_db4', 'd_boundary': 4, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 9}, {'b': 12, 'cell_id': 'b_b12_db2', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 7}, {'b': 12, 'cell_id': 'b_b12_db4', 'd_boundary': 4, 'd_local': 5, 'm_blocks': 4, 'sweep': 'sweep_b', 'target_d_global': 9}, {'b': 2, 'cell_id': 'corner_local_heavy', 'd_boundary': 2, 'd_local': 7, 'm_blocks': 6, 'sweep': 'corner_local_heavy', 'target_d_global': 12}, {'b': 12, 'cell_id': 'corner_boundary_heavy', 'd_boundary': 4, 'd_local': 3, 'm_blocks': 2, 'sweep': 'corner_boundary_heavy', 'target_d_global': 6}, {'b': 4, 'cell_id': 'axis_balance_b4_d4', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 4}, {'b': 4, 'cell_id': 'axis_balance_b4_d5', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 5}, {'b': 4, 'cell_id': 'axis_balance_b4_d6', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 6}, {'b': 4, 'cell_id': 'axis_balance_b4_d10', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 10}, {'b': 4, 'cell_id': 'axis_balance_b4_d12', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 12}, {'b': 8, 'cell_id': 'axis_balance_b8_d4', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 4}, {'b': 8, 'cell_id': 'axis_balance_b8_d5', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 5}, {'b': 8, 'cell_id': 'axis_balance_b8_d6', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 6}, {'b': 8, 'cell_id': 'axis_balance_b8_d10', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 10}, {'b': 8, 'cell_id': 'axis_balance_b8_d12', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 12}, {'b': 12, 'cell_id': 'axis_balance_b12_d4', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 4}, {'b': 12, 'cell_id': 'axis_balance_b12_d5', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 5}, {'b': 12, 'cell_id': 'axis_balance_b12_d6', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 6}, {'b': 12, 'cell_id': 'axis_balance_b12_d10', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 10}, {'b': 12, 'cell_id': 'axis_balance_b12_d12', 'd_boundary': 2, 'd_local': 5, 'm_blocks': 4, 'sweep': 'axis_balance_v01', 'target_d_global': 12}], 'comm_budget_C_shared_channel': 16, 'grid_version': 'separator_scaling_v0_2_3', 'k': 4, 'monolith_provenance': 'global_cbj_effective_register_capacity_D_over_ln_keff_v0', 'n_instances_per_cell': 48, 'n_per_block': 12, 'node_cap': 240, 'register_capacity_D': 6, 'resource_model': 'monolith: single_register_peak is the enforced capacity-law register; team: frozen v0.2 recovery loop plus enforced per-agent D-register fairness accounting and one C-capacity shared boundary channel', 'seeds': [42, 137, 211, 307], 'source': 'autonomous_stage_a_run', 'team_loop_provenance': 'phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023'}",
       "name": "rung1_separator_generation_config",
       "status": "PASS",
       "tier": "rung1_separator_scaling"
@@ -2881,7 +2917,7 @@
       "tier": "rung1_separator_scaling"
     },
     {
-      "detail": "axes={'axes_independent': True, 'corr_d_global_b': -0.027970497667619318, 'min_unique_b_per_d_global': 4, 'min_unique_d_global_per_b': 7, 'provenance': 'separator_scaling_axes_independence_check_v0_1', 'source': 'autonomous_stage_a_run', 'unique_b_by_d_global': {'10': [2, 4, 8, 12], '12': [2, 4, 8, 12], '4': [2, 4, 8, 12], '5': [2, 4, 8, 12], '6': [2, 4, 8, 12], '7': [2, 4, 8, 12], '9': [2, 4, 8, 12]}, 'unique_d_global_by_b': {'12': [4, 5, 6, 7, 9, 10, 12], '2': [4, 5, 6, 7, 9, 10, 12], '4': [4, 5, 6, 7, 9, 10, 12], '8': [4, 5, 6, 7, 9, 10, 12]}, 'vif_d_global_b': 1.0007829612885517}",
+      "detail": "axes={'axes_independent': True, 'corr_d_global_b': -0.027970497667619318, 'min_unique_b_per_d_global': 4, 'min_unique_d_global_per_b': 7, 'provenance': 'separator_scaling_axes_independence_check_v0_2', 'source': 'autonomous_stage_a_run', 'unique_b_by_d_global': {'10': [2, 4, 8, 12], '12': [2, 4, 8, 12], '4': [2, 4, 8, 12], '5': [2, 4, 8, 12], '6': [2, 4, 8, 12], '7': [2, 4, 8, 12], '9': [2, 4, 8, 12]}, 'unique_d_global_by_b': {'12': [4, 5, 6, 7, 9, 10, 12], '2': [4, 5, 6, 7, 9, 10, 12], '4': [4, 5, 6, 7, 9, 10, 12], '8': [4, 5, 6, 7, 9, 10, 12]}, 'vif_d_global_b': 1.0007829612885517}",
       "name": "rung1_separator_axes_independence_recorded",
       "status": "PASS",
       "tier": "rung1_separator_scaling"
@@ -2899,16 +2935,76 @@
       "tier": "rung1_separator_scaling"
     },
     {
-      "detail": "capacity_rows=112; dd_detail=56; dd_regression=6; thrash_rows=56",
+      "detail": "capacity_rows=112; recovery_rows=84; dd_detail=56; dd_regression=6; thrash_rows=56",
       "name": "rung1_separator_analysis_tables_recorded",
       "status": "PASS",
       "tier": "rung1_separator_scaling"
     },
     {
-      "detail": "acceptance={'axes_independent': True, 'llm_version_allowed': False, 'overall_pass': False, 'pool_complete': True}; verdict_checks=['axes_independence_check', 'cap_monolith_collapse', 'cap_team_survives', 'dd_interaction_chrono_b_negative', 'dd_interaction_chrono_dglobal_positive', 'keff_constant', 'kill_capacity_law_mismatch', 'kill_forced_not_better', 'kill_interaction_dglobal_not_positive', 'local_contribution_positive', 'overall_pass', 'pool_targets_met', 'quant_collapse_matches_law']",
+      "detail": "acceptance={'axes_independent': True, 'fairness_corner_clean': True, 'llm_version_allowed': True, 'overall_pass': True, 'pool_complete': True}; verdict_checks=['axes_independence_check', 'cap_monolith_collapse', 'cap_team_survives', 'dd_interaction_chrono_b_negative', 'dd_interaction_chrono_dglobal_positive', 'fairness_corner_clean', 'fairness_per_agent_cap_equals_D', 'fairness_register_reproduces_capacity_law', 'fairness_shared_channel_accounted', 'fairness_team_within_D_on_solved', 'instrumentation_reads_enforced_register', 'keff_constant', 'kill_capacity_law_mismatch', 'kill_forced_not_better', 'kill_interaction_dglobal_not_positive', 'kill_team_exceeds_D', 'local_contribution_positive', 'overall_pass', 'peak_local_not_pinned_to_block_size', 'pool_targets_met', 'quant_collapse_matches_law', 'recovery_loop_regression_ok']",
       "name": "rung1_separator_verdict_and_gate",
       "status": "PASS",
       "tier": "rung1_separator_scaling"
+    },
+    {
+      "detail": "results/experiment_items/item_059_rung1_separator_llm_po.json",
+      "name": "item_059_rung1_separator_llm_po_present",
+      "status": "PASS",
+      "tier": "rung1_separator_llm_po"
+    },
+    {
+      "detail": "results/rung1_separator_llm_po/results.json",
+      "name": "rung1_separator_llm_po_present",
+      "status": "PASS",
+      "tier": "rung1_separator_llm_po"
+    },
+    {
+      "detail": "item_number=059",
+      "name": "item059_number_present",
+      "status": "PASS",
+      "tier": "rung1_separator_llm_po"
+    },
+    {
+      "detail": "status=RUNG1_SEPARATOR_LLM_PO_PREFLIGHT_READY_NOT_RUN",
+      "name": "item059_status_valid",
+      "status": "PASS",
+      "tier": "rung1_separator_llm_po"
+    },
+    {
+      "detail": "tables=['forward_gate_budget_at_95_solve', 'forward_gate_keff_inflation', 'forward_gate_operator_error_breakdown', 'forward_gate_prelaunch_truncation_gate', 'forward_gate_recovery_sweep_cost_estimate', 'forward_gate_verdict', 'gate_preflight', 'gpu_inventory', 'planned_run_config', 'verdict']",
+      "name": "item059_required_tables_present",
+      "status": "PASS",
+      "tier": "rung1_separator_llm_po"
+    },
+    {
+      "detail": "gates={'symbolic_separator_v0_2_3_fairness_gate': 'PASS', 'forward_gate_truncation_ok': 'PASS', 'qwen35_model_record': 'PASS', 'requested_gpus_visible': 'PASS'}",
+      "name": "item059_gate_rows_recorded",
+      "status": "PASS",
+      "tier": "rung1_separator_llm_po"
+    },
+    {
+      "detail": "status=RUNG1_SEPARATOR_LLM_PO_PREFLIGHT_READY_NOT_RUN; gate={'blockers': [], 'gate': 'symbolic_separator_v0_2_3_fairness_and_p1a_forward_truncation_required_before_recovery', 'p1a_forward_gate_config_ok': True, 'p1a_forward_gate_hardness_ok': True, 'p1a_forward_gate_max_all_frac_truncated_no_answer': 0.0, 'p1a_forward_gate_max_deep_frac_truncated_no_answer': 0.0, 'p1a_forward_gate_max_new_tokens': 8192, 'p1a_forward_gate_prompt_contract': 'p1a_json_only_branch_value_no_reasoning_v1', 'p1a_forward_gate_schema_observed': 'rung1_separator_llm_po_forward_gate_v1', 'p1a_forward_gate_schema_required': 'rung1_separator_llm_po_forward_gate_v1', 'p1a_forward_gate_solve_rate': 0.0, 'p1a_forward_gate_status_observed': 'RUNG1_SEPARATOR_LLM_PO_FORWARD_GATE_PASS', 'p1a_forward_gate_truncation_ok': True, 'pass': True, 'provenance': 'rung1_separator_llm_po_fail_closed_gate_v0', 'qwen35_download_recorded': True, 'requested_gpus': 4, 'source': 'autonomous_stage_a_run', 'symbolic_fairness_corner_clean': True, 'symbolic_llm_version_allowed': True, 'symbolic_overall_pass': True, 'symbolic_schema_observed': 'rung1_separator_scaling_symbolic_v0_2_3', 'symbolic_schema_required': 'rung1_separator_scaling_symbolic_v0_2_3', 'symbolic_status_observed': 'RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS', 'visible_gpus': 8}",
+      "name": "rung1_separator_llm_po_gate_fail_closed",
+      "status": "PASS",
+      "tier": "rung1_separator_llm_po"
+    },
+    {
+      "detail": "planned={'comm_budget_sweep': [64, 128, 192, 256, 384, 512, 768, 1024], 'first_rung': 'P1a_branch_only_sound', 'forward_gate_truncation_threshold': 0.1, 'frozen_symbolic_components': ['register', 'recovery_routing', 'boundary_message_protocol', 'symbolic_guard_for_P1a'], 'generation_contract': 'P1a returns compact JSON-only branch values; extract last parseable JSON; record truncated_no_answer/parsable_invalid/valid plus finish_reason, output_tokens, thinking_tokens', 'gpu_device_ids': [0, 1, 2, 3], 'max_new_tokens_minimum': 8192, 'model_id': 'Qwen/Qwen3.5-4B', 'n_per_cell': 24, 'n_seeds': 2, 'oom_retry_batch_size_per_gpu': 1, 'p1a_prompt_contract': 'p1a_json_only_branch_value_no_reasoning_v1', 'p1a_thinking_disabled': True, 'per_instance_llm_call_cap': 200, 'planned_cells': ['corner_local_heavy', 'dg_m2_dl5_b2', 'dg_m4_dl5_b2', 'dg_m6_dl5_b2', 'b_b12_mid_dglobal'], 'po_visibility': 'agent sees own block, incident boundary edges, and messaged boundary-neighbor colors only; no global graph view', 'provenance': 'rung1_separator_llm_po_phase2_plan_v1', 'recommended_initial_batch_size_per_gpu': 2, 'requested_gpus': 4, 'required_forward_gate_schema': 'rung1_separator_llm_po_forward_gate_v1', 'rungs': ['P1a_branch_only_sound', 'P1b_llm_propagation_guarded', 'P1c_operator_triggered_unguarded'], 'source': 'autonomous_stage_a_run', 'temperature': 0}; n_visible=8",
+      "name": "rung1_separator_llm_po_plan_and_gpu_recorded",
+      "status": "PASS",
+      "tier": "rung1_separator_llm_po"
+    },
+    {
+      "detail": "verdict_checks=['forward_gate_truncation_ok', 'llm_run_started', 'symbolic_separator_v0_2_3_fairness_gate']",
+      "name": "rung1_separator_llm_po_verdict_recorded",
+      "status": "PASS",
+      "tier": "rung1_separator_llm_po"
+    },
+    {
+      "detail": "status=RUNG1_SEPARATOR_LLM_PO_FORWARD_GATE_PASS; acceptance={'forward_gate_pass': True, 'forward_gate_truncation_ok': True, 'llm_p1a_full_table_allowed': True, 'solve_rate': 0.0, 'too_easy_threshold': 0.3}; n_metrics=144; truncation=[{'deepest_d_global': 12, 'gate': 'forward_gate_truncation_ok', 'max_all_frac_truncated_no_answer': 0.0, 'max_deep_frac_truncated_no_answer': 0.0, 'pass': True, 'provenance': 'qwen35_p1a_forward_gate_truncation_prelaunch_v1', 'source': 'autonomous_stage_a_run', 'threshold': 0.1}]; cost=[{'arms': ['forward_markov_team_qwen_p1a', 'chronological_rollback_team_qwen_p1a', 'cbj_bounded_team_qwen_p1a'], 'comm_budget_sweep_len_if_applied': 8, 'estimated_qwen_calls_with_comm_budget_sweep': 27648, 'estimated_qwen_calls_without_comm_budget_sweep': 3456, 'n_cells': 6, 'n_per_cell': 24, 'pilot_median_calls_per_instance': 8.0, 'provenance': 'qwen35_p1a_recovery_sweep_call_estimate_v1', 'source': 'autonomous_stage_a_run'}]",
+      "name": "rung1_separator_llm_po_forward_gate_recorded",
+      "status": "PASS",
+      "tier": "rung1_separator_llm_po"
     },
     {
       "detail": "results/ttt/results.json",
@@ -2953,11 +3049,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-10T06:36:08.855788+00:00",
+  "generated_at": "2026-06-10T10:46:58.762438+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 492,
+    "n_checks": 508,
     "n_fail": 3,
-    "n_pass": 489
+    "n_pass": 505
   }
 }

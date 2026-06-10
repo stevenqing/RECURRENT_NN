@@ -26,6 +26,9 @@ results/**
 !results/rung1_phase1_r2_budget_sweep/results.json
 !results/rung1_separator_scaling/
 !results/rung1_separator_scaling/results.json
+!results/rung1_separator_llm_po/
+!results/rung1_separator_llm_po/results.json
+!results/rung1_separator_llm_po/p1a_forward_gate.json
 !results/model_readiness/
 !results/model_readiness/readiness.json
 !results/model_download/

@@ -64,6 +64,7 @@ PATHS = {
     "item_056_rung1_phase1_r3_qwen_oneshot": "results/experiment_items/item_056_rung1_phase1_r3_qwen_oneshot.json",
     "item_057_rung1_phase1_r2_budget_sweep": "results/experiment_items/item_057_rung1_phase1_r2_budget_sweep.json",
     "item_058_rung1_separator_scaling": "results/experiment_items/item_058_rung1_separator_scaling.json",
+    "item_059_rung1_separator_llm_po": "results/experiment_items/item_059_rung1_separator_llm_po.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
@@ -79,6 +80,8 @@ PATHS = {
     "rung1_phase1_r3_qwen_oneshot": "results/rung1_phase1_r3_qwen_oneshot/results.json",
     "rung1_phase1_r2_budget_sweep": "results/rung1_phase1_r2_budget_sweep/results.json",
     "rung1_separator_scaling": "results/rung1_separator_scaling/results.json",
+    "rung1_separator_llm_po": "results/rung1_separator_llm_po/results.json",
+    "rung1_separator_llm_po_forward_gate": "results/rung1_separator_llm_po/p1a_forward_gate.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
@@ -959,8 +962,9 @@ def _rung1_separator_scaling_checks(checks: list[dict[str, Any]]) -> None:
     _exists(checks, "rung1_separator_scaling", "rung1_separator_scaling")
     item = _read_json("item_058_rung1_separator_scaling")
     results = _read_json("rung1_separator_scaling")
+    result_schema = results.get("schema_version") if results else None
     allowed_statuses = {"RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS", "RUNG1_SEPARATOR_SCALING_SYMBOLIC_KILL_RECORDED", "RUNG1_SEPARATOR_SCALING_SYMBOLIC_POOL_PARTIAL", "RUNG1_SEPARATOR_SCALING_SYMBOLIC_AXES_DESIGN_STOP"}
-    allowed_schemas = {"rung1_separator_scaling_symbolic_v0", "rung1_separator_scaling_symbolic_v0_1"}
+    allowed_schemas = {"rung1_separator_scaling_symbolic_v0", "rung1_separator_scaling_symbolic_v0_1", "rung1_separator_scaling_symbolic_v0_2", "rung1_separator_scaling_symbolic_v0_2_1", "rung1_separator_scaling_symbolic_v0_2_2", "rung1_separator_scaling_symbolic_v0_2_3"}
     required_tables = {"axes_independence_check", "instance_manifest", "keff_by_cell", "instance_arm_metrics", "capacity_leg", "double_dissociation_detail", "double_dissociation_regression", "high_thrash_diagnostics", "verdict"}
     required_arms = {"monolith_cbj", "forward_markov_team", "chronological_rollback_team", "cbj_bounded_team"}
     allowed_metric_statuses = {"SOLVED", "OVERFLOW_FAIL", "FORWARD_DEAD_END", "NODE_CAP"}
@@ -968,7 +972,12 @@ def _rung1_separator_scaling_checks(checks: list[dict[str, Any]]) -> None:
         _check(checks, item.get("item_number") == "058", "item058_number_present", f"item_number={item.get('item_number')}", "rung1_separator_scaling")
         _check(checks, item.get("status") in allowed_statuses, "item058_status_valid", f"status={item.get('status')}", "rung1_separator_scaling")
         tables = item.get("result_tables", {})
-        _check(checks, required_tables.issubset(set(tables)), "item058_required_tables_present", f"tables={sorted(tables)}", "rung1_separator_scaling")
+        item_required_tables = set(required_tables)
+        if result_schema == "rung1_separator_scaling_symbolic_v0_2_2":
+            item_required_tables.add("recovery_dynamics_v02_vs_v022")
+        if result_schema == "rung1_separator_scaling_symbolic_v0_2_3":
+            item_required_tables.add("recovery_dynamics_v02_vs_v023")
+        _check(checks, item_required_tables.issubset(set(tables)), "item058_required_tables_present", f"tables={sorted(tables)}", "rung1_separator_scaling")
         gates = {row.get("gate"): row.get("outcome") for row in item.get("decision", {}).get("gate_outcomes", [])}
         _check(checks, "overall_pass" in gates and item.get("decision", {}).get("overall_pass") is not None, "item058_verdict_gate_recorded", f"gates={gates}", "rung1_separator_scaling")
     if results:
@@ -978,6 +987,7 @@ def _rung1_separator_scaling_checks(checks: list[dict[str, Any]]) -> None:
         keff_rows = results.get("keff_by_cell", [])
         metrics = results.get("instance_arm_metrics", [])
         capacity_rows = results.get("capacity_leg", [])
+        recovery_rows = results.get("recovery_dynamics_v02_vs_v023" if result_schema == "rung1_separator_scaling_symbolic_v0_2_3" else "recovery_dynamics_v02_vs_v022", [])
         dd_detail = results.get("double_dissociation_detail", [])
         dd_regression = results.get("double_dissociation_regression", [])
         thrash_rows = results.get("high_thrash_diagnostics", [])
@@ -989,24 +999,90 @@ def _rung1_separator_scaling_checks(checks: list[dict[str, Any]]) -> None:
         expected_metric_rows = len(manifest) * len(required_arms)
         axes_stop = results.get("status") == "RUNG1_SEPARATOR_SCALING_SYMBOLIC_AXES_DESIGN_STOP"
         _check(checks, results.get("schema_version") in allowed_schemas and results.get("status") in allowed_statuses, "rung1_separator_schema_status", f"schema={results.get('schema_version')}; status={results.get('status')}", "rung1_separator_scaling")
-        _check(checks, generation.get("arms") == ["monolith_cbj", "forward_markov_team", "chronological_rollback_team", "cbj_bounded_team"] and generation.get("team_loop_provenance") == "phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0", "rung1_separator_generation_config", f"generation={generation}", "rung1_separator_scaling")
+        team_provenance_ok = generation.get("team_loop_provenance") in {"phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0", "phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_per_component_capacity_v02", "phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_per_agent_fairness_v021", "phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_read_only_trail_fairness_v022", "phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0_enforced_capacity_register_fairness_v023"}
+        _check(checks, generation.get("arms") == ["monolith_cbj", "forward_markov_team", "chronological_rollback_team", "cbj_bounded_team"] and team_provenance_ok, "rung1_separator_generation_config", f"generation={generation}", "rung1_separator_scaling")
         manifest_ok = bool(manifest) and all({"instance_id", "seed", "m_blocks", "n_per_block", "k", "d_local", "b", "d_boundary", "target_d_global", "d_global_reference", "reference_cross_agent_conflict_depth", "local_contribution", "cell_id", "sweep", "n_intra_block_edges", "n_boundary_edges", "d_local_capacity_ok", "register_capacity_D", "comm_budget_C", "density", "target_met"}.issubset(row) for row in manifest)
         _check(checks, manifest_ok, "rung1_separator_manifest_schema", f"rows={len(manifest)}", "rung1_separator_scaling")
         axes_ok = {"corr_d_global_b", "vif_d_global_b", "min_unique_d_global_per_b", "min_unique_b_per_d_global", "axes_independent"}.issubset(axes_check)
         _check(checks, axes_ok and (axes_stop or axes_check.get("axes_independent") == acceptance.get("axes_independent")), "rung1_separator_axes_independence_recorded", f"axes={axes_check}", "rung1_separator_scaling")
         keff_ok = bool(keff_rows) and all({"d_global_bin", "b_bin", "mean_live_domain_at_decision", "density", "n", "keff_constant_flag"}.issubset(row) for row in keff_rows)
         _check(checks, keff_ok, "rung1_separator_keff_recorded", f"rows={len(keff_rows)}; flags={[row.get('keff_constant_flag') for row in keff_rows]}", "rung1_separator_scaling")
-        metrics_ok = (axes_stop and not metrics) or (len(metrics) == expected_metric_rows and arms == required_arms and metric_statuses.issubset(allowed_metric_statuses) and all({"instance_id", "arm", "cell_id", "sweep", "d_global_reference", "b", "d_boundary", "d_local", "m_blocks", "local_contribution", "solved", "status", "peak_register_entries", "comm_tokens", "total_retractions", "overflowed", "steps_to_solve_or_cap", "register_capacity_D", "comm_budget_C", "node_cap", "seed"}.issubset(row) for row in metrics))
+        base_metric_keys = {"instance_id", "arm", "cell_id", "sweep", "d_global_reference", "b", "d_boundary", "d_local", "m_blocks", "local_contribution", "solved", "status", "peak_register_entries", "comm_tokens", "total_retractions", "overflowed", "steps_to_solve_or_cap", "register_capacity_D", "comm_budget_C", "team_global_register_capacity", "node_cap", "seed"}
+        fairness_schema = results.get("schema_version") in {"rung1_separator_scaling_symbolic_v0_2_1", "rung1_separator_scaling_symbolic_v0_2_2", "rung1_separator_scaling_symbolic_v0_2_3"}
+        fairness_metric_ok = not fairness_schema or all((row.get("arm") == "monolith_cbj" and {"single_register_capacity", "single_register_peak"}.issubset(row)) or (row.get("arm") != "monolith_cbj" and {"local_register_capacity_per_agent", "peak_local_register_per_agent", "shared_channel_capacity", "peak_shared_channel", "sum_local_register_across_agents"}.issubset(row)) for row in metrics)
+        v022_metric_ok = results.get("schema_version") != "rung1_separator_scaling_symbolic_v0_2_2" or all((row.get("arm") == "monolith_cbj" and {"trail_predicate_single_register_peak", "trail_predicate_reproduces_monolith_peak"}.issubset(row)) or (row.get("arm") != "monolith_cbj" and {"v02_reference_comm_tokens", "v02_reference_total_retractions", "recovery_loop_match_v02"}.issubset(row)) for row in metrics)
+        v023_metric_ok = results.get("schema_version") != "rung1_separator_scaling_symbolic_v0_2_3" or all((row.get("arm") == "monolith_cbj" and {"capacity_law_single_register_peak", "fairness_register_peak", "fairness_register_reproduces_capacity_law_peak"}.issubset(row) and row.get("single_register_peak") == row.get("capacity_law_single_register_peak")) or (row.get("arm") != "monolith_cbj" and {"v02_reference_comm_tokens", "v02_reference_total_retractions", "recovery_loop_match_v02", "instrumentation_reads_enforced_register", "raw_peak_local_register_per_agent", "non_fairness_diagnostic_only"}.issubset(row)) for row in metrics)
+        metrics_ok = (axes_stop and not metrics) or (len(metrics) == expected_metric_rows and arms == required_arms and metric_statuses.issubset(allowed_metric_statuses) and all(base_metric_keys.issubset(row) for row in metrics) and fairness_metric_ok and v022_metric_ok and v023_metric_ok)
         _check(checks, metrics_ok, "rung1_separator_metric_rows_complete", f"rows={len(metrics)}; expected={expected_metric_rows}; arms={sorted(arms)}; statuses={sorted(metric_statuses)}", "rung1_separator_scaling")
         capacity_ok = (axes_stop and not capacity_rows) or (bool(capacity_rows) and all({"d_global_bin", "b_bin", "arm", "n", "solve_rate", "mean_peak_register_entries", "overflow_rate", "predicted_collapse_d", "observed_solve_at_this_dglobal"}.issubset(row) for row in capacity_rows))
+        recovery_ok = result_schema not in {"rung1_separator_scaling_symbolic_v0_2_2", "rung1_separator_scaling_symbolic_v0_2_3"} or (bool(recovery_rows) and all(({"d_global_bin", "b_bin", "arm", "n", "v02_mean_comm_tokens", "v02_mean_total_retractions", "all_rows_match_v02"}.issubset(row) and ((result_schema == "rung1_separator_scaling_symbolic_v0_2_2" and {"v022_mean_comm_tokens", "v022_mean_total_retractions"}.issubset(row)) or (result_schema == "rung1_separator_scaling_symbolic_v0_2_3" and {"v023_mean_comm_tokens", "v023_mean_total_retractions"}.issubset(row)))) for row in recovery_rows))
         dd_ok = (axes_stop and not dd_detail and not dd_regression) or (bool(dd_detail) and {row.get("arm") for row in dd_detail} == {"cbj_bounded_team", "chronological_rollback_team"} and {row.get("term") for row in dd_regression}.issuperset({"arm_chrono_x_d_global", "arm_chrono_x_b"}))
         thrash_ok = (axes_stop and not thrash_rows) or (bool(thrash_rows) and all({"d_global_bin", "b_bin", "arm", "n", "median_steps", "iqr_steps", "high_thrash_count", "culprit_trace_available"}.issubset(row) for row in thrash_rows))
-        _check(checks, capacity_ok and dd_ok and thrash_ok, "rung1_separator_analysis_tables_recorded", f"capacity_rows={len(capacity_rows)}; dd_detail={len(dd_detail)}; dd_regression={len(dd_regression)}; thrash_rows={len(thrash_rows)}", "rung1_separator_scaling")
+        _check(checks, capacity_ok and recovery_ok and dd_ok and thrash_ok, "rung1_separator_analysis_tables_recorded", f"capacity_rows={len(capacity_rows)}; recovery_rows={len(recovery_rows)}; dd_detail={len(dd_detail)}; dd_regression={len(dd_regression)}; thrash_rows={len(thrash_rows)}", "rung1_separator_scaling")
         required_verdict = {"axes_independence_check", "pool_targets_met", "local_contribution_positive", "keff_constant", "cap_monolith_collapse", "cap_team_survives", "dd_interaction_chrono_dglobal_positive", "dd_interaction_chrono_b_negative", "quant_collapse_matches_law", "kill_interaction_dglobal_not_positive", "kill_capacity_law_mismatch", "kill_forced_not_better", "overall_pass"}
+        if results.get("schema_version") in {"rung1_separator_scaling_symbolic_v0_2_1", "rung1_separator_scaling_symbolic_v0_2_2", "rung1_separator_scaling_symbolic_v0_2_3"}:
+            required_verdict |= {"fairness_per_agent_cap_equals_D", "fairness_team_within_D_on_solved", "fairness_shared_channel_accounted", "fairness_corner_clean", "kill_team_exceeds_D"}
+        if results.get("schema_version") == "rung1_separator_scaling_symbolic_v0_2_2":
+            required_verdict |= {"recovery_loop_regression_ok", "trail_predicate_reproduces_monolith", "peak_local_not_pinned_to_block_size"}
+        if results.get("schema_version") == "rung1_separator_scaling_symbolic_v0_2_3":
+            required_verdict |= {"recovery_loop_regression_ok", "fairness_register_reproduces_capacity_law", "instrumentation_reads_enforced_register", "peak_local_not_pinned_to_block_size"}
         if axes_stop:
             required_verdict = {"axes_independence_check", "overall_pass"}
-        verdict_ok = required_verdict.issubset(verdict_by_check) and acceptance.get("overall_pass") == verdict_by_check.get("overall_pass", {}).get("pass") and acceptance.get("llm_version_allowed") == acceptance.get("overall_pass")
+        fairness_ok = results.get("schema_version") not in {"rung1_separator_scaling_symbolic_v0_2_1", "rung1_separator_scaling_symbolic_v0_2_2", "rung1_separator_scaling_symbolic_v0_2_3"} or acceptance.get("fairness_corner_clean") == verdict_by_check.get("fairness_corner_clean", {}).get("pass")
+        verdict_ok = required_verdict.issubset(verdict_by_check) and acceptance.get("overall_pass") == verdict_by_check.get("overall_pass", {}).get("pass") and acceptance.get("llm_version_allowed") == acceptance.get("overall_pass") and fairness_ok
         _check(checks, verdict_ok, "rung1_separator_verdict_and_gate", f"acceptance={acceptance}; verdict_checks={sorted(verdict_by_check)}", "rung1_separator_scaling")
+
+
+def _rung1_separator_llm_po_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "item_059_rung1_separator_llm_po", "rung1_separator_llm_po")
+    _exists(checks, "rung1_separator_llm_po", "rung1_separator_llm_po")
+    item = _read_json("item_059_rung1_separator_llm_po")
+    results = _read_json("rung1_separator_llm_po")
+    allowed_statuses = {"RUNG1_SEPARATOR_LLM_PO_GATED_STOP", "RUNG1_SEPARATOR_LLM_PO_PREFLIGHT_READY_NOT_RUN"}
+    if item:
+        _check(checks, item.get("item_number") == "059", "item059_number_present", f"item_number={item.get('item_number')}", "rung1_separator_llm_po")
+        _check(checks, item.get("status") in allowed_statuses, "item059_status_valid", f"status={item.get('status')}", "rung1_separator_llm_po")
+        tables = item.get("result_tables", {})
+        _check(checks, {"gate_preflight", "gpu_inventory", "planned_run_config", "verdict"}.issubset(tables), "item059_required_tables_present", f"tables={sorted(tables)}", "rung1_separator_llm_po")
+        gates = {row.get("gate"): row.get("outcome") for row in item.get("decision", {}).get("gate_outcomes", [])}
+        _check(checks, gates.get("symbolic_separator_v0_2_3_fairness_gate") in {"PASS", "STOP"} and gates.get("requested_gpus_visible") in {"PASS", "FAIL"}, "item059_gate_rows_recorded", f"gates={gates}", "rung1_separator_llm_po")
+    if results:
+        gate = results.get("gate_preflight", {})
+        planned = results.get("planned_run_config", {})
+        gpu = results.get("gpu_inventory", {})
+        verdict_by_check = {row.get("check"): row for row in results.get("verdict", [])}
+        gate_pass = bool(gate.get("pass"))
+        gated_stop = results.get("status") == "RUNG1_SEPARATOR_LLM_PO_GATED_STOP"
+        ready_not_run = results.get("status") == "RUNG1_SEPARATOR_LLM_PO_PREFLIGHT_READY_NOT_RUN"
+        schema_status_ok = results.get("schema_version") == "rung1_separator_llm_po_preflight_v0" and results.get("status") in allowed_statuses
+        gate_shape_ok = {"symbolic_schema_required", "symbolic_schema_observed", "symbolic_overall_pass", "symbolic_llm_version_allowed", "symbolic_fairness_corner_clean", "requested_gpus", "visible_gpus", "blockers", "p1a_forward_gate_schema_required", "p1a_forward_gate_hardness_ok", "p1a_forward_gate_truncation_ok", "p1a_forward_gate_config_ok"}.issubset(gate)
+        no_llm_tables_empty = all(not results.get(name) for name in ["operator_error_breakdown", "keff_inflation", "efficiency_gap_survival", "dstar_vs_inflated_keff", "budget_at_95_solve", "instance_arm_metrics"])
+        status_matches_gate = (gated_stop and not gate_pass and bool(gate.get("blockers"))) or (ready_not_run and gate_pass)
+        planned_ok = planned.get("model_id") == "Qwen/Qwen3.5-4B" and planned.get("temperature") == 0 and planned.get("max_new_tokens_minimum") == 8192 and planned.get("p1a_prompt_contract") == "p1a_json_only_branch_value_no_reasoning_v1" and planned.get("recommended_initial_batch_size_per_gpu") == 2 and planned.get("oom_retry_batch_size_per_gpu") == 1 and planned.get("gpu_device_ids") == list(range(int(planned.get("requested_gpus", 0)))) and planned.get("comm_budget_sweep") == [64, 128, 192, 256, 384, 512, 768, 1024]
+        gpu_ok = int(gpu.get("n_visible", 0)) >= int(gate.get("requested_gpus", 8))
+        _check(checks, schema_status_ok and gate_shape_ok and status_matches_gate and no_llm_tables_empty, "rung1_separator_llm_po_gate_fail_closed", f"status={results.get('status')}; gate={gate}", "rung1_separator_llm_po")
+        _check(checks, planned_ok and gpu_ok, "rung1_separator_llm_po_plan_and_gpu_recorded", f"planned={planned}; n_visible={gpu.get('n_visible')}", "rung1_separator_llm_po")
+        _check(checks, {"symbolic_separator_v0_2_3_fairness_gate", "forward_gate_truncation_ok", "llm_run_started"}.issubset(verdict_by_check), "rung1_separator_llm_po_verdict_recorded", f"verdict_checks={sorted(verdict_by_check)}", "rung1_separator_llm_po")
+    forward_gate_path = _path("rung1_separator_llm_po_forward_gate")
+    if forward_gate_path.exists():
+        forward_gate = _read_json("rung1_separator_llm_po_forward_gate")
+        allowed_forward_statuses = {"RUNG1_SEPARATOR_LLM_PO_FORWARD_GATE_PASS", "RUNG1_SEPARATOR_LLM_PO_FORWARD_GATE_TOO_EASY_STOP"}
+        if forward_gate:
+            acceptance = forward_gate.get("acceptance", {})
+            verdict_by_check = {row.get("check"): row for row in forward_gate.get("verdict", [])}
+            metrics = forward_gate.get("instance_arm_metrics", [])
+            truncation_rows = forward_gate.get("prelaunch_truncation_gate", [])
+            cost_rows = forward_gate.get("recovery_sweep_cost_estimate", [])
+            config = forward_gate.get("generation_config", {})
+            schema_status_ok = forward_gate.get("schema_version") == "rung1_separator_llm_po_forward_gate_v1" and forward_gate.get("status") in allowed_forward_statuses
+            tables_ok = all(forward_gate.get(name) for name in ["operator_error_breakdown", "keff_inflation", "budget_at_95_solve", "instance_arm_metrics", "prelaunch_truncation_gate", "recovery_sweep_cost_estimate"])
+            verdict_ok = verdict_by_check.get("kill_po_too_easy", {}).get("pass") == bool(acceptance.get("forward_gate_pass")) and verdict_by_check.get("forward_gate_truncation_ok", {}).get("pass") == bool(acceptance.get("forward_gate_truncation_ok"))
+            metric_shape_ok = bool(metrics) and all({"solved", "llm_calls", "generation_valid", "value_misselection", "rho", "model_id", "prompt_contract", "max_new_tokens", "n_per_cell", "batch_size_per_gpu"}.issubset(row) for row in metrics)
+            observed_batches = [int(value) for value in config.get("batch_size_per_gpu_observed_values", [])]
+            config_ok = config.get("max_new_tokens") == 8192 and config.get("prompt_contract") == "p1a_json_only_branch_value_no_reasoning_v1" and config.get("batch_size_per_gpu_max_allowed") == 2 and config.get("oom_retry_batch_size_per_gpu") == 1 and bool(observed_batches) and max(observed_batches) <= 2
+            truncation_ok = bool(truncation_rows) and all(row.get("gate") == "forward_gate_truncation_ok" and row.get("max_deep_frac_truncated_no_answer") <= row.get("threshold") and row.get("max_all_frac_truncated_no_answer") <= row.get("threshold") for row in truncation_rows)
+            cost_ok = bool(cost_rows) and all({"pilot_median_calls_per_instance", "estimated_qwen_calls_without_comm_budget_sweep", "estimated_qwen_calls_with_comm_budget_sweep"}.issubset(row) for row in cost_rows)
+            _check(checks, schema_status_ok and tables_ok and verdict_ok and metric_shape_ok and config_ok and truncation_ok and cost_ok, "rung1_separator_llm_po_forward_gate_recorded", f"status={forward_gate.get('status')}; acceptance={acceptance}; n_metrics={len(metrics)}; truncation={truncation_rows}; cost={cost_rows[:1]}", "rung1_separator_llm_po")
 
 
 def _canonical_checks(checks: list[dict[str, Any]]) -> None:
@@ -1059,6 +1135,7 @@ def validate_outputs(output_dir: str = "results/validation") -> dict[str, Any]:
     _rung1_phase1_r3_qwen_oneshot_checks(checks)
     _rung1_phase1_r2_budget_sweep_checks(checks)
     _rung1_separator_scaling_checks(checks)
+    _rung1_separator_llm_po_checks(checks)
     _legacy_checks(checks)
 
     passed = all(check["status"] == "PASS" for check in checks)
