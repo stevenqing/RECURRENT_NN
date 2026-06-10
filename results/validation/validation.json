@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=30",
+      "detail": "count=31",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -1651,6 +1651,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_058_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_058_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=058",
+      "name": "log_item_058_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_058_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This is a symbolic pilot only. It does not run Qwen agents or LLM fallibility/K_eff inflation.",
+      "name": "log_item_058_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=13; routing=Proceed to the LLM-operator separator-scaling version only if overall_pass=True; otherwise stop at the triggered symbolic kill/partial condition.",
+      "name": "log_item_058_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -2227,13 +2263,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'register_entry_classification', 'pop_read', 'write_drop_mask', 'spill_off_write_drop', 'final_solution_readback', 'forward_read'}",
+      "detail": "rules={'write_drop_mask', 'forward_read', 'spill_off_write_drop', 'final_solution_readback', 'pop_read', 'register_entry_classification'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_choice_unmasked', 'P_all_unmasked', 'P_choice', 'threshold_D_peak', 'P_all', 'P_pop_unmasked', 'P_pop', 'threshold_D_pop'}; rows=768",
+      "detail": "candidates={'P_all_unmasked', 'P_choice_unmasked', 'threshold_D_peak', 'P_choice', 'P_all', 'P_pop', 'threshold_D_pop', 'P_pop_unmasked'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2257,7 +2293,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rows=64; statuses={'measured', 'timeout'}",
+      "detail": "rows=64; statuses={'timeout', 'measured'}",
       "name": "e1_sudoku_compositional_real_trace_subsample",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2269,7 +2305,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_choice_unmasked', 'P_all_unmasked', 'P_choice', 'P_all', 'P_pop_unmasked', 'P_pop'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_all_unmasked', 'P_choice_unmasked', 'P_choice', 'P_all', 'P_pop', 'P_pop_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2791,6 +2827,84 @@
       "tier": "rung1_phase1_r2"
     },
     {
+      "detail": "results/experiment_items/item_058_rung1_separator_scaling.json",
+      "name": "item_058_rung1_separator_scaling_present",
+      "status": "PASS",
+      "tier": "rung1_separator_scaling"
+    },
+    {
+      "detail": "results/rung1_separator_scaling/results.json",
+      "name": "rung1_separator_scaling_present",
+      "status": "PASS",
+      "tier": "rung1_separator_scaling"
+    },
+    {
+      "detail": "item_number=058",
+      "name": "item058_number_present",
+      "status": "PASS",
+      "tier": "rung1_separator_scaling"
+    },
+    {
+      "detail": "status=RUNG1_SEPARATOR_SCALING_SYMBOLIC_KILL_RECORDED",
+      "name": "item058_status_valid",
+      "status": "PASS",
+      "tier": "rung1_separator_scaling"
+    },
+    {
+      "detail": "tables=['capacity_leg', 'double_dissociation_detail', 'double_dissociation_regression', 'instance_arm_metrics', 'instance_manifest', 'keff_by_cell', 'verdict']",
+      "name": "item058_required_tables_present",
+      "status": "PASS",
+      "tier": "rung1_separator_scaling"
+    },
+    {
+      "detail": "gates={'pool_targets_met': 'PASS', 'keff_constant': 'PASS', 'cap_monolith_collapse': 'PASS', 'cap_team_survives': 'PASS', 'dd_cbj_flat_in_dglobal': 'FAIL', 'dd_cbj_rises_in_b': 'PASS', 'dd_chrono_rises_in_dglobal': 'PASS', 'dd_chrono_flat_in_b': 'PASS', 'quant_collapse_matches_law': 'PASS', 'kill_cbj_comm_rises_with_dglobal': 'PASS', 'kill_capacity_law_mismatch': 'PASS', 'kill_forced_not_better': 'PASS', 'overall_pass': 'FAIL'}",
+      "name": "item058_verdict_gate_recorded",
+      "status": "PASS",
+      "tier": "rung1_separator_scaling"
+    },
+    {
+      "detail": "schema=rung1_separator_scaling_symbolic_v0; status=RUNG1_SEPARATOR_SCALING_SYMBOLIC_KILL_RECORDED",
+      "name": "rung1_separator_schema_status",
+      "status": "PASS",
+      "tier": "rung1_separator_scaling"
+    },
+    {
+      "detail": "generation={'arms': ['monolith_cbj', 'forward_markov_team', 'chronological_rollback_team', 'cbj_bounded_team'], 'b_bins': [3, 4], 'comm_budget_C': 16, 'd_global_bins': [4, 5, 6, 7], 'd_local': 2, 'k': 4, 'm_blocks': 4, 'monolith_provenance': 'global_cbj_effective_register_capacity_D_over_ln_keff_v0', 'n_per_block': 4, 'n_per_cell': 5, 'node_cap': 240, 'register_capacity_D': 6, 'seed': 20260610, 'source': 'autonomous_stage_a_run', 'team_loop_provenance': 'phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0'}",
+      "name": "rung1_separator_generation_config",
+      "status": "PASS",
+      "tier": "rung1_separator_scaling"
+    },
+    {
+      "detail": "rows=40",
+      "name": "rung1_separator_manifest_schema",
+      "status": "PASS",
+      "tier": "rung1_separator_scaling"
+    },
+    {
+      "detail": "rows=8; flags=[True, True, True, True, True, True, True, True]",
+      "name": "rung1_separator_keff_recorded",
+      "status": "PASS",
+      "tier": "rung1_separator_scaling"
+    },
+    {
+      "detail": "rows=160; expected=160; arms=['cbj_bounded_team', 'chronological_rollback_team', 'forward_markov_team', 'monolith_cbj']; statuses=['FORWARD_DEAD_END', 'OVERFLOW_FAIL', 'SOLVED']",
+      "name": "rung1_separator_metric_rows_complete",
+      "status": "PASS",
+      "tier": "rung1_separator_scaling"
+    },
+    {
+      "detail": "capacity_rows=32; dd_detail=16; dd_regression=2",
+      "name": "rung1_separator_analysis_tables_recorded",
+      "status": "PASS",
+      "tier": "rung1_separator_scaling"
+    },
+    {
+      "detail": "acceptance={'llm_version_allowed': False, 'overall_pass': False, 'pool_complete': True}; verdict_checks=['cap_monolith_collapse', 'cap_team_survives', 'dd_cbj_flat_in_dglobal', 'dd_cbj_rises_in_b', 'dd_chrono_flat_in_b', 'dd_chrono_rises_in_dglobal', 'keff_constant', 'kill_capacity_law_mismatch', 'kill_cbj_comm_rises_with_dglobal', 'kill_forced_not_better', 'overall_pass', 'pool_targets_met', 'quant_collapse_matches_law']",
+      "name": "rung1_separator_verdict_and_gate",
+      "status": "PASS",
+      "tier": "rung1_separator_scaling"
+    },
+    {
       "detail": "results/ttt/results.json",
       "name": "ttt_legacy_present",
       "status": "PASS",
@@ -2833,11 +2947,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-09T18:25:38.540937+00:00",
+  "generated_at": "2026-06-10T05:54:26.349754+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 472,
+    "n_checks": 491,
     "n_fail": 3,
-    "n_pass": 469
+    "n_pass": 488
   }
 }

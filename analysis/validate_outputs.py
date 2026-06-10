@@ -63,6 +63,7 @@ PATHS = {
     "item_055_rung1_phase1_r4_natural_pool": "results/experiment_items/item_055_rung1_phase1_r4_natural_pool.json",
     "item_056_rung1_phase1_r3_qwen_oneshot": "results/experiment_items/item_056_rung1_phase1_r3_qwen_oneshot.json",
     "item_057_rung1_phase1_r2_budget_sweep": "results/experiment_items/item_057_rung1_phase1_r2_budget_sweep.json",
+    "item_058_rung1_separator_scaling": "results/experiment_items/item_058_rung1_separator_scaling.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
@@ -77,6 +78,7 @@ PATHS = {
     "rung1_phase1_r4_natural_pool": "results/rung1_phase1_r4_natural_pool/results.json",
     "rung1_phase1_r3_qwen_oneshot": "results/rung1_phase1_r3_qwen_oneshot/results.json",
     "rung1_phase1_r2_budget_sweep": "results/rung1_phase1_r2_budget_sweep/results.json",
+    "rung1_separator_scaling": "results/rung1_separator_scaling/results.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
@@ -952,6 +954,52 @@ def _rung1_phase1_r2_budget_sweep_checks(checks: list[dict[str, Any]]) -> None:
         _check(checks, budget_ok and efficiency_ok and results.get("status") == "RUNG1_PHASE1_R2_SYMBOLIC_BUDGET_SWEEP_RECORDED", "rung1_phase1_r2_tables_recorded", f"budget_rows={len(budget_rows)}; efficiency_rows={len(efficiency_rows)}", "rung1_phase1_r2")
 
 
+def _rung1_separator_scaling_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "item_058_rung1_separator_scaling", "rung1_separator_scaling")
+    _exists(checks, "rung1_separator_scaling", "rung1_separator_scaling")
+    item = _read_json("item_058_rung1_separator_scaling")
+    results = _read_json("rung1_separator_scaling")
+    allowed_statuses = {"RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS", "RUNG1_SEPARATOR_SCALING_SYMBOLIC_KILL_RECORDED", "RUNG1_SEPARATOR_SCALING_SYMBOLIC_POOL_PARTIAL"}
+    required_tables = {"instance_manifest", "keff_by_cell", "instance_arm_metrics", "capacity_leg", "double_dissociation_detail", "double_dissociation_regression", "verdict"}
+    required_arms = {"monolith_cbj", "forward_markov_team", "chronological_rollback_team", "cbj_bounded_team"}
+    allowed_metric_statuses = {"SOLVED", "OVERFLOW_FAIL", "FORWARD_DEAD_END", "NODE_CAP"}
+    if item:
+        _check(checks, item.get("item_number") == "058", "item058_number_present", f"item_number={item.get('item_number')}", "rung1_separator_scaling")
+        _check(checks, item.get("status") in allowed_statuses, "item058_status_valid", f"status={item.get('status')}", "rung1_separator_scaling")
+        tables = item.get("result_tables", {})
+        _check(checks, required_tables.issubset(set(tables)), "item058_required_tables_present", f"tables={sorted(tables)}", "rung1_separator_scaling")
+        gates = {row.get("gate"): row.get("outcome") for row in item.get("decision", {}).get("gate_outcomes", [])}
+        _check(checks, "overall_pass" in gates and item.get("decision", {}).get("overall_pass") is not None, "item058_verdict_gate_recorded", f"gates={gates}", "rung1_separator_scaling")
+    if results:
+        generation = results.get("generation_config", {})
+        acceptance = results.get("acceptance", {})
+        manifest = results.get("instance_manifest", [])
+        keff_rows = results.get("keff_by_cell", [])
+        metrics = results.get("instance_arm_metrics", [])
+        capacity_rows = results.get("capacity_leg", [])
+        dd_detail = results.get("double_dissociation_detail", [])
+        dd_regression = results.get("double_dissociation_regression", [])
+        verdict = results.get("verdict", [])
+        arms = {row.get("arm") for row in metrics}
+        metric_statuses = {row.get("status") for row in metrics}
+        verdict_by_check = {row.get("check"): row for row in verdict}
+        expected_metric_rows = len(manifest) * len(required_arms)
+        _check(checks, results.get("schema_version") == "rung1_separator_scaling_symbolic_v0" and results.get("status") in allowed_statuses, "rung1_separator_schema_status", f"schema={results.get('schema_version')}; status={results.get('status')}", "rung1_separator_scaling")
+        _check(checks, generation.get("arms") == ["monolith_cbj", "forward_markov_team", "chronological_rollback_team", "cbj_bounded_team"] and generation.get("team_loop_provenance") == "phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0", "rung1_separator_generation_config", f"generation={generation}", "rung1_separator_scaling")
+        manifest_ok = bool(manifest) and all({"instance_id", "seed", "m_blocks", "n_per_block", "k", "d_local", "b", "d_boundary", "d_global_reference", "reference_cross_agent_conflict_depth", "n_intra_block_edges", "n_boundary_edges", "d_local_capacity_ok", "register_capacity_D", "comm_budget_C", "density", "target_met"}.issubset(row) for row in manifest)
+        _check(checks, manifest_ok, "rung1_separator_manifest_schema", f"rows={len(manifest)}", "rung1_separator_scaling")
+        keff_ok = bool(keff_rows) and all({"d_global_bin", "b_bin", "mean_live_domain_at_decision", "density", "n", "keff_constant_flag"}.issubset(row) for row in keff_rows)
+        _check(checks, keff_ok, "rung1_separator_keff_recorded", f"rows={len(keff_rows)}; flags={[row.get('keff_constant_flag') for row in keff_rows]}", "rung1_separator_scaling")
+        metrics_ok = len(metrics) == expected_metric_rows and arms == required_arms and metric_statuses.issubset(allowed_metric_statuses) and all({"instance_id", "arm", "d_global_reference", "b", "solved", "status", "peak_register_entries", "comm_tokens", "total_retractions", "overflowed", "steps_to_solve_or_cap", "register_capacity_D", "comm_budget_C", "node_cap", "seed"}.issubset(row) for row in metrics)
+        _check(checks, metrics_ok, "rung1_separator_metric_rows_complete", f"rows={len(metrics)}; expected={expected_metric_rows}; arms={sorted(arms)}; statuses={sorted(metric_statuses)}", "rung1_separator_scaling")
+        capacity_ok = bool(capacity_rows) and all({"d_global_bin", "b_bin", "arm", "n", "solve_rate", "mean_peak_register_entries", "overflow_rate", "predicted_collapse_d", "observed_solve_at_this_dglobal"}.issubset(row) for row in capacity_rows)
+        dd_ok = bool(dd_detail) and {row.get("arm") for row in dd_regression} == {"cbj_bounded_team", "chronological_rollback_team"}
+        _check(checks, capacity_ok and dd_ok, "rung1_separator_analysis_tables_recorded", f"capacity_rows={len(capacity_rows)}; dd_detail={len(dd_detail)}; dd_regression={len(dd_regression)}", "rung1_separator_scaling")
+        required_verdict = {"cap_monolith_collapse", "cap_team_survives", "dd_cbj_flat_in_dglobal", "dd_cbj_rises_in_b", "dd_chrono_rises_in_dglobal", "dd_chrono_flat_in_b", "quant_collapse_matches_law", "overall_pass"}
+        verdict_ok = required_verdict.issubset(verdict_by_check) and acceptance.get("overall_pass") == verdict_by_check.get("overall_pass", {}).get("pass") and acceptance.get("llm_version_allowed") == acceptance.get("overall_pass")
+        _check(checks, verdict_ok, "rung1_separator_verdict_and_gate", f"acceptance={acceptance}; verdict_checks={sorted(verdict_by_check)}", "rung1_separator_scaling")
+
+
 def _canonical_checks(checks: list[dict[str, Any]]) -> None:
     _check(checks, REPO_ROOT == Path("/home/aiscuser/RECURRENT_NN"), "canonical_repo_is_recurrent_nn", f"repo_root={REPO_ROOT}", "p0")
     old_repo = Path("/home/aiscuser/stage_d_llm")
@@ -1001,6 +1049,7 @@ def validate_outputs(output_dir: str = "results/validation") -> dict[str, Any]:
     _rung1_phase1_r4_natural_pool_checks(checks)
     _rung1_phase1_r3_qwen_oneshot_checks(checks)
     _rung1_phase1_r2_budget_sweep_checks(checks)
+    _rung1_separator_scaling_checks(checks)
     _legacy_checks(checks)
 
     passed = all(check["status"] == "PASS" for check in checks)

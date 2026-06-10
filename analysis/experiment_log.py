@@ -44,6 +44,7 @@ ARTIFACT_INDEX = {
     "item_055_rung1_phase1_r4_natural_pool": "results/experiment_items/item_055_rung1_phase1_r4_natural_pool.json",
     "item_056_rung1_phase1_r3_qwen_oneshot": "results/experiment_items/item_056_rung1_phase1_r3_qwen_oneshot.json",
     "item_057_rung1_phase1_r2_budget_sweep": "results/experiment_items/item_057_rung1_phase1_r2_budget_sweep.json",
+    "item_058_rung1_separator_scaling": "results/experiment_items/item_058_rung1_separator_scaling.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
     "model_readiness": "results/model_readiness/readiness.json",
@@ -97,6 +98,7 @@ ARTIFACT_INDEX = {
     "rung1_phase1_r4_natural_pool": "results/rung1_phase1_r4_natural_pool/results.json",
     "rung1_phase1_r3_qwen_oneshot": "results/rung1_phase1_r3_qwen_oneshot/results.json",
     "rung1_phase1_r2_budget_sweep": "results/rung1_phase1_r2_budget_sweep/results.json",
+    "rung1_separator_scaling": "results/rung1_separator_scaling/results.json",
     "validation": "results/validation/validation.json",
 }
 
