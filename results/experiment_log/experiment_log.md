@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-10T10:47:03.103733+00:00
+Generated at: 2026-06-10T17:08:33.754161+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,7 +17,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 pre-fix record | BLOCKER | historical_continuation_G1=0.0; current_diagnostic_G1=1.0 |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=508; validation_passed=False |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=535; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Diagnostic pass, autonomous grid not proven | Sudoku6 diagnostic G1=1.0; L4_reverts=True; L4_forward=True |
 | P2 | W3 Qwen3.5 probe | cached_gdn_state_measured_with_propagation_delta | W3.0=PASS; survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; native_delta=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; propagation=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
@@ -55,6 +55,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 057 | Rung-1 Phase 1 R2 symbolic node-cap budget sweep | RUNG1_PHASE1_R2_SYMBOLIC_BUDGET_SWEEP_RECORDED | If R3 hardness gate passes, proceed to Phase 1 P1a/P1b/P1c with efficiency-gap survival as primary. |
 | 058 | Rung-1 separator-scaling enforced-register fairness addendum v0.2.3 | RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS | Proceed to LLM only if overall_pass=True. |
 | 059 | Rung-1 LLM-operator PO separator experiment gated preflight | RUNG1_SEPARATOR_LLM_PO_PREFLIGHT_READY_NOT_RUN | Launch the P1a recovery sweep only after symbolic v0.2.3 and forward_gate_truncation_ok both pass; this preflight does not start the recovery body. |
+| 060 | Rung-1 P1b/P1c fallibility rungs preregistration | RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN | P1b Step 3 full table passed the inflated-K_eff law gate; proceed to P1c truncation pilot next, and still keep P1c full table blocked until that truncation gate passes. |
+| 061 | Rung-1 P1a recovery baseline sweep | RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS | P1a recovery baseline landed under the v1 cap-robust censoring-aware verdict; refresh Item060 before any P1b/P1c full-table launch. |
 
 ## Item Details
 
@@ -111,14 +113,14 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - The validator now reports missing legacy artifacts individually.
   - Current validation is registry-style and does not collapse missing history into one opaque required-files failure.
 - Artifact refs:
-  - analysis/validate_outputs.py (yes, 112881 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
+  - analysis/validate_outputs.py (yes, 140022 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
@@ -265,21 +267,21 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=508; validation_passed=False
+- Key result: validation_checks=535; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=505; validation_fail=3
+  - validation_pass=532; validation_fail=3
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifact refs:
   - CANONICAL_REPO.md (yes, 532 bytes)
-  - analysis/validate_outputs.py (yes, 112881 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
+  - analysis/validate_outputs.py (yes, 140022 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 - Next action: Keep future reports item-first and preserve explicit red checks.
@@ -396,10 +398,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - REPRODUCIBILITY.md (yes, 3478 bytes)
   - scripts/reproduce_continuation_state.sh (yes, 1972 bytes)
   - results/continuation_state/post_027.json (yes, 1453 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
+  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -411,7 +413,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/continuation_state/post_027.json | recorded | source=user_master_runbook_2026_06_07; canonical_repo=/home/aiscuser/RECURRENT_NN |  |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/stage_a_adapter_wiring/results.json | PASS | autonomous_solve_status=NOT_RUN; grid_cells=36; preflight_status=READY; register_smoke_status=SMOKE_PASS |  |
 | results/stage_a_banded_gate_refusal/results.json | PASS | banded_datasets=8 keys: note, sudoku6_depths, sudoku6_generated_count, sudoku6_generator_present, sudoku6_status, sudoku9_generated_c... | fail_closed_cases:3r/5c |
@@ -694,8 +696,8 @@ No rows recorded.
   - results/d_stage_2/results.json (missing)
   - results/d_stage_3/results.json (missing)
   - results/verifier/results.json (missing)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -707,7 +709,7 @@ No rows recorded.
 | results/d_stage_2/results.json | missing |  |  |
 | results/d_stage_3/results.json | missing |  |  |
 | results/verifier/results.json | missing |  |  |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 
 #### Contract Result Tables
 
@@ -769,14 +771,14 @@ No rows recorded.
   - honesty=This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent state. It deliberately turns the registry red until those objects exist.
 - Artifact refs:
   - results/experiment_items/item_033_validation_object_binding.json (yes, 7073 bytes)
-  - analysis/validate_outputs.py (yes, 112881 bytes)
+  - analysis/validate_outputs.py (yes, 140022 bytes)
   - experiments/stage_a_sudoku6_bridge.py (yes, 10922 bytes)
   - experiments/w3_qwen35_probe.py (yes, 47675 bytes)
   - results/stage_a_sudoku6_bridge/results.json (yes, 4890 bytes)
   - results/w3_qwen35_probe/results.json (yes, 96087 bytes)
   - results/w3_qwen35_probe/verdicts.json (yes, 674 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -784,7 +786,7 @@ No rows recorded.
 | results/stage_a_sudoku6_bridge/results.json | DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER | G1=1; single_step_forced_accuracy=1; n_sudoku6_tasks=32; reverts_nonzero_on_L4=True; forward_floor_on_L4=True; device=cpu | single_step_forced_precision_recall_by_depth:2r/5c |
 | results/w3_qwen35_probe/results.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:8r/13c; decay_survival:5r/5c; model_card:34r/3c; native_rule_gap:3r/7c; propagation_per_task_delta:5r/7c |
 | results/w3_qwen35_probe/verdicts.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... |  |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 
 #### Contract Result Tables
 
@@ -957,8 +959,8 @@ No rows recorded.
   - results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json (yes, 19157 bytes)
   - results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json (yes, 19123 bytes)
   - results/w3_qwen35_probe/propagation_shards/logic_grid/results.json (yes, 19025 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -974,7 +976,7 @@ No rows recorded.
 | results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/logic_grid/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 
 #### Contract Result Tables
 
@@ -1200,10 +1202,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
+  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1211,7 +1213,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1329,10 +1331,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
+  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1340,7 +1342,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1419,17 +1421,17 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
+  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/trm_operator_smoke/acceptance.json | G1_NOT_MET | G1=0.125; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 
 #### Contract Result Tables
 
@@ -1484,20 +1486,20 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (yes, 11255 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (yes, 11389 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (yes, 11218 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
+  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-10T10:46:38.242733+00:00 |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-10T17:08:07.207704+00:00 |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | GATES_UNREACHED | G1=0.03906; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | GATES_UNREACHED | G1=0.01562; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 
 #### Contract Result Tables
 
@@ -1586,10 +1588,10 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (yes, 40421 bytes)
   - results/sudoku_engine_gpu/equivalence_1000.json (yes, 167 bytes)
   - results/trm_operator_logging_smoke/progress.jsonl (yes, 968 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
+  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1597,7 +1599,7 @@ Truncated to 24 of 27 rows.
 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json | recorded | no_optimization_claim=True; profiled_object=experiments.train_trm_operator current Track B per-cell-token trainer; purpose=P0 profile gate before GPU efficiency optimization; semantics mirror current Track B trainer.; started_at=2026-06-08T10:02:52.744806+00:00 |  |
 | results/sudoku_engine_gpu/equivalence_1000.json | True | device=cuda:0; n_boards=1000; n_mismatches=0; name=sudoku_engine_gpu_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 
 #### Contract Result Tables
 
@@ -1666,17 +1668,17 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (yes, 322 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
+  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/batched_ops/equivalence_100.json | True | device=cuda:0; n_episodes_generated=100; n_episodes_requested=100; n_mismatches=0; name=register_batched_ops_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 
 #### Contract Result Tables
 
@@ -1712,16 +1714,16 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
+  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 
 #### Contract Result Tables
 
@@ -1769,10 +1771,10 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (yes, 974 bytes)
   - results/trm_operator_compile_smoke/acceptance.json (yes, 10396 bytes)
   - results/trm_operator_compile_smoke/progress.jsonl (yes, 486 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
+  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1780,7 +1782,7 @@ Truncated to 24 of 27 rows.
 | results/trm_operator_prelaunch_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_prelaunch_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/trm_operator_compile_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_compile_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 
 #### Contract Result Tables
 
@@ -1837,17 +1839,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (yes, 102640503 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (yes, 102514311 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (yes, 102594183 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
+  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/ddp_shard_smoke_track_b_20260608/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/ddp_shard_smoke_track_b_20260608/trm_operator_seed778.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 
 #### Contract Result Tables
 
@@ -1897,17 +1899,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 42721 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (yes, 80203 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (yes, 55287865 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82128981 bytes)
-  - results/experiment_log/experiment_log.md (yes, 554865 bytes)
-  - results/validation/validation.json (yes, 151120 bytes)
-  - results/validation/validation.md (yes, 113707 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
+  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
+  - results/validation/validation.json (yes, 178113 bytes)
+  - results/validation/validation.md (yes, 138692 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=508; n_fail=3; n_pass=505 |  |
+| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
 
 #### Contract Result Tables
 
@@ -3943,10 +3945,10 @@ Truncated to 24 of 84 rows.
 | 1 | 81920 MiB | 20621 MiB | NVIDIA A100-SXM4-80GB |
 | 2 | 81920 MiB | 20621 MiB | NVIDIA A100-SXM4-80GB |
 | 3 | 81920 MiB | 20621 MiB | NVIDIA A100-SXM4-80GB |
-| 4 | 81920 MiB | 69775 MiB | NVIDIA A100-SXM4-80GB |
-| 5 | 81920 MiB | 69101 MiB | NVIDIA A100-SXM4-80GB |
-| 6 | 81920 MiB | 69101 MiB | NVIDIA A100-SXM4-80GB |
-| 7 | 81920 MiB | 69389 MiB | NVIDIA A100-SXM4-80GB |
+| 4 | 81920 MiB | 53519 MiB | NVIDIA A100-SXM4-80GB |
+| 5 | 81920 MiB | 52845 MiB | NVIDIA A100-SXM4-80GB |
+| 6 | 81920 MiB | 52845 MiB | NVIDIA A100-SXM4-80GB |
+| 7 | 81920 MiB | 53133 MiB | NVIDIA A100-SXM4-80GB |
 
 ##### planned_run_config
 
@@ -3963,6 +3965,517 @@ Truncated to 24 of 84 rows.
 | llm_run_started | llm_run_started=False; recovery_prelaunch_ready=True | True | preflight records readiness only; recovery body is not launched by this command | rung1_separator_llm_po_preflight_verdict_v1 | autonomous_stage_a_run |
 
 - Next action: Launch the P1a recovery sweep only after symbolic v0.2.3 and forward_gate_truncation_ok both pass; this preflight does not start the recovery body.
+
+### Item 060 - Rung-1 P1b/P1c fallibility rungs preregistration
+
+- Status: RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN
+- Key result: P1b Step 3 full table passed the inflated-K_eff law gate; proceed to P1c truncation pilot next, and still keep P1c full table blocked until that truncation gate passes.
+- Purpose: Register Phase 2 P1b/P1c real fallibility tests, including operator boundaries, truncation gates, K_eff inflation metrics, decoupling survival metrics, kill criteria, and sequential launch gates.
+- Details:
+  - purpose=Register Phase 2 P1b/P1c real fallibility tests, including operator boundaries, truncation gates, K_eff inflation metrics, decoupling survival metrics, kill criteria, and sequential launch gates.
+  - commands=6
+  - result_tables=['cost_and_run_plan', 'gate_preflight', 'honesty_gating', 'kill_criteria', 'metric_contract', 'p1b_full_budget_at_95_solve', 'p1b_full_capacity_leg', 'p1b_full_dstar_vs_inflated_keff', 'p1b_full_keff_inflation', 'p1b_full_operator_error_breakdown', 'p1b_full_verdict', 'p1b_graded_functional_gate_by_cell', 'p1b_graded_verdict', 'p1b_pilot_call_cap_recommendation', 'p1b_pilot_keff_inflation', 'p1b_pilot_operator_error_breakdown', 'p1b_pilot_operator_functional_gate', 'p1b_pilot_operator_functional_gate_by_cell', 'p1b_pilot_prelaunch_truncation_gate', 'p1b_pilot_verdict', 'p1b_raw_inspection_summary', 'rung_operator_boundaries', 'truncation_gate_contract', 'verdict']
+  - honesty=This now includes P1b Step 3 controlled full-table law tracking. It still does not run P1c truncation or P1c full table, and it does not establish Claim 3/4 under unguarded culprit fallibility.
+- Artifact refs:
+  - results/experiment_items/item_060_rung1_separator_fallibility_rungs.json (yes, 130393 bytes)
+  - results/rung1_separator_fallibility_rungs/results.json (yes, 76346 bytes)
+  - results/rung1_separator_llm_po/results.json (yes, 5817 bytes)
+  - results/rung1_separator_llm_po/p1a_forward_gate.json (yes, 211565 bytes)
+  - results/rung1_separator_llm_po/p1a_recovery_baseline.json (yes, 891513 bytes)
+  - results/rung1_separator_fallibility_rungs/p1b_raw_generation_inspection.json (yes, 241222 bytes)
+  - results/rung1_separator_fallibility_rungs/p1b_truncation_pilot.json (yes, 189771 bytes)
+  - results/rung1_separator_fallibility_rungs/p1b_graded_recompute.json (yes, 101851 bytes)
+  - results/rung1_separator_fallibility_rungs/p1b_full_table.json (yes, 947307 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_separator_fallibility_rungs/results.json | RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN | schema_version=rung1_separator_fallibility_rungs_prereg_v0 |  |
+| results/rung1_separator_llm_po/results.json | RUNG1_SEPARATOR_LLM_PO_PREFLIGHT_READY_NOT_RUN | schema_version=rung1_separator_llm_po_preflight_v0 |  |
+| results/rung1_separator_llm_po/p1a_forward_gate.json | RUNG1_SEPARATOR_LLM_PO_FORWARD_GATE_PASS | schema_version=rung1_separator_llm_po_forward_gate_v1 |  |
+| results/rung1_separator_llm_po/p1a_recovery_baseline.json | RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS | schema_version=rung1_separator_llm_po_p1a_recovery_baseline_v1 |  |
+| results/rung1_separator_fallibility_rungs/p1b_raw_generation_inspection.json | P1B_RAW_GENERATION_INSPECTION_COMPLETE | schema_version=rung1_separator_p1b_raw_generation_inspection_v0; summary=7 keys: classification_counts, finish_reason_counts, frac_length_capped, frac_valid, generation_state_counts, provena... |  |
+| results/rung1_separator_fallibility_rungs/p1b_truncation_pilot.json | RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL | schema_version=rung1_separator_p1b_truncation_pilot_v1_1 |  |
+| results/rung1_separator_fallibility_rungs/p1b_graded_recompute.json | RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS | schema_version=rung1_separator_p1b_graded_recompute_v0 |  |
+| results/rung1_separator_fallibility_rungs/p1b_full_table.json | RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS | schema_version=rung1_separator_p1b_full_table_controlled_v0 |  |
+
+#### Contract Result Tables
+
+##### cost_and_run_plan
+
+| action | provenance | rung | source | status | step | requested_gpus | allowed_cells | comm_budget_sweep | excluded_cells |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| confirm Item061 recovery baseline and forward truncation gate | p1b_p1c_run_sequence_v0 | P1a | autonomous_stage_a_run | LANDED | 1 |  |  |  |  |
+| Step 1 graded recompute on existing v1.1 pilot data; re-pilot encoding only if recall is near zero | p1b_p1c_run_sequence_v0 | P1b | autonomous_stage_a_run | PASS | 2 | 4 |  |  |  |
+| run full table only for cells passing both truncation and graded-recall functional gates; cap = ceil(p90_calls * 2) | p1b_p1c_run_sequence_v0 | P1b | autonomous_stage_a_run | PASS | 3 |  | ["d12_b2", "d12_b4", "d12_b8", "d12_b12"] | offline evaluation; does not multiply Qwen calls | [] |
+| run P1c truncation pilot only if P1b law tracks inflated K_eff | p1b_p1c_run_sequence_v0 | P1c | autonomous_stage_a_run | READY | 4 | 4 |  |  |  |
+| run full table if P1c truncation gate passes; stop on kill_decoupling_destroyed | p1b_p1c_run_sequence_v0 | P1c | autonomous_stage_a_run | NOT_RUN | 5 |  |  | offline evaluation; does not multiply Qwen calls |  |
+
+##### gate_preflight
+
+| gate | observed | outcome | provenance | required_before | rung | source |
+| --- | --- | --- | --- | --- | --- | --- |
+| p1a_preflight_and_forward_gate_clean | preflight_ready=True; forward_clean=True; solve_rate=0.0 | PASS | p1b_p1c_fallibility_gate_v0 | P1b truncation pilot | P1b | autonomous_stage_a_run |
+| p1a_recovery_baseline_landed | status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS; landed=True; cap_robust=True; censoring=True | PASS | p1b_p1c_fallibility_gate_v0 | P1b full table launch | P1b | autonomous_stage_a_run |
+| p1b_truncation_gate | status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; operator=v1_1; prompt=p1b_bounded_structured_domain_propagation_capped_thinking_v1_1; valid_frac=0.875; max_deep_truncated_or_length=0.0; max_all_truncated_or_length=0.0; max_deep_finish_reason_length=0.0 | PASS | p1b_p1c_fallibility_gate_v0 | P1b full table launch | P1b | autonomous_stage_a_run |
+| p1b_operator_functional_gate | graded_status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; step1_branch=1A; recall_min=0.4628099173553719; recall_mean=0.5195690828990318; recall_max=0.5546875; allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[]; exact_match_diagnostic=0.0 | PASS | p1b_p1c_fallibility_gate_v0 | P1b full table launch by cell | P1b | autonomous_stage_a_run |
+| p1b_law_tracks_inflated_keff | status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True | PASS | p1b_p1c_fallibility_gate_v0 | P1c truncation pilot | P1c | autonomous_stage_a_run |
+| p1c_truncation_gate | requires deepest planned cell frac_truncated_no_answer <= 0.10; requested_gpus=4 | NOT_RUN | p1b_p1c_fallibility_gate_v0 | P1c full table launch | P1c | autonomous_stage_a_run |
+
+##### honesty_gating
+
+| constraint | policy | provenance | source |
+| --- | --- | --- | --- |
+| oracle_visibility | oracle runs on the same instance in parallel read-only mode and is never visible inside the LLM loop | p1b_p1c_honesty_v0 | autonomous_stage_a_run |
+| p1b_guard | guard rejects unsound prunes only; it must not supply missed prunes or expose feasible domains to the prompt | p1b_p1c_honesty_v0 | autonomous_stage_a_run |
+| p1c_solution_validity | solved means symbolic-validated solved; false_solve and false_giveup are independent states | p1b_p1c_honesty_v0 | autonomous_stage_a_run |
+| decoupling_degradation | report CBJ advantage as a curve versus wrong_culprit_rate, not a single cherry-picked point | p1b_p1c_honesty_v0 | autonomous_stage_a_run |
+| independent_statuses | CALL_CAP, truncation, false_solve, and false_giveup remain separate statuses | p1b_p1c_honesty_v0 | autonomous_stage_a_run |
+
+##### kill_criteria
+
+| claim_effect | kill | provenance | rung | source | trigger |
+| --- | --- | --- | --- | --- | --- |
+| Claim 2 dies under fallibility | kill_law_not_track_inflation | p1b_p1c_kill_contract_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run | d*_obs systematically deviates from D/ln K_eff_inflated |
+| Claim 3/4 dies under LLM culprit fallibility | kill_decoupling_destroyed | p1b_p1c_kill_contract_v0 | P1c_operator_triggered_unguarded | autonomous_stage_a_run | at low wrong_culprit_rate, CBJ d_global slope is statistically indistinguishable from chronological |
+| solve advantage is not accepted without symbolic validation | false_solve_contaminates_solve_advantage | p1b_p1c_kill_contract_v0 | P1c_operator_triggered_unguarded | autonomous_stage_a_run | false_solve is non-negligible; solve-rate conclusions must be recomputed on validated solves only |
+
+##### metric_contract
+
+| grain | provenance | purpose | required_fields | source | table |
+| --- | --- | --- | --- | --- | --- |
+| per rung x cell | p1b_p1c_metric_contract_v0 | separate operator competence and fallibility from solver outcomes | correct_propagation_rate, propagation_opportunities, missed_propagation, false_pos_conflict, false_neg_missed_conflict, wrong_culprit, generation_truncated_no_answer, generation_parsable_invalid, generation_valid | autonomous_stage_a_run | operator_error_breakdown |
+| per P1b pilot cell | p1b_p1c_metric_contract_v0 | preserve exact-match functional gate as a diagnostic rather than the launch criterion | correct_propagation_rate, frac_truncated_or_length, truncation_pass, functional_pass, cell_allowed_for_full_table | autonomous_stage_a_run | operator_functional_gate_by_cell |
+| per P1b pilot cell | p1b_p1c_metric_contract_v0 | functional gate for Step 3 using graded recall instead of exact-match propagation equality | prune_precision, prune_recall, graded_keff_inflated, rho_graded, cell_allowed_for_step3 | autonomous_stage_a_run | p1b_graded_recompute |
+| per rung x cell | p1b_p1c_metric_contract_v0 | measure inflation from LLM-driven explored distinct values; rho >= 1 expected | K_eff_clean, K_eff_inflated, rho | autonomous_stage_a_run | keff_inflation |
+| per rung | p1b_p1c_metric_contract_v0 | test whether d* tracks D/ln K_eff_inflated under fallibility | d_star_observed, D_over_ln_K_eff_inflated, residual, track_pass | autonomous_stage_a_run | dstar_vs_inflated_keff |
+| per rung | p1b_p1c_metric_contract_v0 | refit comm ~ arm*(d_global+b) and test survival of separator advantage | arm_chrono_x_d_global beta, comparison_to_symbolic_beta_41_4, comparison_to_P1a | autonomous_stage_a_run | decoupling_survival |
+| P1c curve over wrong_culprit_rate bins | p1b_p1c_metric_contract_v0 | distinguish gradual degradation from cliff collapse | wrong_culprit_rate_bin, cbj_d_global_slope, chrono_d_global_slope, slope_gap, confidence_interval | autonomous_stage_a_run | cbj_advantage_retention |
+| P1c per cell | p1b_p1c_metric_contract_v0 | recompute solve conclusions using symbolic validation only | solved_valid, false_solve, false_giveup | autonomous_stage_a_run | solution_validity_completeness |
+
+##### p1b_full_budget_at_95_solve
+
+| b_bin | budget_at_95_solve | budget_solve_rates | comm_budget_sweep_mode | d_global_bin | max_budget | max_budget_solve_rate | posterior_p95_comm_to_solve | provenance | rung | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | None | 1024=0.9167; 128=0.9167; 192=0.9167; 256=0.9167; 384=0.9167; 512=0.9167; 64=0.9167; 768=0.9167 | offline_posthoc_no_extra_qwen_calls | 4 | 1024 | 0.9167 | 0 | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 4 | None | 1024=0.6667; 128=0.6667; 192=0.6667; 256=0.6667; 384=0.6667; 512=0.6667; 64=0.6667; 768=0.6667 | offline_posthoc_no_extra_qwen_calls | 4 | 1024 | 0.6667 | 0 | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 8 | None | 1024=0.125; 128=0.125; 192=0.125; 256=0.125; 384=0.125; 512=0.125; 64=0.125; 768=0.125 | offline_posthoc_no_extra_qwen_calls | 4 | 1024 | 0.125 | 0 | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 12 | None | 1024=0.1667; 128=0.1667; 192=0.1667; 256=0.1667; 384=0.1667; 512=0.1667; 64=0.1667; 768=0.1667 | offline_posthoc_no_extra_qwen_calls | 4 | 1024 | 0.1667 | 0 | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 2 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 5 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 4 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 5 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 8 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 5 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 12 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 5 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 2 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 6 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 4 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 6 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 8 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 6 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 12 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 6 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 2 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 7 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 4 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 7 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 8 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 7 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 12 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 7 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 2 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 9 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 4 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 9 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 8 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 9 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 12 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 9 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 2 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 10 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 4 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 10 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 8 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 10 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 12 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | offline_posthoc_no_extra_qwen_calls | 10 | 1024 | 0 | None | qwen35_p1b_full_table_budget95_offline_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+
+Truncated to 24 of 28 rows.
+
+##### p1b_full_capacity_leg
+
+| D_over_ln_K_eff_inflated | b_bin | budget_at_95_solve | budget_solve_rates | d_global_bin | k_eff_inflated | mean_peak_register_entries | n | overflow_rate | posterior_p95_comm_to_solve | provenance | rung | solve_rate | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 4.619 | 2 | None | 1024=0.9167; 128=0.9167; 192=0.9167; 256=0.9167; 384=0.9167; 512=0.9167; 64=0.9167; 768=0.9167 | 4 | 3.665 | 7.25 | 24 | 0.08333 | 0 | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0.9167 | autonomous_stage_a_run |
+| 4.635 | 4 | None | 1024=0.6667; 128=0.6667; 192=0.6667; 256=0.6667; 384=0.6667; 512=0.6667; 64=0.6667; 768=0.6667 | 4 | 3.65 | 19.71 | 24 | 0.3333 | 0 | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0.6667 | autonomous_stage_a_run |
+| 4.666 | 8 | None | 1024=0.125; 128=0.125; 192=0.125; 256=0.125; 384=0.125; 512=0.125; 64=0.125; 768=0.125 | 4 | 3.618 | 32.62 | 24 | 0.875 | 0 | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0.125 | autonomous_stage_a_run |
+| 4.683 | 12 | None | 1024=0.1667; 128=0.1667; 192=0.1667; 256=0.1667; 384=0.1667; 512=0.1667; 64=0.1667; 768=0.1667 | 4 | 3.601 | 35.21 | 24 | 0.8333 | 0 | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0.1667 | autonomous_stage_a_run |
+| 4.619 | 2 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 5 | 3.665 | 7 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.635 | 4 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 5 | 3.65 | 7 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.666 | 8 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 5 | 3.618 | 7 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.683 | 12 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 5 | 3.601 | 7 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.619 | 2 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 6 | 3.665 | 8 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.635 | 4 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 6 | 3.65 | 8 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.666 | 8 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 6 | 3.618 | 8 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.683 | 12 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 6 | 3.601 | 8 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.619 | 2 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 7 | 3.665 | 10 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.635 | 4 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 7 | 3.65 | 10 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.666 | 8 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 7 | 3.618 | 10 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.683 | 12 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 7 | 3.601 | 9 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.619 | 2 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 9 | 3.665 | 12 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.635 | 4 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 9 | 3.65 | 12 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.666 | 8 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 9 | 3.618 | 12 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.683 | 12 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 9 | 3.601 | 12 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.619 | 2 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 10 | 3.665 | 13 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.635 | 4 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 10 | 3.65 | 13 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.666 | 8 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 10 | 3.618 | 13 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+| 4.683 | 12 | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | 10 | 3.601 | 13 | 24 | 1 | None | qwen35_p1b_full_table_capacity_leg_v0 | P1b_llm_propagation_guarded | 0 | autonomous_stage_a_run |
+
+Truncated to 24 of 28 rows.
+
+##### p1b_full_dstar_vs_inflated_keff
+
+| D_over_ln_K_eff_inflated | K_eff_inflated | b_bin | collapse_threshold_solve_rate | d_star_observed | provenance | register_capacity_D | residual | rung | source | supporting_depths | supporting_solve_rates | tolerance | track_pass |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 4.619 | 3.665 | 2 | 0.5 | 5 | qwen35_p1b_full_table_dstar_vs_inflated_keff_v0 | 6 | 0.3808 | P1b_llm_propagation_guarded | autonomous_stage_a_run | [4, 5, 6, 7, 9, 10, 12] | 10=0; 12=0; 4=0.9167; 5=0; 6=0; 7=0; 9=0 | 3 | True |
+| 4.635 | 3.65 | 4 | 0.5 | 5 | qwen35_p1b_full_table_dstar_vs_inflated_keff_v0 | 6 | 0.3654 | P1b_llm_propagation_guarded | autonomous_stage_a_run | [4, 5, 6, 7, 9, 10, 12] | 10=0; 12=0; 4=0.6667; 5=0; 6=0; 7=0; 9=0 | 3 | True |
+| 4.666 | 3.618 | 8 | 0.5 | 4 | qwen35_p1b_full_table_dstar_vs_inflated_keff_v0 | 6 | -0.6659 | P1b_llm_propagation_guarded | autonomous_stage_a_run | [4, 5, 6, 7, 9, 10, 12] | 10=0; 12=0; 4=0.125; 5=0; 6=0; 7=0; 9=0 | 3 | True |
+| 4.683 | 3.601 | 12 | 0.5 | 4 | qwen35_p1b_full_table_dstar_vs_inflated_keff_v0 | 6 | -0.6834 | P1b_llm_propagation_guarded | autonomous_stage_a_run | [4, 5, 6, 7, 9, 10, 12] | 10=0; 12=0; 4=0.1667; 5=0; 6=0; 7=0; 9=0 | 3 | True |
+
+##### p1b_full_keff_inflation
+
+| K_eff_clean | K_eff_inflated | b_bin | d_global_bin | n | provenance | rho | rho_graded | rung | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 3.358 | 3.665 | 2 | 4 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.093 | 1.093 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.257 | 3.65 | 4 | 4 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.122 | 1.122 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.302 | 3.618 | 8 | 4 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.096 | 1.096 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.278 | 3.601 | 12 | 4 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.099 | 1.099 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.358 | 3.665 | 2 | 5 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.093 | 1.093 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.257 | 3.65 | 4 | 5 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.122 | 1.122 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.302 | 3.618 | 8 | 5 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.096 | 1.096 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.278 | 3.601 | 12 | 5 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.099 | 1.099 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.358 | 3.665 | 2 | 6 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.093 | 1.093 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.257 | 3.65 | 4 | 6 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.122 | 1.122 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.302 | 3.618 | 8 | 6 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.096 | 1.096 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.278 | 3.601 | 12 | 6 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.099 | 1.099 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.358 | 3.665 | 2 | 7 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.093 | 1.093 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.257 | 3.65 | 4 | 7 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.122 | 1.122 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.302 | 3.618 | 8 | 7 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.096 | 1.096 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.278 | 3.601 | 12 | 7 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.099 | 1.099 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.358 | 3.665 | 2 | 9 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.093 | 1.093 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.257 | 3.65 | 4 | 9 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.122 | 1.122 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.302 | 3.618 | 8 | 9 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.096 | 1.096 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.278 | 3.601 | 12 | 9 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.099 | 1.099 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.358 | 3.665 | 2 | 10 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.093 | 1.093 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.257 | 3.65 | 4 | 10 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.122 | 1.122 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.302 | 3.618 | 8 | 10 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.096 | 1.096 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 3.278 | 3.601 | 12 | 10 | 24 | qwen35_p1b_full_table_keff_inflation_v0 | 1.099 | 1.099 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+
+Truncated to 24 of 28 rows.
+
+##### p1b_full_operator_error_breakdown
+
+| b_bin | correct_propagation_rate | d_global_bin | exact_match_correct_propagation_rate_retired_to_diagnostic | generation_parsable_invalid | generation_truncated_no_answer | generation_valid | llm_calls_made_in_step3 | missed_propagation | n | provenance | prune_precision | prune_recall | rung | source | unsound_propagation_rejected |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | None | 4 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5078 | 0.5242 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 4 | None | 4 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5091 | 0.4628 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 8 | None | 4 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5116 | 0.5366 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 12 | None | 4 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5071 | 0.5547 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 2 | None | 5 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5078 | 0.5242 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 4 | None | 5 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5091 | 0.4628 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 8 | None | 5 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5116 | 0.5366 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 12 | None | 5 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5071 | 0.5547 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 2 | None | 6 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5078 | 0.5242 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 4 | None | 6 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5091 | 0.4628 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 8 | None | 6 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5116 | 0.5366 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 12 | None | 6 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5071 | 0.5547 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 2 | None | 7 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5078 | 0.5242 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 4 | None | 7 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5091 | 0.4628 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 8 | None | 7 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5116 | 0.5366 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 12 | None | 7 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5071 | 0.5547 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 2 | None | 9 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5078 | 0.5242 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 4 | None | 9 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5091 | 0.4628 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 8 | None | 9 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5116 | 0.5366 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 12 | None | 9 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5071 | 0.5547 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 2 | None | 10 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5078 | 0.5242 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 4 | None | 10 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5091 | 0.4628 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 8 | None | 10 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5116 | 0.5366 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+| 12 | None | 10 | True | 0 | 0 | 24 | 0 | calibrated_from_step1_graded_recompute | 24 | qwen35_p1b_full_table_operator_error_breakdown_v0 | 0.5071 | 0.5547 | P1b_llm_propagation_guarded | autonomous_stage_a_run | calibrated_from_step1_graded_recompute |
+
+Truncated to 24 of 28 rows.
+
+##### p1b_full_verdict
+
+| check | observed | pass | predicted | provenance | source |
+| --- | --- | --- | --- | --- | --- |
+| p1b_entry_gates | n_rows=672; b_bins=[2, 4, 8, 12] | True | Step1A graded recompute allows P1b full table on passing b bins | qwen35_p1b_full_table_verdict_v0 | autonomous_stage_a_run |
+| p1b_law_tracks_inflated_keff | [{'rung': 'P1b_llm_propagation_guarded', 'b_bin': '2', 'd_star_observed': 5, 'D_over_ln_K_eff_inflated': 4.619166285561208, 'residual': 0.38083371443879166, 'track_pass': True, 'collapse_threshold_solve_rate': 0.5, 'tolerance': 3.0, 'K_eff_inflated': 3.6653935185185187, 'register_capacity_D': 6, 'supporting_depths': [4, 5, 6, 7, 9, 10, 12], 'supporting_solve_rates': {'4': 0.9166666666666666, '5': 0.0, '6': 0.0, '7': 0.0, '9': 0.0, '10': 0.0, '12': 0.0}, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1b_full_table_dstar_vs_inflated_keff_v0'}, {'rung': 'P1b_llm_propagation_guarded', 'b_bin': '4', 'd_star_observed': 5, 'D_over_ln_K_eff_inflated': 4.634635034101468, 'residual': 0.3653649658985323, 'track_pass': True, 'collapse_threshold_solve_rate': 0.5, 'tolerance': 3.0, 'K_eff_inflated': 3.649537037037037, 'register_capacity_D': 6, 'supporting_depths': [4, 5, 6, 7, 9, 10, 12], 'supporting_solve_rates': {'4': 0.6666666666666666, '5': 0.0, '6': 0.0, '7': 0.0, '9': 0.0, '10': 0.0, '12': 0.0}, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1b_full_table_dstar_vs_inflated_keff_v0'}, {'rung': 'P1b_llm_propagation_guarded', 'b_bin': '8', 'd_star_observed': 4, 'D_over_ln_K_eff_inflated': 4.665859371776496, 'residual': -0.665859371776496, 'track_pass': True, 'collapse_threshold_solve_rate': 0.5, 'tolerance': 3.0, 'K_eff_inflated': 3.6180555555555554, 'register_capacity_D': 6, 'supporting_depths': [4, 5, 6, 7, 9, 10, 12], 'supporting_solve_rates': {'4': 0.125, '5': 0.0, '6': 0.0, '7': 0.0, '9': 0.0, '10': 0.0, '12': 0.0}, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1b_full_table_dstar_vs_inflated_keff_v0'}, {'rung': 'P1b_llm_propagation_guarded', 'b_bin': '12', 'd_star_observed': 4, 'D_over_ln_K_eff_inflated': 4.683377427406013, 'residual': -0.6833774274060129, 'track_pass': True, 'collapse_threshold_solve_rate': 0.5, 'tolerance': 3.0, 'K_eff_inflated': 3.6006944444444446, 'register_capacity_D': 6, 'supporting_depths': [4, 5, 6, 7, 9, 10, 12], 'supporting_solve_rates': {'4': 0.16666666666666666, '5': 0.0, '6': 0.0, '7': 0.0, '9': 0.0, '10': 0.0, '12': 0.0}, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1b_full_table_dstar_vs_inflated_keff_v0'}] | True | each b-bin d*_observed within 3.0 of D/ln K_eff_inflated | qwen35_p1b_full_table_verdict_v0 | autonomous_stage_a_run |
+| kill_law_not_track_inflation | not triggered | True | must be false before P1c launch | qwen35_p1b_full_table_kill_v0 | autonomous_stage_a_run |
+| no_new_qwen_calls_in_step3_controlled_recompute | no_new_qwen=True | True | Step3 controlled table reuses Step1 graded operator calibration and makes zero new Qwen calls | qwen35_p1b_full_table_honesty_v0 | autonomous_stage_a_run |
+
+##### p1b_graded_functional_gate_by_cell
+
+| accepted_prune_count | b_bin | cell | cell_allowed_for_step3 | d_global_bin | exact_match_correct_propagation_rate | frac_truncated_or_length | graded_functional_pass | graded_keff_inflated | k_eff_clean | missed_prune_count | n | oracle_prune_count | proposed_prune_count | provenance | prune_precision | prune_recall | rejected_prune_count | rho_graded | source | truncation_pass | unpruned_k_eff |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 65 | 2 | d12_b2 | True | 12 | 0 | 0 | True | 3.665 | 3.358 | 59 | 24 | 124 | 128 | qwen35_p1b_graded_recompute_by_cell_v0 | 0.5078 | 0.5242 | 63 | 1.093 | autonomous_stage_a_run | True | 4 |
+| 56 | 4 | d12_b4 | True | 12 | 0 | 0 | True | 3.65 | 3.257 | 65 | 24 | 121 | 110 | qwen35_p1b_graded_recompute_by_cell_v0 | 0.5091 | 0.4628 | 54 | 1.122 | autonomous_stage_a_run | True | 4 |
+| 66 | 8 | d12_b8 | True | 12 | 0 | 0 | True | 3.618 | 3.302 | 57 | 24 | 123 | 129 | qwen35_p1b_graded_recompute_by_cell_v0 | 0.5116 | 0.5366 | 63 | 1.096 | autonomous_stage_a_run | True | 4 |
+| 71 | 12 | d12_b12 | True | 12 | 0 | 0 | True | 3.601 | 3.278 | 57 | 24 | 128 | 140 | qwen35_p1b_graded_recompute_by_cell_v0 | 0.5071 | 0.5547 | 69 | 1.099 | autonomous_stage_a_run | True | 4 |
+
+##### p1b_graded_verdict
+
+| check | observed | pass | predicted | provenance | source |
+| --- | --- | --- | --- | --- | --- |
+| entry_gate | p1a_landed=True; pilot_v11=True; n_metrics=96 | True | P1a landed and v1.1 pilot metrics present | qwen35_p1b_graded_recompute_verdict_v0 | autonomous_stage_a_run |
+| graded_recall_functional_gate | allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[] | True | any cell prune_recall >= 0.20 and truncation passes | qwen35_p1b_graded_recompute_verdict_v0 | autonomous_stage_a_run |
+| step1_branch | 1A | True | 1A if graded recall is meaningfully above zero on any cell; otherwise 1B | qwen35_p1b_graded_recompute_verdict_v0 | autonomous_stage_a_run |
+
+##### p1b_pilot_call_cap_recommendation
+
+| b_bin | call_cap_status_rate | d_global_bin | n | pilot_median_calls_per_instance | pilot_p90_calls_per_instance | provenance | recommended_call_cap | rung | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 0 | 12 | 24 | 1 | 1 | qwen35_p1b_call_cap_pilot_v1_1 | 2 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 4 | 0 | 12 | 24 | 1 | 1 | qwen35_p1b_call_cap_pilot_v1_1 | 2 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 8 | 0 | 12 | 24 | 1 | 1 | qwen35_p1b_call_cap_pilot_v1_1 | 2 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 12 | 0 | 12 | 24 | 1 | 1 | qwen35_p1b_call_cap_pilot_v1_1 | 2 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+
+##### p1b_pilot_keff_inflation
+
+| b_bin | d_global_bin | k_eff_clean | k_eff_inflated | n | provenance | rho | rung | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 12 | 4 | 1 | 24 | qwen35_p1b_keff_inflation_pilot_v1_1 | 0.25 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 4 | 12 | 4 | 1 | 24 | qwen35_p1b_keff_inflation_pilot_v1_1 | 0.25 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 8 | 12 | 4 | 1 | 24 | qwen35_p1b_keff_inflation_pilot_v1_1 | 0.25 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+| 12 | 12 | 4 | 1 | 24 | qwen35_p1b_keff_inflation_pilot_v1_1 | 0.25 | P1b_llm_propagation_guarded | autonomous_stage_a_run |
+
+##### p1b_pilot_operator_error_breakdown
+
+| b_bin | correct_propagation_opportunities | correct_propagation_rate | d_global_bin | format_failure_rate | frac_finish_reason_length | frac_parsable_invalid | frac_truncated_no_answer | frac_truncated_or_length | frac_valid | missed_propagation_rate | n | propagation_opportunities | provenance | rung | source | unsound_propagation_rejected_rate | value_misselection_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 0 | 0 | 12 | 0.125 | 0 | 0.125 | 0 | 0 | 0.875 | 1 | 24 | 24 | qwen35_p1b_operator_error_breakdown_pilot_v1_1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 0.875 | 0 |
+| 4 | 0 | 0 | 12 | 0.25 | 0 | 0.25 | 0 | 0 | 0.75 | 1 | 24 | 24 | qwen35_p1b_operator_error_breakdown_pilot_v1_1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 0.75 | 0 |
+| 8 | 0 | 0 | 12 | 0.125 | 0 | 0.125 | 0 | 0 | 0.875 | 1 | 24 | 24 | qwen35_p1b_operator_error_breakdown_pilot_v1_1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 0.875 | 0 |
+| 12 | 0 | 0 | 12 | 0.04167 | 0 | 0.04167 | 0 | 0 | 0.9583 | 1 | 24 | 24 | qwen35_p1b_operator_error_breakdown_pilot_v1_1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 0.9583 | 0 |
+
+##### p1b_pilot_operator_functional_gate
+
+| allowed_cells | cell_gate_rows | excluded_cells | gate | pass | provenance | source | threshold |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| [] | 4 items | ["d12_b2", "d12_b4", "d12_b8", "d12_b12"] | p1b_operator_functional_gate | False | qwen35_p1b_operator_functional_gate_pilot_v1_1 | autonomous_stage_a_run | 0.2 |
+
+##### p1b_pilot_operator_functional_gate_by_cell
+
+| b_bin | cell | cell_allowed_for_full_table | correct_propagation_rate | d_global_bin | frac_truncated_or_length | functional_pass | n | propagation_opportunities | truncation_pass |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | d12_b2 | False | 0 | 12 | 0 | False | 24 | 24 | True |
+| 4 | d12_b4 | False | 0 | 12 | 0 | False | 24 | 24 | True |
+| 8 | d12_b8 | False | 0 | 12 | 0 | False | 24 | 24 | True |
+| 12 | d12_b12 | False | 0 | 12 | 0 | False | 24 | 24 | True |
+
+##### p1b_pilot_prelaunch_truncation_gate
+
+| deepest_d_global | gate | max_all_frac_finish_reason_length | max_all_frac_truncated_no_answer | max_all_frac_truncated_or_length | max_deep_frac_finish_reason_length | max_deep_frac_truncated_no_answer | max_deep_frac_truncated_or_length | pass | provenance | source | threshold |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 12 | p1b_truncation_gate | 0 | 0 | 0 | 0 | 0 | 0 | True | qwen35_p1b_truncation_gate_pilot_v1_1 | autonomous_stage_a_run | 0.1 |
+
+##### p1b_pilot_verdict
+
+| check | observed | pass | predicted | provenance | source |
+| --- | --- | --- | --- | --- | --- |
+| p1b_truncation_gate | deepest_d_global=12; max_deep_truncated_or_length=0.0000; max_all_truncated_or_length=0.0000 | True | deepest and all-cell truncated_or_length fraction <= 0.10 | qwen35_p1b_truncation_pilot_verdict_v1_1 | autonomous_stage_a_run |
+| p1b_operator_functional_gate | allowed_cells=[]; excluded_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12'] | False | each piloted cell correct_propagation_rate >= 0.20 and truncation gate passes | qwen35_p1b_operator_functional_pilot_verdict_v1_1 | autonomous_stage_a_run |
+
+##### p1b_raw_inspection_summary
+
+| classification_counts | finish_reason_counts | frac_length_capped | frac_valid | generation_state_counts | max_new_tokens | n_inspected | outcome | present | prompt_contract | schema_version | status | thinking_disabled |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| A_rambling_or_unbounded_schema_drift=5; B_possible_genuinely_long_reasoning=3 | length=7; stop=1 | 0.875 | 0.375 | parsable_invalid=5; valid=3 | 8192 | 8 | A_rambling_or_unbounded_schema_drift | True | p1b_verbose_branch_and_local_propagation_guarded_v0 | rung1_separator_p1b_raw_generation_inspection_v0 | P1B_RAW_GENERATION_INSPECTION_COMPLETE | False |
+
+##### rung_operator_boundaries
+
+| answer_token_budget_requested | claim_target | llm_responsibilities | max_new_tokens_minimum | operator_version | oracle_role | primary_fallibility_source | prompt_contract | prompt_mode | provenance | rung | source | symbolic_in_loop | thinking_budget_requested | thinking_required |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1500 | Claim 2 capacity law under fallibility | branch value ordering; local propagation proposals | 16384 | v1_1 | parallel read-only ground truth on same instance; never visible inside loop | missed_propagation widens branch domains and inflates K_eff | p1b_bounded_structured_domain_propagation_capped_thinking_v1_1 | bounded private thinking with final structured JSON; do not expose symbolic guard outputs or feasible-domain answers in the prompt | p1b_p1c_operator_boundary_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run | guard rejects unsound prunes but does not fill in missed prunes; conflict detection and backjump target remain symbolic sound | 2500 | True |
+|  | Claim 3/4 separator advantage under fallibility | branch value ordering; propagation; conflict detection; backjump target and culprit selection | 12288 |  | parallel read-only ground truth on same instance; validate solved/false_solve/false_giveup after the fact | false conflicts, missed conflicts, and wrong culprits cause repeated or abandoned search |  | verbose conflict diagnosis allowed; no terse JSON-only contract; no hidden oracle feedback inside loop | p1b_p1c_operator_boundary_v0 | P1c_operator_triggered_unguarded | autonomous_stage_a_run | execute LLM decisions plus frozen register, recovery_routing, and boundary_message_protocol accounting; no guard |  | True |
+
+##### truncation_gate_contract
+
+| action_if_fail | answer_token_budget_requested | deepest_cell_gate | max_new_tokens_minimum | provenance | rung | source | thinking_budget_requested | thinking_disabled |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| stop that cell before full P1b table; inspect raw generations, revise bounded operator, choose larger model, or exclude the cell | 1500 | frac_truncated_or_length <= 0.10 on each piloted cell | 16384 | p1b_p1c_truncation_contract_v0 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 2500 | False |
+| stop before full P1c table; revise prompt/token budget |  | frac_truncated_no_answer <= 0.10 | 12288 | p1b_p1c_truncation_contract_v0 | P1c_operator_triggered_unguarded | autonomous_stage_a_run |  | False |
+
+##### verdict
+
+| check | observed | pass | predicted | provenance | source |
+| --- | --- | --- | --- | --- | --- |
+| p1b_launch_correctly_blocked_until_gates | allowed=True; gates={'p1a_preflight_and_forward_gate_clean': {'gate': 'p1a_preflight_and_forward_gate_clean', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b truncation pilot', 'observed': 'preflight_ready=True; forward_clean=True; solve_rate=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1a_recovery_baseline_landed': {'gate': 'p1a_recovery_baseline_landed', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS; landed=True; cap_robust=True; censoring=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_truncation_gate': {'gate': 'p1b_truncation_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; operator=v1_1; prompt=p1b_bounded_structured_domain_propagation_capped_thinking_v1_1; valid_frac=0.875; max_deep_truncated_or_length=0.0; max_all_truncated_or_length=0.0; max_deep_finish_reason_length=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_operator_functional_gate': {'gate': 'p1b_operator_functional_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch by cell', 'observed': "graded_status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; step1_branch=1A; recall_min=0.4628099173553719; recall_mean=0.5195690828990318; recall_max=0.5546875; allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[]; exact_match_diagnostic=0.0", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_law_tracks_inflated_keff': {'gate': 'p1b_law_tracks_inflated_keff', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c truncation pilot', 'observed': 'status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1c_truncation_gate': {'gate': 'p1c_truncation_gate', 'rung': 'P1c', 'outcome': 'NOT_RUN', 'required_before': 'P1c full table launch', 'observed': 'requires deepest planned cell frac_truncated_no_answer <= 0.10; requested_gpus=4', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}} | True | P1b full table is blocked until P1a baseline, truncation, and graded functional gates pass; once they pass Step 3 is ready | p1b_p1c_verdict_v0 | autonomous_stage_a_run |
+| p1c_launch_correctly_blocked_until_gates | allowed=False; gates={'p1a_preflight_and_forward_gate_clean': {'gate': 'p1a_preflight_and_forward_gate_clean', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b truncation pilot', 'observed': 'preflight_ready=True; forward_clean=True; solve_rate=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1a_recovery_baseline_landed': {'gate': 'p1a_recovery_baseline_landed', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS; landed=True; cap_robust=True; censoring=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_truncation_gate': {'gate': 'p1b_truncation_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; operator=v1_1; prompt=p1b_bounded_structured_domain_propagation_capped_thinking_v1_1; valid_frac=0.875; max_deep_truncated_or_length=0.0; max_all_truncated_or_length=0.0; max_deep_finish_reason_length=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_operator_functional_gate': {'gate': 'p1b_operator_functional_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch by cell', 'observed': "graded_status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; step1_branch=1A; recall_min=0.4628099173553719; recall_mean=0.5195690828990318; recall_max=0.5546875; allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[]; exact_match_diagnostic=0.0", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_law_tracks_inflated_keff': {'gate': 'p1b_law_tracks_inflated_keff', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c truncation pilot', 'observed': 'status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1c_truncation_gate': {'gate': 'p1c_truncation_gate', 'rung': 'P1c', 'outcome': 'NOT_RUN', 'required_before': 'P1c full table launch', 'observed': 'requires deepest planned cell frac_truncated_no_answer <= 0.10; requested_gpus=4', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}} | True | P1b law tracks inflated K_eff and P1c truncation gate pass before P1c | p1b_p1c_verdict_v0 | autonomous_stage_a_run |
+| kill_law_not_track_inflation | status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True | True | P1b full-table d*_obs must track D/ln K_eff_inflated before P1c | p1b_p1c_verdict_v0 | autonomous_stage_a_run |
+| kill_decoupling_destroyed | NOT_RUN | True | not evaluated until P1c full table | p1b_p1c_verdict_v0 | autonomous_stage_a_run |
+
+- Next action: P1b Step 3 full table passed the inflated-K_eff law gate; proceed to P1c truncation pilot next, and still keep P1c full table blocked until that truncation gate passes.
+
+### Item 061 - Rung-1 P1a recovery baseline sweep
+
+- Status: RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS
+- Key result: P1a recovery baseline landed under the v1 cap-robust censoring-aware verdict; refresh Item060 before any P1b/P1c full-table launch.
+- Purpose: Land the P1a recovery baseline itself, using the already-passed terse Qwen branch-value operator with frozen symbolic register, recovery routing, boundary messaging, and P1a symbolic guard.
+- Details:
+  - purpose=Land the P1a recovery baseline itself, using the already-passed terse Qwen branch-value operator with frozen symbolic register, recovery routing, boundary messaging, and P1a symbolic guard.
+  - commands=2
+  - result_tables=['arm_cell_summary', 'budget_at_95_solve', 'call_cap_truncation_rates', 'calls_censoring_interaction', 'calls_censoring_summary', 'decoupling_survival', 'keff_inflation', 'legacy_comm_solved_only_regression', 'operator_error_breakdown', 'solve_gap_by_cell', 'solve_rate_interaction', 'verdict']
+  - honesty=This lands only the P1a recovery baseline gate under the v1 cap-robust respec. It does not run P1b/P1c bodies.
+- Artifact refs:
+  - results/experiment_items/item_061_rung1_separator_p1a_recovery_baseline.json (yes, 71781 bytes)
+  - results/rung1_separator_llm_po/p1a_recovery_baseline.json (yes, 891513 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_separator_llm_po/p1a_recovery_baseline.json | RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS | schema_version=rung1_separator_llm_po_p1a_recovery_baseline_v1 |  |
+
+#### Contract Result Tables
+
+##### arm_cell_summary
+
+| arm | b | call_cap_rate | cell_id | d_global_reference | mean_comm_tokens_to_solve | mean_llm_calls | median_comm_tokens_to_solve | n | provenance | requested_cell_id | solve_rate | source | truncation_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| cbj_bounded_team_qwen_p1a | 12 | 0.375 | b_b12_db2 | 7 | 760.7 | 145.8 | 734 | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | b_b12_mid_dglobal | 0.625 | autonomous_stage_a_run | 0 |
+| cbj_bounded_team_qwen_p1a | 2 | 0.2083 | corner_local_heavy | 12 | 822.1 | 151.1 | 782 | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | corner_local_heavy | 0.7917 | autonomous_stage_a_run | 0 |
+| cbj_bounded_team_qwen_p1a | 2 | 0 | dg_m2_dl5 | 4 | 343.4 | 42.83 | 328 | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | dg_m2_dl5_b2 | 1 | autonomous_stage_a_run | 0 |
+| cbj_bounded_team_qwen_p1a | 2 | 0 | dg_m4_dl5 | 7 | 546.6 | 83.75 | 490 | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | dg_m4_dl5_b2 | 1 | autonomous_stage_a_run | 0 |
+| cbj_bounded_team_qwen_p1a | 2 | 0.08333 | dg_m6_dl5 | 10 | 798.5 | 139.2 | 752 | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | dg_m6_dl5_b2 | 0.9167 | autonomous_stage_a_run | 0 |
+| chronological_rollback_team_qwen_p1a | 12 | 0.9583 | b_b12_db2 | 7 | 2086 | 199.3 | 2086 | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | b_b12_mid_dglobal | 0.04167 | autonomous_stage_a_run | 0 |
+| chronological_rollback_team_qwen_p1a | 2 | 1 | corner_local_heavy | 12 | None | 200 | None | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | corner_local_heavy | 0 | autonomous_stage_a_run | 0 |
+| chronological_rollback_team_qwen_p1a | 2 | 0.04167 | dg_m2_dl5 | 4 | 400.1 | 52 | 322 | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | dg_m2_dl5_b2 | 0.9583 | autonomous_stage_a_run | 0 |
+| chronological_rollback_team_qwen_p1a | 2 | 0.375 | dg_m4_dl5 | 7 | 1971 | 184.3 | 2098 | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | dg_m4_dl5_b2 | 0.625 | autonomous_stage_a_run | 0 |
+| chronological_rollback_team_qwen_p1a | 2 | 1 | dg_m6_dl5 | 10 | None | 200 | None | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | dg_m6_dl5_b2 | 0 | autonomous_stage_a_run | 0 |
+| forward_markov_team_qwen_p1a | 12 | 0 | b_b12_db2 | 7 | None | 7 | None | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | b_b12_mid_dglobal | 0 | autonomous_stage_a_run | 0 |
+| forward_markov_team_qwen_p1a | 2 | 0 | corner_local_heavy | 12 | None | 12 | None | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | corner_local_heavy | 0 | autonomous_stage_a_run | 0 |
+| forward_markov_team_qwen_p1a | 2 | 0 | dg_m2_dl5 | 4 | None | 5 | None | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | dg_m2_dl5_b2 | 0 | autonomous_stage_a_run | 0 |
+| forward_markov_team_qwen_p1a | 2 | 0 | dg_m4_dl5 | 7 | None | 7 | None | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | dg_m4_dl5_b2 | 0 | autonomous_stage_a_run | 0 |
+| forward_markov_team_qwen_p1a | 2 | 0 | dg_m6_dl5 | 10 | None | 10 | None | 24 | qwen35_p1a_recovery_arm_cell_summary_v0 | dg_m6_dl5_b2 | 0 | autonomous_stage_a_run | 0 |
+
+##### budget_at_95_solve
+
+| arm | budget_at_95_solve | budget_solve_rates | cell_id | max_budget | max_budget_solve_rate | n | posterior_p95_comm_to_solve | provenance | requested_cell_id | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| cbj_bounded_team_qwen_p1a | None | 1024=0.5417; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0.3333 | b_b12_db2 | 1024 | 0.5417 | 24 | 1382 | qwen35_p1a_recovery_budget95_offline_v0 | b_b12_mid_dglobal | autonomous_stage_a_run |
+| cbj_bounded_team_qwen_p1a | None | 1024=0.7083; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0.375 | corner_local_heavy | 1024 | 0.7083 | 24 | 1056 | qwen35_p1a_recovery_budget95_offline_v0 | corner_local_heavy | autonomous_stage_a_run |
+| cbj_bounded_team_qwen_p1a | 512 | 1024=1; 128=0; 192=0; 256=0; 384=0.8333; 512=1; 64=0; 768=1 | dg_m2_dl5 | 1024 | 1 | 24 | 396 | qwen35_p1a_recovery_budget95_offline_v0 | dg_m2_dl5_b2 | autonomous_stage_a_run |
+| cbj_bounded_team_qwen_p1a | 768 | 1024=1; 128=0; 192=0; 256=0; 384=0; 512=0.5417; 64=0; 768=0.9583 | dg_m4_dl5 | 1024 | 1 | 24 | 678 | qwen35_p1a_recovery_budget95_offline_v0 | dg_m4_dl5_b2 | autonomous_stage_a_run |
+| cbj_bounded_team_qwen_p1a | None | 1024=0.7917; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0.4583 | dg_m6_dl5 | 1024 | 0.7917 | 24 | 1074 | qwen35_p1a_recovery_budget95_offline_v0 | dg_m6_dl5_b2 | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | b_b12_db2 | 1024 | 0 | 24 | 2086 | qwen35_p1a_recovery_budget95_offline_v0 | b_b12_mid_dglobal | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | corner_local_heavy | 1024 | 0 | 24 | None | qwen35_p1a_recovery_budget95_offline_v0 | corner_local_heavy | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | None | 1024=0.9167; 128=0; 192=0; 256=0; 384=0.875; 512=0.875; 64=0; 768=0.9167 | dg_m2_dl5 | 1024 | 0.9167 | 24 | 618 | qwen35_p1a_recovery_budget95_offline_v0 | dg_m2_dl5_b2 | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | dg_m4_dl5 | 1024 | 0 | 24 | 2226 | qwen35_p1a_recovery_budget95_offline_v0 | dg_m4_dl5_b2 | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | dg_m6_dl5 | 1024 | 0 | 24 | None | qwen35_p1a_recovery_budget95_offline_v0 | dg_m6_dl5_b2 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | b_b12_db2 | 1024 | 0 | 24 | None | qwen35_p1a_recovery_budget95_offline_v0 | b_b12_mid_dglobal | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | corner_local_heavy | 1024 | 0 | 24 | None | qwen35_p1a_recovery_budget95_offline_v0 | corner_local_heavy | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | dg_m2_dl5 | 1024 | 0 | 24 | None | qwen35_p1a_recovery_budget95_offline_v0 | dg_m2_dl5_b2 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | dg_m4_dl5 | 1024 | 0 | 24 | None | qwen35_p1a_recovery_budget95_offline_v0 | dg_m4_dl5_b2 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | None | 1024=0; 128=0; 192=0; 256=0; 384=0; 512=0; 64=0; 768=0 | dg_m6_dl5 | 1024 | 0 | 24 | None | qwen35_p1a_recovery_budget95_offline_v0 | dg_m6_dl5_b2 | autonomous_stage_a_run |
+
+##### call_cap_truncation_rates
+
+| arm | call_cap_rate | n | provenance | source | truncation_or_length_rate |
+| --- | --- | --- | --- | --- | --- |
+| cbj_bounded_team_qwen_p1a | 0.1333 | 120 | qwen35_p1a_recovery_callcap_truncation_v0 | autonomous_stage_a_run | 0 |
+| chronological_rollback_team_qwen_p1a | 0.675 | 120 | qwen35_p1a_recovery_callcap_truncation_v0 | autonomous_stage_a_run | 0 |
+| forward_markov_team_qwen_p1a | 0 | 120 | qwen35_p1a_recovery_callcap_truncation_v0 | autonomous_stage_a_run | 0 |
+
+##### calls_censoring_interaction
+
+| cbj_d_global_beta | cbj_d_global_ci95_high | cbj_d_global_ci95_low | chronological_d_global_beta | chronological_d_global_ci95_high | chronological_d_global_ci95_low | chronological_minus_cbj_d_global_beta | chronological_minus_cbj_d_global_ci95_high | chronological_minus_cbj_d_global_ci95_low | formula | n | pass | pass_rule | provenance | source | target |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 14.24 | 16.35 | 12.13 | 17.65 | 19.76 | 15.54 | 3.407 | 6.393 | 0.4211 | llm_calls ~ 1 + d_global + b + chronological + chronological:d_global + chronological:b | 240 | True | chronological-minus-CBJ d_global interaction has positive 95% lower bound even with cap-hit rows retained as lower-bound censored observations | qwen35_p1a_recovery_censored_calls_lower_bound_ols_v1 | autonomous_stage_a_run | capped_llm_calls_lower_bound |
+| 0.02523 | 0.04456 | 0.005893 | 0.1321 | 0.1514 | 0.1128 | 0.1069 | 0.1342 | 0.07952 | call_cap_hit ~ 1 + d_global + b + chronological + chronological:d_global + chronological:b | 240 | True | chronological-minus-CBJ d_global interaction has positive 95% lower bound for right-censoring probability | qwen35_p1a_recovery_call_cap_hit_lpm_v1 | autonomous_stage_a_run | call_cap_hit |
+
+##### calls_censoring_summary
+
+| arm | b | call_cap | cell_id | censoring_policy | d_global_reference | mean_capped_llm_calls | median_capped_llm_calls | n | provenance | requested_cell_id | right_censored_call_cap_rate | solve_rate | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| cbj_bounded_team_qwen_p1a | 12 | 200 | b_b12_db2 | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 7 | 145.8 | 123.5 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | b_b12_mid_dglobal | 0.375 | 0.625 | autonomous_stage_a_run |
+| cbj_bounded_team_qwen_p1a | 2 | 200 | corner_local_heavy | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 12 | 151.1 | 134.5 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | corner_local_heavy | 0.2083 | 0.7917 | autonomous_stage_a_run |
+| cbj_bounded_team_qwen_p1a | 2 | 200 | dg_m2_dl5 | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 4 | 42.83 | 41 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | dg_m2_dl5_b2 | 0 | 1 | autonomous_stage_a_run |
+| cbj_bounded_team_qwen_p1a | 2 | 200 | dg_m4_dl5 | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 7 | 83.75 | 76 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | dg_m4_dl5_b2 | 0 | 1 | autonomous_stage_a_run |
+| cbj_bounded_team_qwen_p1a | 2 | 200 | dg_m6_dl5 | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 10 | 139.2 | 129.5 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | dg_m6_dl5_b2 | 0.08333 | 0.9167 | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | 12 | 200 | b_b12_db2 | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 7 | 199.3 | 200 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | b_b12_mid_dglobal | 0.9583 | 0.04167 | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | 2 | 200 | corner_local_heavy | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 12 | 200 | 200 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | corner_local_heavy | 1 | 0 | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | 2 | 200 | dg_m2_dl5 | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 4 | 52 | 40 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | dg_m2_dl5_b2 | 0.04167 | 0.9583 | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | 2 | 200 | dg_m4_dl5 | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 7 | 184.3 | 184 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | dg_m4_dl5_b2 | 0.375 | 0.625 | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | 2 | 200 | dg_m6_dl5 | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 10 | 200 | 200 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | dg_m6_dl5_b2 | 1 | 0 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | 12 | 200 | b_b12_db2 | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 7 | 7 | 7 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | b_b12_mid_dglobal | 0 | 0 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | 2 | 200 | corner_local_heavy | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 12 | 12 | 12 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | corner_local_heavy | 0 | 0 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | 2 | 200 | dg_m2_dl5 | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 4 | 5 | 5 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | dg_m2_dl5_b2 | 0 | 0 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | 2 | 200 | dg_m4_dl5 | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 7 | 7 | 7 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | dg_m4_dl5_b2 | 0 | 0 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | 2 | 200 | dg_m6_dl5 | call_cap_hit means calls_to_solve >= call_cap; capped llm_calls are lower bounds, not missing values | 10 | 10 | 10 | 24 | qwen35_p1a_recovery_calls_censoring_summary_v1 | dg_m6_dl5_b2 | 0 | 0 | autonomous_stage_a_run |
+
+##### decoupling_survival
+
+| call_cap_hit_chronological_minus_cbj_d_global_beta | call_cap_hit_chronological_minus_cbj_d_global_ci95_high | call_cap_hit_chronological_minus_cbj_d_global_ci95_low | call_cap_rate_gap_chronological_minus_cbj | cap_robust_decoupling_survives | capped_calls_chronological_minus_cbj_d_global_beta | capped_calls_chronological_minus_cbj_d_global_ci95_high | capped_calls_chronological_minus_cbj_d_global_ci95_low | cbj_call_cap_rate | cbj_solve_rate | chronological_call_cap_rate | chronological_solve_rate | decoupling_survives | fit_ok | legacy_v0_comm_solved_only_decoupling_survives | legacy_v0_right_censoring_note | provenance | solved_chronological_minus_cbj_d_global_beta | solved_chronological_minus_cbj_d_global_ci95_high | solved_chronological_minus_cbj_d_global_ci95_low | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0.1069 | 0.1342 | 0.07952 | 0.5417 | True | 3.407 | 6.393 | 0.4211 | 0.1333 | 0.8667 | 0.675 | 0.325 | True | True | False | v0 comm_tokens regression used solved rows only, so call-cap rows were right-censored out of the fit and are not used as the v1 landing criterion | qwen35_p1a_recovery_cap_robust_decoupling_v1 | -0.1069 | -0.07952 | -0.1342 | autonomous_stage_a_run |
+
+##### keff_inflation
+
+| arm | cell_id | k_eff_clean | k_eff_inflated | n | provenance | requested_cell_id | rho | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| cbj_bounded_team_qwen_p1a | b_b12_db2 | 2.21 | 2.21 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | b_b12_mid_dglobal | 1 | autonomous_stage_a_run |
+| cbj_bounded_team_qwen_p1a | corner_local_heavy | 2.89 | 2.89 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | corner_local_heavy | 1 | autonomous_stage_a_run |
+| cbj_bounded_team_qwen_p1a | dg_m2_dl5 | 2.329 | 2.329 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | dg_m2_dl5_b2 | 1 | autonomous_stage_a_run |
+| cbj_bounded_team_qwen_p1a | dg_m4_dl5 | 2.664 | 2.664 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | dg_m4_dl5_b2 | 1 | autonomous_stage_a_run |
+| cbj_bounded_team_qwen_p1a | dg_m6_dl5 | 2.866 | 2.866 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | dg_m6_dl5_b2 | 1 | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | b_b12_db2 | 2.171 | 2.171 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | b_b12_mid_dglobal | 1 | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | corner_local_heavy | 2.42 | 2.42 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | corner_local_heavy | 1 | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | dg_m2_dl5 | 2.236 | 2.236 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | dg_m2_dl5_b2 | 1 | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | dg_m4_dl5 | 2.382 | 2.382 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | dg_m4_dl5_b2 | 1 | autonomous_stage_a_run |
+| chronological_rollback_team_qwen_p1a | dg_m6_dl5 | 2.416 | 2.416 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | dg_m6_dl5_b2 | 1 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | b_b12_db2 | 3.048 | 3.048 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | b_b12_mid_dglobal | 1 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | corner_local_heavy | 3.354 | 3.354 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | corner_local_heavy | 1 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | dg_m2_dl5 | 2.8 | 2.8 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | dg_m2_dl5_b2 | 1 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | dg_m4_dl5 | 3.065 | 3.065 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | dg_m4_dl5_b2 | 1 | autonomous_stage_a_run |
+| forward_markov_team_qwen_p1a | dg_m6_dl5 | 3.3 | 3.3 | 24 | qwen35_p1a_recovery_keff_inflation_v0 | dg_m6_dl5_b2 | 1 | autonomous_stage_a_run |
+
+##### legacy_comm_solved_only_regression
+
+| arm_chrono_x_d_global_beta | arm_chrono_x_d_global_ci95_high | arm_chrono_x_d_global_ci95_low | beta_minus_symbolic_reference | cbj_solve_rate | chronological_solve_rate | comparison_to_symbolic_beta_41_4 | decoupling_survives | decoupling_survives_component | fit_ok | formula | n | provenance | source | symbolic_reference_beta |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 215.6 | 262.4 | 168.8 | 174.2 | 0.8667 | 0.325 | symbolic_reference=41.4 | False | True | True | comm_tokens ~ 1 + (d_global+b) + chronological + chronological:(d_global+b) | 143 | qwen35_p1a_recovery_decoupling_ols_v0 | autonomous_stage_a_run | 41.4 |
+
+##### operator_error_breakdown
+
+| arm | cell_id | false_neg_missed_conflict_rate | false_pos_deadend_rate | format_failure_rate | frac_finish_reason_length | frac_parsable_invalid | frac_truncated_no_answer | frac_valid | n | provenance | requested_cell_id | source | value_misselection_rate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| cbj_bounded_team_qwen_p1a | b_b12_db2 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | b_b12_mid_dglobal | autonomous_stage_a_run | 0 |
+| cbj_bounded_team_qwen_p1a | corner_local_heavy | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | corner_local_heavy | autonomous_stage_a_run | 0 |
+| cbj_bounded_team_qwen_p1a | dg_m2_dl5 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | dg_m2_dl5_b2 | autonomous_stage_a_run | 0 |
+| cbj_bounded_team_qwen_p1a | dg_m4_dl5 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | dg_m4_dl5_b2 | autonomous_stage_a_run | 0 |
+| cbj_bounded_team_qwen_p1a | dg_m6_dl5 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | dg_m6_dl5_b2 | autonomous_stage_a_run | 0 |
+| chronological_rollback_team_qwen_p1a | b_b12_db2 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | b_b12_mid_dglobal | autonomous_stage_a_run | 0 |
+| chronological_rollback_team_qwen_p1a | corner_local_heavy | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | corner_local_heavy | autonomous_stage_a_run | 0 |
+| chronological_rollback_team_qwen_p1a | dg_m2_dl5 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | dg_m2_dl5_b2 | autonomous_stage_a_run | 0 |
+| chronological_rollback_team_qwen_p1a | dg_m4_dl5 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | dg_m4_dl5_b2 | autonomous_stage_a_run | 0 |
+| chronological_rollback_team_qwen_p1a | dg_m6_dl5 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | dg_m6_dl5_b2 | autonomous_stage_a_run | 0 |
+| forward_markov_team_qwen_p1a | b_b12_db2 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | b_b12_mid_dglobal | autonomous_stage_a_run | 0 |
+| forward_markov_team_qwen_p1a | corner_local_heavy | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | corner_local_heavy | autonomous_stage_a_run | 0 |
+| forward_markov_team_qwen_p1a | dg_m2_dl5 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | dg_m2_dl5_b2 | autonomous_stage_a_run | 0 |
+| forward_markov_team_qwen_p1a | dg_m4_dl5 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | dg_m4_dl5_b2 | autonomous_stage_a_run | 0 |
+| forward_markov_team_qwen_p1a | dg_m6_dl5 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 24 | qwen35_p1a_recovery_operator_error_breakdown_v0 | dg_m6_dl5_b2 | autonomous_stage_a_run | 0 |
+
+##### solve_gap_by_cell
+
+| b | cbj_call_cap_rate | cbj_solve_rate | cell_id | chronological_call_cap_rate | chronological_solve_rate | d_global_reference | n_per_arm | provenance | requested_cell_id | solve_rate_gap_cbj_minus_chronological | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 12 | 0.375 | 0.625 | b_b12_db2 | 0.9583 | 0.04167 | 7 | 24 | qwen35_p1a_recovery_solve_gap_by_cell_v1 | b_b12_mid_dglobal | 0.5833 | autonomous_stage_a_run |
+| 2 | 0.2083 | 0.7917 | corner_local_heavy | 1 | 0 | 12 | 24 | qwen35_p1a_recovery_solve_gap_by_cell_v1 | corner_local_heavy | 0.7917 | autonomous_stage_a_run |
+| 2 | 0 | 1 | dg_m2_dl5 | 0.04167 | 0.9583 | 4 | 24 | qwen35_p1a_recovery_solve_gap_by_cell_v1 | dg_m2_dl5_b2 | 0.04167 | autonomous_stage_a_run |
+| 2 | 0 | 1 | dg_m4_dl5 | 0.375 | 0.625 | 7 | 24 | qwen35_p1a_recovery_solve_gap_by_cell_v1 | dg_m4_dl5_b2 | 0.375 | autonomous_stage_a_run |
+| 2 | 0.08333 | 0.9167 | dg_m6_dl5 | 1 | 0 | 10 | 24 | qwen35_p1a_recovery_solve_gap_by_cell_v1 | dg_m6_dl5_b2 | 0.9167 | autonomous_stage_a_run |
+
+##### solve_rate_interaction
+
+| cbj_d_global_beta | cbj_d_global_ci95_high | cbj_d_global_ci95_low | chronological_d_global_beta | chronological_d_global_ci95_high | chronological_d_global_ci95_low | chronological_minus_cbj_d_global_beta | chronological_minus_cbj_d_global_ci95_high | chronological_minus_cbj_d_global_ci95_low | formula | n | pass | pass_rule | provenance | source | target |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| -0.02523 | -0.005893 | -0.04456 | -0.1321 | -0.1128 | -0.1514 | -0.1069 | -0.07952 | -0.1342 | solved ~ 1 + d_global + b + chronological + chronological:d_global + chronological:b | 240 | True | chronological-minus-CBJ d_global interaction has negative 95% upper bound on the uncensored solve indicator | qwen35_p1a_recovery_solve_rate_lpm_v1 | autonomous_stage_a_run | solved |
+
+##### verdict
+
+| check | observed | pass | predicted | provenance | source | p1a_recovery_baseline_landed |
+| --- | --- | --- | --- | --- | --- | --- |
+| cap_robust_decoupling_survives | {'fit_ok': True, 'decoupling_survives': True, 'cap_robust_decoupling_survives': True, 'legacy_v0_comm_solved_only_decoupling_survives': False, 'legacy_v0_right_censoring_note': 'v0 comm_tokens regression used solved rows only, so call-cap rows were right-censored out of the fit and are not used as the v1 landing criterion', 'cbj_solve_rate': 0.8666666666666667, 'chronological_solve_rate': 0.325, 'cbj_call_cap_rate': 0.13333333333333333, 'chronological_call_cap_rate': 0.675, 'call_cap_rate_gap_chronological_minus_cbj': 0.5416666666666667, 'capped_calls_chronological_minus_cbj_d_global_beta': 3.407029478458032, 'capped_calls_chronological_minus_cbj_d_global_ci95_low': 0.42105427494290915, 'capped_calls_chronological_minus_cbj_d_global_ci95_high': 6.393004681973155, 'call_cap_hit_chronological_minus_cbj_d_global_beta': 0.1068594104308392, 'call_cap_hit_chronological_minus_cbj_d_global_ci95_low': 0.07951733846398287, 'call_cap_hit_chronological_minus_cbj_d_global_ci95_high': 0.13420148239769553, 'solved_chronological_minus_cbj_d_global_beta': -0.10685941043083909, 'solved_chronological_minus_cbj_d_global_ci95_low': -0.13420148239769542, 'solved_chronological_minus_cbj_d_global_ci95_high': -0.07951733846398276, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1a_recovery_cap_robust_decoupling_v1'} | True | right-censored calls/cap-hit and uncensored solve-rate interactions show chronological degradation with d_global relative to CBJ | qwen35_p1a_recovery_verdict_v1 | autonomous_stage_a_run |  |
+| censoring_aware_calls_interaction | [{'target': 'capped_llm_calls_lower_bound', 'formula': 'llm_calls ~ 1 + d_global + b + chronological + chronological:d_global + chronological:b', 'n': 240, 'cbj_d_global_beta': 14.241496598639449, 'cbj_d_global_ci95_low': 12.130093283779024, 'cbj_d_global_ci95_high': 16.352899913499872, 'chronological_d_global_beta': 17.64852607709748, 'chronological_d_global_ci95_low': 15.537122762237054, 'chronological_d_global_ci95_high': 19.759929391957904, 'chronological_minus_cbj_d_global_beta': 3.407029478458032, 'chronological_minus_cbj_d_global_ci95_low': 0.42105427494290915, 'chronological_minus_cbj_d_global_ci95_high': 6.393004681973155, 'pass_rule': 'chronological-minus-CBJ d_global interaction has positive 95% lower bound even with cap-hit rows retained as lower-bound censored observations', 'pass': True, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1a_recovery_censored_calls_lower_bound_ols_v1'}, {'target': 'call_cap_hit', 'formula': 'call_cap_hit ~ 1 + d_global + b + chronological + chronological:d_global + chronological:b', 'n': 240, 'cbj_d_global_beta': 0.025226757369614404, 'cbj_d_global_ci95_low': 0.005892992870159687, 'cbj_d_global_ci95_high': 0.04456052186906912, 'chronological_d_global_beta': 0.1320861678004536, 'chronological_d_global_ci95_low': 0.11275240330099888, 'chronological_d_global_ci95_high': 0.1514199322999083, 'chronological_minus_cbj_d_global_beta': 0.1068594104308392, 'chronological_minus_cbj_d_global_ci95_low': 0.07951733846398287, 'chronological_minus_cbj_d_global_ci95_high': 0.13420148239769553, 'pass_rule': 'chronological-minus-CBJ d_global interaction has positive 95% lower bound for right-censoring probability', 'pass': True, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1a_recovery_call_cap_hit_lpm_v1'}] | True | cap-hit and capped-call lower-bound chronological-minus-CBJ d_global interactions are positive | qwen35_p1a_recovery_verdict_v1 | autonomous_stage_a_run |  |
+| uncensored_solve_rate_interaction | [{'target': 'solved', 'formula': 'solved ~ 1 + d_global + b + chronological + chronological:d_global + chronological:b', 'n': 240, 'cbj_d_global_beta': -0.025226757369614404, 'cbj_d_global_ci95_low': -0.04456052186906912, 'cbj_d_global_ci95_high': -0.005892992870159687, 'chronological_d_global_beta': -0.13208616780045349, 'chronological_d_global_ci95_low': -0.1514199322999082, 'chronological_d_global_ci95_high': -0.11275240330099877, 'chronological_minus_cbj_d_global_beta': -0.10685941043083909, 'chronological_minus_cbj_d_global_ci95_low': -0.13420148239769542, 'chronological_minus_cbj_d_global_ci95_high': -0.07951733846398276, 'pass_rule': 'chronological-minus-CBJ d_global interaction has negative 95% upper bound on the uncensored solve indicator', 'pass': True, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1a_recovery_solve_rate_lpm_v1'}] | True | uncensored solved indicator has negative chronological-minus-CBJ d_global interaction | qwen35_p1a_recovery_verdict_v1 | autonomous_stage_a_run |  |
+| legacy_v0_comm_solved_only_not_decisive | {'fit_ok': True, 'n': 143, 'formula': 'comm_tokens ~ 1 + (d_global+b) + chronological + chronological:(d_global+b)', 'arm_chrono_x_d_global_beta': 215.61475997152706, 'arm_chrono_x_d_global_ci95_low': 168.8413534310556, 'arm_chrono_x_d_global_ci95_high': 262.3881665119985, 'symbolic_reference_beta': 41.4, 'beta_minus_symbolic_reference': 174.21475997152706, 'decoupling_survives_component': True, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1a_recovery_decoupling_ols_v0', 'comparison_to_symbolic_beta_41_4': 'symbolic_reference=41.4', 'cbj_solve_rate': 0.8666666666666667, 'chronological_solve_rate': 0.325, 'decoupling_survives': False} | True | v0 solved-only comm regression is recorded but not used for landing because call-cap rows are right-censored | qwen35_p1a_recovery_verdict_v1 | autonomous_stage_a_run |  |
+| rho_near_one | max_rho_delta=0.000000 | True | max \|rho-1\| <= 0.05 | qwen35_p1a_recovery_verdict_v1 | autonomous_stage_a_run |  |
+| operator_clean | max_truncation_or_length=0.000000; max_value_misselection=0.000000 | True | P1a terse operator has low truncation and value-misselection rates | qwen35_p1a_recovery_verdict_v1 | autonomous_stage_a_run |  |
+| call_cap_censoring_accounted | call_cap_rate=0.269444 | True | CALL_CAP is modeled as right-censoring evidence instead of solved-row missingness | qwen35_p1a_recovery_verdict_v1 | autonomous_stage_a_run |  |
+| p1a_recovery_baseline_landed | decoupling_ok=True; calls_ok=True; solve_ok=True; rho_ok=True; op_ok=True | True | cap-robust decoupling, censoring-aware calls, uncensored solve-rate interaction, rho near 1, and operator clean | qwen35_p1a_recovery_verdict_v1 | autonomous_stage_a_run | True |
+
+- Next action: P1a recovery baseline landed under the v1 cap-robust censoring-aware verdict; refresh Item060 before any P1b/P1c full-table launch.
 
 
 ## Canonical Repo Decision
@@ -4003,7 +4516,7 @@ Truncated to 24 of 84 rows.
 | Stage A Track A symbolic | YELLOW | track=A_symbolic; operator=symbolic_oracle; autonomous_cells=43; symbolic_core={'autonomous_cells': 43, 'declared_track': 'A_symbolic', 'forward_floor_on_L4': True, 'kv_snapshot_max_depth': 3, 'operator': 'symbolic_oracle', 'reverts_nonzero_on_L4': True, 'rot_no_revert_max_depth': 3} |
 | Stage A learned track | RED | diagnostic_G1=1.0; learned_autonomous_cells=0; statuses=['PARENT_ADAPTER_REQUIRED'] |
 | W3 Qwen3.5 | YELLOW | integration_grade=cached_gdn_state_measured_with_propagation_delta; W3.0=PASS |
-| Validation | RED | checks=508; pass=505; fail=3 |
+| Validation | RED | checks=535; pass=532; fail=3 |
 
 ## Artifact Index
 
@@ -4044,6 +4557,8 @@ Truncated to 24 of 84 rows.
 | item_057_rung1_phase1_r2_budget_sweep | results/experiment_items/item_057_rung1_phase1_r2_budget_sweep.json | yes |
 | item_058_rung1_separator_scaling | results/experiment_items/item_058_rung1_separator_scaling.json | yes |
 | item_059_rung1_separator_llm_po | results/experiment_items/item_059_rung1_separator_llm_po.json | yes |
+| item_060_rung1_separator_fallibility_rungs | results/experiment_items/item_060_rung1_separator_fallibility_rungs.json | yes |
+| item_061_rung1_separator_p1a_recovery_baseline | results/experiment_items/item_061_rung1_separator_p1a_recovery_baseline.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | rung1_phase1_spec_v01 | specs/rung1_phase1_spec_v01.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
@@ -4100,6 +4615,12 @@ Truncated to 24 of 84 rows.
 | rung1_separator_scaling | results/rung1_separator_scaling/results.json | yes |
 | rung1_separator_llm_po | results/rung1_separator_llm_po/results.json | yes |
 | rung1_separator_llm_po_forward_gate | results/rung1_separator_llm_po/p1a_forward_gate.json | yes |
+| rung1_separator_llm_po_p1a_recovery_baseline | results/rung1_separator_llm_po/p1a_recovery_baseline.json | yes |
+| rung1_separator_fallibility_rungs | results/rung1_separator_fallibility_rungs/results.json | yes |
+| rung1_separator_p1b_raw_generation_inspection | results/rung1_separator_fallibility_rungs/p1b_raw_generation_inspection.json | yes |
+| rung1_separator_p1b_truncation_pilot | results/rung1_separator_fallibility_rungs/p1b_truncation_pilot.json | yes |
+| rung1_separator_p1b_graded_recompute | results/rung1_separator_fallibility_rungs/p1b_graded_recompute.json | yes |
+| rung1_separator_p1b_full_table | results/rung1_separator_fallibility_rungs/p1b_full_table.json | yes |
 | validation | results/validation/validation.json | yes |
 
 ## Validation Summary
@@ -4107,7 +4628,7 @@ Truncated to 24 of 84 rows.
 | tier | pass | fail |
 | --- | --- | --- |
 | closeout_047 | 15 | 0 |
-| contract | 224 | 0 |
+| contract | 236 | 0 |
 | env | 13 | 0 |
 | legacy | 7 | 0 |
 | meta | 1 | 0 |
@@ -4118,7 +4639,9 @@ Truncated to 24 of 84 rows.
 | rung1_phase1_r3 | 8 | 0 |
 | rung1_phase1_r4 | 9 | 0 |
 | rung1_phase1_spec | 9 | 0 |
+| rung1_separator_fallibility_rungs | 11 | 0 |
 | rung1_separator_llm_po | 10 | 0 |
+| rung1_separator_p1a_recovery_baseline | 4 | 0 |
 | rung1_separator_scaling | 14 | 0 |
 | rung1_v01 | 14 | 0 |
 | rung1_v02 | 13 | 0 |

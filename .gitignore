@@ -29,6 +29,13 @@ results/**
 !results/rung1_separator_llm_po/
 !results/rung1_separator_llm_po/results.json
 !results/rung1_separator_llm_po/p1a_forward_gate.json
+!results/rung1_separator_llm_po/p1a_recovery_baseline.json
+!results/rung1_separator_fallibility_rungs/
+!results/rung1_separator_fallibility_rungs/results.json
+!results/rung1_separator_fallibility_rungs/p1b_truncation_pilot.json
+!results/rung1_separator_fallibility_rungs/p1b_raw_generation_inspection.json
+!results/rung1_separator_fallibility_rungs/p1b_graded_recompute.json
+!results/rung1_separator_fallibility_rungs/p1b_full_table.json
 !results/model_readiness/
 !results/model_readiness/readiness.json
 !results/model_download/

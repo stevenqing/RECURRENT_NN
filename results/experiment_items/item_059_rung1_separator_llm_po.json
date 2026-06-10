@@ -449,25 +449,25 @@
         {
           "index": 4,
           "memory_total": "81920 MiB",
-          "memory_used": "69775 MiB",
+          "memory_used": "53519 MiB",
           "name": "NVIDIA A100-SXM4-80GB"
         },
         {
           "index": 5,
           "memory_total": "81920 MiB",
-          "memory_used": "69101 MiB",
+          "memory_used": "52845 MiB",
           "name": "NVIDIA A100-SXM4-80GB"
         },
         {
           "index": 6,
           "memory_total": "81920 MiB",
-          "memory_used": "69101 MiB",
+          "memory_used": "52845 MiB",
           "name": "NVIDIA A100-SXM4-80GB"
         },
         {
           "index": 7,
           "memory_total": "81920 MiB",
-          "memory_used": "69389 MiB",
+          "memory_used": "53133 MiB",
           "name": "NVIDIA A100-SXM4-80GB"
         }
       ]

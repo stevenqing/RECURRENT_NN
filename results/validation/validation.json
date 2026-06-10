@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=32",
+      "detail": "count=34",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -1723,6 +1723,78 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_060_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_060_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=060",
+      "name": "log_item_060_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_060_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This now includes P1b Step 3 controlled full-table law tracking. It still does not run P1c truncation or P1c full table, and it does not establish Claim 3/4 und",
+      "name": "log_item_060_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=6; routing=P1b Step 3 full table passed the inflated-K_eff law gate; proceed to P1c truncation pilot next, and still keep P1c full table blocked until that truncation gate passes.",
+      "name": "log_item_060_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_061_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_061_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=061",
+      "name": "log_item_061_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_061_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This lands only the P1a recovery baseline gate under the v1 cap-robust respec. It does not run P1b/P1c bodies.",
+      "name": "log_item_061_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=8; routing=P1a recovery baseline landed under the v1 cap-robust censoring-aware verdict; refresh Item060 before any P1b/P1c full-table launch.",
+      "name": "log_item_061_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -2299,13 +2371,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'forward_read', 'final_solution_readback', 'write_drop_mask', 'register_entry_classification', 'pop_read', 'spill_off_write_drop'}",
+      "detail": "rules={'spill_off_write_drop', 'final_solution_readback', 'register_entry_classification', 'forward_read', 'write_drop_mask', 'pop_read'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop_unmasked', 'P_choice', 'P_choice_unmasked', 'P_pop', 'P_all', 'threshold_D_pop', 'P_all_unmasked', 'threshold_D_peak'}; rows=768",
+      "detail": "candidates={'P_choice_unmasked', 'P_all', 'P_choice', 'P_pop', 'P_all_unmasked', 'threshold_D_peak', 'P_pop_unmasked', 'threshold_D_pop'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2341,7 +2413,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop_unmasked', 'P_choice', 'P_choice_unmasked', 'P_pop', 'P_all', 'P_all_unmasked'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_choice_unmasked', 'P_all', 'P_choice', 'P_pop', 'P_all_unmasked', 'P_pop_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3007,6 +3079,96 @@
       "tier": "rung1_separator_llm_po"
     },
     {
+      "detail": "item_number=061",
+      "name": "item061_number_present",
+      "status": "PASS",
+      "tier": "rung1_separator_p1a_recovery_baseline"
+    },
+    {
+      "detail": "status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS",
+      "name": "item061_status_valid",
+      "status": "PASS",
+      "tier": "rung1_separator_p1a_recovery_baseline"
+    },
+    {
+      "detail": "tables=['arm_cell_summary', 'budget_at_95_solve', 'call_cap_truncation_rates', 'calls_censoring_interaction', 'calls_censoring_summary', 'decoupling_survival', 'keff_inflation', 'legacy_comm_solved_only_regression', 'operator_error_breakdown', 'solve_gap_by_cell', 'solve_rate_interaction', 'verdict']",
+      "name": "item061_required_tables_present",
+      "status": "PASS",
+      "tier": "rung1_separator_p1a_recovery_baseline"
+    },
+    {
+      "detail": "status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS; acceptance={'cap_robust_decoupling_survives': True, 'censoring_aware_calls_interaction_pass': True, 'decoupling_survives': True, 'legacy_v0_comm_solved_only_decoupling_survives': False, 'operator_clean': True, 'p1a_recovery_baseline_landed': True, 'rho_near_one': True, 'uncensored_solve_rate_interaction_pass': True}; n_metrics=360; verdict={'cap_robust_decoupling_survives': {'check': 'cap_robust_decoupling_survives', 'observed': \"{'fit_ok': True, 'decoupling_survives': True, 'cap_robust_decoupling_survives': True, 'legacy_v0_comm_solved_only_decoupling_survives': False, 'legacy_v0_right_censoring_note': 'v0 comm_tokens regression used solved rows only, so call-cap rows were right-censored out of the fit and are not used as the v1 landing criterion', 'cbj_solve_rate': 0.8666666666666667, 'chronological_solve_rate': 0.325, 'cbj_call_cap_rate': 0.13333333333333333, 'chronological_call_cap_rate': 0.675, 'call_cap_rate_gap_chronological_minus_cbj': 0.5416666666666667, 'capped_calls_chronological_minus_cbj_d_global_beta': 3.407029478458032, 'capped_calls_chronological_minus_cbj_d_global_ci95_low': 0.42105427494290915, 'capped_calls_chronological_minus_cbj_d_global_ci95_high': 6.393004681973155, 'call_cap_hit_chronological_minus_cbj_d_global_beta': 0.1068594104308392, 'call_cap_hit_chronological_minus_cbj_d_global_ci95_low': 0.07951733846398287, 'call_cap_hit_chronological_minus_cbj_d_global_ci95_high': 0.13420148239769553, 'solved_chronological_minus_cbj_d_global_beta': -0.10685941043083909, 'solved_chronological_minus_cbj_d_global_ci95_low': -0.13420148239769542, 'solved_chronological_minus_cbj_d_global_ci95_high': -0.07951733846398276, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1a_recovery_cap_robust_decoupling_v1'}\", 'pass': True, 'predicted': 'right-censored calls/cap-hit and uncensored solve-rate interactions show chronological degradation with d_global relative to CBJ', 'provenance': 'qwen35_p1a_recovery_verdict_v1', 'source': 'autonomous_stage_a_run'}, 'censoring_aware_calls_interaction': {'check': 'censoring_aware_calls_interaction', 'observed': \"[{'target': 'capped_llm_calls_lower_bound', 'formula': 'llm_calls ~ 1 + d_global + b + chronological + chronological:d_global + chronological:b', 'n': 240, 'cbj_d_global_beta': 14.241496598639449, 'cbj_d_global_ci95_low': 12.130093283779024, 'cbj_d_global_ci95_high': 16.352899913499872, 'chronological_d_global_beta': 17.64852607709748, 'chronological_d_global_ci95_low': 15.537122762237054, 'chronological_d_global_ci95_high': 19.759929391957904, 'chronological_minus_cbj_d_global_beta': 3.407029478458032, 'chronological_minus_cbj_d_global_ci95_low': 0.42105427494290915, 'chronological_minus_cbj_d_global_ci95_high': 6.393004681973155, 'pass_rule': 'chronological-minus-CBJ d_global interaction has positive 95% lower bound even with cap-hit rows retained as lower-bound censored observations', 'pass': True, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1a_recovery_censored_calls_lower_bound_ols_v1'}, {'target': 'call_cap_hit', 'formula': 'call_cap_hit ~ 1 + d_global + b + chronological + chronological:d_global + chronological:b', 'n': 240, 'cbj_d_global_beta': 0.025226757369614404, 'cbj_d_global_ci95_low': 0.005892992870159687, 'cbj_d_global_ci95_high': 0.04456052186906912, 'chronological_d_global_beta': 0.1320861678004536, 'chronological_d_global_ci95_low': 0.11275240330099888, 'chronological_d_global_ci95_high': 0.1514199322999083, 'chronological_minus_cbj_d_global_beta': 0.1068594104308392, 'chronological_minus_cbj_d_global_ci95_low': 0.07951733846398287, 'chronological_minus_cbj_d_global_ci95_high': 0.13420148239769553, 'pass_rule': 'chronological-minus-CBJ d_global interaction has positive 95% lower bound for right-censoring probability', 'pass': True, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1a_recovery_call_cap_hit_lpm_v1'}]\", 'pass': True, 'predicted': 'cap-hit and capped-call lower-bound chronological-minus-CBJ d_global interactions are positive', 'provenance': 'qwen35_p1a_recovery_verdict_v1', 'source': 'autonomous_stage_a_run'}, 'uncensored_solve_rate_interaction': {'check': 'uncensored_solve_rate_interaction', 'observed': \"[{'target': 'solved', 'formula': 'solved ~ 1 + d_global + b + chronological + chronological:d_global + chronological:b', 'n': 240, 'cbj_d_global_beta': -0.025226757369614404, 'cbj_d_global_ci95_low': -0.04456052186906912, 'cbj_d_global_ci95_high': -0.005892992870159687, 'chronological_d_global_beta': -0.13208616780045349, 'chronological_d_global_ci95_low': -0.1514199322999082, 'chronological_d_global_ci95_high': -0.11275240330099877, 'chronological_minus_cbj_d_global_beta': -0.10685941043083909, 'chronological_minus_cbj_d_global_ci95_low': -0.13420148239769542, 'chronological_minus_cbj_d_global_ci95_high': -0.07951733846398276, 'pass_rule': 'chronological-minus-CBJ d_global interaction has negative 95% upper bound on the uncensored solve indicator', 'pass': True, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1a_recovery_solve_rate_lpm_v1'}]\", 'pass': True, 'predicted': 'uncensored solved indicator has negative chronological-minus-CBJ d_global interaction', 'provenance': 'qwen35_p1a_recovery_verdict_v1', 'source': 'autonomous_stage_a_run'}, 'legacy_v0_comm_solved_only_not_decisive': {'check': 'legacy_v0_comm_solved_only_not_decisive', 'observed': \"{'fit_ok': True, 'n': 143, 'formula': 'comm_tokens ~ 1 + (d_global+b) + chronological + chronological:(d_global+b)', 'arm_chrono_x_d_global_beta': 215.61475997152706, 'arm_chrono_x_d_global_ci95_low': 168.8413534310556, 'arm_chrono_x_d_global_ci95_high': 262.3881665119985, 'symbolic_reference_beta': 41.4, 'beta_minus_symbolic_reference': 174.21475997152706, 'decoupling_survives_component': True, 'source': 'autonomous_stage_a_run', 'provenance': 'qwen35_p1a_recovery_decoupling_ols_v0', 'comparison_to_symbolic_beta_41_4': 'symbolic_reference=41.4', 'cbj_solve_rate': 0.8666666666666667, 'chronological_solve_rate': 0.325, 'decoupling_survives': False}\", 'pass': True, 'predicted': 'v0 solved-only comm regression is recorded but not used for landing because call-cap rows are right-censored', 'provenance': 'qwen35_p1a_recovery_verdict_v1', 'source': 'autonomous_stage_a_run'}, 'rho_near_one': {'check': 'rho_near_one', 'observed': 'max_rho_delta=0.000000', 'pass': True, 'predicted': 'max |rho-1| <= 0.05', 'provenance': 'qwen35_p1a_recovery_verdict_v1', 'source': 'autonomous_stage_a_run'}, 'operator_clean': {'check': 'operator_clean', 'observed': 'max_truncation_or_length=0.000000; max_value_misselection=0.000000', 'pass': True, 'predicted': 'P1a terse operator has low truncation and value-misselection rates', 'provenance': 'qwen35_p1a_recovery_verdict_v1', 'source': 'autonomous_stage_a_run'}, 'call_cap_censoring_accounted': {'check': 'call_cap_censoring_accounted', 'observed': 'call_cap_rate=0.269444', 'pass': True, 'predicted': 'CALL_CAP is modeled as right-censoring evidence instead of solved-row missingness', 'provenance': 'qwen35_p1a_recovery_verdict_v1', 'source': 'autonomous_stage_a_run'}, 'p1a_recovery_baseline_landed': {'check': 'p1a_recovery_baseline_landed', 'observed': 'decoupling_ok=True; calls_ok=True; solve_ok=True; rho_ok=True; op_ok=True', 'p1a_recovery_baseline_landed': True, 'pass': True, 'predicted': 'cap-robust decoupling, censoring-aware calls, uncensored solve-rate interaction, rho near 1, and operator clean', 'provenance': 'qwen35_p1a_recovery_verdict_v1', 'source': 'autonomous_stage_a_run'}}",
+      "name": "rung1_separator_p1a_recovery_baseline_recorded",
+      "status": "PASS",
+      "tier": "rung1_separator_p1a_recovery_baseline"
+    },
+    {
+      "detail": "results/experiment_items/item_060_rung1_separator_fallibility_rungs.json",
+      "name": "item_060_rung1_separator_fallibility_rungs_present",
+      "status": "PASS",
+      "tier": "rung1_separator_fallibility_rungs"
+    },
+    {
+      "detail": "results/rung1_separator_fallibility_rungs/results.json",
+      "name": "rung1_separator_fallibility_rungs_present",
+      "status": "PASS",
+      "tier": "rung1_separator_fallibility_rungs"
+    },
+    {
+      "detail": "item_number=060",
+      "name": "item060_number_present",
+      "status": "PASS",
+      "tier": "rung1_separator_fallibility_rungs"
+    },
+    {
+      "detail": "status=RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN",
+      "name": "item060_status_valid",
+      "status": "PASS",
+      "tier": "rung1_separator_fallibility_rungs"
+    },
+    {
+      "detail": "tables=['cost_and_run_plan', 'gate_preflight', 'honesty_gating', 'kill_criteria', 'metric_contract', 'p1b_full_budget_at_95_solve', 'p1b_full_capacity_leg', 'p1b_full_dstar_vs_inflated_keff', 'p1b_full_keff_inflation', 'p1b_full_operator_error_breakdown', 'p1b_full_verdict', 'p1b_graded_functional_gate_by_cell', 'p1b_graded_verdict', 'p1b_pilot_call_cap_recommendation', 'p1b_pilot_keff_inflation', 'p1b_pilot_operator_error_breakdown', 'p1b_pilot_operator_functional_gate', 'p1b_pilot_operator_functional_gate_by_cell', 'p1b_pilot_prelaunch_truncation_gate', 'p1b_pilot_verdict', 'p1b_raw_inspection_summary', 'rung_operator_boundaries', 'truncation_gate_contract', 'verdict']",
+      "name": "item060_required_tables_present",
+      "status": "PASS",
+      "tier": "rung1_separator_fallibility_rungs"
+    },
+    {
+      "detail": "gates={'p1a_preflight_and_forward_gate_clean': 'PASS', 'p1a_recovery_baseline_landed': 'PASS', 'p1b_truncation_gate': 'PASS', 'p1b_operator_functional_gate': 'PASS', 'p1b_law_tracks_inflated_keff': 'PASS', 'p1c_truncation_gate': 'NOT_RUN'}",
+      "name": "item060_gates_fail_closed",
+      "status": "PASS",
+      "tier": "rung1_separator_fallibility_rungs"
+    },
+    {
+      "detail": "status=RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN; gates={'p1a_preflight_and_forward_gate_clean': {'gate': 'p1a_preflight_and_forward_gate_clean', 'observed': 'preflight_ready=True; forward_clean=True; solve_rate=0.0', 'outcome': 'PASS', 'provenance': 'p1b_p1c_fallibility_gate_v0', 'required_before': 'P1b truncation pilot', 'rung': 'P1b', 'source': 'autonomous_stage_a_run'}, 'p1a_recovery_baseline_landed': {'gate': 'p1a_recovery_baseline_landed', 'observed': 'status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS; landed=True; cap_robust=True; censoring=True', 'outcome': 'PASS', 'provenance': 'p1b_p1c_fallibility_gate_v0', 'required_before': 'P1b full table launch', 'rung': 'P1b', 'source': 'autonomous_stage_a_run'}, 'p1b_truncation_gate': {'gate': 'p1b_truncation_gate', 'observed': 'status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; operator=v1_1; prompt=p1b_bounded_structured_domain_propagation_capped_thinking_v1_1; valid_frac=0.875; max_deep_truncated_or_length=0.0; max_all_truncated_or_length=0.0; max_deep_finish_reason_length=0.0', 'outcome': 'PASS', 'provenance': 'p1b_p1c_fallibility_gate_v0', 'required_before': 'P1b full table launch', 'rung': 'P1b', 'source': 'autonomous_stage_a_run'}, 'p1b_operator_functional_gate': {'gate': 'p1b_operator_functional_gate', 'observed': \"graded_status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; step1_branch=1A; recall_min=0.4628099173553719; recall_mean=0.5195690828990318; recall_max=0.5546875; allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[]; exact_match_diagnostic=0.0\", 'outcome': 'PASS', 'provenance': 'p1b_p1c_fallibility_gate_v0', 'required_before': 'P1b full table launch by cell', 'rung': 'P1b', 'source': 'autonomous_stage_a_run'}, 'p1b_law_tracks_inflated_keff': {'gate': 'p1b_law_tracks_inflated_keff', 'observed': 'status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True', 'outcome': 'PASS', 'provenance': 'p1b_p1c_fallibility_gate_v0', 'required_before': 'P1c truncation pilot', 'rung': 'P1c', 'source': 'autonomous_stage_a_run'}, 'p1c_truncation_gate': {'gate': 'p1c_truncation_gate', 'observed': 'requires deepest planned cell frac_truncated_no_answer <= 0.10; requested_gpus=4', 'outcome': 'NOT_RUN', 'provenance': 'p1b_p1c_fallibility_gate_v0', 'required_before': 'P1c full table launch', 'rung': 'P1c', 'source': 'autonomous_stage_a_run'}}; metric_tables=['cbj_advantage_retention', 'decoupling_survival', 'dstar_vs_inflated_keff', 'keff_inflation', 'operator_error_breakdown', 'operator_functional_gate_by_cell', 'p1b_graded_recompute', 'solution_validity_completeness']; kills=['false_solve_contaminates_solve_advantage', 'kill_decoupling_destroyed', 'kill_law_not_track_inflation']; p1b_full_tables_present=True",
+      "name": "rung1_separator_fallibility_rungs_preregistered",
+      "status": "PASS",
+      "tier": "rung1_separator_fallibility_rungs"
+    },
+    {
+      "detail": "status=P1B_RAW_GENERATION_INSPECTION_COMPLETE; summary={'classification_counts': {'A_rambling_or_unbounded_schema_drift': 5, 'B_possible_genuinely_long_reasoning': 3}, 'finish_reason_counts': {'length': 7, 'stop': 1}, 'frac_length_capped': 0.875, 'frac_valid': 0.375, 'generation_state_counts': {'parsable_invalid': 5, 'valid': 3}, 'provenance': 'qwen35_p1b_raw_generation_inspection_summary_v0', 'source': 'autonomous_stage_a_run'}; n_rows=8",
+      "name": "rung1_separator_p1b_raw_generation_inspection_recorded",
+      "status": "PASS",
+      "tier": "rung1_separator_fallibility_rungs"
+    },
+    {
+      "detail": "status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; acceptance={'p1b_full_table_allowed_by_operator_functional_gate': False, 'p1b_full_table_allowed_by_truncation': True, 'p1b_full_table_allowed_cells': [], 'p1b_full_table_excluded_cells': ['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12'], 'p1b_operator_functional_gate_pass': False, 'p1b_truncation_gate_pass': True}; truncation=[{'deepest_d_global': 12, 'gate': 'p1b_truncation_gate', 'max_all_frac_finish_reason_length': 0.0, 'max_all_frac_truncated_no_answer': 0.0, 'max_all_frac_truncated_or_length': 0.0, 'max_deep_frac_finish_reason_length': 0.0, 'max_deep_frac_truncated_no_answer': 0.0, 'max_deep_frac_truncated_or_length': 0.0, 'pass': True, 'provenance': 'qwen35_p1b_truncation_gate_pilot_v1_1', 'source': 'autonomous_stage_a_run', 'threshold': 0.1}]; n_metrics=96; operator_rows=[{'b_bin': '2', 'correct_propagation_opportunities': 0, 'correct_propagation_rate': 0.0, 'd_global_bin': '12', 'format_failure_rate': 0.125, 'frac_finish_reason_length': 0.0, 'frac_parsable_invalid': 0.125, 'frac_truncated_no_answer': 0.0, 'frac_truncated_or_length': 0.0, 'frac_valid': 0.875, 'missed_propagation_rate': 1.0, 'n': 24, 'propagation_opportunities': 24, 'provenance': 'qwen35_p1b_operator_error_breakdown_pilot_v1_1', 'rung': 'P1b_llm_propagation_guarded', 'source': 'autonomous_stage_a_run', 'unsound_propagation_rejected_rate': 0.875, 'value_misselection_rate': 0.0}, {'b_bin': '4', 'correct_propagation_opportunities': 0, 'correct_propagation_rate': 0.0, 'd_global_bin': '12', 'format_failure_rate': 0.25, 'frac_finish_reason_length': 0.0, 'frac_parsable_invalid': 0.25, 'frac_truncated_no_answer': 0.0, 'frac_truncated_or_length': 0.0, 'frac_valid': 0.75, 'missed_propagation_rate': 1.0, 'n': 24, 'propagation_opportunities': 24, 'provenance': 'qwen35_p1b_operator_error_breakdown_pilot_v1_1', 'rung': 'P1b_llm_propagation_guarded', 'source': 'autonomous_stage_a_run', 'unsound_propagation_rejected_rate': 0.75, 'value_misselection_rate': 0.0}, {'b_bin': '8', 'correct_propagation_opportunities': 0, 'correct_propagation_rate': 0.0, 'd_global_bin': '12', 'format_failure_rate': 0.125, 'frac_finish_reason_length': 0.0, 'frac_parsable_invalid': 0.125, 'frac_truncated_no_answer': 0.0, 'frac_truncated_or_length': 0.0, 'frac_valid': 0.875, 'missed_propagation_rate': 1.0, 'n': 24, 'propagation_opportunities': 24, 'provenance': 'qwen35_p1b_operator_error_breakdown_pilot_v1_1', 'rung': 'P1b_llm_propagation_guarded', 'source': 'autonomous_stage_a_run', 'unsound_propagation_rejected_rate': 0.875, 'value_misselection_rate': 0.0}, {'b_bin': '12', 'correct_propagation_opportunities': 0, 'correct_propagation_rate': 0.0, 'd_global_bin': '12', 'format_failure_rate': 0.041666666666666664, 'frac_finish_reason_length': 0.0, 'frac_parsable_invalid': 0.041666666666666664, 'frac_truncated_no_answer': 0.0, 'frac_truncated_or_length': 0.0, 'frac_valid': 0.9583333333333334, 'missed_propagation_rate': 1.0, 'n': 24, 'propagation_opportunities': 24, 'provenance': 'qwen35_p1b_operator_error_breakdown_pilot_v1_1', 'rung': 'P1b_llm_propagation_guarded', 'source': 'autonomous_stage_a_run', 'unsound_propagation_rejected_rate': 0.9583333333333334, 'value_misselection_rate': 0.0}]; functional_rows=[{'b_bin': '2', 'cell': 'd12_b2', 'cell_allowed_for_full_table': False, 'correct_propagation_rate': 0.0, 'd_global_bin': '12', 'frac_truncated_or_length': 0.0, 'functional_pass': False, 'n': 24, 'propagation_opportunities': 24, 'truncation_pass': True}, {'b_bin': '4', 'cell': 'd12_b4', 'cell_allowed_for_full_table': False, 'correct_propagation_rate': 0.0, 'd_global_bin': '12', 'frac_truncated_or_length': 0.0, 'functional_pass': False, 'n': 24, 'propagation_opportunities': 24, 'truncation_pass': True}, {'b_bin': '8', 'cell': 'd12_b8', 'cell_allowed_for_full_table': False, 'correct_propagation_rate': 0.0, 'd_global_bin': '12', 'frac_truncated_or_length': 0.0, 'functional_pass': False, 'n': 24, 'propagation_opportunities': 24, 'truncation_pass': True}, {'b_bin': '12', 'cell': 'd12_b12', 'cell_allowed_for_full_table': False, 'correct_propagation_rate': 0.0, 'd_global_bin': '12', 'frac_truncated_or_length': 0.0, 'functional_pass': False, 'n': 24, 'propagation_opportunities': 24, 'truncation_pass': True}]",
+      "name": "rung1_separator_p1b_truncation_pilot_recorded",
+      "status": "PASS",
+      "tier": "rung1_separator_fallibility_rungs"
+    },
+    {
+      "detail": "status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; acceptance={'exact_match_correct_propagation_rate_retired_to_diagnostic': True, 'p1b_graded_functional_gate_pass': True, 'p1b_step3_allowed_cells': ['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12'], 'p1b_step3_excluded_cells': [], 'step1_branch': '1A', 'step2_required': False}; cells=[{'accepted_prune_count': 65, 'b_bin': '2', 'cell': 'd12_b2', 'cell_allowed_for_step3': True, 'd_global_bin': '12', 'exact_match_correct_propagation_rate': 0.0, 'frac_truncated_or_length': 0.0, 'graded_functional_pass': True, 'graded_keff_inflated': 3.6653935185185187, 'k_eff_clean': 3.357638888888889, 'missed_prune_count': 59, 'n': 24, 'oracle_prune_count': 124, 'proposed_prune_count': 128, 'provenance': 'qwen35_p1b_graded_recompute_by_cell_v0', 'prune_precision': 0.5078125, 'prune_recall': 0.5241935483870968, 'rejected_prune_count': 63, 'rho_graded': 1.0930726037898695, 'source': 'autonomous_stage_a_run', 'truncation_pass': True, 'unpruned_k_eff': 4.0}, {'accepted_prune_count': 56, 'b_bin': '4', 'cell': 'd12_b4', 'cell_allowed_for_step3': True, 'd_global_bin': '12', 'exact_match_correct_propagation_rate': 0.0, 'frac_truncated_or_length': 0.0, 'graded_functional_pass': True, 'graded_keff_inflated': 3.649537037037037, 'k_eff_clean': 3.2569444444444446, 'missed_prune_count': 65, 'n': 24, 'oracle_prune_count': 121, 'proposed_prune_count': 110, 'provenance': 'qwen35_p1b_graded_recompute_by_cell_v0', 'prune_precision': 0.509090909090909, 'prune_recall': 0.4628099173553719, 'rejected_prune_count': 54, 'rho_graded': 1.121688257541916, 'source': 'autonomous_stage_a_run', 'truncation_pass': True, 'unpruned_k_eff': 4.0}, {'accepted_prune_count': 66, 'b_bin': '8', 'cell': 'd12_b8', 'cell_allowed_for_step3': True, 'd_global_bin': '12', 'exact_match_correct_propagation_rate': 0.0, 'frac_truncated_or_length': 0.0, 'graded_functional_pass': True, 'graded_keff_inflated': 3.6180555555555554, 'k_eff_clean': 3.3020833333333335, 'missed_prune_count': 57, 'n': 24, 'oracle_prune_count': 123, 'proposed_prune_count': 129, 'provenance': 'qwen35_p1b_graded_recompute_by_cell_v0', 'prune_precision': 0.5116279069767442, 'prune_recall': 0.5365853658536586, 'rejected_prune_count': 63, 'rho_graded': 1.095930649011522, 'source': 'autonomous_stage_a_run', 'truncation_pass': True, 'unpruned_k_eff': 4.0}, {'accepted_prune_count': 71, 'b_bin': '12', 'cell': 'd12_b12', 'cell_allowed_for_step3': True, 'd_global_bin': '12', 'exact_match_correct_propagation_rate': 0.0, 'frac_truncated_or_length': 0.0, 'graded_functional_pass': True, 'graded_keff_inflated': 3.6006944444444446, 'k_eff_clean': 3.2777777777777777, 'missed_prune_count': 57, 'n': 24, 'oracle_prune_count': 128, 'proposed_prune_count': 140, 'provenance': 'qwen35_p1b_graded_recompute_by_cell_v0', 'prune_precision': 0.5071428571428571, 'prune_recall': 0.5546875, 'rejected_prune_count': 69, 'rho_graded': 1.099145887342293, 'source': 'autonomous_stage_a_run', 'truncation_pass': True, 'unpruned_k_eff': 4.0}]",
+      "name": "rung1_separator_p1b_graded_recompute_recorded",
+      "status": "PASS",
+      "tier": "rung1_separator_fallibility_rungs"
+    },
+    {
+      "detail": "status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; acceptance={'kill_law_not_track_inflation': False, 'p1b_full_table_complete': True, 'p1b_law_tracks_inflated_keff': True, 'p1c_entry_allowed_by_p1b': True}; dstar=[{'D_over_ln_K_eff_inflated': 4.619166285561208, 'K_eff_inflated': 3.6653935185185187, 'b_bin': '2', 'collapse_threshold_solve_rate': 0.5, 'd_star_observed': 5, 'provenance': 'qwen35_p1b_full_table_dstar_vs_inflated_keff_v0', 'register_capacity_D': 6, 'residual': 0.38083371443879166, 'rung': 'P1b_llm_propagation_guarded', 'source': 'autonomous_stage_a_run', 'supporting_depths': [4, 5, 6, 7, 9, 10, 12], 'supporting_solve_rates': {'10': 0.0, '12': 0.0, '4': 0.9166666666666666, '5': 0.0, '6': 0.0, '7': 0.0, '9': 0.0}, 'tolerance': 3.0, 'track_pass': True}, {'D_over_ln_K_eff_inflated': 4.634635034101468, 'K_eff_inflated': 3.649537037037037, 'b_bin': '4', 'collapse_threshold_solve_rate': 0.5, 'd_star_observed': 5, 'provenance': 'qwen35_p1b_full_table_dstar_vs_inflated_keff_v0', 'register_capacity_D': 6, 'residual': 0.3653649658985323, 'rung': 'P1b_llm_propagation_guarded', 'source': 'autonomous_stage_a_run', 'supporting_depths': [4, 5, 6, 7, 9, 10, 12], 'supporting_solve_rates': {'10': 0.0, '12': 0.0, '4': 0.6666666666666666, '5': 0.0, '6': 0.0, '7': 0.0, '9': 0.0}, 'tolerance': 3.0, 'track_pass': True}, {'D_over_ln_K_eff_inflated': 4.665859371776496, 'K_eff_inflated': 3.6180555555555554, 'b_bin': '8', 'collapse_threshold_solve_rate': 0.5, 'd_star_observed': 4, 'provenance': 'qwen35_p1b_full_table_dstar_vs_inflated_keff_v0', 'register_capacity_D': 6, 'residual': -0.665859371776496, 'rung': 'P1b_llm_propagation_guarded', 'source': 'autonomous_stage_a_run', 'supporting_depths': [4, 5, 6, 7, 9, 10, 12], 'supporting_solve_rates': {'10': 0.0, '12': 0.0, '4': 0.125, '5': 0.0, '6': 0.0, '7': 0.0, '9': 0.0}, 'tolerance': 3.0, 'track_pass': True}, {'D_over_ln_K_eff_inflated': 4.683377427406013, 'K_eff_inflated': 3.6006944444444446, 'b_bin': '12', 'collapse_threshold_solve_rate': 0.5, 'd_star_observed': 4, 'provenance': 'qwen35_p1b_full_table_dstar_vs_inflated_keff_v0', 'register_capacity_D': 6, 'residual': -0.6833774274060129, 'rung': 'P1b_llm_propagation_guarded', 'source': 'autonomous_stage_a_run', 'supporting_depths': [4, 5, 6, 7, 9, 10, 12], 'supporting_solve_rates': {'10': 0.0, '12': 0.0, '4': 0.16666666666666666, '5': 0.0, '6': 0.0, '7': 0.0, '9': 0.0}, 'tolerance': 3.0, 'track_pass': True}]; n_metrics=672",
+      "name": "rung1_separator_p1b_full_table_recorded",
+      "status": "PASS",
+      "tier": "rung1_separator_fallibility_rungs"
+    },
+    {
       "detail": "results/ttt/results.json",
       "name": "ttt_legacy_present",
       "status": "PASS",
@@ -3049,11 +3211,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-10T10:46:58.762438+00:00",
+  "generated_at": "2026-06-10T17:22:15.906178+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 508,
+    "n_checks": 535,
     "n_fail": 3,
-    "n_pass": 505
+    "n_pass": 532
   }
 }

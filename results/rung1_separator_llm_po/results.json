@@ -29,7 +29,7 @@
     "symbolic_status_observed": "RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS",
     "visible_gpus": 8
   },
-  "generated_at": "2026-06-10T10:46:56.042465+00:00",
+  "generated_at": "2026-06-10T12:10:49.156533+00:00",
   "gpu_inventory": {
     "available": true,
     "gpus": [
@@ -60,25 +60,25 @@
       {
         "index": 4,
         "memory_total": "81920 MiB",
-        "memory_used": "69775 MiB",
+        "memory_used": "53519 MiB",
         "name": "NVIDIA A100-SXM4-80GB"
       },
       {
         "index": 5,
         "memory_total": "81920 MiB",
-        "memory_used": "69101 MiB",
+        "memory_used": "52845 MiB",
         "name": "NVIDIA A100-SXM4-80GB"
       },
       {
         "index": 6,
         "memory_total": "81920 MiB",
-        "memory_used": "69101 MiB",
+        "memory_used": "52845 MiB",
         "name": "NVIDIA A100-SXM4-80GB"
       },
       {
         "index": 7,
         "memory_total": "81920 MiB",
-        "memory_used": "69389 MiB",
+        "memory_used": "53133 MiB",
         "name": "NVIDIA A100-SXM4-80GB"
       }
     ],

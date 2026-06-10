@@ -46,6 +46,8 @@ ARTIFACT_INDEX = {
     "item_057_rung1_phase1_r2_budget_sweep": "results/experiment_items/item_057_rung1_phase1_r2_budget_sweep.json",
     "item_058_rung1_separator_scaling": "results/experiment_items/item_058_rung1_separator_scaling.json",
     "item_059_rung1_separator_llm_po": "results/experiment_items/item_059_rung1_separator_llm_po.json",
+    "item_060_rung1_separator_fallibility_rungs": "results/experiment_items/item_060_rung1_separator_fallibility_rungs.json",
+    "item_061_rung1_separator_p1a_recovery_baseline": "results/experiment_items/item_061_rung1_separator_p1a_recovery_baseline.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
     "model_readiness": "results/model_readiness/readiness.json",
@@ -102,6 +104,12 @@ ARTIFACT_INDEX = {
     "rung1_separator_scaling": "results/rung1_separator_scaling/results.json",
     "rung1_separator_llm_po": "results/rung1_separator_llm_po/results.json",
     "rung1_separator_llm_po_forward_gate": "results/rung1_separator_llm_po/p1a_forward_gate.json",
+    "rung1_separator_llm_po_p1a_recovery_baseline": "results/rung1_separator_llm_po/p1a_recovery_baseline.json",
+    "rung1_separator_fallibility_rungs": "results/rung1_separator_fallibility_rungs/results.json",
+    "rung1_separator_p1b_raw_generation_inspection": "results/rung1_separator_fallibility_rungs/p1b_raw_generation_inspection.json",
+    "rung1_separator_p1b_truncation_pilot": "results/rung1_separator_fallibility_rungs/p1b_truncation_pilot.json",
+    "rung1_separator_p1b_graded_recompute": "results/rung1_separator_fallibility_rungs/p1b_graded_recompute.json",
+    "rung1_separator_p1b_full_table": "results/rung1_separator_fallibility_rungs/p1b_full_table.json",
     "validation": "results/validation/validation.json",
 }
 
