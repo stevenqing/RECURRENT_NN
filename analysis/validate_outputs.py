@@ -959,8 +959,9 @@ def _rung1_separator_scaling_checks(checks: list[dict[str, Any]]) -> None:
     _exists(checks, "rung1_separator_scaling", "rung1_separator_scaling")
     item = _read_json("item_058_rung1_separator_scaling")
     results = _read_json("rung1_separator_scaling")
-    allowed_statuses = {"RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS", "RUNG1_SEPARATOR_SCALING_SYMBOLIC_KILL_RECORDED", "RUNG1_SEPARATOR_SCALING_SYMBOLIC_POOL_PARTIAL"}
-    required_tables = {"instance_manifest", "keff_by_cell", "instance_arm_metrics", "capacity_leg", "double_dissociation_detail", "double_dissociation_regression", "verdict"}
+    allowed_statuses = {"RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS", "RUNG1_SEPARATOR_SCALING_SYMBOLIC_KILL_RECORDED", "RUNG1_SEPARATOR_SCALING_SYMBOLIC_POOL_PARTIAL", "RUNG1_SEPARATOR_SCALING_SYMBOLIC_AXES_DESIGN_STOP"}
+    allowed_schemas = {"rung1_separator_scaling_symbolic_v0", "rung1_separator_scaling_symbolic_v0_1"}
+    required_tables = {"axes_independence_check", "instance_manifest", "keff_by_cell", "instance_arm_metrics", "capacity_leg", "double_dissociation_detail", "double_dissociation_regression", "high_thrash_diagnostics", "verdict"}
     required_arms = {"monolith_cbj", "forward_markov_team", "chronological_rollback_team", "cbj_bounded_team"}
     allowed_metric_statuses = {"SOLVED", "OVERFLOW_FAIL", "FORWARD_DEAD_END", "NODE_CAP"}
     if item:
@@ -979,23 +980,31 @@ def _rung1_separator_scaling_checks(checks: list[dict[str, Any]]) -> None:
         capacity_rows = results.get("capacity_leg", [])
         dd_detail = results.get("double_dissociation_detail", [])
         dd_regression = results.get("double_dissociation_regression", [])
+        thrash_rows = results.get("high_thrash_diagnostics", [])
+        axes_check = results.get("axes_independence_check", {})
         verdict = results.get("verdict", [])
         arms = {row.get("arm") for row in metrics}
         metric_statuses = {row.get("status") for row in metrics}
         verdict_by_check = {row.get("check"): row for row in verdict}
         expected_metric_rows = len(manifest) * len(required_arms)
-        _check(checks, results.get("schema_version") == "rung1_separator_scaling_symbolic_v0" and results.get("status") in allowed_statuses, "rung1_separator_schema_status", f"schema={results.get('schema_version')}; status={results.get('status')}", "rung1_separator_scaling")
+        axes_stop = results.get("status") == "RUNG1_SEPARATOR_SCALING_SYMBOLIC_AXES_DESIGN_STOP"
+        _check(checks, results.get("schema_version") in allowed_schemas and results.get("status") in allowed_statuses, "rung1_separator_schema_status", f"schema={results.get('schema_version')}; status={results.get('status')}", "rung1_separator_scaling")
         _check(checks, generation.get("arms") == ["monolith_cbj", "forward_markov_team", "chronological_rollback_team", "cbj_bounded_team"] and generation.get("team_loop_provenance") == "phase0_symbolic_loop_frozen_from_item051_separator_scaling_v0", "rung1_separator_generation_config", f"generation={generation}", "rung1_separator_scaling")
-        manifest_ok = bool(manifest) and all({"instance_id", "seed", "m_blocks", "n_per_block", "k", "d_local", "b", "d_boundary", "d_global_reference", "reference_cross_agent_conflict_depth", "n_intra_block_edges", "n_boundary_edges", "d_local_capacity_ok", "register_capacity_D", "comm_budget_C", "density", "target_met"}.issubset(row) for row in manifest)
+        manifest_ok = bool(manifest) and all({"instance_id", "seed", "m_blocks", "n_per_block", "k", "d_local", "b", "d_boundary", "target_d_global", "d_global_reference", "reference_cross_agent_conflict_depth", "local_contribution", "cell_id", "sweep", "n_intra_block_edges", "n_boundary_edges", "d_local_capacity_ok", "register_capacity_D", "comm_budget_C", "density", "target_met"}.issubset(row) for row in manifest)
         _check(checks, manifest_ok, "rung1_separator_manifest_schema", f"rows={len(manifest)}", "rung1_separator_scaling")
+        axes_ok = {"corr_d_global_b", "vif_d_global_b", "min_unique_d_global_per_b", "min_unique_b_per_d_global", "axes_independent"}.issubset(axes_check)
+        _check(checks, axes_ok and (axes_stop or axes_check.get("axes_independent") == acceptance.get("axes_independent")), "rung1_separator_axes_independence_recorded", f"axes={axes_check}", "rung1_separator_scaling")
         keff_ok = bool(keff_rows) and all({"d_global_bin", "b_bin", "mean_live_domain_at_decision", "density", "n", "keff_constant_flag"}.issubset(row) for row in keff_rows)
         _check(checks, keff_ok, "rung1_separator_keff_recorded", f"rows={len(keff_rows)}; flags={[row.get('keff_constant_flag') for row in keff_rows]}", "rung1_separator_scaling")
-        metrics_ok = len(metrics) == expected_metric_rows and arms == required_arms and metric_statuses.issubset(allowed_metric_statuses) and all({"instance_id", "arm", "d_global_reference", "b", "solved", "status", "peak_register_entries", "comm_tokens", "total_retractions", "overflowed", "steps_to_solve_or_cap", "register_capacity_D", "comm_budget_C", "node_cap", "seed"}.issubset(row) for row in metrics)
+        metrics_ok = (axes_stop and not metrics) or (len(metrics) == expected_metric_rows and arms == required_arms and metric_statuses.issubset(allowed_metric_statuses) and all({"instance_id", "arm", "cell_id", "sweep", "d_global_reference", "b", "d_boundary", "d_local", "m_blocks", "local_contribution", "solved", "status", "peak_register_entries", "comm_tokens", "total_retractions", "overflowed", "steps_to_solve_or_cap", "register_capacity_D", "comm_budget_C", "node_cap", "seed"}.issubset(row) for row in metrics))
         _check(checks, metrics_ok, "rung1_separator_metric_rows_complete", f"rows={len(metrics)}; expected={expected_metric_rows}; arms={sorted(arms)}; statuses={sorted(metric_statuses)}", "rung1_separator_scaling")
-        capacity_ok = bool(capacity_rows) and all({"d_global_bin", "b_bin", "arm", "n", "solve_rate", "mean_peak_register_entries", "overflow_rate", "predicted_collapse_d", "observed_solve_at_this_dglobal"}.issubset(row) for row in capacity_rows)
-        dd_ok = bool(dd_detail) and {row.get("arm") for row in dd_regression} == {"cbj_bounded_team", "chronological_rollback_team"}
-        _check(checks, capacity_ok and dd_ok, "rung1_separator_analysis_tables_recorded", f"capacity_rows={len(capacity_rows)}; dd_detail={len(dd_detail)}; dd_regression={len(dd_regression)}", "rung1_separator_scaling")
-        required_verdict = {"cap_monolith_collapse", "cap_team_survives", "dd_cbj_flat_in_dglobal", "dd_cbj_rises_in_b", "dd_chrono_rises_in_dglobal", "dd_chrono_flat_in_b", "quant_collapse_matches_law", "overall_pass"}
+        capacity_ok = (axes_stop and not capacity_rows) or (bool(capacity_rows) and all({"d_global_bin", "b_bin", "arm", "n", "solve_rate", "mean_peak_register_entries", "overflow_rate", "predicted_collapse_d", "observed_solve_at_this_dglobal"}.issubset(row) for row in capacity_rows))
+        dd_ok = (axes_stop and not dd_detail and not dd_regression) or (bool(dd_detail) and {row.get("arm") for row in dd_detail} == {"cbj_bounded_team", "chronological_rollback_team"} and {row.get("term") for row in dd_regression}.issuperset({"arm_chrono_x_d_global", "arm_chrono_x_b"}))
+        thrash_ok = (axes_stop and not thrash_rows) or (bool(thrash_rows) and all({"d_global_bin", "b_bin", "arm", "n", "median_steps", "iqr_steps", "high_thrash_count", "culprit_trace_available"}.issubset(row) for row in thrash_rows))
+        _check(checks, capacity_ok and dd_ok and thrash_ok, "rung1_separator_analysis_tables_recorded", f"capacity_rows={len(capacity_rows)}; dd_detail={len(dd_detail)}; dd_regression={len(dd_regression)}; thrash_rows={len(thrash_rows)}", "rung1_separator_scaling")
+        required_verdict = {"axes_independence_check", "pool_targets_met", "local_contribution_positive", "keff_constant", "cap_monolith_collapse", "cap_team_survives", "dd_interaction_chrono_dglobal_positive", "dd_interaction_chrono_b_negative", "quant_collapse_matches_law", "kill_interaction_dglobal_not_positive", "kill_capacity_law_mismatch", "kill_forced_not_better", "overall_pass"}
+        if axes_stop:
+            required_verdict = {"axes_independence_check", "overall_pass"}
         verdict_ok = required_verdict.issubset(verdict_by_check) and acceptance.get("overall_pass") == verdict_by_check.get("overall_pass", {}).get("pass") and acceptance.get("llm_version_allowed") == acceptance.get("overall_pass")
         _check(checks, verdict_ok, "rung1_separator_verdict_and_gate", f"acceptance={acceptance}; verdict_checks={sorted(verdict_by_check)}", "rung1_separator_scaling")
 
