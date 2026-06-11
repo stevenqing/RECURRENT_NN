@@ -1,0 +1,128 @@
+{
+  "acceptance": {
+    "max_truncation_frac": 0.0,
+    "p1c_truncation_gate_pass": true,
+    "truncation_threshold": 0.1
+  },
+  "generated_at": "2026-06-11T06:28:00.278200+00:00",
+  "generation_config": {
+    "answer_token_budget_requested": 1500,
+    "early_stop_on_gate_failure": true,
+    "max_new_tokens": 12288,
+    "model_id": "Qwen/Qwen3.5-4B",
+    "n_per_cell": 12,
+    "n_shards": 4,
+    "operator_version": "p1c_unguarded_structured_capped_thinking_v2",
+    "pilot_steps": 1,
+    "prompt_contract": "p1c_unguarded_structured_json_capped_thinking_v2",
+    "thinking_budget_requested": 3000,
+    "thinking_disabled": false
+  },
+  "instance_rows": [
+    {
+      "calls": 1,
+      "frac_parsable": 1.0,
+      "frac_truncated_no_answer": 0.0,
+      "instance_id": "sep_s1458_axis_balance_b12_d12_000002",
+      "truncated_generations": 0
+    },
+    {
+      "calls": 1,
+      "frac_parsable": 1.0,
+      "frac_truncated_no_answer": 0.0,
+      "instance_id": "sep_s1458_axis_balance_b12_d12_000011",
+      "truncated_generations": 0
+    },
+    {
+      "calls": 1,
+      "frac_parsable": 1.0,
+      "frac_truncated_no_answer": 0.0,
+      "instance_id": "sep_s1458_axis_balance_b12_d12_000016",
+      "truncated_generations": 0
+    },
+    {
+      "calls": 1,
+      "frac_parsable": 1.0,
+      "frac_truncated_no_answer": 0.0,
+      "instance_id": "sep_s1458_axis_balance_b12_d12_000003",
+      "truncated_generations": 0
+    },
+    {
+      "calls": 1,
+      "frac_parsable": 1.0,
+      "frac_truncated_no_answer": 0.0,
+      "instance_id": "sep_s1458_axis_balance_b12_d12_000013",
+      "truncated_generations": 0
+    },
+    {
+      "calls": 1,
+      "frac_parsable": 1.0,
+      "frac_truncated_no_answer": 0.0,
+      "instance_id": "sep_s1458_axis_balance_b12_d12_000017",
+      "truncated_generations": 0
+    },
+    {
+      "calls": 1,
+      "frac_parsable": 1.0,
+      "frac_truncated_no_answer": 0.0,
+      "instance_id": "sep_s1458_axis_balance_b12_d12_000006",
+      "truncated_generations": 0
+    },
+    {
+      "calls": 1,
+      "frac_parsable": 1.0,
+      "frac_truncated_no_answer": 0.0,
+      "instance_id": "sep_s1458_axis_balance_b12_d12_000014",
+      "truncated_generations": 0
+    },
+    {
+      "calls": 1,
+      "frac_parsable": 1.0,
+      "frac_truncated_no_answer": 0.0,
+      "instance_id": "sep_s1458_axis_balance_b12_d12_000026",
+      "truncated_generations": 0
+    },
+    {
+      "calls": 1,
+      "frac_parsable": 1.0,
+      "frac_truncated_no_answer": 0.0,
+      "instance_id": "sep_s1458_axis_balance_b12_d12_000009",
+      "truncated_generations": 0
+    },
+    {
+      "calls": 1,
+      "frac_parsable": 1.0,
+      "frac_truncated_no_answer": 0.0,
+      "instance_id": "sep_s1458_axis_balance_b12_d12_000015",
+      "truncated_generations": 0
+    },
+    {
+      "calls": 1,
+      "frac_parsable": 1.0,
+      "frac_truncated_no_answer": 0.0,
+      "instance_id": "sep_s1458_axis_balance_b12_d12_000029",
+      "truncated_generations": 0
+    }
+  ],
+  "prelaunch_truncation_gate": [
+    {
+      "max_frac_truncated_no_answer": 0.0,
+      "pass": true,
+      "provenance": "qwen35_p1c_truncation_gate_v0",
+      "source": "autonomous_stage_a_run",
+      "threshold": 0.1
+    }
+  ],
+  "schema_version": "rung1_separator_p1c_truncation_pilot_v0",
+  "status": "RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS",
+  "verdict": [
+    {
+      "check": "p1c_truncation_pass",
+      "observed": "max_frac=0.0000",
+      "pass": true,
+      "predicted": "max frac_truncated_no_answer <= 0.10",
+      "provenance": "p1c_truncation_verdict_v0",
+      "source": "autonomous_stage_a_run"
+    }
+  ]
+}

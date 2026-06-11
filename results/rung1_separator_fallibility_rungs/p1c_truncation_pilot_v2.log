@@ -1,0 +1,49 @@
+{"event": "p1c_launch_shard", "shard_index": 0, "device": "cuda:0", "cmd": ["/home/aiscuser/RECURRENT_NN/.venv/bin/python", "-u", "-m", "experiments.rung1_separator_p1c_truncation_pilot", "--shard-index", "0", "--num-shards", "4", "--num-per-cell", "12", "--max-new-tokens", "12288", "--output-dir", "/home/aiscuser/RECURRENT_NN/results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2", "--device", "cuda:0", "--operator-version", "p1c_unguarded_structured_capped_thinking_v2"]}
+{"event": "p1c_launch_shard", "shard_index": 1, "device": "cuda:1", "cmd": ["/home/aiscuser/RECURRENT_NN/.venv/bin/python", "-u", "-m", "experiments.rung1_separator_p1c_truncation_pilot", "--shard-index", "1", "--num-shards", "4", "--num-per-cell", "12", "--max-new-tokens", "12288", "--output-dir", "/home/aiscuser/RECURRENT_NN/results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2", "--device", "cuda:1", "--operator-version", "p1c_unguarded_structured_capped_thinking_v2"]}
+{"event": "p1c_launch_shard", "shard_index": 2, "device": "cuda:2", "cmd": ["/home/aiscuser/RECURRENT_NN/.venv/bin/python", "-u", "-m", "experiments.rung1_separator_p1c_truncation_pilot", "--shard-index", "2", "--num-shards", "4", "--num-per-cell", "12", "--max-new-tokens", "12288", "--output-dir", "/home/aiscuser/RECURRENT_NN/results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2", "--device", "cuda:2", "--operator-version", "p1c_unguarded_structured_capped_thinking_v2"]}
+{"event": "p1c_launch_shard", "shard_index": 3, "device": "cuda:3", "cmd": ["/home/aiscuser/RECURRENT_NN/.venv/bin/python", "-u", "-m", "experiments.rung1_separator_p1c_truncation_pilot", "--shard-index", "3", "--num-shards", "4", "--num-per-cell", "12", "--max-new-tokens", "12288", "--output-dir", "/home/aiscuser/RECURRENT_NN/results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2", "--device", "cuda:3", "--operator-version", "p1c_unguarded_structured_capped_thinking_v2"]}
+{"event": "p1c_shard_start", "device": "cuda:3", "n_instances": 3, "max_new_tokens": 12288, "operator_version": "p1c_unguarded_structured_capped_thinking_v2"}
+{"event": "p1c_shard_start", "device": "cuda:1", "n_instances": 3, "max_new_tokens": 12288, "operator_version": "p1c_unguarded_structured_capped_thinking_v2"}
+{"event": "p1c_shard_start", "device": "cuda:2", "n_instances": 3, "max_new_tokens": 12288, "operator_version": "p1c_unguarded_structured_capped_thinking_v2"}
+{"event": "p1c_shard_start", "device": "cuda:0", "n_instances": 3, "max_new_tokens": 12288, "operator_version": "p1c_unguarded_structured_capped_thinking_v2"}
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 4387.44it/s]
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s][transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:  88%|████████▊ | 377/426 [00:00<00:00, 3766.43it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 3827.23it/s]
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights:  89%|████████▉ | 381/426 [00:00<00:00, 3788.55it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 4071.26it/s]
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights:  90%|████████▉ | 382/426 [00:00<00:00, 3812.93it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 3894.03it/s]
+{"event": "p1c_instance_start", "device": "cuda:1", "row_index": 0, "instance_id": "sep_s1458_axis_balance_b12_d12_000003"}
+{"event": "p1c_instance_start", "device": "cuda:3", "row_index": 0, "instance_id": "sep_s1458_axis_balance_b12_d12_000009"}
+{"event": "p1c_instance_start", "device": "cuda:0", "row_index": 0, "instance_id": "sep_s1458_axis_balance_b12_d12_000002"}
+{"event": "p1c_instance_start", "device": "cuda:2", "row_index": 0, "instance_id": "sep_s1458_axis_balance_b12_d12_000006"}
+{"event": "p1c_instance_done", "device": "cuda:2", "row_index": 0, "instance_id": "sep_s1458_axis_balance_b12_d12_000006", "calls": 1, "truncated_generations": 0}
+{"event": "p1c_instance_start", "device": "cuda:2", "row_index": 1, "instance_id": "sep_s1458_axis_balance_b12_d12_000014"}
+{"event": "p1c_instance_done", "device": "cuda:3", "row_index": 0, "instance_id": "sep_s1458_axis_balance_b12_d12_000009", "calls": 1, "truncated_generations": 0}
+{"event": "p1c_instance_start", "device": "cuda:3", "row_index": 1, "instance_id": "sep_s1458_axis_balance_b12_d12_000015"}
+{"event": "p1c_instance_done", "device": "cuda:1", "row_index": 0, "instance_id": "sep_s1458_axis_balance_b12_d12_000003", "calls": 1, "truncated_generations": 0}
+{"event": "p1c_instance_start", "device": "cuda:1", "row_index": 1, "instance_id": "sep_s1458_axis_balance_b12_d12_000013"}
+{"event": "p1c_instance_done", "device": "cuda:0", "row_index": 0, "instance_id": "sep_s1458_axis_balance_b12_d12_000002", "calls": 1, "truncated_generations": 0}
+{"event": "p1c_instance_start", "device": "cuda:0", "row_index": 1, "instance_id": "sep_s1458_axis_balance_b12_d12_000011"}
+{"event": "p1c_instance_done", "device": "cuda:2", "row_index": 1, "instance_id": "sep_s1458_axis_balance_b12_d12_000014", "calls": 1, "truncated_generations": 0}
+{"event": "p1c_instance_start", "device": "cuda:2", "row_index": 2, "instance_id": "sep_s1458_axis_balance_b12_d12_000026"}
+{"event": "p1c_instance_done", "device": "cuda:1", "row_index": 1, "instance_id": "sep_s1458_axis_balance_b12_d12_000013", "calls": 1, "truncated_generations": 0}
+{"event": "p1c_instance_start", "device": "cuda:1", "row_index": 2, "instance_id": "sep_s1458_axis_balance_b12_d12_000017"}
+{"event": "p1c_instance_done", "device": "cuda:3", "row_index": 1, "instance_id": "sep_s1458_axis_balance_b12_d12_000015", "calls": 1, "truncated_generations": 0}
+{"event": "p1c_instance_start", "device": "cuda:3", "row_index": 2, "instance_id": "sep_s1458_axis_balance_b12_d12_000029"}
+{"event": "p1c_instance_done", "device": "cuda:0", "row_index": 1, "instance_id": "sep_s1458_axis_balance_b12_d12_000011", "calls": 1, "truncated_generations": 0}
+{"event": "p1c_instance_start", "device": "cuda:0", "row_index": 2, "instance_id": "sep_s1458_axis_balance_b12_d12_000016"}
+{"event": "p1c_instance_done", "device": "cuda:2", "row_index": 2, "instance_id": "sep_s1458_axis_balance_b12_d12_000026", "calls": 1, "truncated_generations": 0}
+{"path": "results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot_shards/shard_02.json", "status": "P1C_TRUNCATION_PILOT_SHARD_COMPLETE"}
+{"event": "p1c_instance_done", "device": "cuda:3", "row_index": 2, "instance_id": "sep_s1458_axis_balance_b12_d12_000029", "calls": 1, "truncated_generations": 0}
+{"path": "results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot_shards/shard_03.json", "status": "P1C_TRUNCATION_PILOT_SHARD_COMPLETE"}
+{"event": "p1c_instance_done", "device": "cuda:1", "row_index": 2, "instance_id": "sep_s1458_axis_balance_b12_d12_000017", "calls": 1, "truncated_generations": 0}
+{"path": "results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot_shards/shard_01.json", "status": "P1C_TRUNCATION_PILOT_SHARD_COMPLETE"}
+{"event": "p1c_instance_done", "device": "cuda:0", "row_index": 2, "instance_id": "sep_s1458_axis_balance_b12_d12_000016", "calls": 1, "truncated_generations": 0}
+{"path": "results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot_shards/shard_00.json", "status": "P1C_TRUNCATION_PILOT_SHARD_COMPLETE"}
+{"path": "results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json", "status": "RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS"}

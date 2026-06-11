@@ -1,0 +1,406 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_063_rung1_separator_llm_inloop_smoke.json",
+    "results/rung1_separator_llm_inloop/preflight_full_scope.json",
+    "results/rung1_separator_llm_inloop/results.json",
+    "experiments/rung1_separator_llm_inloop.py",
+    "results/rung1_separator_llm_inloop/sharded_smoke/results.json",
+    "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_00.json",
+    "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_01.json",
+    "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_02.json",
+    "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_03.json"
+  ],
+  "code_added_used": [
+    {
+      "change": "Implements rung1_separator_llm_inloop_v0 with budget preflight, real P1b v1.1 LLM calls inside the search loop, symbolic guarded propagation, symbolic conflict/recovery, and active-episode batching.",
+      "path": "experiments/rung1_separator_llm_inloop.py"
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --preflight-only --n-per-cell 8 --call-cap 40 --max-budget-calls 300 --output results/rung1_separator_llm_inloop/preflight_full_scope.json",
+      "purpose": "Estimate the requested b2 capacity-scaling slice budget without launching Qwen calls."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --smoke --n-per-cell 1 --call-cap 1 --max-budget-calls 4 --max-new-tokens 4096 --device cuda:0 --batch-size 2 --output results/rung1_separator_llm_inloop/results.json",
+      "purpose": "Run a tiny batched real LLM-in-loop smoke after full requested slice exceeded the budget guard."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --launch-4gpu --smoke --n-per-cell 1 --call-cap 1 --max-budget-calls 4 --max-new-tokens 4096 --batch-size 2 --output-dir results/rung1_separator_llm_inloop/sharded_smoke",
+      "purpose": "Validate 0-3 GPU sharded launch and merge path on the minimal in-loop smoke."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --launch-4gpu --n-per-cell 8 --call-cap 40 --max-budget-calls 6000 --max-new-tokens 4096 --batch-size 8 --output-dir results/rung1_separator_llm_inloop/full_slice_4gpu",
+      "purpose": "Recommended fastest full requested capacity slice command after sharded smoke passes; expected worst-case budget 5760 calls."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [
+      {
+        "gate": "full_capacity_slice_budget_preflight",
+        "number": "max_llm_calls=5760 > threshold=300",
+        "outcome": "STOP"
+      },
+      {
+        "gate": "batched_smoke_harness",
+        "number": "2 real in-loop Qwen calls; batch_size=2; rows=2; step_rows=2",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "inloop_vs_isolated_recall_smoke",
+        "number": "inloop_recall=0.8; isolated_recall=0.5241935483870968; n_opportunity_steps=2",
+        "outcome": "OBSERVED_NOT_DECISIVE"
+      },
+      {
+        "gate": "proxy_validated",
+        "number": "smoke only; no d* fit",
+        "outcome": "NOT_ESTABLISHED"
+      },
+      {
+        "gate": "capacity_scaling_holds_inloop",
+        "number": "only D=6 smoke",
+        "outcome": "NOT_ESTABLISHED"
+      },
+      {
+        "gate": "ordering_holds_inloop",
+        "number": "decoupling corner not launched after budget gate",
+        "outcome": "NOT_RUN"
+      },
+      {
+        "gate": "sharded_smoke_launch_merge",
+        "number": "status=RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE; shards=[{'n_instances': 1, 'n_steps': 1, 'path': 'results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_00.json', 'status': 'RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE'}, {'n_instances': 1, 'n_steps': 1, 'path': 'results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_01.json', 'status': 'RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE'}, {'n_instances': 0, 'n_steps': 0, 'path': 'results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_02.json', 'status': 'RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE'}, {'n_instances': 0, 'n_steps': 0, 'path': 'results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_03.json', 'status': 'RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE'}]; n_rows=2; n_steps=2",
+        "outcome": "PASS"
+      }
+    ],
+    "next_step_routing": "Fastest current route is 4-GPU sharded batched transformers. Full requested slice is ready to launch with --launch-4gpu and max_budget_calls>=5760; vLLM would be faster only after installing/serving Qwen3.5 in the project environment.",
+    "outcome": "RUNG1_SEPARATOR_ITEM063_SHARDED_INLOOP_SMOKE_READY_FOR_FULL_SLICE",
+    "overall_pass": false
+  },
+  "generated_at": "2026-06-11T08:10:07.378725+00:00",
+  "honesty": {
+    "budget_guard": "The requested capacity slice was not launched because max_llm_calls=5760 exceeded the configured 300-call guard.",
+    "censoring_policy": "The d_global=4 smoke row hit call cap and is right-censored, not missing or a false solve.",
+    "does_not_establish": "This item does not validate the calibrated proxy, does not establish capacity scaling in-loop, and does not test CBJ/chronological/forward ordering. It only records a full-scope budget stop and a tiny real LLM-in-loop smoke proving the harness can call Qwen inside the search loop with corrected recall accounting.",
+    "full_slice_runtime_guard": "The full requested slice is still worst-case 5760 LLM calls. Run only with an explicit raised budget and expect a long wall-clock run unless a real Qwen3.5 vLLM endpoint is installed.",
+    "sharded_smoke_guard": "4-GPU sharded launch and merge path is validated on the minimal smoke only; it does not validate proxy/capacity/ordering.",
+    "smoke_scope_guard": "The smoke has only two LLM calls and two propagation-opportunity steps; it is not a statistical estimate.",
+    "vllm_guard": "vLLM was not importable in the project virtualenv; an unrelated vLLM server was present for another model, so this run used batched transformers on cuda:0."
+  },
+  "item_number": "063",
+  "name": "Rung-1 P1b real LLM-in-loop controlled smoke",
+  "provenance": {
+    "answer_token_budget_requested": 1500,
+    "fastest_backend_current": "4-GPU sharded batched transformers; vLLM unavailable in .venv and existing vLLM server serves a different model",
+    "full_scope_requested": {
+      "b": 2,
+      "budget_threshold": 300,
+      "call_cap": 40,
+      "d_global_depths": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        10
+      ],
+      "launched": false,
+      "max_llm_calls": 5760,
+      "n_per_cell": 8,
+      "register_capacity_D_values": [
+        6,
+        8,
+        10
+      ]
+    },
+    "model_id": "Qwen/Qwen3.5-4B",
+    "operator_version": "v1_1",
+    "prompt_contract": "p1b_bounded_structured_domain_propagation_capped_thinking_v1_1",
+    "recommended_full_slice_command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --launch-4gpu --n-per-cell 8 --call-cap 40 --max-budget-calls 6000 --max-new-tokens 4096 --batch-size 8 --output-dir results/rung1_separator_llm_inloop/full_slice_4gpu",
+    "sharded_smoke_artifact": "results/rung1_separator_llm_inloop/sharded_smoke/results.json",
+    "sharded_smoke_status": "RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE",
+    "smoke_scope_run": {
+      "b": 2,
+      "batch_size": 2,
+      "call_cap": 1,
+      "d_global_depths": [
+        4,
+        5
+      ],
+      "device": "cuda:0",
+      "max_llm_calls": 2,
+      "n_per_cell": 1,
+      "register_capacity_D_values": [
+        6
+      ]
+    },
+    "source": "autonomous_stage_a_run",
+    "thinking_budget_requested": 2500,
+    "vllm_status": "not available in project .venv; an external vLLM server was present for a different model, so this run used batched transformers"
+  },
+  "purpose": "Start the Layer-3 controlled-substrate LLM-in-the-loop test: real Qwen calls at visited search nodes with the validated P1b v1.1 propagation operator, symbolic conflict/recovery/register machinery, cost preflight for the requested capacity slice, and a tiny batched smoke run to verify the in-loop harness before any larger launch.",
+  "result_tables": {
+    "capacity_scaling_inloop_b2": {
+      "rows": [
+        {
+          "b_bin": "2",
+          "call_cap_rate": 1.0,
+          "d_global_bin": "4",
+          "mean_inloop_propagation_recall": 1.0,
+          "mean_llm_calls": 1.0,
+          "n": 1,
+          "provenance": "llm_inloop_capacity_cell_v0",
+          "register_capacity_D": 6,
+          "solve_rate": 0.0,
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "b_bin": "2",
+          "call_cap_rate": 0.0,
+          "d_global_bin": "5",
+          "mean_inloop_propagation_recall": 0.6,
+          "mean_llm_calls": 1.0,
+          "n": 1,
+          "provenance": "llm_inloop_capacity_cell_v0",
+          "register_capacity_D": 6,
+          "solve_rate": 0.0,
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "cost_ledger": {
+      "rows": [
+        {
+          "action": "not_launched",
+          "call_cap_per_instance": 40,
+          "cost_ok": false,
+          "max_budget_calls": 300,
+          "max_llm_calls": 5760,
+          "n_arms": 1,
+          "n_base_instances": 48,
+          "n_register_D_values": 3,
+          "provenance": "item063_full_scope_budget_preflight",
+          "scope": "requested_capacity_slice",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "action": "launched",
+          "batch_size": 2,
+          "call_cap_per_instance": 1,
+          "cost_ok": true,
+          "max_budget_calls": 4,
+          "max_llm_calls": 2,
+          "n_arms": 1,
+          "n_base_instances": 2,
+          "n_register_D_values": 1,
+          "provenance": "item063_smoke_budget_preflight",
+          "scope": "batched_smoke",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "decoupling_inloop_corner": {
+      "rows": []
+    },
+    "inloop_instance_smoke": {
+      "rows": [
+        {
+          "arm": "cbj_bounded",
+          "b": 2,
+          "call_cap_hit": true,
+          "cell_id": "dg_m2_dl3",
+          "d_global_reference": 4,
+          "instance_id": "sep_s480_dg_m2_dl3_000001",
+          "llm_calls": 1,
+          "mean_inloop_propagation_recall": 1.0,
+          "propagation_opportunity_steps": 1,
+          "provenance": "llm_inloop_instance_v0",
+          "register_capacity_D": 6,
+          "right_censored": true,
+          "solved_valid": false,
+          "source": "autonomous_stage_a_run",
+          "status": "CALL_CAP"
+        },
+        {
+          "arm": "cbj_bounded",
+          "b": 2,
+          "call_cap_hit": false,
+          "cell_id": "dg_m4_dl3",
+          "d_global_reference": 5,
+          "instance_id": "sep_s581_dg_m4_dl3_000001",
+          "llm_calls": 1,
+          "mean_inloop_propagation_recall": 0.6,
+          "propagation_opportunity_steps": 1,
+          "provenance": "llm_inloop_instance_v0",
+          "register_capacity_D": 6,
+          "right_censored": false,
+          "solved_valid": false,
+          "source": "autonomous_stage_a_run",
+          "status": "OVERFLOW_FAIL"
+        }
+      ]
+    },
+    "inloop_vs_isolated_recall": {
+      "rows": [
+        {
+          "b_bin": "2",
+          "delta_inloop_minus_isolated": 0.2758064516129033,
+          "inloop_recall": 0.8,
+          "isolated_step1A_recall": 0.5241935483870968,
+          "n_inloop_opportunity_steps": 2,
+          "provenance": "llm_inloop_vs_isolated_recall_v0",
+          "scope": "batched_smoke_only",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "proxy_match_by_cell": {
+      "rows": []
+    },
+    "sharded_smoke_capacity_b2": {
+      "rows": [
+        {
+          "b_bin": "2",
+          "call_cap_rate": 1.0,
+          "d_global_bin": "4",
+          "mean_inloop_propagation_recall": 0.0,
+          "mean_llm_calls": 1.0,
+          "n": 1,
+          "provenance": "llm_inloop_capacity_cell_v0",
+          "register_capacity_D": 6,
+          "solve_rate": 0.0,
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "b_bin": "2",
+          "call_cap_rate": 0.0,
+          "d_global_bin": "5",
+          "mean_inloop_propagation_recall": 0.6,
+          "mean_llm_calls": 1.0,
+          "n": 1,
+          "provenance": "llm_inloop_capacity_cell_v0",
+          "register_capacity_D": 6,
+          "solve_rate": 0.0,
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "sharded_smoke_cost_ledger": {
+      "rows": [
+        {
+          "answer_token_budget_requested": 1500,
+          "call_cap_per_instance": 1,
+          "cost_ok": true,
+          "max_budget_calls": 4,
+          "max_llm_calls": 2,
+          "n_arms": 1,
+          "n_base_instances": 2,
+          "n_register_D_values": 1,
+          "n_shard_episode_specs": 1,
+          "provenance": "llm_inloop_budget_preflight_v0",
+          "source": "autonomous_stage_a_run",
+          "thinking_budget_requested": 2500
+        }
+      ]
+    },
+    "sharded_smoke_inloop_vs_isolated_recall": {
+      "rows": [
+        {
+          "b_bin": "2",
+          "delta_inloop_minus_isolated": -0.22419354838709676,
+          "inloop_recall": 0.3,
+          "isolated_step1A_recall": 0.5241935483870968,
+          "n_inloop_opportunity_steps": 2,
+          "provenance": "llm_inloop_vs_isolated_recall_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "sharded_smoke_shard_summaries": {
+      "rows": [
+        {
+          "n_instances": 1,
+          "n_steps": 1,
+          "path": "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_00.json",
+          "status": "RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE"
+        },
+        {
+          "n_instances": 1,
+          "n_steps": 1,
+          "path": "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_01.json",
+          "status": "RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE"
+        },
+        {
+          "n_instances": 0,
+          "n_steps": 0,
+          "path": "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_02.json",
+          "status": "RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE"
+        },
+        {
+          "n_instances": 0,
+          "n_steps": 0,
+          "path": "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_03.json",
+          "status": "RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE"
+        }
+      ]
+    },
+    "sharded_smoke_verdict": {
+      "rows": [
+        {
+          "check": "budget_preflight",
+          "observed": "max_llm_calls=2; threshold=4",
+          "pass": true,
+          "provenance": "llm_inloop_verdict_v0",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "check": "inloop_smoke_completed",
+          "observed": "n_instances=2; n_steps=2",
+          "pass": true,
+          "provenance": "llm_inloop_verdict_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "verdict": {
+      "rows": [
+        {
+          "check": "full_capacity_slice_budget_preflight",
+          "observed": "max_llm_calls=5760; threshold=300",
+          "pass": false,
+          "provenance": "item063_verdict",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "check": "batched_smoke_completed",
+          "observed": "n_instances=2; n_steps=2; batch_size=2; corrected_recall_accounting=True",
+          "pass": true,
+          "provenance": "item063_verdict",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "check": "proxy_validated",
+          "observed": "not enough end-to-end rows; smoke only",
+          "pass": false,
+          "provenance": "item063_verdict",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "check": "capacity_scaling_holds_inloop",
+          "observed": "not tested; only D=6 smoke",
+          "pass": false,
+          "provenance": "item063_verdict",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "check": "ordering_holds_inloop",
+          "observed": "not run; decoupling corner skipped after capacity budget gate",
+          "pass": false,
+          "provenance": "item063_verdict",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "RUNG1_SEPARATOR_ITEM063_SHARDED_INLOOP_SMOKE_READY_FOR_FULL_SLICE"
+}

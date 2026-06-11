@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-10T17:08:33.754161+00:00
+Generated at: 2026-06-11T08:14:31.889236+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,7 +17,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 pre-fix record | BLOCKER | historical_continuation_G1=0.0; current_diagnostic_G1=1.0 |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=535; validation_passed=False |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=547; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Diagnostic pass, autonomous grid not proven | Sudoku6 diagnostic G1=1.0; L4_reverts=True; L4_forward=True |
 | P2 | W3 Qwen3.5 probe | cached_gdn_state_measured_with_propagation_delta | W3.0=PASS; survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; native_delta=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; propagation=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
@@ -55,8 +55,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 057 | Rung-1 Phase 1 R2 symbolic node-cap budget sweep | RUNG1_PHASE1_R2_SYMBOLIC_BUDGET_SWEEP_RECORDED | If R3 hardness gate passes, proceed to Phase 1 P1a/P1b/P1c with efficiency-gap survival as primary. |
 | 058 | Rung-1 separator-scaling enforced-register fairness addendum v0.2.3 | RUNG1_SEPARATOR_SCALING_SYMBOLIC_PASS | Proceed to LLM only if overall_pass=True. |
 | 059 | Rung-1 LLM-operator PO separator experiment gated preflight | RUNG1_SEPARATOR_LLM_PO_PREFLIGHT_READY_NOT_RUN | Launch the P1a recovery sweep only after symbolic v0.2.3 and forward_gate_truncation_ok both pass; this preflight does not start the recovery body. |
-| 060 | Rung-1 P1b/P1c fallibility rungs preregistration | RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN | P1b Step 3 full table passed the inflated-K_eff law gate; proceed to P1c truncation pilot next, and still keep P1c full table blocked until that truncation gate passes. |
+| 060 | Rung-1 P1b/P1c fallibility rungs preregistration | RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_PASS_FULL_TABLE_READY | P1b Step 3 full table passed the inflated-K_eff law gate; P1c full table routing depends on the P1c truncation pilot gate. P1b v1 addendum still requires the FIX3 rho-sweep for its final discriminating verdict. |
 | 061 | Rung-1 P1a recovery baseline sweep | RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS | P1a recovery baseline landed under the v1 cap-robust censoring-aware verdict; refresh Item060 before any P1b/P1c full-table launch. |
+| 062 | Rung-1 P1b scoped capacity positive and P1c competence gate addendum | RUNG1_SEPARATOR_ITEM062_P1C_V2_RETRY_STILL_COMPETENCE_FAIL | Do not launch P1c full table. P1c v2 capped-thinking passes truncation but fails a minimal competence smoke; next retry should redesign the competence prompt/grading setup or use a lower-latency progress-enabled capped-thinking runner before attempting larger competence estimates. Part A remains a small guarded negative for cross-b penalty linearization. |
+| 063 | Rung-1 P1b real LLM-in-loop controlled smoke | RUNG1_SEPARATOR_ITEM063_SHARDED_INLOOP_SMOKE_READY_FOR_FULL_SLICE | Fastest current route is 4-GPU sharded batched transformers. Full requested slice is ready to launch with --launch-4gpu and max_budget_calls>=5760; vLLM would be faster only after installing/serving Qwen3.5 in the project environment. |
 
 ## Item Details
 
@@ -113,14 +115,14 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - The validator now reports missing legacy artifacts individually.
   - Current validation is registry-style and does not collapse missing history into one opaque required-files failure.
 - Artifact refs:
-  - analysis/validate_outputs.py (yes, 140022 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
+  - analysis/validate_outputs.py (yes, 141724 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
@@ -267,21 +269,21 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=535; validation_passed=False
+- Key result: validation_checks=547; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=532; validation_fail=3
+  - validation_pass=544; validation_fail=3
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifact refs:
   - CANONICAL_REPO.md (yes, 532 bytes)
-  - analysis/validate_outputs.py (yes, 140022 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
+  - analysis/validate_outputs.py (yes, 141724 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 - Next action: Keep future reports item-first and preserve explicit red checks.
@@ -398,10 +400,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - REPRODUCIBILITY.md (yes, 3478 bytes)
   - scripts/reproduce_continuation_state.sh (yes, 1972 bytes)
   - results/continuation_state/post_027.json (yes, 1453 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
-  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -413,7 +415,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/continuation_state/post_027.json | recorded | source=user_master_runbook_2026_06_07; canonical_repo=/home/aiscuser/RECURRENT_NN |  |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/stage_a_adapter_wiring/results.json | PASS | autonomous_solve_status=NOT_RUN; grid_cells=36; preflight_status=READY; register_smoke_status=SMOKE_PASS |  |
 | results/stage_a_banded_gate_refusal/results.json | PASS | banded_datasets=8 keys: note, sudoku6_depths, sudoku6_generated_count, sudoku6_generator_present, sudoku6_status, sudoku9_generated_c... | fail_closed_cases:3r/5c |
@@ -696,8 +698,8 @@ No rows recorded.
   - results/d_stage_2/results.json (missing)
   - results/d_stage_3/results.json (missing)
   - results/verifier/results.json (missing)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -709,7 +711,7 @@ No rows recorded.
 | results/d_stage_2/results.json | missing |  |  |
 | results/d_stage_3/results.json | missing |  |  |
 | results/verifier/results.json | missing |  |  |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 
 #### Contract Result Tables
 
@@ -771,14 +773,14 @@ No rows recorded.
   - honesty=This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent state. It deliberately turns the registry red until those objects exist.
 - Artifact refs:
   - results/experiment_items/item_033_validation_object_binding.json (yes, 7073 bytes)
-  - analysis/validate_outputs.py (yes, 140022 bytes)
+  - analysis/validate_outputs.py (yes, 141724 bytes)
   - experiments/stage_a_sudoku6_bridge.py (yes, 10922 bytes)
   - experiments/w3_qwen35_probe.py (yes, 47675 bytes)
   - results/stage_a_sudoku6_bridge/results.json (yes, 4890 bytes)
   - results/w3_qwen35_probe/results.json (yes, 96087 bytes)
   - results/w3_qwen35_probe/verdicts.json (yes, 674 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -786,7 +788,7 @@ No rows recorded.
 | results/stage_a_sudoku6_bridge/results.json | DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER | G1=1; single_step_forced_accuracy=1; n_sudoku6_tasks=32; reverts_nonzero_on_L4=True; forward_floor_on_L4=True; device=cpu | single_step_forced_precision_recall_by_depth:2r/5c |
 | results/w3_qwen35_probe/results.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:8r/13c; decay_survival:5r/5c; model_card:34r/3c; native_rule_gap:3r/7c; propagation_per_task_delta:5r/7c |
 | results/w3_qwen35_probe/verdicts.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... |  |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 
 #### Contract Result Tables
 
@@ -959,8 +961,8 @@ No rows recorded.
   - results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json (yes, 19157 bytes)
   - results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json (yes, 19123 bytes)
   - results/w3_qwen35_probe/propagation_shards/logic_grid/results.json (yes, 19025 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -976,7 +978,7 @@ No rows recorded.
 | results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/logic_grid/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 
 #### Contract Result Tables
 
@@ -1202,10 +1204,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
-  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1213,7 +1215,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1331,10 +1333,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
-  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1342,7 +1344,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1421,17 +1423,17 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
-  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/trm_operator_smoke/acceptance.json | G1_NOT_MET | G1=0.125; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 
 #### Contract Result Tables
 
@@ -1486,20 +1488,20 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (yes, 11255 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (yes, 11389 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (yes, 11218 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
-  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-10T17:08:07.207704+00:00 |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-11T08:14:16.053020+00:00 |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | GATES_UNREACHED | G1=0.03906; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | GATES_UNREACHED | G1=0.01562; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 
 #### Contract Result Tables
 
@@ -1588,10 +1590,10 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (yes, 40421 bytes)
   - results/sudoku_engine_gpu/equivalence_1000.json (yes, 167 bytes)
   - results/trm_operator_logging_smoke/progress.jsonl (yes, 968 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
-  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1599,7 +1601,7 @@ Truncated to 24 of 27 rows.
 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json | recorded | no_optimization_claim=True; profiled_object=experiments.train_trm_operator current Track B per-cell-token trainer; purpose=P0 profile gate before GPU efficiency optimization; semantics mirror current Track B trainer.; started_at=2026-06-08T10:02:52.744806+00:00 |  |
 | results/sudoku_engine_gpu/equivalence_1000.json | True | device=cuda:0; n_boards=1000; n_mismatches=0; name=sudoku_engine_gpu_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 
 #### Contract Result Tables
 
@@ -1668,17 +1670,17 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (yes, 322 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
-  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/batched_ops/equivalence_100.json | True | device=cuda:0; n_episodes_generated=100; n_episodes_requested=100; n_mismatches=0; name=register_batched_ops_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 
 #### Contract Result Tables
 
@@ -1714,16 +1716,16 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
-  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 
 #### Contract Result Tables
 
@@ -1771,10 +1773,10 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (yes, 974 bytes)
   - results/trm_operator_compile_smoke/acceptance.json (yes, 10396 bytes)
   - results/trm_operator_compile_smoke/progress.jsonl (yes, 486 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
-  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1782,7 +1784,7 @@ Truncated to 24 of 27 rows.
 | results/trm_operator_prelaunch_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_prelaunch_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/trm_operator_compile_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_compile_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 
 #### Contract Result Tables
 
@@ -1839,17 +1841,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (yes, 102640503 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (yes, 102514311 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (yes, 102594183 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
-  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/ddp_shard_smoke_track_b_20260608/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/ddp_shard_smoke_track_b_20260608/trm_operator_seed778.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 
 #### Contract Result Tables
 
@@ -1899,17 +1901,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 42721 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (yes, 80203 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (yes, 55287865 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82282770 bytes)
-  - results/experiment_log/experiment_log.md (yes, 614337 bytes)
-  - results/validation/validation.json (yes, 178113 bytes)
-  - results/validation/validation.md (yes, 138692 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
+  - results/validation/validation.json (yes, 182027 bytes)
+  - results/validation/validation.md (yes, 141716 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=535; n_fail=3; n_pass=532 |  |
+| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
 
 #### Contract Result Tables
 
@@ -3968,17 +3970,17 @@ Truncated to 24 of 84 rows.
 
 ### Item 060 - Rung-1 P1b/P1c fallibility rungs preregistration
 
-- Status: RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN
-- Key result: P1b Step 3 full table passed the inflated-K_eff law gate; proceed to P1c truncation pilot next, and still keep P1c full table blocked until that truncation gate passes.
+- Status: RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_PASS_FULL_TABLE_READY
+- Key result: P1b Step 3 full table passed the inflated-K_eff law gate; P1c full table routing depends on the P1c truncation pilot gate. P1b v1 addendum still requires the FIX3 rho-sweep for its final discriminating verdict.
 - Purpose: Register Phase 2 P1b/P1c real fallibility tests, including operator boundaries, truncation gates, K_eff inflation metrics, decoupling survival metrics, kill criteria, and sequential launch gates.
 - Details:
   - purpose=Register Phase 2 P1b/P1c real fallibility tests, including operator boundaries, truncation gates, K_eff inflation metrics, decoupling survival metrics, kill criteria, and sequential launch gates.
-  - commands=6
-  - result_tables=['cost_and_run_plan', 'gate_preflight', 'honesty_gating', 'kill_criteria', 'metric_contract', 'p1b_full_budget_at_95_solve', 'p1b_full_capacity_leg', 'p1b_full_dstar_vs_inflated_keff', 'p1b_full_keff_inflation', 'p1b_full_operator_error_breakdown', 'p1b_full_verdict', 'p1b_graded_functional_gate_by_cell', 'p1b_graded_verdict', 'p1b_pilot_call_cap_recommendation', 'p1b_pilot_keff_inflation', 'p1b_pilot_operator_error_breakdown', 'p1b_pilot_operator_functional_gate', 'p1b_pilot_operator_functional_gate_by_cell', 'p1b_pilot_prelaunch_truncation_gate', 'p1b_pilot_verdict', 'p1b_raw_inspection_summary', 'rung_operator_boundaries', 'truncation_gate_contract', 'verdict']
-  - honesty=This now includes P1b Step 3 controlled full-table law tracking. It still does not run P1c truncation or P1c full table, and it does not establish Claim 3/4 under unguarded culprit fallibility.
+  - commands=8
+  - result_tables=['cost_and_run_plan', 'gate_preflight', 'honesty_gating', 'kill_criteria', 'metric_contract', 'p1b_full_budget_at_95_solve', 'p1b_full_capacity_leg', 'p1b_full_dstar_vs_inflated_keff', 'p1b_full_keff_inflation', 'p1b_full_operator_error_breakdown', 'p1b_full_table_v1_addendum_state', 'p1b_full_v1_d_sweep_scaling', 'p1b_full_v1_observed_dstar_by_resource_D_b', 'p1b_full_v1_refined_law_dstar_vs_Deff', 'p1b_full_v1_rho_sweep_paired_discrimination', 'p1b_full_v1_separator_footprint_measurement', 'p1b_full_v1_verdict_refined_law_discriminates', 'p1b_full_verdict', 'p1b_graded_functional_gate_by_cell', 'p1b_graded_verdict', 'p1b_pilot_call_cap_recommendation', 'p1b_pilot_keff_inflation', 'p1b_pilot_operator_error_breakdown', 'p1b_pilot_operator_functional_gate', 'p1b_pilot_operator_functional_gate_by_cell', 'p1b_pilot_prelaunch_truncation_gate', 'p1b_pilot_verdict', 'p1b_raw_inspection_summary', 'p1c_pilot_instance_rows', 'p1c_pilot_prelaunch_truncation_gate', 'p1c_pilot_verdict', 'p1c_truncation_pilot_state', 'rung_operator_boundaries', 'truncation_gate_contract', 'verdict']
+  - honesty=This includes P1b Step 3 controlled full-table law tracking, the P1b v1 addendum partial state, and the P1c truncation pilot when present. It still does not establish Claim 3/4 until a P1c full table with symbolic solution validation is run.
 - Artifact refs:
-  - results/experiment_items/item_060_rung1_separator_fallibility_rungs.json (yes, 130393 bytes)
-  - results/rung1_separator_fallibility_rungs/results.json (yes, 76346 bytes)
+  - results/experiment_items/item_060_rung1_separator_fallibility_rungs.json (yes, 191278 bytes)
+  - results/rung1_separator_fallibility_rungs/results.json (yes, 79925 bytes)
   - results/rung1_separator_llm_po/results.json (yes, 5817 bytes)
   - results/rung1_separator_llm_po/p1a_forward_gate.json (yes, 211565 bytes)
   - results/rung1_separator_llm_po/p1a_recovery_baseline.json (yes, 891513 bytes)
@@ -3986,11 +3988,13 @@ Truncated to 24 of 84 rows.
   - results/rung1_separator_fallibility_rungs/p1b_truncation_pilot.json (yes, 189771 bytes)
   - results/rung1_separator_fallibility_rungs/p1b_graded_recompute.json (yes, 101851 bytes)
   - results/rung1_separator_fallibility_rungs/p1b_full_table.json (yes, 947307 bytes)
+  - results/rung1_separator_fallibility_rungs/p1b_full_table_v1.json (yes, 4407909 bytes)
+  - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json (yes, 3515 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/rung1_separator_fallibility_rungs/results.json | RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN | schema_version=rung1_separator_fallibility_rungs_prereg_v0 |  |
+| results/rung1_separator_fallibility_rungs/results.json | RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_PASS_FULL_TABLE_READY | schema_version=rung1_separator_fallibility_rungs_prereg_v0 |  |
 | results/rung1_separator_llm_po/results.json | RUNG1_SEPARATOR_LLM_PO_PREFLIGHT_READY_NOT_RUN | schema_version=rung1_separator_llm_po_preflight_v0 |  |
 | results/rung1_separator_llm_po/p1a_forward_gate.json | RUNG1_SEPARATOR_LLM_PO_FORWARD_GATE_PASS | schema_version=rung1_separator_llm_po_forward_gate_v1 |  |
 | results/rung1_separator_llm_po/p1a_recovery_baseline.json | RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS | schema_version=rung1_separator_llm_po_p1a_recovery_baseline_v1 |  |
@@ -3998,6 +4002,8 @@ Truncated to 24 of 84 rows.
 | results/rung1_separator_fallibility_rungs/p1b_truncation_pilot.json | RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL | schema_version=rung1_separator_p1b_truncation_pilot_v1_1 |  |
 | results/rung1_separator_fallibility_rungs/p1b_graded_recompute.json | RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS | schema_version=rung1_separator_p1b_graded_recompute_v0 |  |
 | results/rung1_separator_fallibility_rungs/p1b_full_table.json | RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS | schema_version=rung1_separator_p1b_full_table_controlled_v0 |  |
+| results/rung1_separator_fallibility_rungs/p1b_full_table_v1.json | RUNG1_SEPARATOR_P1B_FULL_TABLE_V1_CORRECTED_DISCRIMINATES_FAIL | schema_version=rung1_separator_p1b_full_table_controlled_v1_corrected_resource_sweep |  |
+| results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json | RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS | schema_version=rung1_separator_p1c_truncation_pilot_v0 |  |
 
 #### Contract Result Tables
 
@@ -4009,7 +4015,7 @@ Truncated to 24 of 84 rows.
 | Step 1 graded recompute on existing v1.1 pilot data; re-pilot encoding only if recall is near zero | p1b_p1c_run_sequence_v0 | P1b | autonomous_stage_a_run | PASS | 2 | 4 |  |  |  |
 | run full table only for cells passing both truncation and graded-recall functional gates; cap = ceil(p90_calls * 2) | p1b_p1c_run_sequence_v0 | P1b | autonomous_stage_a_run | PASS | 3 |  | ["d12_b2", "d12_b4", "d12_b8", "d12_b12"] | offline evaluation; does not multiply Qwen calls | [] |
 | run P1c truncation pilot only if P1b law tracks inflated K_eff | p1b_p1c_run_sequence_v0 | P1c | autonomous_stage_a_run | READY | 4 | 4 |  |  |  |
-| run full table if P1c truncation gate passes; stop on kill_decoupling_destroyed | p1b_p1c_run_sequence_v0 | P1c | autonomous_stage_a_run | NOT_RUN | 5 |  |  | offline evaluation; does not multiply Qwen calls |  |
+| run full table if P1c truncation gate passes; stop on kill_decoupling_destroyed | p1b_p1c_run_sequence_v0 | P1c | autonomous_stage_a_run | READY | 5 |  |  | offline evaluation; does not multiply Qwen calls |  |
 
 ##### gate_preflight
 
@@ -4020,7 +4026,8 @@ Truncated to 24 of 84 rows.
 | p1b_truncation_gate | status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; operator=v1_1; prompt=p1b_bounded_structured_domain_propagation_capped_thinking_v1_1; valid_frac=0.875; max_deep_truncated_or_length=0.0; max_all_truncated_or_length=0.0; max_deep_finish_reason_length=0.0 | PASS | p1b_p1c_fallibility_gate_v0 | P1b full table launch | P1b | autonomous_stage_a_run |
 | p1b_operator_functional_gate | graded_status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; step1_branch=1A; recall_min=0.4628099173553719; recall_mean=0.5195690828990318; recall_max=0.5546875; allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[]; exact_match_diagnostic=0.0 | PASS | p1b_p1c_fallibility_gate_v0 | P1b full table launch by cell | P1b | autonomous_stage_a_run |
 | p1b_law_tracks_inflated_keff | status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True | PASS | p1b_p1c_fallibility_gate_v0 | P1c truncation pilot | P1c | autonomous_stage_a_run |
-| p1c_truncation_gate | requires deepest planned cell frac_truncated_no_answer <= 0.10; requested_gpus=4 | NOT_RUN | p1b_p1c_fallibility_gate_v0 | P1c full table launch | P1c | autonomous_stage_a_run |
+| p1b_v1_addendum_discriminates | status=RUNG1_SEPARATOR_P1B_FULL_TABLE_V1_CORRECTED_DISCRIMINATES_FAIL; fix1=False; fix2=False; fix3=False; resource_D_sweep=[4, 6, 8, 10, 12, 16]; n_uncensored_dstar_by_b={'2': 4, '4': 5, '8': 0, '12': 0}; n_left_censored_by_b={'2': 1, '4': 1, '8': 6, '12': 6}; law_track_fraction=0.5833333333333334; no_new_qwen_calls_fix1_fix2=True | INCOMPLETE | p1b_p1c_fallibility_gate_v1_addendum | final P1b addendum verdict | P1b | autonomous_stage_a_run |
+| p1c_truncation_gate | status=RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS; operator=p1c_unguarded_structured_no_thinking_v1; max_new_tokens=12288; n_rows=12; max_truncation_frac=0.0; threshold=0.1 | PASS | p1b_p1c_fallibility_gate_v0 | P1c full table launch | P1c | autonomous_stage_a_run |
 
 ##### honesty_gating
 
@@ -4186,6 +4193,105 @@ Truncated to 24 of 28 rows.
 
 Truncated to 24 of 28 rows.
 
+##### p1b_full_table_v1_addendum_state
+
+| fix1_separator_aware_law_tracks | fix2_d_sweep_slope_ci_excludes_zero | fix3_rho_sweep_not_yet_implemented | fix3_rho_sweep_paired_discrimination | law_track_fraction | n_left_censored_by_b | n_refined_rows | n_uncensored_dstar_by_b | no_new_qwen_calls_for_fix1_fix2 | pass | present | resource_D_sweep | schema_version | status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| False | False | True | False | 0.5833 | 12=6; 2=1; 4=1; 8=6 | 24 | 12=0; 2=4; 4=5; 8=0 | True | False | True | [4, 6, 8, 10, 12, 16] | rung1_separator_p1b_full_table_controlled_v1_corrected_resource_sweep | RUNG1_SEPARATOR_P1B_FULL_TABLE_V1_CORRECTED_DISCRIMINATES_FAIL |
+
+##### p1b_full_v1_d_sweep_scaling
+
+| b_bin | ci_excludes_zero | expected_slope_on_D_minus_footprint_axis | expected_slope_on_prediction_axis | fit_axis | fix2_pass_for_b | insufficient_reason | intercept_estimate | k_eff_inflated | n_left_censored | n_resource_D_values | n_right_censored | n_uncensored_dstar | provenance | resource_D_values_tested | resource_axis_slope_ci_lower | resource_axis_slope_ci_upper | resource_axis_slope_estimate | slope_ci_lower | slope_ci_upper | slope_estimate | slope_se | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | True | 0.7699 | 1 | dstar_observed_vs_(D_minus_footprint)/ln_K_eff_inflated | True | None | 2.334 | 3.665 | 1 | 6 | 1 | 4 | p1b_full_table_v1_corrected_D_resource_sweep_fix2 | [4, 6, 8, 10, 12, 16] | 0.7287 | 0.8847 | 0.8067 | 0.9466 | 1.149 | 1.048 | 0.05169 | autonomous_stage_a_run |
+| 4 | False | 0.7724 | 1 | dstar_observed_vs_(D_minus_footprint)/ln_K_eff_inflated | False | None | 5.146 | 3.65 | 1 | 6 | 0 | 5 | p1b_full_table_v1_corrected_D_resource_sweep_fix2 | [4, 6, 8, 10, 12, 16] | -0.02012 | 0.1316 | 0.05574 | -0.02604 | 0.1704 | 0.07217 | 0.05011 | autonomous_stage_a_run |
+| 8 | False | 0.7776 | 1 | dstar_observed_vs_(D_minus_footprint)/ln_K_eff_inflated | False | need >= 3 uncensored d* values | None | 3.618 | 6 | 6 | 0 | 0 | p1b_full_table_v1_corrected_D_resource_sweep_fix2 | [4, 6, 8, 10, 12, 16] | None | None | None | None | None | None | None | autonomous_stage_a_run |
+| 12 | False | 0.7806 | 1 | dstar_observed_vs_(D_minus_footprint)/ln_K_eff_inflated | False | need >= 3 uncensored d* values | None | 3.601 | 6 | 6 | 0 | 0 | p1b_full_table_v1_corrected_D_resource_sweep_fix2 | [4, 6, 8, 10, 12, 16] | None | None | None | None | None | None | None | autonomous_stage_a_run |
+
+##### p1b_full_v1_observed_dstar_by_resource_D_b
+
+| b_bin | censoring | collapse_threshold_solve_rate | dstar_observed | dstar_upper_bound | k_eff_inflated | provenance | register_capacity_D | rung | source | supporting_solve_rates | dstar_lower_bound |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | left_censored_below_min_depth | 0.5 | None | 4 | 3.665 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 4 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0; 5=0; 6=0; 7=0; 9=0 |  |
+| 4 | left_censored_below_min_depth | 0.5 | None | 4 | 3.65 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 4 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0; 5=0; 6=0; 7=0; 9=0 |  |
+| 8 | left_censored_below_min_depth | 0.5 | None | 4 | 3.618 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 4 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0; 5=0; 6=0; 7=0; 9=0 |  |
+| 12 | left_censored_below_min_depth | 0.5 | None | 4 | 3.601 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 4 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0; 5=0; 6=0; 7=0; 9=0 |  |
+| 2 | uncensored_interpolated | 0.5 | 4.455 |  | 3.665 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 6 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.9167; 5=0; 6=0; 7=0; 9=0 |  |
+| 4 | uncensored_interpolated | 0.5 | 4.25 |  | 3.65 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 6 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.6667; 5=0; 6=0; 7=0; 9=0 |  |
+| 8 | left_censored_below_min_depth | 0.5 | None | 4 | 3.618 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 6 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.125; 5=0; 6=0; 7=0; 9=0 |  |
+| 12 | left_censored_below_min_depth | 0.5 | None | 4 | 3.601 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 6 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.1667; 5=0; 6=0; 7=0; 9=0 |  |
+| 2 | uncensored_interpolated | 0.5 | 6.368 |  | 3.665 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 8 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.9167; 5=0.7083; 6=0.7917; 7=0; 9=0 |  |
+| 4 | uncensored_interpolated | 0.5 | 5 |  | 3.65 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 8 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.6667; 5=0.5; 6=0.4167; 7=0; 9=0 |  |
+| 8 | left_censored_below_min_depth | 0.5 | None | 4 | 3.618 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 8 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.125; 5=0.125; 6=0.1667; 7=0; 9=0 |  |
+| 12 | left_censored_below_min_depth | 0.5 | None | 4 | 3.601 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 8 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.1667; 5=0.2083; 6=0.25; 7=0; 9=0 |  |
+| 2 | uncensored_interpolated | 0.5 | 7.667 |  | 3.665 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 10 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.9167; 5=0.7083; 6=0.7917; 7=0.75; 9=0 |  |
+| 4 | uncensored_interpolated | 0.5 | 5 |  | 3.65 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 10 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.6667; 5=0.5; 6=0.4167; 7=0.5; 9=0 |  |
+| 8 | left_censored_below_min_depth | 0.5 | None | 4 | 3.618 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 10 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.125; 5=0.125; 6=0.1667; 7=0.1667; 9=0 |  |
+| 12 | left_censored_below_min_depth | 0.5 | None | 4 | 3.601 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 10 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.1667; 5=0.2083; 6=0.25; 7=0.125; 9=0 |  |
+| 2 | uncensored_interpolated | 0.5 | 9.4 |  | 3.665 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 12 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.9167; 5=0.7083; 6=0.7917; 7=0.75; 9=0.8333 |  |
+| 4 | uncensored_interpolated | 0.5 | 5 |  | 3.65 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 12 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.6667; 5=0.5; 6=0.4167; 7=0.5; 9=0.4167 |  |
+| 8 | left_censored_below_min_depth | 0.5 | None | 4 | 3.618 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 12 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.125; 5=0.125; 6=0.1667; 7=0.1667; 9=0.04167 |  |
+| 12 | left_censored_below_min_depth | 0.5 | None | 4 | 3.601 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 12 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.1667; 5=0.2083; 6=0.25; 7=0.125; 9=0.125 |  |
+| 2 | right_censored_at_max_depth | 0.5 | 12 |  | 3.665 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 16 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0.875; 12=0.75; 4=0.9167; 5=0.7083; 6=0.7917; 7=0.75; 9=0.8333 | 12 |
+| 4 | uncensored_interpolated | 0.5 | 5 |  | 3.65 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 16 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0.375; 12=0.4167; 4=0.6667; 5=0.5; 6=0.4167; 7=0.5; 9=0.4167 |  |
+| 8 | left_censored_below_min_depth | 0.5 | None | 4 | 3.618 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 16 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0.1667; 12=0.08333; 4=0.125; 5=0.125; 6=0.1667; 7=0.1667; 9=0.04167 |  |
+| 12 | left_censored_below_min_depth | 0.5 | None | 4 | 3.601 | p1b_full_table_v1_corrected_observed_dstar_by_D_b | 16 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0.04167; 12=0.08333; 4=0.1667; 5=0.2083; 6=0.2917; 7=0.125; 9=0.125 |  |
+
+##### p1b_full_v1_refined_law_dstar_vs_Deff
+
+| D_eff | D_eff_unclamped | b_bin | censored_bound_satisfied | censoring | collapse_threshold_solve_rate | dstar_observed | dstar_predicted_corrected | dstar_upper_bound | footprint_b | k_eff_inflated | law_track_corrected | provenance | register_capacity_D | residual_corrected | residual_tolerance | rung | source | supporting_solve_rates | dstar_lower_bound |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0.75 | 0.75 | 2 | True | left_censored_below_min_depth | 0.5 | None | 0.5774 | 4 | 3.25 | 3.665 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 4 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0; 5=0; 6=0; 7=0; 9=0 |  |
+| 0 | -11.71 | 4 | True | left_censored_below_min_depth | 0.5 | None | 0 | 4 | 15.71 | 3.65 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 4 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0; 5=0; 6=0; 7=0; 9=0 |  |
+| 0 | -24.62 | 8 | True | left_censored_below_min_depth | 0.5 | None | 0 | 4 | 28.62 | 3.618 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 4 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0; 5=0; 6=0; 7=0; 9=0 |  |
+| 0 | -27.21 | 12 | True | left_censored_below_min_depth | 0.5 | None | 0 | 4 | 31.21 | 3.601 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 4 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0; 5=0; 6=0; 7=0; 9=0 |  |
+| 2.75 | 2.75 | 2 | None | uncensored_interpolated | 0.5 | 4.455 | 2.117 |  | 3.25 | 3.665 | False | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 6 | 2.337 | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.9167; 5=0; 6=0; 7=0; 9=0 |  |
+| 0 | -9.708 | 4 | None | uncensored_interpolated | 0.5 | 4.25 | 0 |  | 15.71 | 3.65 | False | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 6 | 4.25 | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.6667; 5=0; 6=0; 7=0; 9=0 |  |
+| 0 | -22.62 | 8 | True | left_censored_below_min_depth | 0.5 | None | 0 | 4 | 28.62 | 3.618 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 6 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.125; 5=0; 6=0; 7=0; 9=0 |  |
+| 0 | -25.21 | 12 | True | left_censored_below_min_depth | 0.5 | None | 0 | 4 | 31.21 | 3.601 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 6 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.1667; 5=0; 6=0; 7=0; 9=0 |  |
+| 4.75 | 4.75 | 2 | None | uncensored_interpolated | 0.5 | 6.368 | 3.657 |  | 3.25 | 3.665 | False | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 8 | 2.712 | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.9167; 5=0.7083; 6=0.7917; 7=0; 9=0 |  |
+| 0 | -7.708 | 4 | None | uncensored_interpolated | 0.5 | 5 | 0 |  | 15.71 | 3.65 | False | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 8 | 5 | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.6667; 5=0.5; 6=0.4167; 7=0; 9=0 |  |
+| 0 | -20.62 | 8 | True | left_censored_below_min_depth | 0.5 | None | 0 | 4 | 28.62 | 3.618 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 8 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.125; 5=0.125; 6=0.1667; 7=0; 9=0 |  |
+| 0 | -23.21 | 12 | True | left_censored_below_min_depth | 0.5 | None | 0 | 4 | 31.21 | 3.601 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 8 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.1667; 5=0.2083; 6=0.25; 7=0; 9=0 |  |
+| 6.75 | 6.75 | 2 | None | uncensored_interpolated | 0.5 | 7.667 | 5.197 |  | 3.25 | 3.665 | False | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 10 | 2.47 | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.9167; 5=0.7083; 6=0.7917; 7=0.75; 9=0 |  |
+| 0 | -5.708 | 4 | None | uncensored_interpolated | 0.5 | 5 | 0 |  | 15.71 | 3.65 | False | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 10 | 5 | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.6667; 5=0.5; 6=0.4167; 7=0.5; 9=0 |  |
+| 0 | -18.62 | 8 | True | left_censored_below_min_depth | 0.5 | None | 0 | 4 | 28.62 | 3.618 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 10 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.125; 5=0.125; 6=0.1667; 7=0.1667; 9=0 |  |
+| 0 | -21.21 | 12 | True | left_censored_below_min_depth | 0.5 | None | 0 | 4 | 31.21 | 3.601 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 10 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.1667; 5=0.2083; 6=0.25; 7=0.125; 9=0 |  |
+| 8.75 | 8.75 | 2 | None | uncensored_interpolated | 0.5 | 9.4 | 6.736 |  | 3.25 | 3.665 | False | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 12 | 2.664 | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.9167; 5=0.7083; 6=0.7917; 7=0.75; 9=0.8333 |  |
+| 0 | -3.708 | 4 | None | uncensored_interpolated | 0.5 | 5 | 0 |  | 15.71 | 3.65 | False | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 12 | 5 | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.6667; 5=0.5; 6=0.4167; 7=0.5; 9=0.4167 |  |
+| 0 | -16.62 | 8 | True | left_censored_below_min_depth | 0.5 | None | 0 | 4 | 28.62 | 3.618 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 12 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.125; 5=0.125; 6=0.1667; 7=0.1667; 9=0.04167 |  |
+| 0 | -19.21 | 12 | True | left_censored_below_min_depth | 0.5 | None | 0 | 4 | 31.21 | 3.601 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 12 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0; 12=0; 4=0.1667; 5=0.2083; 6=0.25; 7=0.125; 9=0.125 |  |
+| 12.75 | 12.75 | 2 | None | right_censored_at_max_depth | 0.5 | 12 | 9.816 |  | 3.25 | 3.665 | False | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 16 | 2.184 | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0.875; 12=0.75; 4=0.9167; 5=0.7083; 6=0.7917; 7=0.75; 9=0.8333 | 12 |
+| 0.2917 | 0.2917 | 4 | None | uncensored_interpolated | 0.5 | 5 | 0.2253 |  | 15.71 | 3.65 | False | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 16 | 4.775 | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0.375; 12=0.4167; 4=0.6667; 5=0.5; 6=0.4167; 7=0.5; 9=0.4167 |  |
+| 0 | -12.62 | 8 | True | left_censored_below_min_depth | 0.5 | None | 0 | 4 | 28.62 | 3.618 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 16 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0.1667; 12=0.08333; 4=0.125; 5=0.125; 6=0.1667; 7=0.1667; 9=0.04167 |  |
+| 0 | -15.21 | 12 | True | left_censored_below_min_depth | 0.5 | None | 0 | 4 | 31.21 | 3.601 | True | p1b_full_table_v1_corrected_refined_law_dstar_vs_Deff | 16 | None | 1 | P1b_llm_propagation_guarded | autonomous_stage_a_run | 10=0.04167; 12=0.08333; 4=0.1667; 5=0.2083; 6=0.2917; 7=0.125; 9=0.125 |  |
+
+##### p1b_full_v1_rho_sweep_paired_discrimination
+
+| new_pilot_required | operator_version | provenance | rho_target | source | status |
+| --- | --- | --- | --- | --- | --- |
+| False | v1_1_existing | p1b_full_table_v1_corrected_rho_sweep_fix3_placeholder | 1.1 | autonomous_stage_a_run | existing_step1A_operator_calibration_only |
+| True | v1_2_reduced_thinking | p1b_full_table_v1_corrected_rho_sweep_fix3_placeholder | 1.3 | autonomous_stage_a_run | placeholder_not_yet_implemented |
+| True | v1_3_minimal_thinking | p1b_full_table_v1_corrected_rho_sweep_fix3_placeholder | 1.6 | autonomous_stage_a_run | placeholder_not_yet_implemented |
+
+##### p1b_full_v1_separator_footprint_measurement
+
+| anchor_d_global | anchor_mean_peak_register_entries | b_bin | footprint_b | measurement_note | measurement_register_capacity_D | provenance | source | trail_component_subtracted |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 4 | 7.25 | 2 | 3.25 | D-unit boundary/separator footprint = measured peak register entries at shallow anchor minus anchor d_global trail component | 6 | p1b_full_table_v1_corrected_measured_separator_footprint | autonomous_stage_a_run | 4 |
+| 4 | 19.71 | 4 | 15.71 | D-unit boundary/separator footprint = measured peak register entries at shallow anchor minus anchor d_global trail component | 6 | p1b_full_table_v1_corrected_measured_separator_footprint | autonomous_stage_a_run | 4 |
+| 4 | 32.62 | 8 | 28.62 | D-unit boundary/separator footprint = measured peak register entries at shallow anchor minus anchor d_global trail component | 6 | p1b_full_table_v1_corrected_measured_separator_footprint | autonomous_stage_a_run | 4 |
+| 4 | 35.21 | 12 | 31.21 | D-unit boundary/separator footprint = measured peak register entries at shallow anchor minus anchor d_global trail component | 6 | p1b_full_table_v1_corrected_measured_separator_footprint | autonomous_stage_a_run | 4 |
+
+##### p1b_full_v1_verdict_refined_law_discriminates
+
+| check | observed | pass | provenance | requirement | source |
+| --- | --- | --- | --- | --- | --- |
+| fix1_separator_aware_law_tracks | pass=False; observed_direction=[4.454545454545454, 4.25, 4.0, 4.0]; predicted_direction=[2.1171178808822204, 0.0, 0.0, 0.0]; max_abs_uncensored_residual=4.25; tolerance=1.0; bound_ok=True | False | p1b_full_table_v1_corrected_verdict_fix1 | one d*(D,b) per resource-D,b cell; footprint(b) measured from D-unit peak register boundary component; baseline b-direction tracks observed decrease | autonomous_stage_a_run |
+| fix2_resource_D_sweep_slope_ci_excludes_zero | pass=False; per_b=[('2', 4, True, True), ('4', 5, False, False), ('8', 0, False, False), ('12', 0, False, False)] | False | p1b_full_table_v1_corrected_verdict_fix2 | sweep register capacity D in {4,6,8,10,12,16}; fit d*(D) against (D-footprint)/ln K_eff with enough uncensored thresholds | autonomous_stage_a_run |
+| fix3_rho_sweep_paired_discrimination | not_yet_implemented_after_corrected_FIX1_FIX2 | False | p1b_full_table_v1_corrected_verdict_fix3_placeholder | paired inflated-vs-clean rho sweep at rho approx {1.1, 1.3, 1.6} | autonomous_stage_a_run |
+| p1b_law_discriminates | fix1=False; fix2=False; fix3=False | False | p1b_full_table_v1_corrected_final_verdict | corrected FIX1, FIX2, and FIX3 all pass | autonomous_stage_a_run |
+
 ##### p1b_full_verdict
 
 | check | observed | pass | predicted | provenance | source |
@@ -4273,6 +4379,41 @@ Truncated to 24 of 28 rows.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | A_rambling_or_unbounded_schema_drift=5; B_possible_genuinely_long_reasoning=3 | length=7; stop=1 | 0.875 | 0.375 | parsable_invalid=5; valid=3 | 8192 | 8 | A_rambling_or_unbounded_schema_drift | True | p1b_verbose_branch_and_local_propagation_guarded_v0 | rung1_separator_p1b_raw_generation_inspection_v0 | P1B_RAW_GENERATION_INSPECTION_COMPLETE | False |
 
+##### p1c_pilot_instance_rows
+
+| calls | frac_parsable | frac_truncated_no_answer | instance_id | truncated_generations |
+| --- | --- | --- | --- | --- |
+| 1 | 1 | 0 | sep_s1458_axis_balance_b12_d12_000002 | 0 |
+| 1 | 1 | 0 | sep_s1458_axis_balance_b12_d12_000011 | 0 |
+| 1 | 1 | 0 | sep_s1458_axis_balance_b12_d12_000016 | 0 |
+| 1 | 1 | 0 | sep_s1458_axis_balance_b12_d12_000003 | 0 |
+| 1 | 1 | 0 | sep_s1458_axis_balance_b12_d12_000013 | 0 |
+| 1 | 1 | 0 | sep_s1458_axis_balance_b12_d12_000017 | 0 |
+| 1 | 1 | 0 | sep_s1458_axis_balance_b12_d12_000006 | 0 |
+| 1 | 1 | 0 | sep_s1458_axis_balance_b12_d12_000014 | 0 |
+| 1 | 1 | 0 | sep_s1458_axis_balance_b12_d12_000026 | 0 |
+| 1 | 1 | 0 | sep_s1458_axis_balance_b12_d12_000009 | 0 |
+| 1 | 1 | 0 | sep_s1458_axis_balance_b12_d12_000015 | 0 |
+| 1 | 1 | 0 | sep_s1458_axis_balance_b12_d12_000029 | 0 |
+
+##### p1c_pilot_prelaunch_truncation_gate
+
+| max_frac_truncated_no_answer | pass | provenance | source | threshold |
+| --- | --- | --- | --- | --- |
+| 0 | True | qwen35_p1c_truncation_gate_v0 | autonomous_stage_a_run | 0.1 |
+
+##### p1c_pilot_verdict
+
+| check | observed | pass | predicted | provenance | source |
+| --- | --- | --- | --- | --- | --- |
+| p1c_truncation_pass | max_frac=0.0000 | True | max frac_truncated_no_answer <= 0.10 | p1c_truncation_verdict_v0 | autonomous_stage_a_run |
+
+##### p1c_truncation_pilot_state
+
+| max_new_tokens | max_truncation_frac | n_instance_rows | n_per_cell | n_shards | operator_version | pass | present | prompt_contract | schema_version | status | truncation_threshold |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 12288 | 0 | 12 | 12 | 4 | p1c_unguarded_structured_no_thinking_v1 | True | True | p1c_unguarded_structured_json_no_thinking_v1 | rung1_separator_p1c_truncation_pilot_v0 | RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS | 0.1 |
+
 ##### rung_operator_boundaries
 
 | answer_token_budget_requested | claim_target | llm_responsibilities | max_new_tokens_minimum | operator_version | oracle_role | primary_fallibility_source | prompt_contract | prompt_mode | provenance | rung | source | symbolic_in_loop | thinking_budget_requested | thinking_required |
@@ -4291,12 +4432,12 @@ Truncated to 24 of 28 rows.
 
 | check | observed | pass | predicted | provenance | source |
 | --- | --- | --- | --- | --- | --- |
-| p1b_launch_correctly_blocked_until_gates | allowed=True; gates={'p1a_preflight_and_forward_gate_clean': {'gate': 'p1a_preflight_and_forward_gate_clean', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b truncation pilot', 'observed': 'preflight_ready=True; forward_clean=True; solve_rate=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1a_recovery_baseline_landed': {'gate': 'p1a_recovery_baseline_landed', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS; landed=True; cap_robust=True; censoring=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_truncation_gate': {'gate': 'p1b_truncation_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; operator=v1_1; prompt=p1b_bounded_structured_domain_propagation_capped_thinking_v1_1; valid_frac=0.875; max_deep_truncated_or_length=0.0; max_all_truncated_or_length=0.0; max_deep_finish_reason_length=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_operator_functional_gate': {'gate': 'p1b_operator_functional_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch by cell', 'observed': "graded_status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; step1_branch=1A; recall_min=0.4628099173553719; recall_mean=0.5195690828990318; recall_max=0.5546875; allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[]; exact_match_diagnostic=0.0", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_law_tracks_inflated_keff': {'gate': 'p1b_law_tracks_inflated_keff', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c truncation pilot', 'observed': 'status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1c_truncation_gate': {'gate': 'p1c_truncation_gate', 'rung': 'P1c', 'outcome': 'NOT_RUN', 'required_before': 'P1c full table launch', 'observed': 'requires deepest planned cell frac_truncated_no_answer <= 0.10; requested_gpus=4', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}} | True | P1b full table is blocked until P1a baseline, truncation, and graded functional gates pass; once they pass Step 3 is ready | p1b_p1c_verdict_v0 | autonomous_stage_a_run |
-| p1c_launch_correctly_blocked_until_gates | allowed=False; gates={'p1a_preflight_and_forward_gate_clean': {'gate': 'p1a_preflight_and_forward_gate_clean', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b truncation pilot', 'observed': 'preflight_ready=True; forward_clean=True; solve_rate=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1a_recovery_baseline_landed': {'gate': 'p1a_recovery_baseline_landed', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS; landed=True; cap_robust=True; censoring=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_truncation_gate': {'gate': 'p1b_truncation_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; operator=v1_1; prompt=p1b_bounded_structured_domain_propagation_capped_thinking_v1_1; valid_frac=0.875; max_deep_truncated_or_length=0.0; max_all_truncated_or_length=0.0; max_deep_finish_reason_length=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_operator_functional_gate': {'gate': 'p1b_operator_functional_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch by cell', 'observed': "graded_status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; step1_branch=1A; recall_min=0.4628099173553719; recall_mean=0.5195690828990318; recall_max=0.5546875; allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[]; exact_match_diagnostic=0.0", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_law_tracks_inflated_keff': {'gate': 'p1b_law_tracks_inflated_keff', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c truncation pilot', 'observed': 'status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1c_truncation_gate': {'gate': 'p1c_truncation_gate', 'rung': 'P1c', 'outcome': 'NOT_RUN', 'required_before': 'P1c full table launch', 'observed': 'requires deepest planned cell frac_truncated_no_answer <= 0.10; requested_gpus=4', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}} | True | P1b law tracks inflated K_eff and P1c truncation gate pass before P1c | p1b_p1c_verdict_v0 | autonomous_stage_a_run |
+| p1b_launch_correctly_blocked_until_gates | allowed=True; gates={'p1a_preflight_and_forward_gate_clean': {'gate': 'p1a_preflight_and_forward_gate_clean', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b truncation pilot', 'observed': 'preflight_ready=True; forward_clean=True; solve_rate=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1a_recovery_baseline_landed': {'gate': 'p1a_recovery_baseline_landed', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS; landed=True; cap_robust=True; censoring=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_truncation_gate': {'gate': 'p1b_truncation_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; operator=v1_1; prompt=p1b_bounded_structured_domain_propagation_capped_thinking_v1_1; valid_frac=0.875; max_deep_truncated_or_length=0.0; max_all_truncated_or_length=0.0; max_deep_finish_reason_length=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_operator_functional_gate': {'gate': 'p1b_operator_functional_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch by cell', 'observed': "graded_status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; step1_branch=1A; recall_min=0.4628099173553719; recall_mean=0.5195690828990318; recall_max=0.5546875; allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[]; exact_match_diagnostic=0.0", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_law_tracks_inflated_keff': {'gate': 'p1b_law_tracks_inflated_keff', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c truncation pilot', 'observed': 'status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_v1_addendum_discriminates': {'gate': 'p1b_v1_addendum_discriminates', 'rung': 'P1b', 'outcome': 'INCOMPLETE', 'required_before': 'final P1b addendum verdict', 'observed': "status=RUNG1_SEPARATOR_P1B_FULL_TABLE_V1_CORRECTED_DISCRIMINATES_FAIL; fix1=False; fix2=False; fix3=False; resource_D_sweep=[4, 6, 8, 10, 12, 16]; n_uncensored_dstar_by_b={'2': 4, '4': 5, '8': 0, '12': 0}; n_left_censored_by_b={'2': 1, '4': 1, '8': 6, '12': 6}; law_track_fraction=0.5833333333333334; no_new_qwen_calls_fix1_fix2=True", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v1_addendum'}, 'p1c_truncation_gate': {'gate': 'p1c_truncation_gate', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS; operator=p1c_unguarded_structured_no_thinking_v1; max_new_tokens=12288; n_rows=12; max_truncation_frac=0.0; threshold=0.1', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}} | True | P1b full table is blocked until P1a baseline, truncation, and graded functional gates pass; once they pass Step 3 is ready | p1b_p1c_verdict_v0 | autonomous_stage_a_run |
+| p1c_launch_correctly_gated | allowed=True; gates={'p1a_preflight_and_forward_gate_clean': {'gate': 'p1a_preflight_and_forward_gate_clean', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b truncation pilot', 'observed': 'preflight_ready=True; forward_clean=True; solve_rate=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1a_recovery_baseline_landed': {'gate': 'p1a_recovery_baseline_landed', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS; landed=True; cap_robust=True; censoring=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_truncation_gate': {'gate': 'p1b_truncation_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; operator=v1_1; prompt=p1b_bounded_structured_domain_propagation_capped_thinking_v1_1; valid_frac=0.875; max_deep_truncated_or_length=0.0; max_all_truncated_or_length=0.0; max_deep_finish_reason_length=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_operator_functional_gate': {'gate': 'p1b_operator_functional_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch by cell', 'observed': "graded_status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; step1_branch=1A; recall_min=0.4628099173553719; recall_mean=0.5195690828990318; recall_max=0.5546875; allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[]; exact_match_diagnostic=0.0", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_law_tracks_inflated_keff': {'gate': 'p1b_law_tracks_inflated_keff', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c truncation pilot', 'observed': 'status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_v1_addendum_discriminates': {'gate': 'p1b_v1_addendum_discriminates', 'rung': 'P1b', 'outcome': 'INCOMPLETE', 'required_before': 'final P1b addendum verdict', 'observed': "status=RUNG1_SEPARATOR_P1B_FULL_TABLE_V1_CORRECTED_DISCRIMINATES_FAIL; fix1=False; fix2=False; fix3=False; resource_D_sweep=[4, 6, 8, 10, 12, 16]; n_uncensored_dstar_by_b={'2': 4, '4': 5, '8': 0, '12': 0}; n_left_censored_by_b={'2': 1, '4': 1, '8': 6, '12': 6}; law_track_fraction=0.5833333333333334; no_new_qwen_calls_fix1_fix2=True", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v1_addendum'}, 'p1c_truncation_gate': {'gate': 'p1c_truncation_gate', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS; operator=p1c_unguarded_structured_no_thinking_v1; max_new_tokens=12288; n_rows=12; max_truncation_frac=0.0; threshold=0.1', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}} | True | P1b law tracks inflated K_eff and P1c truncation gate pass before P1c full table | p1b_p1c_verdict_v0 | autonomous_stage_a_run |
 | kill_law_not_track_inflation | status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True | True | P1b full-table d*_obs must track D/ln K_eff_inflated before P1c | p1b_p1c_verdict_v0 | autonomous_stage_a_run |
 | kill_decoupling_destroyed | NOT_RUN | True | not evaluated until P1c full table | p1b_p1c_verdict_v0 | autonomous_stage_a_run |
 
-- Next action: P1b Step 3 full table passed the inflated-K_eff law gate; proceed to P1c truncation pilot next, and still keep P1c full table blocked until that truncation gate passes.
+- Next action: P1b Step 3 full table passed the inflated-K_eff law gate; P1c full table routing depends on the P1c truncation pilot gate. P1b v1 addendum still requires the FIX3 rho-sweep for its final discriminating verdict.
 
 ### Item 061 - Rung-1 P1a recovery baseline sweep
 
@@ -4477,6 +4618,346 @@ Truncated to 24 of 28 rows.
 
 - Next action: P1a recovery baseline landed under the v1 cap-robust censoring-aware verdict; refresh Item060 before any P1b/P1c full-table launch.
 
+### Item 062 - Rung-1 P1b scoped capacity positive and P1c competence gate addendum
+
+- Status: RUNG1_SEPARATOR_ITEM062_P1C_V2_RETRY_STILL_COMPETENCE_FAIL
+- Key result: Do not launch P1c full table. P1c v2 capped-thinking passes truncation but fails a minimal competence smoke; next retry should redesign the competence prompt/grading setup or use a lower-latency progress-enabled capped-thinking runner before attempting larger competence estimates. Part A remains a small guarded negative for cross-b penalty linearization.
+- Purpose: Record guarded execution of Item062: apply all execution cautions, run a deeper calibrated symbolic Part A sweep with steady-state boundary-reservation measurement and global alpha/beta fallback, and run the P1c graded competence gate before any full table.
+- Details:
+  - purpose=Record guarded execution of Item062: apply all execution cautions, run a deeper calibrated symbolic Part A sweep with steady-state boundary-reservation measurement and global alpha/beta fallback, and run the P1c graded competence gate before any full table.
+  - commands=8
+  - result_tables=['execution_cautions_applied', 'p1b_extended_D_sweep_plan', 'p1b_fix3_rho_sweep_scope', 'p1b_refit_separator_penalty_plan', 'p1b_scoped_b2_capacity_positive', 'p1b_separator_penalty_diagnosis', 'p1c_competence_rows', 'p1c_competence_summary', 'p1c_full_table_launch_rule', 'p1c_graded_competence_gate_plan', 'p1c_offline_recompute_check', 'p1c_truncation_yellow_flag', 'p1c_v2_competence_retry_rows', 'p1c_v2_competence_retry_summary', 'p1c_v2_truncation_retry', 'part_a_censoring_summary', 'part_a_deep_generation_summary', 'part_a_global_alpha_beta_fit', 'part_a_steady_state_boundary_reservation', 'part_a_steady_state_global_slope', 'part_a_steady_state_per_b_slope']
+  - honesty=This item does not complete the cross-b P1b capacity-law test, does not run the fitted separator-penalty model, does not run FIX3 rho-sweep, does not establish P1c conflict/culprit competence, and does not launch a P1c full table.
+- Artifact refs:
+  - results/experiment_items/item_062_rung1_separator_capacity_scoped_positive_p1c_competence_gate.json (yes, 97573 bytes)
+  - results/rung1_separator_fallibility_rungs/p1b_full_table_v1.json (yes, 4407909 bytes)
+  - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json (yes, 3515 bytes)
+  - results/rung1_separator_fallibility_rungs/results.json (yes, 79925 bytes)
+  - results/experiment_items/item_060_rung1_separator_fallibility_rungs.json (yes, 191278 bytes)
+  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
+  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - results/rung1_separator_fallibility_rungs/item062_execution.json (yes, 2265658 bytes)
+  - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json (yes, 3606 bytes)
+  - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2.log (yes, 9044 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_separator_fallibility_rungs/p1b_full_table_v1.json | RUNG1_SEPARATOR_P1B_FULL_TABLE_V1_CORRECTED_DISCRIMINATES_FAIL | schema_version=rung1_separator_p1b_full_table_controlled_v1_corrected_resource_sweep |  |
+| results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json | RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS | schema_version=rung1_separator_p1c_truncation_pilot_v0 |  |
+| results/rung1_separator_fallibility_rungs/results.json | RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_PASS_FULL_TABLE_READY | schema_version=rung1_separator_fallibility_rungs_prereg_v0 |  |
+| results/experiment_items/item_060_rung1_separator_fallibility_rungs.json | RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_PASS_FULL_TABLE_READY | item_number=060; name=Rung-1 P1b/P1c fallibility rungs preregistration; purpose=Register Phase 2 P1b/P1c real fallibility tests, including operator boundaries, truncation gates, K_eff inflation met...; schema_version=log_item_contract_v1 | cost_and_run_plan:5r/10c; gate_preflight:7r/7c; honesty_gating:5r/4c; kill_criteria:3r/6c; metric_contract:8r/6c; p1b_full_budget_at_95_solve:28r/11c |
+| results/experiment_log/experiment_log.json | recorded |  |  |
+| results/rung1_separator_fallibility_rungs/item062_execution.json | RUNG1_SEPARATOR_ITEM062_EXECUTION_GUARDED_PARTIAL_COMPLETE | schema_version=rung1_separator_item062_execution_v0 |  |
+| results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json | RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS | schema_version=rung1_separator_p1c_truncation_pilot_v0 |  |
+
+#### Contract Result Tables
+
+##### execution_cautions_applied
+
+| applied | caution | detail | provenance | source |
+| --- | --- | --- | --- | --- |
+| True | global_penalty_only | alpha and beta are fit once globally across all uncensored (D,b) cells | item062_caution_guard | autonomous_stage_a_run |
+| True | prefer_measurement | steady-state boundary reservation is measured and tested before alpha/beta fallback | item062_caution_guard | autonomous_stage_a_run |
+| True | deepen_with_D | extended D sweep uses d_global targets through 42 and excludes right-censored max-depth rows from slope fits | item062_caution_guard | autonomous_stage_a_run |
+| True | p1c_offline_first | OFFLINE_RECOMPUTE_BLOCKED_NO_GENERATION_TEXT | item062_caution_guard | autonomous_stage_a_run |
+
+##### p1b_extended_D_sweep_plan
+
+| combined_with_existing_D_values | cost | proposed_resource_D_values | provenance | reason | reporting_rule | source | target_bins | test |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 11 items | cheap calibrated symbolic search; no new Qwen calls | [20, 24, 32, 40, 50] | item062_p1b_extended_D_sweep_plan | large separator bins are censored or pinned because measured footprint 15.71-31.21 is comparable to or larger than D<=16 | until this is run, b4/b8/b12 are not passed or failed for cross-b capacity law; they are censored or pinned by the current design | autonomous_stage_a_run | ["4", "8", "12"] | move d*(D,b) into uncensored range and re-fit slope on (D - fitted_or_steady_state_penalty(b)) / ln K_eff_inflated across all separator sizes |
+
+##### p1b_fix3_rho_sweep_scope
+
+| additional_bins | initial_bin | overclaim_guard | paired_statistic | provenance | rho_targets | source | status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| any larger-b bins that become uncensored after extended D sweep | b2 because corrected D-sweep confirms scoped scaling there under rho approx 1.1 | b2 slope confirms D/K_eff scaling under fallibility but does not by itself prove the denominator must be inflated rather than clean K_eff | compare per-cell absolute residuals for inflated K_eff vs clean K_eff under corrected/refit law | item062_p1b_fix3_rho_sweep_scope | [1.1, 1.3, 1.6] | autonomous_stage_a_run | pending_after_refit_and_extended_D_sweep |
+
+##### p1b_refit_separator_penalty_plan
+
+| alternative_measurement | candidate_model | fit_data | fit_parameters | provenance | source | success_criterion |
+| --- | --- | --- | --- | --- | --- | --- |
+| measure steady-state boundary reservation entries actually held at the cap across search, not transient peak entries | d_star = (D - alpha * footprint_b) / ln(K_eff_inflated) + beta | calibrated symbolic search rows; no new Qwen calls | ["alpha_in_[0,1]", "beta"] | item062_p1b_refit_separator_penalty_plan | autonomous_stage_a_run | stable alpha plus residuals that do not erase the b2 scoped scaling positive; otherwise cross-b capacity law fails honestly |
+
+##### p1b_scoped_b2_capacity_positive
+
+| b_bin | ci_excludes_zero | ci_includes_predicted_one | claim_scope | dstar_observed_by_D | fit_axis | footprint_b | interpretation | k_eff_inflated | overclaim_guard | provenance | resource_D_uncensored | rho_graded | right_censored_at_D16_lower_bound | slope_ci_lower | slope_ci_upper | slope_estimate | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | True | True | small_separator_only_b2 | 10=7.667; 12=9.4; 6=4.455; 8=6.368 | dstar_observed_vs_(D_minus_footprint)/ln_K_eff_inflated | 3.25 | First clean scoped Claim-2-under-fallibility positive: d*(D) scales with register capacity and K_eff under the fallible P1b Step-1A operator in the b2 regime. | 3.665 | Does not establish cross-b capacity law or inflated-vs-clean discrimination. | item062_p1b_b2_scoped_positive_from_corrected_v1 | [6, 8, 10, 12] | 1.093 | 12 | 0.9466 | 1.149 | 1.048 | autonomous_stage_a_run |
+
+##### p1b_separator_penalty_diagnosis
+
+| D_eff_at_D6 | b_bin | baseline_D6_dstar_observed | baseline_D6_dstar_predicted_linear_penalty | baseline_D6_residual | diagnosis | measured_peak_minus_trail_footprint | provenance | source | baseline_D6_dstar_upper_bound |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2.75 | 2 | 4.455 | 2.117 | 2.337 | linear transient-peak footprint over-subtracts even for b2; scaling slope is good but offset is miscalibrated | 3.25 | item062_p1b_separator_penalty_diagnosis | autonomous_stage_a_run |  |
+| -9.708 | 4 | 4.25 | 0 | 4.25 | current footprint almost exhausts the D<=16 sweep and leaves the penalty-axis pinned; label as censored or pinned by design until larger D/refit | 15.71 | item062_p1b_separator_penalty_diagnosis | autonomous_stage_a_run |  |
+| -22.62 | 8 | None | 0 |  | left-censored by design: transient peak footprint dwarfs all tested D values and cannot support a cross-b law verdict | 28.62 | item062_p1b_separator_penalty_diagnosis | autonomous_stage_a_run | 4 |
+| -25.21 | 12 | None | 0 |  | left-censored by design: transient peak footprint dwarfs all tested D values and cannot support a cross-b law verdict | 31.21 | item062_p1b_separator_penalty_diagnosis | autonomous_stage_a_run | 4 |
+
+##### p1c_competence_rows
+
+| culprit_correct | current_vertex | episode_index | episode_type | finish_reason | instance_id | oracle_conflict | oracle_culprits | output_tokens | parsable | parsed | predicted_conflict | predicted_culprit | provenance | raw_generation | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| False | 12 | 0 | nonconflict | stop | sep_s1458_axis_balance_b12_d12_000002 | False | [] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":12,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 16 | 1 | conflict | stop | sep_s1458_axis_balance_b12_d12_000002 | True | [0, 13, 14, 15] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":16,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 12 | 2 | nonconflict | stop | sep_s1458_axis_balance_b12_d12_000003 | False | [] | 41 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":12,"remaining_domain":[2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 16 | 3 | conflict | stop | sep_s1458_axis_balance_b12_d12_000003 | True | [0, 13, 14, 15] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":16,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 12 | 4 | nonconflict | stop | sep_s1458_axis_balance_b12_d12_000006 | False | [] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":12,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 16 | 5 | conflict | stop | sep_s1458_axis_balance_b12_d12_000006 | True | [0, 13, 14, 15] | 41 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":16,"remaining_domain":[2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 12 | 6 | nonconflict | stop | sep_s1458_axis_balance_b12_d12_000009 | False | [] | 41 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":12,"remaining_domain":[2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 16 | 7 | conflict | stop | sep_s1458_axis_balance_b12_d12_000009 | True | [0, 4, 13, 14, 15, 28] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":16,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 12 | 8 | nonconflict | stop | sep_s1458_axis_balance_b12_d12_000011 | False | [] | 41 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":12,"remaining_domain":[2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 16 | 9 | conflict | stop | sep_s1458_axis_balance_b12_d12_000011 | True | [0, 13, 14, 15] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":16,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 12 | 10 | nonconflict | stop | sep_s1458_axis_balance_b12_d12_000013 | False | [] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":12,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 16 | 11 | conflict | stop | sep_s1458_axis_balance_b12_d12_000013 | True | [0, 13, 14, 15] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":16,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 12 | 12 | nonconflict | stop | sep_s1458_axis_balance_b12_d12_000014 | False | [] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":12,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 16 | 13 | conflict | stop | sep_s1458_axis_balance_b12_d12_000014 | True | [0, 4, 13, 14, 15] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":16,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 12 | 14 | nonconflict | stop | sep_s1458_axis_balance_b12_d12_000015 | False | [] | 41 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":12,"remaining_domain":[2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 16 | 15 | conflict | stop | sep_s1458_axis_balance_b12_d12_000015 | True | [0, 13, 14, 15] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":16,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 12 | 16 | nonconflict | stop | sep_s1458_axis_balance_b12_d12_000016 | False | [] | 41 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":12,"remaining_domain":[2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 16 | 17 | conflict | stop | sep_s1458_axis_balance_b12_d12_000016 | True | [0, 13, 14, 15] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":16,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 12 | 18 | nonconflict | stop | sep_s1458_axis_balance_b12_d12_000017 | False | [] | 41 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":12,"remaining_domain":[2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 16 | 19 | conflict | stop | sep_s1458_axis_balance_b12_d12_000017 | True | [0, 13, 14, 15, 28] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":16,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 12 | 20 | nonconflict | stop | sep_s1458_axis_balance_b12_d12_000026 | False | [] | 41 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":12,"remaining_domain":[2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 16 | 21 | conflict | stop | sep_s1458_axis_balance_b12_d12_000026 | True | [0, 13, 14, 15, 34] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":16,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 12 | 22 | nonconflict | stop | sep_s1458_axis_balance_b12_d12_000029 | False | [] | 41 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":12,"remaining_domain":[2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+| False | 16 | 23 | conflict | stop | sep_s1458_axis_balance_b12_d12_000029 | True | [0, 13, 14, 15] | 43 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | {"color":2,"propagation":[{"vertex":16,"remaining_domain":[1,2,3,4]}],"conflict_detected":false,"culprit":null,"conflict_reason":"No conflict"} | autonomous_stage_a_run |
+
+##### p1c_competence_summary
+
+| conflict_precision | conflict_recall | culprit_accuracy | functional_gate_pass | functional_gate_threshold | min_competence_metric | n_episodes | n_true_conflicts | n_true_nonconflicts | operator_version | provenance | source | thinking_disabled |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | 0 | 0 | False | 0.2 | 0 | 24 | 12 | 12 | p1c_unguarded_structured_no_thinking_v1 | item062_p1c_competence_summary | autonomous_stage_a_run | True |
+
+##### p1c_full_table_launch_rule
+
+| after_gate_table | fallibility_signal | launch_status | provenance | required_independent_statuses | source |
+| --- | --- | --- | --- | --- | --- |
+| CBJ advantage curve over wrong_culprit_rate, not a single point | wrong_culprit_rate should be greater than 0 but not equal to 1 | BLOCKED_UNTIL_COMPETENCE_GATE | item062_p1c_full_table_launch_rule | ["solved_valid", "false_solve", "false_giveup", "kill_decoupling_destroyed", "false_solve_contaminates"] | autonomous_stage_a_run |
+
+##### p1c_graded_competence_gate_plan
+
+| functional_gate | gate_status | grading_policy | if_no_thinking_operator_near_zero | metrics | parallel_oracle | provenance | source |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| all metrics bounded away from 0 before P1c full table launch | REQUIRED_NOT_RUN | graded partial credit, not exact-match only; culprit is correct if it lies inside the true conflict set | reenable capped thinking around 3000 tokens, rerun truncation pilot and competence pilot before full table | ["conflict_precision", "conflict_recall", "culprit_accuracy"] | same-instance symbolic conflict/culprit oracle is read-only and outside the LLM loop | item062_p1c_competence_gate_plan | autonomous_stage_a_run |
+
+##### p1c_offline_recompute_check
+
+| action | has_generation_text | n_rows | provenance | row_keys | source | source_artifact | status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| run a small new competence pilot | False | 12 | item062_p1c_offline_recompute_precheck | ["calls", "frac_parsable", "frac_truncated_no_answer", "instance_id", "truncated_generations"] | autonomous_stage_a_run | results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json | OFFLINE_RECOMPUTE_BLOCKED_NO_GENERATION_TEXT |
+
+##### p1c_truncation_yellow_flag
+
+| max_truncation_frac | min_frac_parsable | n_rows | operator_version | provenance | source | thinking_disabled | truncation_status | yellow_flag |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | 1 | 12 | p1c_unguarded_structured_no_thinking_v1 | item062_p1c_truncation_yellow_flag | autonomous_stage_a_run | True | RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS | truncation-pass is necessary but not sufficient because disabling thinking can yield a cleanly parsed zero-competence operator |
+
+##### p1c_v2_competence_retry_rows
+
+| culprit_correct | current_vertex | episode_index | episode_type | finish_reason | instance_id | oracle_conflict | oracle_culprits | output_tokens | parsable | parsed | predicted_conflict | predicted_culprit | provenance | raw_generation | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| False | 12 | 0 | nonconflict | stop | sep_s1458_axis_balance_b12_d12_000002 | False | [] | 3136 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | Thinking Process:<br><br>1.  **Analyze the Request:**<br>    *   Task: Unguarded graph-coloring operator.<br>    *   Output Format: JSON only, no reasoning, no markdown.<br>    *   Schema: `{"color":int,"propagation":[{"vertex":int,"remaining_domain":[int]}],"conflict_detected":bool,"culprit":int\|null,"conflict_reason":str}`<br>    *   Inputs:<br>        *   `colors=[1, 2, 3, 4]` (Available colors)<br>        *   `current_vertex=12`<br>        *   `agent_block=1` (This seems to indicate the agent ID or block, but might not be directly used for coloring logic unless specified. Usually, in these tasks, it's context for constraints).<br>        *   `own_block_vertices=[12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]` (Vertices owned by the current agent/block).<br>        *   `internal_edges` (Edges within the agent's block).<br>        *   `incident_boundary_edges` (Edges connecting to outside vertices).<br>        *   `visible_assignment` (Already colored vertices: `{0: 1}`).<br>    *   Goal: Choose a color for `current_vertex` (12), update domains, detect conflicts, name a culprit if conflict.<br><br>2.  **Analyze the Graph & Constraints:**<br>    *   **Current Vertex:** 12.<br>    *   **Available Colors:** {1, 2, 3, 4}.<br>    *   **Visible Assignment:** Vertex 0 is colored 1.<br>    *   **Internal Edges involving 12:**<br>        *   `[12, 13]`<br>        *   `[12, 14]`<br>        *   `[12, 15]`<br>    *   **Boundary Edges involving 12:**<br>        *   `[12, 24]`<br>    *   **Neighbors of 12:** 13, 14, 15, 24.<br>    *   **Known Colors:**<br>        *   Vertex 0: 1.<br>        *   Vertices 13, 14, 15, 24: Not in `visible_assignment`. Their domains are initially {1, 2, 3, 4}.<br>    *   **Conflict Detection:**<br>        *   I need to check if any neighbor has a color assigned that conflicts with the chosen color for 12.<br>        *   Since `visible_assignment` only contains `{0: 1}`, and 0 is not a neighbor of 12 (neighbors are 13, 14, 15, 24), there is no immediate conflict based on visible assignments.<br>        *   However, I need to consider the "Unguarded" nature. Usually, this implies I pick a color from the domain, propagate constraints, and check for conflicts.<br>        *   Since no neighbors are colored yet (except potentially via propagation from other agents, but `visible_assignment` is the only source of info), I can pick any valid color.<br>        *   Wait, is there a constraint I'm missing? "Unguarded graph-coloring operator".<br>        *   Usually, in these specific prompt formats (often from constraint satisfaction problem solvers), I need to pick a color that doesn't conflict with *already assigned* neighbors.<br>        *   Neighbors of 12: 13, 14, 15, 24.<br>        *   Are any of these assigned? `visible_assignment` = `{0: 1}`. None of 13, 14, 15, 24 are in the assignment.<br>        *   So, any color {1, 2, 3, 4} is valid for 12 initially.<br>        *   However, I must update local domains. Since 12 is being colored now, its domain becomes the chosen color.<br>        *   Propagation: I need to check neighbors. Since neighbors are uncolored, their domains remain {1, 2, 3, 4} (minus the color of 12 if I were propagating *from* 12, but 12 is the current vertex).<br>        *   Wait, the schema asks for `propagation`: `[{"vertex":int,"remaining_domain":[int]}]`. This usually implies the result of arc consistency or domain reduction after assigning the current vertex.<br>        *   If I assign 12 -> 1, then neighbors 13, 14, 15, 24 lose color 1 from their domains.<br>        *   If I assign 12 -> 2, neighbors lose color 2.<br>        *   Since I need to "Choose color for current_vertex", I should pick one. Let's pick 1 (lowest available, though 0 is 1, 12 is not 0). Or 2 to be safe? Usually, picking the first valid one is standard. Let's pick 1.<br>        *   Wait, is there a conflict?<br>        *   Conflict check: Neighbors of 12 are 13, 14, 15, 24. None are in `visible_assignment`.<br>        *   So `conflict_detected` should be `false`.<br>        *   `culprit` should be `null`.<br>        *   `conflict_reason` should be empty or "None".<br>        *   `propagation`: I need to list neighbors and their updated domains.<br>        *   Neighbors: 13, 14, 15, 24.<br>        *   If I pick color 1 for 12:<br>            *   13's domain: {1, 2, 3, 4} -> {2, 3, 4} (since 13-12 edge exists).<br>            *   14's domain: {1, 2, 3, 4} -> {2, 3, 4}.<br>            *   15's domain: {1, 2, 3, 4} -> {2, 3, 4}.<br>            *   24's domain: {1, 2, 3, 4} -> {2, 3, 4}.<br>        *   Wait, I need to check if 24 is in `own_block_vertices`. `own_block_vertices` ends at 23. 24 is not in `own_block_vertices`. It is in `incident_boundary_edges`.<br>        *   Does the propagation apply to boundary vertices? Yes, usually.<br>        *   However, often in these specific "agent" contexts, propagation is limited to the agent's block or immediate neighbors. The schema asks for `propagation` list. I should include neighbors.<br>        *   Let's check the `incident_boundary_edges` again. `[12, 24]`. So 24 is a neighbor.<br>        *   Let's check `internal_edges`. `[12, 13], [12, 14], [12, 15]`.<br>        *   So neighbors are 13, 14, 15, 24.<br>        *   I will select color 1 for vertex 12.<br>        *   Wait, is there a reason to pick a specific color? "Unguarded" might imply no lookahead, just greedy.<br>        *   Let's check if there's any implicit conflict. Vertex 0 is 1. Vertex 12 is not connected to 0. So 1 is fine.<br>        *   Let's check if I should pick a color that minimizes conflict potential? No, just "Choose color".<br>        *   I'll pick 1.<br>        *   Wait, looking at `visible_assignment={0: 1}`. If I pick 1 for 12, is there a conflict? No, 0 and 12 are not connected.<br>        *   So `conflict_detected` = false.<br>        *   `propagation`: I need to update domains of neighbors.<br>        *   Neighbors: 13, 14, 15, 24.<br>        *   Domains: Initially {1, 2, 3, 4}.<br>        *   After assigning 12=1:<br>            *   13: {2, 3, 4}<br>            *   14: {2, 3, 4}<br>            *   15: {2, 3, 4}<br>            *   24: {2, 3, 4}<br>        *   Wait, I need to check if 24 is a valid vertex to report in propagation. It's a neighbor.<br>        *   Wait, is there any other constraint? `agent_block=1`. `own_block_vertices` includes 12-23.<br>        *   Usually, propagation is restricted to the agent's block in some contexts, but the schema implies general propagation. I will include all neighbors.<br>        *   Wait, I need to make sure I don't hallucinate domains. The prompt says "Use only the supplied local/boundary context".<br>        *   Initial domains for uncolored vertices are implicitly {1, 2, 3, 4} based on `colors`.<br>        *   So, if I pick 1, neighbors lose 1.<br>        *   Wait, I should check if there's a conflict *before* choosing.<br>        *   Conflict check: Neighbors of 12 are 13, 14, 15, 24.<br>        *   Are any of these colored? `visible_assignment` has only 0.<br>        *   So no conflict.<br>        *   I will choose color 1.<br>        *   Wait, is there a reason to choose 2? Sometimes picking the first available is standard. 1 is available.<br>        *   Let's verify the `propagation` format. `{"vertex":int,"remaining_domain":[int]}`.<br>        *   I will list the neighbors.<br>        *   Wait, is 24 a neighbor? Yes, `[12, 24]` in `incident_boundary_edges`.<br>        *   Is 24 in `own_block_vertices`? No. But it's a neighbor.<br>        *   Okay, I will include 24 in propagation.<br>        *   Wait, one detail: `conflict_reason`. If conflict is false, what string? Usually "None" or empty string. Schema says `str`. I'll use "None".<br>        *   Wait, I need to check if I should output `propagation` for *all* neighbors or just those affected. All neighbors are affected.<br>        *   Wait, I need to check if I should output `propagation` for the current vertex itself? No, usually neighbors.<br>        *   Wait, I need to check if I should output `propagation` for vertices that are *not* neighbors but affected by propagation (like 2-neighborhood). Usually just neighbors in this context.<br>        *   Let's refine the color choice. Is there any reason 1 is bad? Vertex 0 is 1. If 12 was connected to 0, it would be bad. It's not.<br>        *   So 1 is fine.<br>        *   Wait, I should check if I need to output `propagation` for vertices that are *already* colored? No, they are fixed.<br>        *   Okay, plan:<br>            *   `color`: 1<br>            *   `propagation`: List of neighbors (13, 14, 15, 24) with domain {2, 3, 4}.<br>            *   `conflict_detected`: false<br>            *   `culprit`: null<br>            *   `conflict_reason`: "None"<br><br>    *   Wait, re-reading the prompt: "Unguarded graph-coloring operator".<br>    *   Sometimes "Unguarded" implies no lookahead, just pick a color.<br>    *   Is there a specific rule about `agent_block`? `agent_block=1`. `own_block_vertices` starts at 12.<br>    *   Maybe I should check if 12 is connected to any *colored* vertex in `visible_assignment`.<br>    *   `visible_assignment` = `{0: 1}`.<br>    *   Edges from 12: `[12, 13], [12, 14], [12, 15], [12, 24]`.<br>    *   None of 13, 14, 15, 24 are 0.<br>    *   So no conflict.<br>    *   I will pick color 1.<br>    *   Wait, is there a preference for higher colors? No.<br>    *   Wait, I need to check if `propagation` should include vertices that are not neighbors but are in the `own_block_vertices`? No, propagation is about constraints.<br>    *   Wait, I need to check if I should include 24 in propagation. 24 is a neighbor.<br>    *   Wait, is 24's domain known? Implicitly {1, 2, 3, 4}.<br>    *   So 24's remaining domain becomes {2, 3, 4}.<br>    *   Wait, I need to check if 24<br></think><br><br>{<br>  "color": 1,<br>  "propagation": [<br>    {"vertex": 13, "remaining_domain": [2, 3, 4]},<br>    {"vertex": 14, "remaining_domain": [2, 3, 4]},<br>    {"vertex": 15, "remaining_domain": [2, 3, 4]},<br>    {"vertex": 24, "remaining_domain": [2, 3, 4]}<br>  ],<br>  "conflict_detected": false,<br>  "culprit": null,<br>  "conflict_reason": "None"<br>} | autonomous_stage_a_run |
+| False | 16 | 1 | conflict | stop | sep_s1458_axis_balance_b12_d12_000002 | True | [0, 13, 14, 15] | 3118 | True | 2 keys: remaining_domain, vertex | False | None | item062_p1c_competence_generation | Thinking Process:<br><br>1.  **Analyze the Request:**<br>    *   Task: Unguarded graph-coloring operator.<br>    *   Output Format: JSON only, no reasoning, no markdown.<br>    *   Schema: `{"color":int,"propagation":[{"vertex":int,"remaining_domain":[int]}],"conflict_detected":bool,"culprit":int\|null,"conflict_reason":str}`<br>    *   Inputs:<br>        *   `colors=[1, 2, 3, 4]`<br>        *   `current_vertex=16`<br>        *   `agent_block=1` (This seems to indicate the agent ID or block, but usually irrelevant for local coloring unless specified. I'll focus on the graph structure).<br>        *   `own_block_vertices=[12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]` (Vertices owned by this agent).<br>        *   `internal_edges` (Edges within the agent's block).<br>        *   `incident_boundary_edges` (Edges connecting to outside vertices).<br>        *   `visible_assignment` (Colors assigned to neighbors).<br><br>2.  **Analyze the Graph & Constraints:**<br>    *   Vertex to color: `16`.<br>    *   Available colors: `[1, 2, 3, 4]`.<br>    *   Neighbors of 16:<br>        *   From `internal_edges`: `[13, 16], [14, 16], [15, 16], [16, 17], [16, 18], [16, 19]`.<br>        *   From `incident_boundary_edges`: `[0, 16], [4, 16]`.<br>        *   Total Neighbors: `0, 4, 13, 14, 15, 17, 18, 19`.<br>    *   Current Colors of Neighbors (from `visible_assignment`):<br>        *   `0`: 1<br>        *   `4`: Not in `visible_assignment`.<br>        *   `13`: 2<br>        *   `14`: 3<br>        *   `15`: 4<br>        *   `17`: Not in `visible_assignment`.<br>        *   `18`: Not in `visible_assignment`.<br>        *   `19`: Not in `visible_assignment`.<br>    *   Wait, I need to check the `visible_assignment` carefully. It only lists specific vertices.<br>        *   `0: 1`<br>        *   `9: 1`<br>        *   `11: 1`<br>        *   `12: 1`<br>        *   `13: 2`<br>        *   `14: 3`<br>        *   `15: 4`<br>        *   `22: 2`<br>        *   `30: 1`<br>    *   Neighbors of 16 with known colors:<br>        *   `0` (Color 1)<br>        *   `13` (Color 2)<br>        *   `14` (Color 3)<br>        *   `15` (Color 4)<br>    *   Neighbors of 16 without known colors (from `visible_assignment`):<br>        *   `4`<br>        *   `17`<br>        *   `18`<br>        *   `19`<br>    *   Since this is an "Unguarded graph-coloring operator", I must assume the `visible_assignment` represents the current state of neighbors that are visible/assigned. If a neighbor is not in `visible_assignment`, its domain is effectively the full set of colors `[1, 2, 3, 4]` unless constrained by other logic not provided. However, usually in these tasks, "visible" means "assigned". If not assigned, it's unconstrained by the current assignment.<br>    *   Let's check the constraints imposed by the *assigned* neighbors on vertex 16.<br>        *   Neighbor 0: Color 1 -> 16 cannot be 1.<br>        *   Neighbor 13: Color 2 -> 16 cannot be 2.<br>        *   Neighbor 14: Color 3 -> 16 cannot be 3.<br>        *   Neighbor 15: Color 4 -> 16 cannot be 4.<br>    *   If all colors 1, 2, 3, 4 are forbidden by neighbors 0, 13, 14, 15 respectively, then vertex 16 has no valid color.<br>    *   Let's verify the edges again.<br>        *   `internal_edges`: `[13, 16], [14, 16], [15, 16]`.<br>        *   `incident_boundary_edges`: `[0, 16]`.<br>    *   So neighbors are indeed 0, 13, 14, 15.<br>    *   Colors:<br>        *   0 -> 1<br>        *   13 -> 2<br>        *   14 -> 3<br>        *   15 -> 4<br>    *   Vertex 16 needs a color from `[1, 2, 3, 4]`.<br>    *   Forbidden: 1 (by 0), 2 (by 13), 3 (by 14), 4 (by 15).<br>    *   Result: Conflict detected. No valid color exists.<br><br>3.  **Determine Output Fields:**<br>    *   `color`: Since conflict is detected, usually this is null or the last attempted value, but the schema says `int`. If conflict is true, often the color is set to the one that caused the conflict or null. However, looking at the schema `{"color":int...}`, it implies an integer. In constraint satisfaction contexts, if a conflict is found, the color might be the one being assigned (which fails) or null. Given the instruction "Choose color... update local domains... detect visible conflict", if I can't choose a color, I should probably indicate the conflict. But the schema requires `int`. Let's look at similar patterns. Usually, if conflict, `color` might be the value being tried (e.g., 1) or null if allowed. The schema says `int`. I will set it to `null` if possible, but the type hint says `int`. Wait, JSON schema allows `null` for `int`? No, strictly `int`. But in JSON, `null` is valid. Let's assume `null` is acceptable for `color` if no color can be chosen, or I pick one and mark conflict. However, standard practice for "conflict_detected": true is often to return the value that failed or indicate failure. Let's look at the instruction: "Choose color for current_vertex... detect visible conflict". If I detect a conflict, I cannot choose a valid color. I will set `color` to `null` (as a fallback for "no valid color") or perhaps the first available color in the list (1) to show the attempt. Given the strict schema `{"color":int}`, `null` might violate strict typing if interpreted strictly, but in JSON `null` is distinct. Let's check the schema provided: `"color":int`. This usually implies a number. However, if conflict is true, returning a number is misleading. I will check if I can pick a color. Since 1,2,3,4 are all blocked, I cannot pick a valid color. I will set `color` to `null` (as it's the only logical state for "no color") or perhaps the prompt implies I should return the *attempted* color. Let's assume `null` is acceptable for the `color` field in this context of failure, or I will pick one (e.g., 1) and the conflict_reason explains why. Actually, looking at the schema `{"color":int...}`, `null` is often allowed in JSON even if schema says int in some contexts, but strictly it's a number. Let's try to find a valid color. Is there any other constraint?<br>    *   Wait, `incident_boundary_edges` includes `[0, 16]`. `visible_assignment` has `0: 1`.<br>    *   `internal_edges` includes `[13, 16]`, `[14, 16]`, `[15, 16]`. `visible_assignment` has `13: 2`, `14: 3`, `15: 4`.<br>    *   So 16 is connected to 0, 13, 14, 15.<br>    *   Colors of neighbors: 1, 2, 3, 4.<br>    *   Vertex 16 has domain `[1, 2, 3, 4]`.<br>    *   Pruning:<br>        *   16 != 1 (neighbor 0)<br>        *   16 != 2 (neighbor 13)<br>        *   16 != 3 (neighbor 14)<br>        *   16 != 4 (neighbor 15)<br>    *   Domain becomes empty.<br>    *   Conflict detected: `true`.<br>    *   Culprit: The neighbor that makes the last color impossible? Or the one that makes the domain empty? Usually, the culprit is the neighbor that assigned the color that blocks the current vertex. Since all are blocked, any neighbor could be a culprit. I'll pick the first one in the list that blocks a color, or the one that makes the domain empty. Let's pick `15` (Color 4) as it blocks the last option, or `0` (Color 1). Let's pick `15` as it's the last neighbor in the edge list `[15, 16]`. Or `0`. Let's pick `15` because it completes the set of colors. Actually, `0` is the first neighbor. Let's pick `0`.<br>    *   Wait, the instruction says "name one culprit if conflict=true".<br>    *   `propagation`: Update local domains. Since domain is empty, I should list the neighbors and their remaining domains.<br>    *   Neighbors of 16: 0, 4, 13, 14, 15, 17, 18, 19.<br>    *   Visible neighbors (assigned): 0, 13, 14, 15.<br>    *   Unassigned neighbors: 4, 17, 18, 19.<br>    *   Propagation usually updates domains of neighbors based on the current vertex's value. But here the current vertex has *no* value.<br>    *   However, the instruction says "update local domains". This usually means "prune domains of neighbors based on current vertex's choice". Since there is no choice, I might need to report the state of the current vertex's domain (empty).<br>    *   Wait, the schema `propagation` is `[{vertex: int, remaining_domain: [int]}]`. This usually refers to the neighbors of the current vertex whose domains were updated.<br>    *   Since I cannot assign a color to 16, I cannot propagate constraints *out* to neighbors based on 16's color.<br>    *   However, I can report the domain of 16 itself? No, `propagation` usually implies neighbors.<br>    *   Let's check the instruction: "update local domains". This might mean "update the domain of the current vertex".<br>    *   Let's assume `propagation` lists the neighbors of 16 that have their domains updated (pruned) by the conflict check or the assignment attempt.<br>    *   Actually, if conflict is detected, the domain of 16 is empty.<br>    *   Let's construct the JSON.<br>    *   `color`: Since no valid color, I will set it to `null` (JSON allows null).<br>    *   `conflict_detected`: `true`.<br>    *   `culprit`: `0` (Neighbor with color 1).<br>    *   `conflict_reason`: "All colors [1, 2, 3, 4] are blocked by neighbors 0, 13, 14, 15".<br>    *   `propagation`: Since 16 has no color, it doesn't propagate to neighbors. But I should list the neighbors that were checked. Or maybe I list the current vertex's domain update? The schema says `vertex: int`. If I list 16, its domain is `[]`.<br>    *   Let's refine `propagation`. Usually, this is for neighbors. If I can't assign, I can't propagate. I will leave it empty or list the current vertex with empty domain. Given the instruction "update local domains", I will list the current vertex 16 with its remaining domain.<br>    *   Wait, looking at the schema `propagation`: `[{vertex: int, remaining_domain: [int]}]`.<br>    *   If I set `color` to `null`, `propagation` might be empty.<br>    *   Let's check if I can pick a color. Is there any chance I missed an edge?<br>    *   `internal_edges`: `[12, 13], [12, 14], [12, 15], [13, 14], [13, 16], [14, 15<br></think><br><br>{<br>  "color": null,<br>  "propagation": [<br>    {<br>      "vertex": 16,<br>      "remaining_domain": []<br>    }<br>  ],<br>  "conflict_detected": true,<br>  "culprit": 0,<br>  "conflict_reason": "All colors [1, 2, 3, 4] are blocked by neighbors 0 (color 1), 13 (color 2), 14 (color 3), and 15 (color 4)."<br>} | autonomous_stage_a_run |
+
+##### p1c_v2_competence_retry_summary
+
+| answer_token_budget_requested | conflict_precision | conflict_recall | culprit_accuracy | functional_gate_pass | functional_gate_threshold | min_competence_metric | n_episodes | n_true_conflicts | n_true_nonconflicts | operator_version | provenance | source | thinking_budget_requested | thinking_disabled |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1500 | 0 | 0 | 0 | False | 0.2 | 0 | 2 | 1 | 1 | p1c_unguarded_structured_capped_thinking_v2 | item062_p1c_competence_summary | autonomous_stage_a_run | 3000 | False |
+
+##### p1c_v2_truncation_retry
+
+| answer_token_budget_requested | max_truncation_frac | min_frac_parsable | n_rows | operator_version | p1c_truncation_gate_pass | prompt_contract | provenance | source | status | thinking_budget_requested | thinking_disabled | truncation_threshold |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1500 | 0 | 1 | 12 | p1c_unguarded_structured_capped_thinking_v2 | True | p1c_unguarded_structured_json_capped_thinking_v2 | item062_p1c_v2_truncation_retry_summary | autonomous_stage_a_run | RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS | 3000 | False | 0.1 |
+
+##### part_a_censoring_summary
+
+| n_dstar_rows | n_left_censored_below_min_depth | n_right_censored_at_max_depth | n_uncensored_interpolated | provenance | right_censored_excluded_from_slope_fit | source |
+| --- | --- | --- | --- | --- | --- | --- |
+| 44 | 22 | 0 | 22 | item062_extended_D_censoring_summary | True | autonomous_stage_a_run |
+
+##### part_a_deep_generation_summary
+
+| attempts | b_bin | d_global_bin | n_instances | n_instances_target | provenance | rejection_counters | source | target_met |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 4 | 2 | 4 | 4 | 4 | item062_deep_instance_generation | accepted=4 | autonomous_stage_a_run | True |
+| 4 | 2 | 5 | 4 | 4 | item062_deep_instance_generation | accepted=4 | autonomous_stage_a_run | True |
+| 5 | 2 | 6 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=1 | autonomous_stage_a_run | True |
+| 4 | 2 | 7 | 4 | 4 | item062_deep_instance_generation | accepted=4 | autonomous_stage_a_run | True |
+| 7 | 2 | 9 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=3 | autonomous_stage_a_run | True |
+| 7 | 2 | 10 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=3 | autonomous_stage_a_run | True |
+| 7 | 2 | 12 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=3 | autonomous_stage_a_run | True |
+| 9 | 2 | 16 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=5 | autonomous_stage_a_run | True |
+| 17 | 2 | 20 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=13 | autonomous_stage_a_run | True |
+| 8 | 2 | 24 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=4 | autonomous_stage_a_run | True |
+| 37 | 2 | 30 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=33 | autonomous_stage_a_run | True |
+| 74 | 2 | 36 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=70 | autonomous_stage_a_run | True |
+| 600 | 2 | 42 | 2 | 4 | item062_deep_instance_generation | accepted=2; depth_22_rejected=1; depth_6_rejected=1; depth_8_rejected=1; reference_unsolved_rejected=595 | autonomous_stage_a_run | False |
+| 5 | 4 | 4 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=1 | autonomous_stage_a_run | True |
+| 5 | 4 | 5 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=1 | autonomous_stage_a_run | True |
+| 4 | 4 | 6 | 4 | 4 | item062_deep_instance_generation | accepted=4 | autonomous_stage_a_run | True |
+| 9 | 4 | 7 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=5 | autonomous_stage_a_run | True |
+| 6 | 4 | 9 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=2 | autonomous_stage_a_run | True |
+| 6 | 4 | 10 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=2 | autonomous_stage_a_run | True |
+| 7 | 4 | 12 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=3 | autonomous_stage_a_run | True |
+| 20 | 4 | 16 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=16 | autonomous_stage_a_run | True |
+| 15 | 4 | 20 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=11 | autonomous_stage_a_run | True |
+| 12 | 4 | 24 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=8 | autonomous_stage_a_run | True |
+| 21 | 4 | 30 | 4 | 4 | item062_deep_instance_generation | accepted=4; reference_unsolved_rejected=17 | autonomous_stage_a_run | True |
+
+Truncated to 24 of 52 rows.
+
+##### part_a_global_alpha_beta_fit
+
+| alpha_global | beta_global | constraint | model | n_uncensored | provenance | source | sse |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 0.5688 | single global alpha in [0,1] and single global beta fit jointly across all (D,b) cells | dstar = (D - alpha * transient_peak_footprint_b) / ln(K_eff_inflated) + beta | 22 | item062_global_alpha_beta_fit | autonomous_stage_a_run | 1415 |
+
+##### part_a_steady_state_boundary_reservation
+
+| b_bin | max_steady_state_boundary_reservation | mean_steady_state_boundary_reservation | measurement_policy | n_pressured_rows | provenance | source | steady_state_boundary_reservation_footprint |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 15 | 5.033 | median boundary-active register entries when effective peak is at or above D | 319 | item062_steady_state_boundary_reservation_measurement | autonomous_stage_a_run | 4.833 |
+| 4 | 23 | 10.59 | median boundary-active register entries when effective peak is at or above D | 437 | item062_steady_state_boundary_reservation_measurement | autonomous_stage_a_run | 8.438 |
+| 8 | 38 | 17.59 | median boundary-active register entries when effective peak is at or above D | 521 | item062_steady_state_boundary_reservation_measurement | autonomous_stage_a_run | 14.18 |
+| 12 | 47 | 22.64 | median boundary-active register entries when effective peak is at or above D | 502 | item062_steady_state_boundary_reservation_measurement | autonomous_stage_a_run | 18.47 |
+
+##### part_a_steady_state_global_slope
+
+| ci_excludes_zero | fit_axis | intercept_estimate | n_uncensored | provenance | slope_ci_lower | slope_ci_upper | slope_estimate | slope_se | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| True | dstar_observed_vs_(D-steady_state_boundary_reservation)/ln_K_eff_inflated | 4.772 | 22 | item062_steady_state_penalty_global_slope | 0.1273 | 0.7717 | 0.4495 | 0.1644 | autonomous_stage_a_run |
+
+##### part_a_steady_state_per_b_slope
+
+| b_bin | ci_excludes_zero | intercept_estimate | n_uncensored | provenance | slope_ci_lower | slope_ci_upper | slope_estimate | slope_se | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | True | 3.781 | 10 | item062_steady_state_penalty_per_b_slope | 0.967 | 1.093 | 1.03 | 0.03205 | autonomous_stage_a_run |
+| 4 | True | 4.814 | 10 | item062_steady_state_penalty_per_b_slope | 0.003841 | 0.02891 | 0.01637 | 0.006394 | autonomous_stage_a_run |
+| 8 | False |  | 1 | item062_steady_state_penalty_per_b_slope | None | None | None | None | autonomous_stage_a_run |
+| 12 | False |  | 1 | item062_steady_state_penalty_per_b_slope | None | None | None | None | autonomous_stage_a_run |
+
+- Next action: Do not launch P1c full table. P1c v2 capped-thinking passes truncation but fails a minimal competence smoke; next retry should redesign the competence prompt/grading setup or use a lower-latency progress-enabled capped-thinking runner before attempting larger competence estimates. Part A remains a small guarded negative for cross-b penalty linearization.
+
+### Item 063 - Rung-1 P1b real LLM-in-loop controlled smoke
+
+- Status: RUNG1_SEPARATOR_ITEM063_SHARDED_INLOOP_SMOKE_READY_FOR_FULL_SLICE
+- Key result: Fastest current route is 4-GPU sharded batched transformers. Full requested slice is ready to launch with --launch-4gpu and max_budget_calls>=5760; vLLM would be faster only after installing/serving Qwen3.5 in the project environment.
+- Purpose: Start the Layer-3 controlled-substrate LLM-in-the-loop test: real Qwen calls at visited search nodes with the validated P1b v1.1 propagation operator, symbolic conflict/recovery/register machinery, cost preflight for the requested capacity slice, and a tiny batched smoke run to verify the in-loop harness before any larger launch.
+- Details:
+  - purpose=Start the Layer-3 controlled-substrate LLM-in-the-loop test: real Qwen calls at visited search nodes with the validated P1b v1.1 propagation operator, symbolic conflict/recovery/register machinery, cost preflight for the requested capacity slice, and a tiny batched smoke run to verify the in-loop harness before any larger launch.
+  - commands=4
+  - result_tables=['capacity_scaling_inloop_b2', 'cost_ledger', 'decoupling_inloop_corner', 'inloop_instance_smoke', 'inloop_vs_isolated_recall', 'proxy_match_by_cell', 'sharded_smoke_capacity_b2', 'sharded_smoke_cost_ledger', 'sharded_smoke_inloop_vs_isolated_recall', 'sharded_smoke_shard_summaries', 'sharded_smoke_verdict', 'verdict']
+  - honesty=This item does not validate the calibrated proxy, does not establish capacity scaling in-loop, and does not test CBJ/chronological/forward ordering. It only records a full-scope budget stop and a tiny real LLM-in-loop smoke proving the harness can call Qwen inside the search loop with corrected recall accounting.
+- Artifact refs:
+  - results/experiment_items/item_063_rung1_separator_llm_inloop_smoke.json (yes, 16437 bytes)
+  - results/rung1_separator_llm_inloop/preflight_full_scope.json (yes, 1665 bytes)
+  - results/rung1_separator_llm_inloop/results.json (yes, 5672 bytes)
+  - experiments/rung1_separator_llm_inloop.py (yes, 26244 bytes)
+  - results/rung1_separator_llm_inloop/sharded_smoke/results.json (yes, 7126 bytes)
+  - results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_00.json (yes, 4050 bytes)
+  - results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_01.json (yes, 3984 bytes)
+  - results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_02.json (yes, 2193 bytes)
+  - results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_03.json (yes, 2193 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_separator_llm_inloop/preflight_full_scope.json | RUNG1_SEPARATOR_LLM_INLOOP_PREFLIGHT_ONLY | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/results.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/sharded_smoke/results.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_00.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_01.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_02.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_03.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+
+#### Contract Result Tables
+
+##### capacity_scaling_inloop_b2
+
+| b_bin | call_cap_rate | d_global_bin | mean_inloop_propagation_recall | mean_llm_calls | n | provenance | register_capacity_D | solve_rate | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 1 | 4 | 1 | 1 | 1 | llm_inloop_capacity_cell_v0 | 6 | 0 | autonomous_stage_a_run |
+| 2 | 0 | 5 | 0.6 | 1 | 1 | llm_inloop_capacity_cell_v0 | 6 | 0 | autonomous_stage_a_run |
+
+##### cost_ledger
+
+| action | call_cap_per_instance | cost_ok | max_budget_calls | max_llm_calls | n_arms | n_base_instances | n_register_D_values | provenance | scope | source | batch_size |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| not_launched | 40 | False | 300 | 5760 | 1 | 48 | 3 | item063_full_scope_budget_preflight | requested_capacity_slice | autonomous_stage_a_run |  |
+| launched | 1 | True | 4 | 2 | 1 | 2 | 1 | item063_smoke_budget_preflight | batched_smoke | autonomous_stage_a_run | 2 |
+
+##### decoupling_inloop_corner
+
+No rows recorded.
+
+##### inloop_instance_smoke
+
+| arm | b | call_cap_hit | cell_id | d_global_reference | instance_id | llm_calls | mean_inloop_propagation_recall | propagation_opportunity_steps | provenance | register_capacity_D | right_censored | solved_valid | source | status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| cbj_bounded | 2 | True | dg_m2_dl3 | 4 | sep_s480_dg_m2_dl3_000001 | 1 | 1 | 1 | llm_inloop_instance_v0 | 6 | True | False | autonomous_stage_a_run | CALL_CAP |
+| cbj_bounded | 2 | False | dg_m4_dl3 | 5 | sep_s581_dg_m4_dl3_000001 | 1 | 0.6 | 1 | llm_inloop_instance_v0 | 6 | False | False | autonomous_stage_a_run | OVERFLOW_FAIL |
+
+##### inloop_vs_isolated_recall
+
+| b_bin | delta_inloop_minus_isolated | inloop_recall | isolated_step1A_recall | n_inloop_opportunity_steps | provenance | scope | source |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 0.2758 | 0.8 | 0.5242 | 2 | llm_inloop_vs_isolated_recall_v0 | batched_smoke_only | autonomous_stage_a_run |
+
+##### proxy_match_by_cell
+
+No rows recorded.
+
+##### sharded_smoke_capacity_b2
+
+| b_bin | call_cap_rate | d_global_bin | mean_inloop_propagation_recall | mean_llm_calls | n | provenance | register_capacity_D | solve_rate | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 1 | 4 | 0 | 1 | 1 | llm_inloop_capacity_cell_v0 | 6 | 0 | autonomous_stage_a_run |
+| 2 | 0 | 5 | 0.6 | 1 | 1 | llm_inloop_capacity_cell_v0 | 6 | 0 | autonomous_stage_a_run |
+
+##### sharded_smoke_cost_ledger
+
+| answer_token_budget_requested | call_cap_per_instance | cost_ok | max_budget_calls | max_llm_calls | n_arms | n_base_instances | n_register_D_values | n_shard_episode_specs | provenance | source | thinking_budget_requested |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1500 | 1 | True | 4 | 2 | 1 | 2 | 1 | 1 | llm_inloop_budget_preflight_v0 | autonomous_stage_a_run | 2500 |
+
+##### sharded_smoke_inloop_vs_isolated_recall
+
+| b_bin | delta_inloop_minus_isolated | inloop_recall | isolated_step1A_recall | n_inloop_opportunity_steps | provenance | source |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | -0.2242 | 0.3 | 0.5242 | 2 | llm_inloop_vs_isolated_recall_v0 | autonomous_stage_a_run |
+
+##### sharded_smoke_shard_summaries
+
+| n_instances | n_steps | path | status |
+| --- | --- | --- | --- |
+| 1 | 1 | results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_00.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE |
+| 1 | 1 | results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_01.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE |
+| 0 | 0 | results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_02.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE |
+| 0 | 0 | results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_03.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE |
+
+##### sharded_smoke_verdict
+
+| check | observed | pass | provenance | source |
+| --- | --- | --- | --- | --- |
+| budget_preflight | max_llm_calls=2; threshold=4 | True | llm_inloop_verdict_v0 | autonomous_stage_a_run |
+| inloop_smoke_completed | n_instances=2; n_steps=2 | True | llm_inloop_verdict_v0 | autonomous_stage_a_run |
+
+##### verdict
+
+| check | observed | pass | provenance | source |
+| --- | --- | --- | --- | --- |
+| full_capacity_slice_budget_preflight | max_llm_calls=5760; threshold=300 | False | item063_verdict | autonomous_stage_a_run |
+| batched_smoke_completed | n_instances=2; n_steps=2; batch_size=2; corrected_recall_accounting=True | True | item063_verdict | autonomous_stage_a_run |
+| proxy_validated | not enough end-to-end rows; smoke only | False | item063_verdict | autonomous_stage_a_run |
+| capacity_scaling_holds_inloop | not tested; only D=6 smoke | False | item063_verdict | autonomous_stage_a_run |
+| ordering_holds_inloop | not run; decoupling corner skipped after capacity budget gate | False | item063_verdict | autonomous_stage_a_run |
+
+- Next action: Fastest current route is 4-GPU sharded batched transformers. Full requested slice is ready to launch with --launch-4gpu and max_budget_calls>=5760; vLLM would be faster only after installing/serving Qwen3.5 in the project environment.
+
 
 ## Canonical Repo Decision
 
@@ -4516,7 +4997,7 @@ Truncated to 24 of 28 rows.
 | Stage A Track A symbolic | YELLOW | track=A_symbolic; operator=symbolic_oracle; autonomous_cells=43; symbolic_core={'autonomous_cells': 43, 'declared_track': 'A_symbolic', 'forward_floor_on_L4': True, 'kv_snapshot_max_depth': 3, 'operator': 'symbolic_oracle', 'reverts_nonzero_on_L4': True, 'rot_no_revert_max_depth': 3} |
 | Stage A learned track | RED | diagnostic_G1=1.0; learned_autonomous_cells=0; statuses=['PARENT_ADAPTER_REQUIRED'] |
 | W3 Qwen3.5 | YELLOW | integration_grade=cached_gdn_state_measured_with_propagation_delta; W3.0=PASS |
-| Validation | RED | checks=535; pass=532; fail=3 |
+| Validation | RED | checks=547; pass=544; fail=3 |
 
 ## Artifact Index
 
@@ -4559,6 +5040,8 @@ Truncated to 24 of 28 rows.
 | item_059_rung1_separator_llm_po | results/experiment_items/item_059_rung1_separator_llm_po.json | yes |
 | item_060_rung1_separator_fallibility_rungs | results/experiment_items/item_060_rung1_separator_fallibility_rungs.json | yes |
 | item_061_rung1_separator_p1a_recovery_baseline | results/experiment_items/item_061_rung1_separator_p1a_recovery_baseline.json | yes |
+| item_062_rung1_separator_capacity_scoped_positive_p1c_competence_gate | results/experiment_items/item_062_rung1_separator_capacity_scoped_positive_p1c_competence_gate.json | yes |
+| item_063_rung1_separator_llm_inloop_smoke | results/experiment_items/item_063_rung1_separator_llm_inloop_smoke.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | rung1_phase1_spec_v01 | specs/rung1_phase1_spec_v01.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
@@ -4621,6 +5104,13 @@ Truncated to 24 of 28 rows.
 | rung1_separator_p1b_truncation_pilot | results/rung1_separator_fallibility_rungs/p1b_truncation_pilot.json | yes |
 | rung1_separator_p1b_graded_recompute | results/rung1_separator_fallibility_rungs/p1b_graded_recompute.json | yes |
 | rung1_separator_p1b_full_table | results/rung1_separator_fallibility_rungs/p1b_full_table.json | yes |
+| rung1_separator_p1b_full_table_v1_addendum | results/rung1_separator_fallibility_rungs/p1b_full_table_v1.json | yes |
+| rung1_separator_p1c_truncation_pilot | results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json | yes |
+| rung1_separator_p1c_truncation_pilot_v2 | results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json | yes |
+| rung1_separator_item062_execution | results/rung1_separator_fallibility_rungs/item062_execution.json | yes |
+| rung1_separator_llm_inloop | results/rung1_separator_llm_inloop/results.json | yes |
+| rung1_separator_llm_inloop_preflight | results/rung1_separator_llm_inloop/preflight_full_scope.json | yes |
+| rung1_separator_llm_inloop_sharded_smoke | results/rung1_separator_llm_inloop/sharded_smoke/results.json | yes |
 | validation | results/validation/validation.json | yes |
 
 ## Validation Summary
@@ -4628,7 +5118,7 @@ Truncated to 24 of 28 rows.
 | tier | pass | fail |
 | --- | --- | --- |
 | closeout_047 | 15 | 0 |
-| contract | 236 | 0 |
+| contract | 248 | 0 |
 | env | 13 | 0 |
 | legacy | 7 | 0 |
 | meta | 1 | 0 |

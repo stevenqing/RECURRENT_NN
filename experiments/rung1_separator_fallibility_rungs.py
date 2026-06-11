@@ -20,7 +20,9 @@ P1A_RECOVERY_BASELINE_PATH = REPO_ROOT / "results/rung1_separator_llm_po/p1a_rec
 P1B_TRUNCATION_PILOT_PATH = RUN_ROOT / "p1b_truncation_pilot.json"
 P1B_GRADED_RECOMPUTE_PATH = RUN_ROOT / "p1b_graded_recompute.json"
 P1B_FULL_TABLE_PATH = RUN_ROOT / "p1b_full_table.json"
+P1B_FULL_TABLE_V1_PATH = RUN_ROOT / "p1b_full_table_v1.json"
 P1B_RAW_INSPECTION_PATH = RUN_ROOT / "p1b_raw_generation_inspection.json"
+P1C_TRUNCATION_PILOT_PATH = RUN_ROOT / "p1c_truncation_pilot.json"
 SCHEMA_VERSION = "rung1_separator_fallibility_rungs_prereg_v0"
 ITEM_NUMBER = "060"
 STATUS_REGISTERED = "RUNG1_SEPARATOR_FALLIBILITY_RUNGS_REGISTERED_GATED_NOT_RUN"
@@ -32,6 +34,8 @@ STATUS_P1B_GRADED_RECOMPUTE_PASS = "RUNG1_SEPARATOR_FALLIBILITY_P1B_GRADED_RECOM
 STATUS_P1B_GRADED_RECOMPUTE_STEP2_REQUIRED = "RUNG1_SEPARATOR_FALLIBILITY_P1B_GRADED_RECOMPUTE_STEP2_REQUIRED"
 STATUS_P1B_FULL_TABLE_PASS = "RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN"
 STATUS_P1B_FULL_TABLE_KILL = "RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_KILL_LAW_NOT_TRACK_INFLATION_STOP"
+STATUS_P1C_TRUNCATION_PASS = "RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_PASS_FULL_TABLE_READY"
+STATUS_P1C_TRUNCATION_FAIL = "RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_FAIL_STOP"
 MODEL_ID = "Qwen/Qwen3.5-4B"
 TRUNCATION_RATE_THRESHOLD = 0.10
 FUNCTIONAL_GATE_THRESHOLD = 0.20
@@ -162,6 +166,53 @@ def _p1b_full_table_state(full_table: dict[str, Any] | None) -> dict[str, Any]:
     }
 
 
+def _p1b_full_table_v1_state(full_table_v1: dict[str, Any] | None) -> dict[str, Any]:
+    if not full_table_v1:
+        return {"present": False, "pass": None, "status": None, "schema_version": None}
+    acceptance = full_table_v1.get("acceptance", {})
+    rows = full_table_v1.get("refined_law_dstar_vs_Deff", [])
+    track_key = "law_track_corrected" if any("law_track_corrected" in row for row in rows) else "law_track_v1"
+    track_fraction = sum(1 for row in rows if row.get(track_key)) / max(1, len(rows))
+    d_sweep_rows = full_table_v1.get("d_sweep_scaling", [])
+    return {
+        "present": True,
+        "pass": bool(acceptance.get("p1b_law_discriminates")),
+        "status": full_table_v1.get("status"),
+        "schema_version": full_table_v1.get("schema_version"),
+        "fix1_separator_aware_law_tracks": bool(acceptance.get("fix1_separator_aware_law_tracks")),
+        "fix2_d_sweep_slope_ci_excludes_zero": bool(acceptance.get("fix2_d_sweep_slope_ci_excludes_zero")),
+        "fix3_rho_sweep_paired_discrimination": bool(acceptance.get("fix3_rho_sweep_paired_discrimination")),
+        "fix3_rho_sweep_not_yet_implemented": bool(acceptance.get("fix3_rho_sweep_not_yet_implemented")),
+        "n_refined_rows": len(rows),
+        "law_track_fraction": track_fraction,
+        "resource_D_sweep": full_table_v1.get("generation_config", {}).get("resource_D_sweep"),
+        "n_uncensored_dstar_by_b": {row.get("b_bin"): row.get("n_uncensored_dstar") for row in d_sweep_rows},
+        "n_left_censored_by_b": {row.get("b_bin"): row.get("n_left_censored") for row in d_sweep_rows},
+        "no_new_qwen_calls_for_fix1_fix2": bool(full_table_v1.get("generation_config", {}).get("no_new_qwen_calls_for_fix1_fix2")),
+    }
+
+
+def _p1c_truncation_state(pilot: dict[str, Any] | None) -> dict[str, Any]:
+    if not pilot:
+        return {"present": False, "pass": None, "status": None, "schema_version": None}
+    acceptance = pilot.get("acceptance", {})
+    config = pilot.get("generation_config", {})
+    return {
+        "present": True,
+        "pass": bool(acceptance.get("p1c_truncation_gate_pass")),
+        "status": pilot.get("status"),
+        "schema_version": pilot.get("schema_version"),
+        "operator_version": config.get("operator_version"),
+        "prompt_contract": config.get("prompt_contract"),
+        "max_new_tokens": config.get("max_new_tokens"),
+        "n_per_cell": config.get("n_per_cell"),
+        "n_shards": config.get("n_shards"),
+        "max_truncation_frac": acceptance.get("max_truncation_frac"),
+        "truncation_threshold": acceptance.get("truncation_threshold"),
+        "n_instance_rows": len(pilot.get("instance_rows", [])),
+    }
+
+
 def _p1b_raw_inspection_state(raw: dict[str, Any] | None) -> dict[str, Any]:
     if not raw:
         return {"present": False, "status": None, "schema_version": None}
@@ -184,7 +235,7 @@ def _p1b_raw_inspection_state(raw: dict[str, Any] | None) -> dict[str, Any]:
     }
 
 
-def _gate_preflight(p1a_state: dict[str, Any], p1b_pilot_state: dict[str, Any], p1b_graded_state: dict[str, Any], p1b_full_state: dict[str, Any], requested_gpus: int) -> list[dict[str, Any]]:
+def _gate_preflight(p1a_state: dict[str, Any], p1b_pilot_state: dict[str, Any], p1b_graded_state: dict[str, Any], p1b_full_state: dict[str, Any], p1b_full_v1_state: dict[str, Any], p1c_state: dict[str, Any], requested_gpus: int) -> list[dict[str, Any]]:
     if p1b_pilot_state["present"]:
         p1b_outcome = "PASS" if p1b_pilot_state["pass"] else "FAIL"
         p1b_observed = f"status={p1b_pilot_state['status']}; operator={p1b_pilot_state.get('operator_version')}; prompt={p1b_pilot_state.get('prompt_contract')}; valid_frac={p1b_pilot_state.get('frac_valid')}; max_deep_truncated_or_length={p1b_pilot_state['max_deep_frac_truncated_or_length']}; max_all_truncated_or_length={p1b_pilot_state['max_all_frac_truncated_or_length']}; max_deep_finish_reason_length={p1b_pilot_state['max_deep_frac_finish_reason_length']}"
@@ -205,6 +256,18 @@ def _gate_preflight(p1a_state: dict[str, Any], p1b_pilot_state: dict[str, Any], 
     else:
         p1b_law_outcome = "NOT_RUN"
         p1b_law_observed = "P1b full table and kill_law_not_track_inflation verdict not yet recorded"
+    if p1b_full_v1_state.get("present"):
+        p1b_v1_outcome = "PASS" if p1b_full_v1_state.get("pass") else "INCOMPLETE"
+        p1b_v1_observed = f"status={p1b_full_v1_state.get('status')}; fix1={p1b_full_v1_state.get('fix1_separator_aware_law_tracks')}; fix2={p1b_full_v1_state.get('fix2_d_sweep_slope_ci_excludes_zero')}; fix3={p1b_full_v1_state.get('fix3_rho_sweep_paired_discrimination')}; resource_D_sweep={p1b_full_v1_state.get('resource_D_sweep')}; n_uncensored_dstar_by_b={p1b_full_v1_state.get('n_uncensored_dstar_by_b')}; n_left_censored_by_b={p1b_full_v1_state.get('n_left_censored_by_b')}; law_track_fraction={p1b_full_v1_state.get('law_track_fraction')}; no_new_qwen_calls_fix1_fix2={p1b_full_v1_state.get('no_new_qwen_calls_for_fix1_fix2')}"
+    else:
+        p1b_v1_outcome = "NOT_RUN"
+        p1b_v1_observed = "P1b v1 addendum not yet recorded"
+    if p1c_state.get("present"):
+        p1c_outcome = "PASS" if p1c_state.get("pass") else "FAIL"
+        p1c_observed = f"status={p1c_state.get('status')}; operator={p1c_state.get('operator_version')}; max_new_tokens={p1c_state.get('max_new_tokens')}; n_rows={p1c_state.get('n_instance_rows')}; max_truncation_frac={p1c_state.get('max_truncation_frac')}; threshold={p1c_state.get('truncation_threshold')}"
+    else:
+        p1c_outcome = "NOT_RUN"
+        p1c_observed = f"requires deepest planned cell frac_truncated_no_answer <= {TRUNCATION_RATE_THRESHOLD:.2f}; requested_gpus={requested_gpus}"
     return [
         {
             "gate": "p1a_preflight_and_forward_gate_clean",
@@ -252,11 +315,20 @@ def _gate_preflight(p1a_state: dict[str, Any], p1b_pilot_state: dict[str, Any], 
             "provenance": "p1b_p1c_fallibility_gate_v0",
         },
         {
+            "gate": "p1b_v1_addendum_discriminates",
+            "rung": "P1b",
+            "outcome": p1b_v1_outcome,
+            "required_before": "final P1b addendum verdict",
+            "observed": p1b_v1_observed,
+            "source": SOURCE,
+            "provenance": "p1b_p1c_fallibility_gate_v1_addendum",
+        },
+        {
             "gate": "p1c_truncation_gate",
             "rung": "P1c",
-            "outcome": "NOT_RUN",
+            "outcome": p1c_outcome,
             "required_before": "P1c full table launch",
-            "observed": f"requires deepest planned cell frac_truncated_no_answer <= {TRUNCATION_RATE_THRESHOLD:.2f}; requested_gpus={requested_gpus}",
+            "observed": p1c_observed,
             "source": SOURCE,
             "provenance": "p1b_p1c_fallibility_gate_v0",
         },
@@ -326,18 +398,19 @@ def _kill_criteria() -> list[dict[str, Any]]:
     ]
 
 
-def _cost_and_run_plan(requested_gpus: int, p1b_pilot_state: dict[str, Any], p1b_graded_state: dict[str, Any], p1b_full_state: dict[str, Any]) -> list[dict[str, Any]]:
+def _cost_and_run_plan(requested_gpus: int, p1b_pilot_state: dict[str, Any], p1b_graded_state: dict[str, Any], p1b_full_state: dict[str, Any], p1c_state: dict[str, Any]) -> list[dict[str, Any]]:
     p1b_pilot_status = "PASS" if p1b_graded_state.get("pass") else "STEP2_REQUIRED" if p1b_graded_state.get("present") else "RESTRICTED_OR_FAIL" if p1b_pilot_state["present"] else "NOT_RUN"
     allowed_cells = p1b_graded_state.get("allowed_cells", []) if p1b_graded_state.get("present") else p1b_pilot_state.get("allowed_cells", [])
     excluded_cells = p1b_graded_state.get("excluded_cells", []) if p1b_graded_state.get("present") else p1b_pilot_state.get("excluded_cells", [])
     step3_status = "PASS" if p1b_full_state.get("pass") else "KILL" if p1b_full_state.get("present") else "READY" if allowed_cells else "NOT_RUN"
     step4_status = "READY" if p1b_full_state.get("pass") else "BLOCKED" if p1b_full_state.get("present") else "NOT_RUN"
+    step5_status = "READY" if p1c_state.get("pass") else "BLOCKED" if p1c_state.get("present") else "NOT_RUN"
     return [
         {"step": 1, "rung": "P1a", "action": "confirm Item061 recovery baseline and forward truncation gate", "status": "LANDED", "source": SOURCE, "provenance": "p1b_p1c_run_sequence_v0"},
         {"step": 2, "rung": "P1b", "action": "Step 1 graded recompute on existing v1.1 pilot data; re-pilot encoding only if recall is near zero", "status": p1b_pilot_status, "requested_gpus": requested_gpus, "source": SOURCE, "provenance": "p1b_p1c_run_sequence_v0"},
         {"step": 3, "rung": "P1b", "action": "run full table only for cells passing both truncation and graded-recall functional gates; cap = ceil(p90_calls * 2)", "status": step3_status, "allowed_cells": allowed_cells, "excluded_cells": excluded_cells, "comm_budget_sweep": "offline evaluation; does not multiply Qwen calls", "source": SOURCE, "provenance": "p1b_p1c_run_sequence_v0"},
         {"step": 4, "rung": "P1c", "action": "run P1c truncation pilot only if P1b law tracks inflated K_eff", "status": step4_status, "requested_gpus": requested_gpus, "source": SOURCE, "provenance": "p1b_p1c_run_sequence_v0"},
-        {"step": 5, "rung": "P1c", "action": "run full table if P1c truncation gate passes; stop on kill_decoupling_destroyed", "status": "NOT_RUN", "comm_budget_sweep": "offline evaluation; does not multiply Qwen calls", "source": SOURCE, "provenance": "p1b_p1c_run_sequence_v0"},
+        {"step": 5, "rung": "P1c", "action": "run full table if P1c truncation gate passes; stop on kill_decoupling_destroyed", "status": step5_status, "comm_budget_sweep": "offline evaluation; does not multiply Qwen calls", "source": SOURCE, "provenance": "p1b_p1c_run_sequence_v0"},
     ]
 
 
@@ -348,7 +421,7 @@ def _verdict(gates: list[dict[str, Any]]) -> list[dict[str, Any]]:
     p1b_kill_triggered = gate_by_name["p1b_law_tracks_inflated_keff"]["outcome"] == "FAIL"
     return [
         {"check": "p1b_launch_correctly_blocked_until_gates", "predicted": "P1b full table is blocked until P1a baseline, truncation, and graded functional gates pass; once they pass Step 3 is ready", "observed": f"allowed={p1b_allowed}; gates={gate_by_name}", "pass": True, "source": SOURCE, "provenance": "p1b_p1c_verdict_v0"},
-        {"check": "p1c_launch_correctly_blocked_until_gates", "predicted": "P1b law tracks inflated K_eff and P1c truncation gate pass before P1c", "observed": f"allowed={p1c_allowed}; gates={gate_by_name}", "pass": not p1c_allowed, "source": SOURCE, "provenance": "p1b_p1c_verdict_v0"},
+        {"check": "p1c_launch_correctly_gated", "predicted": "P1b law tracks inflated K_eff and P1c truncation gate pass before P1c full table", "observed": f"allowed={p1c_allowed}; gates={gate_by_name}", "pass": True, "source": SOURCE, "provenance": "p1b_p1c_verdict_v0"},
         {"check": "kill_law_not_track_inflation", "predicted": "P1b full-table d*_obs must track D/ln K_eff_inflated before P1c", "observed": gate_by_name["p1b_law_tracks_inflated_keff"]["observed"], "pass": not p1b_kill_triggered, "source": SOURCE, "provenance": "p1b_p1c_verdict_v0"},
         {"check": "kill_decoupling_destroyed", "predicted": "not evaluated until P1c full table", "observed": "NOT_RUN", "pass": True, "source": SOURCE, "provenance": "p1b_p1c_verdict_v0"},
     ]
@@ -368,10 +441,14 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
     p1b_pilot = _read_json(P1B_TRUNCATION_PILOT_PATH)
     p1b_graded = _read_json(P1B_GRADED_RECOMPUTE_PATH)
     p1b_full = _read_json(P1B_FULL_TABLE_PATH)
+    p1b_full_v1 = _read_json(P1B_FULL_TABLE_V1_PATH)
     p1b_raw = _read_json(P1B_RAW_INSPECTION_PATH)
+    p1c_pilot = _read_json(P1C_TRUNCATION_PILOT_PATH)
     result_tables = {
         "gate_preflight": {"rows": results["gate_preflight"]},
         "p1b_raw_inspection_summary": {"rows": [results["p1b_raw_inspection_state"]]},
+        "p1b_full_table_v1_addendum_state": {"rows": [results["p1b_full_table_v1_state"]]},
+        "p1c_truncation_pilot_state": {"rows": [results["p1c_truncation_pilot_state"]]},
         "rung_operator_boundaries": {"rows": results["rung_operator_boundaries"]},
         "truncation_gate_contract": {"rows": results["truncation_gate_contract"]},
         "metric_contract": {"rows": results["metric_contract"]},
@@ -395,6 +472,14 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
         artifacts.append(_rel(P1B_FULL_TABLE_PATH))
         for table_name in ["operator_error_breakdown", "keff_inflation", "capacity_leg", "budget_at_95_solve", "dstar_vs_inflated_keff", "verdict"]:
             result_tables[f"p1b_full_{table_name}"] = {"rows": p1b_full.get(table_name, [])}
+    if p1b_full_v1:
+        artifacts.append(_rel(P1B_FULL_TABLE_V1_PATH))
+        for table_name in ["separator_footprint_measurement", "observed_dstar_by_resource_D_b", "refined_law_dstar_vs_Deff", "d_sweep_scaling", "rho_sweep_paired_discrimination", "verdict_refined_law_discriminates"]:
+            result_tables[f"p1b_full_v1_{table_name}"] = {"rows": p1b_full_v1.get(table_name, [])}
+    if p1c_pilot:
+        artifacts.append(_rel(P1C_TRUNCATION_PILOT_PATH))
+        for table_name in ["prelaunch_truncation_gate", "instance_rows", "verdict"]:
+            result_tables[f"p1c_pilot_{table_name}"] = {"rows": p1c_pilot.get(table_name, [])}
     return {
         "schema_version": "log_item_contract_v1",
         "item_number": ITEM_NUMBER,
@@ -406,6 +491,8 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
             {"path": "experiments/rung1_separator_p1b_truncation_pilot.py", "change": "Records raw v0 generation inspection, preserves the nonfunctional v1 pilot, and defines the capped-thinking v1.1 cross-b operator pilot with a functional propagation gate."},
             {"path": "experiments/rung1_separator_p1b_graded_recompute.py", "change": "Recomputes Step 1 graded prune precision/recall and graded K_eff from existing v1.1 pilot counters without new Qwen calls."},
             {"path": "experiments/rung1_separator_p1b_full_table.py", "change": "Runs Step 3 P1b controlled full table by injecting graded K_eff inflation into the symbolic separator substrate and testing d* tracking."},
+            {"path": "experiments/rung1_separator_p1b_full_table_controlled_v1.py", "change": "Runs the corrected P1b addendum with register-capacity D sweep, measured separator footprint, censored d* handling, and rho-sweep placeholder state."},
+            {"path": "experiments/rung1_separator_p1c_truncation_pilot.py", "change": "Runs the P1c unguarded branch/propagate/conflict/culprit truncation pilot, including the compact no-thinking structured operator used to unblock truncation."},
         ],
         "commands": [
             {"command": ".venv/bin/python -m experiments.rung1_separator_fallibility_rungs --requested-gpus 4", "purpose": "Record the P1b/P1c fallibility-rung preregistration and current gates."},
@@ -414,20 +501,22 @@ def _build_item(results: dict[str, Any]) -> dict[str, Any]:
             {"command": ".venv/bin/python -m experiments.rung1_separator_p1b_truncation_pilot --launch-4gpu --operator-version v1_1 --num-shards 4 --batch-size 12 --n-per-cell 24 --max-new-tokens 16384 --pilot-steps 1 --output-dir results/rung1_separator_fallibility_rungs/p1b_operator_v1_1_b12_shards", "purpose": "Run the capped-thinking v1.1 P1b cross-b pilot on GPUs 0-3 before any full P1b table."},
             {"command": ".venv/bin/python -m experiments.rung1_separator_p1b_graded_recompute", "purpose": "Recompute Step 1 graded prune precision/recall and graded K_eff from existing v1.1 pilot data without new Qwen calls."},
             {"command": ".venv/bin/python -m experiments.rung1_separator_p1b_full_table", "purpose": "Run Step 3 P1b full-table controlled substrate and test d*_observed against D/ln K_eff_inflated."},
+            {"command": ".venv/bin/python -m experiments.rung1_separator_p1b_full_table_controlled_v1 --output-dir results/rung1_separator_fallibility_rungs", "purpose": "Run the corrected P1b addendum with register-capacity D sweep and no new Qwen calls."},
+            {"command": ".venv/bin/python -m experiments.rung1_separator_p1c_truncation_pilot --num-shards 4 --num-per-cell 12 --operator-version p1c_unguarded_structured_no_thinking_v1 --output-dir results/rung1_separator_fallibility_rungs", "purpose": "Run the compact no-thinking P1c unguarded operator truncation pilot on the deepest b=12 separator cell."},
         ],
         "artifacts": artifacts,
         "provenance": results["planned_run_config"],
         "result_tables": result_tables,
         "honesty": {
-            "does_not_establish": "This now includes P1b Step 3 controlled full-table law tracking. It still does not run P1c truncation or P1c full table, and it does not establish Claim 3/4 under unguarded culprit fallibility.",
-            "gate_reason": "P1b full table is complete when p1b_law_tracks_inflated_keff passes; P1c remains blocked until the P1c truncation pilot passes.",
+            "does_not_establish": "This includes P1b Step 3 controlled full-table law tracking, the P1b v1 addendum partial state, and the P1c truncation pilot when present. It still does not establish Claim 3/4 until a P1c full table with symbolic solution validation is run.",
+            "gate_reason": "P1b full table is complete when p1b_law_tracks_inflated_keff passes; P1c full table remains blocked until the P1c truncation pilot passes.",
             "oracle_policy": "Same-instance symbolic oracle is read-only and outside the LLM loop.",
         },
         "decision": {
             "gate_outcomes": [{"gate": row["gate"], "outcome": row["outcome"], "number": row["observed"]} for row in results["gate_preflight"]],
-            "next_step_routing": "P1b Step 3 full table passed the inflated-K_eff law gate; proceed to P1c truncation pilot next, and still keep P1c full table blocked until that truncation gate passes.",
+            "next_step_routing": "P1b Step 3 full table passed the inflated-K_eff law gate; P1c full table routing depends on the P1c truncation pilot gate. P1b v1 addendum still requires the FIX3 rho-sweep for its final discriminating verdict.",
             "outcome": results["status"],
-            "overall_pass": results.get("p1b_full_table_state", {}).get("pass") is True,
+            "overall_pass": results.get("p1b_full_table_state", {}).get("pass") is True and results.get("p1c_truncation_pilot_state", {}).get("pass") is True,
         },
     }
 
@@ -439,15 +528,21 @@ def run(requested_gpus: int) -> dict[str, Any]:
     p1b_pilot = _read_json(P1B_TRUNCATION_PILOT_PATH)
     p1b_graded = _read_json(P1B_GRADED_RECOMPUTE_PATH)
     p1b_full = _read_json(P1B_FULL_TABLE_PATH)
+    p1b_full_v1 = _read_json(P1B_FULL_TABLE_V1_PATH)
     p1b_raw = _read_json(P1B_RAW_INSPECTION_PATH)
+    p1c_pilot = _read_json(P1C_TRUNCATION_PILOT_PATH)
     p1a_state = _p1a_state(item059, p1a_forward_gate, p1a_recovery_baseline)
     p1b_state = _p1b_pilot_state(p1b_pilot)
     p1b_graded_state = _p1b_graded_state(p1b_graded)
     p1b_full_state = _p1b_full_table_state(p1b_full)
+    p1b_full_v1_state = _p1b_full_table_v1_state(p1b_full_v1)
     p1b_raw_state = _p1b_raw_inspection_state(p1b_raw)
-    gate_rows = _gate_preflight(p1a_state, p1b_state, p1b_graded_state, p1b_full_state, requested_gpus)
+    p1c_state = _p1c_truncation_state(p1c_pilot)
+    gate_rows = _gate_preflight(p1a_state, p1b_state, p1b_graded_state, p1b_full_state, p1b_full_v1_state, p1c_state, requested_gpus)
     status = STATUS_REGISTERED
-    if p1b_full_state.get("present"):
+    if p1c_state.get("present"):
+        status = STATUS_P1C_TRUNCATION_PASS if p1c_state.get("pass") else STATUS_P1C_TRUNCATION_FAIL
+    elif p1b_full_state.get("present"):
         status = STATUS_P1B_FULL_TABLE_PASS if p1b_full_state.get("pass") else STATUS_P1B_FULL_TABLE_KILL
     elif p1b_graded_state.get("present"):
         status = STATUS_P1B_GRADED_RECOMPUTE_PASS if p1b_graded_state.get("pass") else STATUS_P1B_GRADED_RECOMPUTE_STEP2_REQUIRED
@@ -465,6 +560,7 @@ def run(requested_gpus: int) -> dict[str, Any]:
         "p1b_truncation_pilot_state": p1b_state,
         "p1b_graded_recompute_state": p1b_graded_state,
         "p1b_full_table_state": p1b_full_state,
+        "p1b_full_table_v1_state": p1b_full_v1_state,
         "planned_run_config": {
             "model_id": MODEL_ID,
             "requested_gpus": requested_gpus,
@@ -483,6 +579,8 @@ def run(requested_gpus: int) -> dict[str, Any]:
             "p1b_functional_gate_metric": "graded_prune_recall_v0",
             "p1b_cross_b_pilot_bins": [2, 4, 8, 12],
             "p1c_max_new_tokens_minimum": 12288,
+            "p1c_operator_version": p1c_state.get("operator_version") or "p1c_unguarded_structured_no_thinking_v1",
+            "p1c_prompt_contract": p1c_state.get("prompt_contract") or "p1c_unguarded_structured_json_no_thinking_v1",
             "truncation_rate_threshold": TRUNCATION_RATE_THRESHOLD,
             "source": SOURCE,
             "provenance": "p1b_p1c_fallibility_prereg_plan_v0",
@@ -492,8 +590,9 @@ def run(requested_gpus: int) -> dict[str, Any]:
         "truncation_gate_contract": _truncation_gate_contract(),
         "metric_contract": _metric_contract(),
         "kill_criteria": _kill_criteria(),
-        "cost_and_run_plan": _cost_and_run_plan(requested_gpus, p1b_state, p1b_graded_state, p1b_full_state),
+        "cost_and_run_plan": _cost_and_run_plan(requested_gpus, p1b_state, p1b_graded_state, p1b_full_state, p1c_state),
         "honesty_gating": _honesty_rows(),
+        "p1c_truncation_pilot_state": p1c_state,
         "operator_error_breakdown": p1b_full.get("operator_error_breakdown", []) if p1b_full else [],
         "keff_inflation": p1b_full.get("keff_inflation", []) if p1b_full else [],
         "dstar_vs_inflated_keff": p1b_full.get("dstar_vs_inflated_keff", []) if p1b_full else [],

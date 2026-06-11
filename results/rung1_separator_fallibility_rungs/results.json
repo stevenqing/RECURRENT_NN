@@ -667,7 +667,7 @@
       "provenance": "p1b_p1c_run_sequence_v0",
       "rung": "P1c",
       "source": "autonomous_stage_a_run",
-      "status": "NOT_RUN",
+      "status": "READY",
       "step": 5
     }
   ],
@@ -849,16 +849,25 @@
       "source": "autonomous_stage_a_run"
     },
     {
+      "gate": "p1b_v1_addendum_discriminates",
+      "observed": "status=RUNG1_SEPARATOR_P1B_FULL_TABLE_V1_CORRECTED_DISCRIMINATES_FAIL; fix1=False; fix2=False; fix3=False; resource_D_sweep=[4, 6, 8, 10, 12, 16]; n_uncensored_dstar_by_b={'2': 4, '4': 5, '8': 0, '12': 0}; n_left_censored_by_b={'2': 1, '4': 1, '8': 6, '12': 6}; law_track_fraction=0.5833333333333334; no_new_qwen_calls_fix1_fix2=True",
+      "outcome": "INCOMPLETE",
+      "provenance": "p1b_p1c_fallibility_gate_v1_addendum",
+      "required_before": "final P1b addendum verdict",
+      "rung": "P1b",
+      "source": "autonomous_stage_a_run"
+    },
+    {
       "gate": "p1c_truncation_gate",
-      "observed": "requires deepest planned cell frac_truncated_no_answer <= 0.10; requested_gpus=4",
-      "outcome": "NOT_RUN",
+      "observed": "status=RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS; operator=p1c_unguarded_structured_no_thinking_v1; max_new_tokens=12288; n_rows=12; max_truncation_frac=0.0; threshold=0.1",
+      "outcome": "PASS",
       "provenance": "p1b_p1c_fallibility_gate_v0",
       "required_before": "P1c full table launch",
       "rung": "P1c",
       "source": "autonomous_stage_a_run"
     }
   ],
-  "generated_at": "2026-06-10T17:08:10.022095+00:00",
+  "generated_at": "2026-06-11T05:19:42.540085+00:00",
   "honesty_gating": [
     {
       "constraint": "oracle_visibility",
@@ -1860,6 +1869,39 @@
     "schema_version": "rung1_separator_p1b_full_table_controlled_v0",
     "status": "RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS"
   },
+  "p1b_full_table_v1_state": {
+    "fix1_separator_aware_law_tracks": false,
+    "fix2_d_sweep_slope_ci_excludes_zero": false,
+    "fix3_rho_sweep_not_yet_implemented": true,
+    "fix3_rho_sweep_paired_discrimination": false,
+    "law_track_fraction": 0.5833333333333334,
+    "n_left_censored_by_b": {
+      "12": 6,
+      "2": 1,
+      "4": 1,
+      "8": 6
+    },
+    "n_refined_rows": 24,
+    "n_uncensored_dstar_by_b": {
+      "12": 0,
+      "2": 4,
+      "4": 5,
+      "8": 0
+    },
+    "no_new_qwen_calls_for_fix1_fix2": true,
+    "pass": false,
+    "present": true,
+    "resource_D_sweep": [
+      4,
+      6,
+      8,
+      10,
+      12,
+      16
+    ],
+    "schema_version": "rung1_separator_p1b_full_table_controlled_v1_corrected_resource_sweep",
+    "status": "RUNG1_SEPARATOR_P1B_FULL_TABLE_V1_CORRECTED_DISCRIMINATES_FAIL"
+  },
   "p1b_graded_recompute_state": {
     "allowed_cells": [
       "d12_b2",
@@ -1935,6 +1977,20 @@
     "thinking_disabled": false,
     "unsound_propagation_rejected_rate": 0.875
   },
+  "p1c_truncation_pilot_state": {
+    "max_new_tokens": 12288,
+    "max_truncation_frac": 0.0,
+    "n_instance_rows": 12,
+    "n_per_cell": 12,
+    "n_shards": 4,
+    "operator_version": "p1c_unguarded_structured_no_thinking_v1",
+    "pass": true,
+    "present": true,
+    "prompt_contract": "p1c_unguarded_structured_json_no_thinking_v1",
+    "schema_version": "rung1_separator_p1c_truncation_pilot_v0",
+    "status": "RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS",
+    "truncation_threshold": 0.1
+  },
   "planned_run_config": {
     "comm_budget_sweep": [
       64,
@@ -1969,6 +2025,8 @@
     "p1b_prompt_contract": "p1b_bounded_structured_domain_propagation_capped_thinking_v1_1",
     "p1b_thinking_budget_requested": 2500,
     "p1c_max_new_tokens_minimum": 12288,
+    "p1c_operator_version": "p1c_unguarded_structured_no_thinking_v1",
+    "p1c_prompt_contract": "p1c_unguarded_structured_json_no_thinking_v1",
     "pilot_call_cap_rule": "cap = ceil(p90_calls * 2) per rung after pilot; CALL_CAP is reported independently",
     "planned_cells": [
       "corner_local_heavy",
@@ -2016,7 +2074,7 @@
   ],
   "schema_version": "rung1_separator_fallibility_rungs_prereg_v0",
   "solution_validity_completeness": [],
-  "status": "RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN",
+  "status": "RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_PASS_FULL_TABLE_READY",
   "truncation_gate_contract": [
     {
       "action_if_fail": "stop that cell before full P1b table; inspect raw generations, revise bounded operator, choose larger model, or exclude the cell",
@@ -2042,17 +2100,17 @@
   "verdict": [
     {
       "check": "p1b_launch_correctly_blocked_until_gates",
-      "observed": "allowed=True; gates={'p1a_preflight_and_forward_gate_clean': {'gate': 'p1a_preflight_and_forward_gate_clean', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b truncation pilot', 'observed': 'preflight_ready=True; forward_clean=True; solve_rate=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1a_recovery_baseline_landed': {'gate': 'p1a_recovery_baseline_landed', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS; landed=True; cap_robust=True; censoring=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_truncation_gate': {'gate': 'p1b_truncation_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; operator=v1_1; prompt=p1b_bounded_structured_domain_propagation_capped_thinking_v1_1; valid_frac=0.875; max_deep_truncated_or_length=0.0; max_all_truncated_or_length=0.0; max_deep_finish_reason_length=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_operator_functional_gate': {'gate': 'p1b_operator_functional_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch by cell', 'observed': \"graded_status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; step1_branch=1A; recall_min=0.4628099173553719; recall_mean=0.5195690828990318; recall_max=0.5546875; allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[]; exact_match_diagnostic=0.0\", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_law_tracks_inflated_keff': {'gate': 'p1b_law_tracks_inflated_keff', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c truncation pilot', 'observed': 'status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1c_truncation_gate': {'gate': 'p1c_truncation_gate', 'rung': 'P1c', 'outcome': 'NOT_RUN', 'required_before': 'P1c full table launch', 'observed': 'requires deepest planned cell frac_truncated_no_answer <= 0.10; requested_gpus=4', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}}",
+      "observed": "allowed=True; gates={'p1a_preflight_and_forward_gate_clean': {'gate': 'p1a_preflight_and_forward_gate_clean', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b truncation pilot', 'observed': 'preflight_ready=True; forward_clean=True; solve_rate=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1a_recovery_baseline_landed': {'gate': 'p1a_recovery_baseline_landed', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS; landed=True; cap_robust=True; censoring=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_truncation_gate': {'gate': 'p1b_truncation_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; operator=v1_1; prompt=p1b_bounded_structured_domain_propagation_capped_thinking_v1_1; valid_frac=0.875; max_deep_truncated_or_length=0.0; max_all_truncated_or_length=0.0; max_deep_finish_reason_length=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_operator_functional_gate': {'gate': 'p1b_operator_functional_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch by cell', 'observed': \"graded_status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; step1_branch=1A; recall_min=0.4628099173553719; recall_mean=0.5195690828990318; recall_max=0.5546875; allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[]; exact_match_diagnostic=0.0\", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_law_tracks_inflated_keff': {'gate': 'p1b_law_tracks_inflated_keff', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c truncation pilot', 'observed': 'status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_v1_addendum_discriminates': {'gate': 'p1b_v1_addendum_discriminates', 'rung': 'P1b', 'outcome': 'INCOMPLETE', 'required_before': 'final P1b addendum verdict', 'observed': \"status=RUNG1_SEPARATOR_P1B_FULL_TABLE_V1_CORRECTED_DISCRIMINATES_FAIL; fix1=False; fix2=False; fix3=False; resource_D_sweep=[4, 6, 8, 10, 12, 16]; n_uncensored_dstar_by_b={'2': 4, '4': 5, '8': 0, '12': 0}; n_left_censored_by_b={'2': 1, '4': 1, '8': 6, '12': 6}; law_track_fraction=0.5833333333333334; no_new_qwen_calls_fix1_fix2=True\", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v1_addendum'}, 'p1c_truncation_gate': {'gate': 'p1c_truncation_gate', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS; operator=p1c_unguarded_structured_no_thinking_v1; max_new_tokens=12288; n_rows=12; max_truncation_frac=0.0; threshold=0.1', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}}",
       "pass": true,
       "predicted": "P1b full table is blocked until P1a baseline, truncation, and graded functional gates pass; once they pass Step 3 is ready",
       "provenance": "p1b_p1c_verdict_v0",
       "source": "autonomous_stage_a_run"
     },
     {
-      "check": "p1c_launch_correctly_blocked_until_gates",
-      "observed": "allowed=False; gates={'p1a_preflight_and_forward_gate_clean': {'gate': 'p1a_preflight_and_forward_gate_clean', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b truncation pilot', 'observed': 'preflight_ready=True; forward_clean=True; solve_rate=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1a_recovery_baseline_landed': {'gate': 'p1a_recovery_baseline_landed', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS; landed=True; cap_robust=True; censoring=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_truncation_gate': {'gate': 'p1b_truncation_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; operator=v1_1; prompt=p1b_bounded_structured_domain_propagation_capped_thinking_v1_1; valid_frac=0.875; max_deep_truncated_or_length=0.0; max_all_truncated_or_length=0.0; max_deep_finish_reason_length=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_operator_functional_gate': {'gate': 'p1b_operator_functional_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch by cell', 'observed': \"graded_status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; step1_branch=1A; recall_min=0.4628099173553719; recall_mean=0.5195690828990318; recall_max=0.5546875; allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[]; exact_match_diagnostic=0.0\", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_law_tracks_inflated_keff': {'gate': 'p1b_law_tracks_inflated_keff', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c truncation pilot', 'observed': 'status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1c_truncation_gate': {'gate': 'p1c_truncation_gate', 'rung': 'P1c', 'outcome': 'NOT_RUN', 'required_before': 'P1c full table launch', 'observed': 'requires deepest planned cell frac_truncated_no_answer <= 0.10; requested_gpus=4', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}}",
+      "check": "p1c_launch_correctly_gated",
+      "observed": "allowed=True; gates={'p1a_preflight_and_forward_gate_clean': {'gate': 'p1a_preflight_and_forward_gate_clean', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b truncation pilot', 'observed': 'preflight_ready=True; forward_clean=True; solve_rate=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1a_recovery_baseline_landed': {'gate': 'p1a_recovery_baseline_landed', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS; landed=True; cap_robust=True; censoring=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_truncation_gate': {'gate': 'p1b_truncation_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1B_OPERATOR_V11_PILOT_RESTRICTED_OR_FAIL; operator=v1_1; prompt=p1b_bounded_structured_domain_propagation_capped_thinking_v1_1; valid_frac=0.875; max_deep_truncated_or_length=0.0; max_all_truncated_or_length=0.0; max_deep_finish_reason_length=0.0', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_operator_functional_gate': {'gate': 'p1b_operator_functional_gate', 'rung': 'P1b', 'outcome': 'PASS', 'required_before': 'P1b full table launch by cell', 'observed': \"graded_status=RUNG1_SEPARATOR_P1B_GRADED_RECOMPUTE_STEP1A_PASS; step1_branch=1A; recall_min=0.4628099173553719; recall_mean=0.5195690828990318; recall_max=0.5546875; allowed_cells=['d12_b2', 'd12_b4', 'd12_b8', 'd12_b12']; excluded_cells=[]; exact_match_diagnostic=0.0\", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_law_tracks_inflated_keff': {'gate': 'p1b_law_tracks_inflated_keff', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c truncation pilot', 'observed': 'status=RUNG1_SEPARATOR_P1B_FULL_TABLE_INFLATED_KEFF_TRACK_PASS; allowed_b_bins=[2, 4, 8, 12]; n_dstar_rows=4; max_abs_residual=0.6833774274060129; kill_law_not_track_inflation=False; no_new_qwen_calls=True', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}, 'p1b_v1_addendum_discriminates': {'gate': 'p1b_v1_addendum_discriminates', 'rung': 'P1b', 'outcome': 'INCOMPLETE', 'required_before': 'final P1b addendum verdict', 'observed': \"status=RUNG1_SEPARATOR_P1B_FULL_TABLE_V1_CORRECTED_DISCRIMINATES_FAIL; fix1=False; fix2=False; fix3=False; resource_D_sweep=[4, 6, 8, 10, 12, 16]; n_uncensored_dstar_by_b={'2': 4, '4': 5, '8': 0, '12': 0}; n_left_censored_by_b={'2': 1, '4': 1, '8': 6, '12': 6}; law_track_fraction=0.5833333333333334; no_new_qwen_calls_fix1_fix2=True\", 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v1_addendum'}, 'p1c_truncation_gate': {'gate': 'p1c_truncation_gate', 'rung': 'P1c', 'outcome': 'PASS', 'required_before': 'P1c full table launch', 'observed': 'status=RUNG1_SEPARATOR_P1C_TRUNCATION_PILOT_PASS; operator=p1c_unguarded_structured_no_thinking_v1; max_new_tokens=12288; n_rows=12; max_truncation_frac=0.0; threshold=0.1', 'source': 'autonomous_stage_a_run', 'provenance': 'p1b_p1c_fallibility_gate_v0'}}",
       "pass": true,
-      "predicted": "P1b law tracks inflated K_eff and P1c truncation gate pass before P1c",
+      "predicted": "P1b law tracks inflated K_eff and P1c truncation gate pass before P1c full table",
       "provenance": "p1b_p1c_verdict_v0",
       "source": "autonomous_stage_a_run"
     },

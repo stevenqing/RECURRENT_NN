@@ -67,6 +67,8 @@ PATHS = {
     "item_059_rung1_separator_llm_po": "results/experiment_items/item_059_rung1_separator_llm_po.json",
     "item_060_rung1_separator_fallibility_rungs": "results/experiment_items/item_060_rung1_separator_fallibility_rungs.json",
     "item_061_rung1_separator_p1a_recovery_baseline": "results/experiment_items/item_061_rung1_separator_p1a_recovery_baseline.json",
+    "item_062_rung1_separator_capacity_scoped_positive_p1c_competence_gate": "results/experiment_items/item_062_rung1_separator_capacity_scoped_positive_p1c_competence_gate.json",
+    "item_063_rung1_separator_llm_inloop_smoke": "results/experiment_items/item_063_rung1_separator_llm_inloop_smoke.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
@@ -90,6 +92,11 @@ PATHS = {
     "rung1_separator_p1b_truncation_pilot": "results/rung1_separator_fallibility_rungs/p1b_truncation_pilot.json",
     "rung1_separator_p1b_graded_recompute": "results/rung1_separator_fallibility_rungs/p1b_graded_recompute.json",
     "rung1_separator_p1b_full_table": "results/rung1_separator_fallibility_rungs/p1b_full_table.json",
+    "rung1_separator_p1c_truncation_pilot_v2": "results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json",
+    "rung1_separator_item062_execution": "results/rung1_separator_fallibility_rungs/item062_execution.json",
+    "rung1_separator_llm_inloop": "results/rung1_separator_llm_inloop/results.json",
+    "rung1_separator_llm_inloop_preflight": "results/rung1_separator_llm_inloop/preflight_full_scope.json",
+    "rung1_separator_llm_inloop_sharded_smoke": "results/rung1_separator_llm_inloop/sharded_smoke/results.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
@@ -1139,19 +1146,21 @@ def _rung1_separator_fallibility_rungs_checks(checks: list[dict[str, Any]]) -> N
     _exists(checks, "rung1_separator_fallibility_rungs", "rung1_separator_fallibility_rungs")
     item = _read_json("item_060_rung1_separator_fallibility_rungs")
     results = _read_json("rung1_separator_fallibility_rungs")
-    allowed_statuses = {"RUNG1_SEPARATOR_FALLIBILITY_RUNGS_REGISTERED_GATED_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_TRUNCATION_PASS_GATED_FULL_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_TRUNCATION_FAIL_STOP", "RUNG1_SEPARATOR_FALLIBILITY_P1B_OPERATOR_V11_PASS_GATED_FULL_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_OPERATOR_V11_RESTRICTED_OR_FAIL_STOP", "RUNG1_SEPARATOR_FALLIBILITY_P1B_GRADED_RECOMPUTE_PASS_GATED_FULL_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_GRADED_RECOMPUTE_STEP2_REQUIRED", "RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_KILL_LAW_NOT_TRACK_INFLATION_STOP"}
+    allowed_statuses = {"RUNG1_SEPARATOR_FALLIBILITY_RUNGS_REGISTERED_GATED_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_TRUNCATION_PASS_GATED_FULL_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_TRUNCATION_FAIL_STOP", "RUNG1_SEPARATOR_FALLIBILITY_P1B_OPERATOR_V11_PASS_GATED_FULL_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_OPERATOR_V11_RESTRICTED_OR_FAIL_STOP", "RUNG1_SEPARATOR_FALLIBILITY_P1B_GRADED_RECOMPUTE_PASS_GATED_FULL_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_GRADED_RECOMPUTE_STEP2_REQUIRED", "RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_KILL_LAW_NOT_TRACK_INFLATION_STOP", "RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_PASS_FULL_TABLE_READY", "RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_FAIL_STOP"}
     if item:
         required_tables = {"gate_preflight", "p1b_raw_inspection_summary", "rung_operator_boundaries", "truncation_gate_contract", "metric_contract", "kill_criteria", "cost_and_run_plan", "honesty_gating", "verdict"}
         if item.get("status") in {"RUNG1_SEPARATOR_FALLIBILITY_P1B_GRADED_RECOMPUTE_PASS_GATED_FULL_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_GRADED_RECOMPUTE_STEP2_REQUIRED"}:
             required_tables |= {"p1b_graded_functional_gate_by_cell", "p1b_graded_verdict"}
-        if item.get("status") in {"RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_KILL_LAW_NOT_TRACK_INFLATION_STOP"}:
+        if item.get("status") in {"RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_KILL_LAW_NOT_TRACK_INFLATION_STOP", "RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_PASS_FULL_TABLE_READY", "RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_FAIL_STOP"}:
             required_tables |= {"p1b_graded_functional_gate_by_cell", "p1b_graded_verdict", "p1b_full_operator_error_breakdown", "p1b_full_keff_inflation", "p1b_full_capacity_leg", "p1b_full_budget_at_95_solve", "p1b_full_dstar_vs_inflated_keff", "p1b_full_verdict"}
+        if item.get("status") in {"RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_PASS_FULL_TABLE_READY", "RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_FAIL_STOP"}:
+            required_tables |= {"p1c_truncation_pilot_state", "p1c_pilot_prelaunch_truncation_gate", "p1c_pilot_instance_rows", "p1c_pilot_verdict"}
         _check(checks, item.get("item_number") == "060", "item060_number_present", f"item_number={item.get('item_number')}", "rung1_separator_fallibility_rungs")
         _check(checks, item.get("status") in allowed_statuses, "item060_status_valid", f"status={item.get('status')}", "rung1_separator_fallibility_rungs")
         tables = item.get("result_tables", {})
         gates = {row.get("gate"): row.get("outcome") for row in item.get("decision", {}).get("gate_outcomes", [])}
         _check(checks, required_tables.issubset(tables), "item060_required_tables_present", f"tables={sorted(tables)}", "rung1_separator_fallibility_rungs")
-        _check(checks, gates.get("p1b_truncation_gate") in {"NOT_RUN", "PASS", "FAIL"} and gates.get("p1b_operator_functional_gate") in {"NOT_RUN", "PASS", "FAIL"} and gates.get("p1c_truncation_gate") == "NOT_RUN" and bool(item.get("honesty", {}).get("does_not_establish")), "item060_gates_fail_closed", f"gates={gates}", "rung1_separator_fallibility_rungs")
+        _check(checks, gates.get("p1b_truncation_gate") in {"NOT_RUN", "PASS", "FAIL"} and gates.get("p1b_operator_functional_gate") in {"NOT_RUN", "PASS", "FAIL"} and gates.get("p1c_truncation_gate") in {"NOT_RUN", "PASS", "FAIL"} and bool(item.get("honesty", {}).get("does_not_establish")), "item060_gates_fail_closed", f"gates={gates}", "rung1_separator_fallibility_rungs")
     if results:
         planned = results.get("planned_run_config", {})
         gates = {row.get("gate"): row for row in results.get("gate_preflight", [])}
@@ -1160,18 +1169,19 @@ def _rung1_separator_fallibility_rungs_checks(checks: list[dict[str, Any]]) -> N
         metric_tables = {row.get("table") for row in results.get("metric_contract", [])}
         kills = {row.get("kill") for row in results.get("kill_criteria", [])}
         verdict_by_check = {row.get("check"): row for row in results.get("verdict", [])}
-        p1b_full_status = results.get("status") in {"RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_KILL_LAW_NOT_TRACK_INFLATION_STOP"}
+        p1b_full_status = results.get("status") in {"RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_PASS_P1C_GATED_NOT_RUN", "RUNG1_SEPARATOR_FALLIBILITY_P1B_FULL_TABLE_KILL_LAW_NOT_TRACK_INFLATION_STOP", "RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_PASS_FULL_TABLE_READY", "RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_FAIL_STOP"}
         p1b_full_tables_present = bool(results.get("operator_error_breakdown")) and bool(results.get("keff_inflation")) and bool(results.get("dstar_vs_inflated_keff")) and bool(results.get("budget_at_95_solve"))
         no_p1c_tables = all(not results.get(name) for name in ["decoupling_survival", "cbj_advantage_retention", "solution_validity_completeness"])
         table_state_ok = p1b_full_tables_present and no_p1c_tables if p1b_full_status else all(not results.get(name) for name in ["operator_error_breakdown", "keff_inflation", "dstar_vs_inflated_keff", "budget_at_95_solve", "decoupling_survival", "cbj_advantage_retention", "solution_validity_completeness"])
         schema_status_ok = results.get("schema_version") == "rung1_separator_fallibility_rungs_prereg_v0" and results.get("status") in allowed_statuses
         plan_ok = planned.get("model_id") == "Qwen/Qwen3.5-4B" and planned.get("requested_gpus") == 4 and planned.get("gpu_device_ids") == [0, 1, 2, 3] and planned.get("p1b_operator_version") == "v1_1" and planned.get("p1b_prompt_contract") == "p1b_bounded_structured_domain_propagation_capped_thinking_v1_1" and planned.get("p1b_max_new_tokens_minimum") == 16384 and planned.get("p1b_thinking_budget_requested") == 2500 and planned.get("p1b_answer_token_budget_requested") == 1500 and planned.get("p1b_functional_gate_threshold") == 0.20 and planned.get("p1b_cross_b_pilot_bins") == [2, 4, 8, 12] and planned.get("p1c_max_new_tokens_minimum") == 12288 and planned.get("truncation_rate_threshold") == 0.10
-        gate_ok = gates.get("p1a_preflight_and_forward_gate_clean", {}).get("outcome") in {"PASS", "STOP"} and gates.get("p1a_recovery_baseline_landed", {}).get("outcome") in {"PASS", "WAIT"} and gates.get("p1b_truncation_gate", {}).get("outcome") in {"NOT_RUN", "PASS", "FAIL"} and gates.get("p1b_operator_functional_gate", {}).get("outcome") in {"NOT_RUN", "PASS", "FAIL"} and gates.get("p1b_law_tracks_inflated_keff", {}).get("outcome") in {"NOT_RUN", "PASS", "FAIL"} and gates.get("p1c_truncation_gate", {}).get("outcome") == "NOT_RUN"
+        gate_ok = gates.get("p1a_preflight_and_forward_gate_clean", {}).get("outcome") in {"PASS", "STOP"} and gates.get("p1a_recovery_baseline_landed", {}).get("outcome") in {"PASS", "WAIT"} and gates.get("p1b_truncation_gate", {}).get("outcome") in {"NOT_RUN", "PASS", "FAIL"} and gates.get("p1b_operator_functional_gate", {}).get("outcome") in {"NOT_RUN", "PASS", "FAIL"} and gates.get("p1b_law_tracks_inflated_keff", {}).get("outcome") in {"NOT_RUN", "PASS", "FAIL"} and gates.get("p1c_truncation_gate", {}).get("outcome") in {"NOT_RUN", "PASS", "FAIL"}
         boundary_ok = boundaries.get("P1b_llm_propagation_guarded", {}).get("max_new_tokens_minimum") == 16384 and boundaries.get("P1b_llm_propagation_guarded", {}).get("thinking_required") is True and boundaries.get("P1b_llm_propagation_guarded", {}).get("thinking_budget_requested") == 2500 and boundaries.get("P1b_llm_propagation_guarded", {}).get("operator_version") == "v1_1" and boundaries.get("P1b_llm_propagation_guarded", {}).get("prompt_contract") == "p1b_bounded_structured_domain_propagation_capped_thinking_v1_1" and boundaries.get("P1c_operator_triggered_unguarded", {}).get("max_new_tokens_minimum") == 12288 and boundaries.get("P1c_operator_triggered_unguarded", {}).get("thinking_required") is True
         truncation_ok = truncation.get("P1b_llm_propagation_guarded", {}).get("thinking_disabled") is False and truncation.get("P1b_llm_propagation_guarded", {}).get("thinking_budget_requested") == 2500 and truncation.get("P1b_llm_propagation_guarded", {}).get("answer_token_budget_requested") == 1500 and truncation.get("P1c_operator_triggered_unguarded", {}).get("thinking_disabled") is False
         metric_ok = {"operator_error_breakdown", "operator_functional_gate_by_cell", "p1b_graded_recompute", "keff_inflation", "dstar_vs_inflated_keff", "decoupling_survival", "cbj_advantage_retention", "solution_validity_completeness"}.issubset(metric_tables)
         kill_ok = {"kill_law_not_track_inflation", "kill_decoupling_destroyed", "false_solve_contaminates_solve_advantage"}.issubset(kills)
-        verdict_ok = {"p1b_launch_correctly_blocked_until_gates", "p1c_launch_correctly_blocked_until_gates", "kill_law_not_track_inflation", "kill_decoupling_destroyed"}.issubset(verdict_by_check)
+        p1c_verdict_present = "p1c_launch_correctly_blocked_until_gates" in verdict_by_check or "p1c_launch_correctly_gated" in verdict_by_check
+        verdict_ok = {"p1b_launch_correctly_blocked_until_gates", "kill_law_not_track_inflation", "kill_decoupling_destroyed"}.issubset(verdict_by_check) and p1c_verdict_present
         _check(checks, schema_status_ok and plan_ok and gate_ok and boundary_ok and truncation_ok and metric_ok and kill_ok and verdict_ok and table_state_ok, "rung1_separator_fallibility_rungs_preregistered", f"status={results.get('status')}; gates={gates}; metric_tables={sorted(metric_tables)}; kills={sorted(kills)}; p1b_full_tables_present={p1b_full_tables_present}", "rung1_separator_fallibility_rungs")
     raw_path = _path("rung1_separator_p1b_raw_generation_inspection")
     if raw_path.exists():

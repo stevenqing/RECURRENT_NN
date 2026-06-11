@@ -48,6 +48,8 @@ ARTIFACT_INDEX = {
     "item_059_rung1_separator_llm_po": "results/experiment_items/item_059_rung1_separator_llm_po.json",
     "item_060_rung1_separator_fallibility_rungs": "results/experiment_items/item_060_rung1_separator_fallibility_rungs.json",
     "item_061_rung1_separator_p1a_recovery_baseline": "results/experiment_items/item_061_rung1_separator_p1a_recovery_baseline.json",
+    "item_062_rung1_separator_capacity_scoped_positive_p1c_competence_gate": "results/experiment_items/item_062_rung1_separator_capacity_scoped_positive_p1c_competence_gate.json",
+    "item_063_rung1_separator_llm_inloop_smoke": "results/experiment_items/item_063_rung1_separator_llm_inloop_smoke.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
     "model_readiness": "results/model_readiness/readiness.json",
@@ -110,6 +112,13 @@ ARTIFACT_INDEX = {
     "rung1_separator_p1b_truncation_pilot": "results/rung1_separator_fallibility_rungs/p1b_truncation_pilot.json",
     "rung1_separator_p1b_graded_recompute": "results/rung1_separator_fallibility_rungs/p1b_graded_recompute.json",
     "rung1_separator_p1b_full_table": "results/rung1_separator_fallibility_rungs/p1b_full_table.json",
+    "rung1_separator_p1b_full_table_v1_addendum": "results/rung1_separator_fallibility_rungs/p1b_full_table_v1.json",
+    "rung1_separator_p1c_truncation_pilot": "results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json",
+    "rung1_separator_p1c_truncation_pilot_v2": "results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json",
+    "rung1_separator_item062_execution": "results/rung1_separator_fallibility_rungs/item062_execution.json",
+    "rung1_separator_llm_inloop": "results/rung1_separator_llm_inloop/results.json",
+    "rung1_separator_llm_inloop_preflight": "results/rung1_separator_llm_inloop/preflight_full_scope.json",
+    "rung1_separator_llm_inloop_sharded_smoke": "results/rung1_separator_llm_inloop/sharded_smoke/results.json",
     "validation": "results/validation/validation.json",
 }
 
