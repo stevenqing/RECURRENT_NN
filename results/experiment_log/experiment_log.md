@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-11T08:14:31.889236+00:00
+Generated at: 2026-06-12T07:42:44.679441+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -17,7 +17,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 025 | adapter wiring pass | RECORDED_FROM_RUNBOOK | Adapter wiring pass exists in the post-024 continuation state; source artifact was not found in this workspace scan. |
 | 026 | banded Sudoku9 plus gate refusal | RECORDED_FROM_RUNBOOK | Banded Sudoku9/Sudoku6 datasets are treated as ready by the continuation state; fail-closed gate refusal is part of the current truth. |
 | 027 | Sudoku6 bridge G1 pre-fix record | BLOCKER | historical_continuation_G1=0.0; current_diagnostic_G1=1.0 |
-| P0 | ledger and validation housekeeping | Updated | validation_checks=547; validation_passed=False |
+| P0 | ledger and validation housekeeping | Updated | validation_checks=559; validation_passed=False |
 | W3.0 | Qwen3.5 checkpoint pin | Done | model_id=Qwen/Qwen3.5-4B; total_gib=8.701 |
 | P1 | G1 fix spec and diagnostics | Diagnostic pass, autonomous grid not proven | Sudoku6 diagnostic G1=1.0; L4_reverts=True; L4_forward=True |
 | P2 | W3 Qwen3.5 probe | cached_gdn_state_measured_with_propagation_delta | W3.0=PASS; survival=MEASURED_CACHED_GDN_RECURRENT_STATE_SURVIVAL; native_delta=MEASURED_CACHED_GDN_NATIVE_RULE_GAP; propagation=MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED |
@@ -58,7 +58,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 060 | Rung-1 P1b/P1c fallibility rungs preregistration | RUNG1_SEPARATOR_FALLIBILITY_P1C_TRUNCATION_PASS_FULL_TABLE_READY | P1b Step 3 full table passed the inflated-K_eff law gate; P1c full table routing depends on the P1c truncation pilot gate. P1b v1 addendum still requires the FIX3 rho-sweep for its final discriminating verdict. |
 | 061 | Rung-1 P1a recovery baseline sweep | RUNG1_SEPARATOR_LLM_PO_P1A_RECOVERY_BASELINE_PASS | P1a recovery baseline landed under the v1 cap-robust censoring-aware verdict; refresh Item060 before any P1b/P1c full-table launch. |
 | 062 | Rung-1 P1b scoped capacity positive and P1c competence gate addendum | RUNG1_SEPARATOR_ITEM062_P1C_V2_RETRY_STILL_COMPETENCE_FAIL | Do not launch P1c full table. P1c v2 capped-thinking passes truncation but fails a minimal competence smoke; next retry should redesign the competence prompt/grading setup or use a lower-latency progress-enabled capped-thinking runner before attempting larger competence estimates. Part A remains a small guarded negative for cross-b penalty linearization. |
-| 063 | Rung-1 P1b real LLM-in-loop controlled smoke | RUNG1_SEPARATOR_ITEM063_SHARDED_INLOOP_SMOKE_READY_FOR_FULL_SLICE | Fastest current route is 4-GPU sharded batched transformers. Full requested slice is ready to launch with --launch-4gpu and max_budget_calls>=5760; vLLM would be faster only after installing/serving Qwen3.5 in the project environment. |
+| 063 | Rung-1 P1b real LLM-in-loop controlled slice with vLLM acceleration | RUNG1_SEPARATOR_ITEM063_FULL_EXPLICIT_PARTIAL_RECOVERY_NO_CAPACITY_LAW | Do not run the decoupling corner yet. Treat explicit-state encoding as necessary for the operator channel, but diagnose why full-slice propagation recall falls to 0.338 and why D=8/D=10 solve curves are nonmonotone before making end-to-end capacity-law claims. |
+| 064 | Rung-1 overnight separator batch: clean overflow traces, P1c parser regrade, and Part A close-out | RUNG1_OVERNIGHT_BATCH_COMPLETE | Keep the overnight batch as Item064. Use Track 1B clean scaling as the clean-gate result, but do not upgrade the LLM capacity-law claim: Track 1D is still CALL_CAP dominated. Next move is to either increase/sharpen fallible Track 1D budget/instrumentation or isolate why extended-D fallible runs do not escape call-cap. |
+| 065 | Rung-1 fallible 1D rerun: corrected overflow logging, checkpointed 8-GPU vLLM execution, Track4 large-b, and scaled P1c | UNKNOWN | Do not claim a fallible capacity-law positive. The single next move is to raise call_cap or shrink the Piece1 substrate harder until fixed-cap fallible 1D is not CALL_CAP dominated. Treat scaled P1c as a negative competence gate at this prompt/token regime. |
 
 ## Item Details
 
@@ -115,14 +117,14 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - The validator now reports missing legacy artifacts individually.
   - Current validation is registry-style and does not collapse missing history into one opaque required-files failure.
 - Artifact refs:
-  - analysis/validate_outputs.py (yes, 141724 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
+  - analysis/validate_outputs.py (yes, 143017 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 
 - Next action: Keep these checks archived unless the old scaffold artifacts are intentionally regenerated.
 
@@ -269,21 +271,21 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 ### Item P0 - ledger and validation housekeeping
 
 - Status: Updated
-- Key result: validation_checks=547; validation_passed=False
+- Key result: validation_checks=559; validation_passed=False
 - Details:
   - Canonical repo is /home/aiscuser/RECURRENT_NN; old /home/aiscuser/stage_d_llm is absent locally.
-  - validation_pass=544; validation_fail=3
+  - validation_pass=556; validation_fail=3
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifact refs:
   - CANONICAL_REPO.md (yes, 532 bytes)
-  - analysis/validate_outputs.py (yes, 141724 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - analysis/validate_outputs.py (yes, 143017 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83601922 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 - Next action: Keep future reports item-first and preserve explicit red checks.
@@ -400,10 +402,10 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - REPRODUCIBILITY.md (yes, 3478 bytes)
   - scripts/reproduce_continuation_state.sh (yes, 1972 bytes)
   - results/continuation_state/post_027.json (yes, 1453 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
-  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83601922 bytes)
+  - results/experiment_log/experiment_log.md (yes, 793231 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -415,7 +417,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/continuation_state/post_027.json | recorded | source=user_master_runbook_2026_06_07; canonical_repo=/home/aiscuser/RECURRENT_NN |  |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/stage_a_adapter_wiring/results.json | PASS | autonomous_solve_status=NOT_RUN; grid_cells=36; preflight_status=READY; register_smoke_status=SMOKE_PASS |  |
 | results/stage_a_banded_gate_refusal/results.json | PASS | banded_datasets=8 keys: note, sudoku6_depths, sudoku6_generated_count, sudoku6_generator_present, sudoku6_status, sudoku9_generated_c... | fail_closed_cases:3r/5c |
@@ -698,8 +700,8 @@ No rows recorded.
   - results/d_stage_2/results.json (missing)
   - results/d_stage_3/results.json (missing)
   - results/verifier/results.json (missing)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -711,7 +713,7 @@ No rows recorded.
 | results/d_stage_2/results.json | missing |  |  |
 | results/d_stage_3/results.json | missing |  |  |
 | results/verifier/results.json | missing |  |  |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 
 #### Contract Result Tables
 
@@ -773,14 +775,14 @@ No rows recorded.
   - honesty=This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent state. It deliberately turns the registry red until those objects exist.
 - Artifact refs:
   - results/experiment_items/item_033_validation_object_binding.json (yes, 7073 bytes)
-  - analysis/validate_outputs.py (yes, 141724 bytes)
+  - analysis/validate_outputs.py (yes, 143017 bytes)
   - experiments/stage_a_sudoku6_bridge.py (yes, 10922 bytes)
   - experiments/w3_qwen35_probe.py (yes, 47675 bytes)
   - results/stage_a_sudoku6_bridge/results.json (yes, 4890 bytes)
   - results/w3_qwen35_probe/results.json (yes, 96087 bytes)
   - results/w3_qwen35_probe/verdicts.json (yes, 674 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -788,7 +790,7 @@ No rows recorded.
 | results/stage_a_sudoku6_bridge/results.json | DIAGNOSTIC_G1_PASS_NOT_AUTONOMOUS_SOLVER | G1=1; single_step_forced_accuracy=1; n_sudoku6_tasks=32; reverts_nonzero_on_L4=True; forward_floor_on_L4=True; device=cpu | single_step_forced_precision_recall_by_depth:2r/5c |
 | results/w3_qwen35_probe/results.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:8r/13c; decay_survival:5r/5c; model_card:34r/3c; native_rule_gap:3r/7c; propagation_per_task_delta:5r/7c |
 | results/w3_qwen35_probe/verdicts.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... |  |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 
 #### Contract Result Tables
 
@@ -961,8 +963,8 @@ No rows recorded.
   - results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json (yes, 19157 bytes)
   - results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json (yes, 19123 bytes)
   - results/w3_qwen35_probe/propagation_shards/logic_grid/results.json (yes, 19025 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -978,7 +980,7 @@ No rows recorded.
 | results/w3_qwen35_probe/propagation_shards/graph_coloring/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/sudoku_4x4/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
 | results/w3_qwen35_probe/propagation_shards/logic_grid/results.json | do_not_integrate_yet | model_id=Qwen/Qwen3.5-4B; measured_object=metadata_only; native_delta_probe=None; survival_probe=None; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=NOT_RUN; W3.1_capacity_at_real_gdn_dims=PLANNING_ESTIMATE_ONLY... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:6r/6c; decay_survival:0r/5c; model_card:10r/3c; native_rule_gap:0r/5c; propagation_per_task_delta:1r/7c |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 
 #### Contract Result Tables
 
@@ -1204,10 +1206,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
-  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83601922 bytes)
+  - results/experiment_log/experiment_log.md (yes, 793231 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1215,7 +1217,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1333,10 +1335,10 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/report.json (yes, 16928 bytes)
   - results/stage_a_symbolic/report.md (yes, 1641 bytes)
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
-  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83601922 bytes)
+  - results/experiment_log/experiment_log.md (yes, 793231 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1344,7 +1346,7 @@ Truncated to 24 of 27 rows.
 | results/stage_a_symbolic/results.json | TRACK_A_SYMBOLIC_BUDGETED_GRID_COMPLETE | n_cells=43; device=cpu; n_tasks=8; operator=symbolic_oracle; per_cell_timeout=15; requested_cells=43 |  |
 | results/stage_a_symbolic/report.json | TRACK_A_SYMBOLIC_RESULTS_AVAILABLE | n_cells=43; operator=symbolic_oracle; source=autonomous_stage_a_run; track=A_symbolic |  |
 | results/stage_a_symbolic/oracle_statelessness_ci.json | PASS | assignment_size=23; byte_identical_outputs=True; operator=symbolic_oracle; source=ci_statelessness_test; task_id=sudoku6_0_d2; track=A_symbolic |  |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 
 #### Contract Result Tables
@@ -1423,17 +1425,17 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
-  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83601922 bytes)
+  - results/experiment_log/experiment_log.md (yes, 793231 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/trm_operator_smoke/acceptance.json | G1_NOT_MET | G1=0.125; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 
 #### Contract Result Tables
 
@@ -1488,20 +1490,20 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (yes, 11255 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (yes, 11389 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (yes, 11218 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
-  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83601922 bytes)
+  - results/experiment_log/experiment_log.md (yes, 793231 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-11T08:14:16.053020+00:00 |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-12T07:42:31.040749+00:00 |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | GATES_UNREACHED | G1=0.03906; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | GATES_UNREACHED | G1=0.01562; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 
 #### Contract Result Tables
 
@@ -1590,10 +1592,10 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (yes, 40421 bytes)
   - results/sudoku_engine_gpu/equivalence_1000.json (yes, 167 bytes)
   - results/trm_operator_logging_smoke/progress.jsonl (yes, 968 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
-  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83601922 bytes)
+  - results/experiment_log/experiment_log.md (yes, 793231 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1601,7 +1603,7 @@ Truncated to 24 of 27 rows.
 | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json | recorded | no_optimization_claim=True; profiled_object=experiments.train_trm_operator current Track B per-cell-token trainer; purpose=P0 profile gate before GPU efficiency optimization; semantics mirror current Track B trainer.; started_at=2026-06-08T10:02:52.744806+00:00 |  |
 | results/sudoku_engine_gpu/equivalence_1000.json | True | device=cuda:0; n_boards=1000; n_mismatches=0; name=sudoku_engine_gpu_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 
 #### Contract Result Tables
 
@@ -1670,17 +1672,17 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (yes, 322 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
-  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83601922 bytes)
+  - results/experiment_log/experiment_log.md (yes, 793231 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/batched_ops/equivalence_100.json | True | device=cuda:0; n_episodes_generated=100; n_episodes_requested=100; n_mismatches=0; name=register_batched_ops_equivalence; seed=20260608 |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 
 #### Contract Result Tables
 
@@ -1716,16 +1718,16 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
-  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83601922 bytes)
+  - results/experiment_log/experiment_log.md (yes, 793231 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 
 #### Contract Result Tables
 
@@ -1773,10 +1775,10 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (yes, 974 bytes)
   - results/trm_operator_compile_smoke/acceptance.json (yes, 10396 bytes)
   - results/trm_operator_compile_smoke/progress.jsonl (yes, 486 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
-  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83601922 bytes)
+  - results/experiment_log/experiment_log.md (yes, 793231 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1784,7 +1786,7 @@ Truncated to 24 of 27 rows.
 | results/trm_operator_prelaunch_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_prelaunch_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/trm_operator_compile_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_compile_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 
 #### Contract Result Tables
 
@@ -1841,17 +1843,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (yes, 102640503 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (yes, 102514311 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (yes, 102594183 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
-  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83601922 bytes)
+  - results/experiment_log/experiment_log.md (yes, 793231 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/ddp_shard_smoke_track_b_20260608/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/ddp_shard_smoke_track_b_20260608/trm_operator_seed778.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 
 #### Contract Result Tables
 
@@ -1901,17 +1903,17 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 42721 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (yes, 80203 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (yes, 55287865 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
-  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
-  - results/validation/validation.json (yes, 182027 bytes)
-  - results/validation/validation.md (yes, 141716 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83601922 bytes)
+  - results/experiment_log/experiment_log.md (yes, 793231 bytes)
+  - results/validation/validation.json (yes, 184748 bytes)
+  - results/validation/validation.md (yes, 143549 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
-| results/validation/validation.json | False | summary=n_checks=547; n_fail=3; n_pass=544 |  |
+| results/validation/validation.json | False | summary=n_checks=559; n_fail=3; n_pass=556 |  |
 
 #### Contract Result Tables
 
@@ -4634,8 +4636,8 @@ Truncated to 24 of 28 rows.
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json (yes, 3515 bytes)
   - results/rung1_separator_fallibility_rungs/results.json (yes, 79925 bytes)
   - results/experiment_items/item_060_rung1_separator_fallibility_rungs.json (yes, 191278 bytes)
-  - results/experiment_log/experiment_log.md (yes, 723980 bytes)
-  - results/experiment_log/experiment_log.json (yes, 82612429 bytes)
+  - results/experiment_log/experiment_log.md (yes, 793231 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83601922 bytes)
   - results/rung1_separator_fallibility_rungs/item062_execution.json (yes, 2265658 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json (yes, 3606 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2.log (yes, 9044 bytes)
@@ -4842,26 +4844,41 @@ Truncated to 24 of 52 rows.
 
 - Next action: Do not launch P1c full table. P1c v2 capped-thinking passes truncation but fails a minimal competence smoke; next retry should redesign the competence prompt/grading setup or use a lower-latency progress-enabled capped-thinking runner before attempting larger competence estimates. Part A remains a small guarded negative for cross-b penalty linearization.
 
-### Item 063 - Rung-1 P1b real LLM-in-loop controlled smoke
+### Item 063 - Rung-1 P1b real LLM-in-loop controlled slice with vLLM acceleration
 
-- Status: RUNG1_SEPARATOR_ITEM063_SHARDED_INLOOP_SMOKE_READY_FOR_FULL_SLICE
-- Key result: Fastest current route is 4-GPU sharded batched transformers. Full requested slice is ready to launch with --launch-4gpu and max_budget_calls>=5760; vLLM would be faster only after installing/serving Qwen3.5 in the project environment.
-- Purpose: Start the Layer-3 controlled-substrate LLM-in-the-loop test: real Qwen calls at visited search nodes with the validated P1b v1.1 propagation operator, symbolic conflict/recovery/register machinery, cost preflight for the requested capacity slice, and a tiny batched smoke run to verify the in-loop harness before any larger launch.
+- Status: RUNG1_SEPARATOR_ITEM063_FULL_EXPLICIT_PARTIAL_RECOVERY_NO_CAPACITY_LAW
+- Key result: Do not run the decoupling corner yet. Treat explicit-state encoding as necessary for the operator channel, but diagnose why full-slice propagation recall falls to 0.338 and why D=8/D=10 solve curves are nonmonotone before making end-to-end capacity-law claims.
+- Purpose: Run the Layer-3 controlled-substrate P1b in-loop test with real Qwen3.5 calls at visited search nodes, symbolic guard/conflict/recovery/register machinery, and a vLLM OpenAI-compatible backend using structured JSON decoding.
 - Details:
-  - purpose=Start the Layer-3 controlled-substrate LLM-in-the-loop test: real Qwen calls at visited search nodes with the validated P1b v1.1 propagation operator, symbolic conflict/recovery/register machinery, cost preflight for the requested capacity slice, and a tiny batched smoke run to verify the in-loop harness before any larger launch.
-  - commands=4
-  - result_tables=['capacity_scaling_inloop_b2', 'cost_ledger', 'decoupling_inloop_corner', 'inloop_instance_smoke', 'inloop_vs_isolated_recall', 'proxy_match_by_cell', 'sharded_smoke_capacity_b2', 'sharded_smoke_cost_ledger', 'sharded_smoke_inloop_vs_isolated_recall', 'sharded_smoke_shard_summaries', 'sharded_smoke_verdict', 'verdict']
-  - honesty=This item does not validate the calibrated proxy, does not establish capacity scaling in-loop, and does not test CBJ/chronological/forward ordering. It only records a full-scope budget stop and a tiny real LLM-in-loop smoke proving the harness can call Qwen inside the search loop with corrected recall accounting.
+  - purpose=Run the Layer-3 controlled-substrate P1b in-loop test with real Qwen3.5 calls at visited search nodes, symbolic guard/conflict/recovery/register machinery, and a vLLM OpenAI-compatible backend using structured JSON decoding.
+  - commands=7
+  - result_tables=['cost_ledger', 'decoupling_inloop_corner', 'divergence_decomposition_summary', 'explicit_full_depth_summary', 'explicit_full_proxy_match_by_cell', 'explicit_state_pilot_summary', 'full_explicit_state_summary', 'full_slice_summary', 'proxy_match_by_cell', 'shard_summaries', 'vllm_smoke_summary']
+  - honesty=The full explicit-state slice fixes value-misselection at scale and improves recall over the original implicit full slice, but recall remains well below isolated P1b and below the small explicit pilot. Solve curves remain censored/nonmonotone, so the run does not establish an end-to-end capacity law.
 - Artifact refs:
-  - results/experiment_items/item_063_rung1_separator_llm_inloop_smoke.json (yes, 16437 bytes)
+  - results/experiment_items/item_063_rung1_separator_llm_inloop_smoke.json (yes, 31316 bytes)
+  - experiments/rung1_separator_llm_inloop.py (yes, 35345 bytes)
   - results/rung1_separator_llm_inloop/preflight_full_scope.json (yes, 1665 bytes)
   - results/rung1_separator_llm_inloop/results.json (yes, 5672 bytes)
-  - experiments/rung1_separator_llm_inloop.py (yes, 26244 bytes)
   - results/rung1_separator_llm_inloop/sharded_smoke/results.json (yes, 7126 bytes)
-  - results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_00.json (yes, 4050 bytes)
-  - results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_01.json (yes, 3984 bytes)
-  - results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_02.json (yes, 2193 bytes)
-  - results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_03.json (yes, 2193 bytes)
+  - results/rung1_separator_llm_inloop/vllm_smoke/results.json (yes, 6014 bytes)
+  - results/rung1_separator_llm_inloop/vllm_structured_smoke/results.json (yes, 5889 bytes)
+  - results/rung1_separator_llm_inloop/vllm_structured_grid_pilot/results.json (yes, 34370 bytes)
+  - results/rung1_separator_llm_inloop/full_slice_vllm_structured/results.json (yes, 1642293 bytes)
+  - results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_00.json (yes, 404783 bytes)
+  - results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_01.json (yes, 454108 bytes)
+  - results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_02.json (yes, 403772 bytes)
+  - results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_03.json (yes, 403572 bytes)
+  - results/rung1_separator_llm_inloop/explicit_state_pilot/preflight.json (yes, 1938 bytes)
+  - results/rung1_separator_llm_inloop/explicit_state_pilot/results.json (yes, 99477 bytes)
+  - results/rung1_separator_llm_inloop/divergence_analysis/item063_inloop_divergence.json (yes, 127258 bytes)
+  - results/rung1_separator_llm_inloop/divergence_analysis/plots/depth_recall_misselection.png (yes, 108333 bytes)
+  - results/rung1_separator_llm_inloop/divergence_analysis/plots/step_index_recall_misselection.png (yes, 112358 bytes)
+  - results/rung1_separator_llm_inloop/divergence_analysis/plots/prompt_chars_recall_misselection.png (yes, 75367 bytes)
+  - results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/results.json (yes, 1600475 bytes)
+  - results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/shards/shard_00.json (yes, 401575 bytes)
+  - results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/shards/shard_01.json (yes, 423979 bytes)
+  - results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/shards/shard_02.json (yes, 399243 bytes)
+  - results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/shards/shard_03.json (yes, 399682 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -4869,94 +4886,584 @@ Truncated to 24 of 52 rows.
 | results/rung1_separator_llm_inloop/preflight_full_scope.json | RUNG1_SEPARATOR_LLM_INLOOP_PREFLIGHT_ONLY | schema_version=rung1_separator_llm_inloop_v0 |  |
 | results/rung1_separator_llm_inloop/results.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
 | results/rung1_separator_llm_inloop/sharded_smoke/results.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
-| results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_00.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
-| results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_01.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
-| results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_02.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
-| results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_03.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/vllm_smoke/results.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/vllm_structured_smoke/results.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/vllm_structured_grid_pilot/results.json | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/full_slice_vllm_structured/results.json | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_00.json | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_01.json | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_02.json | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_03.json | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/explicit_state_pilot/preflight.json | RUNG1_SEPARATOR_LLM_INLOOP_PREFLIGHT_ONLY | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/explicit_state_pilot/results.json | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/divergence_analysis/item063_inloop_divergence.json | ITEM063_INLOOP_DIVERGENCE_UNIFORM_FRAMING_GAP_FULL_EXPLICIT_PARTIAL_RECOVERY_... | explicit_state_full_artifact=results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/results.json; schema_version=item063_inloop_divergence_analysis_v0; source_artifact=results/rung1_separator_llm_inloop/full_slice_vllm_structured/results.json; summary=30 keys: accepted_oracle_prunes, explicit_state_full_recall, explicit_state_full_recall_delta_vs_implicit_full, expli... |  |
+| results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/results.json | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
+| results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/shards/shard_00.json | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE | schema_version=rung1_separator_llm_inloop_v0 |  |
 
 #### Contract Result Tables
 
-##### capacity_scaling_inloop_b2
-
-| b_bin | call_cap_rate | d_global_bin | mean_inloop_propagation_recall | mean_llm_calls | n | provenance | register_capacity_D | solve_rate | source |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 2 | 1 | 4 | 1 | 1 | 1 | llm_inloop_capacity_cell_v0 | 6 | 0 | autonomous_stage_a_run |
-| 2 | 0 | 5 | 0.6 | 1 | 1 | llm_inloop_capacity_cell_v0 | 6 | 0 | autonomous_stage_a_run |
-
 ##### cost_ledger
 
-| action | call_cap_per_instance | cost_ok | max_budget_calls | max_llm_calls | n_arms | n_base_instances | n_register_D_values | provenance | scope | source | batch_size |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| not_launched | 40 | False | 300 | 5760 | 1 | 48 | 3 | item063_full_scope_budget_preflight | requested_capacity_slice | autonomous_stage_a_run |  |
-| launched | 1 | True | 4 | 2 | 1 | 2 | 1 | item063_smoke_budget_preflight | batched_smoke | autonomous_stage_a_run | 2 |
+| action | call_cap_per_instance | cost_ok | max_budget_calls | max_llm_calls | n_base_instances | n_register_D_values | n_shard_episode_specs | provenance | scope | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| launched_with_vllm_structured | 40 | True | 6000 | 5760 | 48 | 3 | 36 | llm_inloop_budget_preflight_v0 | requested_capacity_slice | autonomous_stage_a_run |
 
 ##### decoupling_inloop_corner
 
 No rows recorded.
 
-##### inloop_instance_smoke
+##### divergence_decomposition_summary
 
-| arm | b | call_cap_hit | cell_id | d_global_reference | instance_id | llm_calls | mean_inloop_propagation_recall | propagation_opportunity_steps | provenance | register_capacity_D | right_censored | solved_valid | source | status |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| cbj_bounded | 2 | True | dg_m2_dl3 | 4 | sep_s480_dg_m2_dl3_000001 | 1 | 1 | 1 | llm_inloop_instance_v0 | 6 | True | False | autonomous_stage_a_run | CALL_CAP |
-| cbj_bounded | 2 | False | dg_m4_dl3 | 5 | sep_s581_dg_m4_dl3_000001 | 1 | 0.6 | 1 | llm_inloop_instance_v0 | 6 | False | False | autonomous_stage_a_run | OVERFLOW_FAIL |
+| artifact | explicit_state_full_recall | explicit_state_full_recall_delta_vs_implicit_full | explicit_state_full_recall_delta_vs_pilot | explicit_state_full_steps | explicit_state_full_value_misselection_rate | explicit_state_pilot_recall | explicit_state_pilot_steps | explicit_state_pilot_value_misselection_rate | inloop_recalibrated_keff | inloop_recall | interpretation | isolated_graded_keff | isolated_step1A_recall | missed_prune_rate | missed_prunes | n_opportunity_steps | n_steps | oracle_prunes | provenance | recall_vs_depth_slope_ols | recall_vs_prompt_chars_slope_ols | recall_vs_step_index_slope_ols | source | status | value_misselection_rate | value_misselection_steps | value_misselection_vs_depth_slope_ols |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| results/rung1_separator_llm_inloop/divergence_analysis/item063_inloop_divergence.json | 0.338 | 0.1238 | -0.1271 | 1844 | 0 | 0.4651 | 84 | 0 | 3.862 | 0.2142 | uniform_inloop_framing_gap_not_depth_context_bound | 3.665 | 0.5242 | 0.7936 | 8770 | 1833 | 1882 | 11051 | item063_inloop_divergence_summary_v0 | -0.01053 | -0.002704 | -0.01158 | autonomous_stage_a_run | ITEM063_INLOOP_DIVERGENCE_UNIFORM_FRAMING_GAP_FULL_EXPLICIT_PARTIAL_RECOVERY_NO_CAPACITY_LAW | 0.3794 | 714 | 0.00449 |
 
-##### inloop_vs_isolated_recall
+##### explicit_full_depth_summary
 
-| b_bin | delta_inloop_minus_isolated | inloop_recall | isolated_step1A_recall | n_inloop_opportunity_steps | provenance | scope | source |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 2 | 0.2758 | 0.8 | 0.5242 | 2 | llm_inloop_vs_isolated_recall_v0 | batched_smoke_only | autonomous_stage_a_run |
+| accepted_oracle_prunes | call_cap_hit_rows | d_global_reference | missed_prunes | n_instances | n_steps | oracle_prunes | provenance | recall | solved_valid_rows | source | status_counts |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 955 | 0 | 4 | 751 | 24 | 408 | 1706 | item063_full_explicit_state_depth_summary_v0 | 0.5598 | 0 | autonomous_stage_a_run | NO_RECOVERY_TARGET=24 |
+| 760 | 10 | 5 | 2671 | 24 | 612 | 3431 | item063_full_explicit_state_depth_summary_v0 | 0.2215 | 0 | autonomous_stage_a_run | CALL_CAP=10; OVERFLOW_FAIL=14 |
+| 543 | 2 | 6 | 1829 | 24 | 440 | 2372 | item063_full_explicit_state_depth_summary_v0 | 0.2289 | 10 | autonomous_stage_a_run | CALL_CAP=2; NO_RECOVERY_TARGET=1; OVERFLOW_FAIL=11; SOLVED=10 |
+| 419 | 8 | 7 | 1348 | 24 | 336 | 1767 | item063_full_explicit_state_depth_summary_v0 | 0.2371 | 0 | autonomous_stage_a_run | CALL_CAP=8; OVERFLOW_FAIL=16 |
+| 76 | 0 | 9 | 50 | 24 | 24 | 126 | item063_full_explicit_state_depth_summary_v0 | 0.6032 | 0 | autonomous_stage_a_run | OVERFLOW_FAIL=24 |
+| 80 | 0 | 10 | 46 | 24 | 24 | 126 | item063_full_explicit_state_depth_summary_v0 | 0.6349 | 0 | autonomous_stage_a_run | OVERFLOW_FAIL=24 |
+
+##### explicit_full_proxy_match_by_cell
+
+| D_eff | b_bin | censoring | dstar_observed | dstar_predicted_Deff_over_lnK | dstar_predicted_raw_D_over_lnK | dstar_residual_vs_Deff_prediction | dstar_upper_bound | footprint_b_from_p1b_v1 | inloop_recalibrated_keff | interpretation_guard | law_match_at_inloop_keff | nonmonotone_solve_curve | provenance | register_capacity_D | source | supporting_solve_rates |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2.75 | 2 | left_censored_below_min_depth | None | 2.067 | 4.51 | None | 4 | 3.25 | 3.783 | monotone/interpolatable | True | False | item063_proxy_match_by_cell_inloop_keff_v0 | 6 | autonomous_stage_a_run | 10=0; 4=0; 5=0; 6=0; 7=0; 9=0 |
+| 4.75 | 2 | left_censored_below_min_depth | None | 3.57 | 6.013 | None | 4 | 3.25 | 3.783 | nonmonotone solve curves make capacity-law matching invalid without a monotone collapse front | False | True | item063_proxy_match_by_cell_inloop_keff_v0 | 8 | autonomous_stage_a_run | 10=0; 4=0; 5=0; 6=0.625; 7=0; 9=0 |
+| 6.75 | 2 | left_censored_below_min_depth | None | 5.073 | 7.516 | None | 4 | 3.25 | 3.783 | nonmonotone solve curves make capacity-law matching invalid without a monotone collapse front | False | True | item063_proxy_match_by_cell_inloop_keff_v0 | 10 | autonomous_stage_a_run | 10=0; 4=0; 5=0; 6=0.625; 7=0; 9=0 |
+
+##### explicit_state_pilot_summary
+
+| artifact | call_cap_hit_rows | delta_inloop_minus_isolated | finish_length | finish_stop | inloop_recall | isolated_step1A_recall | n_instances | n_steps | outcome | prompt_contract | prompt_encoding | provenance | solved_valid_rows | source | status | valid_generations | value_misselection_rate | value_misselection_steps |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| results/rung1_separator_llm_inloop/explicit_state_pilot/results.json | 16 | -0.05906 | 0 | 84 | 0.4651 | 0.5242 | 36 | 84 | encoding_gap_recovered_operator_channel_small_slice | p1b_bounded_structured_explicit_domain_state_v1_2 | explicit_domains | item063_explicit_state_pilot_summary_v0 | 0 | autonomous_stage_a_run | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE | 84 | 0 | 0 |
+
+##### full_explicit_state_summary
+
+| accepted_oracle_prunes | artifact | call_cap_hit_rows | delta_inloop_minus_isolated | delta_vs_explicit_pilot_recall | delta_vs_implicit_full_recall | finish_length | finish_stop | inloop_recall | isolated_step1A_recall | max_answer_tokens | missed_prunes | n_inloop_opportunity_steps | n_instances | n_steps | operator_repair_format_failure | operator_repair_none | operator_repair_value_misselection | oracle_prunes | outcome | parsable_invalid_generations | prompt_contract | prompt_encoding | provenance | solved_valid_rows | source | status | status_counts | valid_generations |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2833 | results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/results.json | 20 | -0.1862 | -0.1271 | 0.1238 | 1 | 1843 | 0.338 | 0.5242 | 1024 | 6695 | 1751 | 144 | 1844 | 1 | 1843 | 0 | 9528 | operator_value_misselection_fixed_but_recall_only_partially_recovers_and_capacity_law_not_established | 1 | p1b_bounded_structured_explicit_domain_state_v1_2 | explicit_domains | item063_full_explicit_state_summary_v0 | 10 | autonomous_stage_a_run | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE | CALL_CAP=20; NO_RECOVERY_TARGET=25; OVERFLOW_FAIL=89; SOLVED=10 | 1843 |
+
+##### full_slice_summary
+
+| artifact | call_cap_hit_rows | delta_inloop_minus_isolated | finish_length | finish_stop | inloop_recall | isolated_step1A_recall | max_answer_tokens | n_inloop_opportunity_steps | n_instances | n_steps | operator_repair_format_failure | operator_repair_none | operator_repair_value_misselection | parsable_invalid_generations | provenance | solved_valid_rows | source | status | valid_generations |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| results/rung1_separator_llm_inloop/full_slice_vllm_structured/results.json | 22 | -0.31 | 1 | 1881 | 0.2142 | 0.5242 | 1024 | 1833 | 144 | 1882 | 1 | 1167 | 714 | 1 | item063_vllm_structured_full_slice_summary | 12 | autonomous_stage_a_run | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE | 1881 |
 
 ##### proxy_match_by_cell
 
-No rows recorded.
+| D_eff | b_bin | censoring | dstar_observed | dstar_predicted_Deff_over_lnK | dstar_upper_bound | inloop_recalibrated_keff | law_match_at_inloop_keff | nonmonotone_solve_curve | provenance | register_capacity_D | supporting_solve_rates | interpretation_guard |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2.75 | 2 | left_censored_below_min_depth | None | 2.035 | 4 | 3.862 | True | False | item063_proxy_match_by_cell_inloop_keff_v0 | 6 | 10=0; 4=0; 5=0; 6=0; 7=0; 9=0 |  |
+| 4.75 | 2 | left_censored_below_min_depth | None | 3.515 | 4 | 3.862 | False | True | item063_proxy_match_by_cell_inloop_keff_v0 | 8 | 10=0; 4=0; 5=0; 6=0.75; 7=0; 9=0 | nonmonotone solve curve invalidates clean capacity-law match |
+| 6.75 | 2 | left_censored_below_min_depth | None | 4.995 | 4 | 3.862 | False | True | item063_proxy_match_by_cell_inloop_keff_v0 | 10 | 10=0; 4=0; 5=0; 6=0.75; 7=0; 9=0 | nonmonotone solve curve invalidates clean capacity-law match; D=10 prediction also exceeds left-censored upper bound |
 
-##### sharded_smoke_capacity_b2
-
-| b_bin | call_cap_rate | d_global_bin | mean_inloop_propagation_recall | mean_llm_calls | n | provenance | register_capacity_D | solve_rate | source |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 2 | 1 | 4 | 0 | 1 | 1 | llm_inloop_capacity_cell_v0 | 6 | 0 | autonomous_stage_a_run |
-| 2 | 0 | 5 | 0.6 | 1 | 1 | llm_inloop_capacity_cell_v0 | 6 | 0 | autonomous_stage_a_run |
-
-##### sharded_smoke_cost_ledger
-
-| answer_token_budget_requested | call_cap_per_instance | cost_ok | max_budget_calls | max_llm_calls | n_arms | n_base_instances | n_register_D_values | n_shard_episode_specs | provenance | source | thinking_budget_requested |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1500 | 1 | True | 4 | 2 | 1 | 2 | 1 | 1 | llm_inloop_budget_preflight_v0 | autonomous_stage_a_run | 2500 |
-
-##### sharded_smoke_inloop_vs_isolated_recall
-
-| b_bin | delta_inloop_minus_isolated | inloop_recall | isolated_step1A_recall | n_inloop_opportunity_steps | provenance | source |
-| --- | --- | --- | --- | --- | --- | --- |
-| 2 | -0.2242 | 0.3 | 0.5242 | 2 | llm_inloop_vs_isolated_recall_v0 | autonomous_stage_a_run |
-
-##### sharded_smoke_shard_summaries
+##### shard_summaries
 
 | n_instances | n_steps | path | status |
 | --- | --- | --- | --- |
-| 1 | 1 | results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_00.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE |
-| 1 | 1 | results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_01.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE |
-| 0 | 0 | results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_02.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE |
-| 0 | 0 | results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_03.json | RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE |
+| 36 | 456 | results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_00.json | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE |
+| 36 | 516 | results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_01.json | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE |
+| 36 | 455 | results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_02.json | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE |
+| 36 | 455 | results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_03.json | RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE |
 
-##### sharded_smoke_verdict
+##### vllm_smoke_summary
 
-| check | observed | pass | provenance | source |
+| artifact | finish_length | inloop_recall | outcome | parsable_invalid_generations | rows | scope | steps | valid_generations | finish_stop |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| results/rung1_separator_llm_inloop/vllm_smoke/results.json | 2 | 0 | negative_smoke | 2 | 2 | plain_openai_smoke | 2 | 0 |  |
+| results/rung1_separator_llm_inloop/vllm_structured_smoke/results.json |  | 0.8 | parseability_pass |  | 2 | structured_smoke | 2 | 2 | 2 |
+| results/rung1_separator_llm_inloop/vllm_structured_grid_pilot/results.json |  | 0.6778 | pilot_pass |  | 18 | structured_grid_pilot | 18 | 18 | 18 |
+
+- Next action: Do not run the decoupling corner yet. Treat explicit-state encoding as necessary for the operator channel, but diagnose why full-slice propagation recall falls to 0.338 and why D=8/D=10 solve curves are nonmonotone before making end-to-end capacity-law claims.
+
+### Item 064 - Rung-1 overnight separator batch: clean overflow traces, P1c parser regrade, and Part A close-out
+
+- Status: RUNG1_OVERNIGHT_BATCH_COMPLETE
+- Key result: Keep the overnight batch as Item064. Use Track 1B clean scaling as the clean-gate result, but do not upgrade the LLM capacity-law claim: Track 1D is still CALL_CAP dominated. Next move is to either increase/sharpen fallible Track 1D budget/instrumentation or isolate why extended-D fallible runs do not escape call-cap.
+- Purpose: Run the preregistered overnight batch for the Rung-1 separator LLM line, P1c competence parser fix/regrade, and Part A clean large-b close-out with budget-gated real LLM work.
+- Details:
+  - purpose=Run the preregistered overnight batch for the Rung-1 separator LLM line, P1c competence parser fix/regrade, and Part A clean large-b close-out with budget-gated real LLM work.
+  - commands=2
+  - result_tables=['budget_ledger', 'interpretation_guards', 'morning_readout_summary', 'next_single_move_per_line', 'track1a_aggregate_counts', 'track1a_cell_summary', 'track1a_instance_rows', 'track1b_aggregate_counts', 'track1b_cell_summary', 'track1b_instance_rows', 'track1c_existing_fallible_summary', 'track1c_instance_rows', 'track1c_survival_conditioned_recall', 'track1d_fallible_extended_summary', 'track1d_instance_rows', 'track1d_step_rows', 'track3a_p1c_parser_regrade_rows', 'track3a_p1c_parser_regrade_summary', 'track3b_budget_gate', 'track4_aggregate_counts', 'track4_cell_summary', 'track4_clean_dstar_slope_summary', 'track4_instance_rows']
+  - honesty=The batch does not establish an end-to-end fallible LLM capacity law. Clean Track 1B shows scaling, but Track 1D is dominated by CALL_CAP and only one OVERFLOW_FAIL, so clean-vs-fallible overflow-depth gap is not yet a stable measured curve.
+- Artifact refs:
+  - results/experiment_items/item_064_rung1_overnight_batch.json (yes, 773284 bytes)
+  - experiments/rung1_overnight_batch.py (yes, 25202 bytes)
+  - results/rung1_overnight_batch/results.json (yes, 1764846 bytes)
+  - results/rung1_overnight_batch/dry_run.json (yes, 1576461 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_overnight_batch/results.json | RUNG1_OVERNIGHT_BATCH_COMPLETE | provenance=rung1_overnight_batch_v0; schema_version=rung1_overnight_batch_v0; source=autonomous_stage_a_run |  |
+| results/rung1_overnight_batch/dry_run.json | RUNG1_OVERNIGHT_BATCH_COMPLETE | provenance=rung1_overnight_batch_v0; schema_version=rung1_overnight_batch_v0; source=autonomous_stage_a_run |  |
+
+#### Contract Result Tables
+
+##### budget_ledger
+
+| D_values | call_cap | cost_ok | max_budget_calls | max_llm_calls | n_instances | outcome | piece | provenance | source | shrunk_episodes | target_episodes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| [12, 16, 24, 32] | 8 | True | 600 | 192 | 6 | LAUNCHED_WITHIN_CAP | track1d | rung1_overnight_budget_ledger_v0 | autonomous_stage_a_run |  |  |
+|  | 1 | True | 600 | 600 |  | SKIPPED_BUDGET_FOR_TARGET_SCALE | track3b | rung1_overnight_budget_ledger_v0 | autonomous_stage_a_run | 600 | 3000 |
+
+##### interpretation_guards
+
+| guard | provenance | source |
+| --- | --- | --- |
+| Distinct statuses are preserved; solve-rate is not the primary overflow observable. | rung1_overnight_interpretation_guard_v0 | autonomous_stage_a_run |
+| Fallible existing overflow-depth is proxy-only because old artifacts lack per-step register occupancy. | rung1_overnight_interpretation_guard_v0 | autonomous_stage_a_run |
+| No capacity-law positive without clean-scaling gate. | rung1_overnight_interpretation_guard_v0 | autonomous_stage_a_run |
+| Use full explicit in-loop recall 0.338 for fallible K_eff; pilot/isolated recall are not used for in-loop law claims. | rung1_overnight_interpretation_guard_v0 | autonomous_stage_a_run |
+
+##### morning_readout_summary
+
+| provenance | source | track1_verdict | track1a_overflow_depth_vs_D_slope | track1b_overflow_depth_vs_D_slope | track1d_rows | track1d_status | track1d_status_counts | track1d_steps | track3_conflict_precision | track3_conflict_recall | track3_culprit_accuracy | track3_functional_gate_pass | track3_n_episodes | track3_verdict | track3b_status | track4_verdict |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| rung1_overnight_morning_readout_summary_v0 | autonomous_stage_a_run | mis_scoped_then_clean_scales | 7.419 | 1.648 | 24 | COMPLETE | CALL_CAP=23; OVERFLOW_FAIL=1 | 185 | 1 | 1 | 1 | True | 2 | p1c_competence_regraded | SKIPPED_BUDGET | fallibility_capped |
+
+##### next_single_move_per_line
+
+| line | next_move | provenance | source |
+| --- | --- | --- | --- |
+| track1 | If clean scaling is absent or d4 bug fires, fix clean/recovery instrumentation before further fallible decoupling; otherwise compare 1D fallible overflow-depth shift. | rung1_overnight_next_move_v0 | autonomous_stage_a_run |
+| track3 | If regraded P1c remains competent after parser fix, allocate a separate capped-thinking scale-up budget; otherwise report real P1c negative. | rung1_overnight_next_move_v0 | autonomous_stage_a_run |
+| track4 | If clean large-b dstar is flat, report structural separator-limited regime; if clean scales, fallible large-b flatness is fallibility-capped. | rung1_overnight_next_move_v0 | autonomous_stage_a_run |
+
+##### track1a_aggregate_counts
+
+| mean_overflow_depth_over_overflows | n_instance_rows | overflow_depth_vs_D_slope | overflow_rows | provenance | solved_rows | source | status_counts | track |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 3.727 | 144 | 7.419 | 88 | rung1_overnight_track1a_aggregate_counts_v0 | 56 | autonomous_stage_a_run | OVERFLOW_FAIL=88; SOLVED=56 | track1a |
+
+##### track1a_cell_summary
+
+| b | d_global_reference | failure_mode_counts | mean_overflow_depth | n | overflow_rate | provenance | register_capacity_D | solve_rate | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 4 | SOLVED=8 | None | 8 | 0 | rung1_overnight_clean_cell_summary_v0 | 6 | 1 | autonomous_stage_a_run |
+| 2 | 5 | OVERFLOW_FAIL=8 | 0 | 8 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 2 | 6 | OVERFLOW_FAIL=8 | 0 | 8 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 2 | 7 | OVERFLOW_FAIL=8 | 0 | 8 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 2 | 9 | OVERFLOW_FAIL=8 | 0 | 8 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 2 | 10 | OVERFLOW_FAIL=8 | 0 | 8 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 2 | 4 | SOLVED=8 | None | 8 | 0 | rung1_overnight_clean_cell_summary_v0 | 8 | 1 | autonomous_stage_a_run |
+| 2 | 5 | OVERFLOW_FAIL=2; SOLVED=6 | 41.5 | 8 | 0.25 | rung1_overnight_clean_cell_summary_v0 | 8 | 0.75 | autonomous_stage_a_run |
+| 2 | 6 | OVERFLOW_FAIL=1; SOLVED=7 | 37 | 8 | 0.125 | rung1_overnight_clean_cell_summary_v0 | 8 | 0.875 | autonomous_stage_a_run |
+| 2 | 7 | OVERFLOW_FAIL=8 | 0 | 8 | 1 | rung1_overnight_clean_cell_summary_v0 | 8 | 0 | autonomous_stage_a_run |
+| 2 | 9 | OVERFLOW_FAIL=8 | 0 | 8 | 1 | rung1_overnight_clean_cell_summary_v0 | 8 | 0 | autonomous_stage_a_run |
+| 2 | 10 | OVERFLOW_FAIL=8 | 0 | 8 | 1 | rung1_overnight_clean_cell_summary_v0 | 8 | 0 | autonomous_stage_a_run |
+| 2 | 4 | SOLVED=8 | None | 8 | 0 | rung1_overnight_clean_cell_summary_v0 | 10 | 1 | autonomous_stage_a_run |
+| 2 | 5 | OVERFLOW_FAIL=2; SOLVED=6 | 41.5 | 8 | 0.25 | rung1_overnight_clean_cell_summary_v0 | 10 | 0.75 | autonomous_stage_a_run |
+| 2 | 6 | OVERFLOW_FAIL=1; SOLVED=7 | 37 | 8 | 0.125 | rung1_overnight_clean_cell_summary_v0 | 10 | 0.875 | autonomous_stage_a_run |
+| 2 | 7 | OVERFLOW_FAIL=2; SOLVED=6 | 44 | 8 | 0.25 | rung1_overnight_clean_cell_summary_v0 | 10 | 0.75 | autonomous_stage_a_run |
+| 2 | 9 | OVERFLOW_FAIL=8 | 0 | 8 | 1 | rung1_overnight_clean_cell_summary_v0 | 10 | 0 | autonomous_stage_a_run |
+| 2 | 10 | OVERFLOW_FAIL=8 | 0 | 8 | 1 | rung1_overnight_clean_cell_summary_v0 | 10 | 0 | autonomous_stage_a_run |
+
+##### track1a_instance_rows
+
+| b | call_cap_hit | d_global_reference | instance_id | llm_calls | logged_steps | max_logged_trail_depth | overflow_depth | overflow_depth_proxy | overflowed | peak_register_occupancy_proxy | provenance | register_capacity_D | solved | source | status | steps | total_retractions |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000001 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000001 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000001 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 10 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000002 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000002 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000002 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 10 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000004 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000004 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000004 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 10 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000006 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000006 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000006 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 10 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000007 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000007 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000007 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 10 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000008 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000008 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000008 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 10 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000009 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000009 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000009 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 10 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000010 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000010 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+| 2 | None | 10 | sep_s1086_dg_m6_dl5_000010 | None | None | None | 0 | None | True | 13 | rung1_overnight_clean_trace_v0 | 10 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 11 | 0 |
+
+Truncated to 24 of 144 rows.
+
+##### track1b_aggregate_counts
+
+| mean_overflow_depth_over_overflows | n_instance_rows | overflow_depth_vs_D_slope | overflow_rows | provenance | solved_rows | source | status_counts | track |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 19.5 | 56 | 1.648 | 8 | rung1_overnight_track1b_aggregate_counts_v0 | 48 | autonomous_stage_a_run | OVERFLOW_FAIL=8; SOLVED=48 | track1b |
+
+##### track1b_cell_summary
+
+| b | d_global_reference | failure_mode_counts | mean_overflow_depth | n | overflow_rate | provenance | register_capacity_D | solve_rate | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | 4 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 12 | 1 | autonomous_stage_a_run |
+| 2 | 5 | OVERFLOW_FAIL=1; SOLVED=1 | 39 | 2 | 0.5 | rung1_overnight_clean_cell_summary_v0 | 12 | 0.5 | autonomous_stage_a_run |
+| 2 | 6 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 12 | 1 | autonomous_stage_a_run |
+| 2 | 7 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 12 | 1 | autonomous_stage_a_run |
+| 2 | 9 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 12 | 1 | autonomous_stage_a_run |
+| 2 | 10 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 12 | 0 | autonomous_stage_a_run |
+| 2 | 12 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 12 | 0 | autonomous_stage_a_run |
+| 2 | 4 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 16 | 1 | autonomous_stage_a_run |
+| 2 | 5 | OVERFLOW_FAIL=1; SOLVED=1 | 39 | 2 | 0.5 | rung1_overnight_clean_cell_summary_v0 | 16 | 0.5 | autonomous_stage_a_run |
+| 2 | 6 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 16 | 1 | autonomous_stage_a_run |
+| 2 | 7 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 16 | 1 | autonomous_stage_a_run |
+| 2 | 9 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 16 | 1 | autonomous_stage_a_run |
+| 2 | 10 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 16 | 1 | autonomous_stage_a_run |
+| 2 | 12 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 16 | 1 | autonomous_stage_a_run |
+| 2 | 4 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 24 | 1 | autonomous_stage_a_run |
+| 2 | 5 | OVERFLOW_FAIL=1; SOLVED=1 | 39 | 2 | 0.5 | rung1_overnight_clean_cell_summary_v0 | 24 | 0.5 | autonomous_stage_a_run |
+| 2 | 6 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 24 | 1 | autonomous_stage_a_run |
+| 2 | 7 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 24 | 1 | autonomous_stage_a_run |
+| 2 | 9 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 24 | 1 | autonomous_stage_a_run |
+| 2 | 10 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 24 | 1 | autonomous_stage_a_run |
+| 2 | 12 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 24 | 1 | autonomous_stage_a_run |
+| 2 | 4 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 32 | 1 | autonomous_stage_a_run |
+| 2 | 5 | OVERFLOW_FAIL=1; SOLVED=1 | 39 | 2 | 0.5 | rung1_overnight_clean_cell_summary_v0 | 32 | 0.5 | autonomous_stage_a_run |
+| 2 | 6 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 32 | 1 | autonomous_stage_a_run |
+
+Truncated to 24 of 28 rows.
+
+##### track1b_instance_rows
+
+| b | call_cap_hit | d_global_reference | instance_id | llm_calls | logged_steps | max_logged_trail_depth | overflow_depth | overflow_depth_proxy | overflowed | peak_register_occupancy_proxy | provenance | register_capacity_D | solved | source | status | steps | total_retractions |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | None | 4 | sep_s480_dg_m2_dl3_000001 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 12 | True | autonomous_stage_a_run | SOLVED | 57 | 17 |
+| 2 | None | 4 | sep_s480_dg_m2_dl3_000001 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 16 | True | autonomous_stage_a_run | SOLVED | 57 | 17 |
+| 2 | None | 4 | sep_s480_dg_m2_dl3_000001 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 24 | True | autonomous_stage_a_run | SOLVED | 57 | 17 |
+| 2 | None | 4 | sep_s480_dg_m2_dl3_000001 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 32 | True | autonomous_stage_a_run | SOLVED | 57 | 17 |
+| 2 | None | 4 | sep_s480_dg_m2_dl5_000001 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 12 | True | autonomous_stage_a_run | SOLVED | 57 | 17 |
+| 2 | None | 4 | sep_s480_dg_m2_dl5_000001 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 16 | True | autonomous_stage_a_run | SOLVED | 57 | 17 |
+| 2 | None | 4 | sep_s480_dg_m2_dl5_000001 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 24 | True | autonomous_stage_a_run | SOLVED | 57 | 17 |
+| 2 | None | 4 | sep_s480_dg_m2_dl5_000001 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 32 | True | autonomous_stage_a_run | SOLVED | 57 | 17 |
+| 2 | None | 5 | sep_s581_dg_m4_dl3_000001 | None | None | None | 39 | None | True | 47 | rung1_overnight_clean_trace_v0 | 12 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 72 | 16 |
+| 2 | None | 5 | sep_s581_dg_m4_dl3_000001 | None | None | None | 39 | None | True | 47 | rung1_overnight_clean_trace_v0 | 16 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 72 | 16 |
+| 2 | None | 5 | sep_s581_dg_m4_dl3_000001 | None | None | None | 39 | None | True | 47 | rung1_overnight_clean_trace_v0 | 24 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 72 | 16 |
+| 2 | None | 5 | sep_s581_dg_m4_dl3_000001 | None | None | None | 39 | None | True | 47 | rung1_overnight_clean_trace_v0 | 32 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 72 | 16 |
+| 2 | None | 5 | sep_s581_dg_m4_dl3_000002 | None | None | None | None | None | False | 7 | rung1_overnight_clean_trace_v0 | 12 | True | autonomous_stage_a_run | SOLVED | 80 | 16 |
+| 2 | None | 5 | sep_s581_dg_m4_dl3_000002 | None | None | None | None | None | False | 7 | rung1_overnight_clean_trace_v0 | 16 | True | autonomous_stage_a_run | SOLVED | 80 | 16 |
+| 2 | None | 5 | sep_s581_dg_m4_dl3_000002 | None | None | None | None | None | False | 7 | rung1_overnight_clean_trace_v0 | 24 | True | autonomous_stage_a_run | SOLVED | 80 | 16 |
+| 2 | None | 5 | sep_s581_dg_m4_dl3_000002 | None | None | None | None | None | False | 7 | rung1_overnight_clean_trace_v0 | 32 | True | autonomous_stage_a_run | SOLVED | 80 | 16 |
+| 2 | None | 6 | sep_s682_dg_m2_dl7_000001 | None | None | None | None | None | False | 8 | rung1_overnight_clean_trace_v0 | 12 | True | autonomous_stage_a_run | SOLVED | 62 | 22 |
+| 2 | None | 6 | sep_s682_dg_m2_dl7_000001 | None | None | None | None | None | False | 8 | rung1_overnight_clean_trace_v0 | 16 | True | autonomous_stage_a_run | SOLVED | 62 | 22 |
+| 2 | None | 6 | sep_s682_dg_m2_dl7_000001 | None | None | None | None | None | False | 8 | rung1_overnight_clean_trace_v0 | 24 | True | autonomous_stage_a_run | SOLVED | 62 | 22 |
+| 2 | None | 6 | sep_s682_dg_m2_dl7_000001 | None | None | None | None | None | False | 8 | rung1_overnight_clean_trace_v0 | 32 | True | autonomous_stage_a_run | SOLVED | 62 | 22 |
+| 2 | None | 6 | sep_s682_dg_m6_dl3_000001 | None | None | None | None | None | False | 8 | rung1_overnight_clean_trace_v0 | 12 | True | autonomous_stage_a_run | SOLVED | 110 | 22 |
+| 2 | None | 6 | sep_s682_dg_m6_dl3_000001 | None | None | None | None | None | False | 8 | rung1_overnight_clean_trace_v0 | 16 | True | autonomous_stage_a_run | SOLVED | 110 | 22 |
+| 2 | None | 6 | sep_s682_dg_m6_dl3_000001 | None | None | None | None | None | False | 8 | rung1_overnight_clean_trace_v0 | 24 | True | autonomous_stage_a_run | SOLVED | 110 | 22 |
+| 2 | None | 6 | sep_s682_dg_m6_dl3_000001 | None | None | None | None | None | False | 8 | rung1_overnight_clean_trace_v0 | 32 | True | autonomous_stage_a_run | SOLVED | 110 | 22 |
+
+Truncated to 24 of 56 rows.
+
+##### track1c_existing_fallible_summary
+
+| failure_mode_counts | inloop_keff_used | instrumentation_guard | n_instance_rows | n_survival_conditioned_recall_rows | provenance | source | source_artifact | status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CALL_CAP=20; NO_RECOVERY_TARGET=25; OVERFLOW_FAIL=89; SOLVED=10 | 3.783 | real overflow-depth requires per-step register occupancy in future fallible runs | 144 | 40 | rung1_overnight_track1c_summary_v0 | autonomous_stage_a_run | results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/results.json | COMPLETE_WITH_INSTRUMENTATION_LIMIT |
+
+##### track1c_instance_rows
+
+| b | call_cap_hit | d_global_reference | instance_id | llm_calls | logged_steps | max_logged_trail_depth | overflow_depth | overflow_depth_proxy | overflowed | peak_register_occupancy_proxy | provenance | register_capacity_D | solved | source | status | steps | total_retractions |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| None | False | 4 | sep_s480_dg_m2_dl3_000001 | None | 17 | 4 | None | None | None | None | rung1_overnight_fallible_existing_proxy_v0 | 6 | False | autonomous_stage_a_run | NO_RECOVERY_TARGET | None | None |
+| None | False | 4 | sep_s480_dg_m2_dl3_000003 | None | 17 | 4 | None | None | None | None | rung1_overnight_fallible_existing_proxy_v0 | 6 | False | autonomous_stage_a_run | NO_RECOVERY_TARGET | None | None |
+| None | False | 5 | sep_s581_dg_m4_dl3_000001 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 5 | sep_s581_dg_m4_dl3_000006 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 6 | sep_s682_dg_m2_dl7_000001 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 6 | sep_s682_dg_m2_dl7_000004 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 7 | sep_s783_b_b2_db2_000001 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 7 | sep_s783_b_b2_db2_000003 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 9 | sep_s985_b_b2_db4_000001 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 9 | sep_s985_b_b2_db4_000004 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 10 | sep_s1086_dg_m6_dl5_000001 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 10 | sep_s1086_dg_m6_dl5_000007 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 4 | sep_s480_dg_m2_dl3_000001 | None | 17 | 4 | None | None | None | None | rung1_overnight_fallible_existing_proxy_v0 | 8 | False | autonomous_stage_a_run | NO_RECOVERY_TARGET | None | None |
+| None | False | 4 | sep_s480_dg_m2_dl3_000003 | None | 17 | 4 | None | None | None | None | rung1_overnight_fallible_existing_proxy_v0 | 8 | False | autonomous_stage_a_run | NO_RECOVERY_TARGET | None | None |
+| None | False | 5 | sep_s581_dg_m4_dl3_000001 | None | 39 | 38 | None | 38 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | True | 5 | sep_s581_dg_m4_dl3_000006 | None | 40 | 39 | None | None | None | None | rung1_overnight_fallible_existing_proxy_v0 | 8 | False | autonomous_stage_a_run | CALL_CAP | None | None |
+| None | False | 6 | sep_s682_dg_m2_dl7_000001 | None | 24 | 23 | None | None | None | None | rung1_overnight_fallible_existing_proxy_v0 | 8 | True | autonomous_stage_a_run | SOLVED | None | None |
+| None | False | 6 | sep_s682_dg_m2_dl7_000004 | None | 24 | 23 | None | None | None | None | rung1_overnight_fallible_existing_proxy_v0 | 8 | True | autonomous_stage_a_run | SOLVED | None | None |
+| None | False | 7 | sep_s783_b_b2_db2_000001 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 7 | sep_s783_b_b2_db2_000003 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 9 | sep_s985_b_b2_db4_000001 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 9 | sep_s985_b_b2_db4_000004 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 10 | sep_s1086_dg_m6_dl5_000001 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+| None | False | 10 | sep_s1086_dg_m6_dl5_000007 | None | 1 | 0 | None | 0 | None | None | rung1_overnight_fallible_existing_proxy_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | None |
+
+Truncated to 24 of 144 rows.
+
+##### track1c_survival_conditioned_recall
+
+| accepted_oracle_prunes | n_steps | oracle_prunes | recall | trail_depth |
 | --- | --- | --- | --- | --- |
-| budget_preflight | max_llm_calls=2; threshold=4 | True | llm_inloop_verdict_v0 | autonomous_stage_a_run |
-| inloop_smoke_completed | n_instances=2; n_steps=2 | True | llm_inloop_verdict_v0 | autonomous_stage_a_run |
+| 626 | 219 | 921 | 0.6797 | 0 |
+| 377 | 139 | 707 | 0.5332 | 1 |
+| 277 | 139 | 728 | 0.3805 | 2 |
+| 229 | 114 | 586 | 0.3908 | 3 |
+| 119 | 89 | 341 | 0.349 | 4 |
+| 33 | 41 | 204 | 0.1618 | 5 |
+| 29 | 39 | 252 | 0.1151 | 6 |
+| 59 | 39 | 297 | 0.1987 | 7 |
+| 62 | 39 | 305 | 0.2033 | 8 |
+| 65 | 39 | 310 | 0.2097 | 9 |
+| 67 | 39 | 309 | 0.2168 | 10 |
+| 63 | 39 | 292 | 0.2158 | 11 |
+| 68 | 39 | 275 | 0.2473 | 12 |
+| 33 | 39 | 264 | 0.125 | 13 |
+| 63 | 39 | 260 | 0.2423 | 14 |
+| 48 | 39 | 245 | 0.1959 | 15 |
+| 47 | 39 | 218 | 0.2156 | 16 |
+| 39 | 39 | 215 | 0.1814 | 17 |
+| 54 | 39 | 220 | 0.2455 | 18 |
+| 43 | 38 | 203 | 0.2118 | 19 |
+| 34 | 38 | 188 | 0.1809 | 20 |
+| 30 | 38 | 178 | 0.1685 | 21 |
+| 33 | 38 | 184 | 0.1793 | 22 |
+| 34 | 38 | 172 | 0.1977 | 23 |
 
-##### verdict
+Truncated to 24 of 40 rows.
 
-| check | observed | pass | provenance | source |
-| --- | --- | --- | --- | --- |
-| full_capacity_slice_budget_preflight | max_llm_calls=5760; threshold=300 | False | item063_verdict | autonomous_stage_a_run |
-| batched_smoke_completed | n_instances=2; n_steps=2; batch_size=2; corrected_recall_accounting=True | True | item063_verdict | autonomous_stage_a_run |
-| proxy_validated | not enough end-to-end rows; smoke only | False | item063_verdict | autonomous_stage_a_run |
-| capacity_scaling_holds_inloop | not tested; only D=6 smoke | False | item063_verdict | autonomous_stage_a_run |
-| ordering_holds_inloop | not run; decoupling corner skipped after capacity budget gate | False | item063_verdict | autonomous_stage_a_run |
+##### track1d_fallible_extended_summary
 
-- Next action: Fastest current route is 4-GPU sharded batched transformers. Full requested slice is ready to launch with --launch-4gpu and max_budget_calls>=5760; vLLM would be faster only after installing/serving Qwen3.5 in the project environment.
+| accepted_oracle_prunes | budget_ledger | finish_reason_counts | generation_state_counts | missed_prunes | n_instance_rows | n_step_rows | operator_repair_counts | oracle_prunes | provenance | source | status | status_counts |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 333 | 7 keys: D_values, call_cap, cost_ok, max_budget_calls, max_llm_calls, n_instances, piece | stop=185 | valid=185 | 691 | 24 | 185 | null=185 | 1024 | rung1_overnight_track1d_summary_v0 | autonomous_stage_a_run | COMPLETE | CALL_CAP=23; OVERFLOW_FAIL=1 |
+
+##### track1d_instance_rows
+
+| b | call_cap_hit | d_global_reference | instance_id | llm_calls | logged_steps | max_logged_trail_depth | overflow_depth | overflow_depth_proxy | overflowed | peak_register_occupancy_proxy | provenance | register_capacity_D | solved | source | status | steps | total_retractions |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | True | 4 | sep_s480_dg_m2_dl3_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 12 | False | autonomous_stage_a_run | CALL_CAP | None | 5 |
+| 2 | True | 5 | sep_s581_dg_m4_dl3_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 12 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 6 | sep_s682_dg_m2_dl7_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 12 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 7 | sep_s783_b_b2_db2_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 12 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 9 | sep_s985_b_b2_db4_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 12 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | False | 10 | sep_s1086_dg_m6_dl5_000001 | 1 | None | None | None | None | None | None | llm_inloop_instance_v0 | 12 | False | autonomous_stage_a_run | OVERFLOW_FAIL | None | 0 |
+| 2 | True | 4 | sep_s480_dg_m2_dl3_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 16 | False | autonomous_stage_a_run | CALL_CAP | None | 5 |
+| 2 | True | 5 | sep_s581_dg_m4_dl3_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 16 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 6 | sep_s682_dg_m2_dl7_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 16 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 7 | sep_s783_b_b2_db2_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 16 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 9 | sep_s985_b_b2_db4_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 16 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 10 | sep_s1086_dg_m6_dl5_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 16 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 4 | sep_s480_dg_m2_dl3_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 24 | False | autonomous_stage_a_run | CALL_CAP | None | 5 |
+| 2 | True | 5 | sep_s581_dg_m4_dl3_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 24 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 6 | sep_s682_dg_m2_dl7_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 24 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 7 | sep_s783_b_b2_db2_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 24 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 9 | sep_s985_b_b2_db4_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 24 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 10 | sep_s1086_dg_m6_dl5_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 24 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 4 | sep_s480_dg_m2_dl3_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 32 | False | autonomous_stage_a_run | CALL_CAP | None | 5 |
+| 2 | True | 5 | sep_s581_dg_m4_dl3_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 32 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 6 | sep_s682_dg_m2_dl7_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 32 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 7 | sep_s783_b_b2_db2_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 32 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 9 | sep_s985_b_b2_db4_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 32 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+| 2 | True | 10 | sep_s1086_dg_m6_dl5_000001 | 8 | None | None | None | None | None | None | llm_inloop_instance_v0 | 32 | False | autonomous_stage_a_run | CALL_CAP | None | 0 |
+
+##### track1d_step_rows
+
+| answer_tokens | b | call_index | chosen_color | cursor_before | d_global_reference | finish_reason | generation_state | instance_id | live_domain_size | llm_color | n_accepted_prunes | n_missed_prunes | n_oracle_prunes | n_rejected_prunes | operator_repair | output_tokens | propagation_recall | provenance | register_capacity_D | source | vertex |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 528 | 2 | 1 | 1 | 0 | 4 | stop | valid | sep_s480_dg_m2_dl3_000001 | 4 | 1 | 3 | 0 | 3 | 4 | None | 528 | 1 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 12 |
+| 471 | 2 | 2 | 1 | 1 | 4 | stop | valid | sep_s480_dg_m2_dl3_000001 | 4 | 1 | 3 | 1 | 4 | 3 | None | 471 | 0.75 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 0 |
+| 443 | 2 | 3 | 2 | 2 | 4 | stop | valid | sep_s480_dg_m2_dl3_000001 | 3 | 2 | 1 | 4 | 5 | 8 | None | 443 | 0.2 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 13 |
+| 419 | 2 | 4 | 3 | 3 | 4 | stop | valid | sep_s480_dg_m2_dl3_000001 | 2 | 3 | 2 | 3 | 5 | 11 | None | 419 | 0.4 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 14 |
+| 423 | 2 | 5 | 4 | 4 | 4 | stop | valid | sep_s480_dg_m2_dl3_000001 | 1 | 4 | 1 | 2 | 3 | 14 | None | 423 | 0.3333 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 15 |
+| 455 | 2 | 6 | 4 | 3 | 4 | stop | valid | sep_s480_dg_m2_dl3_000001 | 1 | 4 | 3 | 2 | 5 | 11 | None | 455 | 0.6 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 14 |
+| 447 | 2 | 7 | 3 | 4 | 4 | stop | valid | sep_s480_dg_m2_dl3_000001 | 1 | 3 | 1 | 2 | 3 | 14 | None | 447 | 0.3333 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 15 |
+| 442 | 2 | 8 | 3 | 2 | 4 | stop | valid | sep_s480_dg_m2_dl3_000001 | 2 | 3 | 3 | 2 | 5 | 10 | None | 442 | 0.6 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 13 |
+| 466 | 2 | 1 | 1 | 0 | 5 | stop | valid | sep_s581_dg_m4_dl3_000001 | 4 | 1 | 3 | 2 | 5 | 3 | None | 466 | 0.6 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 0 |
+| 467 | 2 | 2 | 2 | 1 | 5 | stop | valid | sep_s581_dg_m4_dl3_000001 | 4 | 2 | 2 | 5 | 7 | 10 | None | 467 | 0.2857 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 12 |
+| 428 | 2 | 3 | 1 | 2 | 5 | stop | valid | sep_s581_dg_m4_dl3_000001 | 3 | 1 | 2 | 6 | 8 | 8 | None | 428 | 0.25 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 13 |
+| 432 | 2 | 4 | 4 | 3 | 5 | stop | valid | sep_s581_dg_m4_dl3_000001 | 2 | 4 | 1 | 6 | 7 | 13 | None | 432 | 0.1429 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 14 |
+| 451 | 2 | 5 | 3 | 4 | 5 | stop | valid | sep_s581_dg_m4_dl3_000001 | 1 | 3 | 2 | 4 | 6 | 14 | None | 451 | 0.3333 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 15 |
+| 443 | 2 | 6 | 2 | 5 | 5 | stop | valid | sep_s581_dg_m4_dl3_000001 | 1 | 2 | 0 | 7 | 7 | 16 | None | 443 | 0 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 16 |
+| 391 | 2 | 7 | 4 | 6 | 5 | stop | valid | sep_s581_dg_m4_dl3_000001 | 2 | 4 | 2 | 6 | 8 | 18 | None | 391 | 0.25 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 17 |
+| 497 | 2 | 8 | 1 | 7 | 5 | stop | valid | sep_s581_dg_m4_dl3_000001 | 4 | 1 | 2 | 7 | 9 | 3 | None | 497 | 0.2222 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 41 |
+| 465 | 2 | 1 | 1 | 0 | 6 | stop | valid | sep_s682_dg_m2_dl7_000001 | 4 | 1 | 3 | 2 | 5 | 3 | None | 465 | 0.6 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 0 |
+| 479 | 2 | 2 | 2 | 1 | 6 | stop | valid | sep_s682_dg_m2_dl7_000001 | 4 | 2 | 3 | 2 | 5 | 6 | None | 479 | 0.6 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 12 |
+| 450 | 2 | 3 | 1 | 2 | 6 | stop | valid | sep_s682_dg_m2_dl7_000001 | 3 | 1 | 1 | 1 | 2 | 9 | None | 450 | 0.5 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 13 |
+| 419 | 2 | 4 | 4 | 3 | 6 | stop | valid | sep_s682_dg_m2_dl7_000001 | 2 | 4 | 0 | 2 | 2 | 13 | None | 419 | 0 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 14 |
+| 458 | 2 | 5 | 3 | 4 | 6 | stop | valid | sep_s682_dg_m2_dl7_000001 | 1 | 3 | 2 | 0 | 2 | 13 | None | 458 | 1 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 15 |
+| 464 | 2 | 6 | 1 | 5 | 6 | stop | valid | sep_s682_dg_m2_dl7_000001 | 4 | 1 | 0 | 3 | 3 | 9 | None | 464 | 0 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 4 |
+| 467 | 2 | 7 | 2 | 6 | 6 | stop | valid | sep_s682_dg_m2_dl7_000001 | 1 | 2 | 0 | 6 | 6 | 15 | None | 467 | 0 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 16 |
+| 417 | 2 | 8 | 2 | 7 | 6 | stop | valid | sep_s682_dg_m2_dl7_000001 | 3 | 2 | 3 | 5 | 8 | 11 | None | 417 | 0.375 | llm_inloop_step_v0 | 12 | autonomous_stage_a_run | 3 |
+
+Truncated to 24 of 185 rows.
+
+##### track3a_p1c_parser_regrade_rows
+
+| culprit_correct | episode_index | instance_id | oracle_conflict | oracle_culprits | parsable | parsed_top_level_keys | parser | predicted_conflict | predicted_culprit | provenance | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| False | 0 | sep_s1458_axis_balance_b12_d12_000002 | False | [] | True | ["color", "conflict_detected", "conflict_reason", "culprit", "propagation"] | strip_through_think_parse_first_top_level_json_top_level_fields_v0 | False | None | rung1_overnight_p1c_v2_offline_regrade_v0 | autonomous_stage_a_run |
+| True | 1 | sep_s1458_axis_balance_b12_d12_000002 | True | [0, 13, 14, 15] | True | ["color", "conflict_detected", "conflict_reason", "culprit", "propagation"] | strip_through_think_parse_first_top_level_json_top_level_fields_v0 | True | 0 | rung1_overnight_p1c_v2_offline_regrade_v0 | autonomous_stage_a_run |
+
+##### track3a_p1c_parser_regrade_summary
+
+| conflict_precision | conflict_recall | culprit_accuracy | functional_gate_pass | n_episodes | n_true_conflicts | positive_or_negative | raw_generation_spot_check_note |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 1 | 1 | True | 2 | 1 | positive_regraded_parser_fix | first available v2 rows parsed at top level after </think>; parser artifact corrected |
+
+##### track3b_budget_gate
+
+| call_cap | cost_ok | guard | max_budget_calls | max_llm_calls | piece | shrunk_episodes | status | target_episodes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | True | P1c scale-up target is ~3000 capped-thinking episodes; overnight cap prevents full target, so no partial 3B launch is interpreted as competence. | 600 | 600 | track3b | 600 | SKIPPED_BUDGET | 3000 |
+
+##### track4_aggregate_counts
+
+| clean_per_b_dstar_slopes | large_b_regime_by_b | n_cell_summary_rows | n_instance_rows | provenance | source | status_counts | track4_verdict |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 3 items | 12=clean_scales_or_inconclusive; 4=clean_scales_or_inconclusive; 8=clean_scales_or_inconclusive | 189 | 378 | rung1_overnight_track4_aggregate_counts_v0 | autonomous_stage_a_run | NODE_CAP=3; OVERFLOW_FAIL=245; SOLVED=130 | fallibility_capped |
+
+##### track4_cell_summary
+
+| b | d_global_reference | failure_mode_counts | mean_overflow_depth | n | overflow_rate | provenance | register_capacity_D | solve_rate | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 4 | 4 | OVERFLOW_FAIL=1; SOLVED=1 | 41 | 2 | 0.5 | rung1_overnight_clean_cell_summary_v0 | 6 | 0.5 | autonomous_stage_a_run |
+| 8 | 4 | OVERFLOW_FAIL=2 | 33.5 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 12 | 4 | OVERFLOW_FAIL=1; SOLVED=1 | 35 | 2 | 0.5 | rung1_overnight_clean_cell_summary_v0 | 6 | 0.5 | autonomous_stage_a_run |
+| 4 | 5 | SOLVED=2 | None | 2 | 0 | rung1_overnight_clean_cell_summary_v0 | 6 | 1 | autonomous_stage_a_run |
+| 8 | 5 | OVERFLOW_FAIL=1; SOLVED=1 | 39 | 2 | 0.5 | rung1_overnight_clean_cell_summary_v0 | 6 | 0.5 | autonomous_stage_a_run |
+| 12 | 5 | OVERFLOW_FAIL=2 | 41 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 4 | 6 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 8 | 6 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 12 | 6 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 4 | 7 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 8 | 7 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 12 | 7 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 4 | 9 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 8 | 9 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 12 | 9 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 4 | 10 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 8 | 10 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 12 | 10 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 4 | 12 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 8 | 12 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 12 | 12 | OVERFLOW_FAIL=2 | 0 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 6 | 0 | autonomous_stage_a_run |
+| 4 | 4 | OVERFLOW_FAIL=1; SOLVED=1 | 41 | 2 | 0.5 | rung1_overnight_clean_cell_summary_v0 | 8 | 0.5 | autonomous_stage_a_run |
+| 8 | 4 | OVERFLOW_FAIL=2 | 33.5 | 2 | 1 | rung1_overnight_clean_cell_summary_v0 | 8 | 0 | autonomous_stage_a_run |
+| 12 | 4 | OVERFLOW_FAIL=1; SOLVED=1 | 35 | 2 | 0.5 | rung1_overnight_clean_cell_summary_v0 | 8 | 0.5 | autonomous_stage_a_run |
+
+Truncated to 24 of 189 rows.
+
+##### track4_clean_dstar_slope_summary
+
+| b | clean_dstar_vs_D_slope | interpretation | n_uncensored | provenance | source |
+| --- | --- | --- | --- | --- | --- |
+| 4 | None | uncensored_insufficient | 1 | rung1_overnight_track4_slope_summary_v0 | autonomous_stage_a_run |
+| 8 | None | uncensored_insufficient | 1 | rung1_overnight_track4_slope_summary_v0 | autonomous_stage_a_run |
+| 12 | None | uncensored_insufficient | 0 | rung1_overnight_track4_slope_summary_v0 | autonomous_stage_a_run |
+
+##### track4_instance_rows
+
+| b | call_cap_hit | d_global_reference | instance_id | llm_calls | logged_steps | max_logged_trail_depth | overflow_depth | overflow_depth_proxy | overflowed | peak_register_occupancy_proxy | provenance | register_capacity_D | solved | source | status | steps | total_retractions |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000001 | None | None | None | 41 | None | True | 48 | rung1_overnight_clean_trace_v0 | 6 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 75 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000001 | None | None | None | 41 | None | True | 48 | rung1_overnight_clean_trace_v0 | 8 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 75 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000001 | None | None | None | 41 | None | True | 48 | rung1_overnight_clean_trace_v0 | 10 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 75 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000001 | None | None | None | 41 | None | True | 48 | rung1_overnight_clean_trace_v0 | 12 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 75 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000001 | None | None | None | 41 | None | True | 48 | rung1_overnight_clean_trace_v0 | 16 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 75 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000001 | None | None | None | 41 | None | True | 48 | rung1_overnight_clean_trace_v0 | 24 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 75 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000001 | None | None | None | 41 | None | True | 48 | rung1_overnight_clean_trace_v0 | 32 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 75 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000001 | None | None | None | 41 | None | True | 48 | rung1_overnight_clean_trace_v0 | 40 | False | autonomous_stage_a_run | OVERFLOW_FAIL | 75 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000001 | None | None | None | None | None | False | 48 | rung1_overnight_clean_trace_v0 | 50 | True | autonomous_stage_a_run | SOLVED | 96 | 31 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000002 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 6 | True | autonomous_stage_a_run | SOLVED | 81 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000002 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 8 | True | autonomous_stage_a_run | SOLVED | 81 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000002 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 10 | True | autonomous_stage_a_run | SOLVED | 81 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000002 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 12 | True | autonomous_stage_a_run | SOLVED | 81 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000002 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 16 | True | autonomous_stage_a_run | SOLVED | 81 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000002 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 24 | True | autonomous_stage_a_run | SOLVED | 81 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000002 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 32 | True | autonomous_stage_a_run | SOLVED | 81 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000002 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 40 | True | autonomous_stage_a_run | SOLVED | 81 | 17 |
+| 4 | None | 4 | sep_s514_axis_balance_b4_d4_000002 | None | None | None | None | None | False | 5 | rung1_overnight_clean_trace_v0 | 50 | True | autonomous_stage_a_run | SOLVED | 81 | 17 |
+| 4 | None | 5 | sep_s615_axis_balance_b4_d5_000001 | None | None | None | None | None | False | 6 | rung1_overnight_clean_trace_v0 | 6 | True | autonomous_stage_a_run | SOLVED | 80 | 16 |
+| 4 | None | 5 | sep_s615_axis_balance_b4_d5_000001 | None | None | None | None | None | False | 6 | rung1_overnight_clean_trace_v0 | 8 | True | autonomous_stage_a_run | SOLVED | 80 | 16 |
+| 4 | None | 5 | sep_s615_axis_balance_b4_d5_000001 | None | None | None | None | None | False | 6 | rung1_overnight_clean_trace_v0 | 10 | True | autonomous_stage_a_run | SOLVED | 80 | 16 |
+| 4 | None | 5 | sep_s615_axis_balance_b4_d5_000001 | None | None | None | None | None | False | 6 | rung1_overnight_clean_trace_v0 | 12 | True | autonomous_stage_a_run | SOLVED | 80 | 16 |
+| 4 | None | 5 | sep_s615_axis_balance_b4_d5_000001 | None | None | None | None | None | False | 6 | rung1_overnight_clean_trace_v0 | 16 | True | autonomous_stage_a_run | SOLVED | 80 | 16 |
+| 4 | None | 5 | sep_s615_axis_balance_b4_d5_000001 | None | None | None | None | None | False | 6 | rung1_overnight_clean_trace_v0 | 24 | True | autonomous_stage_a_run | SOLVED | 80 | 16 |
+
+Truncated to 24 of 378 rows.
+
+- Next action: Keep the overnight batch as Item064. Use Track 1B clean scaling as the clean-gate result, but do not upgrade the LLM capacity-law claim: Track 1D is still CALL_CAP dominated. Next move is to either increase/sharpen fallible Track 1D budget/instrumentation or isolate why extended-D fallible runs do not escape call-cap.
+
+### Item 065 - Rung-1 fallible 1D rerun: corrected overflow logging, checkpointed 8-GPU vLLM execution, Track4 large-b, and scaled P1c
+
+- Status: UNKNOWN
+- Key result: Do not claim a fallible capacity-law positive. The single next move is to raise call_cap or shrink the Piece1 substrate harder until fixed-cap fallible 1D is not CALL_CAP dominated. Treat scaled P1c as a negative competence gate at this prompt/token regime.
+- Purpose: Run the decisive fallible 1D rerun with corrected overflow-depth logging, resumable checkpoints, 8-GPU vLLM concurrency, clean Track4 large-b sweep, and a scaled P1c competence check within the 2200-call budget.
+- Details:
+  - purpose=Run the decisive fallible 1D rerun with corrected overflow-depth logging, resumable checkpoints, 8-GPU vLLM concurrency, clean Track4 large-b sweep, and a scaled P1c competence check within the 2200-call budget.
+  - commands=1
+  - result_tables=['budget_ledger', 'piece1_fallible_summary', 'piece1_clean_summary', 'piece2_corrected_slopes', 'piece3_track4_large_b', 'piece4_scaled_p1c', 'interpretation_guards']
+  - honesty=This rerun does not establish an end-to-end fallible LLM capacity law. Piece1 remains CALL_CAP dominated despite call_cap=40 and call_cap > max D.
+- Artifact refs:
+  - results/experiment_items/item_065_rung1_fallible_1d_rerun.json (yes, 9311 bytes)
+  - experiments/rung1_fallible_1d_rerun.py (yes, 31900 bytes)
+  - results/rung1_fallible_1d_rerun/results.json (yes, 1356214 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_fallible_1d_rerun/results.json | RUNG1_FALLIBLE_1D_RERUN_COMPLETE | provenance=rung1_fallible_1d_rerun_v0; schema_version=rung1_fallible_1d_rerun_v0; source=autonomous_stage_a_run |  |
+
+#### Contract Result Tables
+
+##### budget_ledger
+
+| piece | D_values | call_cap | call_cap_gt_max_D | cost_ok | max_D | max_budget_calls | max_llm_calls | n_instances | provenance | source | available_episodes | n_episodes | remaining_budget_after_piece1 | target_episodes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| piece1 | [12, 16, 24, 32] | 40 | True | True | 32 | 2200 | 960 | 6 | rung1_fallible_1d_budget_ledger_v0 | autonomous_stage_a_run |  |  |  |  |
+| piece4 |  | 1 |  | True |  |  | 768 |  | rung1_fallible_1d_budget_ledger_v0 | autonomous_stage_a_run | 768 | 768 | 1240 | 3000 |
+
+##### piece1_fallible_summary
+
+| rows | total_llm_calls | status_counts | verdict | provenance | source |
+| --- | --- | --- | --- | --- | --- |
+| 24 | 761 | CALL_CAP=11; NO_RECOVERY_TARGET=4; OVERFLOW_FAIL=5; SOLVED=4 | still_call_cap_dominated | rung1_fallible_1d_piece1_summary_v0 | autonomous_stage_a_run |
+
+##### piece1_clean_summary
+
+| rows | status_counts | provenance | source |
+| --- | --- | --- | --- |
+| 24 | OVERFLOW_FAIL=5; SOLVED=19 | rung1_fallible_1d_clean_trace_fixed_overflow_depth_v0 | autonomous_stage_a_run |
+
+##### piece2_corrected_slopes
+
+| clean_scaling_gate | rederived_clean_slope | rederived_fallible_slope | corrected_overflow_depth_definition | provenance | source |
+| --- | --- | --- | --- | --- | --- |
+| supported | 0.6702 | 0.9096 | trail depth at first step register occupancy reaches cap D; never emits 0 for real overflow | rung1_fallible_1d_piece2_slopes_v0 | autonomous_stage_a_run |
+
+##### piece3_track4_large_b
+
+| clean_rows | status_counts | piece3_verdict | dstar_slopes_by_b | n_uncensored_by_b | provenance | source |
+| --- | --- | --- | --- | --- | --- | --- |
+| 210 | NODE_CAP=15; OVERFLOW_FAIL=30; SOLVED=165 | structural_separator_limited | 4=0.03389; 8=0.01694; 12=0 | 4=4; 8=4; 12=3 | rung1_fallible_1d_piece3_track4_summary_v0 | autonomous_stage_a_run |
+
+##### piece4_scaled_p1c
+
+| episodes | finish_counts | output_tokens | conflict_precision | conflict_recall | culprit_accuracy | functional_gate_pass | functional_gate_threshold | n_true_conflicts | n_true_nonconflicts | positive_or_negative | provenance | source |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 768 | length=761; stop=7 | 3432759 | 1 | 0.03385 | 0.02604 | False | 0.2 | 384 | 384 | negative_scaled | rung1_fallible_1d_p1c_scale_summary_v0 | autonomous_stage_a_run |
+
+##### interpretation_guards
+
+| guard | provenance | source |
+| --- | --- | --- |
+| No fallible capacity-law positive until Piece1 fixed-cap lands and is not CALL_CAP dominated. | rung1_fallible_1d_interpretation_guard_v0 | autonomous_stage_a_run |
+| Corrected overflow depth records first trail depth reaching register cap D and never records 0 for real overflow. | rung1_fallible_1d_interpretation_guard_v0 | autonomous_stage_a_run |
+| Track4 clean large-b result is a structural separator-limited clean result, not evidence that the fallible LLM line has recovered. | rung1_fallible_1d_interpretation_guard_v0 | autonomous_stage_a_run |
+| Scaled P1c is negative at this prompt/token regime; precision is high only because recall is very low. | rung1_fallible_1d_interpretation_guard_v0 | autonomous_stage_a_run |
+
+- Next action: Do not claim a fallible capacity-law positive. The single next move is to raise call_cap or shrink the Piece1 substrate harder until fixed-cap fallible 1D is not CALL_CAP dominated. Treat scaled P1c as a negative competence gate at this prompt/token regime.
 
 
 ## Canonical Repo Decision
@@ -4997,7 +5504,7 @@ No rows recorded.
 | Stage A Track A symbolic | YELLOW | track=A_symbolic; operator=symbolic_oracle; autonomous_cells=43; symbolic_core={'autonomous_cells': 43, 'declared_track': 'A_symbolic', 'forward_floor_on_L4': True, 'kv_snapshot_max_depth': 3, 'operator': 'symbolic_oracle', 'reverts_nonzero_on_L4': True, 'rot_no_revert_max_depth': 3} |
 | Stage A learned track | RED | diagnostic_G1=1.0; learned_autonomous_cells=0; statuses=['PARENT_ADAPTER_REQUIRED'] |
 | W3 Qwen3.5 | YELLOW | integration_grade=cached_gdn_state_measured_with_propagation_delta; W3.0=PASS |
-| Validation | RED | checks=547; pass=544; fail=3 |
+| Validation | RED | checks=559; pass=556; fail=3 |
 
 ## Artifact Index
 
@@ -5042,6 +5549,8 @@ No rows recorded.
 | item_061_rung1_separator_p1a_recovery_baseline | results/experiment_items/item_061_rung1_separator_p1a_recovery_baseline.json | yes |
 | item_062_rung1_separator_capacity_scoped_positive_p1c_competence_gate | results/experiment_items/item_062_rung1_separator_capacity_scoped_positive_p1c_competence_gate.json | yes |
 | item_063_rung1_separator_llm_inloop_smoke | results/experiment_items/item_063_rung1_separator_llm_inloop_smoke.json | yes |
+| item_064_rung1_overnight_batch | results/experiment_items/item_064_rung1_overnight_batch.json | yes |
+| item_065_rung1_fallible_1d_rerun | results/experiment_items/item_065_rung1_fallible_1d_rerun.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | rung1_phase1_spec_v01 | specs/rung1_phase1_spec_v01.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
@@ -5111,6 +5620,15 @@ No rows recorded.
 | rung1_separator_llm_inloop | results/rung1_separator_llm_inloop/results.json | yes |
 | rung1_separator_llm_inloop_preflight | results/rung1_separator_llm_inloop/preflight_full_scope.json | yes |
 | rung1_separator_llm_inloop_sharded_smoke | results/rung1_separator_llm_inloop/sharded_smoke/results.json | yes |
+| rung1_separator_llm_inloop_vllm_smoke | results/rung1_separator_llm_inloop/vllm_smoke/results.json | yes |
+| rung1_separator_llm_inloop_vllm_structured_smoke | results/rung1_separator_llm_inloop/vllm_structured_smoke/results.json | yes |
+| rung1_separator_llm_inloop_vllm_structured_grid_pilot | results/rung1_separator_llm_inloop/vllm_structured_grid_pilot/results.json | yes |
+| rung1_separator_llm_inloop_full_slice_vllm_structured | results/rung1_separator_llm_inloop/full_slice_vllm_structured/results.json | yes |
+| rung1_separator_llm_inloop_divergence_analysis | results/rung1_separator_llm_inloop/divergence_analysis/item063_inloop_divergence.json | yes |
+| rung1_separator_llm_inloop_explicit_state_pilot | results/rung1_separator_llm_inloop/explicit_state_pilot/results.json | yes |
+| rung1_separator_llm_inloop_full_slice_vllm_explicit_state | results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/results.json | yes |
+| rung1_overnight_batch | results/rung1_overnight_batch/results.json | yes |
+| rung1_fallible_1d_rerun | results/rung1_fallible_1d_rerun/results.json | yes |
 | validation | results/validation/validation.json | yes |
 
 ## Validation Summary
@@ -5118,7 +5636,7 @@ No rows recorded.
 | tier | pass | fail |
 | --- | --- | --- |
 | closeout_047 | 15 | 0 |
-| contract | 248 | 0 |
+| contract | 260 | 0 |
 | env | 13 | 0 |
 | legacy | 7 | 0 |
 | meta | 1 | 0 |

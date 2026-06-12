@@ -1,0 +1,219 @@
+{
+  "item_number": "065",
+  "schema_version": "log_item_contract_v1",
+  "name": "Rung-1 fallible 1D rerun: corrected overflow logging, checkpointed 8-GPU vLLM execution, Track4 large-b, and scaled P1c",
+  "generated_at": "2026-06-12T07:24:41.028095+00:00",
+  "purpose": "Run the decisive fallible 1D rerun with corrected overflow-depth logging, resumable checkpoints, 8-GPU vLLM concurrency, clean Track4 large-b sweep, and a scaled P1c competence check within the 2200-call budget.",
+  "provenance": {
+    "schema_version": "rung1_fallible_1d_rerun_v0",
+    "source": "autonomous_stage_a_run",
+    "model_id": "Qwen/Qwen3.5-4B",
+    "openai_base_url": "http://127.0.0.1:8001/v1",
+    "result_artifact": "results/rung1_fallible_1d_rerun/results.json",
+    "checkpoint_dir": "results/rung1_fallible_1d_rerun/checkpoints_8gpu_256"
+  },
+  "artifacts": [
+    "results/experiment_items/item_065_rung1_fallible_1d_rerun.json",
+    "experiments/rung1_fallible_1d_rerun.py",
+    "results/rung1_fallible_1d_rerun/results.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "experiments/rung1_fallible_1d_rerun.py",
+      "change": "Adds the rung1_fallible_1d_rerun_v0 runner with corrected nonzero overflow-depth logging, checkpoint/resume for Piece1 and P1c, budget preflight, Track4 large-b clean sweep, and scaled P1c execution."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m experiments.rung1_fallible_1d_rerun --piece1-call-cap 40 --max-budget-calls 2200 --piece1-n-per-depth 1 --piece3-n-per-cell 2 --p1c-target-episodes 3000 --p1c-instances 800 --p1c-max-tokens 4500 --max-new-tokens 1024 --batch-size 256 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B --checkpoint-dir results/rung1_fallible_1d_rerun/checkpoints_8gpu_256 --no-resume --output results/rung1_fallible_1d_rerun/results.json",
+      "purpose": "Run the 8-GPU vLLM high-concurrency resumable rerun and write the final artifact."
+    }
+  ],
+  "decision": {
+    "outcome": "RUNG1_FALLIBLE_1D_RERUN_COMPLETE",
+    "overall_pass": false,
+    "headline": {
+      "determination": "not_yet_reachable",
+      "piece1_verdict": "still_call_cap_dominated",
+      "single_next_move": "Raise call_cap or shrink harder until Piece 1 is not CALL_CAP dominated."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "piece1_budget_preflight",
+        "outcome": "LAUNCHED_WITHIN_CAP",
+        "number": "max_llm_calls=960; max_budget_calls=2200; n_instances=6; D_values=[12,16,24,32]; call_cap=40; call_cap_gt_max_D=true; cost_ok=true"
+      },
+      {
+        "gate": "piece1_fallible_1d_fixed_cap",
+        "outcome": "STILL_CALL_CAP_DOMINATED",
+        "number": "rows=24; total_llm_calls=761; status_counts={CALL_CAP:11, NO_RECOVERY_TARGET:4, OVERFLOW_FAIL:5, SOLVED:4}"
+      },
+      {
+        "gate": "piece2_corrected_overflow_logging",
+        "outcome": "CLEAN_SCALING_SUPPORTED_BUT_FALLIBLE_NOT_DECISIVE",
+        "number": "clean_slope=0.6702127659574467; fallible_slope=0.9095744680851064; overflow depth is first trail depth reaching cap D and never emits 0 for real overflow"
+      },
+      {
+        "gate": "piece3_track4_large_b_clean",
+        "outcome": "STRUCTURAL_SEPARATOR_LIMITED",
+        "number": "rows=210; status_counts={SOLVED:165, OVERFLOW_FAIL:30, NODE_CAP:15}; dstar_slopes_by_b={4:0.033886085075702954, 8:0.016943042537851477, 12:0.0}; uncensored_counts={4:4, 8:4, 12:3}"
+      },
+      {
+        "gate": "piece4_scaled_p1c",
+        "outcome": "NEGATIVE_SCALED",
+        "number": "episodes=768; finish_counts={length:761, stop:7}; output_tokens=3432759; conflict_precision=1.0; conflict_recall=0.033854166666666664; culprit_accuracy=0.026041666666666668; functional_gate_pass=false; threshold=0.2"
+      }
+    ],
+    "next_step_routing": "Do not claim a fallible capacity-law positive. The single next move is to raise call_cap or shrink the Piece1 substrate harder until fixed-cap fallible 1D is not CALL_CAP dominated. Treat scaled P1c as a negative competence gate at this prompt/token regime."
+  },
+  "result_tables": {
+    "budget_ledger": {
+      "rows": [
+        {
+          "piece": "piece1",
+          "D_values": [12, 16, 24, 32],
+          "call_cap": 40,
+          "call_cap_gt_max_D": true,
+          "cost_ok": true,
+          "max_D": 32,
+          "max_budget_calls": 2200,
+          "max_llm_calls": 960,
+          "n_instances": 6,
+          "provenance": "rung1_fallible_1d_budget_ledger_v0",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "piece": "piece4",
+          "available_episodes": 768,
+          "call_cap": 1,
+          "cost_ok": true,
+          "max_llm_calls": 768,
+          "n_episodes": 768,
+          "remaining_budget_after_piece1": 1240,
+          "target_episodes": 3000,
+          "provenance": "rung1_fallible_1d_budget_ledger_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "piece1_fallible_summary": {
+      "rows": [
+        {
+          "rows": 24,
+          "total_llm_calls": 761,
+          "status_counts": {
+            "CALL_CAP": 11,
+            "NO_RECOVERY_TARGET": 4,
+            "OVERFLOW_FAIL": 5,
+            "SOLVED": 4
+          },
+          "verdict": "still_call_cap_dominated",
+          "provenance": "rung1_fallible_1d_piece1_summary_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "piece1_clean_summary": {
+      "rows": [
+        {
+          "rows": 24,
+          "status_counts": {
+            "OVERFLOW_FAIL": 5,
+            "SOLVED": 19
+          },
+          "provenance": "rung1_fallible_1d_clean_trace_fixed_overflow_depth_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "piece2_corrected_slopes": {
+      "rows": [
+        {
+          "clean_scaling_gate": "supported",
+          "rederived_clean_slope": 0.6702127659574467,
+          "rederived_fallible_slope": 0.9095744680851064,
+          "corrected_overflow_depth_definition": "trail depth at first step register occupancy reaches cap D; never emits 0 for real overflow",
+          "provenance": "rung1_fallible_1d_piece2_slopes_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "piece3_track4_large_b": {
+      "rows": [
+        {
+          "clean_rows": 210,
+          "status_counts": {
+            "NODE_CAP": 15,
+            "OVERFLOW_FAIL": 30,
+            "SOLVED": 165
+          },
+          "piece3_verdict": "structural_separator_limited",
+          "dstar_slopes_by_b": {
+            "4": 0.033886085075702954,
+            "8": 0.016943042537851477,
+            "12": 0.0
+          },
+          "n_uncensored_by_b": {
+            "4": 4,
+            "8": 4,
+            "12": 3
+          },
+          "provenance": "rung1_fallible_1d_piece3_track4_summary_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "piece4_scaled_p1c": {
+      "rows": [
+        {
+          "episodes": 768,
+          "finish_counts": {
+            "length": 761,
+            "stop": 7
+          },
+          "output_tokens": 3432759,
+          "conflict_precision": 1.0,
+          "conflict_recall": 0.033854166666666664,
+          "culprit_accuracy": 0.026041666666666668,
+          "functional_gate_pass": false,
+          "functional_gate_threshold": 0.2,
+          "n_true_conflicts": 384,
+          "n_true_nonconflicts": 384,
+          "positive_or_negative": "negative_scaled",
+          "provenance": "rung1_fallible_1d_p1c_scale_summary_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "interpretation_guards": {
+      "rows": [
+        {
+          "guard": "No fallible capacity-law positive until Piece1 fixed-cap lands and is not CALL_CAP dominated.",
+          "provenance": "rung1_fallible_1d_interpretation_guard_v0",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "guard": "Corrected overflow depth records first trail depth reaching register cap D and never records 0 for real overflow.",
+          "provenance": "rung1_fallible_1d_interpretation_guard_v0",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "guard": "Track4 clean large-b result is a structural separator-limited clean result, not evidence that the fallible LLM line has recovered.",
+          "provenance": "rung1_fallible_1d_interpretation_guard_v0",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "guard": "Scaled P1c is negative at this prompt/token regime; precision is high only because recall is very low.",
+          "provenance": "rung1_fallible_1d_interpretation_guard_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This rerun does not establish an end-to-end fallible LLM capacity law. Piece1 remains CALL_CAP dominated despite call_cap=40 and call_cap > max D.",
+    "p1c_limit": "Scaled P1c is negative: conflict_recall=0.033854166666666664 and culprit_accuracy=0.026041666666666668, with 761 of 768 generations ending by length.",
+    "track4_scope": "Track4 large-b is clean/offline structural evidence and is not a fallible-LLM recovery claim.",
+    "budget_limit": "Piece4 was capped at 768 available episodes after Piece1 consumed 761 calls under the max_budget_calls=2200 ledger."
+  }
+}

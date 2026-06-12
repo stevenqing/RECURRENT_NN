@@ -38,6 +38,7 @@ from experiments.rung1_separator_p1b_truncation_pilot import (
     _operator_prompt,
     _oracle_prunes,
     _parse_generation,
+    _visible_context,
 )
 
 
@@ -51,6 +52,7 @@ STATUS_CAPACITY_COMPLETE = "RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE"
 STATUS_FAIL = "RUNG1_SEPARATOR_LLM_INLOOP_FAIL"
 OPERATOR_VERSION = "v1_1"
 PROMPT_CONTRACT = "p1b_bounded_structured_domain_propagation_capped_thinking_v1_1"
+PROMPT_CONTRACT_EXPLICIT_STATE = "p1b_bounded_structured_explicit_domain_state_v1_2"
 CAPACITY_D_VALUES = (6, 8, 10)
 CAPACITY_DEPTHS = (4, 5, 6, 7, 9, 10)
 SMOKE_D_VALUES = (6,)
@@ -64,7 +66,31 @@ DEFAULT_MAX_NEW_TOKENS = 4096
 DEFAULT_BATCH_SIZE = 4
 DEFAULT_OPENAI_BASE_URL = "http://127.0.0.1:8001/v1"
 DEFAULT_OPENAI_MODEL = "Qwen/Qwen3.5-4B"
+P1B_GUIDED_JSON_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "color": {"type": "integer"},
+        "propagation": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "vertex": {"type": "integer"},
+                    "remaining_domain": {"type": "array", "items": {"type": "integer"}},
+                    "reason": {"type": "string"},
+                },
+                "required": ["vertex", "remaining_domain"],
+            },
+        },
+        "notes": {"type": "string"},
+    },
+    "required": ["color", "propagation"],
+}
 LOW_SOLVE_THRESHOLD = 0.50
+
+
+def _prompt_contract(prompt_encoding: str) -> str:
+    return PROMPT_CONTRACT_EXPLICIT_STATE if prompt_encoding == "explicit_domains" else PROMPT_CONTRACT
 
 
 @dataclass
@@ -167,6 +193,67 @@ def _p1b_prompt_episode(ep: InLoopEpisode) -> P1bEpisode:
         calls=ep.calls,
         status=ep.status,
     )
+
+
+def _current_domain_snapshot(ep: InLoopEpisode, vertices: list[int]) -> tuple[dict[int, list[int]], dict[int, list[int]]]:
+    all_colors = set(range(1, int(ep.row["k"]) + 1))
+    remaining: dict[int, list[int]] = {}
+    eliminated: dict[int, list[int]] = {}
+    for vertex in vertices:
+        if vertex in ep.assignment:
+            domain = {int(ep.assignment[vertex])}
+        else:
+            domain = set(ep.domains[vertex]) - ep.tried_colors[vertex]
+            for neighbor in ep.adjacency[vertex]:
+                assigned = ep.assignment.get(neighbor)
+                if assigned in domain:
+                    domain.remove(assigned)
+        remaining[int(vertex)] = sorted(int(color) for color in domain)
+        eliminated[int(vertex)] = sorted(int(color) for color in all_colors - domain)
+    return remaining, eliminated
+
+
+def _explicit_state_operator_prompt(ep: InLoopEpisode) -> str:
+    episode = _p1b_prompt_episode(ep)
+    vertex = ep.order[ep.cursor]
+    context = _visible_context(episode, vertex)
+    own_vertices = [int(item) for item in context["own_block_vertices"]]
+    remaining, eliminated = _current_domain_snapshot(ep, own_vertices)
+    colors = list(range(1, int(ep.row["k"]) + 1))
+    live = _live_domain(ep, vertex)
+    return "\n".join([
+        "P1b bounded structured local graph-coloring operator with explicit domain state.",
+        "Use private reasoning, but do not recompute domains from scratch when explicit domains are provided.",
+        f"Thinking budget request: <= {THINKING_BUDGET_REQUESTED} tokens. Final answer budget request: <= {ANSWER_TOKEN_BUDGET_REQUESTED} tokens.",
+        "Task: choose one branch color for current_vertex from current_vertex_remaining_domain, then compute local propagation over own_block_vertices only.",
+        "Use only current_remaining_domains_by_own_vertex, eliminated_colors_by_own_vertex, internal_edges, incident_boundary_edges, visible_assignment, and the chosen branch.",
+        "The symbolic guard will later reject unsound prunes; it will not add any prune you miss.",
+        "Return the final answer as the last parseable JSON object, with no markdown or code fence around it.",
+        "JSON schema:",
+        "{\"color\": <integer in current_vertex_remaining_domain>, \"propagation\": [{\"vertex\": <own-block int>, \"remaining_domain\": [<explicit remaining colors after visible constraints and branch>], \"reason\": <one short sentence>}], \"notes\": <short string>}",
+        "Rules:",
+        "- The color must be one of current_vertex_remaining_domain; never choose an eliminated color.",
+        "- Include each own_block_vertices vertex exactly once in propagation.",
+        "- For current_vertex, remaining_domain must be the chosen singleton color.",
+        "- For other own-block vertices, start from current_remaining_domains_by_own_vertex and remove only colors ruled out by visible_assignment, edges, and the chosen branch.",
+        "- Do not emit boundary vertices in propagation.",
+        "- Each reason must be one short sentence, at most 12 words.",
+        "- Keep notes under 20 words.",
+        f"colors={colors}; current_vertex={vertex}; agent_block={context['agent_block']}",
+        f"current_vertex_remaining_domain={live}",
+        f"own_block_vertices={own_vertices}",
+        f"current_remaining_domains_by_own_vertex={remaining}",
+        f"eliminated_colors_by_own_vertex={eliminated}",
+        f"internal_edges={context['internal_edges']}",
+        f"incident_boundary_edges={context['incident_boundary_edges']}",
+        f"visible_assignment={context['visible_assignment']}",
+    ])
+
+
+def _prompt_for_inloop_episode(ep: InLoopEpisode, prompt_encoding: str) -> str:
+    if prompt_encoding == "explicit_domains":
+        return _explicit_state_operator_prompt(ep)
+    return _operator_prompt(_p1b_prompt_episode(ep), OPERATOR_VERSION)
 
 
 def _position(ep: InLoopEpisode) -> dict[int, int]:
@@ -301,7 +388,7 @@ def _apply_generation(ep: InLoopEpisode, generation: dict[str, Any], keff_hat: f
         ep.solved = True
 
 
-def _run_episode(ep: InLoopEpisode, model: Any, tokenizer: Any, call_cap: int, max_new_tokens: int, keff_hat: float) -> InLoopEpisode:
+def _run_episode(ep: InLoopEpisode, model: Any, tokenizer: Any, call_cap: int, max_new_tokens: int, keff_hat: float, prompt_encoding: str = "implicit_visible_assignment") -> InLoopEpisode:
     while ep.status == "RUNNING":
         if ep.calls >= call_cap:
             ep.status = "CALL_CAP"
@@ -312,13 +399,13 @@ def _run_episode(ep: InLoopEpisode, model: Any, tokenizer: Any, call_cap: int, m
         if not live:
             _recover(ep, keff_hat)
             continue
-        prompt = _operator_prompt(_p1b_prompt_episode(ep), OPERATOR_VERSION)
+        prompt = _prompt_for_inloop_episode(ep, prompt_encoding)
         generation = _generate_batch(model, tokenizer, [prompt], max_new_tokens, OPERATOR_VERSION)[0]
         _apply_generation(ep, generation, keff_hat)
     return ep
 
 
-def _openai_chat_completion(base_url: str, model_name: str, prompt: str, max_new_tokens: int) -> dict[str, Any]:
+def _openai_chat_completion(base_url: str, model_name: str, prompt: str, max_new_tokens: int, guided_json: bool) -> dict[str, Any]:
     url = base_url.rstrip("/") + "/chat/completions"
     payload = {
         "model": model_name,
@@ -326,6 +413,8 @@ def _openai_chat_completion(base_url: str, model_name: str, prompt: str, max_new
         "temperature": 0,
         "max_tokens": max_new_tokens,
     }
+    if guided_json:
+        payload["structured_outputs"] = {"json": P1B_GUIDED_JSON_SCHEMA}
     data = json.dumps(payload).encode("utf-8")
     request = Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
     try:
@@ -347,10 +436,10 @@ def _openai_chat_completion(base_url: str, model_name: str, prompt: str, max_new
     }
 
 
-def _generate_prompts(prompts: list[str], backend: str, model: Any, tokenizer: Any, max_new_tokens: int, openai_base_url: str, openai_model: str) -> list[dict[str, Any]]:
+def _generate_prompts(prompts: list[str], backend: str, model: Any, tokenizer: Any, max_new_tokens: int, openai_base_url: str, openai_model: str, openai_guided_json: bool) -> list[dict[str, Any]]:
     if backend == "openai":
         with ThreadPoolExecutor(max_workers=max(1, len(prompts))) as pool:
-            return list(pool.map(lambda prompt: _openai_chat_completion(openai_base_url, openai_model, prompt, max_new_tokens), prompts))
+            return list(pool.map(lambda prompt: _openai_chat_completion(openai_base_url, openai_model, prompt, max_new_tokens, openai_guided_json), prompts))
     return _generate_batch(model, tokenizer, prompts, max_new_tokens, OPERATOR_VERSION)
 
 
@@ -371,7 +460,7 @@ def _advance_without_generation(ep: InLoopEpisode, call_cap: int, keff_hat: floa
     return changed
 
 
-def _run_episodes_batched(episodes: list[InLoopEpisode], backend: str, model: Any, tokenizer: Any, call_cap: int, max_new_tokens: int, keff_hat: float, batch_size: int, openai_base_url: str, openai_model: str) -> list[InLoopEpisode]:
+def _run_episodes_batched(episodes: list[InLoopEpisode], backend: str, model: Any, tokenizer: Any, call_cap: int, max_new_tokens: int, keff_hat: float, batch_size: int, openai_base_url: str, openai_model: str, openai_guided_json: bool, prompt_encoding: str) -> list[InLoopEpisode]:
     while True:
         for ep in episodes:
             _advance_without_generation(ep, call_cap, keff_hat)
@@ -379,8 +468,8 @@ def _run_episodes_batched(episodes: list[InLoopEpisode], backend: str, model: An
         if not active:
             return episodes
         batch = active[:batch_size]
-        prompts = [_operator_prompt(_p1b_prompt_episode(ep), OPERATOR_VERSION) for ep in batch]
-        generations = _generate_prompts(prompts, backend, model, tokenizer, max_new_tokens, openai_base_url, openai_model)
+        prompts = [_prompt_for_inloop_episode(ep, prompt_encoding) for ep in batch]
+        generations = _generate_prompts(prompts, backend, model, tokenizer, max_new_tokens, openai_base_url, openai_model, openai_guided_json)
         for ep, generation in zip(batch, generations):
             _apply_generation(ep, generation, keff_hat)
 
@@ -455,7 +544,7 @@ def _build_result_payload(base_payload: dict[str, Any], rows: list[dict[str, Any
     }
 
 
-def run(preflight_only: bool, smoke: bool, output_path: Path, n_per_cell: int, call_cap: int, max_budget_calls: int, max_new_tokens: int, device: str, batch_size: int, shard_index: int | None = None, num_shards: int = 1, backend: str = "transformers", openai_base_url: str = DEFAULT_OPENAI_BASE_URL, openai_model: str = DEFAULT_OPENAI_MODEL) -> dict[str, Any]:
+def run(preflight_only: bool, smoke: bool, output_path: Path, n_per_cell: int, call_cap: int, max_budget_calls: int, max_new_tokens: int, device: str, batch_size: int, shard_index: int | None = None, num_shards: int = 1, backend: str = "transformers", openai_base_url: str = DEFAULT_OPENAI_BASE_URL, openai_model: str = DEFAULT_OPENAI_MODEL, openai_guided_json: bool = False, prompt_encoding: str = "implicit_visible_assignment") -> dict[str, Any]:
     depths = SMOKE_DEPTHS if smoke else CAPACITY_DEPTHS
     d_values = SMOKE_D_VALUES if smoke else CAPACITY_D_VALUES
     arms = ("cbj_bounded",)
@@ -471,7 +560,8 @@ def run(preflight_only: bool, smoke: bool, output_path: Path, n_per_cell: int, c
         "generation_config": {
             "model_id": MODEL_ID,
             "operator_version": OPERATOR_VERSION,
-            "prompt_contract": PROMPT_CONTRACT,
+            "prompt_contract": _prompt_contract(prompt_encoding),
+            "prompt_encoding": prompt_encoding,
             "thinking_budget_requested": THINKING_BUDGET_REQUESTED,
             "answer_token_budget_requested": ANSWER_TOKEN_BUDGET_REQUESTED,
             "b_value": B_VALUE,
@@ -485,6 +575,7 @@ def run(preflight_only: bool, smoke: bool, output_path: Path, n_per_cell: int, c
             "backend": backend,
             "openai_base_url": openai_base_url if backend == "openai" else None,
             "openai_model": openai_model if backend == "openai" else None,
+            "openai_guided_json": openai_guided_json if backend == "openai" else None,
             "smoke": smoke,
             "shard_index": shard_index,
             "num_shards": num_shards,
@@ -526,7 +617,7 @@ def run(preflight_only: bool, smoke: bool, output_path: Path, n_per_cell: int, c
                 domains=_initial_domains(row),
             )
             episodes.append(ep)
-        episodes = _run_episodes_batched(episodes, backend, model, tokenizer, call_cap, max_new_tokens, keff_hat, batch_size, openai_base_url, openai_model)
+        episodes = _run_episodes_batched(episodes, backend, model, tokenizer, call_cap, max_new_tokens, keff_hat, batch_size, openai_base_url, openai_model, openai_guided_json, prompt_encoding)
     finally:
         if model is not None:
             del model
@@ -567,7 +658,7 @@ def _merge_shards(shard_paths: list[Path], output_path: Path) -> dict[str, Any]:
     return merged
 
 
-def _launch_shards(num_shards: int, smoke: bool, output_dir: Path, n_per_cell: int, call_cap: int, max_budget_calls: int, max_new_tokens: int, batch_size: int, backend: str, openai_base_url: str, openai_model: str) -> dict[str, Any]:
+def _launch_shards(num_shards: int, smoke: bool, output_dir: Path, n_per_cell: int, call_cap: int, max_budget_calls: int, max_new_tokens: int, batch_size: int, backend: str, openai_base_url: str, openai_model: str, openai_guided_json: bool, prompt_encoding: str) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     shard_dir = output_dir / "shards"
     shard_dir.mkdir(parents=True, exist_ok=True)
@@ -589,11 +680,14 @@ def _launch_shards(num_shards: int, smoke: bool, output_dir: Path, n_per_cell: i
             "--backend", backend,
             "--openai-base-url", openai_base_url,
             "--openai-model", openai_model,
+            "--prompt-encoding", prompt_encoding,
             "--shard-index", str(shard_index),
             "--num-shards", str(num_shards),
         ]
         if smoke:
             cmd.append("--smoke")
+        if openai_guided_json:
+            cmd.append("--openai-guided-json")
         print(json.dumps({"event": "llm_inloop_launch_shard", "shard_index": shard_index, "device": device, "cmd": cmd}), flush=True)
         processes.append(subprocess.Popen(cmd, cwd=str(REPO_ROOT)))
     failures = []
@@ -621,15 +715,19 @@ def main() -> None:
     parser.add_argument("--backend", choices=("transformers", "openai"), default="transformers")
     parser.add_argument("--openai-base-url", default=DEFAULT_OPENAI_BASE_URL)
     parser.add_argument("--openai-model", default=DEFAULT_OPENAI_MODEL)
+    parser.add_argument("--openai-guided-json", action="store_true")
+    parser.add_argument("--prompt-encoding", choices=("implicit_visible_assignment", "explicit_domains"), default="implicit_visible_assignment")
+    parser.add_argument("--explicit-state-encoding", action="store_true", help="Alias for --prompt-encoding explicit_domains.")
     parser.add_argument("--shard-index", type=int, default=None)
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--launch-4gpu", action="store_true")
     parser.add_argument("--output-dir", default=str(RESULTS_ROOT))
     args = parser.parse_args()
+    prompt_encoding = "explicit_domains" if args.explicit_state_encoding else args.prompt_encoding
     if args.launch_4gpu:
-        _launch_shards(4, args.smoke, Path(args.output_dir), args.n_per_cell, args.call_cap, args.max_budget_calls, args.max_new_tokens, args.batch_size, args.backend, args.openai_base_url, args.openai_model)
+        _launch_shards(4, args.smoke, Path(args.output_dir), args.n_per_cell, args.call_cap, args.max_budget_calls, args.max_new_tokens, args.batch_size, args.backend, args.openai_base_url, args.openai_model, args.openai_guided_json, prompt_encoding)
         return
-    run(args.preflight_only, args.smoke, Path(args.output), args.n_per_cell, args.call_cap, args.max_budget_calls, args.max_new_tokens, args.device, args.batch_size, args.shard_index, args.num_shards, args.backend, args.openai_base_url, args.openai_model)
+    run(args.preflight_only, args.smoke, Path(args.output), args.n_per_cell, args.call_cap, args.max_budget_calls, args.max_new_tokens, args.device, args.batch_size, args.shard_index, args.num_shards, args.backend, args.openai_base_url, args.openai_model, args.openai_guided_json, prompt_encoding)
 
 
 if __name__ == "__main__":

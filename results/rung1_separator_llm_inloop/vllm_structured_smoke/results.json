@@ -1,0 +1,209 @@
+{
+  "capacity_scaling_inloop_b2": [
+    {
+      "b_bin": "2",
+      "call_cap_rate": 1.0,
+      "d_global_bin": "4",
+      "mean_inloop_propagation_recall": 1.0,
+      "mean_llm_calls": 1.0,
+      "n": 1,
+      "provenance": "llm_inloop_capacity_cell_v0",
+      "register_capacity_D": 6,
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run"
+    },
+    {
+      "b_bin": "2",
+      "call_cap_rate": 0.0,
+      "d_global_bin": "5",
+      "mean_inloop_propagation_recall": 0.6,
+      "mean_llm_calls": 1.0,
+      "n": 1,
+      "provenance": "llm_inloop_capacity_cell_v0",
+      "register_capacity_D": 6,
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run"
+    }
+  ],
+  "cost_ledger": [
+    {
+      "answer_token_budget_requested": 1500,
+      "call_cap_per_instance": 1,
+      "cost_ok": true,
+      "max_budget_calls": 4,
+      "max_llm_calls": 2,
+      "n_arms": 1,
+      "n_base_instances": 2,
+      "n_register_D_values": 1,
+      "n_shard_episode_specs": 2,
+      "provenance": "llm_inloop_budget_preflight_v0",
+      "source": "autonomous_stage_a_run",
+      "thinking_budget_requested": 2500
+    }
+  ],
+  "decoupling_inloop_corner": [],
+  "generated_at": "2026-06-11T09:05:04.016952+00:00",
+  "generation_config": {
+    "answer_token_budget_requested": 1500,
+    "b_value": 2,
+    "backend": "openai",
+    "batch_size": 2,
+    "call_cap_per_instance": 1,
+    "d_global_depths": [
+      4,
+      5
+    ],
+    "device": "cuda:0",
+    "max_new_tokens": 512,
+    "model_id": "Qwen/Qwen3.5-4B",
+    "n_per_cell_requested": 1,
+    "num_shards": 1,
+    "openai_base_url": "http://127.0.0.1:8001/v1",
+    "openai_guided_json": true,
+    "openai_model": "Qwen/Qwen3.5-4B",
+    "operator_version": "v1_1",
+    "prompt_contract": "p1b_bounded_structured_domain_propagation_capped_thinking_v1_1",
+    "provenance": "llm_inloop_config_v0",
+    "register_capacity_D_values": [
+      6
+    ],
+    "shard_index": null,
+    "smoke": true,
+    "source": "autonomous_stage_a_run",
+    "thinking_budget_requested": 2500
+  },
+  "inloop_step_metrics": [
+    {
+      "answer_finish_reason": "stop",
+      "answer_tokens": 480,
+      "arm": "cbj_bounded",
+      "b": 2,
+      "call_index": 1,
+      "chosen_color": 1,
+      "cursor_before": 0,
+      "d_global_reference": 4,
+      "finish_reason": "stop",
+      "generation_state": "valid",
+      "instance_id": "sep_s480_dg_m2_dl3_000001",
+      "live_domain_size": 4,
+      "llm_color": 1,
+      "n_accepted_prunes": 3,
+      "n_missed_prunes": 0,
+      "n_oracle_prunes": 3,
+      "n_rejected_prunes": 11,
+      "operator_repair": null,
+      "output_tokens": 480,
+      "propagation_recall": 1.0,
+      "provenance": "llm_inloop_step_v0",
+      "register_capacity_D": 6,
+      "source": "autonomous_stage_a_run",
+      "thinking_finish_reason": null,
+      "thinking_tokens": null,
+      "vertex": 12
+    },
+    {
+      "answer_finish_reason": "stop",
+      "answer_tokens": 445,
+      "arm": "cbj_bounded",
+      "b": 2,
+      "call_index": 1,
+      "chosen_color": 1,
+      "cursor_before": 0,
+      "d_global_reference": 5,
+      "finish_reason": "stop",
+      "generation_state": "valid",
+      "instance_id": "sep_s581_dg_m4_dl3_000001",
+      "live_domain_size": 4,
+      "llm_color": 1,
+      "n_accepted_prunes": 3,
+      "n_missed_prunes": 2,
+      "n_oracle_prunes": 5,
+      "n_rejected_prunes": 3,
+      "operator_repair": null,
+      "output_tokens": 445,
+      "propagation_recall": 0.6,
+      "provenance": "llm_inloop_step_v0",
+      "register_capacity_D": 6,
+      "source": "autonomous_stage_a_run",
+      "thinking_finish_reason": null,
+      "thinking_tokens": null,
+      "vertex": 0
+    }
+  ],
+  "inloop_vs_isolated_recall": [
+    {
+      "b_bin": "2",
+      "delta_inloop_minus_isolated": 0.2758064516129033,
+      "inloop_recall": 0.8,
+      "isolated_step1A_recall": 0.5241935483870968,
+      "n_inloop_opportunity_steps": 2,
+      "provenance": "llm_inloop_vs_isolated_recall_v0",
+      "source": "autonomous_stage_a_run"
+    }
+  ],
+  "instance_arm_metrics": [
+    {
+      "arm": "cbj_bounded",
+      "b": 2,
+      "call_cap_hit": true,
+      "cell_id": "dg_m2_dl3",
+      "d_global_reference": 4,
+      "generation_counts": {
+        "valid": 1
+      },
+      "instance_id": "sep_s480_dg_m2_dl3_000001",
+      "llm_calls": 1,
+      "mean_inloop_propagation_recall": 1.0,
+      "operator_error_counts": {},
+      "propagation_opportunity_steps": 1,
+      "provenance": "llm_inloop_instance_v0",
+      "register_capacity_D": 6,
+      "right_censored": true,
+      "solved_valid": false,
+      "source": "autonomous_stage_a_run",
+      "status": "CALL_CAP",
+      "total_retractions": 0
+    },
+    {
+      "arm": "cbj_bounded",
+      "b": 2,
+      "call_cap_hit": false,
+      "cell_id": "dg_m4_dl3",
+      "d_global_reference": 5,
+      "generation_counts": {
+        "valid": 1
+      },
+      "instance_id": "sep_s581_dg_m4_dl3_000001",
+      "llm_calls": 1,
+      "mean_inloop_propagation_recall": 0.6,
+      "operator_error_counts": {},
+      "propagation_opportunity_steps": 1,
+      "provenance": "llm_inloop_instance_v0",
+      "register_capacity_D": 6,
+      "right_censored": false,
+      "solved_valid": false,
+      "source": "autonomous_stage_a_run",
+      "status": "OVERFLOW_FAIL",
+      "total_retractions": 0
+    }
+  ],
+  "proxy_match_by_cell": [],
+  "schema_version": "rung1_separator_llm_inloop_v0",
+  "status": "RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE",
+  "verdict": [
+    {
+      "check": "budget_preflight",
+      "observed": "max_llm_calls=2; threshold=4",
+      "pass": true,
+      "provenance": "llm_inloop_verdict_v0",
+      "source": "autonomous_stage_a_run"
+    },
+    {
+      "check": "inloop_smoke_completed",
+      "observed": "n_instances=2; n_steps=2",
+      "pass": true,
+      "provenance": "llm_inloop_verdict_v0",
+      "source": "autonomous_stage_a_run"
+    }
+  ]
+}

@@ -1,199 +1,190 @@
 {
   "artifacts": [
     "results/experiment_items/item_063_rung1_separator_llm_inloop_smoke.json",
+    "experiments/rung1_separator_llm_inloop.py",
     "results/rung1_separator_llm_inloop/preflight_full_scope.json",
     "results/rung1_separator_llm_inloop/results.json",
-    "experiments/rung1_separator_llm_inloop.py",
     "results/rung1_separator_llm_inloop/sharded_smoke/results.json",
-    "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_00.json",
-    "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_01.json",
-    "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_02.json",
-    "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_03.json"
+    "results/rung1_separator_llm_inloop/vllm_smoke/results.json",
+    "results/rung1_separator_llm_inloop/vllm_structured_smoke/results.json",
+    "results/rung1_separator_llm_inloop/vllm_structured_grid_pilot/results.json",
+    "results/rung1_separator_llm_inloop/full_slice_vllm_structured/results.json",
+    "results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_00.json",
+    "results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_01.json",
+    "results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_02.json",
+    "results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_03.json",
+    "results/rung1_separator_llm_inloop/explicit_state_pilot/preflight.json",
+    "results/rung1_separator_llm_inloop/explicit_state_pilot/results.json",
+    "results/rung1_separator_llm_inloop/divergence_analysis/item063_inloop_divergence.json",
+    "results/rung1_separator_llm_inloop/divergence_analysis/plots/depth_recall_misselection.png",
+    "results/rung1_separator_llm_inloop/divergence_analysis/plots/step_index_recall_misselection.png",
+    "results/rung1_separator_llm_inloop/divergence_analysis/plots/prompt_chars_recall_misselection.png",
+    "results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/results.json",
+    "results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/shards/shard_00.json",
+    "results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/shards/shard_01.json",
+    "results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/shards/shard_02.json",
+    "results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/shards/shard_03.json"
   ],
   "code_added_used": [
     {
-      "change": "Implements rung1_separator_llm_inloop_v0 with budget preflight, real P1b v1.1 LLM calls inside the search loop, symbolic guarded propagation, symbolic conflict/recovery, and active-episode batching.",
+      "change": "Adds an OpenAI-compatible backend for the real LLM-in-loop runner and uses vLLM structured_outputs JSON constraints when --openai-guided-json is set.",
       "path": "experiments/rung1_separator_llm_inloop.py"
     }
   ],
   "commands": [
     {
-      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --preflight-only --n-per-cell 8 --call-cap 40 --max-budget-calls 300 --output results/rung1_separator_llm_inloop/preflight_full_scope.json",
-      "purpose": "Estimate the requested b2 capacity-scaling slice budget without launching Qwen calls."
+      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --smoke --backend openai --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B --n-per-cell 1 --call-cap 1 --max-budget-calls 4 --max-new-tokens 1500 --batch-size 2 --output results/rung1_separator_llm_inloop/vllm_smoke/results.json",
+      "purpose": "Initial vLLM OpenAI smoke without structured decoding; completed but both generations hit length and were parsable_invalid."
     },
     {
-      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --smoke --n-per-cell 1 --call-cap 1 --max-budget-calls 4 --max-new-tokens 4096 --device cuda:0 --batch-size 2 --output results/rung1_separator_llm_inloop/results.json",
-      "purpose": "Run a tiny batched real LLM-in-loop smoke after full requested slice exceeded the budget guard."
+      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --smoke --backend openai --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B --openai-guided-json --n-per-cell 1 --call-cap 1 --max-budget-calls 4 --max-new-tokens 512 --batch-size 2 --output results/rung1_separator_llm_inloop/vllm_structured_smoke/results.json",
+      "purpose": "Validate vLLM structured_outputs JSON decoding on the minimal in-loop smoke."
     },
     {
-      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --launch-4gpu --smoke --n-per-cell 1 --call-cap 1 --max-budget-calls 4 --max-new-tokens 4096 --batch-size 2 --output-dir results/rung1_separator_llm_inloop/sharded_smoke",
-      "purpose": "Validate 0-3 GPU sharded launch and merge path on the minimal in-loop smoke."
+      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --backend openai --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B --openai-guided-json --n-per-cell 1 --call-cap 1 --max-budget-calls 100 --max-new-tokens 1024 --batch-size 16 --output results/rung1_separator_llm_inloop/vllm_structured_grid_pilot/results.json",
+      "purpose": "Run a full-grid n=1 structured vLLM pilot across D/depth cells before the full requested slice."
     },
     {
-      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --launch-4gpu --n-per-cell 8 --call-cap 40 --max-budget-calls 6000 --max-new-tokens 4096 --batch-size 8 --output-dir results/rung1_separator_llm_inloop/full_slice_4gpu",
-      "purpose": "Recommended fastest full requested capacity slice command after sharded smoke passes; expected worst-case budget 5760 calls."
+      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --launch-4gpu --backend openai --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B --openai-guided-json --n-per-cell 8 --call-cap 40 --max-budget-calls 6000 --max-new-tokens 1024 --batch-size 16 --output-dir results/rung1_separator_llm_inloop/full_slice_vllm_structured",
+      "purpose": "Run the requested full b=2 capacity slice through the vLLM structured-output backend."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.item063_inloop_divergence",
+      "purpose": "Offline decomposition of the completed full-slice data into recall/misselection trends, in-loop K_eff proxy match, and failure binding diagnostics; no model calls."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --backend openai --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B --openai-guided-json --explicit-state-encoding --n-per-cell 2 --call-cap 4 --max-budget-calls 200 --max-new-tokens 1024 --batch-size 16 --output results/rung1_separator_llm_inloop/explicit_state_pilot/results.json",
+      "purpose": "Small discriminating re-pilot using explicit current remaining domains and eliminated colors; tests encoding gap versus true 4B ceiling."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --launch-4gpu --backend openai --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B --openai-guided-json --explicit-state-encoding --n-per-cell 8 --call-cap 40 --max-budget-calls 6000 --max-new-tokens 1024 --batch-size 16 --output-dir results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state",
+      "purpose": "Run the full b=2 explicit-state in-loop slice through vLLM after the small pilot showed state-encoding recovery."
     }
   ],
   "decision": {
     "gate_outcomes": [
       {
-        "gate": "full_capacity_slice_budget_preflight",
-        "number": "max_llm_calls=5760 > threshold=300",
-        "outcome": "STOP"
-      },
-      {
-        "gate": "batched_smoke_harness",
-        "number": "2 real in-loop Qwen calls; batch_size=2; rows=2; step_rows=2",
+        "gate": "vllm_endpoint_ready",
+        "number": "Qwen/Qwen3.5-4B served at http://127.0.0.1:8001/v1",
         "outcome": "PASS"
       },
       {
-        "gate": "inloop_vs_isolated_recall_smoke",
-        "number": "inloop_recall=0.8; isolated_recall=0.5241935483870968; n_opportunity_steps=2",
-        "outcome": "OBSERVED_NOT_DECISIVE"
+        "gate": "raw_openai_backend_smoke",
+        "number": "rows=2; steps=2; finish_reason=length for both; generation_state=parsable_invalid for both; inloop_recall=0.0",
+        "outcome": "FAIL_AS_EXPECTED"
       },
       {
-        "gate": "proxy_validated",
-        "number": "smoke only; no d* fit",
-        "outcome": "NOT_ESTABLISHED"
+        "gate": "structured_vllm_smoke",
+        "number": "rows=2; steps=2; valid=2; finish=stop=2; inloop_recall=0.8",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "structured_vllm_grid_pilot",
+        "number": "rows=18; steps=18; valid=18; finish=stop=18; inloop_recall=0.6777777777777778",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "structured_vllm_full_slice_execution",
+        "number": "rows=144; steps=1882; valid=1881; parsable_invalid=1; finish_stop=1881; finish_length=1; max_llm_calls=5760; threshold=6000",
+        "outcome": "PASS_WITH_ONE_LENGTH_CAPPED_STEP"
+      },
+      {
+        "gate": "inloop_vs_isolated_recall_full_slice",
+        "number": "inloop_recall=0.2141642333986129; isolated_step1A_recall=0.5241935483870968; delta=-0.31002931498848385; n_opportunity_steps=1833",
+        "outcome": "NEGATIVE_FOR_PROXY_SUPPORT"
       },
       {
         "gate": "capacity_scaling_holds_inloop",
-        "number": "only D=6 smoke",
+        "number": "full slice completed, but recall/solve behavior is low and censored; no positive capacity-scaling claim is supported",
         "outcome": "NOT_ESTABLISHED"
       },
       {
-        "gate": "ordering_holds_inloop",
-        "number": "decoupling corner not launched after budget gate",
-        "outcome": "NOT_RUN"
+        "gate": "inloop_divergence_depth_decomposition",
+        "number": "recall_vs_depth_slope=-0.01053177391570537; recall_vs_step_slope=-0.011583859246512621; value_misselection_vs_depth_slope=0.004490176210845684; value_misselection_rate=0.3793836344314559; slopes are descriptive/confounded and not the causal discriminator",
+        "outcome": "UNIFORM_FRAMING_GAP_CANDIDATE"
       },
       {
-        "gate": "sharded_smoke_launch_merge",
-        "number": "status=RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE; shards=[{'n_instances': 1, 'n_steps': 1, 'path': 'results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_00.json', 'status': 'RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE'}, {'n_instances': 1, 'n_steps': 1, 'path': 'results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_01.json', 'status': 'RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE'}, {'n_instances': 0, 'n_steps': 0, 'path': 'results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_02.json', 'status': 'RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE'}, {'n_instances': 0, 'n_steps': 0, 'path': 'results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_03.json', 'status': 'RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE'}]; n_rows=2; n_steps=2",
-        "outcome": "PASS"
+        "gate": "proxy_match_at_inloop_keff",
+        "number": "inloop_keff=3.8624292250738077; D=8 and D=10 solve curves are nonmonotone; D=10 predicted d*=4.995 but observed is left-censored below min depth with only depth 6 positive; law not established",
+        "outcome": "FAIL_OR_NONDECISIVE_AGAINST_CAPACITY_LAW"
+      },
+      {
+        "gate": "register_occupancy_at_collapse_proxy",
+        "number": "statuses: OVERFLOW_FAIL=86, CALL_CAP=22, NO_RECOVERY_TARGET=24, SOLVED=12; exact register occupancy history was not persisted; 46/144 episodes end without register-overflow status",
+        "outcome": "MIXED_NO_CLEAN_CAPACITY_BOUND_DSTAR"
+      },
+      {
+        "gate": "explicit_state_encoding_repilot",
+        "number": "n=36 episode specs; steps=84; valid=84; finish_stop=84; inloop_recall=0.4651360544217687 vs isolated=0.5241935483870968; value_misselection=0/84",
+        "outcome": "ENCODING_GAP_RECOVERS_OPERATOR_CHANNEL"
+      },
+      {
+        "gate": "explicit_state_full_slice_execution",
+        "number": "rows=144; steps=1844; valid=1843; parsable_invalid=1; finish_stop=1843; finish_length=1; inloop_recall=0.33798897162605296; value_misselection=0/1844; solved=10; call_cap=20",
+        "outcome": "PARTIAL_RECOVERY_OPERATOR_VALUE_SELECTION_FIXED"
+      },
+      {
+        "gate": "explicit_state_full_capacity_proxy",
+        "number": "explicit_full_keff=3.7828890286429866; D=8 and D=10 solve curves remain nonmonotone; D=10 predicted d*=5.073 but observed is left-censored below min depth with only depth 6 positive",
+        "outcome": "CAPACITY_LAW_NOT_ESTABLISHED"
       }
     ],
-    "next_step_routing": "Fastest current route is 4-GPU sharded batched transformers. Full requested slice is ready to launch with --launch-4gpu and max_budget_calls>=5760; vLLM would be faster only after installing/serving Qwen3.5 in the project environment.",
-    "outcome": "RUNG1_SEPARATOR_ITEM063_SHARDED_INLOOP_SMOKE_READY_FOR_FULL_SLICE",
+    "next_step_routing": "Do not run the decoupling corner yet. Treat explicit-state encoding as necessary for the operator channel, but diagnose why full-slice propagation recall falls to 0.338 and why D=8/D=10 solve curves are nonmonotone before making end-to-end capacity-law claims.",
+    "outcome": "RUNG1_SEPARATOR_ITEM063_FULL_EXPLICIT_PARTIAL_RECOVERY_NO_CAPACITY_LAW",
     "overall_pass": false
   },
-  "generated_at": "2026-06-11T08:10:07.378725+00:00",
+  "generated_at": "2026-06-11T15:12:56.744486+00:00",
   "honesty": {
-    "budget_guard": "The requested capacity slice was not launched because max_llm_calls=5760 exceeded the configured 300-call guard.",
-    "censoring_policy": "The d_global=4 smoke row hit call cap and is right-censored, not missing or a false solve.",
-    "does_not_establish": "This item does not validate the calibrated proxy, does not establish capacity scaling in-loop, and does not test CBJ/chronological/forward ordering. It only records a full-scope budget stop and a tiny real LLM-in-loop smoke proving the harness can call Qwen inside the search loop with corrected recall accounting.",
-    "full_slice_runtime_guard": "The full requested slice is still worst-case 5760 LLM calls. Run only with an explicit raised budget and expect a long wall-clock run unless a real Qwen3.5 vLLM endpoint is installed.",
-    "sharded_smoke_guard": "4-GPU sharded launch and merge path is validated on the minimal smoke only; it does not validate proxy/capacity/ordering.",
-    "smoke_scope_guard": "The smoke has only two LLM calls and two propagation-opportunity steps; it is not a statistical estimate.",
-    "vllm_guard": "vLLM was not importable in the project virtualenv; an unrelated vLLM server was present for another model, so this run used batched transformers on cuda:0."
+    "censoring_policy": "Rows that hit call_cap are right-censored, not solved and not missing.",
+    "decoupling_corner_policy": "Do not run the decoupling corner yet: the operator no longer picks eliminated colors, but full-slice propagation recall and capacity-law proxy are not strong enough to support a decoupling interpretation.",
+    "does_not_establish": "The full explicit-state slice fixes value-misselection at scale and improves recall over the original implicit full slice, but recall remains well below isolated P1b and below the small explicit pilot. Solve curves remain censored/nonmonotone, so the run does not establish an end-to-end capacity law.",
+    "full_explicit_state_result": "Full explicit-state b2 slice: recall=0.33798897162605296, isolated=0.5241935483870968, value_misselection=0/1844, solved=10/144, call_cap=20/144; D=8/D=10 solve curves are nonmonotone with only depth 6 positive.",
+    "full_slice_scope": "The full vLLM structured run covered b=2, register_capacity_D values [6, 8, 10], d_global depths [4, 5, 6, 7, 9, 10], n_per_cell=8, and one arm cbj_bounded, for 144 episode specs.",
+    "quality_guard": "The full run has one length-capped/parsable_invalid step out of 1882; all other generations are valid structured JSON. The conclusion is still negative for proxy transfer because in-loop recall is far below isolated recall.",
+    "retroactive_qualification": "The earlier b2 calibrated capacity positive used isolated recall 0.524, not real in-loop recall 0.214. It is therefore a symbolic-mechanism result, not yet an end-to-end LLM result; calibrated D-sweep and decoupling tables need in-loop K_eff treatment before being cited as LLM evidence.",
+    "structured_decoding_dependency": "The viable vLLM path required vLLM structured_outputs JSON constraints; the plain OpenAI-compatible chat request produced length-capped invalid JSON.",
+    "uniform_framing_gap_finding": "The original prompt forced the LLM to infer current domains from graph and assignments. Explicit remaining-domain/eliminated-color encoding recovered recall from 0.214 to 0.465 and removed value-misselection in a small re-pilot, so the correct diagnosis is in-loop state-encoding/framing gap, not demonstrated depth-context collapse."
   },
   "item_number": "063",
-  "name": "Rung-1 P1b real LLM-in-loop controlled smoke",
+  "key_result": "Full explicit-state b2 slice completed: explicit domains eliminated value-misselection at scale and improved recall over the implicit full slice, but recall only partially recovered and the d*/proxy capacity law is still not established.",
+  "name": "Rung-1 P1b real LLM-in-loop controlled slice with vLLM acceleration",
   "provenance": {
     "answer_token_budget_requested": 1500,
-    "fastest_backend_current": "4-GPU sharded batched transformers; vLLM unavailable in .venv and existing vLLM server serves a different model",
-    "full_scope_requested": {
-      "b": 2,
-      "budget_threshold": 300,
-      "call_cap": 40,
-      "d_global_depths": [
-        4,
-        5,
-        6,
-        7,
-        9,
-        10
-      ],
-      "launched": false,
-      "max_llm_calls": 5760,
-      "n_per_cell": 8,
-      "register_capacity_D_values": [
-        6,
-        8,
-        10
-      ]
-    },
+    "backend": "openai/vllm",
+    "divergence_analysis_artifact": "results/rung1_separator_llm_inloop/divergence_analysis/item063_inloop_divergence.json",
+    "divergence_analysis_status": "ITEM063_INLOOP_DIVERGENCE_UNIFORM_FRAMING_GAP_EXPLICIT_ENCODING_RECOVERS",
+    "explicit_state_full_artifact": "results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/results.json",
+    "explicit_state_full_prompt_contract": "p1b_bounded_structured_explicit_domain_state_v1_2",
+    "explicit_state_full_prompt_encoding": "explicit_domains",
+    "explicit_state_full_status": "RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE",
+    "explicit_state_pilot_artifact": "results/rung1_separator_llm_inloop/explicit_state_pilot/results.json",
+    "explicit_state_prompt_contract": "p1b_bounded_structured_explicit_domain_state_v1_2",
+    "full_explicit_inloop_keff": 3.7828890286429866,
+    "full_slice_artifact": "results/rung1_separator_llm_inloop/full_slice_vllm_structured/results.json",
+    "full_slice_status": "RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE",
     "model_id": "Qwen/Qwen3.5-4B",
+    "openai_base_url": "http://127.0.0.1:8001/v1",
     "operator_version": "v1_1",
     "prompt_contract": "p1b_bounded_structured_domain_propagation_capped_thinking_v1_1",
-    "recommended_full_slice_command": ".venv/bin/python -m experiments.rung1_separator_llm_inloop --launch-4gpu --n-per-cell 8 --call-cap 40 --max-budget-calls 6000 --max-new-tokens 4096 --batch-size 8 --output-dir results/rung1_separator_llm_inloop/full_slice_4gpu",
-    "sharded_smoke_artifact": "results/rung1_separator_llm_inloop/sharded_smoke/results.json",
-    "sharded_smoke_status": "RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE",
-    "smoke_scope_run": {
-      "b": 2,
-      "batch_size": 2,
-      "call_cap": 1,
-      "d_global_depths": [
-        4,
-        5
-      ],
-      "device": "cuda:0",
-      "max_llm_calls": 2,
-      "n_per_cell": 1,
-      "register_capacity_D_values": [
-        6
-      ]
-    },
     "source": "autonomous_stage_a_run",
-    "thinking_budget_requested": 2500,
-    "vllm_status": "not available in project .venv; an external vLLM server was present for a different model, so this run used batched transformers"
+    "structured_output_parameter": "structured_outputs={json: P1B_GUIDED_JSON_SCHEMA}",
+    "thinking_budget_requested": 2500
   },
-  "purpose": "Start the Layer-3 controlled-substrate LLM-in-the-loop test: real Qwen calls at visited search nodes with the validated P1b v1.1 propagation operator, symbolic conflict/recovery/register machinery, cost preflight for the requested capacity slice, and a tiny batched smoke run to verify the in-loop harness before any larger launch.",
+  "purpose": "Run the Layer-3 controlled-substrate P1b in-loop test with real Qwen3.5 calls at visited search nodes, symbolic guard/conflict/recovery/register machinery, and a vLLM OpenAI-compatible backend using structured JSON decoding.",
   "result_tables": {
-    "capacity_scaling_inloop_b2": {
-      "rows": [
-        {
-          "b_bin": "2",
-          "call_cap_rate": 1.0,
-          "d_global_bin": "4",
-          "mean_inloop_propagation_recall": 1.0,
-          "mean_llm_calls": 1.0,
-          "n": 1,
-          "provenance": "llm_inloop_capacity_cell_v0",
-          "register_capacity_D": 6,
-          "solve_rate": 0.0,
-          "source": "autonomous_stage_a_run"
-        },
-        {
-          "b_bin": "2",
-          "call_cap_rate": 0.0,
-          "d_global_bin": "5",
-          "mean_inloop_propagation_recall": 0.6,
-          "mean_llm_calls": 1.0,
-          "n": 1,
-          "provenance": "llm_inloop_capacity_cell_v0",
-          "register_capacity_D": 6,
-          "solve_rate": 0.0,
-          "source": "autonomous_stage_a_run"
-        }
-      ]
-    },
     "cost_ledger": {
       "rows": [
         {
-          "action": "not_launched",
+          "action": "launched_with_vllm_structured",
           "call_cap_per_instance": 40,
-          "cost_ok": false,
-          "max_budget_calls": 300,
+          "cost_ok": true,
+          "max_budget_calls": 6000,
           "max_llm_calls": 5760,
-          "n_arms": 1,
           "n_base_instances": 48,
           "n_register_D_values": 3,
-          "provenance": "item063_full_scope_budget_preflight",
+          "n_shard_episode_specs": 36,
+          "provenance": "llm_inloop_budget_preflight_v0",
           "scope": "requested_capacity_slice",
-          "source": "autonomous_stage_a_run"
-        },
-        {
-          "action": "launched",
-          "batch_size": 2,
-          "call_cap_per_instance": 1,
-          "cost_ok": true,
-          "max_budget_calls": 4,
-          "max_llm_calls": 2,
-          "n_arms": 1,
-          "n_base_instances": 2,
-          "n_register_D_values": 1,
-          "provenance": "item063_smoke_budget_preflight",
-          "scope": "batched_smoke",
           "source": "autonomous_stage_a_run"
         }
       ]
@@ -201,206 +192,451 @@
     "decoupling_inloop_corner": {
       "rows": []
     },
-    "inloop_instance_smoke": {
+    "divergence_decomposition_summary": {
       "rows": [
         {
-          "arm": "cbj_bounded",
-          "b": 2,
-          "call_cap_hit": true,
-          "cell_id": "dg_m2_dl3",
-          "d_global_reference": 4,
-          "instance_id": "sep_s480_dg_m2_dl3_000001",
-          "llm_calls": 1,
-          "mean_inloop_propagation_recall": 1.0,
-          "propagation_opportunity_steps": 1,
-          "provenance": "llm_inloop_instance_v0",
-          "register_capacity_D": 6,
-          "right_censored": true,
-          "solved_valid": false,
+          "artifact": "results/rung1_separator_llm_inloop/divergence_analysis/item063_inloop_divergence.json",
+          "explicit_state_full_recall": 0.33798897162605296,
+          "explicit_state_full_recall_delta_vs_implicit_full": 0.12382473822744006,
+          "explicit_state_full_recall_delta_vs_pilot": -0.12714708279571574,
+          "explicit_state_full_steps": 1844,
+          "explicit_state_full_value_misselection_rate": 0.0,
+          "explicit_state_pilot_recall": 0.4651360544217687,
+          "explicit_state_pilot_steps": 84,
+          "explicit_state_pilot_value_misselection_rate": 0.0,
+          "inloop_recalibrated_keff": 3.8624292250738077,
+          "inloop_recall": 0.2141642333986129,
+          "interpretation": "uniform_inloop_framing_gap_not_depth_context_bound",
+          "isolated_graded_keff": 3.6653935185185187,
+          "isolated_step1A_recall": 0.5241935483870968,
+          "missed_prune_rate": 0.7935933399692335,
+          "missed_prunes": 8770,
+          "n_opportunity_steps": 1833,
+          "n_steps": 1882,
+          "oracle_prunes": 11051,
+          "provenance": "item063_inloop_divergence_summary_v0",
+          "recall_vs_depth_slope_ols": -0.01053177391570537,
+          "recall_vs_prompt_chars_slope_ols": -0.002703676905762931,
+          "recall_vs_step_index_slope_ols": -0.011583859246512621,
           "source": "autonomous_stage_a_run",
-          "status": "CALL_CAP"
-        },
-        {
-          "arm": "cbj_bounded",
-          "b": 2,
-          "call_cap_hit": false,
-          "cell_id": "dg_m4_dl3",
-          "d_global_reference": 5,
-          "instance_id": "sep_s581_dg_m4_dl3_000001",
-          "llm_calls": 1,
-          "mean_inloop_propagation_recall": 0.6,
-          "propagation_opportunity_steps": 1,
-          "provenance": "llm_inloop_instance_v0",
-          "register_capacity_D": 6,
-          "right_censored": false,
-          "solved_valid": false,
-          "source": "autonomous_stage_a_run",
-          "status": "OVERFLOW_FAIL"
+          "status": "ITEM063_INLOOP_DIVERGENCE_UNIFORM_FRAMING_GAP_FULL_EXPLICIT_PARTIAL_RECOVERY_NO_CAPACITY_LAW",
+          "value_misselection_rate": 0.3793836344314559,
+          "value_misselection_steps": 714,
+          "value_misselection_vs_depth_slope_ols": 0.004490176210845684
         }
       ]
     },
-    "inloop_vs_isolated_recall": {
+    "explicit_full_depth_summary": {
       "rows": [
         {
+          "accepted_oracle_prunes": 955,
+          "call_cap_hit_rows": 0,
+          "d_global_reference": 4,
+          "missed_prunes": 751,
+          "n_instances": 24,
+          "n_steps": 408,
+          "oracle_prunes": 1706,
+          "provenance": "item063_full_explicit_state_depth_summary_v0",
+          "recall": 0.55978898007034,
+          "solved_valid_rows": 0,
+          "source": "autonomous_stage_a_run",
+          "status_counts": {
+            "NO_RECOVERY_TARGET": 24
+          }
+        },
+        {
+          "accepted_oracle_prunes": 760,
+          "call_cap_hit_rows": 10,
+          "d_global_reference": 5,
+          "missed_prunes": 2671,
+          "n_instances": 24,
+          "n_steps": 612,
+          "oracle_prunes": 3431,
+          "provenance": "item063_full_explicit_state_depth_summary_v0",
+          "recall": 0.2215097639172253,
+          "solved_valid_rows": 0,
+          "source": "autonomous_stage_a_run",
+          "status_counts": {
+            "CALL_CAP": 10,
+            "OVERFLOW_FAIL": 14
+          }
+        },
+        {
+          "accepted_oracle_prunes": 543,
+          "call_cap_hit_rows": 2,
+          "d_global_reference": 6,
+          "missed_prunes": 1829,
+          "n_instances": 24,
+          "n_steps": 440,
+          "oracle_prunes": 2372,
+          "provenance": "item063_full_explicit_state_depth_summary_v0",
+          "recall": 0.22892074198988197,
+          "solved_valid_rows": 10,
+          "source": "autonomous_stage_a_run",
+          "status_counts": {
+            "CALL_CAP": 2,
+            "NO_RECOVERY_TARGET": 1,
+            "OVERFLOW_FAIL": 11,
+            "SOLVED": 10
+          }
+        },
+        {
+          "accepted_oracle_prunes": 419,
+          "call_cap_hit_rows": 8,
+          "d_global_reference": 7,
+          "missed_prunes": 1348,
+          "n_instances": 24,
+          "n_steps": 336,
+          "oracle_prunes": 1767,
+          "provenance": "item063_full_explicit_state_depth_summary_v0",
+          "recall": 0.23712507074136954,
+          "solved_valid_rows": 0,
+          "source": "autonomous_stage_a_run",
+          "status_counts": {
+            "CALL_CAP": 8,
+            "OVERFLOW_FAIL": 16
+          }
+        },
+        {
+          "accepted_oracle_prunes": 76,
+          "call_cap_hit_rows": 0,
+          "d_global_reference": 9,
+          "missed_prunes": 50,
+          "n_instances": 24,
+          "n_steps": 24,
+          "oracle_prunes": 126,
+          "provenance": "item063_full_explicit_state_depth_summary_v0",
+          "recall": 0.6031746031746031,
+          "solved_valid_rows": 0,
+          "source": "autonomous_stage_a_run",
+          "status_counts": {
+            "OVERFLOW_FAIL": 24
+          }
+        },
+        {
+          "accepted_oracle_prunes": 80,
+          "call_cap_hit_rows": 0,
+          "d_global_reference": 10,
+          "missed_prunes": 46,
+          "n_instances": 24,
+          "n_steps": 24,
+          "oracle_prunes": 126,
+          "provenance": "item063_full_explicit_state_depth_summary_v0",
+          "recall": 0.6349206349206349,
+          "solved_valid_rows": 0,
+          "source": "autonomous_stage_a_run",
+          "status_counts": {
+            "OVERFLOW_FAIL": 24
+          }
+        }
+      ]
+    },
+    "explicit_full_proxy_match_by_cell": {
+      "rows": [
+        {
+          "D_eff": 2.75,
           "b_bin": "2",
-          "delta_inloop_minus_isolated": 0.2758064516129033,
-          "inloop_recall": 0.8,
+          "censoring": "left_censored_below_min_depth",
+          "dstar_observed": null,
+          "dstar_predicted_Deff_over_lnK": 2.0669107705324454,
+          "dstar_predicted_raw_D_over_lnK": 4.509623499343517,
+          "dstar_residual_vs_Deff_prediction": null,
+          "dstar_upper_bound": 4.0,
+          "footprint_b_from_p1b_v1": 3.25,
+          "inloop_recalibrated_keff": 3.7828890286429866,
+          "interpretation_guard": "monotone/interpolatable",
+          "law_match_at_inloop_keff": true,
+          "nonmonotone_solve_curve": false,
+          "provenance": "item063_proxy_match_by_cell_inloop_keff_v0",
+          "register_capacity_D": 6,
+          "source": "autonomous_stage_a_run",
+          "supporting_solve_rates": {
+            "10": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0,
+            "7": 0.0,
+            "9": 0.0
+          }
+        },
+        {
+          "D_eff": 4.75,
+          "b_bin": "2",
+          "censoring": "left_censored_below_min_depth",
+          "dstar_observed": null,
+          "dstar_predicted_Deff_over_lnK": 3.570118603646951,
+          "dstar_predicted_raw_D_over_lnK": 6.012831332458023,
+          "dstar_residual_vs_Deff_prediction": null,
+          "dstar_upper_bound": 4.0,
+          "footprint_b_from_p1b_v1": 3.25,
+          "inloop_recalibrated_keff": 3.7828890286429866,
+          "interpretation_guard": "nonmonotone solve curves make capacity-law matching invalid without a monotone collapse front",
+          "law_match_at_inloop_keff": false,
+          "nonmonotone_solve_curve": true,
+          "provenance": "item063_proxy_match_by_cell_inloop_keff_v0",
+          "register_capacity_D": 8,
+          "source": "autonomous_stage_a_run",
+          "supporting_solve_rates": {
+            "10": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.625,
+            "7": 0.0,
+            "9": 0.0
+          }
+        },
+        {
+          "D_eff": 6.75,
+          "b_bin": "2",
+          "censoring": "left_censored_below_min_depth",
+          "dstar_observed": null,
+          "dstar_predicted_Deff_over_lnK": 5.073326436761457,
+          "dstar_predicted_raw_D_over_lnK": 7.516039165572528,
+          "dstar_residual_vs_Deff_prediction": null,
+          "dstar_upper_bound": 4.0,
+          "footprint_b_from_p1b_v1": 3.25,
+          "inloop_recalibrated_keff": 3.7828890286429866,
+          "interpretation_guard": "nonmonotone solve curves make capacity-law matching invalid without a monotone collapse front",
+          "law_match_at_inloop_keff": false,
+          "nonmonotone_solve_curve": true,
+          "provenance": "item063_proxy_match_by_cell_inloop_keff_v0",
+          "register_capacity_D": 10,
+          "source": "autonomous_stage_a_run",
+          "supporting_solve_rates": {
+            "10": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.625,
+            "7": 0.0,
+            "9": 0.0
+          }
+        }
+      ]
+    },
+    "explicit_state_pilot_summary": {
+      "rows": [
+        {
+          "artifact": "results/rung1_separator_llm_inloop/explicit_state_pilot/results.json",
+          "call_cap_hit_rows": 16,
+          "delta_inloop_minus_isolated": -0.059057493965328056,
+          "finish_length": 0,
+          "finish_stop": 84,
+          "inloop_recall": 0.4651360544217687,
           "isolated_step1A_recall": 0.5241935483870968,
-          "n_inloop_opportunity_steps": 2,
-          "provenance": "llm_inloop_vs_isolated_recall_v0",
-          "scope": "batched_smoke_only",
-          "source": "autonomous_stage_a_run"
+          "n_instances": 36,
+          "n_steps": 84,
+          "outcome": "encoding_gap_recovered_operator_channel_small_slice",
+          "prompt_contract": "p1b_bounded_structured_explicit_domain_state_v1_2",
+          "prompt_encoding": "explicit_domains",
+          "provenance": "item063_explicit_state_pilot_summary_v0",
+          "solved_valid_rows": 0,
+          "source": "autonomous_stage_a_run",
+          "status": "RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE",
+          "valid_generations": 84,
+          "value_misselection_rate": 0.0,
+          "value_misselection_steps": 0
+        }
+      ]
+    },
+    "full_explicit_state_summary": {
+      "rows": [
+        {
+          "accepted_oracle_prunes": 2833,
+          "artifact": "results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/results.json",
+          "call_cap_hit_rows": 20,
+          "delta_inloop_minus_isolated": -0.1862045767610438,
+          "delta_vs_explicit_pilot_recall": -0.12714708279571574,
+          "delta_vs_implicit_full_recall": 0.12382473822744006,
+          "finish_length": 1,
+          "finish_stop": 1843,
+          "inloop_recall": 0.33798897162605296,
+          "isolated_step1A_recall": 0.5241935483870968,
+          "max_answer_tokens": 1024,
+          "missed_prunes": 6695,
+          "n_inloop_opportunity_steps": 1751,
+          "n_instances": 144,
+          "n_steps": 1844,
+          "operator_repair_format_failure": 1,
+          "operator_repair_none": 1843,
+          "operator_repair_value_misselection": 0,
+          "oracle_prunes": 9528,
+          "outcome": "operator_value_misselection_fixed_but_recall_only_partially_recovers_and_capacity_law_not_established",
+          "parsable_invalid_generations": 1,
+          "prompt_contract": "p1b_bounded_structured_explicit_domain_state_v1_2",
+          "prompt_encoding": "explicit_domains",
+          "provenance": "item063_full_explicit_state_summary_v0",
+          "solved_valid_rows": 10,
+          "source": "autonomous_stage_a_run",
+          "status": "RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE",
+          "status_counts": {
+            "CALL_CAP": 20,
+            "NO_RECOVERY_TARGET": 25,
+            "OVERFLOW_FAIL": 89,
+            "SOLVED": 10
+          },
+          "valid_generations": 1843
+        }
+      ]
+    },
+    "full_slice_summary": {
+      "rows": [
+        {
+          "artifact": "results/rung1_separator_llm_inloop/full_slice_vllm_structured/results.json",
+          "call_cap_hit_rows": 22,
+          "delta_inloop_minus_isolated": -0.31002931498848385,
+          "finish_length": 1,
+          "finish_stop": 1881,
+          "inloop_recall": 0.2141642333986129,
+          "isolated_step1A_recall": 0.5241935483870968,
+          "max_answer_tokens": 1024,
+          "n_inloop_opportunity_steps": 1833,
+          "n_instances": 144,
+          "n_steps": 1882,
+          "operator_repair_format_failure": 1,
+          "operator_repair_none": 1167,
+          "operator_repair_value_misselection": 714,
+          "parsable_invalid_generations": 1,
+          "provenance": "item063_vllm_structured_full_slice_summary",
+          "solved_valid_rows": 12,
+          "source": "autonomous_stage_a_run",
+          "status": "RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE",
+          "valid_generations": 1881
         }
       ]
     },
     "proxy_match_by_cell": {
-      "rows": []
-    },
-    "sharded_smoke_capacity_b2": {
       "rows": [
         {
+          "D_eff": 2.75,
           "b_bin": "2",
-          "call_cap_rate": 1.0,
-          "d_global_bin": "4",
-          "mean_inloop_propagation_recall": 0.0,
-          "mean_llm_calls": 1.0,
-          "n": 1,
-          "provenance": "llm_inloop_capacity_cell_v0",
+          "censoring": "left_censored_below_min_depth",
+          "dstar_observed": null,
+          "dstar_predicted_Deff_over_lnK": 2.0350828774205243,
+          "dstar_upper_bound": 4.0,
+          "inloop_recalibrated_keff": 3.8624292250738077,
+          "law_match_at_inloop_keff": true,
+          "nonmonotone_solve_curve": false,
+          "provenance": "item063_proxy_match_by_cell_inloop_keff_v0",
           "register_capacity_D": 6,
-          "solve_rate": 0.0,
-          "source": "autonomous_stage_a_run"
+          "supporting_solve_rates": {
+            "10": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0,
+            "7": 0.0,
+            "9": 0.0
+          }
         },
         {
+          "D_eff": 4.75,
           "b_bin": "2",
-          "call_cap_rate": 0.0,
-          "d_global_bin": "5",
-          "mean_inloop_propagation_recall": 0.6,
-          "mean_llm_calls": 1.0,
-          "n": 1,
-          "provenance": "llm_inloop_capacity_cell_v0",
-          "register_capacity_D": 6,
-          "solve_rate": 0.0,
-          "source": "autonomous_stage_a_run"
-        }
-      ]
-    },
-    "sharded_smoke_cost_ledger": {
-      "rows": [
+          "censoring": "left_censored_below_min_depth",
+          "dstar_observed": null,
+          "dstar_predicted_Deff_over_lnK": 3.515143151908178,
+          "dstar_upper_bound": 4.0,
+          "inloop_recalibrated_keff": 3.8624292250738077,
+          "interpretation_guard": "nonmonotone solve curve invalidates clean capacity-law match",
+          "law_match_at_inloop_keff": false,
+          "nonmonotone_solve_curve": true,
+          "provenance": "item063_proxy_match_by_cell_inloop_keff_v0",
+          "register_capacity_D": 8,
+          "supporting_solve_rates": {
+            "10": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.75,
+            "7": 0.0,
+            "9": 0.0
+          }
+        },
         {
-          "answer_token_budget_requested": 1500,
-          "call_cap_per_instance": 1,
-          "cost_ok": true,
-          "max_budget_calls": 4,
-          "max_llm_calls": 2,
-          "n_arms": 1,
-          "n_base_instances": 2,
-          "n_register_D_values": 1,
-          "n_shard_episode_specs": 1,
-          "provenance": "llm_inloop_budget_preflight_v0",
-          "source": "autonomous_stage_a_run",
-          "thinking_budget_requested": 2500
-        }
-      ]
-    },
-    "sharded_smoke_inloop_vs_isolated_recall": {
-      "rows": [
-        {
+          "D_eff": 6.75,
           "b_bin": "2",
-          "delta_inloop_minus_isolated": -0.22419354838709676,
-          "inloop_recall": 0.3,
-          "isolated_step1A_recall": 0.5241935483870968,
-          "n_inloop_opportunity_steps": 2,
-          "provenance": "llm_inloop_vs_isolated_recall_v0",
-          "source": "autonomous_stage_a_run"
+          "censoring": "left_censored_below_min_depth",
+          "dstar_observed": null,
+          "dstar_predicted_Deff_over_lnK": 4.995203426395832,
+          "dstar_upper_bound": 4.0,
+          "inloop_recalibrated_keff": 3.8624292250738077,
+          "interpretation_guard": "nonmonotone solve curve invalidates clean capacity-law match; D=10 prediction also exceeds left-censored upper bound",
+          "law_match_at_inloop_keff": false,
+          "nonmonotone_solve_curve": true,
+          "provenance": "item063_proxy_match_by_cell_inloop_keff_v0",
+          "register_capacity_D": 10,
+          "supporting_solve_rates": {
+            "10": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.75,
+            "7": 0.0,
+            "9": 0.0
+          }
         }
       ]
     },
-    "sharded_smoke_shard_summaries": {
+    "shard_summaries": {
       "rows": [
         {
-          "n_instances": 1,
-          "n_steps": 1,
-          "path": "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_00.json",
-          "status": "RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE"
+          "n_instances": 36,
+          "n_steps": 456,
+          "path": "results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_00.json",
+          "status": "RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE"
         },
         {
-          "n_instances": 1,
-          "n_steps": 1,
-          "path": "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_01.json",
-          "status": "RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE"
+          "n_instances": 36,
+          "n_steps": 516,
+          "path": "results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_01.json",
+          "status": "RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE"
         },
         {
-          "n_instances": 0,
-          "n_steps": 0,
-          "path": "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_02.json",
-          "status": "RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE"
+          "n_instances": 36,
+          "n_steps": 455,
+          "path": "results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_02.json",
+          "status": "RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE"
         },
         {
-          "n_instances": 0,
-          "n_steps": 0,
-          "path": "results/rung1_separator_llm_inloop/sharded_smoke/shards/shard_03.json",
-          "status": "RUNG1_SEPARATOR_LLM_INLOOP_SMOKE_COMPLETE"
+          "n_instances": 36,
+          "n_steps": 455,
+          "path": "results/rung1_separator_llm_inloop/full_slice_vllm_structured/shards/shard_03.json",
+          "status": "RUNG1_SEPARATOR_LLM_INLOOP_CAPACITY_SLICE_COMPLETE"
         }
       ]
     },
-    "sharded_smoke_verdict": {
+    "vllm_smoke_summary": {
       "rows": [
         {
-          "check": "budget_preflight",
-          "observed": "max_llm_calls=2; threshold=4",
-          "pass": true,
-          "provenance": "llm_inloop_verdict_v0",
-          "source": "autonomous_stage_a_run"
+          "artifact": "results/rung1_separator_llm_inloop/vllm_smoke/results.json",
+          "finish_length": 2,
+          "inloop_recall": 0.0,
+          "outcome": "negative_smoke",
+          "parsable_invalid_generations": 2,
+          "rows": 2,
+          "scope": "plain_openai_smoke",
+          "steps": 2,
+          "valid_generations": 0
         },
         {
-          "check": "inloop_smoke_completed",
-          "observed": "n_instances=2; n_steps=2",
-          "pass": true,
-          "provenance": "llm_inloop_verdict_v0",
-          "source": "autonomous_stage_a_run"
-        }
-      ]
-    },
-    "verdict": {
-      "rows": [
-        {
-          "check": "full_capacity_slice_budget_preflight",
-          "observed": "max_llm_calls=5760; threshold=300",
-          "pass": false,
-          "provenance": "item063_verdict",
-          "source": "autonomous_stage_a_run"
+          "artifact": "results/rung1_separator_llm_inloop/vllm_structured_smoke/results.json",
+          "finish_stop": 2,
+          "inloop_recall": 0.8,
+          "outcome": "parseability_pass",
+          "rows": 2,
+          "scope": "structured_smoke",
+          "steps": 2,
+          "valid_generations": 2
         },
         {
-          "check": "batched_smoke_completed",
-          "observed": "n_instances=2; n_steps=2; batch_size=2; corrected_recall_accounting=True",
-          "pass": true,
-          "provenance": "item063_verdict",
-          "source": "autonomous_stage_a_run"
-        },
-        {
-          "check": "proxy_validated",
-          "observed": "not enough end-to-end rows; smoke only",
-          "pass": false,
-          "provenance": "item063_verdict",
-          "source": "autonomous_stage_a_run"
-        },
-        {
-          "check": "capacity_scaling_holds_inloop",
-          "observed": "not tested; only D=6 smoke",
-          "pass": false,
-          "provenance": "item063_verdict",
-          "source": "autonomous_stage_a_run"
-        },
-        {
-          "check": "ordering_holds_inloop",
-          "observed": "not run; decoupling corner skipped after capacity budget gate",
-          "pass": false,
-          "provenance": "item063_verdict",
-          "source": "autonomous_stage_a_run"
+          "artifact": "results/rung1_separator_llm_inloop/vllm_structured_grid_pilot/results.json",
+          "finish_stop": 18,
+          "inloop_recall": 0.6777777777777778,
+          "outcome": "pilot_pass",
+          "rows": 18,
+          "scope": "structured_grid_pilot",
+          "steps": 18,
+          "valid_generations": 18
         }
       ]
     }
   },
   "schema_version": "log_item_contract_v1",
-  "status": "RUNG1_SEPARATOR_ITEM063_SHARDED_INLOOP_SMOKE_READY_FOR_FULL_SLICE"
+  "status": "RUNG1_SEPARATOR_ITEM063_FULL_EXPLICIT_PARTIAL_RECOVERY_NO_CAPACITY_LAW"
 }
