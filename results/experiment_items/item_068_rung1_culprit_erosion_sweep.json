@@ -1,0 +1,108 @@
+{
+  "item_number": "068",
+  "schema_version": "log_item_contract_v1",
+  "name": "Rung-1 multi-agent wrong-culprit erosion sweep and wrong-commitment closure",
+  "generated_at": "2026-06-12T14:55:00.000000+00:00",
+  "purpose": "Run the controlled no-LLM multi-agent wrong-culprit erosion sweep for CBJ decoupling and a supporting single-agent wrong-commitment closure against the real 4B failure mix.",
+  "provenance": {
+    "schema_version": "rung1_culprit_erosion_sweep_v0",
+    "source": "autonomous_stage_a_run",
+    "result_artifact": "results/rung1_culprit_erosion_sweep/results.json",
+    "input_artifact": "results/rung1_paired_register_requirement/results.json"
+  },
+  "artifacts": [
+    "results/experiment_items/item_068_rung1_culprit_erosion_sweep.json",
+    "analysis/rung1_culprit_erosion_sweep.py",
+    "results/rung1_culprit_erosion_sweep/results.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/rung1_culprit_erosion_sweep.py",
+      "change": "Adds the controlled symbolic wrong-culprit erosion sweep and wrong-commitment closure emitting rung1_culprit_erosion_sweep_v0."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m analysis.rung1_culprit_erosion_sweep --output results/rung1_culprit_erosion_sweep/results.json --n-per-cell 12",
+      "purpose": "Run Piece 1 wrong-culprit erosion over rho_culprit={0,0.1,0.25,0.5,0.75,1.0} and Piece 2 wrong-commitment closure."
+    }
+  ],
+  "decision": {
+    "outcome": "RUNG1_CULPRIT_EROSION_SWEEP_COMPLETE",
+    "overall_pass": false,
+    "headline": {
+      "determination": "multi_agent_wrong_culprit_erosion_underpowered",
+      "pieceB1_verdict": "underpowered",
+      "pieceB2_reproduces_4b_corruption": false,
+      "single_next_move": "Increase n/depth span or strengthen the wrong-culprit instrument before real-LLM placement."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "pieceB1_clean_cbj_decoupling_anchor",
+        "outcome": "ANCHOR_NOT_IN_EXPECTED_DIRECTION_UNDER_CURRENT_COMM_PER_EVENT_METRIC",
+        "number": "b2 rho=0 cbj_slope=2.0076628352490418 CI=[1.931227277014562,2.0840983934835213]; chronological_slope=0.11148393897868451 CI=[0.043630274597811144,0.1793376033595579]"
+      },
+      {
+        "gate": "pieceB1_wrong_culprit_erosion",
+        "outcome": "UNDERPOWERED_OR_INSTRUMENT_MISMATCH",
+        "number": "b2 cbj slope decreases from 2.0077 at rho=0 to 1.0502 at rho=1.0; never statistically indistinguishable from chronological; b4 decreases from 1.8865 to 0.8232, also not indistinguishable"
+      },
+      {
+        "gate": "pieceB2_wrong_commitment_4b_match",
+        "outcome": "DOES_NOT_REPRODUCE_4B_CORRUPTION",
+        "number": "best rho_commit=0.25; mix={SOLVED:176, OVERFLOW_FAIL:123}; rates={SOLVED:0.5886287625418061, OVERFLOW_FAIL:0.411371237458194}; l1_distance_to_4b_stage1_mix=0.4013377926421405; NO_RECOVERY not reproduced"
+      }
+    ],
+    "next_step_routing": "Do not claim multi-agent erosion positive from this instrument. The current recovery-comm-per-event metric/instrument fails the expected clean anchor and produces decreasing slopes with wrong culprits. Next move is to inspect the comm observable against the prior symbolic-arc double-dissociation tables and strengthen the wrong-culprit instrument before real-LLM placement."
+  },
+  "result_tables": {
+    "pieceB1_erosion_curve_b2": {
+      "rows": [
+        {"rho_culprit": 0.0, "cbj_slope": 2.0076628352490418, "cbj_ci95": [1.931227277014562, 2.0840983934835213], "chronological_slope": 0.11148393897868451, "chronological_ci95": [0.043630274597811144, 0.1793376033595579], "n_recovery_events": 86, "indistinguishable_from_chrono": false},
+        {"rho_culprit": 0.1, "cbj_slope": 1.9858716475095781, "cbj_ci95": [1.8967247241188627, 2.0750185709002937], "chronological_slope": 0.11148393897868451, "chronological_ci95": [0.043630274597811144, 0.1793376033595579], "n_recovery_events": 96, "indistinguishable_from_chrono": false},
+        {"rho_culprit": 0.25, "cbj_slope": 1.8817848020434222, "cbj_ci95": [1.7772156014230196, 1.986354002663825], "chronological_slope": 0.11148393897868451, "chronological_ci95": [0.043630274597811144, 0.1793376033595579], "n_recovery_events": 107, "indistinguishable_from_chrono": false},
+        {"rho_culprit": 0.5, "cbj_slope": 1.6017378215654074, "cbj_ci95": [1.3682524599049877, 1.8352231832258272], "chronological_slope": 0.11148393897868451, "chronological_ci95": [0.043630274597811144, 0.1793376033595579], "n_recovery_events": 163, "indistinguishable_from_chrono": false},
+        {"rho_culprit": 0.75, "cbj_slope": 1.510814392516556, "cbj_ci95": [1.2584708965032112, 1.7631578885299009], "chronological_slope": 0.11148393897868451, "chronological_ci95": [0.043630274597811144, 0.1793376033595579], "n_recovery_events": 273, "indistinguishable_from_chrono": false},
+        {"rho_culprit": 1.0, "cbj_slope": 1.05024662047566, "cbj_ci95": [0.815523150687614, 1.2849700902637058], "chronological_slope": 0.11148393897868451, "chronological_ci95": [0.043630274597811144, 0.1793376033595579], "n_recovery_events": 500, "indistinguishable_from_chrono": false}
+      ]
+    },
+    "pieceB1_erosion_curve_b4": {
+      "rows": [
+        {"rho_culprit": 0.0, "cbj_slope": 1.886494252873563, "chronological_slope": 0.10961921047520365, "n_recovery_events": 87, "indistinguishable_from_chrono": false},
+        {"rho_culprit": 0.1, "cbj_slope": 1.869891443167305, "chronological_slope": 0.10961921047520365, "n_recovery_events": 101, "indistinguishable_from_chrono": false},
+        {"rho_culprit": 0.25, "cbj_slope": 1.7705140485312896, "chronological_slope": 0.10961921047520365, "n_recovery_events": 115, "indistinguishable_from_chrono": false},
+        {"rho_culprit": 0.5, "cbj_slope": 1.554107992901096, "chronological_slope": 0.10961921047520365, "n_recovery_events": 186, "indistinguishable_from_chrono": false},
+        {"rho_culprit": 0.75, "cbj_slope": 1.3454584767084767, "chronological_slope": 0.10961921047520365, "n_recovery_events": 285, "indistinguishable_from_chrono": false},
+        {"rho_culprit": 1.0, "cbj_slope": 0.8231679227009687, "chronological_slope": 0.10961921047520365, "n_recovery_events": 503, "indistinguishable_from_chrono": false}
+      ]
+    },
+    "pieceB2_single_agent": {
+      "rows": [
+        {
+          "best_rho_commit": 0.25,
+          "best_failure_mode_mix": {"SOLVED": 176, "OVERFLOW_FAIL": 123},
+          "best_failure_mode_rates": {"SOLVED": 0.5886287625418061, "OVERFLOW_FAIL": 0.411371237458194},
+          "real_4b_stage1_rates": {"SOLVED": 0.5953177257525084, "OVERFLOW_FAIL": 0.21070234113712374, "NO_RECOVERY_TARGET": 0.1939799331103679},
+          "l1_distance_to_4b_stage1_mix": 0.4013377926421405,
+          "reproduces_4b_corruption": false,
+          "provenance": "rung1_wrong_commit_summary_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "interpretation_guards": {
+      "rows": [
+        {"guard": "Both sweeps are symbolic controlled instruments, not the full LLM operator.", "provenance": "rung1_culprit_erosion_guard_v0", "source": "autonomous_stage_a_run"},
+        {"guard": "The preregistered observable is recovery communication per recovery event versus search depth; this run found the clean anchor not in the expected direction under that observable.", "provenance": "rung1_culprit_erosion_guard_v0", "source": "autonomous_stage_a_run"},
+        {"guard": "The erosion prediction is not rescued by reframe: this is reported as underpowered/instrument-mismatch rather than a headline positive.", "provenance": "rung1_culprit_erosion_guard_v0", "source": "autonomous_stage_a_run"},
+        {"guard": "Single-agent register inflation remains falsified by Item067; Piece B2 only tests wrong-commitment corruption mimicry.", "provenance": "rung1_culprit_erosion_guard_v0", "source": "autonomous_stage_a_run"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish the multi-agent wrong-culprit erosion headline. The clean CBJ anchor was not bounded under the selected comm-per-event observable, and wrong-culprit slope moved downward rather than toward the chronological reference.",
+    "instrumentation_limit": "The wrong-culprit injection and recovery-comm-per-event metric need comparison to the prior symbolic-arc double-dissociation tables before treating this as a mechanism-negative result.",
+    "single_agent_limit": "The wrong-commitment instrument produced a solve/overflow mix close in solve rate but did not reproduce the real 4B no-recovery component; controlled instruments still do not capture the full 4B corruption mode.",
+    "scope_limit": "Real-LLM culprit placement remains gated on P1c concise-output prompt redesign."
+  }
+}

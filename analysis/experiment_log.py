@@ -54,6 +54,7 @@ ARTIFACT_INDEX = {
     "item_065_rung1_fallible_1d_rerun": "results/experiment_items/item_065_rung1_fallible_1d_rerun.json",
     "item_066_rung1_paired_register_requirement": "results/experiment_items/item_066_rung1_paired_register_requirement.json",
     "item_067_rung1_rho_sweep_register_requirement": "results/experiment_items/item_067_rung1_rho_sweep_register_requirement.json",
+    "item_068_rung1_culprit_erosion_sweep": "results/experiment_items/item_068_rung1_culprit_erosion_sweep.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
     "model_readiness": "results/model_readiness/readiness.json",
@@ -134,6 +135,7 @@ ARTIFACT_INDEX = {
     "rung1_fallible_1d_rerun": "results/rung1_fallible_1d_rerun/results.json",
     "rung1_paired_register_requirement": "results/rung1_paired_register_requirement/results.json",
     "rung1_rho_sweep_register_requirement": "results/rung1_rho_sweep_register_requirement/results.json",
+    "rung1_culprit_erosion_sweep": "results/rung1_culprit_erosion_sweep/results.json",
     "validation": "results/validation/validation.json",
 }
 

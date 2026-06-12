@@ -73,6 +73,7 @@ PATHS = {
     "item_065_rung1_fallible_1d_rerun": "results/experiment_items/item_065_rung1_fallible_1d_rerun.json",
     "item_066_rung1_paired_register_requirement": "results/experiment_items/item_066_rung1_paired_register_requirement.json",
     "item_067_rung1_rho_sweep_register_requirement": "results/experiment_items/item_067_rung1_rho_sweep_register_requirement.json",
+    "item_068_rung1_culprit_erosion_sweep": "results/experiment_items/item_068_rung1_culprit_erosion_sweep.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
@@ -112,6 +113,7 @@ PATHS = {
     "rung1_fallible_1d_rerun": "results/rung1_fallible_1d_rerun/results.json",
     "rung1_paired_register_requirement": "results/rung1_paired_register_requirement/results.json",
     "rung1_rho_sweep_register_requirement": "results/rung1_rho_sweep_register_requirement/results.json",
+    "rung1_culprit_erosion_sweep": "results/rung1_culprit_erosion_sweep/results.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
