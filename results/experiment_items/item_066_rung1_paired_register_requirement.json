@@ -1,0 +1,192 @@
+{
+  "item_number": "066",
+  "schema_version": "log_item_contract_v1",
+  "name": "Rung-1 paired fallible-vs-clean register requirement test and P1c token-fix smoke",
+  "generated_at": "2026-06-12T14:09:07.740787+00:00",
+  "purpose": "Run the hardened paired per-instance claim-4 test using the same clean-solvable b=2 instances, with call_cap floored by clean search length, adaptive D=16/24/32 fallible reruns, and a P1c long-token smoke pre-gate before any scale-up.",
+  "provenance": {
+    "schema_version": "rung1_paired_register_requirement_v0",
+    "source": "autonomous_stage_a_run",
+    "model_id": "Qwen/Qwen3.5-4B",
+    "openai_base_url": "http://127.0.0.1:8001/v1",
+    "result_artifact": "results/rung1_paired_register_requirement/results.json",
+    "checkpoint_dir": "results/rung1_paired_register_requirement/checkpoints_4gpu_320_np64_b200000"
+  },
+  "artifacts": [
+    "results/experiment_items/item_066_rung1_paired_register_requirement.json",
+    "experiments/rung1_paired_register_requirement.py",
+    "experiments/rung1_fallible_1d_rerun.py",
+    "experiments/rung1_separator_llm_inloop.py",
+    "results/rung1_paired_register_requirement/results.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "experiments/rung1_paired_register_requirement.py",
+      "change": "Adds the rung1_paired_register_requirement_v0 runner with clean-search-length call_cap floor, paired Stage1 at D=16, adaptive batched Stage2 at D=24/D=32, checkpoint resume, and P1c token-fix smoke/scale gating."
+    },
+    {
+      "path": "experiments/rung1_fallible_1d_rerun.py",
+      "change": "Extends OpenAI-compatible request timeout to 3600 seconds and prevents checkpointed episode execution from overwriting an existing checkpoint before resume-loaded state is used."
+    },
+    {
+      "path": "experiments/rung1_separator_llm_inloop.py",
+      "change": "Extends OpenAI-compatible in-loop request timeout to 3600 seconds for long vLLM batches."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m experiments.rung1_paired_register_requirement --max-budget-calls 200000 --piece1-n-per-depth 64 --piece1-max-instances 512 --piece1-call-cap 0 --max-new-tokens 1024 --batch-size 320 --p1c-max-tokens 12288 --p1c-smoke-episodes 16 --p1c-scale-episodes 512 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B --checkpoint-dir results/rung1_paired_register_requirement/checkpoints_4gpu_320_np64_b200000 --output results/rung1_paired_register_requirement/results.json",
+      "purpose": "Run the near-saturation paired register-requirement test on GPUs 0-3 via vLLM, resuming from checkpoints after service restarts."
+    }
+  ],
+  "decision": {
+    "outcome": "RUNG1_PAIRED_REGISTER_REQUIREMENT_COMPLETE",
+    "overall_pass": false,
+    "headline": {
+      "determination": "claim4_not_confirmed_at_this_scale",
+      "piece1_verdict": "mixed_or_inconclusive_paired_register_requirement",
+      "piece2_status": "TOKEN_FIX_PREFLIGHT_FAIL",
+      "single_next_move": "If Stage1 is uncensored, interpret paired gaps; if CALL_CAP appears, raise cap above the observed fallible search length before claiming a result."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "piece1_call_cap_floor_preflight",
+        "outcome": "PASS",
+        "number": "call_cap=201; call_cap_floor=201; max_clean_stage1_steps=134; selected_instances=299; clean_solvable_at_D16=299; candidate_instances=352"
+      },
+      {
+        "gate": "piece1_stage1_paired_D16",
+        "outcome": "UNCENSORED_MIXED",
+        "number": "n=299; status_counts={SOLVED:178, OVERFLOW_FAIL:63, NO_RECOVERY_TARGET:58}; CALL_CAP=0"
+      },
+      {
+        "gate": "piece1_stage2_adaptive_D24_D32",
+        "outcome": "MIXED_OR_INCONCLUSIVE_REGISTER_REQUIREMENT",
+        "number": "stage2_reruns_completed=120; status_counts={SOLVED:14, OVERFLOW_FAIL:105, NO_RECOVERY_TARGET:1}; skipped_budget=0; inflation_fraction=0.21070234113712374"
+      },
+      {
+        "gate": "piece2_p1c_token_fix_smoke",
+        "outcome": "TOKEN_FIX_PREFLIGHT_FAIL",
+        "number": "episodes=16; finish_counts={length:15, stop:1}; finish_stop_rate=0.0625; required_stop_rate=0.9; output_tokens=191178; scale_not_run"
+      }
+    ],
+    "next_step_routing": "Do not claim claim-4 positive at this scale. The paired test is uncensored but mixed/inconclusive: only 21.07% strict inflation and many right-censored failures. P1c remains token-truncated even at max_tokens=12288, so fix prompt/token policy before any P1c scale-up."
+  },
+  "result_tables": {
+    "budget_ledger": {
+      "rows": [
+        {
+          "piece": "piece1",
+          "n_instances": 299,
+          "stage1_D": 16,
+          "stage2_D_ladder": [24, 32],
+          "call_cap": 201,
+          "call_cap_floor": 201,
+          "max_clean_stage1_steps": 134,
+          "stage1_max_llm_calls": 60099,
+          "stage2_budget_after_stage1_and_p1c_smoke": 139885,
+          "stage2_budget_remaining_reserved_calls": 115765,
+          "stage2_instances_overflowed_at_D16": 63,
+          "stage2_reruns_completed": 120,
+          "stage2_reruns_skipped_budget": 0,
+          "max_budget_calls": 200000,
+          "p1c_smoke_reserved_calls": 16,
+          "cost_ok_stage1_mandatory": true,
+          "provenance": "rung1_paired_budget_ledger_v0",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "piece": "piece2_p1c_token_fix",
+          "available_episodes": 768,
+          "smoke_episodes": 16,
+          "scale_target_episodes": 512,
+          "max_tokens": 12288,
+          "remaining_budget_entering_piece2": 115781,
+          "call_cap_per_episode": 1,
+          "provenance": "rung1_paired_p1c_budget_ledger_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "piece1_paired_summary": {
+      "rows": [
+        {
+          "n_clean_solvable_instances": 299,
+          "call_cap_dominated": false,
+          "inflation_fraction": 0.21070234113712374,
+          "piece1_verdict": "mixed_or_inconclusive_paired_register_requirement",
+          "stage1_status_counts": {
+            "SOLVED": 178,
+            "OVERFLOW_FAIL": 63,
+            "NO_RECOVERY_TARGET": 58
+          },
+          "stage2_status_counts": {
+            "SOLVED": 14,
+            "OVERFLOW_FAIL": 105,
+            "NO_RECOVERY_TARGET": 1
+          },
+          "stage2_skipped_budget": 0,
+          "mean_matched_D16_trail_length_ratio": 0.0,
+          "mean_matched_D16_retraction_ratio": 0.007981149285497112,
+          "provenance": "rung1_paired_piece1_summary_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "piece2_p1c_token_fix_smoke": {
+      "rows": [
+        {
+          "status": "TOKEN_FIX_PREFLIGHT_FAIL",
+          "episodes": 16,
+          "finish_counts": {
+            "length": 15,
+            "stop": 1
+          },
+          "finish_stop_rate": 0.0625,
+          "finish_length_rate": 0.9375,
+          "token_fix_gate_pass": false,
+          "token_fix_gate_threshold": 0.9,
+          "functional_gate_pass": true,
+          "functional_gate_threshold": 0.2,
+          "conflict_precision": 1.0,
+          "conflict_recall": 0.25,
+          "culprit_accuracy": 0.25,
+          "output_tokens_total": 191178,
+          "scale_rows": 0,
+          "provenance": "rung1_paired_p1c_token_fix_summary_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    },
+    "interpretation_guards": {
+      "rows": [
+        {
+          "guard": "CALL_CAP is right-censoring; this paired run had CALL_CAP=0 in Stage1 and is therefore not the same censored failure mode as Item065.",
+          "provenance": "rung1_paired_interpretation_guard_v0",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "guard": "The comparison is per-instance paired: fallible outcomes are compared against clean-solvable same-instance D=16 requirements.",
+          "provenance": "rung1_paired_interpretation_guard_v0",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "guard": "Do not claim claim-4 positive: verdict is mixed/inconclusive, not substantial majority register inflation.",
+          "provenance": "rung1_paired_interpretation_guard_v0",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "guard": "P1c functional metrics on the smoke are not enough: token-fix pre-gate failed because 15 of 16 generations still ended by length at 12288 max tokens.",
+          "provenance": "rung1_paired_interpretation_guard_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not confirm claim 4 at this scale. The paired run is uncensored for CALL_CAP, but the register-requirement result is mixed/inconclusive rather than a substantial majority inflation positive.",
+    "p1c_limit": "The P1c token-fix smoke failed: 15 of 16 episodes ended by length even with max_tokens=12288, so the 512-episode scale-up was correctly not run.",
+    "operational_limit": "The long run required restarting a hung vLLM service and fixing checkpoint-resume/timeout behavior; the final artifact reflects the resumed checkpointed execution.",
+    "scope_limit": "Track4 was not rerun; Item065 already closed Track4 as structural_separator_limited."
+  }
+}

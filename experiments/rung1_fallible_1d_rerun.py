@@ -191,7 +191,8 @@ def _load_piece1_checkpoint(path: Path, episodes: list[InLoopEpisode], resume: b
 
 
 def _run_episodes_checkpointed(episodes: list[InLoopEpisode], args: argparse.Namespace, call_cap: int, max_new_tokens: int, keff_hat: float, checkpoint_path: Path) -> list[InLoopEpisode]:
-    _save_piece1_checkpoint(checkpoint_path, episodes)
+    if not checkpoint_path.exists():
+        _save_piece1_checkpoint(checkpoint_path, episodes)
     while True:
         changed = False
         for ep in episodes:
@@ -434,7 +435,7 @@ def _openai_call(base_url: str, model: str, prompt: str, max_tokens: int) -> dic
     payload = {"model": model, "messages": [{"role": "user", "content": prompt}], "temperature": 0, "max_tokens": max_tokens}
     request = Request(base_url.rstrip("/") + "/chat/completions", data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"}, method="POST")
     try:
-        with urlopen(request, timeout=900) as response:
+        with urlopen(request, timeout=3600) as response:
             decoded = json.loads(response.read().decode("utf-8"))
     except URLError as exc:
         raise RuntimeError(f"OpenAI-compatible P1c request failed: {exc}") from exc

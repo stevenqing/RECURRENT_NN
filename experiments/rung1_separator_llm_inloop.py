@@ -418,7 +418,7 @@ def _openai_chat_completion(base_url: str, model_name: str, prompt: str, max_new
     data = json.dumps(payload).encode("utf-8")
     request = Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
     try:
-        with urlopen(request, timeout=600) as response:
+        with urlopen(request, timeout=3600) as response:
             decoded = json.loads(response.read().decode("utf-8"))
     except URLError as exc:
         raise RuntimeError(f"OpenAI-compatible backend request failed: {exc}") from exc

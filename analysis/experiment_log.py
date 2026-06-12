@@ -52,6 +52,8 @@ ARTIFACT_INDEX = {
     "item_063_rung1_separator_llm_inloop_smoke": "results/experiment_items/item_063_rung1_separator_llm_inloop_smoke.json",
     "item_064_rung1_overnight_batch": "results/experiment_items/item_064_rung1_overnight_batch.json",
     "item_065_rung1_fallible_1d_rerun": "results/experiment_items/item_065_rung1_fallible_1d_rerun.json",
+    "item_066_rung1_paired_register_requirement": "results/experiment_items/item_066_rung1_paired_register_requirement.json",
+    "item_067_rung1_rho_sweep_register_requirement": "results/experiment_items/item_067_rung1_rho_sweep_register_requirement.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
     "model_readiness": "results/model_readiness/readiness.json",
@@ -130,6 +132,8 @@ ARTIFACT_INDEX = {
     "rung1_separator_llm_inloop_full_slice_vllm_explicit_state": "results/rung1_separator_llm_inloop/full_slice_vllm_explicit_state/results.json",
     "rung1_overnight_batch": "results/rung1_overnight_batch/results.json",
     "rung1_fallible_1d_rerun": "results/rung1_fallible_1d_rerun/results.json",
+    "rung1_paired_register_requirement": "results/rung1_paired_register_requirement/results.json",
+    "rung1_rho_sweep_register_requirement": "results/rung1_rho_sweep_register_requirement/results.json",
     "validation": "results/validation/validation.json",
 }
 
