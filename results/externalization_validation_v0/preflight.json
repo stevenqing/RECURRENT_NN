@@ -1,0 +1,287 @@
+{
+  "generated_at": "2026-06-13T05:59:35.038227+00:00",
+  "honesty": {
+    "does_not_establish": "This is preregistration and harness preflight for the externalization paper validation. It banks no new claim result beyond Item070 and Item076 anchors.",
+    "main_blockers": "vLLM is not currently serving on the checked endpoints; zebra_puzzles/sudoku need bounded-register CSP adapters before the full primary matrix can be read.",
+    "provenance": "externalization_preflight_honesty_v0",
+    "source": "autonomous_stage_a_run"
+  },
+  "kills_and_forks": [
+    {
+      "gate": "claim1_strong_thinking_baseline",
+      "kill_or_scope": "If L1-oneshot-thinking >0.3 on hard bins, scope claim1 to vanilla one-shot cannot search; thinking partially can."
+    },
+    {
+      "gate": "claim2_capacity_law",
+      "kill_or_scope": "Confirmed only if solve_rate rises monotonically with R and saturates on at least two Tier-1 benchmarks."
+    },
+    {
+      "gate": "llm_adds_value",
+      "kill_or_scope": "If M-register is within noise of L0-symbolic-random/heuristic at matched budget, bank the negative and frame external structure rather than LLM decision superiority."
+    },
+    {
+      "gate": "strong_baselines",
+      "kill_or_scope": "If ToT or best-of/selfverify match M-register, narrow contribution to bounded-memory/prompt-flat efficiency."
+    },
+    {
+      "gate": "claim3_multiagent",
+      "kill_or_scope": "Claim3 remains structure-dependent unless separator venues show CBJ flat while chrono rises."
+    },
+    {
+      "gate": "claim4b_real_llm",
+      "kill_or_scope": "If frozen-LLM team-over-monolith gap does not open past single-register capacity, scope the real-LLM capacity result while preserving symbolic positive."
+    }
+  ],
+  "known_anchors": {
+    "item070_claims_1_2": {
+      "claim1_delta": 0.9666666666666667,
+      "claim2_slope": 0.23666666666666664,
+      "claim4_llm_placement": "near_oracle_high_solve",
+      "claims_1_2_real_llm_determination": "positive",
+      "depth_flatness_verdict": "bounded_view_verified",
+      "multiagent_determination": "SKIPPED_DEPENDENCY",
+      "single_next_move": "Install/lock AgentsNet dependencies and run real multi-agent contrast, or implement zebra_puzzles CSP runner for external validity."
+    },
+    "item070_honesty": {
+      "claim4_limit": "At R=8 the LLM target source is high and close to oracle, but random is also high; this is a high-solve placement, not a clean large separation of target-selection quality.",
+      "does_not_establish": "This item establishes a positive real-LLM result for claims 1+2 on Reasoning Gym graph_color only. It does not establish zebra transfer, P1c, or real multi-agent AgentsNet claims.",
+      "multiagent_limit": "The real multi-agent run was skipped because the full AgentsNet runtime could not import without langchain/scipy. The dry-run used a recorded fallback matching the official Coloring.get_score formula, so it is readiness evidence, not a real multi-agent LLM result.",
+      "scope_limit": "The official-harness result is for graph_color. zebra_puzzles remains skipped/gated, and AgentsNet real-LLM validation remains dependency-gated."
+    },
+    "item076_closeout_verdict": {
+      "claim3_cbj_coordination": "structure-dependent scoping; confirmed on controlled anchor and separator substrate, not manifesting as dense graph_color solve-rate or work-vs-distance advantage",
+      "claim4_capacity_multiagent": "positive",
+      "instrument_cycle": "STOP",
+      "single_agent_claims_1_2": "positive on real LLM in Item070"
+    },
+    "item076_multiagent_headline": {
+      "single_next_move_track1": "Bank claim4 capacity positive; optional real LLM capacity datapoint",
+      "single_next_move_track2": "STOP: bank claim3 as structure-dependent scoping",
+      "track1_capacity_determination": "positive",
+      "track1_real_llm": "GO",
+      "track2_claim3_determination": "structure_dependent_scoping",
+      "track2_claim3_positive": false,
+      "track2_real_llm": "STOP_BANKED"
+    },
+    "provenance": "externalization_known_anchor_summary_v0",
+    "source": "autonomous_stage_a_run"
+  },
+  "next_commands": [
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0,1,2,3 .venv-vllm/bin/python -m vllm.entrypoints.openai.api_server --model /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a --served-model-name Qwen/Qwen3.5-4B --port 8001 --tensor-parallel-size 4 --gpu-memory-utilization 0.30 --max-model-len 4096 --max-num-seqs 512",
+      "name": "start_vllm_qwen35"
+    },
+    {
+      "command": "Run graph_color hard-bin matched-budget shard first, then zebra_puzzles and sudoku after CSP adapters land; do not read raw solve_rate as primary.",
+      "name": "primary_matrix_first_shard"
+    },
+    {
+      "command": "Use local AgentsNet graph families plus direct Coloring.get_score formula; avoid langchain runtime import; sweep topology/size/separator.",
+      "name": "multiagent_agentsnet_first_shard"
+    }
+  ],
+  "preflight": {
+    "agentsnet": {
+      "coloring_get_score_hits": [
+        "/tmp/reasoning_benchmarks/AgentsNet/main.py",
+        "/tmp/reasoning_benchmarks/AgentsNet/LiteralMessagePassing.py"
+      ],
+      "exists": true,
+      "provenance": "agentsnet_preflight_v0",
+      "python_files_scanned": 5,
+      "repo": "/tmp/reasoning_benchmarks/AgentsNet",
+      "runtime_policy": "Use Coloring.get_score formula directly; do not import langchain runtime for v0.",
+      "source": "autonomous_stage_a_run"
+    },
+    "provenance": "externalization_preflight_v0",
+    "reasoning_gym_tier1": [
+      {
+        "benchmark": "graph_color",
+        "best_score": 1.0,
+        "candidate_scores": [
+          {
+            "score": 1.0,
+            "source": "metadata.possible_answer",
+            "status": "scored"
+          }
+        ],
+        "config": {
+          "edge_probability": 0.3,
+          "max_num_vertices": 8,
+          "min_num_vertices": 8,
+          "num_colors": 3,
+          "seed": 1,
+          "size": 2
+        },
+        "entry_keys": [
+          "answer",
+          "metadata",
+          "question"
+        ],
+        "metadata_keys": [
+          "difficulty",
+          "num_vertices",
+          "possible_answer",
+          "puzzle",
+          "source_dataset",
+          "source_index"
+        ],
+        "provenance": "rg_tier1_preflight_v0",
+        "score_answer_usable": true,
+        "source": "autonomous_stage_a_run",
+        "status": "OK"
+      },
+      {
+        "benchmark": "zebra_puzzles",
+        "best_score": 1.0,
+        "candidate_scores": [
+          {
+            "score": 1.0,
+            "source": "answer",
+            "status": "scored"
+          }
+        ],
+        "config": {
+          "seed": 1,
+          "size": 2
+        },
+        "entry_keys": [
+          "answer",
+          "metadata",
+          "question"
+        ],
+        "metadata_keys": [
+          "difficulty",
+          "source_dataset",
+          "source_index"
+        ],
+        "provenance": "rg_tier1_preflight_v0",
+        "score_answer_usable": true,
+        "source": "autonomous_stage_a_run",
+        "status": "OK"
+      },
+      {
+        "benchmark": "sudoku",
+        "best_score": 1.0,
+        "candidate_scores": [
+          {
+            "score": 1.0,
+            "source": "answer",
+            "status": "scored"
+          }
+        ],
+        "config": {
+          "seed": 1,
+          "size": 2
+        },
+        "entry_keys": [
+          "answer",
+          "metadata",
+          "question"
+        ],
+        "metadata_keys": [
+          "difficulty",
+          "num_empty",
+          "puzzle",
+          "solution",
+          "source_dataset",
+          "source_index"
+        ],
+        "provenance": "rg_tier1_preflight_v0",
+        "score_answer_usable": true,
+        "source": "autonomous_stage_a_run",
+        "status": "OK"
+      }
+    ],
+    "source": "autonomous_stage_a_run",
+    "vllm_endpoints": [
+      {
+        "base_url": "http://127.0.0.1:8001/v1",
+        "error": "URLError: <urlopen error [Errno 111] Connection refused>",
+        "provenance": "vllm_endpoint_preflight_v0",
+        "source": "autonomous_stage_a_run",
+        "status": "UNAVAILABLE"
+      },
+      {
+        "base_url": "http://127.0.0.1:8000/v1",
+        "error": "URLError: <urlopen error [Errno 111] Connection refused>",
+        "provenance": "vllm_endpoint_preflight_v0",
+        "source": "autonomous_stage_a_run",
+        "status": "UNAVAILABLE"
+      }
+    ]
+  },
+  "preregistered_matrix": {
+    "multiagent_matrix": {
+      "arms": [
+        "CBJ",
+        "chrono",
+        "forward",
+        "team-vs-monolith no-LLM",
+        "team-vs-monolith frozen-LLM agents"
+      ],
+      "benchmarks": [
+        "AgentsNet get_score substrate",
+        "controlled partition graph_color",
+        "controlled partition zebra_puzzles"
+      ],
+      "guard": "No new dense graph_color CBJ instrument cycle; one separator read only."
+    },
+    "primary_headline_matrix": {
+      "arms": [
+        "M-register R={0,2,4,8,16}",
+        "L0-symbolic-heuristic",
+        "L0-symbolic-random",
+        "L1-oneshot-vanilla",
+        "L1-oneshot-thinking"
+      ],
+      "benchmarks": [
+        "graph_color",
+        "zebra_puzzles",
+        "sudoku"
+      ],
+      "budgets": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "difficulty_requirement": "Hardest bin should degrade random-culprit below 0.7 solve_rate where possible."
+    },
+    "provenance": "externalization_matrix_preregistration_v0",
+    "secondary_positioning_matrix": {
+      "arms": [
+        "L1-bestofN N={5,10}",
+        "L1-selfverify",
+        "L2-tot",
+        "L3-llm2solver",
+        "optional L3-llm-modulo"
+      ],
+      "benchmarks": [
+        "one Tier-1 benchmark",
+        "ZebraLogic"
+      ],
+      "purpose": "Position against recent test-time compute and solver-outsourcing baselines, not claim raw solver superiority."
+    },
+    "source": "autonomous_stage_a_run"
+  },
+  "provenance": "externalization_paper_validation_v0",
+  "readiness": {
+    "agentsnet_formula_ready": true,
+    "primary_blocker": "vLLM endpoint unavailable",
+    "provenance": "externalization_readiness_v0",
+    "source": "autonomous_stage_a_run",
+    "tier1_rg_official_scoring_ready": true,
+    "vllm_ready": false
+  },
+  "schema_version": "externalization_paper_validation_v0",
+  "scope": {
+    "does_not_claim": "This preflight does not execute the full real-LLM validation matrix.",
+    "provenance": "externalization_scope_v0",
+    "source": "autonomous_stage_a_run",
+    "validates": "Externalization only: bounded reversible register outside frozen LLM; no training/distillation/RL."
+  },
+  "source": "autonomous_stage_a_run",
+  "status": "EXTERNALIZATION_VALIDATION_PREFLIGHT_COMPLETE"
+}

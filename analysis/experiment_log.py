@@ -63,6 +63,7 @@ ARTIFACT_INDEX = {
     "item_074_rung1_multiagent_cascade_fixed": "results/experiment_items/item_074_rung1_multiagent_cascade_fixed.json",
     "item_075_rung1_multiagent_two_track": "results/experiment_items/item_075_rung1_multiagent_two_track.json",
     "item_076_rung1_multiagent_solvability": "results/experiment_items/item_076_rung1_multiagent_solvability.json",
+    "item_077_externalization_validation_preflight": "results/experiment_items/item_077_externalization_validation_preflight.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
     "model_readiness": "results/model_readiness/readiness.json",
@@ -158,6 +159,8 @@ ARTIFACT_INDEX = {
     "rung1_multiagent_solvability": "results/rung1_multiagent_solvability/results.json",
     "rung1_multiagent_solvability_closeout": "results/rung1_multiagent_solvability/closeout.json",
     "rung1_multiagent_solvability_distance_slope_reanalysis": "results/rung1_multiagent_solvability/distance_slope_reanalysis.json",
+    "externalization_paper_validation_spec_v0": "specs/externalization_paper_validation_v0.md",
+    "externalization_validation_preflight": "results/externalization_validation_v0/preflight.json",
     "validation": "results/validation/validation.json",
 }
 

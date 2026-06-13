@@ -1,0 +1,115 @@
+{
+  "item_number": "077",
+  "schema_version": "log_item_contract_v1",
+  "name": "Externalization paper multi-benchmark validation preflight",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Preregister and preflight the externalization-paper validation matrix: multi-benchmark official scoring, matched node-budget observables, strong recent baselines, multi-agent separator venues, and kill forks. This item does not execute or claim the full real-LLM matrix.",
+  "provenance": {
+    "schema_version": "externalization_paper_validation_v0",
+    "source": "autonomous_stage_a_run",
+    "result_artifact": "results/externalization_validation_v0/preflight.json",
+    "spec_artifact": "specs/externalization_paper_validation_v0.md",
+    "script": "analysis/externalization_validation_preflight.py",
+    "parent_items": ["070", "076"]
+  },
+  "artifacts": [
+    "results/experiment_items/item_077_externalization_validation_preflight.json",
+    "specs/externalization_paper_validation_v0.md",
+    "analysis/externalization_validation_preflight.py",
+    "results/externalization_validation_v0/preflight.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/externalization_validation_preflight.py",
+      "change": "Adds preregistration/preflight artifact generation for Tier-1 Reasoning Gym datasets, vLLM endpoint status, AgentsNet score-formula readiness, inherited Item070/Item076 anchors, matrix/kills, and next shard commands."
+    },
+    {
+      "path": "specs/externalization_paper_validation_v0.md",
+      "change": "Freezes the externalization-only validation protocol, mandatory matched-budget observable, primary/secondary/multi-agent matrices, and kill forks."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.externalization_validation_preflight --output results/externalization_validation_v0/preflight.json",
+      "purpose": "Generate externalization validation v0 preregistration and harness preflight."
+    }
+  ],
+  "decision": {
+    "outcome": "EXTERNALIZATION_VALIDATION_PREFLIGHT_COMPLETE",
+    "overall_pass": true,
+    "headline": {
+      "tier1_rg_official_scoring_ready": true,
+      "agentsnet_formula_ready": true,
+      "vllm_ready": false,
+      "primary_blocker": "vLLM endpoint unavailable",
+      "single_next_move": "Start Qwen3.5 vLLM, then run the graph_color hard-bin matched-budget shard before expanding to zebra_puzzles and sudoku adapters."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "tier1_reasoning_gym_official_scoring",
+        "outcome": "PASS",
+        "number": "graph_color, zebra_puzzles, sudoku create_dataset OK and score_answer best_score=1.0"
+      },
+      {
+        "gate": "vllm_endpoint_preflight",
+        "outcome": "BLOCKED",
+        "number": "http://127.0.0.1:8001/v1 and :8000/v1 unavailable; no real-LLM matrix launched"
+      },
+      {
+        "gate": "agentsnet_formula_preflight",
+        "outcome": "PASS",
+        "number": "/tmp/reasoning_benchmarks/AgentsNet exists; LiteralMessagePassing.py get_score path found; langchain runtime intentionally avoided"
+      },
+      {
+        "gate": "known_anchors_imported",
+        "outcome": "PASS",
+        "number": "Item070 claims 1+2 real-LLM graph_color positive; Item076 multi-agent claim4 positive and claim3 structure-dependent closeout imported"
+      },
+      {
+        "gate": "claim_result_status",
+        "outcome": "NO_NEW_CLAIM_RESULT",
+        "number": "This item is preregistration and preflight only; it banks no new externalization claim beyond existing anchors."
+      }
+    ],
+    "next_step_routing": "Bring up Qwen3.5 vLLM on port 8001, run a small graph_color hard-bin matched-budget shard with M-register/L0/L1-thinking arms, then implement zebra_puzzles and sudoku bounded-register CSP adapters before the full Tier-1 matrix."
+  },
+  "result_tables": {
+    "tier1_reasoning_gym_preflight": {
+      "columns": ["benchmark", "status", "score_answer_usable", "best_score"],
+      "rows": [
+        {"benchmark": "graph_color", "status": "OK", "score_answer_usable": true, "best_score": 1.0},
+        {"benchmark": "zebra_puzzles", "status": "OK", "score_answer_usable": true, "best_score": 1.0},
+        {"benchmark": "sudoku", "status": "OK", "score_answer_usable": true, "best_score": 1.0}
+      ]
+    },
+    "vllm_preflight": {
+      "columns": ["base_url", "status"],
+      "rows": [
+        {"base_url": "http://127.0.0.1:8001/v1", "status": "UNAVAILABLE"},
+        {"base_url": "http://127.0.0.1:8000/v1", "status": "UNAVAILABLE"}
+      ]
+    },
+    "matrix_registered": {
+      "columns": ["matrix", "benchmarks", "arms_or_focus"],
+      "rows": [
+        {"matrix": "primary_headline", "benchmarks": "graph_color,zebra_puzzles,sudoku", "arms_or_focus": "M-register R sweep; L0 heuristic/random; L1 vanilla/thinking; matched node budget"},
+        {"matrix": "secondary_positioning", "benchmarks": "one Tier-1 plus ZebraLogic", "arms_or_focus": "best-of-N,selfverify,ToT,llm2solver,llm-modulo optional"},
+        {"matrix": "multiagent", "benchmarks": "AgentsNet, controlled graph_color, controlled zebra_puzzles", "arms_or_focus": "CBJ/chrono/forward separator read; team-vs-monolith no-LLM and frozen-LLM agents"}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "primary_real_llm", "gate": "NO_GO", "reason": "vLLM endpoint unavailable"},
+        {"track": "tier1_adapter_work", "gate": "GO", "reason": "RG datasets and official score_answer are available; zebra/sudoku bounded-register adapters are the next implementation"},
+        {"track": "agentsnet_formula_track", "gate": "GO", "reason": "direct score-formula path exists and avoids langchain runtime"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not execute the externalization validation matrix and does not establish new claim results. It preregisters the protocol and checks harness readiness.",
+    "vllm_limit": "No vLLM OpenAI-compatible endpoint was active on 8001 or 8000, so real Qwen3.5 arms were not launched.",
+    "adapter_limit": "Existing Item070 runner is graph_color-specific; zebra_puzzles and sudoku require bounded-register CSP adapters before full Tier-1 execution.",
+    "scope_limit": "Externalization only; no internalization, training, distillation, or RL."
+  }
+}
