@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=51",
+      "detail": "count=52",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -2407,6 +2407,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_079_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_079_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=079",
+      "name": "log_item_079_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_079_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not execute every downstream LLM, secondary-baseline, or multi-agent phase. It registers the superseding runnable SPEC v1, validates current gate",
+      "name": "log_item_079_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=6; routing=Execute the graph_color ceiling LLM shard first: n_instances=30, n_vertices=14, edge_probability=0.4, node budget/call cap aligned to the Item078 bin, R sweep {0,2,4,8,16}, vLLM base http://127.0.0.1:8001/v1. Then implement the sudoku M-register adapter and middle-band calibration.",
+      "name": "log_item_079_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -2983,13 +3019,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'forward_read', 'pop_read', 'register_entry_classification', 'spill_off_write_drop', 'final_solution_readback', 'write_drop_mask'}",
+      "detail": "rules={'spill_off_write_drop', 'final_solution_readback', 'pop_read', 'write_drop_mask', 'register_entry_classification', 'forward_read'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_all', 'threshold_D_pop', 'P_choice_unmasked', 'P_all_unmasked', 'P_pop_unmasked', 'P_choice', 'threshold_D_peak', 'P_pop'}; rows=768",
+      "detail": "candidates={'P_all_unmasked', 'P_pop_unmasked', 'P_choice_unmasked', 'P_pop', 'threshold_D_peak', 'P_choice', 'threshold_D_pop', 'P_all'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3013,7 +3049,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rows=64; statuses={'measured', 'timeout'}",
+      "detail": "rows=64; statuses={'timeout', 'measured'}",
       "name": "e1_sudoku_compositional_real_trace_subsample",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3025,7 +3061,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_all', 'P_choice_unmasked', 'P_all_unmasked', 'P_pop_unmasked', 'P_choice', 'P_pop'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_all_unmasked', 'P_pop_unmasked', 'P_choice_unmasked', 'P_pop', 'P_choice', 'P_all'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3823,11 +3859,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-13T07:56:45.180565+00:00",
+  "generated_at": "2026-06-13T08:11:43.568102+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 637,
+    "n_checks": 643,
     "n_fail": 3,
-    "n_pass": 634
+    "n_pass": 640
   }
 }

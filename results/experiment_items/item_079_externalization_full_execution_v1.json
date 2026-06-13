@@ -1,0 +1,110 @@
+{
+  "item_number": "079",
+  "schema_version": "log_item_contract_v1",
+  "name": "Externalization paper full execution v1 contract",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Register the superseding runnable SPEC v1 for the externalization paper line, consolidating Item077 preflight/reorder and Item078 two-rail power gates into concrete phase contracts, GO gates, and next executable shard commands. This item establishes execution readiness and does not claim that all downstream LLM, secondary-baseline, or multi-agent phases have already run.",
+  "provenance": {
+    "schema_version": "externalization_paper_full_execution_v1",
+    "source": "autonomous_stage_a_run",
+    "spec_artifact": "specs/externalization_paper_full_execution_v1.md",
+    "result_artifact": "results/externalization_validation_v0/full_execution_manifest.json",
+    "script": "analysis/externalization_full_execution_manifest.py",
+    "parent_items": ["077", "078"]
+  },
+  "artifacts": [
+    "results/experiment_items/item_079_externalization_full_execution_v1.json",
+    "specs/externalization_paper_full_execution_v1.md",
+    "analysis/externalization_full_execution_manifest.py",
+    "results/externalization_validation_v0/full_execution_manifest.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/externalization_full_execution_manifest.py",
+      "change": "Generates a machine-readable full-execution v1 manifest from Item070/076 anchors, Item077 preflight, Item078 power gates, and live vLLM structured-smoke state."
+    },
+    {
+      "path": "specs/externalization_paper_full_execution_v1.md",
+      "change": "Supersedes the v0 spec and addenda with a runnable phased contract for arms, bins, observables, kill forks, and current phase gates."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m analysis.externalization_full_execution_manifest --output results/externalization_validation_v0/full_execution_manifest.json",
+      "purpose": "Generate full-execution v1 manifest and vLLM structured-smoke readiness."
+    }
+  ],
+  "decision": {
+    "outcome": "EXTERNALIZATION_FULL_EXECUTION_MANIFEST_COMPLETE",
+    "overall_pass": true,
+    "headline": {
+      "vllm_ready": true,
+      "vllm_structured_smoke_parseable": true,
+      "graph_color_ceiling_llm_gate": "GO",
+      "sudoku_ceiling_llm_gate": "GO_ADAPTER_REQUIRED",
+      "zebra_llm_gate": "NO_GO_ADAPTER_PENDING",
+      "single_next_move": "Run the graph_color ceiling LLM shard at n>=30 using the Item079 command; implement sudoku M-register adapter before sudoku LLM shard."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "vllm_structured_smoke",
+        "outcome": "PASS",
+        "number": "http://127.0.0.1:8001/v1 model Qwen/Qwen3.5-4B; structured_smoke_parseable=true"
+      },
+      {
+        "gate": "graph_color_ceiling_llm_shard",
+        "outcome": "GO",
+        "number": "Item078 two-rail gate passes; vLLM ready; n>=30 required; next command emitted in manifest"
+      },
+      {
+        "gate": "sudoku_ceiling_llm_shard",
+        "outcome": "GO_AFTER_ADAPTER",
+        "number": "Item078 two-rail gate passes, but existing Item070 M-register runner is graph_color-specific; sudoku adapter implementation required"
+      },
+      {
+        "gate": "zebra_puzzles_llm_shard",
+        "outcome": "NO_GO_ADAPTER_PENDING",
+        "number": "official score_answer ready but structural CSP adapter pending"
+      },
+      {
+        "gate": "middle_band_calibration",
+        "outcome": "TODO",
+        "number": "n>=20 calibration needed for L0-heuristic 0.3..0.9 and L0-random <0.3 before K3b stressed-heuristic read"
+      },
+      {
+        "gate": "claim_result_status",
+        "outcome": "NO_NEW_CLAIM_RESULT",
+        "number": "This item registers the runnable full-execution contract and current GO gates; downstream experimental results remain separate phase artifacts."
+      }
+    ],
+    "next_step_routing": "Execute the graph_color ceiling LLM shard first: n_instances=30, n_vertices=14, edge_probability=0.4, node budget/call cap aligned to the Item078 bin, R sweep {0,2,4,8,16}, vLLM base http://127.0.0.1:8001/v1. Then implement the sudoku M-register adapter and middle-band calibration."
+  },
+  "result_tables": {
+    "phase_gates": {
+      "columns": ["phase", "gate", "reason"],
+      "rows": [
+        {"phase": "0a_preflight", "gate": "DONE", "reason": "Item077 preflight complete"},
+        {"phase": "0b_power_gate", "gate": "DONE_PARTIAL", "reason": "graph_color/sudoku two-rail gates pass; zebra adapter pending; middle-band pending"},
+        {"phase": "1_graph_color_ceiling_llm", "gate": "GO", "reason": "vLLM smoke OK and graph_color two-rail gate pass; n>=30"},
+        {"phase": "1_sudoku_ceiling_llm", "gate": "GO_AFTER_ADAPTER", "reason": "two-rail gate pass; M-register adapter required"},
+        {"phase": "1_zebra_llm", "gate": "NO_GO", "reason": "structural adapter pending"},
+        {"phase": "0b_middle_band", "gate": "TODO", "reason": "n>=20 middle-band calibration required"},
+        {"phase": "2_secondary_baselines", "gate": "TODO", "reason": "downstream of primary shards"},
+        {"phase": "3_multiagent_real_llm", "gate": "TODO", "reason": "AgentsNet formula path ready; implementation/anchor reproduction required"}
+      ]
+    },
+    "runnable_next_commands": {
+      "columns": ["name", "gate", "command"],
+      "rows": [
+        {"name": "graph_color_ceiling_llm_shard", "gate": "GO", "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_reasoning_gym_bounded_register --dataset graph_color --n-instances 30 --scan-limit 500 --node-cap 2000 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --r-values 0,2,4,8,16 --claim4-r 4 --batch-size 128 --call-cap 40 --output results/externalization_validation_v0/graph_color_ceiling_llm.json --checkpoint-path results/externalization_validation_v0/graph_color_ceiling_llm_checkpoint.json --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B"},
+        {"name": "sudoku_adapter_next", "gate": "IMPLEMENTATION_REQUIRED", "command": "Implement bounded-register RG sudoku M-register runner before real sudoku LLM shard"},
+        {"name": "middle_band_calibration", "gate": "TODO", "command": "Run n>=20 no-LLM calibration to find L0-heuristic 0.3..0.9 and L0-random <0.3 bins"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not execute every downstream LLM, secondary-baseline, or multi-agent phase. It registers the superseding runnable SPEC v1, validates current gates, and emits the next runnable shard.",
+    "downstream_todo": "sudoku M-register adapter, zebra structural adapter, middle-band calibration, secondary baselines, and multi-agent real-LLM loops remain downstream phase work.",
+    "scope_limit": "Externalization only; no internalization, training, distillation, or RL."
+  }
+}

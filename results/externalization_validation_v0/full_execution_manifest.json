@@ -1,0 +1,186 @@
+{
+  "confirmed_state": {
+    "agentsnet_formula_ready": true,
+    "item070_claims_1_2": {
+      "claim1_delta": 0.9666666666666667,
+      "claim2_slope": 0.23666666666666664,
+      "claim4_llm_placement": "near_oracle_high_solve",
+      "claims_1_2_real_llm_determination": "positive",
+      "depth_flatness_verdict": "bounded_view_verified",
+      "multiagent_determination": "SKIPPED_DEPENDENCY",
+      "single_next_move": "Install/lock AgentsNet dependencies and run real multi-agent contrast, or implement zebra_puzzles CSP runner for external validity."
+    },
+    "item076_multiagent": {
+      "single_next_move_track1": "Bank claim4 capacity positive; optional real LLM capacity datapoint",
+      "single_next_move_track2": "STOP: bank claim3 as structure-dependent scoping",
+      "track1_capacity_determination": "positive",
+      "track1_real_llm": "GO",
+      "track2_claim3_determination": "structure_dependent_scoping",
+      "track2_claim3_positive": false,
+      "track2_real_llm": "STOP_BANKED"
+    },
+    "provenance": "externalization_full_execution_confirmed_state_v1",
+    "reasoning_gym_ready": true,
+    "source": "autonomous_stage_a_run",
+    "two_rail_bins": [
+      {
+        "benchmark": "graph_color",
+        "config": {
+          "edge_probability": 0.4,
+          "n_vertices": 14
+        },
+        "floor_failure": false,
+        "ideal_middle_band": false,
+        "interpretation": "Two-rail gate passes. This is not a budget floor: heuristic solves 4/4 within 20 nodes while random solves 0/4. Because heuristic is at ceiling, the LLM-adds-value fork versus heuristic is stringent.",
+        "l0_heuristic_solve_rate": 1.0,
+        "l0_heuristic_status_counts": {
+          "SOLVED": 4
+        },
+        "l0_random_solve_rate": 0.0,
+        "l0_random_status_counts": {
+          "NODE_BUDGET": 4
+        },
+        "lower_rail_pass": true,
+        "n": 4,
+        "node_budget": 20,
+        "upper_rail_pass": true
+      },
+      {
+        "benchmark": "sudoku",
+        "config": {
+          "empty": 45
+        },
+        "floor_failure": false,
+        "ideal_middle_band": false,
+        "interpretation": "Two-rail gate passes. This is not a budget floor: MRV/heuristic solves 4/4 within 320 nodes while random solves 0/4. Because heuristic is at ceiling, the LLM-adds-value fork versus heuristic is stringent.",
+        "l0_heuristic_solve_rate": 1.0,
+        "l0_heuristic_status_counts": {
+          "SOLVED": 4
+        },
+        "l0_random_solve_rate": 0.0,
+        "l0_random_status_counts": {
+          "NODE_BUDGET": 4
+        },
+        "lower_rail_pass": true,
+        "n": 4,
+        "node_budget": 320,
+        "upper_rail_pass": true
+      },
+      {
+        "benchmark": "zebra_puzzles",
+        "config": "adapter_pending",
+        "floor_failure": null,
+        "ideal_middle_band": false,
+        "interpretation": "No two-rail read yet; structural adapter is pending.",
+        "l0_heuristic_solve_rate": null,
+        "l0_random_solve_rate": null,
+        "lower_rail_pass": false,
+        "n": 0,
+        "node_budget": null,
+        "upper_rail_pass": false
+      }
+    ],
+    "vllm": {
+      "base_url": "http://127.0.0.1:8001/v1",
+      "model": "Qwen/Qwen3.5-4B",
+      "models_response_prefix": "{\"object\":\"list\",\"data\":[{\"id\":\"Qwen/Qwen3.5-4B\",\"object\":\"model\",\"created\":1781338211,\"owned_by\":\"vllm\",\"root\":\"/home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a\",\"parent\":null,\"max_model_len\":4096,\"permission\":[{\"id\":\"modelperm-8ebfa23852354b02\",\"object\":\"model_permission\",\"created\":1781338211,\"allow_create_engine\":false,\"allow_sampling\":true,\"allow_logprobs\":true,\"allow_search_indices\":false,\"allow_view\":true,\"allow_fine_tuning\":",
+      "provenance": "externalization_vllm_smoke_v1",
+      "source": "autonomous_stage_a_run",
+      "status": "OK",
+      "structured_smoke_parseable": true,
+      "structured_smoke_parsed": {
+        "answer": "ready",
+        "ok": true
+      },
+      "usage": {
+        "completion_tokens": 18,
+        "prompt_tokens": 22,
+        "prompt_tokens_details": null,
+        "total_tokens": 40
+      }
+    }
+  },
+  "generated_at": "2026-06-13T08:10:13.707905+00:00",
+  "honesty": {
+    "blocked_or_todo": "zebra adapter, sudoku M-register adapter, middle-band calibration, secondary baselines, and multi-agent real-LLM loops remain downstream phases.",
+    "does_not_establish": "This item registers the full runnable execution contract and GO gates. It does not itself execute every downstream LLM, secondary-baseline, or multi-agent phase.",
+    "provenance": "externalization_full_execution_honesty_v1",
+    "source": "autonomous_stage_a_run"
+  },
+  "phase_gates": [
+    {
+      "gate": "DONE",
+      "phase": "0a_preflight",
+      "reason": "Item077 preflight complete."
+    },
+    {
+      "gate": "DONE_PARTIAL",
+      "phase": "0b_power_gate",
+      "reason": "Item078 graph_color/sudoku two-rail gates pass; zebra adapter pending; middle-band calibration pending."
+    },
+    {
+      "gate": "GO",
+      "phase": "1_graph_color_ceiling_llm",
+      "reason": "vLLM smoke OK and graph_color two-rail gate pass; must use n>=30."
+    },
+    {
+      "gate": "GO",
+      "phase": "1_sudoku_ceiling_llm",
+      "reason": "vLLM smoke OK and sudoku two-rail gate pass; run after graph_color; must use n>=30."
+    },
+    {
+      "gate": "NO_GO",
+      "phase": "1_zebra_llm",
+      "reason": "zebra structural adapter pending."
+    },
+    {
+      "gate": "TODO",
+      "phase": "0b_middle_band",
+      "reason": "Calibrate n>=20 middle-band bins before K3b stressed-heuristic read."
+    },
+    {
+      "gate": "TODO",
+      "phase": "2_secondary_baselines",
+      "reason": "Run after primary shards establish baseline curve."
+    },
+    {
+      "gate": "TODO",
+      "phase": "3_multiagent_real_llm",
+      "reason": "AgentsNet formula path ready; requires anchor reproduction and real-LLM team/monolith loop."
+    }
+  ],
+  "provenance": "externalization_paper_full_execution_v1",
+  "runnable_next_commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_reasoning_gym_bounded_register --dataset graph_color --n-instances 30 --scan-limit 500 --node-cap 2000 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --r-values 0,2,4,8,16 --claim4-r 4 --batch-size 128 --call-cap 40 --output results/externalization_validation_v0/graph_color_ceiling_llm.json --checkpoint-path results/externalization_validation_v0/graph_color_ceiling_llm_checkpoint.json --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "gate": "GO",
+      "name": "graph_color_ceiling_llm_shard"
+    },
+    {
+      "command": "Implement bounded-register RG sudoku M-register runner before real sudoku LLM shard; existing Item070 runner is graph_color-specific.",
+      "gate": "IMPLEMENTATION_REQUIRED",
+      "name": "sudoku_adapter_next"
+    },
+    {
+      "command": "Run n>=20 no-LLM calibration to find L0-heuristic 0.3..0.9 and L0-random <0.3 bins.",
+      "gate": "TODO",
+      "name": "middle_band_calibration"
+    }
+  ],
+  "schema_version": "externalization_paper_full_execution_v1",
+  "scope": {
+    "externalization_only": true,
+    "frozen_llm": "Qwen/Qwen3.5-4B",
+    "no_training_distillation_or_rl": true,
+    "provenance": "externalization_full_execution_scope_v1",
+    "source": "autonomous_stage_a_run"
+  },
+  "source": "autonomous_stage_a_run",
+  "status": "EXTERNALIZATION_FULL_EXECUTION_MANIFEST_COMPLETE",
+  "supersedes": [
+    "externalization_paper_validation_v0",
+    "item077_preflight_reorder",
+    "item078_power_gate_upper_rail",
+    "item078_middle_band_bin"
+  ]
+}
