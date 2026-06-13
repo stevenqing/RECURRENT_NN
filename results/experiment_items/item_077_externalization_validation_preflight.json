@@ -3,7 +3,7 @@
   "schema_version": "log_item_contract_v1",
   "name": "Externalization paper multi-benchmark validation preflight",
   "generated_at": "2026-06-13T00:00:00.000000+00:00",
-  "purpose": "Preregister and preflight the externalization-paper validation matrix: multi-benchmark official scoring, matched node-budget observables, strong recent baselines, multi-agent separator venues, and kill forks. This item does not execute or claim the full real-LLM matrix.",
+  "purpose": "Preregister and preflight the externalization-paper validation matrix, with the Item077 addendum correcting execution order to power-gate-first: no-LLM adapters/L0/difficulty calibration precede any LLM spending. This item does not execute or claim the full real-LLM matrix.",
   "provenance": {
     "schema_version": "externalization_paper_validation_v0",
     "source": "autonomous_stage_a_run",
@@ -41,8 +41,8 @@
       "tier1_rg_official_scoring_ready": true,
       "agentsnet_formula_ready": true,
       "vllm_ready": false,
-      "primary_blocker": "vLLM endpoint unavailable",
-      "single_next_move": "Start Qwen3.5 vLLM, then run the graph_color hard-bin matched-budget shard before expanding to zebra_puzzles and sudoku adapters."
+      "primary_blocker": "no-LLM power calibration not yet run",
+      "single_next_move": "Implement zebra_puzzles/sudoku adapters plus L0-symbolic-heuristic/random, then calibrate difficulty until L0-random solve_rate < 0.7 before any LLM arm runs."
     },
     "gate_outcomes": [
       {
@@ -52,8 +52,13 @@
       },
       {
         "gate": "vllm_endpoint_preflight",
-        "outcome": "BLOCKED",
-        "number": "http://127.0.0.1:8001/v1 and :8000/v1 unavailable; no real-LLM matrix launched"
+        "outcome": "DEFERRED_BY_POWER_GATE",
+        "number": "Local probe still shows 8001/8000 unavailable, but vLLM availability is no longer the next-action gate; LLM arms remain deferred until no-LLM power calibration passes."
+      },
+      {
+        "gate": "execution_order_addendum",
+        "outcome": "POWER_GATE_FIRST",
+        "number": "Supersedes next-action only; no claims/observables/kills changed. Mandatory order: adapters+L0+calibration, power gate, vLLM smoke, then LLM arms on calibrated bins only."
       },
       {
         "gate": "agentsnet_formula_preflight",
@@ -71,7 +76,7 @@
         "number": "This item is preregistration and preflight only; it banks no new externalization claim beyond existing anchors."
       }
     ],
-    "next_step_routing": "Bring up Qwen3.5 vLLM on port 8001, run a small graph_color hard-bin matched-budget shard with M-register/L0/L1-thinking arms, then implement zebra_puzzles and sudoku bounded-register CSP adapters before the full Tier-1 matrix."
+    "next_step_routing": "Power gate first. Do not start any LLM arm until the benchmark has a no-LLM calibrated hard bin where L0-symbolic-random solve_rate is below 0.7 at the matched node budget. Next: implement zebra_puzzles/sudoku adapters, L0-symbolic-heuristic, L0-symbolic-random, and the Tier-1 difficulty calibration sweep. vLLM can be brought up in parallel at gpu_memory_utilization=0.30 but is not the first execution step."
   },
   "result_tables": {
     "tier1_reasoning_gym_preflight": {
@@ -97,19 +102,30 @@
         {"matrix": "multiagent", "benchmarks": "AgentsNet, controlled graph_color, controlled zebra_puzzles", "arms_or_focus": "CBJ/chrono/forward separator read; team-vs-monolith no-LLM and frozen-LLM agents"}
       ]
     },
+    "execution_order_addendum": {
+      "columns": ["step", "action", "guard"],
+      "rows": [
+        {"step": 1, "action": "No-LLM critical path: zebra_puzzles/sudoku adapters, L0-symbolic-heuristic, L0-symbolic-random, difficulty calibration", "guard": "no vLLM needed"},
+        {"step": 2, "action": "Power gate", "guard": "L0-random solve_rate < 0.7 in the hardest matched-budget bin before any LLM arm"},
+        {"step": 3, "action": "vLLM in parallel", "guard": "Qwen3.5 port 8001, gpu_memory_utilization=0.30, parseable-rate smoke"},
+        {"step": 4, "action": "LLM arms on calibrated bins only", "guard": "graph_color first, then zebra_puzzles and sudoku"}
+      ]
+    },
     "proceed_gates": {
       "columns": ["track", "gate", "reason"],
       "rows": [
-        {"track": "primary_real_llm", "gate": "NO_GO", "reason": "vLLM endpoint unavailable"},
+        {"track": "primary_real_llm", "gate": "DEFER_AFTER_POWER_GATE", "reason": "LLM arms wait for benchmark-specific L0-random <0.7 power gate, even if vLLM is available"},
         {"track": "tier1_adapter_work", "gate": "GO", "reason": "RG datasets and official score_answer are available; zebra/sudoku bounded-register adapters are the next implementation"},
+        {"track": "difficulty_power_calibration", "gate": "GO", "reason": "No-LLM arms determine discriminating bins before LLM budget is spent"},
         {"track": "agentsnet_formula_track", "gate": "GO", "reason": "direct score-formula path exists and avoids langchain runtime"}
       ]
     }
   },
   "honesty": {
     "does_not_establish": "This item does not execute the externalization validation matrix and does not establish new claim results. It preregisters the protocol and checks harness readiness.",
-    "vllm_limit": "No vLLM OpenAI-compatible endpoint was active on 8001 or 8000, so real Qwen3.5 arms were not launched.",
+    "vllm_limit": "The local addendum-time probe still did not confirm an endpoint on 8001 or 8000, but even an available vLLM endpoint is now downstream of the no-LLM power gate; real Qwen3.5 arms were not launched.",
     "adapter_limit": "Existing Item070 runner is graph_color-specific; zebra_puzzles and sudoku require bounded-register CSP adapters before full Tier-1 execution.",
+    "power_gate_limit": "No Tier-1 benchmark has yet been calibrated to the required L0-random-below-0.7 hard bin in this item; this is the next concrete move.",
     "scope_limit": "Externalization only; no internalization, training, distillation, or RL."
   }
 }

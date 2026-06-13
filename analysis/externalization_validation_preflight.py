@@ -171,16 +171,20 @@ def _kills() -> list[dict[str, Any]]:
 def _next_commands(args: argparse.Namespace) -> list[dict[str, str]]:
     return [
         {
-            "name": "start_vllm_qwen35",
-            "command": "CUDA_VISIBLE_DEVICES=0,1,2,3 .venv-vllm/bin/python -m vllm.entrypoints.openai.api_server --model /home/aiscuser/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a --served-model-name Qwen/Qwen3.5-4B --port 8001 --tensor-parallel-size 4 --gpu-memory-utilization 0.30 --max-model-len 4096 --max-num-seqs 512",
+            "name": "no_llm_power_calibration_first",
+            "command": "Implement zebra_puzzles/sudoku bounded-register adapters, L0-symbolic-heuristic, and L0-symbolic-random; sweep difficulty until L0-random solve_rate < 0.7 in the hardest matched-budget bin before any LLM arm runs.",
         },
         {
-            "name": "primary_matrix_first_shard",
-            "command": "Run graph_color hard-bin matched-budget shard first, then zebra_puzzles and sudoku after CSP adapters land; do not read raw solve_rate as primary.",
+            "name": "vllm_parallel_after_power_work_starts",
+            "command": "Bring up Qwen3.5 on port 8001 with gpu_memory_utilization=0.30, then run parseable-rate smoke; do not spend LLM budget on a benchmark until its no-LLM power gate passes.",
         },
         {
-            "name": "multiagent_agentsnet_first_shard",
-            "command": "Use local AgentsNet graph families plus direct Coloring.get_score formula; avoid langchain runtime import; sweep topology/size/separator.",
+            "name": "gated_primary_llm_shard",
+            "command": "After the power gate passes, run graph_color hard-bin matched-budget M-register/L1 shard first, then extend to zebra_puzzles and sudoku calibrated bins.",
+        },
+        {
+            "name": "multiagent_agentsnet_shard_after_power_gate",
+            "command": "Use local AgentsNet graph families plus direct Coloring.get_score formula; avoid langchain runtime import; sweep topology/size/separator after reproducing anchors.",
         },
     ]
 
@@ -202,6 +206,20 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         },
         "known_anchors": anchors,
         "preregistered_matrix": preregistered,
+        "execution_order_addendum": {
+            "schema_version": "externalization_execution_reorder_power_gate_first_v0",
+            "supersedes_next_action_only": True,
+            "does_not_change_claims_observables_or_kills": True,
+            "mandatory_order": [
+                "No-LLM critical path: adapters, L0-symbolic-heuristic, L0-symbolic-random, difficulty calibration.",
+                "Power gate: no LLM arm runs until L0-random solve_rate < 0.7 in the hardest matched-budget bin for that benchmark.",
+                "vLLM in parallel: Qwen3.5 on port 8001 with gpu_memory_utilization=0.30 and parseable-rate smoke.",
+                "LLM arms only on calibrated bins: graph_color first, then zebra_puzzles and sudoku.",
+            ],
+            "reason": "No-LLM arms determine whether a bin has comparison power; running LLM on non-discriminating bins repeats the Item070 power failure at higher cost.",
+            "source": SOURCE,
+            "provenance": "externalization_execution_order_addendum_v0",
+        },
         "kills_and_forks": _kills(),
         "preflight": {
             "reasoning_gym_tier1": rg_rows,
@@ -214,14 +232,15 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "tier1_rg_official_scoring_ready": all(row.get("status") == "OK" and row.get("score_answer_usable") for row in rg_rows),
             "vllm_ready": any(row.get("status") == "OK" for row in vllm_rows),
             "agentsnet_formula_ready": Path(args.agentsnet_repo).exists(),
-            "primary_blocker": "vLLM endpoint unavailable" if not any(row.get("status") == "OK" for row in vllm_rows) else "implement non-graph_color CSP adapters before full Tier-1 matrix",
+            "primary_blocker": "no-LLM power calibration not yet run",
+            "vllm_status_note": "vLLM availability is not the next-action gate after the execution-order addendum; LLM arms remain deferred until the no-LLM power gate passes.",
             "source": SOURCE,
             "provenance": "externalization_readiness_v0",
         },
         "next_commands": _next_commands(args),
         "honesty": {
             "does_not_establish": "This is preregistration and harness preflight for the externalization paper validation. It banks no new claim result beyond Item070 and Item076 anchors.",
-            "main_blockers": "vLLM is not currently serving on the checked endpoints; zebra_puzzles/sudoku need bounded-register CSP adapters before the full primary matrix can be read.",
+            "main_blockers": "The execution-order addendum makes no-LLM adapters, L0 baselines, and difficulty power calibration the next critical path. vLLM may be brought up in parallel but must not be used on a benchmark before its power gate passes.",
             "source": SOURCE,
             "provenance": "externalization_preflight_honesty_v0",
         },

@@ -44,3 +44,18 @@ It explicitly does not cover internalization into model parameters: no training,
 ## Current v0 Status
 
 This document is paired with `results/externalization_validation_v0/preflight.json`. The v0 artifact is a preregistration and harness preflight, not the full real-LLM matrix result.
+
+## Addendum: Execution Reorder, Power Gate First
+
+This addendum changes execution order only. It does not change any claim, observable, kill fork, benchmark, or arm.
+
+The no-LLM critical path must run before any LLM budget is spent on a benchmark:
+
+1. Implement the `zebra_puzzles` and `sudoku` bounded-register CSP adapters.
+2. Implement L0-symbolic-heuristic and L0-symbolic-random.
+3. Sweep difficulty for each Tier-1 benchmark and locate bins where L0-symbolic-random solve rate drops below 0.7 at the matched node budget in the hardest bin.
+4. Treat that power gate as a hard precondition: no M-register, L1-vanilla, or L1-thinking run starts on a benchmark until the benchmark has a discriminating bin.
+5. Bring up Qwen3.5 vLLM on port 8001 in parallel with `gpu_memory_utilization=0.30`, then run the parseable-rate smoke gate before any real LLM shard.
+6. Run LLM arms only on calibrated bins, starting with `graph_color`, then extending to `zebra_puzzles` and `sudoku`.
+
+Rationale: Item070 was read in a low-power bin where random-culprit solved 0.9. The matched-budget design only answers the LLM-adds-value fork on bins where no-LLM random or heuristic arms degrade. Since this is determined entirely by no-LLM arms, power calibration must precede LLM spending.

@@ -2365,7 +2365,7 @@
       "tier": "contract"
     },
     {
-      "detail": "gates=5; routing=Bring up Qwen3.5 vLLM on port 8001, run a small graph_color hard-bin matched-budget shard with M-register/L0/L1-thinking arms, then implement zebra_puzzles and sudoku bounded-register CSP adapters before the full Tier-1 matrix.",
+      "detail": "gates=6; routing=Power gate first. Do not start any LLM arm until the benchmark has a no-LLM calibrated hard bin where L0-symbolic-random solve_rate is below 0.7 at the matched node budget. Next: implement zebra_puzzles/sudoku adapters, L0-symbolic-heuristic, L0-symbolic-random, and the Tier-1 difficulty calibration sweep. vLLM can be brought up in parallel at gpu_memory_utilization=0.30 but is not the first execution step.",
       "name": "log_item_077_decision_numbers_and_routing",
       "status": "PASS",
       "tier": "contract"
@@ -2947,13 +2947,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'pop_read', 'write_drop_mask', 'final_solution_readback', 'forward_read', 'spill_off_write_drop', 'register_entry_classification'}",
+      "detail": "rules={'pop_read', 'spill_off_write_drop', 'write_drop_mask', 'forward_read', 'final_solution_readback', 'register_entry_classification'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'threshold_D_pop', 'P_all', 'P_choice_unmasked', 'threshold_D_peak', 'P_choice', 'P_all_unmasked', 'P_pop_unmasked', 'P_pop'}; rows=768",
+      "detail": "candidates={'P_choice', 'P_pop_unmasked', 'P_all', 'P_pop', 'threshold_D_pop', 'threshold_D_peak', 'P_all_unmasked', 'P_choice_unmasked'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2977,7 +2977,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rows=64; statuses={'timeout', 'measured'}",
+      "detail": "rows=64; statuses={'measured', 'timeout'}",
       "name": "e1_sudoku_compositional_real_trace_subsample",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2989,7 +2989,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_all', 'P_choice_unmasked', 'P_choice', 'P_all_unmasked', 'P_pop_unmasked', 'P_pop'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_choice', 'P_pop_unmasked', 'P_all', 'P_pop', 'P_all_unmasked', 'P_choice_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3787,7 +3787,7 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-13T06:01:00.026673+00:00",
+  "generated_at": "2026-06-13T07:07:42.728997+00:00",
   "passed": false,
   "summary": {
     "n_checks": 631,
