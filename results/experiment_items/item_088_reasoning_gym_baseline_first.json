@@ -1,0 +1,134 @@
+{
+  "item_number": "088",
+  "schema_version": "log_item_contract_v1",
+  "name": "Reasoning Gym baseline-first pivot and smoke",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Pivot the program to build and test Reasoning Gym baselines before further method evaluations. Adds a unified baseline matrix harness, records a baseline-first spec, runs a no-LLM Tier-1 smoke on graph_color/sudoku/zebra_puzzles, and records that the LLM one-shot baseline path needs checkpoint/process-timeout before larger LLM baseline runs.",
+  "provenance": {
+    "schema_version": "reasoning_gym_baseline_first_status_v1",
+    "source": "autonomous_stage_a_run",
+    "spec_artifact": "specs/reasoning_gym_baseline_first_v1.md",
+    "script": "analysis/reasoning_gym_baseline_matrix.py",
+    "result_artifact": "results/reasoning_gym_baselines/baseline_first_status.json",
+    "no_llm_smoke_artifact": "results/reasoning_gym_baselines/baseline_matrix_smoke.json",
+    "parent_item": "087"
+  },
+  "artifacts": [
+    "results/experiment_items/item_088_reasoning_gym_baseline_first.json",
+    "specs/reasoning_gym_baseline_first_v1.md",
+    "analysis/reasoning_gym_baseline_matrix.py",
+    "results/reasoning_gym_baselines/baseline_first_status.json",
+    "results/reasoning_gym_baselines/baseline_matrix_smoke.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/reasoning_gym_baseline_matrix.py",
+      "change": "Adds a unified Reasoning Gym baseline matrix runner with official_oracle_answer, empty_answer, symbolic heuristic/random for graph_color/sudoku, zebra adapter-pending rows, and optional LLM one-shot arms."
+    },
+    {
+      "path": "specs/reasoning_gym_baseline_first_v1.md",
+      "change": "Records the baseline-first program pivot: populate Reasoning Gym baselines before further method comparisons."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m py_compile analysis/reasoning_gym_baseline_matrix.py",
+      "purpose": "Validate the new baseline matrix runner compiles."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.reasoning_gym_baseline_matrix --output results/reasoning_gym_baselines/baseline_matrix_smoke.json --benchmarks graph_color,sudoku,zebra_puzzles --n-instances 3 --seed 42 --graph-vertices 14 --graph-edge-probability 0.4 --graph-node-budget 80 --sudoku-empty 45 --sudoku-node-budget 320",
+      "purpose": "Run no-LLM baseline matrix smoke across Tier-1 Reasoning Gym benchmarks."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.reasoning_gym_baseline_matrix --output results/reasoning_gym_baselines/baseline_matrix_llm_smoke.json --benchmarks graph_color,sudoku,zebra_puzzles --n-instances 1 --run-llm --max-new-tokens 512 ...",
+      "purpose": "Attempt LLM one-shot baseline smoke; stopped after about 300 seconds without artifact, motivating checkpoint/process-timeout for LLM baselines."
+    }
+  ],
+  "decision": {
+    "outcome": "REASONING_GYM_BASELINE_FIRST_SMOKE_COMPLETE_LLM_TIMEOUT_BLOCKED",
+    "overall_pass": true,
+    "headline": {
+      "baseline_first_pivot": true,
+      "method_tests_paused": true,
+      "tier1_no_llm_smoke": "PASS",
+      "oracle_all_pass": true,
+      "empty_all_floor": true,
+      "graph_color_symbolic_heuristic_solve_rate": 1.0,
+      "sudoku_symbolic_heuristic_solve_rate": 1.0,
+      "zebra_symbolic_status": "ADAPTER_PENDING",
+      "llm_one_shot_status": "TIMEOUT_BLOCKED_NO_ARTIFACT",
+      "single_next_move": "Add checkpoint/process-timeout to LLM one-shot baseline runner, then populate L1 one-shot baselines before resuming method comparisons."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "baseline_first_policy",
+        "outcome": "RECORDED",
+        "number": "Method tests are paused until Reasoning Gym baseline matrix is built and tested."
+      },
+      {
+        "gate": "official_scoring_sanity",
+        "outcome": "PASS",
+        "number": "official_oracle_answer solve_rate=1.0 for graph_color, sudoku, and zebra_puzzles on n=3 smoke."
+      },
+      {
+        "gate": "trivial_floor",
+        "outcome": "PASS",
+        "number": "empty_answer solve_rate=0.0 for all three benchmarks."
+      },
+      {
+        "gate": "symbolic_baselines_graph_sudoku",
+        "outcome": "PASS_SMOKE",
+        "number": "L0-symbolic-heuristic solve_rate=1.0 for graph_color and sudoku; random solve_rate=0.0 under smoke budgets."
+      },
+      {
+        "gate": "zebra_symbolic_baseline",
+        "outcome": "ADAPTER_PENDING",
+        "number": "Zebra official scoring works, but symbolic heuristic/random rows are adapter-pending."
+      },
+      {
+        "gate": "llm_one_shot_baseline",
+        "outcome": "TIMEOUT_BLOCKED",
+        "number": "Tiny LLM one-shot smoke did not produce artifact before manual cutoff; needs checkpoint/process-timeout before full LLM baseline."
+      },
+      {
+        "gate": "method_comparison",
+        "outcome": "PAUSED",
+        "number": "Do not resume externalization/multi-agent method comparisons until baseline matrix is populated."
+      }
+    ],
+    "next_step_routing": "Implement checkpoint/process-timeout for LLM one-shot baselines in analysis.reasoning_gym_baseline_matrix, rerun L1-one_shot_direct on Tier-1, then extend baselines before method comparisons."
+  },
+  "result_tables": {
+    "no_llm_smoke_summary": {
+      "columns": ["benchmark", "arm", "n", "solve_rate", "status_counts"],
+      "rows": [
+        {"benchmark": "graph_color", "arm": "official_oracle_answer", "n": 3, "solve_rate": 1.0, "status_counts": {"SOLVED": 3}},
+        {"benchmark": "graph_color", "arm": "empty_answer", "n": 3, "solve_rate": 0.0, "status_counts": {"SCORE_FAIL": 3}},
+        {"benchmark": "graph_color", "arm": "L0-symbolic-heuristic", "n": 3, "solve_rate": 1.0, "status_counts": {"SOLVED": 3}},
+        {"benchmark": "graph_color", "arm": "L0-symbolic-random", "n": 3, "solve_rate": 0.0, "status_counts": {"NODE_BUDGET": 3}},
+        {"benchmark": "sudoku", "arm": "official_oracle_answer", "n": 3, "solve_rate": 1.0, "status_counts": {"SOLVED": 3}},
+        {"benchmark": "sudoku", "arm": "empty_answer", "n": 3, "solve_rate": 0.0, "status_counts": {"SCORE_FAIL": 3}},
+        {"benchmark": "sudoku", "arm": "L0-symbolic-heuristic", "n": 3, "solve_rate": 1.0, "status_counts": {"SOLVED": 3}},
+        {"benchmark": "sudoku", "arm": "L0-symbolic-random", "n": 3, "solve_rate": 0.0, "status_counts": {"NODE_BUDGET": 3}},
+        {"benchmark": "zebra_puzzles", "arm": "official_oracle_answer", "n": 3, "solve_rate": 1.0, "status_counts": {"SOLVED": 3}},
+        {"benchmark": "zebra_puzzles", "arm": "empty_answer", "n": 3, "solve_rate": 0.0, "status_counts": {"SCORE_FAIL": 3}},
+        {"benchmark": "zebra_puzzles", "arm": "L0-symbolic-heuristic", "n": 3, "solve_rate": 0.0, "status_counts": {"ADAPTER_PENDING": 3}},
+        {"benchmark": "zebra_puzzles", "arm": "L0-symbolic-random", "n": 3, "solve_rate": 0.0, "status_counts": {"ADAPTER_PENDING": 3}}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "LLM_one_shot_baselines", "gate": "GO_TIMEOUT_WRAPPER_FIRST", "reason": "Tiny LLM smoke timed out without artifact."},
+        {"track": "zebra_symbolic_baseline", "gate": "ADAPTER_PENDING", "reason": "Need structural parser/adapter before symbolic zebra baselines."},
+        {"track": "method_comparisons", "gate": "PAUSED", "reason": "Baseline matrix must be populated first."}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not evaluate the externalized M-register or multi-agent method, and it does not claim method superiority. It only creates/smoke-tests the baseline-first harness and records LLM baseline timeout as a blocker.",
+    "llm_limit": "LLM one-shot baseline attempt produced no artifact before cutoff; it must be rerun with checkpoint/process-timeout.",
+    "zebra_limit": "Zebra symbolic baseline remains adapter-pending.",
+    "smoke_limit": "No-LLM baseline smoke uses n=3 and is a harness/scoring sanity check, not a final benchmark table."
+  }
+}

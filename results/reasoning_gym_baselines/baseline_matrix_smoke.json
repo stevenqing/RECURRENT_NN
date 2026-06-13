@@ -1,0 +1,681 @@
+{
+  "baseline_policy": {
+    "baseline_first": true,
+    "benchmarks": [
+      "graph_color",
+      "sudoku",
+      "zebra_puzzles"
+    ],
+    "method_after_baselines": true,
+    "official_scoring_only": true,
+    "provenance": "rg_baseline_policy_v1",
+    "source": "autonomous_stage_a_run"
+  },
+  "config": {
+    "batch_size": 4,
+    "benchmarks": "graph_color,sudoku,zebra_puzzles",
+    "graph_edge_probability": 0.4,
+    "graph_node_budget": 80,
+    "graph_num_colors": 3,
+    "graph_vertices": 14,
+    "max_new_tokens": 512,
+    "n_instances": 3,
+    "openai_base_url": "http://127.0.0.1:8001/v1",
+    "openai_model": "Qwen/Qwen3.5-4B",
+    "reasoning_gym_repo": null,
+    "run_cot": false,
+    "run_llm": false,
+    "seed": 42,
+    "sudoku_empty": 45,
+    "sudoku_node_budget": 320
+  },
+  "coverage": {
+    "empty_answer": "all requested benchmarks",
+    "official_oracle_answer": "all requested benchmarks",
+    "one_shot_cot": "optional via --run-llm --run-cot",
+    "one_shot_direct": "optional via --run-llm",
+    "provenance": "rg_baseline_coverage_v1",
+    "source": "autonomous_stage_a_run",
+    "symbolic_heuristic_random": "graph_color and sudoku; zebra_puzzles adapter pending"
+  },
+  "generated_at": "2026-06-13T13:03:57.192992+00:00",
+  "honesty": {
+    "does_not_establish": "This artifact builds and smoke-tests a baseline matrix. It does not evaluate the externalized M-register or multi-agent method, and it does not claim method superiority.",
+    "llm_limit": "LLM one-shot baselines are present only when --run-llm is used; token accounting is total prompt+output tokens.",
+    "provenance": "rg_baseline_honesty_v1",
+    "source": "autonomous_stage_a_run",
+    "zebra_limit": "Zebra symbolic baselines remain adapter-pending because RG metadata does not expose structural constraints in the same way as graph_color/sudoku."
+  },
+  "provenance": "reasoning_gym_baseline_matrix_v1",
+  "rows": [
+    {
+      "arm": "official_oracle_answer",
+      "benchmark": "graph_color",
+      "official_score": 1.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_oracle_answer_v1",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SOLVED",
+      "total_tokens": 0
+    },
+    {
+      "arm": "empty_answer",
+      "benchmark": "graph_color",
+      "official_score": 0.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_empty_answer_v1",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SCORE_FAIL",
+      "total_tokens": 0
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "benchmark": "graph_color",
+      "max_depth": 14,
+      "node_budget": 80,
+      "nodes_visited": 14,
+      "official_score": 1.0,
+      "provenance": "externalization_l0_budgeted_csp_episode_v0",
+      "retractions": 0,
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SOLVED"
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "benchmark": "graph_color",
+      "max_depth": 13,
+      "node_budget": 80,
+      "nodes_visited": 80,
+      "official_score": 0.0,
+      "provenance": "externalization_l0_budgeted_csp_episode_v0",
+      "retractions": 80,
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "NODE_BUDGET"
+    },
+    {
+      "arm": "official_oracle_answer",
+      "benchmark": "graph_color",
+      "official_score": 1.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_oracle_answer_v1",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 1,
+      "status": "SOLVED",
+      "total_tokens": 0
+    },
+    {
+      "arm": "empty_answer",
+      "benchmark": "graph_color",
+      "official_score": 0.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_empty_answer_v1",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 1,
+      "status": "SCORE_FAIL",
+      "total_tokens": 0
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "benchmark": "graph_color",
+      "max_depth": 14,
+      "node_budget": 80,
+      "nodes_visited": 14,
+      "official_score": 1.0,
+      "provenance": "externalization_l0_budgeted_csp_episode_v0",
+      "retractions": 0,
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 1,
+      "status": "SOLVED"
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "benchmark": "graph_color",
+      "max_depth": 13,
+      "node_budget": 80,
+      "nodes_visited": 80,
+      "official_score": 0.0,
+      "provenance": "externalization_l0_budgeted_csp_episode_v0",
+      "retractions": 80,
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 1,
+      "status": "NODE_BUDGET"
+    },
+    {
+      "arm": "official_oracle_answer",
+      "benchmark": "graph_color",
+      "official_score": 1.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_oracle_answer_v1",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 2,
+      "status": "SOLVED",
+      "total_tokens": 0
+    },
+    {
+      "arm": "empty_answer",
+      "benchmark": "graph_color",
+      "official_score": 0.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_empty_answer_v1",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 2,
+      "status": "SCORE_FAIL",
+      "total_tokens": 0
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "benchmark": "graph_color",
+      "max_depth": 14,
+      "node_budget": 80,
+      "nodes_visited": 14,
+      "official_score": 1.0,
+      "provenance": "externalization_l0_budgeted_csp_episode_v0",
+      "retractions": 0,
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 2,
+      "status": "SOLVED"
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "benchmark": "graph_color",
+      "max_depth": 12,
+      "node_budget": 80,
+      "nodes_visited": 80,
+      "official_score": 0.0,
+      "provenance": "externalization_l0_budgeted_csp_episode_v0",
+      "retractions": 80,
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 2,
+      "status": "NODE_BUDGET"
+    },
+    {
+      "arm": "official_oracle_answer",
+      "benchmark": "sudoku",
+      "official_score": 1.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_oracle_answer_v1",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SOLVED",
+      "total_tokens": 0
+    },
+    {
+      "arm": "empty_answer",
+      "benchmark": "sudoku",
+      "official_score": 0.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_empty_answer_v1",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SCORE_FAIL",
+      "total_tokens": 0
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "benchmark": "sudoku",
+      "max_depth": 81,
+      "node_budget": 320,
+      "nodes_visited": 45,
+      "official_score": 1.0,
+      "provenance": "externalization_l0_budgeted_csp_episode_v0",
+      "retractions": 0,
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SOLVED"
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "benchmark": "sudoku",
+      "max_depth": 63,
+      "node_budget": 320,
+      "nodes_visited": 320,
+      "official_score": 0.0,
+      "provenance": "externalization_l0_budgeted_csp_episode_v0",
+      "retractions": 320,
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "NODE_BUDGET"
+    },
+    {
+      "arm": "official_oracle_answer",
+      "benchmark": "sudoku",
+      "official_score": 1.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_oracle_answer_v1",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 1,
+      "status": "SOLVED",
+      "total_tokens": 0
+    },
+    {
+      "arm": "empty_answer",
+      "benchmark": "sudoku",
+      "official_score": 0.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_empty_answer_v1",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 1,
+      "status": "SCORE_FAIL",
+      "total_tokens": 0
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "benchmark": "sudoku",
+      "max_depth": 81,
+      "node_budget": 320,
+      "nodes_visited": 45,
+      "official_score": 1.0,
+      "provenance": "externalization_l0_budgeted_csp_episode_v0",
+      "retractions": 0,
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 1,
+      "status": "SOLVED"
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "benchmark": "sudoku",
+      "max_depth": 64,
+      "node_budget": 320,
+      "nodes_visited": 320,
+      "official_score": 0.0,
+      "provenance": "externalization_l0_budgeted_csp_episode_v0",
+      "retractions": 320,
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 1,
+      "status": "NODE_BUDGET"
+    },
+    {
+      "arm": "official_oracle_answer",
+      "benchmark": "sudoku",
+      "official_score": 1.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_oracle_answer_v1",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 2,
+      "status": "SOLVED",
+      "total_tokens": 0
+    },
+    {
+      "arm": "empty_answer",
+      "benchmark": "sudoku",
+      "official_score": 0.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_empty_answer_v1",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 2,
+      "status": "SCORE_FAIL",
+      "total_tokens": 0
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "benchmark": "sudoku",
+      "max_depth": 81,
+      "node_budget": 320,
+      "nodes_visited": 45,
+      "official_score": 1.0,
+      "provenance": "externalization_l0_budgeted_csp_episode_v0",
+      "retractions": 0,
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 2,
+      "status": "SOLVED"
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "benchmark": "sudoku",
+      "max_depth": 65,
+      "node_budget": 320,
+      "nodes_visited": 320,
+      "official_score": 0.0,
+      "provenance": "externalization_l0_budgeted_csp_episode_v0",
+      "retractions": 320,
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 2,
+      "status": "NODE_BUDGET"
+    },
+    {
+      "arm": "official_oracle_answer",
+      "benchmark": "zebra_puzzles",
+      "official_score": 1.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_oracle_answer_v1",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SOLVED",
+      "total_tokens": 0
+    },
+    {
+      "arm": "empty_answer",
+      "benchmark": "zebra_puzzles",
+      "official_score": 0.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_empty_answer_v1",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SCORE_FAIL",
+      "total_tokens": 0
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "benchmark": "zebra_puzzles",
+      "official_score": 0.0,
+      "provenance": "rg_baseline_symbolic_adapter_pending_v1",
+      "reason": "No structural adapter yet for this benchmark.",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "ADAPTER_PENDING"
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "benchmark": "zebra_puzzles",
+      "official_score": 0.0,
+      "provenance": "rg_baseline_symbolic_adapter_pending_v1",
+      "reason": "No structural adapter yet for this benchmark.",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "ADAPTER_PENDING"
+    },
+    {
+      "arm": "official_oracle_answer",
+      "benchmark": "zebra_puzzles",
+      "official_score": 1.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_oracle_answer_v1",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 1,
+      "status": "SOLVED",
+      "total_tokens": 0
+    },
+    {
+      "arm": "empty_answer",
+      "benchmark": "zebra_puzzles",
+      "official_score": 0.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_empty_answer_v1",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 1,
+      "status": "SCORE_FAIL",
+      "total_tokens": 0
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "benchmark": "zebra_puzzles",
+      "official_score": 0.0,
+      "provenance": "rg_baseline_symbolic_adapter_pending_v1",
+      "reason": "No structural adapter yet for this benchmark.",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 1,
+      "status": "ADAPTER_PENDING"
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "benchmark": "zebra_puzzles",
+      "official_score": 0.0,
+      "provenance": "rg_baseline_symbolic_adapter_pending_v1",
+      "reason": "No structural adapter yet for this benchmark.",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 1,
+      "status": "ADAPTER_PENDING"
+    },
+    {
+      "arm": "official_oracle_answer",
+      "benchmark": "zebra_puzzles",
+      "official_score": 1.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_oracle_answer_v1",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 2,
+      "status": "SOLVED",
+      "total_tokens": 0
+    },
+    {
+      "arm": "empty_answer",
+      "benchmark": "zebra_puzzles",
+      "official_score": 0.0,
+      "output_tokens": 0,
+      "prompt_tokens": 0,
+      "provenance": "rg_baseline_empty_answer_v1",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 2,
+      "status": "SCORE_FAIL",
+      "total_tokens": 0
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "benchmark": "zebra_puzzles",
+      "official_score": 0.0,
+      "provenance": "rg_baseline_symbolic_adapter_pending_v1",
+      "reason": "No structural adapter yet for this benchmark.",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 2,
+      "status": "ADAPTER_PENDING"
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "benchmark": "zebra_puzzles",
+      "official_score": 0.0,
+      "provenance": "rg_baseline_symbolic_adapter_pending_v1",
+      "reason": "No structural adapter yet for this benchmark.",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 2,
+      "status": "ADAPTER_PENDING"
+    }
+  ],
+  "schema_version": "reasoning_gym_baseline_matrix_v1",
+  "source": "autonomous_stage_a_run",
+  "status": "REASONING_GYM_BASELINE_MATRIX_COMPLETE",
+  "summary_by_benchmark_arm": [
+    {
+      "arm": "L0-symbolic-heuristic",
+      "benchmark": "graph_color",
+      "mean_official_score": 1.0,
+      "mean_total_tokens": 0,
+      "n": 3,
+      "provenance": "rg_baseline_summary_v1",
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 3
+      }
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "benchmark": "graph_color",
+      "mean_official_score": 0.0,
+      "mean_total_tokens": 0,
+      "n": 3,
+      "provenance": "rg_baseline_summary_v1",
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "NODE_BUDGET": 3
+      }
+    },
+    {
+      "arm": "empty_answer",
+      "benchmark": "graph_color",
+      "mean_official_score": 0.0,
+      "mean_total_tokens": 0,
+      "n": 3,
+      "provenance": "rg_baseline_summary_v1",
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 3
+      }
+    },
+    {
+      "arm": "official_oracle_answer",
+      "benchmark": "graph_color",
+      "mean_official_score": 1.0,
+      "mean_total_tokens": 0,
+      "n": 3,
+      "provenance": "rg_baseline_summary_v1",
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 3
+      }
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "benchmark": "sudoku",
+      "mean_official_score": 1.0,
+      "mean_total_tokens": 0,
+      "n": 3,
+      "provenance": "rg_baseline_summary_v1",
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 3
+      }
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "benchmark": "sudoku",
+      "mean_official_score": 0.0,
+      "mean_total_tokens": 0,
+      "n": 3,
+      "provenance": "rg_baseline_summary_v1",
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "NODE_BUDGET": 3
+      }
+    },
+    {
+      "arm": "empty_answer",
+      "benchmark": "sudoku",
+      "mean_official_score": 0.0,
+      "mean_total_tokens": 0,
+      "n": 3,
+      "provenance": "rg_baseline_summary_v1",
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 3
+      }
+    },
+    {
+      "arm": "official_oracle_answer",
+      "benchmark": "sudoku",
+      "mean_official_score": 1.0,
+      "mean_total_tokens": 0,
+      "n": 3,
+      "provenance": "rg_baseline_summary_v1",
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 3
+      }
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "benchmark": "zebra_puzzles",
+      "mean_official_score": 0.0,
+      "mean_total_tokens": 0,
+      "n": 3,
+      "provenance": "rg_baseline_summary_v1",
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "ADAPTER_PENDING": 3
+      }
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "benchmark": "zebra_puzzles",
+      "mean_official_score": 0.0,
+      "mean_total_tokens": 0,
+      "n": 3,
+      "provenance": "rg_baseline_summary_v1",
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "ADAPTER_PENDING": 3
+      }
+    },
+    {
+      "arm": "empty_answer",
+      "benchmark": "zebra_puzzles",
+      "mean_official_score": 0.0,
+      "mean_total_tokens": 0,
+      "n": 3,
+      "provenance": "rg_baseline_summary_v1",
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 3
+      }
+    },
+    {
+      "arm": "official_oracle_answer",
+      "benchmark": "zebra_puzzles",
+      "mean_official_score": 1.0,
+      "mean_total_tokens": 0,
+      "n": 3,
+      "provenance": "rg_baseline_summary_v1",
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 3
+      }
+    }
+  ]
+}

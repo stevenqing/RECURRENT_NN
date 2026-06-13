@@ -1,0 +1,212 @@
+{
+  "baseline_first_policy": {
+    "baseline_first": true,
+    "method_tests_paused": true,
+    "provenance": "rg_baseline_first_policy_v1",
+    "reason": "User requested building/testing Reasoning Gym baselines before further method tests.",
+    "source": "autonomous_stage_a_run"
+  },
+  "generated_at": "2026-06-13T13:10:49.196703+00:00",
+  "honesty": {
+    "does_not_establish": "This artifact establishes a no-LLM baseline smoke and a baseline-first plan. It does not complete LLM baselines and does not compare our method.",
+    "llm_limit": "LLM one-shot baseline attempt was stopped without artifact after timeout.",
+    "provenance": "rg_baseline_first_honesty_v1",
+    "source": "autonomous_stage_a_run",
+    "zebra_limit": "Zebra symbolic baselines remain adapter-pending."
+  },
+  "llm_smoke": {
+    "artifact_written": false,
+    "attempted": true,
+    "interpretation": "Generic LLM one-shot baseline runner needs checkpoint/process-timeout before Tier-1 LLM baseline runs, mirroring the multi-agent long-tail lesson.",
+    "manual_cutoff_seconds": 300,
+    "provenance": "rg_baseline_llm_smoke_timeout_v1",
+    "source": "autonomous_stage_a_run",
+    "status": "TIMEOUT_BLOCKED_NO_ARTIFACT"
+  },
+  "next_step": {
+    "immediate": "Add checkpoint/process-timeout to LLM one-shot baseline runner, then rerun L1-one_shot_direct on Tier-1.",
+    "provenance": "rg_baseline_first_next_step_v1",
+    "source": "autonomous_stage_a_run",
+    "then": "Only after baseline matrix is populated, resume externalization method comparisons on the same benchmark/config rows."
+  },
+  "no_llm_smoke": {
+    "artifact": "results/reasoning_gym_baselines/baseline_matrix_smoke.json",
+    "benchmarks": [
+      "graph_color",
+      "sudoku",
+      "zebra_puzzles"
+    ],
+    "empty_all_floor": true,
+    "n_instances": 3,
+    "oracle_all_pass": true,
+    "provenance": "rg_baseline_no_llm_smoke_status_v1",
+    "source": "autonomous_stage_a_run",
+    "status": "REASONING_GYM_BASELINE_MATRIX_COMPLETE",
+    "summary_by_benchmark_arm": [
+      {
+        "arm": "L0-symbolic-heuristic",
+        "benchmark": "graph_color",
+        "mean_official_score": 1.0,
+        "mean_total_tokens": 0,
+        "n": 3,
+        "provenance": "rg_baseline_summary_v1",
+        "solve_rate": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 3
+        }
+      },
+      {
+        "arm": "L0-symbolic-random",
+        "benchmark": "graph_color",
+        "mean_official_score": 0.0,
+        "mean_total_tokens": 0,
+        "n": 3,
+        "provenance": "rg_baseline_summary_v1",
+        "solve_rate": 0.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NODE_BUDGET": 3
+        }
+      },
+      {
+        "arm": "empty_answer",
+        "benchmark": "graph_color",
+        "mean_official_score": 0.0,
+        "mean_total_tokens": 0,
+        "n": 3,
+        "provenance": "rg_baseline_summary_v1",
+        "solve_rate": 0.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SCORE_FAIL": 3
+        }
+      },
+      {
+        "arm": "official_oracle_answer",
+        "benchmark": "graph_color",
+        "mean_official_score": 1.0,
+        "mean_total_tokens": 0,
+        "n": 3,
+        "provenance": "rg_baseline_summary_v1",
+        "solve_rate": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 3
+        }
+      },
+      {
+        "arm": "L0-symbolic-heuristic",
+        "benchmark": "sudoku",
+        "mean_official_score": 1.0,
+        "mean_total_tokens": 0,
+        "n": 3,
+        "provenance": "rg_baseline_summary_v1",
+        "solve_rate": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 3
+        }
+      },
+      {
+        "arm": "L0-symbolic-random",
+        "benchmark": "sudoku",
+        "mean_official_score": 0.0,
+        "mean_total_tokens": 0,
+        "n": 3,
+        "provenance": "rg_baseline_summary_v1",
+        "solve_rate": 0.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NODE_BUDGET": 3
+        }
+      },
+      {
+        "arm": "empty_answer",
+        "benchmark": "sudoku",
+        "mean_official_score": 0.0,
+        "mean_total_tokens": 0,
+        "n": 3,
+        "provenance": "rg_baseline_summary_v1",
+        "solve_rate": 0.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SCORE_FAIL": 3
+        }
+      },
+      {
+        "arm": "official_oracle_answer",
+        "benchmark": "sudoku",
+        "mean_official_score": 1.0,
+        "mean_total_tokens": 0,
+        "n": 3,
+        "provenance": "rg_baseline_summary_v1",
+        "solve_rate": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 3
+        }
+      },
+      {
+        "arm": "L0-symbolic-heuristic",
+        "benchmark": "zebra_puzzles",
+        "mean_official_score": 0.0,
+        "mean_total_tokens": 0,
+        "n": 3,
+        "provenance": "rg_baseline_summary_v1",
+        "solve_rate": 0.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "ADAPTER_PENDING": 3
+        }
+      },
+      {
+        "arm": "L0-symbolic-random",
+        "benchmark": "zebra_puzzles",
+        "mean_official_score": 0.0,
+        "mean_total_tokens": 0,
+        "n": 3,
+        "provenance": "rg_baseline_summary_v1",
+        "solve_rate": 0.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "ADAPTER_PENDING": 3
+        }
+      },
+      {
+        "arm": "empty_answer",
+        "benchmark": "zebra_puzzles",
+        "mean_official_score": 0.0,
+        "mean_total_tokens": 0,
+        "n": 3,
+        "provenance": "rg_baseline_summary_v1",
+        "solve_rate": 0.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SCORE_FAIL": 3
+        }
+      },
+      {
+        "arm": "official_oracle_answer",
+        "benchmark": "zebra_puzzles",
+        "mean_official_score": 1.0,
+        "mean_total_tokens": 0,
+        "n": 3,
+        "provenance": "rg_baseline_summary_v1",
+        "solve_rate": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 3
+        }
+      }
+    ],
+    "symbolic_adapter_pending": [
+      "zebra_puzzles",
+      "zebra_puzzles"
+    ]
+  },
+  "provenance": "reasoning_gym_baseline_first_status_v1",
+  "schema_version": "reasoning_gym_baseline_first_status_v1",
+  "source": "autonomous_stage_a_run",
+  "status": "REASONING_GYM_BASELINE_FIRST_SMOKE_COMPLETE_LLM_TIMEOUT_BLOCKED"
+}
