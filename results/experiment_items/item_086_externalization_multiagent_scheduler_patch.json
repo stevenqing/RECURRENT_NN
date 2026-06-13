@@ -1,0 +1,114 @@
+{
+  "item_number": "086",
+  "schema_version": "log_item_contract_v1",
+  "name": "Externalization multi-agent scheduler and failure instrumentation patch",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Fix the Item085 prelaunch blocker at the runner-mechanics level by adding checkpoint resume/skip-completed behavior, bounded row-budgeted execution, task batch sizing, and team NO_RECOVERY_TARGET failure reasons. Validate the scheduler mechanics with a fast no-LLM resume check; this is not a new L0 baseline and not a claim 4b result.",
+  "provenance": {
+    "schema_version": "externalization_multiagent_real_llm_scheduler_patch_v1",
+    "source": "autonomous_stage_a_run",
+    "script": "analysis/externalization_multiagent_real_llm_v1.py",
+    "result_artifact": "results/externalization_validation_v0/multiagent_real_llm_v1_scheduler_patch.json",
+    "scheduler_check_artifact": "results/externalization_validation_v0/multiagent_real_llm_v1_scheduler_check.json",
+    "scheduler_check_checkpoint": "results/externalization_validation_v0/multiagent_real_llm_v1_scheduler_check_checkpoint.json",
+    "parent_item": "085"
+  },
+  "artifacts": [
+    "results/experiment_items/item_086_externalization_multiagent_scheduler_patch.json",
+    "analysis/externalization_multiagent_real_llm_v1.py",
+    "results/externalization_validation_v0/multiagent_real_llm_v1_scheduler_patch.json",
+    "results/externalization_validation_v0/multiagent_real_llm_v1_scheduler_check.json",
+    "results/externalization_validation_v0/multiagent_real_llm_v1_scheduler_check_checkpoint.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/externalization_multiagent_real_llm_v1.py",
+      "change": "Adds checkpoint resume loading, duplicate row-key skipping, --task-batch-size, --max-new-rows, --no-resume, budget ledger fields for those controls, and team failure_reason values for NO_RECOVERY_TARGET/CALL_CAP paths."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m py_compile analysis/externalization_multiagent_real_llm_v1.py",
+      "purpose": "Validate the patched Part-1 runner compiles."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.externalization_multiagent_real_llm_v1 --output results/externalization_validation_v0/multiagent_real_llm_v1_scheduler_check.json --checkpoint-path results/externalization_validation_v0/multiagent_real_llm_v1_scheduler_check_checkpoint.json --k-values 2 --n-instances 1 --scan-limit 40 --block-size 8 --edge-probability 0.35 --register-limit 8 --call-cap 20 --min-recoveries 0 --batch-size 1 --task-batch-size 1 --max-new-rows 1 --max-new-tokens 64 --no-llm",
+      "purpose": "First fast scheduler check invocation: write exactly one checkpoint row."
+    },
+    {
+      "command": "Repeat the same no-LLM command against the same checkpoint.",
+      "purpose": "Second scheduler check invocation: verify resume skips the completed team row and appends the next missing arm rather than duplicating."
+    }
+  ],
+  "decision": {
+    "outcome": "EXTERNALIZATION_MULTIAGENT_REAL_LLM_SCHEDULER_PATCH_COMPLETE",
+    "overall_pass": true,
+    "headline": {
+      "resume_skip_completed": true,
+      "task_batch_size_added": true,
+      "max_new_rows_added": true,
+      "failure_reason_added": true,
+      "scheduler_check_rows": 2,
+      "duplicate_row_keys": 0,
+      "full_sweep_gate": "IMPROVED_BUT_STILL_USE_SPLIT_K_ROW_BUDGETED_RUNS",
+      "single_next_move": "Run K shards as small resumable row-budgeted chunks, starting with K=2 max_new_rows increments, before reopening the full K={2,3,4,6}, n>=30 launch."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "runner_compile",
+        "outcome": "PASS",
+        "number": "analysis.externalization_multiagent_real_llm_v1 compiles after scheduler patch."
+      },
+      {
+        "gate": "resume_skip_completed",
+        "outcome": "PASS",
+        "number": "Two invocations with max_new_rows=1 produced two unique row keys: team then monolith_R; no duplicate row keys."
+      },
+      {
+        "gate": "bounded_execution_controls",
+        "outcome": "PASS_INSTALLED",
+        "number": "Runner exposes --task-batch-size and --max-new-rows so future real-LLM shards can be split into resumable chunks."
+      },
+      {
+        "gate": "failure_reason_instrumentation",
+        "outcome": "PASS_INSTALLED",
+        "number": "Team rows now include failure_reason for call_cap, local/cross-block culprit out-of-register-view, missing blockers, and missing target trail cases."
+      },
+      {
+        "gate": "claim4b",
+        "outcome": "UNCHANGED_OPEN",
+        "number": "No real-LLM claim read is added; scheduler check used no-LLM mode only."
+      },
+      {
+        "gate": "l0_freeze",
+        "outcome": "RESPECTED",
+        "number": "No new calibration or no-LLM baseline was generated; no-LLM check was a mechanics test only."
+      }
+    ],
+    "next_step_routing": "Use the patched runner for split-K, row-budgeted real-LLM execution: e.g. K=2 with --task-batch-size 1 or 2 and --max-new-rows small, then resume until n is sufficient. Do not launch all K and all arms in one future set until runtime tails are characterized."
+  },
+  "result_tables": {
+    "scheduler_check": {
+      "columns": ["invocation", "rows_after", "new_arm", "duplicate_keys"],
+      "rows": [
+        {"invocation": 1, "rows_after": 1, "new_arm": "team", "duplicate_keys": 0},
+        {"invocation": 2, "rows_after": 2, "new_arm": "monolith_R", "duplicate_keys": 0}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "K2_split_real_llm", "gate": "GO_ROW_BUDGETED", "reason": "resume/max_new_rows now verified; start with small chunks"},
+        {"track": "K3_split_real_llm", "gate": "AFTER_K2_RUNTIME", "reason": "K3 had no completed rows in Item085 before cutoff; run after K2 runtime is characterized"},
+        {"track": "full_K6", "gate": "NO_GO_MONOLITHIC", "reason": "Do not submit all K/arms/instances at once; use split resumable shards"},
+        {"track": "claim4b", "gate": "OPEN", "reason": "No claim read from scheduler patch"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish or refute claim 4b. It only patches runner mechanics and verifies resume/skip behavior with a no-LLM scheduler check.",
+    "no_llm_check_scope": "The no-LLM check is not a baseline or calibration expansion; it is a fast deterministic way to test checkpoint mechanics.",
+    "remaining_limit": "There is still no hard per-request cancellation inside a Python thread. Real-LLM shards should be run in small resumable batches or separate process-level chunks.",
+    "l0_limit": "No L0/calibration expansion was performed."
+  }
+}

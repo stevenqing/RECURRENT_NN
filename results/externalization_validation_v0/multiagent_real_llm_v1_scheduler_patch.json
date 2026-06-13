@@ -1,0 +1,52 @@
+{
+  "generated_at": "2026-06-13T12:33:29.961369+00:00",
+  "honesty": {
+    "does_not_establish": "This patch artifact does not add a claim 4b result. The scheduler check used no-LLM mode only to verify resume/skip mechanics quickly.",
+    "l0_limit": "This is not an L0 calibration or new no-LLM baseline; it is a runner mechanics check.",
+    "provenance": "multiagent_scheduler_patch_honesty_v1",
+    "source": "autonomous_stage_a_run"
+  },
+  "patch_summary": {
+    "max_new_rows_added": true,
+    "provenance": "multiagent_scheduler_patch_summary_v1",
+    "resume_skip_completed": true,
+    "source": "autonomous_stage_a_run",
+    "task_batch_size_added": true,
+    "team_failure_reason_added": true
+  },
+  "provenance": "externalization_multiagent_real_llm_scheduler_patch_v1",
+  "readiness_delta": {
+    "after": "Runner can now resume from checkpoint and add a bounded number of new rows per invocation, enabling split-K or row-budgeted execution.",
+    "before": "Item085 K=2,K=3 prelaunch launched a larger future set; after 6/18 checkpoint rows, long-tail futures blocked final artifact completion until manual stop.",
+    "provenance": "multiagent_scheduler_readiness_delta_v1",
+    "remaining_blocker": "No per-request hard timeout exists; use small task_batch_size/max_new_rows or external process-level timeout for full sweep shards.",
+    "source": "autonomous_stage_a_run"
+  },
+  "scheduler_check": {
+    "checkpoint_artifact": "results/externalization_validation_v0/multiagent_real_llm_v1_scheduler_check_checkpoint.json",
+    "duplicate_keys": [],
+    "mode": "no_llm_fast_resume_check",
+    "provenance": "multiagent_scheduler_resume_check_v1",
+    "resume_skip_pass": true,
+    "row_keys": [
+      [
+        2,
+        33,
+        "team"
+      ],
+      [
+        2,
+        33,
+        "monolith_R"
+      ]
+    ],
+    "rows_after_two_invocations": 2,
+    "source": "autonomous_stage_a_run",
+    "status_counts": {
+      "SOLVED": 2
+    }
+  },
+  "schema_version": "externalization_multiagent_real_llm_scheduler_patch_v1",
+  "source": "autonomous_stage_a_run",
+  "status": "EXTERNALIZATION_MULTIAGENT_REAL_LLM_SCHEDULER_PATCH_COMPLETE"
+}

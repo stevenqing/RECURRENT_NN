@@ -48,8 +48,19 @@ def _write_json(path: Path, payload: Any) -> None:
     print(json.dumps({"path": _rel(path), "status": status}), flush=True)
 
 
+def _read_json(path: Path) -> Any:
+    path = path if path.is_absolute() else REPO_ROOT / path
+    if not path.exists():
+        return []
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def _checkpoint_path(args: argparse.Namespace) -> Path:
     return args.checkpoint_path if args.checkpoint_path.is_absolute() else REPO_ROOT / args.checkpoint_path
+
+
+def _row_key(row: dict[str, Any]) -> tuple[int, int, str]:
+    return (int(row.get("K", -1)), int(row.get("source_index", -1)), str(row.get("arm", "")))
 
 
 def _make_dataset(args: argparse.Namespace, k_value: int, size: int) -> Any:
@@ -161,6 +172,7 @@ def _run_team_episode(dataset: Any, selected: dict[str, Any], k_value: int, args
         "prompt_tokens": 0,
         "total_tokens": 0,
         "cache_effective": False,
+        "failure_reason": "",
     }
 
     def add_usage(generation: dict[str, Any]) -> None:
@@ -180,6 +192,7 @@ def _run_team_episode(dataset: Any, selected: dict[str, Any], k_value: int, args
             "R": int(args.register_limit),
             "arm": "team",
             "status": status,
+            "failure_reason": stats["failure_reason"],
             "official_score": score,
             "solved": score >= 1.0,
             "answer": _official_answer(assignment) if score >= 1.0 else None,
@@ -195,6 +208,7 @@ def _run_team_episode(dataset: Any, selected: dict[str, Any], k_value: int, args
 
     while True:
         if stats["decision_calls"] >= args.call_cap:
+            stats["failure_reason"] = "call_cap_reached"
             return finish("CALL_CAP")
         conflict = _cross_conflict(view, owner, assignment)
         if conflict is not None:
@@ -206,6 +220,7 @@ def _run_team_episode(dataset: Any, selected: dict[str, Any], k_value: int, args
             stats["max_register_view_len"] = max(stats["max_register_view_len"], len(bounded))
             local_indices = [idx for idx, item in enumerate(agent_register) if item["vertex"] == earlier_vertex]
             if not local_indices or local_indices[-1] < register_start:
+                stats["failure_reason"] = "cross_block_culprit_out_of_agent_register_view"
                 return finish("NO_RECOVERY_TARGET")
             latest_index = trail[-1]["trail_index"] if trail else 0
             culprit_index = max((item["trail_index"] for item in trail if item["vertex"] == earlier_vertex), default=latest_index)
@@ -225,6 +240,7 @@ def _run_team_episode(dataset: Any, selected: dict[str, Any], k_value: int, args
                 agent = owner[vertex]
                 blockers = sorted(neighbor for neighbor in view["adjacency"][vertex] if neighbor in assignment and owner[neighbor] == agent)
                 if not blockers:
+                    stats["failure_reason"] = "local_deadend_without_same_agent_blockers"
                     return finish("NO_RECOVERY_TARGET")
                 oracle_vertex = max(blockers, key=lambda item: position[item])
                 agent_register = registers[agent]
@@ -232,6 +248,7 @@ def _run_team_episode(dataset: Any, selected: dict[str, Any], k_value: int, args
                 stats["max_register_view_len"] = max(stats["max_register_view_len"], len(bounded))
                 oracle_local_indices = [idx for idx, item in enumerate(agent_register) if item["vertex"] == oracle_vertex]
                 if not oracle_local_indices or oracle_local_indices[-1] < register_start:
+                    stats["failure_reason"] = "local_culprit_out_of_agent_register_view"
                     return finish("NO_RECOVERY_TARGET")
                 chosen_view = oracle_local_indices[-1] - register_start
                 generation = _token_zero()
@@ -289,6 +306,7 @@ def _run_team_episode(dataset: Any, selected: dict[str, Any], k_value: int, args
 
         target_indices = [idx for idx, item in enumerate(trail) if item["vertex"] == target_vertex]
         if not target_indices:
+            stats["failure_reason"] = "chosen_target_not_in_global_trail"
             return finish("NO_RECOVERY_TARGET")
         target_index = target_indices[-1]
         popped = trail[target_index:]
@@ -403,8 +421,10 @@ def _select_entries(dataset: Any, args: argparse.Namespace, k_value: int) -> tup
 
 def run(args: argparse.Namespace) -> dict[str, Any]:
     k_values = [int(item) for item in args.k_values.split(",") if item.strip()]
-    all_rows: list[dict[str, Any]] = []
     checkpoint_path = _checkpoint_path(args)
+    all_rows: list[dict[str, Any]] = _read_json(checkpoint_path) if args.resume else []
+    completed_keys = {_row_key(row) for row in all_rows}
+    new_rows_written = 0
     all_preflight: list[dict[str, Any]] = []
     status = STATUS_COMPLETE
     use_llm = not args.no_llm
@@ -417,27 +437,46 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             continue
         tasks = []
         for item in selected:
-            tasks.append(("team", dataset, item, k_value, args.register_limit))
-            tasks.append(("monolith_R", dataset, item, k_value, args.register_limit))
-            tasks.append(("monolith_KR", dataset, item, k_value, args.register_limit * k_value))
+            for arm, r_value in [("team", args.register_limit), ("monolith_R", args.register_limit), ("monolith_KR", args.register_limit * k_value)]:
+                key = (int(k_value), int(item["source_index"]), arm)
+                if key not in completed_keys:
+                    tasks.append((arm, dataset, item, k_value, r_value))
+        if args.max_new_rows > 0:
+            remaining = max(0, args.max_new_rows - new_rows_written)
+            tasks = tasks[:remaining]
+        task_batch_size = args.task_batch_size if args.task_batch_size > 0 else len(tasks)
         if use_llm:
-            with ThreadPoolExecutor(max_workers=max(1, min(args.batch_size, len(tasks)))) as pool:
-                futures = {}
-                for arm, dataset_item, selected_item, k_item, r_item in tasks:
-                    if arm == "team":
-                        futures[pool.submit(_run_team_episode, dataset_item, selected_item, k_item, args, True)] = arm
-                    else:
-                        futures[pool.submit(_run_monolith_episode, dataset_item, selected_item, k_item, r_item, arm, args, True)] = arm
-                for future in as_completed(futures):
-                    all_rows.append(future.result())
-                    _write_json(checkpoint_path, all_rows)
+            for start in range(0, len(tasks), max(1, task_batch_size)):
+                batch = tasks[start : start + max(1, task_batch_size)]
+                with ThreadPoolExecutor(max_workers=max(1, min(args.batch_size, len(batch)))) as pool:
+                    futures = {}
+                    for arm, dataset_item, selected_item, k_item, r_item in batch:
+                        if arm == "team":
+                            futures[pool.submit(_run_team_episode, dataset_item, selected_item, k_item, args, True)] = arm
+                        else:
+                            futures[pool.submit(_run_monolith_episode, dataset_item, selected_item, k_item, r_item, arm, args, True)] = arm
+                    for future in as_completed(futures):
+                        row = future.result()
+                        all_rows.append(row)
+                        completed_keys.add(_row_key(row))
+                        new_rows_written += 1
+                        _write_json(checkpoint_path, all_rows)
+                if args.max_new_rows > 0 and new_rows_written >= args.max_new_rows:
+                    break
         else:
             for arm, dataset_item, selected_item, k_item, r_item in tasks:
                 if arm == "team":
-                    all_rows.append(_run_team_episode(dataset_item, selected_item, k_item, args, False))
+                    row = _run_team_episode(dataset_item, selected_item, k_item, args, False)
                 else:
-                    all_rows.append(_run_monolith_episode(dataset_item, selected_item, k_item, r_item, arm, args, False))
+                    row = _run_monolith_episode(dataset_item, selected_item, k_item, r_item, arm, args, False)
+                all_rows.append(row)
+                completed_keys.add(_row_key(row))
+                new_rows_written += 1
                 _write_json(checkpoint_path, all_rows)
+                if args.max_new_rows > 0 and new_rows_written >= args.max_new_rows:
+                    break
+        if args.max_new_rows > 0 and new_rows_written >= args.max_new_rows:
+            break
     summary = _summarize(all_rows)
     k6_rows = []
     for k_value in k_values:
@@ -498,6 +537,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "per_agent_R": args.register_limit,
                 "call_cap": args.call_cap,
                 "batch_size": args.batch_size,
+                "task_batch_size": args.task_batch_size,
+                "max_new_rows": args.max_new_rows,
+                "resume": args.resume,
                 "max_new_tokens": args.max_new_tokens,
                 "max_episode_runs": len(k_values) * args.n_instances * 3,
                 "source": SOURCE,
@@ -557,10 +599,14 @@ def main() -> None:
     parser.add_argument("--balance-weight", type=float, default=0.05)
     parser.add_argument("--noise-margin", type=float, default=0.1)
     parser.add_argument("--batch-size", type=int, default=24)
+    parser.add_argument("--task-batch-size", type=int, default=0)
+    parser.add_argument("--max-new-rows", type=int, default=0)
     parser.add_argument("--max-new-tokens", type=int, default=96)
     parser.add_argument("--openai-base-url", default=DEFAULT_OPENAI_BASE_URL)
     parser.add_argument("--openai-model", default=DEFAULT_OPENAI_MODEL)
     parser.add_argument("--no-llm", action="store_true")
+    parser.add_argument("--no-resume", dest="resume", action="store_false")
+    parser.set_defaults(resume=True)
     run(parser.parse_args())
 
 
