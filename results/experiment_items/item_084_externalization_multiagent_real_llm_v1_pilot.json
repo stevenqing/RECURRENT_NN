@@ -1,0 +1,130 @@
+{
+  "item_number": "084",
+  "schema_version": "log_item_contract_v1",
+  "name": "Externalization multi-agent real-LLM v1 harness pilot",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Register the new program reweight policy and execute the first Part 1 Substrate-A real-LLM harness pilot: graph_color K=2, n=1, team versus monolith-R versus monolith-KR, official Reasoning Gym score_answer, vLLM Qwen3.5, total token accounting, and checkpointed row emission. This is a smoke/pilot only and does not establish claim 4b because n<30 and the full K={2,3,4,6} sweep has not run.",
+  "provenance": {
+    "schema_version": "externalization_multiagent_real_llm_v1",
+    "source": "autonomous_stage_a_run",
+    "spec_artifact": "specs/multiagent_real_llm_internalization_v1.md",
+    "script": "analysis/externalization_multiagent_real_llm_v1.py",
+    "result_artifact": "results/externalization_validation_v0/multiagent_real_llm_v1_pilot.json",
+    "checkpoint_artifact": "results/externalization_validation_v0/multiagent_real_llm_v1_pilot_checkpoint.json",
+    "parent_item": "083"
+  },
+  "artifacts": [
+    "results/experiment_items/item_084_externalization_multiagent_real_llm_v1_pilot.json",
+    "specs/multiagent_real_llm_internalization_v1.md",
+    "analysis/externalization_multiagent_real_llm_v1.py",
+    "results/externalization_validation_v0/multiagent_real_llm_v1_pilot.json",
+    "results/externalization_validation_v0/multiagent_real_llm_v1_pilot_checkpoint.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/externalization_multiagent_real_llm_v1.py",
+      "change": "Adds a Part-1 graph_color real-LLM team/monolith capacity-ratio runner with official scoring, team/monolith-R/monolith-KR arms, total token accounting, checkpointed rows, and explicit non-claim pilot honesty."
+    },
+    {
+      "path": "specs/multiagent_real_llm_internalization_v1.md",
+      "change": "Records the reweighted program policy: freeze L0 calibration, prioritize multi-agent real-LLM, and queue internalization as the downstream LoRA destination."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m py_compile analysis/externalization_multiagent_real_llm_v1.py",
+      "purpose": "Validate the new runner compiles."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.externalization_multiagent_real_llm_v1 --output results/externalization_validation_v0/multiagent_real_llm_v1_pilot.json --checkpoint-path results/externalization_validation_v0/multiagent_real_llm_v1_pilot_checkpoint.json --k-values 2 --n-instances 1 --scan-limit 40 --block-size 8 --edge-probability 0.35 --register-limit 8 --call-cap 20 --min-recoveries 0 --batch-size 3 --max-new-tokens 64 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "purpose": "Run a minimal real-LLM Substrate-A harness smoke with checkpointed team, monolith-R, and monolith-KR rows."
+    }
+  ],
+  "decision": {
+    "outcome": "EXTERNALIZATION_MULTIAGENT_REAL_LLM_V1_PILOT_COMPLETE",
+    "overall_pass": true,
+    "headline": {
+      "program_reweight_registered": true,
+      "l0_frozen": true,
+      "part1_runner_ready": true,
+      "real_llm_harness_smoke": "PASS",
+      "claim4b_status": "OPEN_FULL_SWEEP_REQUIRED",
+      "pilot_team_solve_rate": 0.0,
+      "pilot_monolith_R_solve_rate": 1.0,
+      "pilot_monolith_KR_solve_rate": 1.0,
+      "single_next_move": "Run the full K={2,3,4,6}, n>=30 Part-1 capacity-ratio sweep with checkpointing, after choosing a non-pilot call_cap high enough for the in-run regime guard."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "program_reweight_policy",
+        "outcome": "RECORDED",
+        "number": "L0/calibration frozen; new compute routed to LLM axes, with multi-agent real-LLM first."
+      },
+      {
+        "gate": "runner_compile",
+        "outcome": "PASS",
+        "number": "analysis.externalization_multiagent_real_llm_v1 compiles."
+      },
+      {
+        "gate": "real_llm_harness_smoke",
+        "outcome": "PASS_COMPLETE",
+        "number": "K=2 n=1 pilot completed with 3 checkpointed rows: team, monolith_R, monolith_KR."
+      },
+      {
+        "gate": "official_scoring",
+        "outcome": "PASS",
+        "number": "All arms use Reasoning Gym graph_color score_answer; monolith rows solved with official_score=1.0."
+      },
+      {
+        "gate": "token_accounting",
+        "outcome": "PASS",
+        "number": "Mean total tokens: team=3639, monolith_R=2962, monolith_KR=2969; prompt and output tokens are recorded separately."
+      },
+      {
+        "gate": "claim4b",
+        "outcome": "OPEN_NOT_READABLE_FROM_PILOT",
+        "number": "n=1 and K=2 only; pilot verdict is pilot_or_underpowered and does not establish or refute claim 4b."
+      },
+      {
+        "gate": "internalization",
+        "outcome": "QUEUED_NOT_STARTED",
+        "number": "Part 4 is recorded as downstream destination; no LoRA or training was run."
+      }
+    ],
+    "next_step_routing": "Do not expand L0/calibration. Proceed to the full checkpointed Part-1 capacity-ratio sweep on graph_color, K={2,3,4,6}, n>=30 per K, arms team/monolith_R/monolith_KR, or first run a slightly larger K=2,K=3 pilot if runtime budgeting is needed."
+  },
+  "result_tables": {
+    "pilot_summary_by_arm": {
+      "columns": ["K", "arm", "n", "solve_rate", "mean_total_tokens", "status_counts"],
+      "rows": [
+        {"K": 2, "arm": "team", "n": 1, "solve_rate": 0.0, "mean_total_tokens": 3639.0, "status_counts": {"NO_RECOVERY_TARGET": 1}},
+        {"K": 2, "arm": "monolith_R", "n": 1, "solve_rate": 1.0, "mean_total_tokens": 2962.0, "status_counts": {"SOLVED": 1}},
+        {"K": 2, "arm": "monolith_KR", "n": 1, "solve_rate": 1.0, "mean_total_tokens": 2969.0, "status_counts": {"SOLVED": 1}}
+      ]
+    },
+    "pilot_decision_quality": {
+      "columns": ["arm", "branch_accuracy_vs_oracle", "backtrack_accuracy_vs_oracle", "parseable_rate", "valid_decision_rate"],
+      "rows": [
+        {"arm": "team", "branch_accuracy_vs_oracle": 0.9285714285714286, "backtrack_accuracy_vs_oracle": 0.0, "parseable_rate": 0.5, "valid_decision_rate": 1.0},
+        {"arm": "monolith_R", "branch_accuracy_vs_oracle": 1.0, "backtrack_accuracy_vs_oracle": 0.0, "parseable_rate": 0.75, "valid_decision_rate": 1.0},
+        {"arm": "monolith_KR", "branch_accuracy_vs_oracle": 1.0, "backtrack_accuracy_vs_oracle": 0.0, "parseable_rate": 0.75, "valid_decision_rate": 1.0}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "Part1_graph_color_capacity", "gate": "GO_FULL_SWEEP", "reason": "runner and real-LLM endpoint are smoke-tested; checkpoint rows work"},
+        {"track": "claim4b", "gate": "OPEN", "reason": "requires K={2,3,4,6}, n>=30 per K and monolith-KR control"},
+        {"track": "AgentsNet_Substrate_B", "gate": "TODO_AFTER_SUBSTRATE_A", "reason": "direct Coloring.get_score path exists, but real-LLM loop not yet implemented"},
+        {"track": "internalization", "gate": "QUEUED", "reason": "Part 4 requires full Part 1 gold traces before LoRA work starts"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish claim 4b, AgentsNet external validity, K1 thinking, token scaling curves, larger-model behavior, or LoRA internalization. It is a real-LLM harness smoke plus program reweight registration.",
+    "pilot_limit": "The pilot uses K=2 and n=1 with min_recoveries=0 to verify endpoint/runner/checkpoint behavior; it is intentionally not a claim read.",
+    "preflight_limit": "The earlier stricter pilot with call_cap=20 and min_recoveries=1 failed preflight because the dry team often hit CALL_CAP; the full sweep needs a non-pilot call_cap before reading K6.",
+    "l0_limit": "No new L0 calibration program was run; dry preflight is an in-run feasibility screen only.",
+    "internalization_limit": "No training, LoRA, distillation, or register-free test was run."
+  }
+}
