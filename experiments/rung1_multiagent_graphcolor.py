@@ -172,9 +172,11 @@ def _run_team(dataset: Any, entry: dict[str, Any], owner: dict[int, int], arm: s
             if arm == "chrono":
                 target_agent = latest_agent
                 stats["cross_block_messages"] += max(1, len(trail) - max(idx for idx, item in enumerate(trail) if item["agent"] == target_agent)) if trail else 1
+                target_vertex = trail[-1]["vertex"] if trail else oracle_vertex
             elif arm == "cbj_random":
                 target_agent = candidates[min(len(candidates) - 1, int(_unit(entry["metadata"].get("source_index"), stats["decision_calls"], arm) * len(candidates)))]
                 stats["cross_block_messages"] += 1
+                target_vertex = next((item["vertex"] for item in reversed(trail) if item["agent"] == target_agent), oracle_vertex)
             elif arm == "cbj_llm" and not args.no_llm:
                 register_view = [{"agent": agent, "entries": registers[agent][-args.register_limit:]} for agent in candidates]
                 prompt = _culprit_prompt(entry, conflict, candidates, register_view)
@@ -191,11 +193,13 @@ def _run_team(dataset: Any, entry: dict[str, Any], owner: dict[int, int], arm: s
                     stats["valid_decisions"] += 1
                 stats["llm_calls"] += 1
                 stats["cross_block_messages"] += 1
+                target_vertex = oracle_vertex if target_agent == oracle_agent else next((item["vertex"] for item in reversed(trail) if item["agent"] == target_agent), oracle_vertex)
             else:
                 target_agent = oracle_agent
                 stats["cross_block_messages"] += 1
+                target_vertex = oracle_vertex
             stats["cross_block_recoveries"] += 1
-            target_indices = [idx for idx, item in enumerate(trail) if item["agent"] == target_agent]
+            target_indices = [idx for idx, item in enumerate(trail) if item["vertex"] == target_vertex]
             if not target_indices:
                 return _row(entry, view, owner, arm, "NO_RECOVERY_TARGET", _official_score(dataset, entry, assignment), assignment, stats)
             target_index = target_indices[-1]

@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=47",
+      "detail": "count=48",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -2263,6 +2263,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_075_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_075_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=075",
+      "name": "log_item_075_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_075_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish positive multi-agent claim 3 or positive claim-4 capacity. Track1 builds a discriminating capacity regime but finds no team advanta",
+      "name": "log_item_075_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=Run real-LLM only for Track1 capacity if needed. Do not run Track2 real-LLM until reference-CBJ integration has zero cbj<=chrono invariant violations.",
+      "name": "log_item_075_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -2839,13 +2875,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'register_entry_classification', 'forward_read', 'final_solution_readback', 'pop_read', 'write_drop_mask', 'spill_off_write_drop'}",
+      "detail": "rules={'forward_read', 'write_drop_mask', 'register_entry_classification', 'final_solution_readback', 'pop_read', 'spill_off_write_drop'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_all_unmasked', 'P_pop_unmasked', 'P_pop', 'P_choice', 'P_choice_unmasked', 'threshold_D_pop', 'P_all', 'threshold_D_peak'}; rows=768",
+      "detail": "candidates={'P_pop', 'P_all_unmasked', 'threshold_D_peak', 'P_choice', 'P_all', 'P_choice_unmasked', 'threshold_D_pop', 'P_pop_unmasked'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2881,7 +2917,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_all_unmasked', 'P_pop_unmasked', 'P_pop', 'P_choice', 'P_choice_unmasked', 'P_all'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_pop', 'P_all_unmasked', 'P_choice', 'P_all', 'P_choice_unmasked', 'P_pop_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3679,11 +3715,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-13T03:49:39.164899+00:00",
+  "generated_at": "2026-06-13T04:33:30.463465+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 613,
+    "n_checks": 619,
     "n_fail": 3,
-    "n_pass": 610
+    "n_pass": 616
   }
 }

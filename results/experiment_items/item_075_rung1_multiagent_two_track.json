@@ -1,0 +1,140 @@
+{
+  "item_number": "075",
+  "schema_version": "log_item_contract_v1",
+  "name": "Rung-1 multi-agent two-track no-LLM gate",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Run the decoupled no-LLM Track 1 capacity regime search and Track 2 reference-CBJ claim-3 invariant check on official Reasoning Gym graph_color before any real-LLM run.",
+  "provenance": {
+    "schema_version": "rung1_multiagent_two_track_v0",
+    "source": "autonomous_stage_a_run",
+    "result_artifact": "results/rung1_multiagent_two_track/results.json",
+    "script": "analysis/rung1_multiagent_two_track.py",
+    "parent_item": "074"
+  },
+  "artifacts": [
+    "results/experiment_items/item_075_rung1_multiagent_two_track.json",
+    "analysis/rung1_multiagent_two_track.py",
+    "experiments/rung1_multiagent_graphcolor.py",
+    "results/rung1_multiagent_two_track/results.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/rung1_multiagent_two_track.py",
+      "change": "Adds decoupled no-LLM tracks: capacity regime search independent of cbj work accounting, and reference-CBJ claim3 invariant/readout with multi-recovery anchor."
+    },
+    {
+      "path": "experiments/rung1_multiagent_graphcolor.py",
+      "change": "Updates cbj recovery to target the culprit variable rather than latest variable of culprit agent, used by the reference/invariant experiments."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.rung1_multiagent_two_track --output results/rung1_multiagent_two_track/results.json --capacity-vertices 10,12,16 --capacity-registers 1,2,4 --capacity-b-values 4,6 --capacity-scan 8 --capacity-edge-probability 0.3 --claim3-vertices 10 --claim3-edge-probability 0.25 --claim3-register 8 --claim3-b-values 4,6 --claim3-scan 16 --claim3-min-rows 24 --call-cap 300",
+      "purpose": "Run bounded no-LLM two-track pass covering capacity regime search and reference-CBJ invariant gate."
+    }
+  ],
+  "decision": {
+    "outcome": "RUNG1_MULTIAGENT_TWO_TRACK_COMPLETE",
+    "overall_pass": false,
+    "headline": {
+      "track1_capacity_determination": "advantage_does_not_manifest",
+      "track2_claim3_determination": "fix_incomplete",
+      "track1_real_llm": "GO",
+      "track2_real_llm": "NO_GO",
+      "single_next_move_track1": "Run real LLM capacity track",
+      "single_next_move_track2": "Fix reference integration or accept no-go"
+    },
+    "gate_outcomes": [
+      {
+        "gate": "track1_capacity_regime_built",
+        "outcome": "PASS_SCOPING",
+        "number": "max monolith_fail_fraction=0.375; max team_feasible_fraction on monolith-failing cells=0.5; verdict=advantage_does_not_manifest"
+      },
+      {
+        "gate": "track1_real_llm_gate",
+        "outcome": "GO",
+        "number": "Capacity regime resolved as accepted scoping result; real-LLM capacity track may run if desired."
+      },
+      {
+        "gate": "track2_reference_cbj_invariant",
+        "outcome": "FAIL_FIX_INCOMPLETE",
+        "number": "violations=8; mean_cbj_total_work=81.5 > mean_chrono_total_work=33.8333"
+      },
+      {
+        "gate": "track2_real_llm_gate",
+        "outcome": "NO_GO",
+        "number": "Reference-CBJ invariant/verdict not resolved."
+      }
+    ],
+    "next_step_routing": "Run real-LLM only for Track1 capacity if needed. Do not run Track2 real-LLM until reference-CBJ integration has zero cbj<=chrono invariant violations."
+  },
+  "result_tables": {
+    "track1_capacity_cells": {
+      "columns": ["n_vertices", "B", "R", "n", "monolith_fail_fraction", "team_feasible_fraction", "team_minus_monolith"],
+      "rows": [
+        {"n_vertices": 10, "B": 4, "R": 1, "n": 8, "monolith_fail_fraction": 0.125, "team_feasible_fraction": 0.5, "team_minus_monolith": -0.375},
+        {"n_vertices": 10, "B": 6, "R": 1, "n": 8, "monolith_fail_fraction": 0.125, "team_feasible_fraction": 0.375, "team_minus_monolith": -0.5},
+        {"n_vertices": 10, "B": 4, "R": 2, "n": 8, "monolith_fail_fraction": 0.125, "team_feasible_fraction": 0.5, "team_minus_monolith": -0.375},
+        {"n_vertices": 10, "B": 6, "R": 2, "n": 8, "monolith_fail_fraction": 0.125, "team_feasible_fraction": 0.375, "team_minus_monolith": -0.5},
+        {"n_vertices": 10, "B": 4, "R": 4, "n": 8, "monolith_fail_fraction": 0.125, "team_feasible_fraction": 0.5, "team_minus_monolith": -0.375},
+        {"n_vertices": 10, "B": 6, "R": 4, "n": 8, "monolith_fail_fraction": 0.125, "team_feasible_fraction": 0.375, "team_minus_monolith": -0.5},
+        {"n_vertices": 12, "B": 4, "R": 1, "n": 8, "monolith_fail_fraction": 0.0, "team_feasible_fraction": 0.125, "team_minus_monolith": -0.875},
+        {"n_vertices": 12, "B": 6, "R": 1, "n": 8, "monolith_fail_fraction": 0.0, "team_feasible_fraction": 0.25, "team_minus_monolith": -0.75},
+        {"n_vertices": 12, "B": 4, "R": 2, "n": 8, "monolith_fail_fraction": 0.0, "team_feasible_fraction": 0.375, "team_minus_monolith": -0.625},
+        {"n_vertices": 12, "B": 6, "R": 2, "n": 8, "monolith_fail_fraction": 0.0, "team_feasible_fraction": 0.25, "team_minus_monolith": -0.75},
+        {"n_vertices": 12, "B": 4, "R": 4, "n": 8, "monolith_fail_fraction": 0.0, "team_feasible_fraction": 0.375, "team_minus_monolith": -0.625},
+        {"n_vertices": 12, "B": 6, "R": 4, "n": 8, "monolith_fail_fraction": 0.0, "team_feasible_fraction": 0.25, "team_minus_monolith": -0.75},
+        {"n_vertices": 16, "B": 4, "R": 1, "n": 8, "monolith_fail_fraction": 0.375, "team_feasible_fraction": 0.0, "team_minus_monolith": -0.625},
+        {"n_vertices": 16, "B": 6, "R": 1, "n": 8, "monolith_fail_fraction": 0.375, "team_feasible_fraction": 0.375, "team_minus_monolith": -0.25},
+        {"n_vertices": 16, "B": 4, "R": 2, "n": 8, "monolith_fail_fraction": 0.375, "team_feasible_fraction": 0.0, "team_minus_monolith": -0.625},
+        {"n_vertices": 16, "B": 6, "R": 2, "n": 8, "monolith_fail_fraction": 0.375, "team_feasible_fraction": 0.375, "team_minus_monolith": -0.25},
+        {"n_vertices": 16, "B": 4, "R": 4, "n": 8, "monolith_fail_fraction": 0.375, "team_feasible_fraction": 0.0, "team_minus_monolith": -0.625},
+        {"n_vertices": 16, "B": 6, "R": 4, "n": 8, "monolith_fail_fraction": 0.375, "team_feasible_fraction": 0.375, "team_minus_monolith": -0.25}
+      ]
+    },
+    "track1_summary": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "claim4_capacity_verdict", "value": "advantage_does_not_manifest"},
+        {"metric": "monolith_fail_fraction", "value": 0.375},
+        {"metric": "team_feasible_fraction", "value": 0.5},
+        {"metric": "track1_real_llm", "value": "GO"}
+      ]
+    },
+    "track2_summary": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "claim3_verdict", "value": "fix_incomplete"},
+        {"metric": "invariant_pass", "value": false},
+        {"metric": "violations", "value": 8},
+        {"metric": "mean_cbj_total_work", "value": 81.5},
+        {"metric": "mean_chrono_total_work", "value": 33.833333333333336},
+        {"metric": "track2_real_llm", "value": "NO_GO"}
+      ]
+    },
+    "track2_by_arm": {
+      "columns": ["B", "arm", "register_limit", "n", "solve_rate", "mean_total_work", "mean_messages", "max_culprit_distance", "status_counts"],
+      "rows": [
+        {"B": 4, "arm": "cbj", "register_limit": 8, "n": 6, "solve_rate": 0.6666666666666666, "mean_total_work": 78.66666666666667, "mean_messages": 10.5, "max_culprit_distance": 8, "status_counts": {"NO_RECOVERY_TARGET": 2, "SOLVED": 4}},
+        {"B": 4, "arm": "chrono", "register_limit": 8, "n": 6, "solve_rate": 0.0, "mean_total_work": 34.333333333333336, "mean_messages": 17.166666666666668, "max_culprit_distance": 1, "status_counts": {"NO_RECOVERY_TARGET": 6}},
+        {"B": 5, "arm": "cbj", "register_limit": 8, "n": 1, "solve_rate": 0.0, "mean_total_work": 28, "mean_messages": 7, "max_culprit_distance": 1, "status_counts": {"NO_RECOVERY_TARGET": 1}},
+        {"B": 5, "arm": "chrono", "register_limit": 8, "n": 1, "solve_rate": 0.0, "mean_total_work": 28, "mean_messages": 14, "max_culprit_distance": 1, "status_counts": {"NO_RECOVERY_TARGET": 1}},
+        {"B": 6, "arm": "cbj", "register_limit": 8, "n": 5, "solve_rate": 0.8, "mean_total_work": 95.6, "mean_messages": 13, "max_culprit_distance": 9, "status_counts": {"NO_RECOVERY_TARGET": 1, "SOLVED": 4}},
+        {"B": 6, "arm": "chrono", "register_limit": 8, "n": 5, "solve_rate": 0.0, "mean_total_work": 34.4, "mean_messages": 17.2, "max_culprit_distance": 1, "status_counts": {"NO_RECOVERY_TARGET": 5}}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "track1_capacity", "gate": "GO", "reason": "capacity regime resolved as accepted scoping result"},
+        {"track": "track2_claim3", "gate": "NO_GO", "reason": "reference cbj invariant/verdict not resolved"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish positive multi-agent claim 3 or positive claim-4 capacity. Track1 builds a discriminating capacity regime but finds no team advantage; Track2 remains fix-incomplete due invariant violations.",
+    "track1_limit": "Capacity advantage does not manifest in the bounded no-LLM grid: monolith fails in some cells, but team solve is lower or equal.",
+    "track2_limit": "Reference-CBJ integration still violates cbj<=chrono invariant, so claim3 cannot be read and real LLM is gated off.",
+    "scope_limit": "All results are no-LLM official scoring; Track1 real-LLM is separately gated GO, Track2 real-LLM is NO_GO."
+  }
+}

@@ -61,6 +61,7 @@ ARTIFACT_INDEX = {
     "item_072_rung1_multiagent_graphcolor_engineered_slice": "results/experiment_items/item_072_rung1_multiagent_graphcolor_engineered_slice.json",
     "item_073_rung1_multiagent_accounting_anchor": "results/experiment_items/item_073_rung1_multiagent_accounting_anchor.json",
     "item_074_rung1_multiagent_cascade_fixed": "results/experiment_items/item_074_rung1_multiagent_cascade_fixed.json",
+    "item_075_rung1_multiagent_two_track": "results/experiment_items/item_075_rung1_multiagent_two_track.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
     "model_readiness": "results/model_readiness/readiness.json",
@@ -152,6 +153,7 @@ ARTIFACT_INDEX = {
     "rung1_multiagent_graphcolor_engineered_dry_run": "results/rung1_multiagent_graphcolor/engineered_dry_run.json",
     "rung1_multiagent_accounting_anchor": "results/rung1_multiagent_accounting_anchor/results.json",
     "rung1_multiagent_cascade_fixed": "results/rung1_multiagent_cascade_fixed/results.json",
+    "rung1_multiagent_two_track": "results/rung1_multiagent_two_track/results.json",
     "validation": "results/validation/validation.json",
 }
 
