@@ -1,0 +1,133 @@
+{
+  "item_number": "095",
+  "schema_version": "log_item_contract_v1",
+  "name": "Reasoning Gym graph_color externalized M-register method pilot",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Resume the method track after the baseline-first matrix by running a small official Reasoning Gym graph_color externalized M-register pilot. The frozen Qwen3.5 model makes bounded JSON branch/backtrack decisions, while the symbolic scaffold owns search state, reversible register, conflict handling, and final score_answer validation. This tests whether our externalized method beats one-shot baselines before expanding to multi-agent LLM/internalization.",
+  "provenance": {
+    "schema_version": "rung1_reasoning_gym_bounded_register_v0",
+    "source": "autonomous_stage_a_run",
+    "script": "experiments/rung1_reasoning_gym_bounded_register.py",
+    "preflight_artifact": "results/rung1_reasoning_gym_bounded_register/method_comparison_graph_color_pilot_preflight.json",
+    "preflight_checkpoint_artifact": "results/rung1_reasoning_gym_bounded_register/method_comparison_graph_color_pilot_preflight_checkpoint.json",
+    "result_artifact": "results/rung1_reasoning_gym_bounded_register/method_comparison_graph_color_pilot.json",
+    "checkpoint_artifact": "results/rung1_reasoning_gym_bounded_register/method_comparison_graph_color_pilot_checkpoint.json",
+    "baseline_context_items": ["090", "092", "093", "094"],
+    "parent_item": "094"
+  },
+  "artifacts": [
+    "results/experiment_items/item_095_reasoning_gym_graph_color_mregister_method_pilot.json",
+    "experiments/rung1_reasoning_gym_bounded_register.py",
+    "results/rung1_reasoning_gym_bounded_register/method_comparison_graph_color_pilot_preflight.json",
+    "results/rung1_reasoning_gym_bounded_register/method_comparison_graph_color_pilot_preflight_checkpoint.json",
+    "results/rung1_reasoning_gym_bounded_register/method_comparison_graph_color_pilot.json",
+    "results/rung1_reasoning_gym_bounded_register/method_comparison_graph_color_pilot_checkpoint.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "experiments/rung1_reasoning_gym_bounded_register.py",
+      "change": "The OpenAI-compatible structured JSON branch/backtrack calls now explicitly set chat_template_kwargs={enable_thinking:false}, keeping bounded-register decisions short and preventing free-form Qwen thinking from entering method calls."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_reasoning_gym_bounded_register --output results/rung1_reasoning_gym_bounded_register/method_comparison_graph_color_pilot_preflight.json --checkpoint-path results/rung1_reasoning_gym_bounded_register/method_comparison_graph_color_pilot_preflight_checkpoint.json --dataset graph_color --seed 42 --scan-limit 200 --n-instances 8 --min-backtracks 4 --node-cap 80 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --order-mode degree_desc --call-cap 80 --r-values 0,2,4,8,16 --claim4-r 8 --batch-size 8 --max-new-tokens 96 --one-shot-max-tokens 512 --no-llm --no-resume",
+      "purpose": "CPU/no-LLM preflight to confirm the graph_color bin selects 8 backtracking-requiring instances and has the expected R-sweep scaffold ceiling."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_reasoning_gym_bounded_register --output results/rung1_reasoning_gym_bounded_register/method_comparison_graph_color_pilot.json --checkpoint-path results/rung1_reasoning_gym_bounded_register/method_comparison_graph_color_pilot_checkpoint.json --dataset graph_color --seed 42 --scan-limit 200 --n-instances 8 --min-backtracks 4 --node-cap 80 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --order-mode degree_desc --call-cap 80 --r-values 0,4,8 --claim4-r 8 --batch-size 16 --max-new-tokens 96 --one-shot-max-tokens 512 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B --no-resume",
+      "purpose": "Run the real Qwen3.5 externalized M-register method pilot on R=0,4,8 with official Reasoning Gym scoring."
+    }
+  ],
+  "decision": {
+    "outcome": "REASONING_GYM_GRAPH_COLOR_EXTERNALIZED_MREGISTER_METHOD_PILOT_POSITIVE",
+    "overall_pass": true,
+    "headline": {
+      "benchmark": "graph_color",
+      "n": 8,
+      "model": "Qwen/Qwen3.5-4B",
+      "one_shot_solve_rate_in_method_runner": 0.0,
+      "R0_forward_only_solve_rate": 0.0,
+      "R4_mregister_solve_rate": 0.625,
+      "R8_mregister_solve_rate": 1.0,
+      "R8_oracle_backtrack_control_solve_rate": 1.0,
+      "R8_random_backtrack_control_solve_rate": 0.875,
+      "claim1_delta_R8_minus_R0": 1.0,
+      "claim2_slope_vs_log2_R": 0.375,
+      "bounded_view_verified": true,
+      "max_register_view_len": 8,
+      "max_prompt_chars": 780,
+      "R8_mean_total_tokens": 6646.125,
+      "R8_mean_llm_calls": 35.5,
+      "single_next_move": "Run a row-isolated multi-agent graph_color pilot using this no-thinking JSON decision contract, then start saving externalized traces for the future internalization dataset."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "baseline_comparison",
+        "outcome": "PASS_POSITIVE_METHOD_SIGNAL",
+        "number": "Method runner one-shot solve_rate=0.0; baseline matrix direct/BoN/two-stage readable baselines also had solve_rate=0.0; externalized M-register reaches R4=0.625 and R8=1.0 on n=8."
+      },
+      {
+        "gate": "forward_only_control",
+        "outcome": "PASS",
+        "number": "R0 forward-only solve_rate=0.0 with status FORWARD_DEAD_END for 8/8 rows."
+      },
+      {
+        "gate": "register_capacity_sweep",
+        "outcome": "PASS",
+        "number": "R4 solve_rate=0.625; R8 solve_rate=1.0; slope_vs_log2_R=0.375."
+      },
+      {
+        "gate": "bounded_view_contract",
+        "outcome": "PASS",
+        "number": "bounded_view_verified=true; max_register_view_len=8; max_prompt_chars=780."
+      },
+      {
+        "gate": "decision_quality",
+        "outcome": "PASS_FOR_PILOT",
+        "number": "R8 parseable_rate=0.9961, valid_decision_rate=0.9886, branch_accuracy_vs_oracle=1.0; backtrack_accuracy_vs_oracle=0.4229 but search still solves 8/8."
+      },
+      {
+        "gate": "multiagent_internalization",
+        "outcome": "NOT_STARTED_NEXT",
+        "number": "This is single-agent externalized M-register evidence. Multi-agent capacity and LoRA/internalization traces remain the next track."
+      }
+    ],
+    "next_step_routing": "Use this as the first post-baseline method-positive item. Next run a small row-isolated multi-agent real-LLM graph_color pilot with the same explicit no-thinking JSON contract, then define the trace schema needed for multi-agent LLM internalization."
+  },
+  "result_tables": {
+    "method_vs_register": {
+      "columns": ["arm", "R", "n", "solve_rate", "mean_official_score", "status_counts", "mean_total_tokens", "mean_llm_calls"],
+      "rows": [
+        {"arm": "one_shot_method_runner", "R": null, "n": 8, "solve_rate": 0.0, "mean_official_score": 0.0, "status_counts": {}, "mean_total_tokens": null, "mean_llm_calls": 1.0},
+        {"arm": "externalized_mregister_llm", "R": 0, "n": 8, "solve_rate": 0.0, "mean_official_score": 0.0, "status_counts": {"FORWARD_DEAD_END": 8}, "mean_total_tokens": 1305.5, "mean_llm_calls": 7.875},
+        {"arm": "externalized_mregister_llm", "R": 4, "n": 8, "solve_rate": 0.625, "mean_official_score": 0.625, "status_counts": {"SOLVED": 5, "NO_RECOVERY_TARGET": 3}, "mean_total_tokens": 3748.375, "mean_llm_calls": 20.875},
+        {"arm": "externalized_mregister_llm", "R": 8, "n": 8, "solve_rate": 1.0, "mean_official_score": 1.0, "status_counts": {"SOLVED": 8}, "mean_total_tokens": 6646.125, "mean_llm_calls": 35.5}
+      ]
+    },
+    "R8_controls": {
+      "columns": ["target_source", "n", "solve_rate", "mean_official_score", "status_counts"],
+      "rows": [
+        {"target_source": "llm", "n": 8, "solve_rate": 1.0, "mean_official_score": 1.0, "status_counts": {"SOLVED": 8}},
+        {"target_source": "oracle", "n": 8, "solve_rate": 1.0, "mean_official_score": 1.0, "status_counts": {"SOLVED": 8}},
+        {"target_source": "random_backtrack_with_llm_branch", "n": 8, "solve_rate": 0.875, "mean_official_score": 0.875, "status_counts": {"SOLVED": 7, "CALL_CAP": 1}}
+      ]
+    },
+    "internalization_route": {
+      "columns": ["stage", "status", "reason"],
+      "rows": [
+        {"stage": "externalized_single_agent_mregister", "status": "POSITIVE_PILOT", "reason": "R8 solves 8/8 while one-shot and R0 are 0/8"},
+        {"stage": "multi_agent_real_llm", "status": "NEXT", "reason": "needed to test team/monolith capacity-ratio before training"},
+        {"stage": "trace_dataset", "status": "NEXT_AFTER_MULTIAGENT", "reason": "internalization needs branch/backtrack/communication traces with official outcomes"},
+        {"stage": "lora_internalization", "status": "NOT_STARTED", "reason": "training before trace-positive externalized runs would be premature"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item is a small n=8 single-agent externalized M-register pilot. It does not establish the full multi-agent capacity claim and does not start LoRA/internalization training.",
+    "sample_limit": "n=8 is a pilot. The effect is large and directionally important, but a full table needs larger n and confidence intervals.",
+    "comparison_limit": "The method runner one-shot row is raw official scoring without the later baseline-matrix parsing/retry machinery. Baseline context comes from Items090-094; this artifact's main internal comparison is R0 vs R4/R8 under the same runner.",
+    "random_control_limit": "The R8 random target_source is a random-backtrack control while branch choices still use LLM decisions; it is not the same as the no-LLM symbolic-random baseline.",
+    "internalization_limit": "The long-term target is multi-agent LLM internalization, but this item only supplies the externalized method-positive precursor and route."
+  }
+}

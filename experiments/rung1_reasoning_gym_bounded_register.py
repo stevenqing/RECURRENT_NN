@@ -62,7 +62,7 @@ def _unit(*parts: Any) -> float:
 
 
 def _openai_json_call(base_url: str, model: str, prompt: str, max_tokens: int, schema: dict[str, Any]) -> dict[str, Any]:
-    payload = {"model": model, "messages": [{"role": "user", "content": prompt}], "temperature": 0, "max_tokens": max_tokens, "structured_outputs": {"json": schema}}
+    payload = {"model": model, "messages": [{"role": "user", "content": prompt}], "temperature": 0, "max_tokens": max_tokens, "structured_outputs": {"json": schema}, "chat_template_kwargs": {"enable_thinking": False}}
     request = Request(base_url.rstrip("/") + "/chat/completions", data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"}, method="POST")
     try:
         with urlopen(request, timeout=3600) as response:
