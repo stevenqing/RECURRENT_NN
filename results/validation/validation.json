@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=55",
+      "detail": "count=56",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -2551,6 +2551,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_083_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_083_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=083",
+      "name": "log_item_083_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_083_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item establishes the graph_color middle-band K3b real-LLM shard only. It does not establish K1, a fewer-token claim, sudoku, zebra_puzzles, secondary basel",
+      "name": "log_item_083_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=7; routing=Keep K1, fewer-token, and sudoku claims open. For graph_color, Item083 banks the middle-band K3b positive shard; next either run exact solve-vs-total-token curves across budgets or find a sudoku regime with forward R0 near zero before any sudoku real-LLM claim.",
+      "name": "log_item_083_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -3127,13 +3163,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'forward_read', 'spill_off_write_drop', 'write_drop_mask', 'final_solution_readback', 'register_entry_classification', 'pop_read'}",
+      "detail": "rules={'pop_read', 'register_entry_classification', 'write_drop_mask', 'spill_off_write_drop', 'forward_read', 'final_solution_readback'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop_unmasked', 'threshold_D_pop', 'P_pop', 'P_choice_unmasked', 'P_all', 'P_choice', 'P_all_unmasked', 'threshold_D_peak'}; rows=768",
+      "detail": "candidates={'P_choice', 'P_all_unmasked', 'P_pop', 'P_choice_unmasked', 'threshold_D_pop', 'P_all', 'P_pop_unmasked', 'threshold_D_peak'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3169,7 +3205,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop_unmasked', 'P_pop', 'P_choice_unmasked', 'P_all', 'P_choice', 'P_all_unmasked'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_choice', 'P_all_unmasked', 'P_pop', 'P_choice_unmasked', 'P_all', 'P_pop_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3967,11 +4003,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-13T09:48:21.183505+00:00",
+  "generated_at": "2026-06-13T10:20:54.903440+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 661,
+    "n_checks": 667,
     "n_fail": 3,
-    "n_pass": 658
+    "n_pass": 664
   }
 }

@@ -1,0 +1,143 @@
+{
+  "item_number": "083",
+  "schema_version": "log_item_contract_v1",
+  "name": "Externalization graph_color middle-band K3b real-LLM shard",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Run the graph_color middle-band K3b real-LLM shard selected by Item081/Item082: frozen Qwen3.5 served by vLLM, official Reasoning Gym graph_color score_answer, bounded-register externalization, n=30, and exact prompt/completion/total token accounting from the instrumented runner. This item reads the stressed middle-band graph_color result only; it does not close K1, fewer-token claims, sudoku, zebra, secondary baselines, or multi-agent phases.",
+  "provenance": {
+    "schema_version": "rung1_reasoning_gym_bounded_register_v0",
+    "source": "autonomous_stage_a_run",
+    "result_artifact": "results/externalization_validation_v0/graph_color_middle_band_llm.json",
+    "checkpoint_artifact": "results/externalization_validation_v0/graph_color_middle_band_llm_checkpoint.json",
+    "preflight_artifact": "results/externalization_validation_v0/graph_color_middle_band_llm_preflight.json",
+    "parent_items": ["081", "082"]
+  },
+  "artifacts": [
+    "results/experiment_items/item_083_externalization_graph_color_middle_band_llm.json",
+    "results/externalization_validation_v0/graph_color_middle_band_llm.json",
+    "results/externalization_validation_v0/graph_color_middle_band_llm_checkpoint.json",
+    "results/externalization_validation_v0/graph_color_middle_band_llm_preflight.json",
+    "results/externalization_validation_v0/graph_color_middle_band_llm_preflight_checkpoint.json",
+    "experiments/rung1_reasoning_gym_bounded_register.py"
+  ],
+  "code_added_used": [
+    {
+      "path": "experiments/rung1_reasoning_gym_bounded_register.py",
+      "change": "Reused the Item082 token-instrumented official Reasoning Gym graph_color bounded-register runner."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_reasoning_gym_bounded_register --dataset graph_color --n-instances 30 --scan-limit 500 --node-cap 2000 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --r-values 0,2,4,8,16 --claim4-r 4 --batch-size 128 --call-cap 0 --one-shot-max-tokens 512 --no-llm --no-resume --output results/externalization_validation_v0/graph_color_middle_band_llm_preflight.json --checkpoint-path results/externalization_validation_v0/graph_color_middle_band_llm_preflight_checkpoint.json",
+      "purpose": "Read the runner call_cap_floor before spending vLLM calls; floor was 78."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_reasoning_gym_bounded_register --dataset graph_color --n-instances 30 --scan-limit 500 --node-cap 2000 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --r-values 0,2,4,8,16 --claim4-r 4 --batch-size 128 --call-cap 80 --one-shot-max-tokens 512 --output results/externalization_validation_v0/graph_color_middle_band_llm.json --checkpoint-path results/externalization_validation_v0/graph_color_middle_band_llm_checkpoint.json --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "purpose": "Run graph_color middle-band K3b real-LLM R sweep with call_cap above preflight floor and exact token accounting."
+    }
+  ],
+  "decision": {
+    "outcome": "RUNG1_REASONING_GYM_BOUNDED_REGISTER_COMPLETE",
+    "overall_pass": true,
+    "headline": {
+      "K3b_graph_color_middle_band": "positive_on_selected_band",
+      "one_shot_vanilla": 0.0,
+      "forward_R0": 0.0,
+      "best_R": 16,
+      "best_R_solve_rate": 0.8333333333333334,
+      "claim2_slope_vs_log2_R": 0.22000000000000003,
+      "R4_llm_vs_random": "0.6_vs_0.4333",
+      "R4_llm_vs_oracle": "0.6_vs_0.5667",
+      "single_next_move": "Keep K1 and fewer-token claims open; either run exact token curves across budgets or proceed to sudoku regime gating with forward R0 near zero."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "middle_band_real_llm_shard",
+        "outcome": "PASS_COMPLETE",
+        "number": "n=30; vLLM Qwen3.5 on 8001; call_cap=80 above call_cap_floor=78; official Reasoning Gym score_answer used."
+      },
+      {
+        "gate": "K3b_graph_color_middle_band",
+        "outcome": "PASS_POSITIVE",
+        "number": "L0 calibration selected n_vertices=14 edge_probability=0.4 node_budget=18 with random=0.05 and heuristic=0.9; real LLM M-register reaches R16=0.8333 and R8=0.8, with R0=0.0 and one-shot=0.0."
+      },
+      {
+        "gate": "claim2_capacity_curve",
+        "outcome": "PASS_POSITIVE",
+        "number": "LLM solve_rate by R: R0=0.0, R2=0.1667, R4=0.6, R8=0.8, R16=0.8333; slope_vs_log2_R=0.22."
+      },
+      {
+        "gate": "llm_target_selection_ablation",
+        "outcome": "PASS_POSITIVE_AT_R4",
+        "number": "At R4, LLM=0.6, oracle=0.5667, random=0.4333 on n=30 non-empty target-source rows."
+      },
+      {
+        "gate": "exact_total_token_logging",
+        "outcome": "PASS_INSTALLED_AND_USED",
+        "number": "Mean total tokens per instance by LLM R: R0=1509.5, R2=2248.3, R4=3940.4, R8=7153.3, R16=6276.2."
+      },
+      {
+        "gate": "bounded_view",
+        "outcome": "PASS",
+        "number": "bounded_view_verified=true; max_register_view_len=13; max_prompt_chars=1015; max_assigned_neighbors_in_prompt=5."
+      },
+      {
+        "gate": "open_claims_guard",
+        "outcome": "UNCHANGED_OPEN",
+        "number": "K1 remains open under thinking truncation; fewer-token claim remains open pending solve-vs-total-token curves; sudoku remains open pending forward-R0-near-zero regime."
+      }
+    ],
+    "next_step_routing": "Keep K1, fewer-token, and sudoku claims open. For graph_color, Item083 banks the middle-band K3b positive shard; next either run exact solve-vs-total-token curves across budgets or find a sudoku regime with forward R0 near zero before any sudoku real-LLM claim."
+  },
+  "result_tables": {
+    "solve_by_R": {
+      "columns": ["R", "n", "solve_rate", "mean_total_tokens", "status_counts"],
+      "rows": [
+        {"R": 0, "n": 30, "solve_rate": 0.0, "mean_total_tokens": 1509.5333333333333, "status_counts": {"FORWARD_DEAD_END": 30}},
+        {"R": 2, "n": 30, "solve_rate": 0.16666666666666666, "mean_total_tokens": 2248.3333333333335, "status_counts": {"NO_RECOVERY_TARGET": 25, "SOLVED": 5}},
+        {"R": 4, "n": 30, "solve_rate": 0.6, "mean_total_tokens": 3940.4, "status_counts": {"NO_RECOVERY_TARGET": 12, "SOLVED": 18}},
+        {"R": 8, "n": 30, "solve_rate": 0.8, "mean_total_tokens": 7153.3, "status_counts": {"CALL_CAP": 3, "NO_RECOVERY_TARGET": 3, "SOLVED": 24}},
+        {"R": 16, "n": 30, "solve_rate": 0.8333333333333334, "mean_total_tokens": 6276.2, "status_counts": {"CALL_CAP": 1, "NO_RECOVERY_TARGET": 4, "SOLVED": 25}}
+      ]
+    },
+    "one_shot_baseline": {
+      "columns": ["arm", "n", "solve_rate", "mean_official_score"],
+      "rows": [
+        {"arm": "L1-oneshot-vanilla", "n": 30, "solve_rate": 0.0, "mean_official_score": 0.0}
+      ]
+    },
+    "target_source_ablation": {
+      "columns": ["R", "target_source", "n", "solve_rate"],
+      "rows": [
+        {"R": 4, "target_source": "llm", "n": 30, "solve_rate": 0.6},
+        {"R": 4, "target_source": "oracle", "n": 30, "solve_rate": 0.5666666666666667},
+        {"R": 4, "target_source": "random", "n": 30, "solve_rate": 0.43333333333333335}
+      ]
+    },
+    "decision_quality": {
+      "columns": ["R", "parseable_rate", "valid_decision_rate", "branch_accuracy_vs_oracle", "backtrack_accuracy_vs_oracle", "mean_llm_calls", "max_prompt_chars"],
+      "rows": [
+        {"R": 0, "parseable_rate": 1.0, "valid_decision_rate": 1.0, "branch_accuracy_vs_oracle": 1.0, "backtrack_accuracy_vs_oracle": 0.0, "mean_llm_calls": 8.7, "max_prompt_chars": 538},
+        {"R": 2, "parseable_rate": 1.0, "valid_decision_rate": 0.9419871359577241, "branch_accuracy_vs_oracle": 1.0, "backtrack_accuracy_vs_oracle": 0.55, "mean_llm_calls": 12.666666666666666, "max_prompt_chars": 539},
+        {"R": 4, "parseable_rate": 1.0, "valid_decision_rate": 0.9566704224773499, "branch_accuracy_vs_oracle": 0.998989898989899, "backtrack_accuracy_vs_oracle": 0.5642063492063492, "mean_llm_calls": 21.6, "max_prompt_chars": 593},
+        {"R": 8, "parseable_rate": 1.0, "valid_decision_rate": 1.0, "branch_accuracy_vs_oracle": 0.9988505747126436, "backtrack_accuracy_vs_oracle": 0.2916870166870167, "mean_llm_calls": 37.53333333333333, "max_prompt_chars": 782},
+        {"R": 16, "parseable_rate": 0.9982456140350877, "valid_decision_rate": 1.0, "branch_accuracy_vs_oracle": 0.9991869918699188, "backtrack_accuracy_vs_oracle": 0.29455738705738704, "mean_llm_calls": 33.0, "max_prompt_chars": 1015}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "graph_color_middle_band_K3b", "gate": "BANK_POSITIVE", "reason": "selected middle-band real-LLM M-register reaches R16=0.8333 with R0 and one-shot both zero"},
+        {"track": "fewer_tokens", "gate": "OPEN", "reason": "requires solve-vs-total-token curves rather than a single budget point"},
+        {"track": "K1_thinking", "gate": "OPEN", "reason": "thinking baseline remains truncation-blocked"},
+        {"track": "sudoku", "gate": "REGIME_GATE_FIRST", "reason": "prior sudoku adapter preflight had forward R0=0.875, wrong regime for claims"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item establishes the graph_color middle-band K3b real-LLM shard only. It does not establish K1, a fewer-token claim, sudoku, zebra_puzzles, secondary baselines, or multi-agent phases.",
+    "token_limit": "Exact prompt/completion/total tokens are now logged for this shard, but token efficiency still requires solve-vs-total-token curves across budgets before any fewer-token headline.",
+    "sudoku_limit": "Sudoku claims remain blocked until a regime with forward R0 near zero is found.",
+    "thinking_limit": "One-shot thinking remains truncation-blocked from Item081/082 and is not read here."
+  }
+}
