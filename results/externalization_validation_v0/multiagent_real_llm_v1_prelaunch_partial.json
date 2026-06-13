@@ -1,0 +1,89 @@
+{
+  "checkpoint_summary": {
+    "checkpoint_artifact": "results/externalization_validation_v0/multiagent_real_llm_v1_prelaunch_checkpoint.json",
+    "completed_rows": 6,
+    "provenance": "multiagent_real_llm_prelaunch_checkpoint_summary_v1",
+    "requested_rows": 18,
+    "source": "autonomous_stage_a_run",
+    "summary_by_K_arm": [
+      {
+        "K": 2,
+        "arm": "monolith_KR",
+        "mean_total_tokens_completed": 6559.0,
+        "n_completed": 2,
+        "provenance": "multiagent_real_llm_prelaunch_partial_summary_v1",
+        "solve_rate_completed": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 2
+        }
+      },
+      {
+        "K": 2,
+        "arm": "monolith_R",
+        "mean_total_tokens_completed": 6023.0,
+        "n_completed": 2,
+        "provenance": "multiagent_real_llm_prelaunch_partial_summary_v1",
+        "solve_rate_completed": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 2
+        }
+      },
+      {
+        "K": 2,
+        "arm": "team",
+        "mean_total_tokens_completed": 6362.5,
+        "n_completed": 2,
+        "provenance": "multiagent_real_llm_prelaunch_partial_summary_v1",
+        "solve_rate_completed": 0.5,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 1,
+          "SOLVED": 1
+        }
+      }
+    ]
+  },
+  "generated_at": "2026-06-13T12:22:40.482755+00:00",
+  "honesty": {
+    "claim_limit": "Only 6/18 requested rows completed; K=3 had no completed rows before cutoff.",
+    "does_not_establish": "This partial prelaunch artifact does not establish claim 4b and does not refute it. It records checkpointed partial real-LLM rows and a runtime/readability blocker before full K6.",
+    "l0_limit": "No new L0 calibration was run.",
+    "provenance": "multiagent_real_llm_prelaunch_honesty_v1",
+    "source": "autonomous_stage_a_run"
+  },
+  "provenance": "externalization_multiagent_real_llm_prelaunch_partial_v1",
+  "readability_gate": {
+    "checkpoint_rows_work": true,
+    "full_sweep_gate": "NO_GO_UNTIL_SCHEDULING_TIMEOUT_RESUME_FIX",
+    "monolith_KR_completed_rows_all_solved": true,
+    "monolith_R_completed_rows_all_solved": true,
+    "provenance": "multiagent_real_llm_readability_gate_v1",
+    "real_llm_endpoint_active": true,
+    "reason": "Completed rows are informative, but K=2,K=3 n=3 prelaunch did not finish quickly enough for a full n>=30 sweep without stronger timeout/resume/scheduling.",
+    "source": "autonomous_stage_a_run",
+    "team_has_no_recovery_target_failure": true,
+    "team_not_systematically_zero_on_completed_rows": true
+  },
+  "run_config": {
+    "K_values_requested": [
+      2,
+      3
+    ],
+    "arms": [
+      "team",
+      "monolith_R",
+      "monolith_KR"
+    ],
+    "batch_size": 6,
+    "call_cap": 80,
+    "n_instances_per_K_requested": 3,
+    "provenance": "multiagent_real_llm_prelaunch_config_v1",
+    "runtime_cutoff_policy": "manual_stop_after_checkpoint_stalled_at_6_rows_for_about_8_minutes",
+    "source": "autonomous_stage_a_run"
+  },
+  "schema_version": "externalization_multiagent_real_llm_prelaunch_partial_v1",
+  "source": "autonomous_stage_a_run",
+  "status": "EXTERNALIZATION_MULTIAGENT_REAL_LLM_PRELAUNCH_PARTIAL_RUNTIME_CUTOFF"
+}

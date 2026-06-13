@@ -1,0 +1,125 @@
+{
+  "item_number": "085",
+  "schema_version": "log_item_contract_v1",
+  "name": "Externalization multi-agent real-LLM prelaunch readability gate",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Run the proposed Item085 Part-1 prelaunch readability gate before the full K6 capacity-ratio sweep: K=2,3, n=3 per K, arms team/monolith_R/monolith_KR, checkpointed vLLM Qwen3.5 real-LLM calls, official Reasoning Gym score_answer, and total token accounting. The run was stopped after a runtime cutoff with 6/18 rows complete; this item records a partial readability/runtime blocker rather than a claim 4b result.",
+  "provenance": {
+    "schema_version": "externalization_multiagent_real_llm_prelaunch_partial_v1",
+    "source": "autonomous_stage_a_run",
+    "script": "analysis/externalization_multiagent_real_llm_v1.py",
+    "result_artifact": "results/externalization_validation_v0/multiagent_real_llm_v1_prelaunch_partial.json",
+    "checkpoint_artifact": "results/externalization_validation_v0/multiagent_real_llm_v1_prelaunch_checkpoint.json",
+    "parent_item": "084"
+  },
+  "artifacts": [
+    "results/experiment_items/item_085_externalization_multiagent_real_llm_prelaunch.json",
+    "results/externalization_validation_v0/multiagent_real_llm_v1_prelaunch_partial.json",
+    "results/externalization_validation_v0/multiagent_real_llm_v1_prelaunch_checkpoint.json",
+    "analysis/externalization_multiagent_real_llm_v1.py"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/externalization_multiagent_real_llm_v1.py",
+      "change": "Reused the Item084 checkpointed Part-1 runner for a K=2,3 n=3 readability gate."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.externalization_multiagent_real_llm_v1 --output results/externalization_validation_v0/multiagent_real_llm_v1_prelaunch.json --checkpoint-path results/externalization_validation_v0/multiagent_real_llm_v1_prelaunch_checkpoint.json --k-values 2,3 --n-instances 3 --scan-limit 160 --block-size 8 --edge-probability 0.35 --register-limit 8 --call-cap 80 --min-recoveries 0 --batch-size 6 --max-new-tokens 64 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "purpose": "Run the K=2,3 n=3 multi-agent real-LLM readability gate with checkpointing. Stopped manually after checkpoint stalled at 6 completed rows near the runtime cutoff."
+    },
+    {
+      "command": ".venv/bin/python - <<'PY' ... write results/externalization_validation_v0/multiagent_real_llm_v1_prelaunch_partial.json from checkpoint ... PY",
+      "purpose": "Convert the partial checkpoint into an honest prelaunch-readability artifact."
+    }
+  ],
+  "decision": {
+    "outcome": "EXTERNALIZATION_MULTIAGENT_REAL_LLM_PRELAUNCH_PARTIAL_RUNTIME_CUTOFF",
+    "overall_pass": true,
+    "headline": {
+      "readability_gate": "PARTIAL_RUNTIME_BLOCKER",
+      "completed_rows": 6,
+      "requested_rows": 18,
+      "K_completed": [2],
+      "K_missing": [3],
+      "team_completed_solve_rate": 0.5,
+      "monolith_R_completed_solve_rate": 1.0,
+      "monolith_KR_completed_solve_rate": 1.0,
+      "full_sweep_gate": "NO_GO_UNTIL_SCHEDULING_TIMEOUT_RESUME_FIX",
+      "single_next_move": "Add stronger timeout/resume/scheduling controls before full K={2,3,4,6}, n>=30; do not expand L0 or read claim 4b from this partial run."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "checkpoint_observability",
+        "outcome": "PASS",
+        "number": "Checkpoint rows wrote incrementally; 6 completed rows preserved after manual stop."
+      },
+      {
+        "gate": "real_llm_calls",
+        "outcome": "PASS_PARTIAL",
+        "number": "Completed rows include team, monolith_R, and monolith_KR real-LLM calls with total token accounting."
+      },
+      {
+        "gate": "K2_readability",
+        "outcome": "MIXED_READABLE",
+        "number": "K=2 completed rows: team n=2 solve=0.5; monolith_R n=2 solve=1.0; monolith_KR n=2 solve=1.0."
+      },
+      {
+        "gate": "K3_readability",
+        "outcome": "NOT_REACHED_BEFORE_CUTOFF",
+        "number": "No K=3 rows completed before manual runtime cutoff."
+      },
+      {
+        "gate": "team_failure_mode",
+        "outcome": "NEEDS_INSTRUMENTATION_BEFORE_FULL_SWEEP",
+        "number": "Team completed rows include one SOLVED and one NO_RECOVERY_TARGET; full sweep needs finer failure reason instrumentation."
+      },
+      {
+        "gate": "full_K6_launch",
+        "outcome": "NO_GO_YET",
+        "number": "6/18 rows completed in the prelaunch window; full n>=30 sweep would be too opaque/slow without timeout/resume/scheduling fixes."
+      },
+      {
+        "gate": "claim4b",
+        "outcome": "OPEN_NOT_READABLE",
+        "number": "Partial n<30 checkpoint does not establish or refute real-LLM multi-agent capacity."
+      }
+    ],
+    "next_step_routing": "Do not expand L0/calibration and do not launch full K6 yet. Add per-future timeout/resume or smaller sequential batches, finer NO_RECOVERY_TARGET reason codes, and possibly split K runs before the full K={2,3,4,6}, n>=30 capacity-ratio sweep."
+  },
+  "result_tables": {
+    "checkpoint_summary_by_arm": {
+      "columns": ["K", "arm", "n_completed", "solve_rate_completed", "mean_total_tokens_completed", "status_counts"],
+      "rows": [
+        {"K": 2, "arm": "team", "n_completed": 2, "solve_rate_completed": 0.5, "mean_total_tokens_completed": 6362.5, "status_counts": {"NO_RECOVERY_TARGET": 1, "SOLVED": 1}},
+        {"K": 2, "arm": "monolith_R", "n_completed": 2, "solve_rate_completed": 1.0, "mean_total_tokens_completed": 6023.0, "status_counts": {"SOLVED": 2}},
+        {"K": 2, "arm": "monolith_KR", "n_completed": 2, "solve_rate_completed": 1.0, "mean_total_tokens_completed": 6559.0, "status_counts": {"SOLVED": 2}}
+      ]
+    },
+    "prelaunch_decision": {
+      "columns": ["question", "answer", "reason"],
+      "rows": [
+        {"question": "Can full K6 launch now?", "answer": "NO", "reason": "The K=2,3 n=3 gate completed only 6/18 rows before cutoff."},
+        {"question": "Is real-LLM harness functional?", "answer": "YES_PARTIAL", "reason": "Checkpointed team/monolith rows complete and include token accounting."},
+        {"question": "Is claim 4b readable?", "answer": "NO", "reason": "n<30 and K=3 missing; partial checkpoint only."},
+        {"question": "Should L0/calibration be expanded?", "answer": "NO", "reason": "Program reweight freezes L0; blocker is LLM runner scheduling/instrumentation."}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "Part1_full_K6", "gate": "NO_GO_FIX_RUNNER_FIRST", "reason": "Need timeout/resume/smaller batch scheduling before n>=30."},
+        {"track": "team_failure_instrumentation", "gate": "GO", "reason": "Split NO_RECOVERY_TARGET into local register miss, cross-block culprit out of view, invalid LLM choice, and call-cap."},
+        {"track": "K_split_runs", "gate": "GO", "reason": "Run K=2 and K=3 separately or sequentially to avoid long-tail futures blocking artifact completion."},
+        {"track": "claim4b", "gate": "OPEN", "reason": "No claim read from partial gate."}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish or refute claim 4b. It records a partial K=2,3 real-LLM prelaunch readability gate stopped at runtime cutoff with 6/18 rows complete.",
+    "partial_limit": "K=3 produced no completed rows before cutoff, and K=2 has only two completed instances per arm.",
+    "runtime_limit": "The full K6 n>=30 sweep is not launched until checkpoint/resume/scheduling and failure-mode instrumentation are improved.",
+    "l0_limit": "No L0 or calibration expansion was performed."
+  }
+}
