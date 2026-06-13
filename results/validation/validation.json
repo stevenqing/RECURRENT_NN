@@ -2323,13 +2323,13 @@
       "tier": "contract"
     },
     {
-      "detail": "This item does not establish positive no-LLM claim 3. Complete chrono solves at higher rate than CBJ across the budget sweep, and the both-solve work invariant ",
+      "detail": "This item does not establish a uniform positive dense graph_color solve-rate advantage for claim 3. After reference-style complete CBJ, CBJ and chrono both solv",
       "name": "log_item_076_honesty_does_not_establish",
       "status": "PASS",
       "tier": "contract"
     },
     {
-      "detail": "gates=6; routing=Track 1 is cleanly positive and may proceed to real LLM. Track 2 is cleanly resolved under complete chrono but is not positive in no-LLM: chrono dominates solve-rate and the both-solve work invariant fails; real-LLM should only run with that honesty label attached.",
+      "detail": "gates=7; routing=STOP the multi-agent instrument cycle. Bank claim 4 capacity as positive. Bank claim 3 as structure-dependent scoping: mechanism confirmed on controlled/separator structure, not manifesting as dense graph_color solve-rate advantage after complete CBJ/chrono verification. Optional follow-up is only a real-LLM capacity datapoint for claim 4.",
       "name": "log_item_076_decision_numbers_and_routing",
       "status": "PASS",
       "tier": "contract"
@@ -2911,13 +2911,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'register_entry_classification', 'write_drop_mask', 'forward_read', 'final_solution_readback', 'pop_read', 'spill_off_write_drop'}",
+      "detail": "rules={'spill_off_write_drop', 'pop_read', 'write_drop_mask', 'final_solution_readback', 'register_entry_classification', 'forward_read'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'threshold_D_peak', 'P_choice_unmasked', 'P_choice', 'threshold_D_pop', 'P_all', 'P_all_unmasked', 'P_pop', 'P_pop_unmasked'}; rows=768",
+      "detail": "candidates={'threshold_D_pop', 'P_choice_unmasked', 'P_pop', 'P_choice', 'threshold_D_peak', 'P_all', 'P_pop_unmasked', 'P_all_unmasked'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2953,7 +2953,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_choice_unmasked', 'P_choice', 'P_all', 'P_all_unmasked', 'P_pop', 'P_pop_unmasked'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_choice_unmasked', 'P_pop', 'P_choice', 'P_all', 'P_pop_unmasked', 'P_all_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3751,7 +3751,7 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-13T04:51:25.521622+00:00",
+  "generated_at": "2026-06-13T05:08:16.308559+00:00",
   "passed": false,
   "summary": {
     "n_checks": 625,

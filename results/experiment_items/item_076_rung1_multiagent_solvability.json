@@ -3,42 +3,44 @@
   "schema_version": "log_item_contract_v1",
   "name": "Rung-1 multi-agent solve-rate and capacity-intersection gate",
   "generated_at": "2026-06-13T00:00:00.000000+00:00",
-  "purpose": "Resolve the two multi-agent no-LLM tracks with the requested pivots: complete chronological backtracking plus solve-rate-under-budget for claim 3, and capacity verdict recomputed only on the monolith-fail and team-feasible intersection for claim 4.",
+  "purpose": "Resolve and close out the two multi-agent no-LLM tracks: final reference-style complete CBJ plus complete chrono solve-rate sweep for claim 3, and capacity verdict banked on the monolith-fail and team-feasible intersection for claim 4.",
   "provenance": {
     "schema_version": "rung1_multiagent_solvability_v0",
     "source": "autonomous_stage_a_run",
     "result_artifact": "results/rung1_multiagent_solvability/results.json",
+    "closeout_artifact": "results/rung1_multiagent_solvability/closeout.json",
     "script": "analysis/rung1_multiagent_solvability.py",
     "parent_item": "075"
   },
   "artifacts": [
     "results/experiment_items/item_076_rung1_multiagent_solvability.json",
     "analysis/rung1_multiagent_solvability.py",
-    "results/rung1_multiagent_solvability/results.json"
+    "results/rung1_multiagent_solvability/results.json",
+    "results/rung1_multiagent_solvability/closeout.json"
   ],
   "code_added_used": [
     {
       "path": "analysis/rung1_multiagent_solvability.py",
-      "change": "Adds complete-chrono verification, distant-culprit selection, cbj-vs-complete-chrono budget sweep, both-solve work invariant reporting, and capacity intersection recompute with monolith baseline at the same R on the same instances."
+      "change": "Adds complete-chrono verification, reference-style conflict-set CBJ, distant-culprit selection, cbj-vs-complete-chrono budget sweep, both-solve work invariant reporting, and capacity intersection recompute with monolith baseline at the same R on the same instances."
     }
   ],
   "commands": [
     {
-      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.rung1_multiagent_solvability --output results/rung1_multiagent_solvability/results.json --chrono-small-scan 8 --chrono-small-budget 5000 --claim3-vertices 10 --claim3-edge-probability 0.25 --claim3-register 8 --claim3-b-values 4,6 --claim3-scan 48 --claim3-min-instances 12 --claim3-probe-budget 800 --claim3-budgets 20,40,80,160,320 --capacity-vertices 10,12,16,20 --capacity-registers 2,3,4,5,6 --capacity-b-values 4,5,6,8 --capacity-scan 12 --capacity-node-budget 800",
-      "purpose": "Run bounded no-LLM solve-rate and capacity-intersection readout."
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.rung1_multiagent_solvability --output results/rung1_multiagent_solvability/results.json --chrono-small-scan 8 --chrono-small-budget 5000 --claim3-vertices 10 --claim3-edge-probability 0.25 --claim3-register 8 --claim3-b-values 4,6 --claim3-scan 48 --claim3-min-instances 12 --claim3-probe-budget 800 --claim3-complete-budget 5000 --claim3-budgets 20,40,80,160,320 --capacity-vertices 10,12,16,20 --capacity-registers 2,3,4,5,6 --capacity-b-values 4,5,6,8 --capacity-scan 12 --capacity-node-budget 800",
+      "purpose": "Run final no-LLM closeout sweep with complete CBJ, complete chrono, same register budget, and capacity-intersection readout."
     }
   ],
   "decision": {
     "outcome": "RUNG1_MULTIAGENT_SOLVABILITY_COMPLETE",
     "overall_pass": true,
     "headline": {
-      "track2_claim3_determination": "both_solve_efficiency",
+      "track2_claim3_determination": "structure_dependent_scoping",
       "track2_claim3_positive": false,
       "track1_capacity_determination": "positive",
       "track1_real_llm": "GO",
-      "track2_real_llm": "GO",
-      "single_next_move_track1": "Run real LLM capacity track",
-      "single_next_move_track2": "Run real LLM claim3 solve-rate track only if the negative no-LLM efficiency fallback is acceptable as the baseline"
+      "track2_real_llm": "STOP_BANKED",
+      "single_next_move_track1": "Bank claim4 capacity positive; optional real LLM capacity datapoint",
+      "single_next_move_track2": "STOP: bank claim3 as structure-dependent scoping"
     },
     "gate_outcomes": [
       {
@@ -47,32 +49,37 @@
         "number": "verified_on_small_sat=true; n=8; budget=5000; solve_rate=1.0; status_counts={SOLVED:8}"
       },
       {
+        "gate": "cbj_completeness",
+        "outcome": "PASS",
+        "number": "verified_on_distant_sat=true; same_register_budget=true; n_sat_by_reference=12; cbj_exhausted_on_sat=0; status_counts_cbj={SOLVED:12}; status_counts_chrono={SOLVED:12}"
+      },
+      {
         "gate": "track2_solve_rate_budget_sweep",
-        "outcome": "RESOLVED_NO_SOLVABILITY_SEPARATION",
-        "number": "distant instances=12; separation_pairs=0; both_solve_pairs=29; claim3_verdict=both_solve_efficiency"
+        "outcome": "STRUCTURE_DEPENDENT_SCOPING",
+        "number": "distant instances=12; separation_pairs=0; both_solve_pairs=60; all swept budgets have cbj_solve_rate=1.0 and chrono_solve_rate=1.0; claim3_verdict=structure_dependent_scoping"
       },
       {
         "gate": "track2_efficiency_fallback",
-        "outcome": "NEGATIVE",
-        "number": "both_solve_work_invariant_pass=false; both_solve_efficiency_pass=false; claim3_positive=false"
+        "outcome": "SECONDARY_PASS_NO_SOLVABILITY_ADVANTAGE",
+        "number": "both_solve_work_invariant_pass=true; both_solve_efficiency_pass=true; claim3_positive=false because complete CBJ does not beat complete chrono on solve-rate"
       },
       {
         "gate": "track2_real_llm_gate",
-        "outcome": "GO",
-        "number": "chrono completeness verified and claim3 solve-rate/efficiency verdict resolved; note no no-LLM claim3 positive result"
+        "outcome": "STOP_BANKED",
+        "number": "complete CBJ/chrono verified; claim3 banked as structure-dependent scoping; no further dense graph_color instrument cycle"
       },
       {
         "gate": "track1_capacity_intersection",
         "outcome": "POSITIVE",
-        "number": "intersection_size=768; max_intersection_fraction=1.0; team_solve_rate=0.2057291667; monolith_solve_rate=0.0"
+        "number": "intersection_size=768; max_intersection_fraction=1.0; team_solve_rate=0.9947916667; monolith_solve_rate=0.0"
       },
       {
         "gate": "track1_real_llm_gate",
         "outcome": "GO",
-        "number": "non-trivial intersection and positive capacity verdict resolved"
+        "number": "non-trivial intersection and positive capacity verdict banked; real LLM capacity is optional"
       }
     ],
-    "next_step_routing": "Track 1 is cleanly positive and may proceed to real LLM. Track 2 is cleanly resolved under complete chrono but is not positive in no-LLM: chrono dominates solve-rate and the both-solve work invariant fails; real-LLM should only run with that honesty label attached."
+    "next_step_routing": "STOP the multi-agent instrument cycle. Bank claim 4 capacity as positive. Bank claim 3 as structure-dependent scoping: mechanism confirmed on controlled/separator structure, not manifesting as dense graph_color solve-rate advantage after complete CBJ/chrono verification. Optional follow-up is only a real-LLM capacity datapoint for claim 4."
   },
   "result_tables": {
     "chrono_completeness": {
@@ -84,28 +91,30 @@
     "track2_budget_sweep": {
       "columns": ["node_budget", "arm", "n", "solve_rate", "status_counts"],
       "rows": [
-        {"node_budget": 20, "arm": "cbj", "n": 12, "solve_rate": 0.08333333333333333, "status_counts": {"EXHAUSTED": 1, "NODE_BUDGET": 10, "SOLVED": 1}},
-        {"node_budget": 20, "arm": "chrono", "n": 12, "solve_rate": 0.9166666666666666, "status_counts": {"NODE_BUDGET": 1, "SOLVED": 11}},
-        {"node_budget": 40, "arm": "cbj", "n": 12, "solve_rate": 0.25, "status_counts": {"EXHAUSTED": 1, "NODE_BUDGET": 8, "SOLVED": 3}},
+        {"node_budget": 20, "arm": "cbj", "n": 12, "solve_rate": 1.0, "status_counts": {"SOLVED": 12}},
+        {"node_budget": 20, "arm": "chrono", "n": 12, "solve_rate": 1.0, "status_counts": {"SOLVED": 12}},
+        {"node_budget": 40, "arm": "cbj", "n": 12, "solve_rate": 1.0, "status_counts": {"SOLVED": 12}},
         {"node_budget": 40, "arm": "chrono", "n": 12, "solve_rate": 1.0, "status_counts": {"SOLVED": 12}},
-        {"node_budget": 80, "arm": "cbj", "n": 12, "solve_rate": 0.5833333333333334, "status_counts": {"EXHAUSTED": 3, "NODE_BUDGET": 2, "SOLVED": 7}},
+        {"node_budget": 80, "arm": "cbj", "n": 12, "solve_rate": 1.0, "status_counts": {"SOLVED": 12}},
         {"node_budget": 80, "arm": "chrono", "n": 12, "solve_rate": 1.0, "status_counts": {"SOLVED": 12}},
-        {"node_budget": 160, "arm": "cbj", "n": 12, "solve_rate": 0.75, "status_counts": {"EXHAUSTED": 3, "SOLVED": 9}},
+        {"node_budget": 160, "arm": "cbj", "n": 12, "solve_rate": 1.0, "status_counts": {"SOLVED": 12}},
         {"node_budget": 160, "arm": "chrono", "n": 12, "solve_rate": 1.0, "status_counts": {"SOLVED": 12}},
-        {"node_budget": 320, "arm": "cbj", "n": 12, "solve_rate": 0.75, "status_counts": {"EXHAUSTED": 3, "SOLVED": 9}},
+        {"node_budget": 320, "arm": "cbj", "n": 12, "solve_rate": 1.0, "status_counts": {"SOLVED": 12}},
         {"node_budget": 320, "arm": "chrono", "n": 12, "solve_rate": 1.0, "status_counts": {"SOLVED": 12}}
       ]
     },
     "track2_summary": {
       "columns": ["metric", "value"],
       "rows": [
-        {"metric": "claim3_verdict", "value": "both_solve_efficiency"},
+        {"metric": "claim3_verdict", "value": "structure_dependent_scoping"},
         {"metric": "claim3_positive", "value": false},
         {"metric": "selected_distant_instances", "value": 12},
         {"metric": "separation_pairs", "value": 0},
-        {"metric": "both_solve_pairs", "value": 29},
-        {"metric": "both_solve_work_invariant_pass", "value": false},
-        {"metric": "both_solve_efficiency_pass", "value": false}
+        {"metric": "both_solve_pairs", "value": 60},
+        {"metric": "cbj_exhausted_on_sat", "value": 0},
+        {"metric": "same_register_budget", "value": true},
+        {"metric": "both_solve_work_invariant_pass", "value": true},
+        {"metric": "both_solve_efficiency_pass", "value": true}
       ]
     },
     "track1_capacity_intersection": {
@@ -114,22 +123,22 @@
         {"metric": "claim4_capacity_verdict", "value": "positive"},
         {"metric": "intersection_size", "value": 768},
         {"metric": "intersection_fraction_max", "value": 1.0},
-        {"metric": "intersection_team_solve_rate", "value": 0.20572916666666666},
+        {"metric": "intersection_team_solve_rate", "value": 0.9947916666666666},
         {"metric": "intersection_monolith_solve_rate", "value": 0.0}
       ]
     },
     "proceed_gates": {
       "columns": ["track", "gate", "reason"],
       "rows": [
-        {"track": "track1_capacity", "gate": "GO", "reason": "capacity intersection non-trivial and verdict resolved positive"},
-        {"track": "track2_claim3", "gate": "GO", "reason": "chrono completeness verified and claim3 solve-rate/efficiency verdict resolved, but no no-LLM claim3 positive result"}
+        {"track": "track1_capacity", "gate": "GO", "reason": "capacity intersection non-trivial and verdict banked positive; real LLM capacity datapoint optional"},
+        {"track": "track2_claim3", "gate": "STOP_BANKED", "reason": "complete CBJ and complete chrono verified; dense graph_color banked as structure-dependent scoping, not a positive solve-rate separation"}
       ]
     }
   },
   "honesty": {
-    "does_not_establish": "This item does not establish positive no-LLM claim 3. Complete chrono solves at higher rate than CBJ across the budget sweep, and the both-solve work invariant is false on this slice.",
-    "track2_limit": "The primary solve-rate observable does not separate in favor of CBJ: separation_pairs=0 and chrono solve rate is 0.9167-1.0 while CBJ is 0.0833-0.75. The fallback efficiency form is reported but negative.",
+    "does_not_establish": "This item does not establish a uniform positive dense graph_color solve-rate advantage for claim 3. After reference-style complete CBJ, CBJ and chrono both solve all swept distant-culprit instances at every budget; CBJ does not beat chrono on solve rate.",
+    "track2_limit": "Claim 3 is banked as structure-dependent scoping: mechanism confirmed on controlled/separator structure, but dense graph_color does not exhibit a CBJ solve-rate separation after completeness is fixed.",
     "track1_scope": "The capacity result is evaluated only on monolith-fail and static-team-feasible intersection rows, with monolith baseline using the same R and same official-scored instances.",
-    "scope_limit": "All results are no-LLM official Reasoning Gym graph_color scoring. Real-LLM runs remain separate follow-up gates."
+    "scope_limit": "All closeout results are no-LLM official Reasoning Gym graph_color scoring. The multi-agent instrument cycle is stopped; optional real-LLM work is limited to a claim-4 capacity datapoint."
   }
 }

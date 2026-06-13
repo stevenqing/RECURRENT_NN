@@ -1,0 +1,50 @@
+{
+  "schema_version": "rung1_multiagent_closeout_v0",
+  "status": "RUNG1_MULTIAGENT_CLOSEOUT_COMPLETE",
+  "source": "autonomous_stage_a_run",
+  "provenance": "final_cbj_completeness_and_banked_verdict_v0",
+  "parent_artifact": "results/rung1_multiagent_solvability/results.json",
+  "hard_stop": true,
+  "cbj_completeness": {
+    "verified_on_distant_sat": true,
+    "same_register_budget": true,
+    "n": 12,
+    "n_sat_by_reference": 12,
+    "cbj_exhausted_on_sat": 0,
+    "status_counts_cbj": {"SOLVED": 12},
+    "status_counts_chrono": {"SOLVED": 12}
+  },
+  "track2_claim3_final": {
+    "claim3_verdict": "structure_dependent_scoping",
+    "claim3_positive_on_dense_graph_color": false,
+    "budget_sweep": [
+      {"node_budget": 20, "cbj_solve_rate": 1.0, "chrono_solve_rate": 1.0, "cbj_minus_chrono": 0.0, "cbj_mean_total_work": 13.166666666666666, "chrono_mean_total_work": 13.333333333333334},
+      {"node_budget": 40, "cbj_solve_rate": 1.0, "chrono_solve_rate": 1.0, "cbj_minus_chrono": 0.0, "cbj_mean_total_work": 13.166666666666666, "chrono_mean_total_work": 13.333333333333334},
+      {"node_budget": 80, "cbj_solve_rate": 1.0, "chrono_solve_rate": 1.0, "cbj_minus_chrono": 0.0, "cbj_mean_total_work": 13.166666666666666, "chrono_mean_total_work": 13.333333333333334},
+      {"node_budget": 160, "cbj_solve_rate": 1.0, "chrono_solve_rate": 1.0, "cbj_minus_chrono": 0.0, "cbj_mean_total_work": 13.166666666666666, "chrono_mean_total_work": 13.333333333333334},
+      {"node_budget": 320, "cbj_solve_rate": 1.0, "chrono_solve_rate": 1.0, "cbj_minus_chrono": 0.0, "cbj_mean_total_work": 13.166666666666666, "chrono_mean_total_work": 13.333333333333334}
+    ],
+    "n_separation_pairs": 0,
+    "n_both_solve_pairs": 60,
+    "both_solve_work_invariant_pass": true,
+    "interpretation": "Complete CBJ does not beat complete chrono on dense Reasoning Gym graph_color. Bank claim 3 as structure-dependent scoping: mechanism confirmed on controlled/separator structure, not a uniform dense graph_color advantage."
+  },
+  "track1_claim4_final": {
+    "claim4_capacity_verdict": "positive",
+    "intersection_size": 768,
+    "intersection_fraction_max": 1.0,
+    "intersection_team_solve_rate": 0.9947916666666666,
+    "intersection_monolith_solve_rate": 0.0,
+    "interpretation": "Bank claim 4 capacity positive: bounded team beats monolith on the monolith-fail and static-team-feasible intersection."
+  },
+  "consolidated_multiagent_verdict": {
+    "single_agent_claims_1_2": "positive on real LLM in Item070",
+    "claim4_capacity_multiagent": "positive",
+    "claim3_cbj_coordination": "structure-dependent scoping; confirmed on controlled anchor and separator substrate, not manifesting as dense graph_color solve-rate advantage",
+    "instrument_cycle": "STOP"
+  },
+  "honesty": {
+    "binding_closeout": "Do not re-engineer the dense graph_color slice toward claim3 positivity; this is the final CBJ completeness fix and banked readout.",
+    "publishable_map": "The result is a holds-here, not-there map: capacity is positive, while CBJ coordination advantage depends on separable conflict structure."
+  }
+}

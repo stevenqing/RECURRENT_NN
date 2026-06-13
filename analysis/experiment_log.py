@@ -156,6 +156,7 @@ ARTIFACT_INDEX = {
     "rung1_multiagent_cascade_fixed": "results/rung1_multiagent_cascade_fixed/results.json",
     "rung1_multiagent_two_track": "results/rung1_multiagent_two_track/results.json",
     "rung1_multiagent_solvability": "results/rung1_multiagent_solvability/results.json",
+    "rung1_multiagent_solvability_closeout": "results/rung1_multiagent_solvability/closeout.json",
     "validation": "results/validation/validation.json",
 }
 
