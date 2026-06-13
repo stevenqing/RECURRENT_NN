@@ -1,0 +1,64 @@
+{
+  "schema_version": "externalization_next_batch_status_v0",
+  "status": "EXTERNALIZATION_NEXT_BATCH_PARTIAL_COMPLETE",
+  "source": "autonomous_stage_a_run",
+  "provenance": "tracks_a_b_c_status_v0",
+  "track_a_claim1_thinking_gate": {
+    "status": "TRUNCATION_BLOCKED",
+    "artifact": "results/externalization_validation_v0/graph_color_ceiling_oneshot_thinking_checkpoint.json",
+    "n_completed": 8,
+    "finish_reason_counts": {"length": 8},
+    "truncated_count": 8,
+    "completion_tokens": [8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192],
+    "parseable_json_count": 1,
+    "solved_count": 1,
+    "k1_readable": false,
+    "interpretation": "K1 cannot be read from the thinking baseline because all completed thinking generations hit the 8192-token cap. A 12288-token probe was started but produced no checkpoint before being stopped to avoid further token burn. Claim 1 remains unbanked for thinking mode."
+  },
+  "token_efficiency_observation": {
+    "m_register_item080": {
+      "R16_solve_rate": 0.8333333333333334,
+      "R16_mean_completion_tokens_per_instance": 1793.4666666666667,
+      "R8_solve_rate": 0.7666666666666667,
+      "R8_mean_completion_tokens_per_instance": 2026.8666666666666
+    },
+    "thinking_probe": {
+      "solve_rate_on_completed_truncated_rows": 0.125,
+      "mean_completion_tokens_per_completed_row": 8192,
+      "all_completed_rows_truncated": true
+    },
+    "interpretation": "The externalized M-register solves substantially more with far fewer completion tokens than one-shot thinking has used before truncating. Token efficiency should be promoted to a primary positioning observable, not only a secondary cost metric."
+  },
+  "track_b_graph_color_middle_band": {
+    "status": "BAND_FOUND",
+    "artifact": "results/externalization_validation_v0/graph_color_middle_band_calibration.json",
+    "selected_candidates": [
+      {"config": {"n_vertices": 14, "edge_probability": 0.4}, "node_budget": 16, "l0_random_solve_rate": 0.15, "l0_heuristic_solve_rate": 0.9, "n": 20},
+      {"config": {"n_vertices": 14, "edge_probability": 0.4}, "node_budget": 18, "l0_random_solve_rate": 0.05, "l0_heuristic_solve_rate": 0.9, "n": 20},
+      {"config": {"n_vertices": 14, "edge_probability": 0.45}, "node_budget": 16, "l0_random_solve_rate": 0.15, "l0_heuristic_solve_rate": 0.9, "n": 20}
+    ],
+    "recommended_bin": {"config": {"n_vertices": 14, "edge_probability": 0.4}, "node_budget": 18, "reason": "lowest random solve among BAND_OK candidates while heuristic remains 0.9"}
+  },
+  "track_c_sudoku_adapter": {
+    "status": "ADAPTER_PREFLIGHT_COMPLETE",
+    "artifact": "results/externalization_validation_v0/sudoku_adapter_preflight.json",
+    "adapter_ready_for_llm": true,
+    "symbolic_summary": [
+      {"R": 0, "n": 8, "solve_rate": 0.875, "max_prompt_chars": 1122},
+      {"R": 2, "n": 8, "solve_rate": 0.875, "max_prompt_chars": 1248},
+      {"R": 4, "n": 8, "solve_rate": 1.0, "max_prompt_chars": 1376},
+      {"R": 8, "n": 8, "solve_rate": 1.0, "max_prompt_chars": 1632},
+      {"R": 16, "n": 8, "solve_rate": 1.0, "max_prompt_chars": 2150}
+    ]
+  },
+  "proceed_gates": {
+    "claim1_k1": "NO_GO_TRUNCATION_BLOCKED",
+    "graph_color_middle_band_llm": "GO_NEXT",
+    "sudoku_ceiling_adapter": "GO_IMPLEMENT_LLM_DECISIONS",
+    "token_efficiency_readout": "GO_REPORT"
+  },
+  "honesty": {
+    "does_not_establish": "This batch does not bank claim 1 for thinking mode because the anti-truncation guard failed. It does establish that the current thinking baseline is token-inefficient/truncation-blocked relative to M-register on the same bin.",
+    "next_step": "Run graph_color middle-band M-register shard or implement full sudoku LLM-decision adapter. For K1, do not report thinking solve 0 as a valid result until an untruncated thinking run is obtained."
+  }
+}

@@ -67,6 +67,7 @@ ARTIFACT_INDEX = {
     "item_078_externalization_power_calibration": "results/experiment_items/item_078_externalization_power_calibration.json",
     "item_079_externalization_full_execution_v1": "results/experiment_items/item_079_externalization_full_execution_v1.json",
     "item_080_externalization_graph_color_ceiling_llm": "results/experiment_items/item_080_externalization_graph_color_ceiling_llm.json",
+    "item_081_externalization_next_batch_status": "results/experiment_items/item_081_externalization_next_batch_status.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
     "model_readiness": "results/model_readiness/readiness.json",
@@ -169,6 +170,10 @@ ARTIFACT_INDEX = {
     "externalization_paper_full_execution_spec_v1": "specs/externalization_paper_full_execution_v1.md",
     "externalization_full_execution_manifest": "results/externalization_validation_v0/full_execution_manifest.json",
     "externalization_graph_color_ceiling_llm": "results/externalization_validation_v0/graph_color_ceiling_llm.json",
+    "externalization_next_batch_status": "results/externalization_validation_v0/next_batch_status.json",
+    "externalization_graph_color_middle_band_calibration": "results/externalization_validation_v0/graph_color_middle_band_calibration.json",
+    "externalization_sudoku_adapter_preflight": "results/externalization_validation_v0/sudoku_adapter_preflight.json",
+    "externalization_graph_color_oneshot_thinking_checkpoint": "results/externalization_validation_v0/graph_color_ceiling_oneshot_thinking_checkpoint.json",
     "validation": "results/validation/validation.json",
 }
 

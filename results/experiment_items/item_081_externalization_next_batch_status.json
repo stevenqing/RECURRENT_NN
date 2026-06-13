@@ -1,0 +1,138 @@
+{
+  "item_number": "081",
+  "schema_version": "log_item_contract_v1",
+  "name": "Externalization next-batch thinking gate and adapters",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Record the next-batch Track A/B/C status: one-shot-thinking anti-truncation gate, graph_color middle-band no-LLM calibration, and sudoku bounded-register adapter preflight. Adds token-efficiency as an explicit readout because thinking mode is token-heavy while M-register succeeds with bounded prompts.",
+  "provenance": {
+    "schema_version": "externalization_next_batch_status_v0",
+    "source": "autonomous_stage_a_run",
+    "result_artifact": "results/externalization_validation_v0/next_batch_status.json",
+    "track_a_checkpoint": "results/externalization_validation_v0/graph_color_ceiling_oneshot_thinking_checkpoint.json",
+    "track_b_artifact": "results/externalization_validation_v0/graph_color_middle_band_calibration.json",
+    "track_c_artifact": "results/externalization_validation_v0/sudoku_adapter_preflight.json",
+    "parent_items": ["079", "080"]
+  },
+  "artifacts": [
+    "results/experiment_items/item_081_externalization_next_batch_status.json",
+    "analysis/externalization_oneshot_thinking.py",
+    "analysis/externalization_sudoku_adapter.py",
+    "results/externalization_validation_v0/next_batch_status.json",
+    "results/externalization_validation_v0/graph_color_ceiling_oneshot_thinking_checkpoint.json",
+    "results/externalization_validation_v0/graph_color_middle_band_calibration.json",
+    "results/externalization_validation_v0/sudoku_adapter_preflight.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/externalization_oneshot_thinking.py",
+      "change": "Adds one-shot thinking baseline runner with finish_reason, truncation, token, parseability, and checkpoint accounting."
+    },
+    {
+      "path": "analysis/externalization_sudoku_adapter.py",
+      "change": "Adds sudoku bounded-register adapter preflight with symbolic choices, official RG scoring, and bounded-view prompt shape checks."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.externalization_oneshot_thinking --output results/externalization_validation_v0/graph_color_ceiling_oneshot_thinking.json --checkpoint-path results/externalization_validation_v0/graph_color_ceiling_oneshot_thinking_checkpoint.json --n-instances 30 --scan-limit 500 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --min-backtracks 4 --node-cap 2000 --one-shot-thinking --one-shot-max-tokens 8192 --batch-size 8 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "purpose": "Run Track A thinking baseline until truncation pattern was established; stopped after first completed batch all truncated."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.externalization_oneshot_thinking --output results/externalization_validation_v0/graph_color_ceiling_oneshot_thinking_probe_12288.json --checkpoint-path results/externalization_validation_v0/graph_color_ceiling_oneshot_thinking_probe_12288_checkpoint.json --n-instances 2 --scan-limit 100 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --min-backtracks 4 --node-cap 2000 --one-shot-thinking --one-shot-max-tokens 12288 --batch-size 2 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "purpose": "Probe whether increasing thinking budget avoids truncation; stopped before checkpoint because long generation persisted."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.externalization_power_calibration --output results/externalization_validation_v0/graph_color_middle_band_calibration.json --benchmarks graph_color --instances-per-cell 20 --node-budgets 6,8,10,12,14,16,18,20,24,28,32,40 --graph-vertices 14 --graph-edge-probabilities 0.35,0.4,0.45 --max-episode-rows 1000",
+      "purpose": "Run Track B no-LLM graph_color middle-band calibration."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.externalization_sudoku_adapter --output results/externalization_validation_v0/sudoku_adapter_preflight.json --n-instances 8 --empty 45 --node-budget 320 --r-values 0,2,4,8,16",
+      "purpose": "Run Track C sudoku bounded-register adapter preflight."
+    }
+  ],
+  "decision": {
+    "outcome": "EXTERNALIZATION_NEXT_BATCH_PARTIAL_COMPLETE",
+    "overall_pass": true,
+    "headline": {
+      "track_a_claim1_thinking": "NO_GO_TRUNCATION_BLOCKED",
+      "track_b_middle_band": "BAND_FOUND",
+      "track_c_sudoku_adapter": "ADAPTER_PREFLIGHT_COMPLETE",
+      "token_efficiency_readout": "PROMOTE_TO_PRIMARY_POSITIONING",
+      "single_next_move": "Run graph_color middle-band M-register shard or implement full sudoku LLM-decision adapter; do not bank K1 until an untruncated thinking result exists."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "track_a_thinking_truncation_guard",
+        "outcome": "FAIL_TRUNCATION_BLOCKED",
+        "number": "n_completed=8; finish_reason=length for 8/8; completion_tokens=8192 for 8/8; K1 not readable"
+      },
+      {
+        "gate": "token_efficiency",
+        "outcome": "PROMOTE_OBSERVABLE",
+        "number": "Item080 M-register R16 solve=0.833 with mean completion tokens=1793; thinking completed rows solve=0.125 with 8192 tokens and all truncated"
+      },
+      {
+        "gate": "track_b_graph_color_middle_band",
+        "outcome": "PASS_BAND_FOUND",
+        "number": "recommended bin n_vertices=14 edge_probability=0.4 node_budget=18; L0-random=0.05, L0-heuristic=0.9, n=20"
+      },
+      {
+        "gate": "track_c_sudoku_adapter",
+        "outcome": "PASS_PREFLIGHT",
+        "number": "adapter_ready_for_llm=true; official scoring used; symbolic R curve reaches solve_rate=1.0 by R4 on n=8"
+      },
+      {
+        "gate": "claim1_k1",
+        "outcome": "UNBANKED",
+        "number": "Thinking-mode one-shot cannot be read because truncation guard failed."
+      }
+    ],
+    "next_step_routing": "Do not report thinking solve 0 as a valid K1 result. Next run graph_color middle-band M-register shard at node_budget=18, or implement full sudoku LLM-decision adapter for C2."
+  },
+  "result_tables": {
+    "track_a_thinking_checkpoint": {
+      "columns": ["n_completed", "truncated_count", "finish_reason", "mean_completion_tokens", "parseable_json_count", "solved_count"],
+      "rows": [
+        {"n_completed": 8, "truncated_count": 8, "finish_reason": "length", "mean_completion_tokens": 8192, "parseable_json_count": 1, "solved_count": 1}
+      ]
+    },
+    "token_efficiency": {
+      "columns": ["arm", "solve_rate", "mean_completion_tokens_per_instance", "status"],
+      "rows": [
+        {"arm": "M-register R16", "solve_rate": 0.8333333333333334, "mean_completion_tokens_per_instance": 1793.4666666666667, "status": "complete"},
+        {"arm": "L1-oneshot-thinking completed truncated rows", "solve_rate": 0.125, "mean_completion_tokens_per_instance": 8192, "status": "truncated"}
+      ]
+    },
+    "graph_color_middle_band": {
+      "columns": ["config", "node_budget", "l0_random_solve_rate", "l0_heuristic_solve_rate", "n", "gate"],
+      "rows": [
+        {"config": {"n_vertices": 14, "edge_probability": 0.4}, "node_budget": 16, "l0_random_solve_rate": 0.15, "l0_heuristic_solve_rate": 0.9, "n": 20, "gate": "BAND_OK"},
+        {"config": {"n_vertices": 14, "edge_probability": 0.4}, "node_budget": 18, "l0_random_solve_rate": 0.05, "l0_heuristic_solve_rate": 0.9, "n": 20, "gate": "BAND_OK_SELECTED"},
+        {"config": {"n_vertices": 14, "edge_probability": 0.45}, "node_budget": 16, "l0_random_solve_rate": 0.15, "l0_heuristic_solve_rate": 0.9, "n": 20, "gate": "BAND_OK"}
+      ]
+    },
+    "sudoku_adapter_summary": {
+      "columns": ["R", "n", "solve_rate", "max_prompt_chars", "max_register_view_len"],
+      "rows": [
+        {"R": 0, "n": 8, "solve_rate": 0.875, "max_prompt_chars": 1122, "max_register_view_len": 0},
+        {"R": 2, "n": 8, "solve_rate": 0.875, "max_prompt_chars": 1248, "max_register_view_len": 2},
+        {"R": 4, "n": 8, "solve_rate": 1.0, "max_prompt_chars": 1376, "max_register_view_len": 4},
+        {"R": 8, "n": 8, "solve_rate": 1.0, "max_prompt_chars": 1632, "max_register_view_len": 8},
+        {"R": 16, "n": 8, "solve_rate": 1.0, "max_prompt_chars": 2150, "max_register_view_len": 16}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "claim1_k1", "gate": "NO_GO", "reason": "thinking truncation guard failed"},
+        {"track": "graph_color_middle_band_llm", "gate": "GO", "reason": "middle-band bin selected"},
+        {"track": "sudoku_adapter", "gate": "GO_NEXT_IMPLEMENT_LLM", "reason": "adapter preflight complete"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not bank claim 1 for thinking mode. The thinking baseline is truncation-blocked under the mandatory guard.",
+    "thinking_limit": "All completed thinking rows hit the 8192 token cap; the 12288-token probe was stopped without checkpoint after long generation. A clean K1 read requires an untruncated thinking run or a different bounded final-answer protocol agreed in advance.",
+    "token_efficiency_scope": "The token-efficiency comparison is a positioning observation, not a replacement for K1, but it is central evidence for externalized search under bounded prompts."
+  }
+}
