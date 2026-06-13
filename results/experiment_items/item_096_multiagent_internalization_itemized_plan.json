@@ -1,0 +1,68 @@
+{
+  "item_number": "096",
+  "schema_version": "log_item_contract_v1",
+  "status": "MULTIAGENT_INTERNALIZATION_ITEMIZED_PLAN_RECORDED",
+  "name": "Multi-agent LLM internalization itemized plan",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Convert the post-baseline externalization result from Item095 into a staged internalization execution plan where every step becomes its own ledger item. The plan distinguishes externalized method evidence, trace harvesting, trace-to-SFT dataset construction, policy LoRA under an external scaffold, register-in-text internalization, and finally multi-agent internalized LoRA controls.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_item": "095",
+    "spec": "specs/multiagent_internalization_itemized_plan_v1.md",
+    "baseline_context_items": ["090", "092", "093", "094"],
+    "method_context_item": "095"
+  },
+  "artifacts": [
+    "results/experiment_items/item_096_multiagent_internalization_itemized_plan.json",
+    "specs/multiagent_internalization_itemized_plan_v1.md"
+  ],
+  "code_added_used": [
+    {
+      "path": "specs/multiagent_internalization_itemized_plan_v1.md",
+      "change": "Adds an itemized route from externalized M-register evidence to trace harvesting, SFT datasets, policy LoRA, register-in-text evaluation, and multi-agent internalized LoRA controls."
+    }
+  ],
+  "commands": [
+    {
+      "command": "Created specs/multiagent_internalization_itemized_plan_v1.md",
+      "purpose": "Record the internalization route before starting trace/export/training work."
+    }
+  ],
+  "decision": {
+    "outcome": "INTERNALIZATION_PLAN_READY_START_TRACE_ITEMS",
+    "overall_pass": true,
+    "headline": {
+      "next_item": "097",
+      "first_executable_stage": "single-agent M-register step-level trace schema and harvester",
+      "long_horizon_target": "multi-agent LLM internalization with external controller/register removed",
+      "key_rule": "No training item may claim internalization while the external scaffold still owns the register or controller."
+    },
+    "gate_outcomes": [
+      {"gate": "itemized_route", "outcome": "PASS", "number": "Items096-105 are enumerated with artifact target, pass gate, and does-not-establish guard."},
+      {"gate": "trace_first", "outcome": "PASS", "number": "Item097 is explicitly routed before SFT/LoRA."},
+      {"gate": "internalization_definition", "outcome": "PASS", "number": "Internalization is defined as removal of external register/controller ownership, not merely LoRA under the scaffold."}
+    ],
+    "next_step_routing": "Execute Item097 single-agent M-register trace schema and harvester, then Item098 multi-agent trace pilot before any training."
+  },
+  "result_tables": {
+    "itemized_plan": {
+      "columns": ["item", "stage", "pass_gate", "does_not_establish"],
+      "rows": [
+        {"item": "096", "stage": "plan_and_gates", "pass_gate": "itemized route and caveats recorded", "does_not_establish": "new traces or training"},
+        {"item": "097", "stage": "single_agent_trace_schema", "pass_gate": "branch/backtrack/final trace rows export and solve", "does_not_establish": "LLM training"},
+        {"item": "098", "stage": "multi_agent_trace_schema", "pass_gate": "team/monolith traces include message/rollback rows", "does_not_establish": "internalized agents"},
+        {"item": "099", "stage": "trace_to_sft_dataset", "pass_gate": "chat-format train/val splits with leakage checks", "does_not_establish": "model update"},
+        {"item": "100", "stage": "policy_lora_external_scaffold", "pass_gate": "parseable/valid/action accuracy improves", "does_not_establish": "register internalization"},
+        {"item": "101", "stage": "register_in_text_eval_harness", "pass_gate": "bounded transcript register consistency checks", "does_not_establish": "training"},
+        {"item": "102", "stage": "single_agent_register_internalized_lora", "pass_gate": "closed-loop solve beats one-shot/two-stage baselines", "does_not_establish": "multi-agent capacity"},
+        {"item": "103", "stage": "multi_agent_dataset_controls", "pass_gate": "homo/hetero/team/monolith splits recorded", "does_not_establish": "capacity claim"},
+        {"item": "104", "stage": "multi_agent_internalized_lora_pilot", "pass_gate": "team agents maintain registers and communicate conflicts", "does_not_establish": "full claim unless n>=30 per K"},
+        {"item": "105", "stage": "scale_or_fail_close", "pass_gate": "scale successful setting or bank scoped negative", "does_not_establish": "goalpost movement"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This is a plan item only. It does not generate traces, train LoRA adapters, or evaluate internalized agents.",
+    "routing_limit": "The route may be revised only by a future item with explicit gates and numbers, not by silently skipping trace or control stages."
+  }
+}

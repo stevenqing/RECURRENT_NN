@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=68",
+      "detail": "count=70",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -3019,6 +3019,78 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_096_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_096_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=096",
+      "name": "log_item_096_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_096_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This is a plan item only. It does not generate traces, train LoRA adapters, or evaluate internalized agents.",
+      "name": "log_item_096_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=3; routing=Execute Item097 single-agent M-register trace schema and harvester, then Item098 multi-agent trace pilot before any training.",
+      "name": "log_item_096_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_097_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_097_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=097",
+      "name": "log_item_097_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_097_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item exports traces only. It does not train a LoRA adapter, evaluate an internalized model, or remove the external scaffold.",
+      "name": "log_item_097_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=5; routing=Proceed to Item098: extend trace schema to multi-agent team/monolith episodes and include message/rollback/cross-block conflict rows before any LoRA training.",
+      "name": "log_item_097_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -3595,13 +3667,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'register_entry_classification', 'final_solution_readback', 'spill_off_write_drop', 'write_drop_mask', 'forward_read', 'pop_read'}",
+      "detail": "rules={'register_entry_classification', 'forward_read', 'final_solution_readback', 'pop_read', 'write_drop_mask', 'spill_off_write_drop'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'threshold_D_peak', 'threshold_D_pop', 'P_pop_unmasked', 'P_choice_unmasked', 'P_all', 'P_pop', 'P_all_unmasked', 'P_choice'}; rows=768",
+      "detail": "candidates={'P_pop', 'threshold_D_pop', 'P_choice', 'P_all', 'threshold_D_peak', 'P_pop_unmasked', 'P_all_unmasked', 'P_choice_unmasked'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3625,7 +3697,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rows=64; statuses={'measured', 'timeout'}",
+      "detail": "rows=64; statuses={'timeout', 'measured'}",
       "name": "e1_sudoku_compositional_real_trace_subsample",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3637,7 +3709,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop_unmasked', 'P_choice_unmasked', 'P_all', 'P_pop', 'P_all_unmasked', 'P_choice'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_pop', 'P_choice', 'P_all', 'P_pop_unmasked', 'P_all_unmasked', 'P_choice_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -4435,11 +4507,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-13T16:02:56.550302+00:00",
+  "generated_at": "2026-06-13T16:23:51.229417+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 739,
+    "n_checks": 751,
     "n_fail": 3,
-    "n_pass": 736
+    "n_pass": 748
   }
 }

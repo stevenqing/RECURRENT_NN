@@ -1,0 +1,87 @@
+{
+  "item_number": "097",
+  "schema_version": "log_item_contract_v1",
+  "status": "GRAPH_COLOR_SINGLE_AGENT_INTERNALIZATION_TRACE_SMOKE_COMPLETE",
+  "name": "Graph_color single-agent M-register internalization trace smoke",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Start the internalization program by exporting step-level traces from solved single-agent graph_color M-register episodes. This turns the externalized scaffold behavior into supervised examples containing visible state, target branch/backtrack/final actions, bounded register views, state summaries, and chat-format SFT messages.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_item": "096",
+    "method_source_item": "095",
+    "script": "analysis/internalization_trace_harvester.py",
+    "trace_artifact": "results/internalization_traces/graph_color_single_agent_mregister_trace_smoke.json",
+    "trace_jsonl": "results/internalization_traces/graph_color_single_agent_mregister_trace_smoke.jsonl",
+    "trace_schema_version": "internalization_step_trace_v1",
+    "teacher_source": "oracle_scaffold"
+  },
+  "artifacts": [
+    "results/experiment_items/item_097_graph_color_single_agent_internalization_trace_smoke.json",
+    "analysis/internalization_trace_harvester.py",
+    "results/internalization_traces/graph_color_single_agent_mregister_trace_smoke.json",
+    "results/internalization_traces/graph_color_single_agent_mregister_trace_smoke.jsonl"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/internalization_trace_harvester.py",
+      "change": "Adds a graph_color trace harvester that selects backtracking-required Reasoning Gym instances, replays solved R8 oracle-scaffold M-register episodes, and writes JSON/JSONL step-level training traces."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.internalization_trace_harvester --output results/internalization_traces/graph_color_single_agent_mregister_trace_smoke.json --jsonl-output results/internalization_traces/graph_color_single_agent_mregister_trace_smoke.jsonl --seed 42 --scan-limit 200 --n-instances 8 --min-backtracks 4 --node-cap 80 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --order-mode degree_desc --r-value 8 --max-steps 120 --teacher-source oracle_scaffold",
+      "purpose": "Export single-agent step-level M-register traces for internalization dataset bootstrapping."
+    }
+  ],
+  "decision": {
+    "outcome": "SINGLE_AGENT_TRACE_SCHEMA_AND_SMOKE_PASS",
+    "overall_pass": true,
+    "headline": {
+      "benchmark": "graph_color",
+      "teacher_source": "oracle_scaffold",
+      "R": 8,
+      "n_episodes": 8,
+      "n_trace_rows": 213,
+      "branch_rows": 176,
+      "backtrack_rows": 29,
+      "final_rows": 8,
+      "solve_rate": 1.0,
+      "mean_official_score": 1.0,
+      "max_register_view_len": 8,
+      "bounded_view_verified": true,
+      "jsonl_rows_parseable": true,
+      "single_next_move": "Run Item098 multi-agent trace pilot so internalization data includes conflict messages, cross-block rollback, team, monolith-R, and monolith-KR controls."
+    },
+    "gate_outcomes": [
+      {"gate": "jsonl_parseability", "outcome": "PASS", "number": "213/213 JSONL rows parse."},
+      {"gate": "action_coverage", "outcome": "PASS", "number": "branch=176, backtrack=29, final=8."},
+      {"gate": "official_solved_trace", "outcome": "PASS", "number": "8/8 episodes solved with mean_official_score=1.0."},
+      {"gate": "bounded_register_view", "outcome": "PASS", "number": "max_register_view_len=8 with R=8; bounded_view_verified=true."},
+      {"gate": "internalization_training", "outcome": "NOT_STARTED", "number": "Trace export only; no model weights updated."}
+    ],
+    "next_step_routing": "Proceed to Item098: extend trace schema to multi-agent team/monolith episodes and include message/rollback/cross-block conflict rows before any LoRA training."
+  },
+  "result_tables": {
+    "trace_smoke_summary": {
+      "columns": ["n_episodes", "n_trace_rows", "branch_rows", "backtrack_rows", "final_rows", "solve_rate", "mean_official_score", "bounded_view_verified", "max_register_view_len"],
+      "rows": [
+        {"n_episodes": 8, "n_trace_rows": 213, "branch_rows": 176, "backtrack_rows": 29, "final_rows": 8, "solve_rate": 1.0, "mean_official_score": 1.0, "bounded_view_verified": true, "max_register_view_len": 8}
+      ]
+    },
+    "schema_fields": {
+      "columns": ["field", "purpose"],
+      "rows": [
+        {"field": "visible_state", "purpose": "bounded learner-visible state, including current variable/domain or conflict/register view"},
+        {"field": "target_action", "purpose": "branch/backtrack/final JSON target for SFT"},
+        {"field": "state_before_summary", "purpose": "compact state consistency context"},
+        {"field": "state_after_summary", "purpose": "post-action transition target for later register-in-text checks"},
+        {"field": "training_messages", "purpose": "chat-format user/assistant pair for trace-to-SFT conversion"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item exports traces only. It does not train a LoRA adapter, evaluate an internalized model, or remove the external scaffold.",
+    "teacher_limit": "The smoke uses oracle_scaffold actions, not replayed Qwen decisions from Item095. LLM-scaffold trace harvesting is a follow-up.",
+    "single_agent_limit": "This trace smoke is single-agent only. Multi-agent message and rollback traces are not present yet."
+  }
+}
