@@ -1,0 +1,70 @@
+{
+  "schema_version": "externalization_two_rail_power_gate_v0",
+  "status": "EXTERNALIZATION_TWO_RAIL_POWER_GATE_COMPLETE",
+  "source": "autonomous_stage_a_run",
+  "provenance": "read_only_item078_power_gate_addendum_v0",
+  "parent_artifact": "results/externalization_validation_v0/power_calibration.json",
+  "instrument_changes": "none",
+  "llm_calls": 0,
+  "gate_definition": {
+    "lower_rail": "L0-symbolic-random solve_rate < 0.7 at matched node budget",
+    "upper_rail": "L0-symbolic-heuristic solve_rate meaningfully above random; ideal middle band is roughly 0.3 to 0.9, but above-random ceiling is still not a floor",
+    "floor_failure": "Both L0-random and L0-heuristic near 0 at the selected budget"
+  },
+  "bins": [
+    {
+      "benchmark": "graph_color",
+      "config": {"n_vertices": 14, "edge_probability": 0.4},
+      "node_budget": 20,
+      "n": 4,
+      "l0_random_solve_rate": 0.0,
+      "l0_random_status_counts": {"NODE_BUDGET": 4},
+      "l0_heuristic_solve_rate": 1.0,
+      "l0_heuristic_status_counts": {"SOLVED": 4},
+      "lower_rail_pass": true,
+      "upper_rail_pass": true,
+      "ideal_middle_band": false,
+      "floor_failure": false,
+      "interpretation": "Two-rail gate passes. This is not a budget floor: heuristic solves 4/4 within 20 nodes while random solves 0/4. Because heuristic is at ceiling, the LLM-adds-value fork versus heuristic is stringent."
+    },
+    {
+      "benchmark": "sudoku",
+      "config": {"empty": 45},
+      "node_budget": 320,
+      "n": 4,
+      "l0_random_solve_rate": 0.0,
+      "l0_random_status_counts": {"NODE_BUDGET": 4},
+      "l0_heuristic_solve_rate": 1.0,
+      "l0_heuristic_status_counts": {"SOLVED": 4},
+      "lower_rail_pass": true,
+      "upper_rail_pass": true,
+      "ideal_middle_band": false,
+      "floor_failure": false,
+      "interpretation": "Two-rail gate passes. This is not a budget floor: MRV/heuristic solves 4/4 within 320 nodes while random solves 0/4. Because heuristic is at ceiling, the LLM-adds-value fork versus heuristic is stringent."
+    },
+    {
+      "benchmark": "zebra_puzzles",
+      "config": "adapter_pending",
+      "node_budget": null,
+      "n": 0,
+      "l0_random_solve_rate": null,
+      "l0_heuristic_solve_rate": null,
+      "lower_rail_pass": false,
+      "upper_rail_pass": false,
+      "ideal_middle_band": false,
+      "floor_failure": null,
+      "interpretation": "No two-rail read yet; structural adapter is pending."
+    }
+  ],
+  "proceed_gates": {
+    "graph_color_llm_gate": "GO_TWO_RAIL_PASS",
+    "sudoku_llm_gate": "GO_TWO_RAIL_PASS",
+    "zebra_puzzles_llm_gate": "NO_GO_ADAPTER_PENDING",
+    "note": "LLM shard sample size must be at least 30; n=4 is calibration only."
+  },
+  "honesty": {
+    "does_not_establish": "This artifact does not run any LLM arm and establishes no new externalization claim. It only reads the upper rail from existing Item078 no-LLM data.",
+    "ceiling_note": "Both graph_color and sudoku pass because heuristic is high while random is low. The heuristic arm is at 1.0, above the ideal 0.3-0.9 middle band, so future M-register results will be judged against a strong ceiling baseline.",
+    "sample_limit": "n=4 is a calibration probe only; the LLM shard should use n>=30."
+  }
+}

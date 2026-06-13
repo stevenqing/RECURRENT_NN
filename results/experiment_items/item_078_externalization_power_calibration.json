@@ -8,13 +8,15 @@
     "schema_version": "externalization_power_calibration_v0",
     "source": "autonomous_stage_a_run",
     "result_artifact": "results/externalization_validation_v0/power_calibration.json",
+    "two_rail_gate_artifact": "results/externalization_validation_v0/two_rail_gate.json",
     "script": "analysis/externalization_power_calibration.py",
     "parent_item": "077"
   },
   "artifacts": [
     "results/experiment_items/item_078_externalization_power_calibration.json",
     "analysis/externalization_power_calibration.py",
-    "results/externalization_validation_v0/power_calibration.json"
+    "results/externalization_validation_v0/power_calibration.json",
+    "results/externalization_validation_v0/two_rail_gate.json"
   ],
   "code_added_used": [
     {
@@ -37,7 +39,7 @@
       "graph_color_llm_gate": "GO_ON_CALIBRATED_BIN",
       "sudoku_llm_gate": "GO_ON_CALIBRATED_BIN",
       "zebra_puzzles_llm_gate": "NO_GO_ADAPTER_PENDING",
-      "single_next_move": "Run LLM arms only on graph_color and sudoku calibrated bins; implement zebra structural adapter before zebra LLM arms."
+      "single_next_move": "Run LLM arms only on graph_color and sudoku two-rail-passing bins with n>=30; implement zebra structural adapter before zebra LLM arms."
     },
     "gate_outcomes": [
       {
@@ -46,9 +48,19 @@
         "number": "selected bin n_vertices=14, edge_probability=0.4, node_budget=20; L0-random solve_rate=0.0 < 0.7; n=4"
       },
       {
+        "gate": "graph_color_upper_rail",
+        "outcome": "PASS_HEURISTIC_CEILING",
+        "number": "same selected bin n_vertices=14, edge_probability=0.4, node_budget=20: L0-heuristic solve_rate=1.0 while L0-random=0.0; not a floor, but heuristic ceiling makes LLM-adds-value stringent"
+      },
+      {
         "gate": "sudoku_power_gate",
         "outcome": "PASS",
         "number": "selected bin empty=45, node_budget=320; L0-random solve_rate=0.0 < 0.7; n=4"
+      },
+      {
+        "gate": "sudoku_upper_rail",
+        "outcome": "PASS_HEURISTIC_CEILING",
+        "number": "same selected bin empty=45, node_budget=320: L0-heuristic solve_rate=1.0 while L0-random=0.0; not a floor, but heuristic ceiling makes LLM-adds-value stringent"
       },
       {
         "gate": "zebra_puzzles_power_gate",
@@ -66,29 +78,30 @@
         "number": "This item is no-LLM power calibration only; it does not run M-register or L1 arms."
       }
     ],
-    "next_step_routing": "Proceed to a gated graph_color LLM shard on n_vertices=14, edge_probability=0.4, node_budget=20, then sudoku empty=45/node_budget=320. Keep zebra_puzzles blocked until its structural adapter exists."
+    "next_step_routing": "Proceed to a gated graph_color LLM shard on n_vertices=14, edge_probability=0.4, node_budget=20 only with n>=30, then sudoku empty=45/node_budget=320 with n>=30. Both bins pass the two-rail gate: random is 0.0 and heuristic is 1.0, so they are not budget floors. Keep zebra_puzzles blocked until its structural adapter exists."
   },
   "result_tables": {
     "selected_power_bins": {
-      "columns": ["benchmark", "config", "node_budget", "l0_random_solve_rate", "n", "gate"],
+      "columns": ["benchmark", "config", "node_budget", "l0_random_solve_rate", "l0_heuristic_solve_rate", "n", "gate"],
       "rows": [
-        {"benchmark": "graph_color", "config": {"n_vertices": 14, "edge_probability": 0.4}, "node_budget": 20, "l0_random_solve_rate": 0.0, "n": 4, "gate": "PASS"},
-        {"benchmark": "sudoku", "config": {"empty": 45}, "node_budget": 320, "l0_random_solve_rate": 0.0, "n": 4, "gate": "PASS"},
-        {"benchmark": "zebra_puzzles", "config": "adapter_pending", "node_budget": null, "l0_random_solve_rate": null, "n": 0, "gate": "NO_GO"}
+        {"benchmark": "graph_color", "config": {"n_vertices": 14, "edge_probability": 0.4}, "node_budget": 20, "l0_random_solve_rate": 0.0, "l0_heuristic_solve_rate": 1.0, "n": 4, "gate": "PASS_TWO_RAIL"},
+        {"benchmark": "sudoku", "config": {"empty": 45}, "node_budget": 320, "l0_random_solve_rate": 0.0, "l0_heuristic_solve_rate": 1.0, "n": 4, "gate": "PASS_TWO_RAIL"},
+        {"benchmark": "zebra_puzzles", "config": "adapter_pending", "node_budget": null, "l0_random_solve_rate": null, "l0_heuristic_solve_rate": null, "n": 0, "gate": "NO_GO"}
       ]
     },
     "proceed_gates": {
       "columns": ["track", "gate", "reason"],
       "rows": [
-        {"track": "graph_color_llm", "gate": "GO", "reason": "power gate passes on selected hard bin"},
-        {"track": "sudoku_llm", "gate": "GO", "reason": "power gate passes on selected hard bin"},
+        {"track": "graph_color_llm", "gate": "GO", "reason": "two-rail power gate passes; use n>=30 for LLM shard"},
+        {"track": "sudoku_llm", "gate": "GO", "reason": "two-rail power gate passes; use n>=30 for LLM shard"},
         {"track": "zebra_puzzles_llm", "gate": "NO_GO", "reason": "structural adapter pending"}
       ]
     }
   },
   "honesty": {
-    "does_not_establish": "This item does not establish any new externalization claim. It only calibrates no-LLM difficulty/power gates for later LLM arms.",
-    "sample_limit": "Calibration n is 4 per cell because slower generator cells were avoided by shrinking n, not by shrinking the required node-budget curve.",
+    "does_not_establish": "This item does not establish any new externalization claim. It only calibrates and re-reads no-LLM difficulty/power gates for later LLM arms.",
+    "sample_limit": "Calibration n is 4 per cell because slower generator cells were avoided by shrinking n, not by shrinking the required node-budget curve. The real LLM shard must use n>=30.",
+    "upper_rail_note": "Both selected bins pass the upper rail with L0-heuristic solve_rate=1.0, so they are not budget floors. Because this is above the ideal middle band, the LLM-adds-value comparison against heuristic is a stringent ceiling baseline.",
     "zebra_limit": "zebra_puzzles remains adapter-gated despite official score_answer readiness because RG metadata does not expose the structural puzzle constraints needed by L0 search.",
     "scope_limit": "No vLLM calls were made in this item. vLLM may be running, but LLM spending remains downstream of these power gates."
   }

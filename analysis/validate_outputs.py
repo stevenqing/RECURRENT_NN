@@ -141,6 +141,7 @@ PATHS = {
     "externalization_paper_validation_spec_v0": "specs/externalization_paper_validation_v0.md",
     "externalization_validation_preflight": "results/externalization_validation_v0/preflight.json",
     "externalization_power_calibration": "results/externalization_validation_v0/power_calibration.json",
+    "externalization_two_rail_gate": "results/externalization_validation_v0/two_rail_gate.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 

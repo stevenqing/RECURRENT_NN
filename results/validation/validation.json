@@ -2395,13 +2395,13 @@
       "tier": "contract"
     },
     {
-      "detail": "This item does not establish any new externalization claim. It only calibrates no-LLM difficulty/power gates for later LLM arms.",
+      "detail": "This item does not establish any new externalization claim. It only calibrates and re-reads no-LLM difficulty/power gates for later LLM arms.",
       "name": "log_item_078_honesty_does_not_establish",
       "status": "PASS",
       "tier": "contract"
     },
     {
-      "detail": "gates=5; routing=Proceed to a gated graph_color LLM shard on n_vertices=14, edge_probability=0.4, node_budget=20, then sudoku empty=45/node_budget=320. Keep zebra_puzzles blocked until its structural adapter exists.",
+      "detail": "gates=7; routing=Proceed to a gated graph_color LLM shard on n_vertices=14, edge_probability=0.4, node_budget=20 only with n>=30, then sudoku empty=45/node_budget=320 with n>=30. Both bins pass the two-rail gate: random is 0.0 and heuristic is 1.0, so they are not budget floors. Keep zebra_puzzles blocked until its structural adapter exists.",
       "name": "log_item_078_decision_numbers_and_routing",
       "status": "PASS",
       "tier": "contract"
@@ -2983,13 +2983,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'final_solution_readback', 'register_entry_classification', 'forward_read', 'spill_off_write_drop', 'write_drop_mask', 'pop_read'}",
+      "detail": "rules={'forward_read', 'pop_read', 'register_entry_classification', 'spill_off_write_drop', 'final_solution_readback', 'write_drop_mask'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'threshold_D_peak', 'P_choice_unmasked', 'P_choice', 'threshold_D_pop', 'P_all_unmasked', 'P_pop_unmasked', 'P_all', 'P_pop'}; rows=768",
+      "detail": "candidates={'P_all', 'threshold_D_pop', 'P_choice_unmasked', 'P_all_unmasked', 'P_pop_unmasked', 'P_choice', 'threshold_D_peak', 'P_pop'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3013,7 +3013,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rows=64; statuses={'timeout', 'measured'}",
+      "detail": "rows=64; statuses={'measured', 'timeout'}",
       "name": "e1_sudoku_compositional_real_trace_subsample",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3025,7 +3025,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_choice_unmasked', 'P_choice', 'P_all_unmasked', 'P_pop_unmasked', 'P_all', 'P_pop'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_all', 'P_choice_unmasked', 'P_all_unmasked', 'P_pop_unmasked', 'P_choice', 'P_pop'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3823,7 +3823,7 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-13T07:35:09.864733+00:00",
+  "generated_at": "2026-06-13T07:56:45.180565+00:00",
   "passed": false,
   "summary": {
     "n_checks": 637,
