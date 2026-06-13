@@ -1,17 +1,4 @@
 {
-  "item_number": "070",
-  "schema_version": "log_item_contract_v1",
-  "name": "Rung-1 bounded-register paradigm overnight real-LLM official-harness run",
-  "generated_at": "2026-06-12T17:05:00.000000+00:00",
-  "purpose": "Record the first real-LLM bounded-register search-decision result on official Reasoning Gym graph_color scoring, plus the queued multi-agent AgentsNet official-harness dry-run addendum.",
-  "provenance": {
-    "schema_version": "rung1_paradigm_overnight_v0",
-    "source": "autonomous_stage_a_run",
-    "result_artifact": "results/rung1_paradigm_overnight/results.json",
-    "track123_artifact": "results/rung1_paradigm_overnight/track123.json",
-    "smoke_artifact": "results/rung1_paradigm_overnight/smoke.json",
-    "multiagent_dry_run_artifact": "results/rung1_paradigm_overnight/multiagent_dry_run.json"
-  },
   "artifacts": [
     "results/experiment_items/item_070_rung1_paradigm_overnight_real_llm.json",
     "experiments/rung1_reasoning_gym_bounded_register.py",
@@ -23,12 +10,12 @@
   ],
   "code_added_used": [
     {
-      "path": "experiments/rung1_reasoning_gym_bounded_register.py",
-      "change": "Runs the LLM-as-bounded-search-decision paradigm on official Reasoning Gym graph_color instances, with score_answer-only solve validation, R sweep, one-shot baseline, bounded-view guard, and checkpoint/resume."
+      "change": "Runs the LLM-as-bounded-search-decision paradigm on official Reasoning Gym graph_color instances, with score_answer-only solve validation, R sweep, one-shot baseline, bounded-view guard, and checkpoint/resume.",
+      "path": "experiments/rung1_reasoning_gym_bounded_register.py"
     },
     {
-      "path": "experiments/rung1_agentsnet_bounded_register_dryrun.py",
-      "change": "Adds the queued multi-agent AgentsNet symbolic dry-run using official Coloring.get_score semantics and forward/chrono/cbj routing arms; records dependency fallback when full AgentsNet runtime cannot import."
+      "change": "Adds the queued multi-agent AgentsNet symbolic dry-run using official Coloring.get_score semantics and forward/chrono/cbj routing arms; records dependency fallback when full AgentsNet runtime cannot import.",
+      "path": "experiments/rung1_agentsnet_bounded_register_dryrun.py"
     }
   ],
   "commands": [
@@ -54,91 +41,708 @@
     }
   ],
   "decision": {
-    "outcome": "RUNG1_PARADIGM_OVERNIGHT_COMPLETE",
-    "overall_pass": true,
-    "headline": {
-      "claims_1_2_real_llm_determination": "positive",
-      "claim1_delta": 0.9666666666666667,
-      "claim2_slope": 0.23666666666666664,
-      "depth_flatness_verdict": "bounded_view_verified",
-      "claim4_llm_placement": "near_oracle_high_solve",
-      "multiagent_determination": "SKIPPED_DEPENDENCY",
-      "single_next_move": "Install/lock AgentsNet dependencies and run real multi-agent contrast, or implement zebra_puzzles CSP runner for external validity."
-    },
     "gate_outcomes": [
       {
         "gate": "vllm_stability_preflight",
-        "outcome": "PASS",
-        "number": "20/20 server_ok; 20/20 parse_ok; vLLM on GPUs 0-3, TP=4, gpu_memory_utilization=0.30, max_num_seqs=512"
+        "number": "20/20 server_ok; 20/20 parse_ok; vLLM on GPUs 0-3, TP=4, gpu_memory_utilization=0.30, max_num_seqs=512",
+        "outcome": "PASS"
       },
       {
         "gate": "real_llm_smoke",
-        "outcome": "PASS",
-        "number": "parseable_rate=0.9312977099236641; official score_answer functional; R=0 forward dead-end and R=4 reversible solved smoke instances"
+        "number": "parseable_rate=0.9312977099236641; official score_answer functional; R=0 forward dead-end and R=4 reversible solved smoke instances",
+        "outcome": "PASS"
       },
       {
         "gate": "track1_claim1",
-        "outcome": "PASS_POSITIVE",
-        "number": "R0 solve_rate=0.0; best reversible R=8 solve_rate=0.9666666666666667; delta=0.9666666666666667"
+        "number": "R0 solve_rate=0.0; best reversible R=8 solve_rate=0.9666666666666667; delta=0.9666666666666667",
+        "outcome": "PASS_POSITIVE"
       },
       {
         "gate": "track1_claim2",
-        "outcome": "PASS_POSITIVE",
-        "number": "solve_rate_slope_vs_log2_R=0.23666666666666664 over R={2,4,8,16}"
+        "number": "solve_rate_slope_vs_log2_R=0.23666666666666664 over R={2,4,8,16}",
+        "outcome": "PASS_POSITIVE"
       },
       {
         "gate": "claim4_llm_R8",
-        "outcome": "NEAR_ORACLE_HIGH_SOLVE",
-        "number": "R=8 llm_solve_rate=0.9666666666666667; oracle=1.0; random=0.9"
+        "number": "R=8 llm_solve_rate=0.9666666666666667; oracle=1.0; random=0.9",
+        "outcome": "NEAR_ORACLE_HIGH_SOLVE"
       },
       {
         "gate": "multiagent_real_llm",
-        "outcome": "SKIPPED_DEPENDENCY",
-        "number": "Single-agent gate passed, but official AgentsNet runtime import blocked by missing langchain/scipy; symbolic dry-run completed with recorded score-formula fallback."
+        "number": "Single-agent gate passed, but official AgentsNet runtime import blocked by missing langchain/scipy; symbolic dry-run completed with recorded score-formula fallback.",
+        "outcome": "SKIPPED_DEPENDENCY"
       }
     ],
-    "next_step_routing": "Treat graph_color official-harness claims 1+2 as the first positive real-LLM validation of the bounded-register search-decision paradigm. Next: install/lock AgentsNet dependencies for real multi-agent contrast, or implement the zebra_puzzles CSP wrapper for external validity."
+    "headline": {
+      "claim1_delta": 0.9666666666666667,
+      "claim2_slope": 0.23666666666666664,
+      "claim4_llm_placement": "near_oracle_high_solve",
+      "claims_1_2_real_llm_determination": "positive",
+      "depth_flatness_verdict": "bounded_view_verified",
+      "multiagent_determination": "SKIPPED_DEPENDENCY",
+      "single_next_move": "Install/lock AgentsNet dependencies and run real multi-agent contrast, or implement zebra_puzzles CSP runner for external validity."
+    },
+    "next_step_routing": "Treat graph_color official-harness claims 1+2 as the first positive real-LLM validation of the bounded-register search-decision paradigm. Next: install/lock AgentsNet dependencies for real multi-agent contrast, or implement the zebra_puzzles CSP wrapper for external validity.",
+    "outcome": "RUNG1_PARADIGM_OVERNIGHT_COMPLETE",
+    "overall_pass": true
   },
+  "generated_at": "2026-06-12T17:05:00.000000+00:00",
+  "honesty": {
+    "claim4_limit": "At R=8 the LLM target source is high and close to oracle, but random is also high; this is a high-solve placement, not a clean large separation of target-selection quality.",
+    "does_not_establish": "This item establishes a positive real-LLM result for claims 1+2 on Reasoning Gym graph_color only. It does not establish zebra transfer, P1c, or real multi-agent AgentsNet claims.",
+    "multiagent_limit": "The real multi-agent run was skipped because the full AgentsNet runtime could not import without langchain/scipy. The dry-run used a recorded fallback matching the official Coloring.get_score formula, so it is readiness evidence, not a real multi-agent LLM result.",
+    "scope_limit": "The official-harness result is for graph_color. zebra_puzzles remains skipped/gated, and AgentsNet real-LLM validation remains dependency-gated."
+  },
+  "item_number": "070",
+  "name": "Rung-1 bounded-register paradigm overnight real-LLM official-harness run",
+  "provenance": {
+    "multiagent_dry_run_artifact": "results/rung1_paradigm_overnight/multiagent_dry_run.json",
+    "result_artifact": "results/rung1_paradigm_overnight/results.json",
+    "schema_version": "rung1_paradigm_overnight_v0",
+    "smoke_artifact": "results/rung1_paradigm_overnight/smoke.json",
+    "source": "autonomous_stage_a_run",
+    "track123_artifact": "results/rung1_paradigm_overnight/track123.json"
+  },
+  "purpose": "Record the first real-LLM bounded-register search-decision result on official Reasoning Gym graph_color scoring, plus the queued multi-agent AgentsNet official-harness dry-run addendum.",
   "result_tables": {
-    "track1_solve_by_R": {
-      "columns": ["R", "solve_rate", "status_counts"],
+    "artifact_inventory": {
+      "columns": [
+        "artifact",
+        "status",
+        "schema_version",
+        "size_bytes"
+      ],
       "rows": [
-        {"R": 0, "solve_rate": 0.0, "status_counts": {"FORWARD_DEAD_END": 30}},
-        {"R": 2, "solve_rate": 0.23333333333333334, "status_counts": {"NO_RECOVERY_TARGET": 23, "SOLVED": 7}},
-        {"R": 4, "solve_rate": 0.8, "status_counts": {"NO_RECOVERY_TARGET": 6, "SOLVED": 24}},
-        {"R": 8, "solve_rate": 0.9666666666666667, "status_counts": {"NO_RECOVERY_TARGET": 1, "SOLVED": 29}},
-        {"R": 16, "solve_rate": 0.9666666666666667, "status_counts": {"NO_RECOVERY_TARGET": 1, "SOLVED": 29}}
+        {
+          "artifact": "results/rung1_paradigm_overnight/results.json",
+          "schema_version": "rung1_paradigm_overnight_v0",
+          "size_bytes": 12152,
+          "status": "RUNG1_PARADIGM_OVERNIGHT_COMPLETE"
+        },
+        {
+          "artifact": "results/rung1_paradigm_overnight/track123.json",
+          "schema_version": "rung1_reasoning_gym_bounded_register_v0",
+          "size_bytes": 359406,
+          "status": "RUNG1_REASONING_GYM_BOUNDED_REGISTER_COMPLETE"
+        },
+        {
+          "artifact": "results/rung1_paradigm_overnight/smoke.json",
+          "schema_version": "rung1_reasoning_gym_bounded_register_v0",
+          "size_bytes": 19091,
+          "status": "RUNG1_REASONING_GYM_BOUNDED_REGISTER_COMPLETE"
+        },
+        {
+          "artifact": "results/rung1_paradigm_overnight/multiagent_dry_run.json",
+          "schema_version": "rung1_agentsnet_bounded_register_dryrun_v0",
+          "size_bytes": 18291,
+          "status": "RUNG1_AGENTSNET_BOUNDED_REGISTER_DRYRUN_COMPLETE"
+        }
       ]
     },
-    "track2_claim4_R8": {
-      "columns": ["target_source", "solve_rate"],
+    "budget_ledger": {
+      "columns": [
+        "track",
+        "what_ran",
+        "n_instances",
+        "R_values",
+        "call_cap",
+        "max_llm_calls_upper_bound",
+        "batch_size",
+        "reason"
+      ],
       "rows": [
-        {"target_source": "llm", "solve_rate": 0.9666666666666667},
-        {"target_source": "oracle", "solve_rate": 1.0},
-        {"target_source": "random", "solve_rate": 0.9}
-      ]
-    },
-    "track3_one_shot_vs_search": {
-      "columns": ["condition", "solve_rate"],
-      "rows": [
-        {"condition": "one_shot_cot", "solve_rate": 0.0},
-        {"condition": "forward_R0", "solve_rate": 0.0},
-        {"condition": "best_reversible_R8", "solve_rate": 0.9666666666666667}
+        {
+          "R_values": [
+            0,
+            2,
+            4,
+            8,
+            16
+          ],
+          "batch_size": 256,
+          "call_cap": 125,
+          "max_llm_calls_upper_bound": 26280,
+          "n_instances": 30,
+          "reason": null,
+          "track": "single_agent_track123",
+          "what_ran": "graph_color R sweep + one-shot + R8 target-source arms"
+        },
+        {
+          "R_values": null,
+          "batch_size": null,
+          "call_cap": null,
+          "max_llm_calls_upper_bound": null,
+          "n_instances": null,
+          "reason": null,
+          "track": "multiagent_dry_run",
+          "what_ran": "AgentsNet symbolic routing dry-run with official score formula fallback"
+        },
+        {
+          "R_values": null,
+          "batch_size": null,
+          "call_cap": null,
+          "max_llm_calls_upper_bound": null,
+          "n_instances": null,
+          "reason": "Single-agent gate passed, but official AgentsNet runtime import is blocked by missing dependencies; dry-run used recorded exact Coloring.get_score formula fallback only.",
+          "track": "multiagent_real_llm",
+          "what_ran": "skipped"
+        },
+        {
+          "R_values": null,
+          "batch_size": null,
+          "call_cap": null,
+          "max_llm_calls_upper_bound": null,
+          "n_instances": null,
+          "reason": "budget/scope gated after graph_color headline",
+          "track": "zebra",
+          "what_ran": "skipped"
+        }
       ]
     },
     "multiagent_dry_run_summary": {
-      "columns": ["arm", "solve_rate", "mean_routing_messages"],
+      "columns": [
+        "arm",
+        "n",
+        "solve_rate",
+        "mean_official_score",
+        "mean_routing_messages",
+        "status_counts"
+      ],
       "rows": [
-        {"arm": "forward", "solve_rate": 0.75, "mean_routing_messages": 0},
-        {"arm": "chrono", "solve_rate": 0.75, "mean_routing_messages": 64},
-        {"arm": "cbj", "solve_rate": 0.75, "mean_routing_messages": 48.25}
+        {
+          "arm": "forward",
+          "mean_official_score": 0.75,
+          "mean_routing_messages": 0,
+          "n": 12,
+          "solve_rate": 0.75,
+          "status_counts": {
+            "FORWARD_DEAD_END": 3,
+            "SOLVED": 9
+          }
+        },
+        {
+          "arm": "chrono",
+          "mean_official_score": 0.75,
+          "mean_routing_messages": 64,
+          "n": 12,
+          "solve_rate": 0.75,
+          "status_counts": {
+            "NODE_CAP": 1,
+            "NO_RECOVERY_TARGET": 2,
+            "SOLVED": 9
+          }
+        },
+        {
+          "arm": "cbj",
+          "mean_official_score": 0.75,
+          "mean_routing_messages": 48.25,
+          "n": 12,
+          "solve_rate": 0.75,
+          "status_counts": {
+            "NODE_CAP": 1,
+            "NO_RECOVERY_TARGET": 2,
+            "SOLVED": 9
+          }
+        }
+      ]
+    },
+    "multiagent_gate_and_dependency": {
+      "columns": [
+        "metric",
+        "value"
+      ],
+      "rows": [
+        {
+          "metric": "dry_run_status",
+          "value": "RUNG1_AGENTSNET_BOUNDED_REGISTER_DRYRUN_COMPLETE"
+        },
+        {
+          "metric": "official_scoring_verified",
+          "value": true
+        },
+        {
+          "metric": "bounded_view_verified",
+          "value": true
+        },
+        {
+          "metric": "routing_arms",
+          "value": [
+            "forward",
+            "chrono",
+            "cbj"
+          ]
+        },
+        {
+          "metric": "import_status",
+          "value": "official_import_blocked_missing_dependency:langchain; fallback_uses_exact_Coloring_get_score_formula_from_repo"
+        },
+        {
+          "metric": "real_llm_status",
+          "value": "SKIPPED_DEPENDENCY"
+        },
+        {
+          "metric": "real_llm_reason",
+          "value": "Single-agent gate passed, but official AgentsNet runtime import is blocked by missing dependencies; dry-run used recorded exact Coloring.get_score formula fallback only."
+        },
+        {
+          "metric": "track1_claim1_passed",
+          "value": true
+        },
+        {
+          "metric": "track1_claim2_passed",
+          "value": true
+        }
+      ]
+    },
+    "overnight_headline": {
+      "columns": [
+        "metric",
+        "value"
+      ],
+      "rows": [
+        {
+          "metric": "claim1_delta",
+          "value": 0.9666666666666667
+        },
+        {
+          "metric": "claim2_slope",
+          "value": 0.23666666666666664
+        },
+        {
+          "metric": "claim4_llm_placement",
+          "value": "near_oracle_high_solve"
+        },
+        {
+          "metric": "claims_1_2_real_llm_determination",
+          "value": "positive"
+        },
+        {
+          "metric": "depth_flatness_verdict",
+          "value": "bounded_view_verified"
+        },
+        {
+          "metric": "multiagent_determination",
+          "value": "SKIPPED_DEPENDENCY"
+        },
+        {
+          "metric": "single_next_move",
+          "value": "Install/lock AgentsNet dependencies and run real multi-agent contrast, or implement zebra_puzzles CSP runner for external validity."
+        }
+      ]
+    },
+    "preflight_and_smoke_gates": {
+      "columns": [
+        "gate",
+        "value"
+      ],
+      "rows": [
+        {
+          "gate": "vllm_stable",
+          "value": true
+        },
+        {
+          "gate": "vllm_gpus",
+          "value": "0,1,2,3"
+        },
+        {
+          "gate": "vllm_gpu_memory_utilization",
+          "value": 0.3
+        },
+        {
+          "gate": "vllm_max_model_len",
+          "value": 4096
+        },
+        {
+          "gate": "vllm_max_num_seqs",
+          "value": 512
+        },
+        {
+          "gate": "stability_server_ok",
+          "value": 20
+        },
+        {
+          "gate": "stability_parse_ok",
+          "value": 20
+        },
+        {
+          "gate": "stability_parseable_rate",
+          "value": 1.0
+        },
+        {
+          "gate": "smoke_parseable_rate",
+          "value": 0.9312977099236641
+        },
+        {
+          "gate": "smoke_valid_decision_rate",
+          "value": 0.9923664122137404
+        },
+        {
+          "gate": "smoke_episode_rows",
+          "value": 8
+        },
+        {
+          "gate": "official_scoring",
+          "value": "Reasoning Gym dataset.score_answer(answer, entry)"
+        },
+        {
+          "gate": "bounded_view_verified",
+          "value": true
+        },
+        {
+          "gate": "min_backtracks",
+          "value": 4
+        },
+        {
+          "gate": "call_cap_floor",
+          "value": 125
+        }
+      ]
+    },
+    "track1_claim_verdicts": {
+      "columns": [
+        "claim",
+        "passed",
+        "metric",
+        "value",
+        "kill_if_false"
+      ],
+      "rows": [
+        {
+          "claim": "claim1_reversible_beats_forward",
+          "kill_if_false": "reversible_not_beating_forward_fails_claim1",
+          "metric": "delta",
+          "passed": true,
+          "value": 0.9666666666666667
+        },
+        {
+          "claim": "claim2_R_scaling",
+          "kill_if_false": "no_R_scaling_fails_claim2",
+          "metric": "solve_rate_slope_vs_log2_R",
+          "passed": true,
+          "value": 0.23666666666666664
+        }
+      ]
+    },
+    "track1_effort_by_R": {
+      "columns": [
+        "R",
+        "solve_rate",
+        "mean_decision_calls_solved",
+        "mean_llm_calls_all",
+        "mean_nodes_visited_all",
+        "mean_retractions_all",
+        "censoring_status_counts"
+      ],
+      "rows": [
+        {
+          "R": 0,
+          "censoring_status_counts": {
+            "FORWARD_DEAD_END": 30
+          },
+          "mean_decision_calls_solved": null,
+          "mean_llm_calls_all": 7.166666666666667,
+          "mean_nodes_visited_all": 7.166666666666667,
+          "mean_retractions_all": 0,
+          "solve_rate": 0.0
+        },
+        {
+          "R": 2,
+          "censoring_status_counts": {
+            "NO_RECOVERY_TARGET": 23,
+            "SOLVED": 7
+          },
+          "mean_decision_calls_solved": 21.285714285714285,
+          "mean_llm_calls_all": 12.233333333333333,
+          "mean_nodes_visited_all": 10.733333333333333,
+          "mean_retractions_all": 2.3,
+          "solve_rate": 0.23333333333333334
+        },
+        {
+          "R": 4,
+          "censoring_status_counts": {
+            "NO_RECOVERY_TARGET": 6,
+            "SOLVED": 24
+          },
+          "mean_decision_calls_solved": 25.833333333333332,
+          "mean_llm_calls_all": 23.466666666666665,
+          "mean_nodes_visited_all": 20.1,
+          "mean_retractions_all": 8.933333333333334,
+          "solve_rate": 0.8
+        },
+        {
+          "R": 8,
+          "censoring_status_counts": {
+            "NO_RECOVERY_TARGET": 1,
+            "SOLVED": 29
+          },
+          "mean_decision_calls_solved": 30.17241379310345,
+          "mean_llm_calls_all": 30.133333333333333,
+          "mean_nodes_visited_all": 25.433333333333334,
+          "mean_retractions_all": 13.833333333333334,
+          "solve_rate": 0.9666666666666667
+        },
+        {
+          "R": 16,
+          "censoring_status_counts": {
+            "NO_RECOVERY_TARGET": 1,
+            "SOLVED": 29
+          },
+          "mean_decision_calls_solved": 30.896551724137932,
+          "mean_llm_calls_all": 30.833333333333332,
+          "mean_nodes_visited_all": 26.1,
+          "mean_retractions_all": 14.5,
+          "solve_rate": 0.9666666666666667
+        }
+      ]
+    },
+    "track1_solve_by_R": {
+      "columns": [
+        "R",
+        "n",
+        "solve_rate",
+        "mean_official_score",
+        "mean_decision_calls_solved",
+        "status_counts"
+      ],
+      "rows": [
+        {
+          "R": 0,
+          "mean_decision_calls_solved": null,
+          "mean_official_score": 0.0,
+          "n": 30,
+          "solve_rate": 0.0,
+          "status_counts": {
+            "FORWARD_DEAD_END": 30
+          }
+        },
+        {
+          "R": 2,
+          "mean_decision_calls_solved": 21.285714285714285,
+          "mean_official_score": 0.23333333333333334,
+          "n": 30,
+          "solve_rate": 0.23333333333333334,
+          "status_counts": {
+            "NO_RECOVERY_TARGET": 23,
+            "SOLVED": 7
+          }
+        },
+        {
+          "R": 4,
+          "mean_decision_calls_solved": 25.833333333333332,
+          "mean_official_score": 0.8,
+          "n": 30,
+          "solve_rate": 0.8,
+          "status_counts": {
+            "NO_RECOVERY_TARGET": 6,
+            "SOLVED": 24
+          }
+        },
+        {
+          "R": 8,
+          "mean_decision_calls_solved": 30.17241379310345,
+          "mean_official_score": 0.9666666666666667,
+          "n": 30,
+          "solve_rate": 0.9666666666666667,
+          "status_counts": {
+            "NO_RECOVERY_TARGET": 1,
+            "SOLVED": 29
+          }
+        },
+        {
+          "R": 16,
+          "mean_decision_calls_solved": 30.896551724137932,
+          "mean_official_score": 0.9666666666666667,
+          "n": 30,
+          "solve_rate": 0.9666666666666667,
+          "status_counts": {
+            "NO_RECOVERY_TARGET": 1,
+            "SOLVED": 29
+          }
+        }
+      ]
+    },
+    "track2_bounded_view_verification": {
+      "columns": [
+        "metric",
+        "value"
+      ],
+      "rows": [
+        {
+          "metric": "bounded_view_verified",
+          "value": true
+        },
+        {
+          "metric": "max_assigned_neighbors_in_prompt",
+          "value": 4
+        },
+        {
+          "metric": "max_prompt_chars",
+          "value": 871
+        },
+        {
+          "metric": "max_register_view_len",
+          "value": 10
+        },
+        {
+          "metric": "prompt_size_slope_vs_decision_calls_diagnostic",
+          "value": 6.468954804015161
+        },
+        {
+          "metric": "view_contract",
+          "value": "current frontier plus local assigned neighbors plus register view of size <= R; final scoring delegated to Reasoning Gym score_answer"
+        }
+      ]
+    },
+    "track2_claim4_R8": {
+      "columns": [
+        "target_source",
+        "n",
+        "solve_rate",
+        "mean_official_score",
+        "status_counts"
+      ],
+      "rows": [
+        {
+          "mean_official_score": 0.9666666666666667,
+          "n": 30,
+          "solve_rate": 0.9666666666666667,
+          "status_counts": {
+            "NO_RECOVERY_TARGET": 1,
+            "SOLVED": 29
+          },
+          "target_source": "llm"
+        },
+        {
+          "mean_official_score": 1.0,
+          "n": 30,
+          "solve_rate": 1.0,
+          "status_counts": {
+            "SOLVED": 30
+          },
+          "target_source": "oracle"
+        },
+        {
+          "mean_official_score": 0.9,
+          "n": 30,
+          "solve_rate": 0.9,
+          "status_counts": {
+            "NO_RECOVERY_TARGET": 3,
+            "SOLVED": 27
+          },
+          "target_source": "random"
+        }
+      ]
+    },
+    "track2_decision_quality_by_R": {
+      "columns": [
+        "R",
+        "n",
+        "branch_accuracy_vs_oracle",
+        "backtrack_accuracy_vs_oracle",
+        "parseable_rate",
+        "valid_decision_rate",
+        "mean_llm_calls",
+        "mean_total_retractions",
+        "mean_nodes_visited"
+      ],
+      "rows": [
+        {
+          "R": 0,
+          "backtrack_accuracy_vs_oracle": 0.0,
+          "branch_accuracy_vs_oracle": 1.0,
+          "mean_llm_calls": 7.166666666666667,
+          "mean_nodes_visited": 7.166666666666667,
+          "mean_total_retractions": 0,
+          "n": 30,
+          "parseable_rate": 0.9767441860465116,
+          "valid_decision_rate": 1.0
+        },
+        {
+          "R": 2,
+          "backtrack_accuracy_vs_oracle": 0.5416666666666666,
+          "branch_accuracy_vs_oracle": 0.9980392156862745,
+          "mean_llm_calls": 12.233333333333333,
+          "mean_nodes_visited": 10.733333333333333,
+          "mean_total_retractions": 2.3,
+          "n": 30,
+          "parseable_rate": 0.9346049046321526,
+          "valid_decision_rate": 0.9264305177111717
+        },
+        {
+          "R": 4,
+          "backtrack_accuracy_vs_oracle": 0.5146031746031746,
+          "branch_accuracy_vs_oracle": 0.9980392156862745,
+          "mean_llm_calls": 23.466666666666665,
+          "mean_nodes_visited": 20.1,
+          "mean_total_retractions": 8.933333333333334,
+          "n": 30,
+          "parseable_rate": 0.9360795454545454,
+          "valid_decision_rate": 0.9701704545454546
+        },
+        {
+          "R": 8,
+          "backtrack_accuracy_vs_oracle": 0.5694901394901395,
+          "branch_accuracy_vs_oracle": 0.9980392156862745,
+          "mean_llm_calls": 30.133333333333333,
+          "mean_nodes_visited": 25.433333333333334,
+          "mean_total_retractions": 13.833333333333334,
+          "n": 30,
+          "parseable_rate": 0.9192477876106194,
+          "valid_decision_rate": 0.9988938053097345
+        },
+        {
+          "R": 16,
+          "backtrack_accuracy_vs_oracle": 0.5357864357864358,
+          "branch_accuracy_vs_oracle": 0.9980392156862745,
+          "mean_llm_calls": 30.833333333333332,
+          "mean_nodes_visited": 26.1,
+          "mean_total_retractions": 14.5,
+          "n": 30,
+          "parseable_rate": 0.9221621621621622,
+          "valid_decision_rate": 1.0
+        }
+      ]
+    },
+    "track3_one_shot_vs_search": {
+      "columns": [
+        "condition",
+        "n",
+        "solve_rate",
+        "mean_official_score"
+      ],
+      "rows": [
+        {
+          "condition": "one_shot_cot",
+          "mean_official_score": 0.0,
+          "n": 30,
+          "solve_rate": 0.0
+        },
+        {
+          "condition": "forward_R0",
+          "mean_official_score": 0.0,
+          "n": 30,
+          "solve_rate": 0.0
+        },
+        {
+          "condition": "best_reversible_R8",
+          "mean_official_score": 0.9666666666666667,
+          "n": 30,
+          "solve_rate": 0.9666666666666667
+        }
+      ]
+    },
+    "track4_zebra_status": {
+      "columns": [
+        "status",
+        "reason"
+      ],
+      "rows": [
+        {
+          "reason": "zebra_puzzles runner not implemented in this first graph_color official-harness overnight; graph_color Track1-3 resolved headline.",
+          "status": "SKIPPED_BUDGET_AND_SCOPE"
+        }
       ]
     }
   },
-  "honesty": {
-    "does_not_establish": "This item establishes a positive real-LLM result for claims 1+2 on Reasoning Gym graph_color only. It does not establish zebra transfer, P1c, or real multi-agent AgentsNet claims.",
-    "multiagent_limit": "The real multi-agent run was skipped because the full AgentsNet runtime could not import without langchain/scipy. The dry-run used a recorded fallback matching the official Coloring.get_score formula, so it is readiness evidence, not a real multi-agent LLM result.",
-    "claim4_limit": "At R=8 the LLM target source is high and close to oracle, but random is also high; this is a high-solve placement, not a clean large separation of target-selection quality.",
-    "scope_limit": "The official-harness result is for graph_color. zebra_puzzles remains skipped/gated, and AgentsNet real-LLM validation remains dependency-gated."
-  }
+  "schema_version": "log_item_contract_v1"
 }
