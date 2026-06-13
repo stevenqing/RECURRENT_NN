@@ -1,0 +1,111 @@
+{
+  "item_number": "087",
+  "schema_version": "log_item_contract_v1",
+  "name": "Externalization multi-agent row isolation and timeout blocker",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Continue from Item086 by adding targeted arm/source-index controls to the Part-1 runner, verifying those controls with a fast no-LLM mechanics check, and probing one isolated real-LLM team row. The targeted real-LLM row produced no checkpoint before a manual cutoff, so the next blocker is process-level timeout/chunk orchestration before further real-LLM row accumulation.",
+  "provenance": {
+    "schema_version": "externalization_multiagent_real_llm_row_isolation_patch_v1",
+    "source": "autonomous_stage_a_run",
+    "script": "analysis/externalization_multiagent_real_llm_v1.py",
+    "result_artifact": "results/externalization_validation_v0/multiagent_real_llm_v1_row_isolation_patch.json",
+    "filter_check_artifact": "results/externalization_validation_v0/multiagent_real_llm_v1_filter_check.json",
+    "filter_check_checkpoint": "results/externalization_validation_v0/multiagent_real_llm_v1_filter_check_checkpoint.json",
+    "parent_item": "086"
+  },
+  "artifacts": [
+    "results/experiment_items/item_087_externalization_multiagent_row_isolation.json",
+    "analysis/externalization_multiagent_real_llm_v1.py",
+    "results/externalization_validation_v0/multiagent_real_llm_v1_row_isolation_patch.json",
+    "results/externalization_validation_v0/multiagent_real_llm_v1_filter_check.json",
+    "results/externalization_validation_v0/multiagent_real_llm_v1_filter_check_checkpoint.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/externalization_multiagent_real_llm_v1.py",
+      "change": "Adds --arms and --source-indices filters and records those filters in the budget ledger so individual long-tail rows can be isolated."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m py_compile analysis/externalization_multiagent_real_llm_v1.py",
+      "purpose": "Validate row-isolation patch compiles."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.externalization_multiagent_real_llm_v1 --output results/externalization_validation_v0/multiagent_real_llm_v1_filter_check.json --checkpoint-path results/externalization_validation_v0/multiagent_real_llm_v1_filter_check_checkpoint.json --k-values 2 --n-instances 1 --scan-limit 80 --block-size 8 --edge-probability 0.35 --register-limit 8 --call-cap 20 --min-recoveries 0 --batch-size 1 --task-batch-size 1 --max-new-rows 1 --arms monolith_KR --source-indices 33 --max-new-tokens 64 --no-llm",
+      "purpose": "Verify target filtering writes exactly the requested K/source/arm row."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.externalization_multiagent_real_llm_v1 --output results/externalization_validation_v0/multiagent_real_llm_v1_failure_reason_check.json --checkpoint-path results/externalization_validation_v0/multiagent_real_llm_v1_failure_reason_check_checkpoint.json --k-values 2 --n-instances 1 --scan-limit 80 --block-size 8 --edge-probability 0.35 --register-limit 8 --call-cap 20 --min-recoveries 0 --batch-size 1 --task-batch-size 1 --max-new-rows 1 --arms team --source-indices 33 --max-new-tokens 64 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "purpose": "Probe one isolated real-LLM team row; manually stopped after about 300 seconds without checkpoint output."
+    }
+  ],
+  "decision": {
+    "outcome": "EXTERNALIZATION_MULTIAGENT_REAL_LLM_ROW_ISOLATION_PATCH_COMPLETE_TIMEOUT_BLOCKER",
+    "overall_pass": true,
+    "headline": {
+      "arms_filter_added": true,
+      "source_indices_filter_added": true,
+      "filter_check_pass": true,
+      "single_real_llm_row_timeout_blocker": true,
+      "full_sweep_gate": "NO_GO_UNTIL_PROCESS_TIMEOUT_CHUNK_EXECUTOR",
+      "single_next_move": "Build a process-level one-row executor that records TIMEOUT rows, then resume real-LLM accumulation with bounded wall-clock per row."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "targeted_filter_controls",
+        "outcome": "PASS_INSTALLED",
+        "number": "Runner exposes --arms and --source-indices."
+      },
+      {
+        "gate": "filter_mechanics_check",
+        "outcome": "PASS",
+        "number": "No-LLM check with --arms monolith_KR --source-indices 33 wrote exactly one row: K=2 source_index=33 arm=monolith_KR."
+      },
+      {
+        "gate": "single_real_llm_row_probe",
+        "outcome": "TIMEOUT_BLOCKER",
+        "number": "K=2 source_index=33 team row produced no checkpoint/final artifact before manual cutoff around 300s."
+      },
+      {
+        "gate": "full_K6_launch",
+        "outcome": "NO_GO_YET",
+        "number": "Even isolated real-LLM team row can long-tail; full sweep needs process-level timeout/chunk executor."
+      },
+      {
+        "gate": "claim4b",
+        "outcome": "UNCHANGED_OPEN",
+        "number": "No claim result is added."
+      }
+    ],
+    "next_step_routing": "Implement a process-level one-row executor/wrapper that marks TIMEOUT rows and preserves checkpoint progress. Then use it to run K=2 rows one at a time before any K=3 or full K6 launch."
+  },
+  "result_tables": {
+    "filter_check": {
+      "columns": ["mode", "rows", "row_key", "pass"],
+      "rows": [
+        {"mode": "no_llm_targeted_filter_check", "rows": 1, "row_key": "K=2 source=33 arm=monolith_KR", "pass": true}
+      ]
+    },
+    "single_row_probe": {
+      "columns": ["scope", "cutoff_seconds", "checkpoint_written", "outcome"],
+      "rows": [
+        {"scope": "K=2 source=33 arm=team", "cutoff_seconds": 300, "checkpoint_written": false, "outcome": "single_real_llm_team_row_long_tail_no_checkpoint_before_cutoff"}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "process_level_timeout_executor", "gate": "GO", "reason": "Python future/checkpoint controls cannot mark timeout rows if a single row hangs."},
+        {"track": "real_llm_row_accumulation", "gate": "BLOCKED", "reason": "Needs timeout row artifact before continuing."},
+        {"track": "claim4b", "gate": "OPEN", "reason": "No claim read from row-isolation patch."}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish or refute claim 4b. It adds targeting controls and records a real-LLM single-row timeout blocker.",
+    "no_llm_check_scope": "The no-LLM filter check is a runner mechanics test, not a baseline or calibration expansion.",
+    "runtime_limit": "A real-LLM team row can exceed the interactive cutoff without producing a checkpoint row; process-level timeout is required next.",
+    "l0_limit": "No L0/calibration expansion was performed."
+  }
+}

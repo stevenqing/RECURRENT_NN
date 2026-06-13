@@ -1,0 +1,29 @@
+[
+  {
+    "K": 2,
+    "R": 16,
+    "answer": "{\"0\": 3, \"1\": 3, \"10\": 2, \"11\": 2, \"12\": 1, \"13\": 1, \"14\": 1, \"15\": 3, \"2\": 1, \"3\": 1, \"4\": 2, \"5\": 2, \"6\": 2, \"7\": 3, \"8\": 3, \"9\": 1}",
+    "arm": "monolith_KR",
+    "backtrack_accuracy_vs_oracle": 0.0,
+    "backtrack_calls": 0,
+    "block_size": 8,
+    "branch_accuracy_vs_oracle": 1.0,
+    "branch_calls": 16,
+    "cache_effective": false,
+    "decision_calls": 16,
+    "llm_calls": 0,
+    "max_prompt_chars": 0,
+    "max_register_view_len": 0,
+    "official_score": 1.0,
+    "output_tokens": 0,
+    "parseable_rate": 0.0,
+    "prompt_tokens": 0,
+    "provenance": "externalization_multiagent_real_llm_monolith_episode_v1",
+    "solved": true,
+    "source": "autonomous_stage_a_run",
+    "source_index": 33,
+    "status": "SOLVED",
+    "total_tokens": 0,
+    "valid_decision_rate": 0.0
+  }
+]

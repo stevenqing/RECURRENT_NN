@@ -421,6 +421,8 @@ def _select_entries(dataset: Any, args: argparse.Namespace, k_value: int) -> tup
 
 def run(args: argparse.Namespace) -> dict[str, Any]:
     k_values = [int(item) for item in args.k_values.split(",") if item.strip()]
+    requested_arms = [item.strip() for item in args.arms.split(",") if item.strip()]
+    requested_sources = {int(item) for item in args.source_indices.split(",") if item.strip()} if args.source_indices else set()
     checkpoint_path = _checkpoint_path(args)
     all_rows: list[dict[str, Any]] = _read_json(checkpoint_path) if args.resume else []
     completed_keys = {_row_key(row) for row in all_rows}
@@ -437,7 +439,11 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             continue
         tasks = []
         for item in selected:
+            if requested_sources and int(item["source_index"]) not in requested_sources:
+                continue
             for arm, r_value in [("team", args.register_limit), ("monolith_R", args.register_limit), ("monolith_KR", args.register_limit * k_value)]:
+                if arm not in requested_arms:
+                    continue
                 key = (int(k_value), int(item["source_index"]), arm)
                 if key not in completed_keys:
                     tasks.append((arm, dataset, item, k_value, r_value))
@@ -533,7 +539,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             {
                 "n_instances_per_K": args.n_instances,
                 "K_values": k_values,
-                "arms": ["team", "monolith_R", "monolith_KR"],
+                "arms": requested_arms,
+                "source_indices_filter": sorted(requested_sources),
                 "per_agent_R": args.register_limit,
                 "call_cap": args.call_cap,
                 "batch_size": args.batch_size,
@@ -585,6 +592,8 @@ def main() -> None:
     parser.add_argument("--reasoning-gym-repo", default=None)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--k-values", default="2,3,4,6")
+    parser.add_argument("--arms", default="team,monolith_R,monolith_KR")
+    parser.add_argument("--source-indices", default="")
     parser.add_argument("--block-size", type=int, default=8)
     parser.add_argument("--num-colors", type=int, default=3)
     parser.add_argument("--edge-probability", type=float, default=0.35)

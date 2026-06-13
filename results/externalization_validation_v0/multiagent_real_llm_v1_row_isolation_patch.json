@@ -1,0 +1,69 @@
+{
+  "filter_check": {
+    "checkpoint_artifact": "results/externalization_validation_v0/multiagent_real_llm_v1_filter_check_checkpoint.json",
+    "filter_pass": true,
+    "mode": "no_llm_targeted_filter_check",
+    "provenance": "multiagent_targeted_filter_check_v1",
+    "row_keys": [
+      [
+        2,
+        33,
+        "monolith_KR"
+      ]
+    ],
+    "rows": 1,
+    "source": "autonomous_stage_a_run"
+  },
+  "generated_at": "2026-06-13T12:53:38.922423+00:00",
+  "honesty": {
+    "does_not_establish": "This item does not establish or refute claim 4b. It only adds row isolation controls and records that a single real-LLM team row can long-tail without checkpoint before cutoff.",
+    "l0_limit": "No L0/calibration expansion was performed.",
+    "no_llm_check_scope": "The filter check used no-LLM mode only to verify command targeting mechanics, not to create a new baseline.",
+    "provenance": "multiagent_row_isolation_honesty_v1",
+    "source": "autonomous_stage_a_run"
+  },
+  "next_runner_requirement": {
+    "full_sweep_gate": "NO_GO_UNTIL_PROCESS_TIMEOUT_CHUNK_EXECUTOR",
+    "provenance": "multiagent_next_runner_requirement_v1",
+    "required_before_more_real_llm_rows": [
+      "process_level_timeout_wrapper",
+      "one_row_per_process_or_small_process_chunks",
+      "row_timeout_status_artifact",
+      "keep_resume_checkpoint"
+    ],
+    "source": "autonomous_stage_a_run"
+  },
+  "patch_summary": {
+    "arms_filter_added": true,
+    "budget_ledger_records_filters": true,
+    "provenance": "multiagent_row_isolation_patch_summary_v1",
+    "source": "autonomous_stage_a_run",
+    "source_indices_filter_added": true
+  },
+  "prelaunch_checkpoint_context": {
+    "by_key": {
+      "(2, 'monolith_KR', 'SOLVED')": 2,
+      "(2, 'monolith_R', 'SOLVED')": 2,
+      "(2, 'team', 'NO_RECOVERY_TARGET')": 1,
+      "(2, 'team', 'SOLVED')": 1
+    },
+    "checkpoint_artifact": "results/externalization_validation_v0/multiagent_real_llm_v1_prelaunch_checkpoint.json",
+    "provenance": "multiagent_prelaunch_checkpoint_context_v1",
+    "rows": 6,
+    "source": "autonomous_stage_a_run"
+  },
+  "provenance": "externalization_multiagent_real_llm_row_isolation_patch_v1",
+  "real_llm_single_row_probe": {
+    "checkpoint_written": false,
+    "command_scope": "K=2 source_index=33 arm=team max_new_rows=1 task_batch_size=1 call_cap=20",
+    "final_artifact_written": false,
+    "interpretation": "Even one isolated real-LLM team row can exceed a practical interactive cutoff, so the next runner layer needs process-level timeout/chunk orchestration instead of relying on Python futures alone.",
+    "manual_runtime_cutoff_seconds": 300,
+    "outcome": "single_real_llm_team_row_long_tail_no_checkpoint_before_cutoff",
+    "provenance": "multiagent_single_row_timeout_probe_v1",
+    "source": "autonomous_stage_a_run"
+  },
+  "schema_version": "externalization_multiagent_real_llm_row_isolation_patch_v1",
+  "source": "autonomous_stage_a_run",
+  "status": "EXTERNALIZATION_MULTIAGENT_REAL_LLM_ROW_ISOLATION_PATCH_COMPLETE_TIMEOUT_BLOCKER"
+}
