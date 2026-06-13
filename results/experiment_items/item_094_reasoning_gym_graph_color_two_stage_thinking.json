@@ -1,0 +1,132 @@
+{
+  "item_number": "094",
+  "schema_version": "log_item_contract_v1",
+  "name": "Reasoning Gym graph_color two-stage bounded-thinking anti-truncation pilot",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Handle the Item093 K1 truncation blocker by implementing a bounded two-stage thinking protocol for graph_color: a capped scratchpad call followed by an explicit no-thinking final-answer call. The goal is to make the visible final answer readable under official Reasoning Gym scoring before any larger thinking or pass@k run.",
+  "provenance": {
+    "schema_version": "reasoning_gym_baseline_matrix_v1",
+    "source": "autonomous_stage_a_run",
+    "script": "analysis/reasoning_gym_baseline_matrix.py",
+    "metrics_script": "analysis/reasoning_gym_baseline_metrics.py",
+    "result_artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_two_stage_pilot.json",
+    "checkpoint_artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_two_stage_pilot_checkpoint.json",
+    "metrics_artifact": "results/reasoning_gym_baselines/baseline_metrics_dashboard_two_stage_thinking.json",
+    "parent_item": "093"
+  },
+  "artifacts": [
+    "results/experiment_items/item_094_reasoning_gym_graph_color_two_stage_thinking.json",
+    "analysis/reasoning_gym_baseline_matrix.py",
+    "analysis/reasoning_gym_baseline_metrics.py",
+    "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_two_stage_pilot.json",
+    "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_two_stage_pilot_checkpoint.json",
+    "results/reasoning_gym_baselines/baseline_metrics_dashboard_two_stage_thinking.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/reasoning_gym_baseline_matrix.py",
+      "change": "Adds L1-one_shot_thinking_bounded and L1-one_shot_thinking_two_stage modes, explicit Qwen chat_template thinking control, and per-row scratchpad/final-answer token fields. Non-thinking calls now send chat_template_kwargs={enable_thinking:false}."
+    },
+    {
+      "path": "analysis/reasoning_gym_baseline_metrics.py",
+      "change": "Adds scratchpad finish/cap metrics and mean scratchpad/final answer token metrics for two-stage bounded thinking artifacts."
+    }
+  ],
+  "commands": [
+    {
+      "command": "API smoke: chat_template_kwargs={\"enable_thinking\": false}, max_tokens=128",
+      "purpose": "Verify the active vLLM Qwen endpoint accepts explicit no-thinking final-answer calls and returns finish_reason=stop."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.reasoning_gym_baseline_matrix --output results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_two_stage_pilot.json --checkpoint-path results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_two_stage_pilot_checkpoint.json --benchmarks graph_color --n-instances 8 --seed 42 --graph-vertices 14 --graph-edge-probability 0.4 --graph-node-budget 80 --run-llm --llm-modes thinking_two_stage --thinking-budget 512 --answer-token-budget 512 --max-new-tokens 2048 --batch-size 8 --llm-task-batch-size 8 --max-new-llm-rows 8 --request-timeout 420 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "purpose": "Run graph_color L1-one_shot_thinking_two_stage n=8 with bounded scratchpad and explicit no-thinking final answer."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.reasoning_gym_baseline_metrics --output results/reasoning_gym_baselines/baseline_metrics_dashboard_two_stage_thinking.json --inputs results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_two_stage_pilot.json,results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot.json,results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5.json,results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct.json --k-values 1,5,10",
+      "purpose": "Compute derived metrics and compare two-stage bounded thinking with prior free-form thinking and direct BoN artifacts."
+    }
+  ],
+  "decision": {
+    "outcome": "REASONING_GYM_GRAPH_COLOR_TWO_STAGE_THINKING_ANTI_TRUNCATION_COMPLETE_SOLVE_NEGATIVE",
+    "overall_pass": true,
+    "headline": {
+      "benchmark": "graph_color",
+      "arm": "L1-one_shot_thinking_two_stage",
+      "n": 8,
+      "thinking_budget_requested": 512,
+      "answer_token_budget_requested": 512,
+      "final_finish_reason_stop_rows": 8,
+      "final_truncated_rate": 0.0,
+      "parseable_answer_rate": 1.0,
+      "solve_rate": 0.0,
+      "mean_official_score": 0.01,
+      "nonzero_score_rate": 1.0,
+      "scratchpad_truncated_rate": 1.0,
+      "mean_total_tokens": 1839.75,
+      "mean_scratchpad_output_tokens": 512.0,
+      "mean_answer_output_tokens": 89.0,
+      "pass_at_1": 0.0,
+      "K1_status": "READABLE_NEGATIVE_FOR_TWO_STAGE_512; FREE_FORM_THINKING_REMAINS_TRUNCATION_BLOCKED",
+      "single_next_move": "Do not scale free-form thinking as-is. If a stronger K1 baseline is needed, sweep two-stage scratchpad budget or use repeated two-stage samples with pass@k; otherwise continue baseline-first with this readable negative."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "final_answer_truncation_guard",
+        "outcome": "PASS",
+        "number": "finish_reason=stop for 8/8 final-answer calls; final truncated_rate=0.0."
+      },
+      {
+        "gate": "parseability_guard",
+        "outcome": "PASS",
+        "number": "parseable_answer_rate=1.0 for 8/8 final answers."
+      },
+      {
+        "gate": "K1_solve_signal_under_bounded_protocol",
+        "outcome": "NEGATIVE",
+        "number": "solve_rate=0.0, pass@1=0.0, mean_official_score=0.01 on n=8."
+      },
+      {
+        "gate": "scratchpad_budget_guard",
+        "outcome": "CAP_HIT_EXPECTED_BUT_LIMITING",
+        "number": "scratchpad_finish_reason=length for 8/8 rows at thinking_budget=512."
+      },
+      {
+        "gate": "method_comparison",
+        "outcome": "STILL_PAUSED",
+        "number": "This is a baseline anti-truncation pilot only; no M-register or multi-agent method comparison is added."
+      }
+    ],
+    "next_step_routing": "Two-stage bounded thinking removes visible final-answer truncation and makes the baseline readable, but it is solve-negative at 512 scratchpad tokens. Free-form thinking remains truncation-blocked from Item093. Next either sweep two-stage scratchpad budgets/pass@k or proceed with the baseline-first matrix using this readable negative."
+  },
+  "result_tables": {
+    "two_stage_metrics": {
+      "columns": ["benchmark", "arm", "n", "solve_rate", "mean_official_score", "nonzero_score_rate", "parseable_answer_rate", "final_truncated_rate", "scratchpad_truncated_rate", "mean_total_tokens", "mean_answer_output_tokens", "pass_at_1"],
+      "rows": [
+        {"benchmark": "graph_color", "arm": "L1-one_shot_thinking_two_stage", "n": 8, "solve_rate": 0.0, "mean_official_score": 0.01, "nonzero_score_rate": 1.0, "parseable_answer_rate": 1.0, "final_truncated_rate": 0.0, "scratchpad_truncated_rate": 1.0, "mean_total_tokens": 1839.75, "mean_answer_output_tokens": 89.0, "pass_at_1": 0.0}
+      ]
+    },
+    "protocol_debug": {
+      "columns": ["variant", "outcome", "interpretation"],
+      "rows": [
+        {"variant": "single_call_thinking_budget", "outcome": "ABANDONED_NO_CHECKPOINT_AFTER_APPROX_4_5_MIN", "interpretation": "Qwen thinking_budget alone did not produce a cheap hard boundary for graph_color one-shot."},
+        {"variant": "two_stage_without_explicit_no_thinking_final", "outcome": "FINAL_LENGTH_2_OF_2", "interpretation": "Final stage still emitted visible reasoning unless chat_template_kwargs explicitly disabled thinking."},
+        {"variant": "two_stage_with_explicit_no_thinking_final", "outcome": "FINAL_STOP_8_OF_8_PARSEABLE_8_OF_8", "interpretation": "This is the first readable anti-truncation baseline protocol for K1 graph_color."}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "free_form_thinking", "gate": "BLOCKED", "reason": "Item093 remained finish_reason=length for 8/8 rows"},
+        {"track": "two_stage_512", "gate": "READABLE_NEGATIVE", "reason": "final stop and parseable, but solve_rate=0"},
+        {"track": "two_stage_budget_sweep", "gate": "OPTIONAL", "reason": "needed only if we want a stronger K1 baseline before moving on"},
+        {"track": "method_comparisons", "gate": "PAUSED", "reason": "baseline-first program continues"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish a positive thinking baseline and does not compare our method. It only resolves visible final-answer truncation for a bounded two-stage K1 pilot and finds solve_rate=0 at thinking_budget=512.",
+    "free_form_limit": "Item093 free-form thinking remains truncation-blocked; this item should not be used to claim that free-form thinking was fixed.",
+    "scratchpad_limit": "The scratchpad stage hits its 512-token cap for 8/8 rows, so the negative result is for this bounded-budget protocol, not an unlimited thinking oracle.",
+    "prior_artifact_limit": "The explicit no-thinking payload change affects future non-thinking/direct calls only; prior direct artifacts are not retroactively reinterpreted."
+  }
+}

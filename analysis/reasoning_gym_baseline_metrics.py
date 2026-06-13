@@ -76,6 +76,9 @@ def _artifact_metrics(path: Path, rows: list[dict[str, Any]], k_values: list[int
             oracle_best_at[str(k_value)] = mean(max(float(row.get("official_score", 0.0)) for row in source_rows[:k_value]) for source_rows in eligible)
         parseable_values = [bool(row.get("parseable_answer")) for row in subset if "parseable_answer" in row]
         truncated_values = [bool(row.get("truncated") or row.get("finish_reason") == "length") for row in subset if "finish_reason" in row or "truncated" in row]
+        scratchpad_truncated_values = [bool(row.get("scratchpad_truncated") or row.get("scratchpad_finish_reason") == "length") for row in subset if "scratchpad_finish_reason" in row or "scratchpad_truncated" in row]
+        scratchpad_output_tokens = [int(row.get("scratchpad_output_tokens", 0)) for row in subset if "scratchpad_output_tokens" in row]
+        answer_output_tokens = [int(row.get("answer_output_tokens", 0)) for row in subset if "answer_output_tokens" in row]
         out.append(
             {
                 "artifact": str(path),
@@ -92,6 +95,10 @@ def _artifact_metrics(path: Path, rows: list[dict[str, Any]], k_values: list[int
                 "status_counts": dict(Counter(str(row.get("status")) for row in subset)),
                 "finish_reason_counts": dict(Counter(str(row.get("finish_reason")) for row in subset if row.get("finish_reason") is not None)),
                 "truncated_rate": mean(truncated_values) if truncated_values else None,
+                "scratchpad_finish_reason_counts": dict(Counter(str(row.get("scratchpad_finish_reason")) for row in subset if row.get("scratchpad_finish_reason") is not None)),
+                "scratchpad_truncated_rate": mean(scratchpad_truncated_values) if scratchpad_truncated_values else None,
+                "mean_scratchpad_output_tokens": mean(scratchpad_output_tokens) if scratchpad_output_tokens else None,
+                "mean_answer_output_tokens": mean(answer_output_tokens) if answer_output_tokens else None,
                 "parseable_answer_rate": mean(parseable_values) if parseable_values else None,
                 "pass_at_k": pass_at,
                 "oracle_best_at_k": oracle_best_at,

@@ -1,0 +1,961 @@
+{
+  "artifact_metrics": [
+    {
+      "arm": "L0-symbolic-heuristic",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_two_stage_pilot.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 8,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 1.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 8,
+      "n_rows": 8,
+      "nonzero_score_rate": 1.0,
+      "oracle_best_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 8
+      },
+      "score_bucket_counts": {
+        "score_1": 8
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 8
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_two_stage_pilot.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 8,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 0.625,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 8,
+      "n_rows": 8,
+      "nonzero_score_rate": 0.625,
+      "oracle_best_at_k": {
+        "1": 0.625,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 0.625,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 8
+      },
+      "score_bucket_counts": {
+        "score_0": 3,
+        "score_1": 5
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 0.625,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "NODE_BUDGET": 3,
+        "SOLVED": 5
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "L1-one_shot_thinking_two_stage",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_two_stage_pilot.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 8,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {
+        "stop": 8
+      },
+      "mean_answer_output_tokens": 89,
+      "mean_official_score": 0.01,
+      "mean_scratchpad_output_tokens": 512,
+      "mean_total_tokens": 1839.75,
+      "n_instances": 8,
+      "n_rows": 8,
+      "nonzero_score_rate": 1.0,
+      "oracle_best_at_k": {
+        "1": 0.01,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": 1,
+      "pass_at_k": {
+        "1": 0.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 8
+      },
+      "score_bucket_counts": {
+        "score_0_1": 8
+      },
+      "scratchpad_finish_reason_counts": {
+        "length": 8
+      },
+      "scratchpad_truncated_rate": 1,
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 8
+      },
+      "truncated_rate": 0
+    },
+    {
+      "arm": "empty_answer",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_two_stage_pilot.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 8,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 0.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 8,
+      "n_rows": 8,
+      "nonzero_score_rate": 0.0,
+      "oracle_best_at_k": {
+        "1": 0.0,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 0.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 8
+      },
+      "score_bucket_counts": {
+        "score_0": 8
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 8
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "official_oracle_answer",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_two_stage_pilot.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 8,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 1.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 8,
+      "n_rows": 8,
+      "nonzero_score_rate": 1.0,
+      "oracle_best_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 8
+      },
+      "score_bucket_counts": {
+        "score_1": 8
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 8
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 8,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 1.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 8,
+      "n_rows": 8,
+      "nonzero_score_rate": 1.0,
+      "oracle_best_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 8
+      },
+      "score_bucket_counts": {
+        "score_1": 8
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 8
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 8,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 0.625,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 8,
+      "n_rows": 8,
+      "nonzero_score_rate": 0.625,
+      "oracle_best_at_k": {
+        "1": 0.625,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 0.625,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 8
+      },
+      "score_bucket_counts": {
+        "score_0": 3,
+        "score_1": 5
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 0.625,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "NODE_BUDGET": 3,
+        "SOLVED": 5
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "L1-one_shot_thinking",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 8,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {
+        "length": 8
+      },
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 0.12625,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 8552.625,
+      "n_instances": 8,
+      "n_rows": 8,
+      "nonzero_score_rate": 0.25,
+      "oracle_best_at_k": {
+        "1": 0.12625,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": 0.25,
+      "pass_at_k": {
+        "1": 0.125,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 8
+      },
+      "score_bucket_counts": {
+        "score_0": 6,
+        "score_0_1": 1,
+        "score_1": 1
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 0.125,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 7,
+        "SOLVED": 1
+      },
+      "truncated_rate": 1
+    },
+    {
+      "arm": "empty_answer",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 8,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 0.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 8,
+      "n_rows": 8,
+      "nonzero_score_rate": 0.0,
+      "oracle_best_at_k": {
+        "1": 0.0,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 0.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 8
+      },
+      "score_bucket_counts": {
+        "score_0": 8
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 8
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "official_oracle_answer",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 8,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 1.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 8,
+      "n_rows": 8,
+      "nonzero_score_rate": 1.0,
+      "oracle_best_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 8
+      },
+      "score_bucket_counts": {
+        "score_1": 8
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 8
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 30,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 1.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 30,
+      "n_rows": 30,
+      "nonzero_score_rate": 1.0,
+      "oracle_best_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 30
+      },
+      "score_bucket_counts": {
+        "score_1": 30
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 30
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 30,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 0.8,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 30,
+      "n_rows": 30,
+      "nonzero_score_rate": 0.8,
+      "oracle_best_at_k": {
+        "1": 0.8,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 0.8,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 30
+      },
+      "score_bucket_counts": {
+        "score_0": 6,
+        "score_1": 24
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 0.8,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "NODE_BUDGET": 6,
+        "SOLVED": 24
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "L1-one_shot_direct",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 30,
+        "10": 0,
+        "5": 30
+      },
+      "finish_reason_counts": {
+        "length": 150
+      },
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 0.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 858.9333333333333,
+      "n_instances": 30,
+      "n_rows": 150,
+      "nonzero_score_rate": 0.0,
+      "oracle_best_at_k": {
+        "1": 0.0,
+        "10": null,
+        "5": 0.0
+      },
+      "parseable_answer_rate": 0,
+      "pass_at_k": {
+        "1": 0.0,
+        "10": null,
+        "5": 0.0
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "5": 30
+      },
+      "score_bucket_counts": {
+        "score_0": 150
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 150
+      },
+      "truncated_rate": 1
+    },
+    {
+      "arm": "empty_answer",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 30,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 0.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 30,
+      "n_rows": 30,
+      "nonzero_score_rate": 0.0,
+      "oracle_best_at_k": {
+        "1": 0.0,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 0.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 30
+      },
+      "score_bucket_counts": {
+        "score_0": 30
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 30
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "official_oracle_answer",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 30,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 1.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 30,
+      "n_rows": 30,
+      "nonzero_score_rate": 1.0,
+      "oracle_best_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 30
+      },
+      "score_bucket_counts": {
+        "score_1": 30
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 30
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "L0-symbolic-heuristic",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 30,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 1.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 30,
+      "n_rows": 30,
+      "nonzero_score_rate": 1.0,
+      "oracle_best_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 30
+      },
+      "score_bucket_counts": {
+        "score_1": 30
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 30
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "L0-symbolic-random",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 30,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 0.8,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 30,
+      "n_rows": 30,
+      "nonzero_score_rate": 0.8,
+      "oracle_best_at_k": {
+        "1": 0.8,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 0.8,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 30
+      },
+      "score_bucket_counts": {
+        "score_0": 6,
+        "score_1": 24
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 0.8,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "NODE_BUDGET": 6,
+        "SOLVED": 24
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "L1-one_shot_direct",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 30,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {
+        "length": 30
+      },
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 0.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 840.9333333333333,
+      "n_instances": 30,
+      "n_rows": 30,
+      "nonzero_score_rate": 0.0,
+      "oracle_best_at_k": {
+        "1": 0.0,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 0.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 30
+      },
+      "score_bucket_counts": {
+        "score_0": 30
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 30
+      },
+      "truncated_rate": 1
+    },
+    {
+      "arm": "empty_answer",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 30,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 0.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 30,
+      "n_rows": 30,
+      "nonzero_score_rate": 0.0,
+      "oracle_best_at_k": {
+        "1": 0.0,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 0.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 30
+      },
+      "score_bucket_counts": {
+        "score_0": 30
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 30
+      },
+      "truncated_rate": null
+    },
+    {
+      "arm": "official_oracle_answer",
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct.json",
+      "benchmark": "graph_color",
+      "eligible_instances_by_k": {
+        "1": 30,
+        "10": 0,
+        "5": 0
+      },
+      "finish_reason_counts": {},
+      "mean_answer_output_tokens": null,
+      "mean_official_score": 1.0,
+      "mean_scratchpad_output_tokens": null,
+      "mean_total_tokens": 0,
+      "n_instances": 30,
+      "n_rows": 30,
+      "nonzero_score_rate": 1.0,
+      "oracle_best_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "parseable_answer_rate": null,
+      "pass_at_k": {
+        "1": 1.0,
+        "10": null,
+        "5": null
+      },
+      "provenance": "rg_baseline_artifact_metrics_v1",
+      "samples_per_instance_counts": {
+        "1": 30
+      },
+      "score_bucket_counts": {
+        "score_1": 30
+      },
+      "scratchpad_finish_reason_counts": {},
+      "scratchpad_truncated_rate": null,
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 30
+      },
+      "truncated_rate": null
+    }
+  ],
+  "cross_artifact_notes": {
+    "current_passk_status": "Most current artifacts have one sample per instance, so pass@k beyond k=1 is not yet populated. Run BoN/self-consistency artifacts to fill pass@5/pass@10.",
+    "provenance": "rg_baseline_metric_notes_v1",
+    "source": "autonomous_stage_a_run",
+    "useful_now": [
+      "mean_official_score",
+      "nonzero_score_rate",
+      "finish_reason_counts",
+      "truncated_rate",
+      "parseable_answer_rate",
+      "mean_total_tokens"
+    ]
+  },
+  "generated_at": "2026-06-13T15:41:18.427672+00:00",
+  "honesty": {
+    "does_not_establish": "This artifact computes derived metrics over existing baseline artifacts. It does not add new model samples and does not compare our method.",
+    "passk_limit": "pass@k for k>1 is meaningful only after repeated samples per source_index are generated.",
+    "provenance": "rg_baseline_metrics_honesty_v1",
+    "source": "autonomous_stage_a_run"
+  },
+  "input_artifacts": [
+    {
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_two_stage_pilot.json",
+      "n_rows": 40,
+      "schema_version": "reasoning_gym_baseline_matrix_v1",
+      "status": "REASONING_GYM_BASELINE_MATRIX_COMPLETE"
+    },
+    {
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot.json",
+      "n_rows": 40,
+      "schema_version": "reasoning_gym_baseline_matrix_v1",
+      "status": "REASONING_GYM_BASELINE_MATRIX_COMPLETE"
+    },
+    {
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5.json",
+      "n_rows": 270,
+      "schema_version": "reasoning_gym_baseline_matrix_v1",
+      "status": "REASONING_GYM_BASELINE_MATRIX_COMPLETE"
+    },
+    {
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct.json",
+      "n_rows": 150,
+      "schema_version": "reasoning_gym_baseline_matrix_v1",
+      "status": "REASONING_GYM_BASELINE_MATRIX_COMPLETE"
+    }
+  ],
+  "metric_policy": {
+    "pass_at_k_requires_multiple_samples_per_instance": true,
+    "provenance": "rg_baseline_metric_policy_v1",
+    "source": "autonomous_stage_a_run",
+    "why": "Exact solve_rate is often binary on Reasoning Gym; derived metrics expose partial credit, truncation, parseability, and future pass@k readiness."
+  },
+  "provenance": "reasoning_gym_baseline_metrics_v1",
+  "schema_version": "reasoning_gym_baseline_metrics_v1",
+  "source": "autonomous_stage_a_run",
+  "status": "REASONING_GYM_BASELINE_METRICS_COMPLETE"
+}

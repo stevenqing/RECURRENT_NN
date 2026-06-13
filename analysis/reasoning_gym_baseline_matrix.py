@@ -21,6 +21,13 @@ from experiments.rung1_separator_llm_inloop import DEFAULT_OPENAI_BASE_URL, DEFA
 
 SCHEMA_VERSION = "reasoning_gym_baseline_matrix_v1"
 STATUS_COMPLETE = "REASONING_GYM_BASELINE_MATRIX_COMPLETE"
+ARM_BY_MODE = {
+    "direct": "L1-one_shot_direct",
+    "cot": "L1-one_shot_cot",
+    "thinking": "L1-one_shot_thinking",
+    "thinking_bounded": "L1-one_shot_thinking_bounded",
+    "thinking_two_stage": "L1-one_shot_thinking_two_stage",
+}
 
 
 def _now() -> str:
@@ -56,14 +63,22 @@ def _benchmarks(args: argparse.Namespace) -> list[str]:
 
 def _llm_modes(args: argparse.Namespace) -> list[str]:
     if args.llm_modes.strip():
-        return [item.strip() for item in args.llm_modes.split(",") if item.strip()]
-    if not args.run_llm:
-        return []
-    modes = ["direct"]
-    if args.run_cot:
-        modes.append("cot")
-    if args.run_thinking:
-        modes.append("thinking")
+        modes = [item.strip() for item in args.llm_modes.split(",") if item.strip()]
+    else:
+        if not args.run_llm:
+            return []
+        modes = ["direct"]
+        if args.run_cot:
+            modes.append("cot")
+        if args.run_thinking:
+            modes.append("thinking")
+    unknown = sorted(set(modes) - set(ARM_BY_MODE))
+    if unknown:
+        raise ValueError(f"unknown llm modes={unknown}; valid={sorted(ARM_BY_MODE)}")
+    if "thinking_bounded" in modes and args.thinking_budget <= 0:
+        raise ValueError("--llm-modes thinking_bounded requires --thinking-budget > 0")
+    if "thinking_two_stage" in modes and (args.thinking_budget <= 0 or args.answer_token_budget <= 0):
+        raise ValueError("--llm-modes thinking_two_stage requires --thinking-budget > 0 and --answer-token-budget > 0")
     return modes
 
 
@@ -175,7 +190,7 @@ def _symbolic_rows(dataset: Any, benchmark: str, entry: dict[str, Any], index: i
     return rows
 
 
-def _one_shot_prompt(benchmark: str, entry: dict[str, Any], mode: str) -> str:
+def _one_shot_prompt(benchmark: str, entry: dict[str, Any], mode: str, thinking_budget: int) -> str:
     prompt = entry.get("question", "")
     if benchmark == "graph_color":
         prompt += "\nFinal answer must include exactly one JSON object mapping every vertex string to an integer color."
@@ -183,13 +198,39 @@ def _one_shot_prompt(benchmark: str, entry: dict[str, Any], mode: str) -> str:
         prompt += "\nThink privately if needed, then give only the final answer in the requested format."
     if mode == "thinking":
         prompt += "\nYou may think internally, but the final visible answer must be only the requested final answer."
+    if mode == "thinking_bounded":
+        prompt += f"\nUse concise internal reasoning bounded to at most {thinking_budget} tokens, then return the final answer."
+        prompt += "\nThe last parseable JSON object in your response will be scored; include no markdown around the final JSON object."
     return prompt
 
 
-def _openai_text_call_timeout(base_url: str, model: str, prompt: str, max_tokens: int, timeout_seconds: float, enable_thinking: bool, temperature: float) -> dict[str, Any]:
+def _two_stage_scratchpad_prompt(benchmark: str, entry: dict[str, Any], thinking_budget: int) -> str:
+    prompt = entry.get("question", "")
+    if benchmark == "graph_color":
+        prompt += "\nWork out a concise coloring plan. Do not provide the final JSON object in this stage."
+        prompt += f"\nStop after at most {thinking_budget} scratchpad tokens."
+    return prompt
+
+
+def _two_stage_final_prompt(benchmark: str, entry: dict[str, Any], scratchpad: str) -> str:
+    prompt = entry.get("question", "")
+    if benchmark == "graph_color":
+        prompt += "\nUse the scratchpad below if useful. It may be incomplete."
+        prompt += "\nScratchpad:\n" + scratchpad[-6000:]
+        prompt += "\nReturn exactly one JSON object mapping every vertex string to an integer color."
+        prompt += "\nNo markdown, no explanation, no extra text."
+    return prompt
+
+
+def _openai_text_call_timeout(base_url: str, model: str, prompt: str, max_tokens: int, timeout_seconds: float, enable_thinking: bool, temperature: float, thinking_budget: int) -> dict[str, Any]:
     payload = {"model": model, "messages": [{"role": "user", "content": prompt}], "temperature": temperature, "max_tokens": max_tokens}
     if enable_thinking:
-        payload["chat_template_kwargs"] = {"enable_thinking": True}
+        chat_template_kwargs: dict[str, Any] = {"enable_thinking": True}
+        if thinking_budget > 0:
+            chat_template_kwargs["thinking_budget"] = thinking_budget
+        payload["chat_template_kwargs"] = chat_template_kwargs
+    else:
+        payload["chat_template_kwargs"] = {"enable_thinking": False}
     request = Request(base_url.rstrip("/") + "/chat/completions", data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"}, method="POST")
     with urlopen(request, timeout=timeout_seconds) as response:
         decoded = json.loads(response.read().decode("utf-8"))
@@ -232,10 +273,107 @@ def _extract_answer(benchmark: str, text: str) -> str | None:
     return None
 
 
-def _one_shot_row(dataset: Any, benchmark: str, entry: dict[str, Any], index: int, args: argparse.Namespace, mode: str, sample_index: int) -> dict[str, Any]:
-    arm = {"direct": "L1-one_shot_direct", "cot": "L1-one_shot_cot", "thinking": "L1-one_shot_thinking"}[mode]
+def _one_shot_two_stage_row(dataset: Any, benchmark: str, entry: dict[str, Any], index: int, args: argparse.Namespace, sample_index: int) -> dict[str, Any]:
+    arm = ARM_BY_MODE["thinking_two_stage"]
+    scratchpad = ""
+    scratchpad_generation: dict[str, Any] = {"finish_reason": None, "prompt_tokens": 0, "output_tokens": 0, "total_tokens": 0}
     try:
-        generation = _openai_text_call_timeout(args.openai_base_url, args.openai_model, _one_shot_prompt(benchmark, entry, mode), args.max_new_tokens, args.request_timeout, mode == "thinking", args.temperature)
+        scratchpad_generation = _openai_text_call_timeout(
+            args.openai_base_url,
+            args.openai_model,
+            _two_stage_scratchpad_prompt(benchmark, entry, args.thinking_budget),
+            args.thinking_budget,
+            args.request_timeout,
+            True,
+            args.temperature,
+            args.thinking_budget,
+        )
+        scratchpad = scratchpad_generation.get("text", "")
+        final_generation = _openai_text_call_timeout(
+            args.openai_base_url,
+            args.openai_model,
+            _two_stage_final_prompt(benchmark, entry, scratchpad),
+            args.answer_token_budget,
+            args.request_timeout,
+            False,
+            args.temperature,
+            0,
+        )
+    except Exception as exc:  # noqa: BLE001
+        text = f"{type(exc).__name__}: {exc}"
+        status = "TIMEOUT" if "timed out" in text.lower() or "timeout" in type(exc).__name__.lower() else "REQUEST_ERROR"
+        return {
+            "benchmark": benchmark,
+            "source_index": index,
+            "sample_index": sample_index,
+            "arm": arm,
+            "official_score": 0.0,
+            "solved": False,
+            "status": status,
+            "finish_reason": None,
+            "scratchpad_finish_reason": scratchpad_generation.get("finish_reason"),
+            "scratchpad_truncated": scratchpad_generation.get("finish_reason") == "length",
+            "prompt_tokens": int(scratchpad_generation.get("prompt_tokens", 0)),
+            "output_tokens": int(scratchpad_generation.get("output_tokens", 0)),
+            "total_tokens": int(scratchpad_generation.get("total_tokens", 0)),
+            "scratchpad_output_tokens": int(scratchpad_generation.get("output_tokens", 0)),
+            "answer_output_tokens": 0,
+            "thinking_budget_requested": args.thinking_budget,
+            "answer_token_budget_requested": args.answer_token_budget,
+            "two_stage_thinking": True,
+            "answer_prefix": "",
+            "scratchpad_prefix": scratchpad[:240],
+            "error": text[:400],
+            "source": SOURCE,
+            "provenance": "rg_baseline_one_shot_two_stage_v1",
+        }
+    answer = final_generation.get("text", "")
+    raw_score = _score(dataset, entry, answer)
+    parsed_answer = _extract_answer(benchmark, answer)
+    parsed_score = _score(dataset, entry, parsed_answer) if parsed_answer is not None else 0.0
+    score = parsed_score if parsed_answer is not None else raw_score
+    prompt_tokens = int(scratchpad_generation.get("prompt_tokens", 0)) + int(final_generation.get("prompt_tokens", 0))
+    output_tokens = int(scratchpad_generation.get("output_tokens", 0)) + int(final_generation.get("output_tokens", 0))
+    total_tokens = int(scratchpad_generation.get("total_tokens", 0)) + int(final_generation.get("total_tokens", 0))
+    return {
+        "benchmark": benchmark,
+        "source_index": index,
+        "sample_index": sample_index,
+        "arm": arm,
+        "official_score": score,
+        "raw_official_score": raw_score,
+        "parsed_official_score": parsed_score,
+        "solved": score >= 1.0,
+        "status": "SOLVED" if score >= 1.0 else "SCORE_FAIL",
+        "finish_reason": final_generation.get("finish_reason"),
+        "truncated": final_generation.get("finish_reason") == "length",
+        "scratchpad_finish_reason": scratchpad_generation.get("finish_reason"),
+        "scratchpad_truncated": scratchpad_generation.get("finish_reason") == "length",
+        "parseable_answer": parsed_answer is not None,
+        "prompt_tokens": prompt_tokens,
+        "output_tokens": output_tokens,
+        "total_tokens": total_tokens,
+        "scratchpad_output_tokens": int(scratchpad_generation.get("output_tokens", 0)),
+        "answer_output_tokens": int(final_generation.get("output_tokens", 0)),
+        "thinking_budget_requested": args.thinking_budget,
+        "answer_token_budget_requested": args.answer_token_budget,
+        "two_stage_thinking": True,
+        "parsed_answer_prefix": (parsed_answer or "")[:240],
+        "answer_prefix": answer[:240],
+        "scratchpad_prefix": scratchpad[:240],
+        "source": SOURCE,
+        "provenance": "rg_baseline_one_shot_two_stage_v1",
+    }
+
+
+def _one_shot_row(dataset: Any, benchmark: str, entry: dict[str, Any], index: int, args: argparse.Namespace, mode: str, sample_index: int) -> dict[str, Any]:
+    if mode == "thinking_two_stage":
+        return _one_shot_two_stage_row(dataset, benchmark, entry, index, args, sample_index)
+    arm = ARM_BY_MODE[mode]
+    enable_thinking = mode in {"thinking", "thinking_bounded"}
+    thinking_budget = args.thinking_budget if mode == "thinking_bounded" else 0
+    try:
+        generation = _openai_text_call_timeout(args.openai_base_url, args.openai_model, _one_shot_prompt(benchmark, entry, mode, thinking_budget), args.max_new_tokens, args.request_timeout, enable_thinking, args.temperature, thinking_budget)
     except Exception as exc:  # noqa: BLE001
         text = f"{type(exc).__name__}: {exc}"
         status = "TIMEOUT" if "timed out" in text.lower() or "timeout" in type(exc).__name__.lower() else "REQUEST_ERROR"
@@ -251,6 +389,8 @@ def _one_shot_row(dataset: Any, benchmark: str, entry: dict[str, Any], index: in
             "prompt_tokens": 0,
             "output_tokens": 0,
             "total_tokens": 0,
+            "thinking_budget_requested": thinking_budget,
+            "bounded_thinking": mode == "thinking_bounded",
             "answer_prefix": "",
             "error": text[:400],
             "source": SOURCE,
@@ -277,6 +417,8 @@ def _one_shot_row(dataset: Any, benchmark: str, entry: dict[str, Any], index: in
         "prompt_tokens": int(generation.get("prompt_tokens", 0)),
         "output_tokens": int(generation.get("output_tokens", 0)),
         "total_tokens": int(generation.get("total_tokens", 0)),
+        "thinking_budget_requested": thinking_budget,
+        "bounded_thinking": mode == "thinking_bounded",
         "parsed_answer_prefix": (parsed_answer or "")[:240],
         "answer_prefix": answer[:240],
         "source": SOURCE,
@@ -321,7 +463,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             rows.append(_empty_row(dataset, benchmark, entry, index))
             rows.extend(_symbolic_rows(dataset, benchmark, entry, index, args))
             for mode in llm_modes:
-                arm = {"direct": "L1-one_shot_direct", "cot": "L1-one_shot_cot", "thinking": "L1-one_shot_thinking"}[mode]
+                arm = ARM_BY_MODE[mode]
                 for sample_index in range(args.samples_per_instance):
                     key = (benchmark, index, arm, sample_index)
                     if key not in completed_llm:
@@ -364,6 +506,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "one_shot_direct": "optional via --run-llm",
             "one_shot_cot": "optional via --run-llm --run-cot",
             "one_shot_thinking": "optional via --run-llm --run-thinking",
+            "one_shot_thinking_bounded": "optional via --llm-modes thinking_bounded --thinking-budget N",
+            "one_shot_thinking_two_stage": "optional via --llm-modes thinking_two_stage --thinking-budget N --answer-token-budget M",
             "llm_modes": llm_modes,
             "source": SOURCE,
             "provenance": "rg_baseline_coverage_v1",
@@ -400,8 +544,10 @@ def main() -> None:
     parser.add_argument("--run-llm", action="store_true")
     parser.add_argument("--run-cot", action="store_true")
     parser.add_argument("--run-thinking", action="store_true")
-    parser.add_argument("--llm-modes", default="", help="Comma-separated override among direct,cot,thinking. If set, only these LLM modes run.")
+    parser.add_argument("--llm-modes", default="", help="Comma-separated override among direct,cot,thinking,thinking_bounded,thinking_two_stage. If set, only these LLM modes run.")
     parser.add_argument("--samples-per-instance", type=int, default=1)
+    parser.add_argument("--thinking-budget", type=int, default=0, help="Qwen chat-template thinking_budget for --llm-modes thinking_bounded.")
+    parser.add_argument("--answer-token-budget", type=int, default=0, help="Final-answer token budget for --llm-modes thinking_two_stage.")
     parser.add_argument("--checkpoint-path", type=Path, default=Path("results/reasoning_gym_baselines/baseline_matrix_llm_checkpoint.json"))
     parser.add_argument("--request-timeout", type=float, default=120.0)
     parser.add_argument("--llm-task-batch-size", type=int, default=0)
