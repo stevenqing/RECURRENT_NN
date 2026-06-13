@@ -1,17 +1,4 @@
 {
-  "item_number": "073",
-  "schema_version": "log_item_contract_v1",
-  "name": "Rung-1 multi-agent accounting anchor and proceed gate",
-  "generated_at": "2026-06-13T00:00:00.000000+00:00",
-  "purpose": "Fix and validate the multi-agent accounting instrument with a distant-culprit anchor, then apply the no-LLM proceed gate to the engineered graph_color slice before any real-LLM spend.",
-  "provenance": {
-    "schema_version": "rung1_multiagent_accounting_anchor_v0",
-    "source": "autonomous_stage_a_run",
-    "result_artifact": "results/rung1_multiagent_accounting_anchor/results.json",
-    "anchor_script": "analysis/rung1_multiagent_accounting_anchor.py",
-    "slice_artifact": "results/rung1_multiagent_graphcolor/engineered_dry_run.json",
-    "parent_item": "072"
-  },
   "artifacts": [
     "results/experiment_items/item_073_rung1_multiagent_accounting_anchor.json",
     "analysis/rung1_multiagent_accounting_anchor.py",
@@ -20,12 +7,12 @@
   ],
   "code_added_used": [
     {
-      "path": "analysis/rung1_multiagent_accounting_anchor.py",
-      "change": "Adds synthetic distant-culprit accounting anchor, chrono retraction sanity check, cbj backjump-includes-culprit sanity, slice claim3/capacity summaries, and real-LLM proceed gate."
+      "change": "Adds synthetic distant-culprit accounting anchor, chrono retraction sanity check, cbj backjump-includes-culprit sanity, slice claim3/capacity summaries, and real-LLM proceed gate.",
+      "path": "analysis/rung1_multiagent_accounting_anchor.py"
     },
     {
-      "path": "experiments/rung1_multiagent_graphcolor.py",
-      "change": "Adds distant-culprit instrumentation and selection gates used by the accounting anchor readout."
+      "change": "Adds distant-culprit instrumentation and selection gates used by the accounting anchor readout.",
+      "path": "experiments/rung1_multiagent_graphcolor.py"
     }
   ],
   "commands": [
@@ -35,95 +22,648 @@
     }
   ],
   "decision": {
-    "outcome": "RUNG1_MULTIAGENT_ACCOUNTING_ANCHOR_COMPLETE",
-    "overall_pass": false,
-    "headline": {
-      "determination": "accepted_negative_claim3_on_current_slice",
-      "anchor_reproduces_dissociation": true,
-      "claim3_verdict": "accepted_negative",
-      "capacity_verdict": "non_discriminating_or_negative",
-      "real_llm": "NO_GO",
-      "single_next_move": "Do not run real LLM; either accept claim3 negative on this controlled substrate or define a new substrate before any real spend."
-    },
     "gate_outcomes": [
       {
         "gate": "chrono_retraction_arithmetic",
-        "outcome": "PASS",
-        "number": "chrono retractions match recoveries*(distance+1) in the synthetic anchor"
+        "number": "chrono retractions match recoveries*(distance+1) in the synthetic anchor",
+        "outcome": "PASS"
       },
       {
         "gate": "cbj_backjump_semantics",
-        "outcome": "PASS",
-        "number": "cbj backjump includes the culprit in the synthetic anchor"
+        "number": "cbj backjump includes the culprit in the synthetic anchor",
+        "outcome": "PASS"
       },
       {
         "gate": "anchor_double_dissociation",
-        "outcome": "PASS",
-        "number": "cbj message slope=0.0 and total-work slope=0.0; chrono message slope=1.0 and total-work slope=1.0"
+        "number": "cbj message slope=0.0 and total-work slope=0.0; chrono message slope=1.0 and total-work slope=1.0",
+        "outcome": "PASS"
+      },
+      {
+        "gate": "slice_chrono_slope_vs_distance",
+        "number": "chrono_total_work_slope=0.8052649092320775; cbj_total_work_slope=24.32432049863522; chrono total-work slope rises with culprit distance on slice",
+        "outcome": "DISCRIMINATING"
       },
       {
         "gate": "slice_claim3",
-        "outcome": "ACCEPTED_NEGATIVE",
-        "number": "Instrument anchor validated, but graph_color slice has cbj_messages=8.2857 vs chrono_messages=3.4286 at equal solve_rate=1.0"
+        "number": "Instrument anchor validated, but graph_color slice has cbj_messages=8.2857 vs chrono_messages=3.4286 at equal solve_rate=1.0",
+        "outcome": "ACCEPTED_NEGATIVE"
       },
       {
         "gate": "capacity_regime",
-        "outcome": "NOT_DISCRIMINATING",
-        "number": "monolith_fail_fraction=0.0; team_feasible_fraction=1.0; no monolith-fail/team-feasible capacity gap"
+        "number": "monolith_fail_fraction=0.0; team_feasible_fraction=1.0; no monolith-fail/team-feasible capacity gap",
+        "outcome": "NOT_DISCRIMINATING"
       },
       {
         "gate": "real_llm_proceed",
-        "outcome": "NO_GO",
-        "number": "real_llm=NO_GO because claim3_positive=false and capacity_discriminating=false"
+        "number": "real_llm=NO_GO because claim3_positive=false and capacity_discriminating=false",
+        "outcome": "NO_GO"
       }
     ],
-    "next_step_routing": "Do not spend real LLM on this multi-agent slice. Since the anchor validates the instrument, the current graph_color controlled slice is an accepted claim3 negative; capacity remains non-discriminating. Next move is either accept the controlled-substrate negative or define a new substrate/regime before real LLM."
+    "headline": {
+      "anchor_reproduces_dissociation": true,
+      "capacity_verdict": "non_discriminating_or_negative",
+      "claim3_verdict": "accepted_negative",
+      "determination": "accepted_negative_claim3_on_current_slice",
+      "real_llm": "NO_GO",
+      "single_next_move": "Do not run real LLM; either accept claim3 negative on this controlled substrate or define a new substrate before any real spend.",
+      "slice_cbj_total_work_slope": 24.32432049863522,
+      "slice_chrono_total_work_slope": 0.8052649092320775,
+      "slice_discriminating": true
+    },
+    "next_step_routing": "Do not spend real LLM on this multi-agent slice. Since the anchor validates the instrument, the current graph_color controlled slice is an accepted claim3 negative; capacity remains non-discriminating. Next move is either accept the controlled-substrate negative or define a new substrate/regime before real LLM.",
+    "outcome": "RUNG1_MULTIAGENT_ACCOUNTING_ANCHOR_COMPLETE",
+    "overall_pass": false
   },
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "honesty": {
+    "capacity_limit": "The monolith baseline still solves all selected instances, so the capacity regime is not discriminating for team-vs-monolith.",
+    "does_not_establish": "This item does not establish positive claim 3 or claim 4-multi. It validates the accounting anchor and then reports an accepted negative/no-go on the current controlled graph_color slice.",
+    "instrument_limit": "The synthetic anchor validates the accounting instrument, but the graph_color slice still has cbj worse than chrono on total cross-block messages at equal solve rate.",
+    "scope_limit": "No real LLM multi-agent run was launched because the proceed gate is NO_GO."
+  },
+  "item_number": "073",
+  "name": "Rung-1 multi-agent accounting anchor and proceed gate",
+  "provenance": {
+    "anchor_script": "analysis/rung1_multiagent_accounting_anchor.py",
+    "parent_item": "072",
+    "result_artifact": "results/rung1_multiagent_accounting_anchor/results.json",
+    "schema_version": "rung1_multiagent_accounting_anchor_v0",
+    "slice_artifact": "results/rung1_multiagent_graphcolor/engineered_dry_run.json",
+    "source": "autonomous_stage_a_run"
+  },
+  "purpose": "Fix and validate the multi-agent accounting instrument with a distant-culprit anchor, then apply the no-LLM proceed gate to the engineered graph_color slice before any real-LLM spend.",
   "result_tables": {
     "accounting_sanity": {
-      "columns": ["check", "pass"],
+      "columns": [
+        "check",
+        "pass"
+      ],
       "rows": [
-        {"check": "chrono_retractions_match_recoveries_times_distance_plus_one", "pass": true},
-        {"check": "cbj_backjump_includes_culprit", "pass": true},
-        {"check": "cascade_fixed_in_anchor", "pass": true}
+        {
+          "check": "cascade_fixed_in_anchor",
+          "pass": true
+        },
+        {
+          "check": "cbj_backjump_includes_culprit",
+          "pass": true
+        },
+        {
+          "check": "chrono_retractions_match_recoveries_times_distance_plus_one",
+          "pass": true
+        }
+      ]
+    },
+    "anchor_cost_by_distance": {
+      "columns": [
+        "distance",
+        "arm",
+        "messages",
+        "total_work",
+        "retractions",
+        "recoveries",
+        "chrono_retractions_expected",
+        "cbj_includes_culprit"
+      ],
+      "rows": [
+        {
+          "arm": "cbj",
+          "cbj_includes_culprit": true,
+          "chrono_retractions_expected": null,
+          "distance": 1,
+          "messages": 1,
+          "recoveries": 1,
+          "retractions": 2,
+          "total_work": 2
+        },
+        {
+          "arm": "chrono",
+          "cbj_includes_culprit": null,
+          "chrono_retractions_expected": 2,
+          "distance": 1,
+          "messages": 2,
+          "recoveries": 1,
+          "retractions": 2,
+          "total_work": 3
+        },
+        {
+          "arm": "cbj",
+          "cbj_includes_culprit": true,
+          "chrono_retractions_expected": null,
+          "distance": 2,
+          "messages": 1,
+          "recoveries": 1,
+          "retractions": 3,
+          "total_work": 2
+        },
+        {
+          "arm": "chrono",
+          "cbj_includes_culprit": null,
+          "chrono_retractions_expected": 3,
+          "distance": 2,
+          "messages": 3,
+          "recoveries": 1,
+          "retractions": 3,
+          "total_work": 4
+        },
+        {
+          "arm": "cbj",
+          "cbj_includes_culprit": true,
+          "chrono_retractions_expected": null,
+          "distance": 3,
+          "messages": 1,
+          "recoveries": 1,
+          "retractions": 4,
+          "total_work": 2
+        },
+        {
+          "arm": "chrono",
+          "cbj_includes_culprit": null,
+          "chrono_retractions_expected": 4,
+          "distance": 3,
+          "messages": 4,
+          "recoveries": 1,
+          "retractions": 4,
+          "total_work": 5
+        },
+        {
+          "arm": "cbj",
+          "cbj_includes_culprit": true,
+          "chrono_retractions_expected": null,
+          "distance": 4,
+          "messages": 1,
+          "recoveries": 1,
+          "retractions": 5,
+          "total_work": 2
+        },
+        {
+          "arm": "chrono",
+          "cbj_includes_culprit": null,
+          "chrono_retractions_expected": 5,
+          "distance": 4,
+          "messages": 5,
+          "recoveries": 1,
+          "retractions": 5,
+          "total_work": 6
+        },
+        {
+          "arm": "cbj",
+          "cbj_includes_culprit": true,
+          "chrono_retractions_expected": null,
+          "distance": 5,
+          "messages": 1,
+          "recoveries": 1,
+          "retractions": 6,
+          "total_work": 2
+        },
+        {
+          "arm": "chrono",
+          "cbj_includes_culprit": null,
+          "chrono_retractions_expected": 6,
+          "distance": 5,
+          "messages": 6,
+          "recoveries": 1,
+          "retractions": 6,
+          "total_work": 7
+        },
+        {
+          "arm": "cbj",
+          "cbj_includes_culprit": true,
+          "chrono_retractions_expected": null,
+          "distance": 6,
+          "messages": 1,
+          "recoveries": 1,
+          "retractions": 7,
+          "total_work": 2
+        },
+        {
+          "arm": "chrono",
+          "cbj_includes_culprit": null,
+          "chrono_retractions_expected": 7,
+          "distance": 6,
+          "messages": 7,
+          "recoveries": 1,
+          "retractions": 7,
+          "total_work": 8
+        },
+        {
+          "arm": "cbj",
+          "cbj_includes_culprit": true,
+          "chrono_retractions_expected": null,
+          "distance": 7,
+          "messages": 1,
+          "recoveries": 1,
+          "retractions": 8,
+          "total_work": 2
+        },
+        {
+          "arm": "chrono",
+          "cbj_includes_culprit": null,
+          "chrono_retractions_expected": 8,
+          "distance": 7,
+          "messages": 8,
+          "recoveries": 1,
+          "retractions": 8,
+          "total_work": 9
+        },
+        {
+          "arm": "cbj",
+          "cbj_includes_culprit": true,
+          "chrono_retractions_expected": null,
+          "distance": 8,
+          "messages": 1,
+          "recoveries": 1,
+          "retractions": 9,
+          "total_work": 2
+        },
+        {
+          "arm": "chrono",
+          "cbj_includes_culprit": null,
+          "chrono_retractions_expected": 9,
+          "distance": 8,
+          "messages": 9,
+          "recoveries": 1,
+          "retractions": 9,
+          "total_work": 10
+        }
       ]
     },
     "anchor_slopes": {
-      "columns": ["arm", "message_slope_vs_distance", "total_work_slope_vs_distance", "retraction_slope_vs_distance"],
+      "columns": [
+        "arm",
+        "message_slope_vs_distance",
+        "total_work_slope_vs_distance",
+        "retraction_slope_vs_distance"
+      ],
       "rows": [
-        {"arm": "cbj", "message_slope_vs_distance": 0.0, "total_work_slope_vs_distance": 0.0, "retraction_slope_vs_distance": 1.0},
-        {"arm": "chrono", "message_slope_vs_distance": 1.0, "total_work_slope_vs_distance": 1.0, "retraction_slope_vs_distance": 1.0}
+        {
+          "arm": "cbj",
+          "message_slope_vs_distance": 0.0,
+          "retraction_slope_vs_distance": 1.0,
+          "total_work_slope_vs_distance": 0.0
+        },
+        {
+          "arm": "chrono",
+          "message_slope_vs_distance": 1.0,
+          "retraction_slope_vs_distance": 1.0,
+          "total_work_slope_vs_distance": 1.0
+        }
       ]
     },
-    "slice_claim3": {
-      "columns": ["B", "cbj_messages", "chrono_messages", "cbj_solve_rate", "chrono_solve_rate", "cbj_below_chrono"],
+    "artifact_inventory": {
+      "columns": [
+        "artifact",
+        "status",
+        "schema_version",
+        "size_bytes"
+      ],
       "rows": [
-        {"B": 6, "cbj_messages": 8.285714285714286, "chrono_messages": 3.4285714285714284, "cbj_solve_rate": 1.0, "chrono_solve_rate": 1.0, "cbj_below_chrono": false}
+        {
+          "artifact": "results/rung1_multiagent_accounting_anchor/results.json",
+          "schema_version": "rung1_multiagent_accounting_anchor_v0",
+          "size_bytes": 15443,
+          "status": "RUNG1_MULTIAGENT_ACCOUNTING_ANCHOR_COMPLETE"
+        },
+        {
+          "artifact": "results/rung1_multiagent_graphcolor/engineered_dry_run.json",
+          "schema_version": "rung1_multiagent_graphcolor_v0",
+          "size_bytes": 59372,
+          "status": "RUNG1_MULTIAGENT_GRAPHCOLOR_COMPLETE"
+        }
       ]
     },
     "capacity_regime": {
-      "columns": ["metric", "value"],
+      "columns": [
+        "metric",
+        "value"
+      ],
       "rows": [
-        {"metric": "monolith_fail_fraction", "value": 0.0},
-        {"metric": "team_feasible_fraction", "value": 1.0},
-        {"metric": "claim4_capacity_verdict", "value": "non_discriminating_or_negative"}
+        {
+          "metric": "monolith_fail_fraction",
+          "value": 0.0
+        },
+        {
+          "metric": "team_feasible_fraction",
+          "value": 1.0
+        },
+        {
+          "metric": "claim4_capacity_verdict",
+          "value": "non_discriminating_or_negative"
+        }
+      ]
+    },
+    "headline": {
+      "columns": [
+        "metric",
+        "value"
+      ],
+      "rows": [
+        {
+          "metric": "anchor_reproduces_dissociation",
+          "value": true
+        },
+        {
+          "metric": "capacity_verdict",
+          "value": "non_discriminating_or_negative"
+        },
+        {
+          "metric": "claim3_verdict",
+          "value": "accepted_negative"
+        },
+        {
+          "metric": "determination",
+          "value": "accepted_negative_claim3_on_current_slice"
+        },
+        {
+          "metric": "single_next_move",
+          "value": "Do not run real LLM; either accept claim3 negative on this controlled substrate or define a new substrate before any real spend."
+        }
       ]
     },
     "proceed_gate": {
-      "columns": ["gate", "value"],
+      "columns": [
+        "gate",
+        "value"
+      ],
       "rows": [
-        {"gate": "instrument_anchor_validated", "value": true},
-        {"gate": "claim3_positive", "value": false},
-        {"gate": "capacity_discriminating", "value": false},
-        {"gate": "capacity_positive", "value": false},
-        {"gate": "real_llm", "value": "NO_GO"}
+        {
+          "gate": "capacity_discriminating",
+          "value": false
+        },
+        {
+          "gate": "capacity_positive",
+          "value": false
+        },
+        {
+          "gate": "claim3_positive",
+          "value": false
+        },
+        {
+          "gate": "instrument_anchor_validated",
+          "value": true
+        },
+        {
+          "gate": "real_llm",
+          "value": "NO_GO"
+        },
+        {
+          "gate": "reason",
+          "value": "Do not run real LLM; either accept claim3 negative on this controlled substrate or define a new substrate before any real spend."
+        }
+      ]
+    },
+    "slice_by_arm": {
+      "columns": [
+        "B",
+        "arm",
+        "n",
+        "solve_rate",
+        "mean_official_score",
+        "mean_cross_block_messages",
+        "mean_cross_block_recoveries",
+        "mean_culprit_distance",
+        "max_culprit_distance",
+        "n_gt1_culprit_distance",
+        "mean_total_retractions",
+        "status_counts"
+      ],
+      "rows": [
+        {
+          "B": 5,
+          "arm": "cbj_oracle",
+          "max_culprit_distance": 4,
+          "mean_cross_block_messages": 24,
+          "mean_cross_block_recoveries": 24,
+          "mean_culprit_distance": 3.0,
+          "mean_official_score": 1.0,
+          "mean_total_retractions": 96,
+          "n": 1,
+          "n_gt1_culprit_distance": 24,
+          "solve_rate": 1.0,
+          "status_counts": {
+            "SOLVED": 1
+          }
+        },
+        {
+          "B": 5,
+          "arm": "cbj_random",
+          "max_culprit_distance": 4,
+          "mean_cross_block_messages": 6,
+          "mean_cross_block_recoveries": 6,
+          "mean_culprit_distance": 2.1666666666666665,
+          "mean_official_score": 0.01,
+          "mean_total_retractions": 25,
+          "n": 1,
+          "n_gt1_culprit_distance": 5,
+          "solve_rate": 0.0,
+          "status_counts": {
+            "NO_RECOVERY_TARGET": 1
+          }
+        },
+        {
+          "B": 5,
+          "arm": "chrono",
+          "max_culprit_distance": 4,
+          "mean_cross_block_messages": 3,
+          "mean_cross_block_recoveries": 3,
+          "mean_culprit_distance": 2.6666666666666665,
+          "mean_official_score": 1.0,
+          "mean_total_retractions": 3,
+          "n": 1,
+          "n_gt1_culprit_distance": 3,
+          "solve_rate": 1.0,
+          "status_counts": {
+            "SOLVED": 1
+          }
+        },
+        {
+          "B": 5,
+          "arm": "forward",
+          "max_culprit_distance": 0,
+          "mean_cross_block_messages": 0,
+          "mean_cross_block_recoveries": 0,
+          "mean_culprit_distance": 0.0,
+          "mean_official_score": 0.01,
+          "mean_total_retractions": 0,
+          "n": 1,
+          "n_gt1_culprit_distance": 0,
+          "solve_rate": 0.0,
+          "status_counts": {
+            "FORWARD_CROSS_BLOCK_CONFLICT": 1
+          }
+        },
+        {
+          "B": 6,
+          "arm": "cbj_oracle",
+          "max_culprit_distance": 8,
+          "mean_cross_block_messages": 8.285714285714286,
+          "mean_cross_block_recoveries": 8.285714285714286,
+          "mean_culprit_distance": 2.357482993197279,
+          "mean_official_score": 1.0,
+          "mean_total_retractions": 26.428571428571427,
+          "n": 7,
+          "n_gt1_culprit_distance": 35,
+          "solve_rate": 1.0,
+          "status_counts": {
+            "SOLVED": 7
+          }
+        },
+        {
+          "B": 6,
+          "arm": "cbj_random",
+          "max_culprit_distance": 7,
+          "mean_cross_block_messages": 5.857142857142857,
+          "mean_cross_block_recoveries": 5.857142857142857,
+          "mean_culprit_distance": 2.432539682539683,
+          "mean_official_score": 0.7171428571428572,
+          "mean_total_retractions": 15.571428571428571,
+          "n": 7,
+          "n_gt1_culprit_distance": 34,
+          "solve_rate": 0.7142857142857143,
+          "status_counts": {
+            "NO_RECOVERY_TARGET": 2,
+            "SOLVED": 5
+          }
+        },
+        {
+          "B": 6,
+          "arm": "chrono",
+          "max_culprit_distance": 7,
+          "mean_cross_block_messages": 3.4285714285714284,
+          "mean_cross_block_recoveries": 3.4285714285714284,
+          "mean_culprit_distance": 2.4333333333333336,
+          "mean_official_score": 1.0,
+          "mean_total_retractions": 3.4285714285714284,
+          "n": 7,
+          "n_gt1_culprit_distance": 17,
+          "solve_rate": 1.0,
+          "status_counts": {
+            "SOLVED": 7
+          }
+        },
+        {
+          "B": 6,
+          "arm": "forward",
+          "max_culprit_distance": 0,
+          "mean_cross_block_messages": 0,
+          "mean_cross_block_recoveries": 0,
+          "mean_culprit_distance": 0.0,
+          "mean_official_score": 0.01,
+          "mean_total_retractions": 0,
+          "n": 7,
+          "n_gt1_culprit_distance": 0,
+          "solve_rate": 0.0,
+          "status_counts": {
+            "FORWARD_CROSS_BLOCK_CONFLICT": 7
+          }
+        }
+      ]
+    },
+    "slice_claim3": {
+      "columns": [
+        "B",
+        "cbj_messages",
+        "chrono_messages",
+        "cbj_solve_rate",
+        "chrono_solve_rate",
+        "cbj_below_chrono"
+      ],
+      "rows": [
+        {
+          "B": 6,
+          "cbj_below_chrono": false,
+          "cbj_messages": 8.285714285714286,
+          "cbj_solve_rate": 1.0,
+          "chrono_messages": 3.4285714285714284,
+          "chrono_solve_rate": 1.0
+        }
+      ]
+    },
+    "slice_discriminating_diagnostic": {
+      "columns": [
+        "metric",
+        "value"
+      ],
+      "rows": [
+        {
+          "metric": "chrono_total_work_slope_vs_distance",
+          "value": 0.8052649092320775
+        },
+        {
+          "metric": "cbj_total_work_slope_vs_distance",
+          "value": 24.32432049863522
+        },
+        {
+          "metric": "slice_discriminating",
+          "value": true
+        },
+        {
+          "metric": "reason",
+          "value": "chrono total-work slope rises with culprit distance on slice"
+        }
+      ]
+    },
+    "slice_slope_vs_culprit_distance": {
+      "columns": [
+        "arm",
+        "n",
+        "distance_min",
+        "distance_max",
+        "message_slope_vs_distance",
+        "total_work_slope_vs_distance",
+        "retraction_slope_vs_distance",
+        "mean_messages",
+        "mean_total_work"
+      ],
+      "rows": [
+        {
+          "arm": "cbj_oracle",
+          "distance_max": 3.0,
+          "distance_min": 1.2857142857142858,
+          "mean_messages": 10.25,
+          "mean_total_work": 80.25,
+          "message_slope_vs_distance": -0.42776560181373413,
+          "n": 8,
+          "retraction_slope_vs_distance": 12.16216024931761,
+          "total_work_slope_vs_distance": 24.32432049863522
+        },
+        {
+          "arm": "chrono",
+          "distance_max": 3.3333333333333335,
+          "distance_min": 1.3333333333333333,
+          "mean_messages": 3.375,
+          "mean_total_work": 16.75,
+          "message_slope_vs_distance": 0.40263245461603875,
+          "n": 8,
+          "retraction_slope_vs_distance": 0.40263245461603875,
+          "total_work_slope_vs_distance": 0.8052649092320775
+        }
+      ]
+    },
+    "team_vs_monolith": {
+      "columns": [
+        "B",
+        "arm",
+        "team_solve_rate",
+        "monolith_solve_rate",
+        "team_minus_monolith"
+      ],
+      "rows": [
+        {
+          "B": 5,
+          "arm": "cbj_oracle",
+          "monolith_solve_rate": 1.0,
+          "team_minus_monolith": 0.0,
+          "team_solve_rate": 1.0
+        },
+        {
+          "B": 6,
+          "arm": "cbj_oracle",
+          "monolith_solve_rate": 1.0,
+          "team_minus_monolith": 0.0,
+          "team_solve_rate": 1.0
+        }
       ]
     }
   },
-  "honesty": {
-    "does_not_establish": "This item does not establish positive claim 3 or claim 4-multi. It validates the accounting anchor and then reports an accepted negative/no-go on the current controlled graph_color slice.",
-    "instrument_limit": "The synthetic anchor validates the accounting instrument, but the graph_color slice still has cbj worse than chrono on total cross-block messages at equal solve rate.",
-    "capacity_limit": "The monolith baseline still solves all selected instances, so the capacity regime is not discriminating for team-vs-monolith.",
-    "scope_limit": "No real LLM multi-agent run was launched because the proceed gate is NO_GO."
-  }
+  "schema_version": "log_item_contract_v1"
 }
