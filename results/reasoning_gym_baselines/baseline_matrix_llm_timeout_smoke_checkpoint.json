@@ -1,0 +1,18 @@
+[
+  {
+    "answer_prefix": "",
+    "arm": "L1-one_shot_direct",
+    "benchmark": "graph_color",
+    "error": "TimeoutError: timed out",
+    "finish_reason": null,
+    "official_score": 0.0,
+    "output_tokens": 0,
+    "prompt_tokens": 0,
+    "provenance": "rg_baseline_one_shot_v1",
+    "solved": false,
+    "source": "autonomous_stage_a_run",
+    "source_index": 0,
+    "status": "TIMEOUT",
+    "total_tokens": 0
+  }
+]

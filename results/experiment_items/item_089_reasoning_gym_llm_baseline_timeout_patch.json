@@ -1,0 +1,100 @@
+{
+  "item_number": "089",
+  "schema_version": "log_item_contract_v1",
+  "name": "Reasoning Gym LLM baseline checkpoint-timeout patch",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Continue the SPEC-v1 baseline-first reproduction by fixing the L1 one-shot baseline blocker from Item088. Adds checkpoint/resume, row-key skipping, request timeout, batch chunking, and max-new-row controls to the unified Reasoning Gym baseline matrix runner. Verifies that a slow graph_color one-shot request now produces a checkpointed TIMEOUT row and a final baseline matrix artifact instead of hanging without output.",
+  "provenance": {
+    "schema_version": "reasoning_gym_baseline_matrix_v1",
+    "source": "autonomous_stage_a_run",
+    "script": "analysis/reasoning_gym_baseline_matrix.py",
+    "result_artifact": "results/reasoning_gym_baselines/baseline_matrix_llm_timeout_smoke.json",
+    "checkpoint_artifact": "results/reasoning_gym_baselines/baseline_matrix_llm_timeout_smoke_checkpoint.json",
+    "parent_item": "088"
+  },
+  "artifacts": [
+    "results/experiment_items/item_089_reasoning_gym_llm_baseline_timeout_patch.json",
+    "analysis/reasoning_gym_baseline_matrix.py",
+    "results/reasoning_gym_baselines/baseline_matrix_llm_timeout_smoke.json",
+    "results/reasoning_gym_baselines/baseline_matrix_llm_timeout_smoke_checkpoint.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/reasoning_gym_baseline_matrix.py",
+      "change": "Adds checkpoint/resume for LLM rows, row-key skipping, request timeout, --llm-task-batch-size, --max-new-llm-rows, --checkpoint-path, and --no-resume."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m py_compile analysis/reasoning_gym_baseline_matrix.py",
+      "purpose": "Validate the patched baseline matrix runner compiles."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.reasoning_gym_baseline_matrix --output results/reasoning_gym_baselines/baseline_matrix_llm_timeout_smoke.json --checkpoint-path results/reasoning_gym_baselines/baseline_matrix_llm_timeout_smoke_checkpoint.json --benchmarks graph_color --n-instances 1 --seed 42 --graph-vertices 14 --graph-edge-probability 0.4 --graph-node-budget 80 --run-llm --max-new-tokens 512 --batch-size 1 --llm-task-batch-size 1 --max-new-llm-rows 1 --request-timeout 30 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "purpose": "Verify one L1-one_shot_direct row is checkpointed and final artifact is written even when the request times out."
+    }
+  ],
+  "decision": {
+    "outcome": "REASONING_GYM_LLM_BASELINE_TIMEOUT_PATCH_COMPLETE",
+    "overall_pass": true,
+    "headline": {
+      "checkpoint_resume_added": true,
+      "request_timeout_added": true,
+      "timeout_row_recorded": true,
+      "final_artifact_written_after_timeout": true,
+      "smoke_arm": "L1-one_shot_direct",
+      "smoke_benchmark": "graph_color",
+      "smoke_status": "TIMEOUT",
+      "single_next_move": "Use the patched runner to populate L1-one_shot_direct baselines row-budgeted across Tier-1; increase request_timeout for real reads while preserving TIMEOUT rows."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "runner_compile",
+        "outcome": "PASS",
+        "number": "analysis.reasoning_gym_baseline_matrix compiles after timeout/checkpoint patch."
+      },
+      {
+        "gate": "llm_checkpoint",
+        "outcome": "PASS",
+        "number": "Checkpoint artifact contains one graph_color L1-one_shot_direct row."
+      },
+      {
+        "gate": "timeout_row",
+        "outcome": "PASS",
+        "number": "The row records status=TIMEOUT, error='TimeoutError: timed out', and zero tokens."
+      },
+      {
+        "gate": "final_matrix_after_timeout",
+        "outcome": "PASS",
+        "number": "Final matrix artifact includes the TIMEOUT row plus no-LLM baselines."
+      },
+      {
+        "gate": "method_comparison",
+        "outcome": "STILL_PAUSED",
+        "number": "This patch enables LLM baseline accumulation; it does not resume M-register or multi-agent method comparisons."
+      }
+    ],
+    "next_step_routing": "Populate L1-one_shot_direct baselines using row-budgeted checkpointed runs, first graph_color then sudoku then zebra_puzzles. Keep method comparisons paused until the baseline table has enough n for the target bins."
+  },
+  "result_tables": {
+    "timeout_smoke": {
+      "columns": ["benchmark", "arm", "n", "status", "solve_rate", "mean_total_tokens"],
+      "rows": [
+        {"benchmark": "graph_color", "arm": "L1-one_shot_direct", "n": 1, "status": "TIMEOUT", "solve_rate": 0.0, "mean_total_tokens": 0.0}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "L1_one_shot_direct_baselines", "gate": "GO_ROW_BUDGETED", "reason": "Timeout/checkpoint rows now work."},
+        {"track": "L1_thinking_baselines", "gate": "AFTER_DIRECT_BASELINE", "reason": "Thinking needs anti-truncation and larger timeout budget."},
+        {"track": "method_comparisons", "gate": "PAUSED", "reason": "Baseline matrix is still being populated."}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not complete the L1 baseline table and does not compare any method. It only proves timeout/checkpoint behavior for one LLM baseline row.",
+    "timeout_limit": "The smoke used request_timeout=30 to force a bounded test; real baseline reads should use a larger timeout while still preserving TIMEOUT rows.",
+    "baseline_first_scope": "Method comparisons remain paused until Reasoning Gym baselines are populated."
+  }
+}
