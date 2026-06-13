@@ -81,6 +81,7 @@ PATHS = {
     "item_073_rung1_multiagent_accounting_anchor": "results/experiment_items/item_073_rung1_multiagent_accounting_anchor.json",
     "item_074_rung1_multiagent_cascade_fixed": "results/experiment_items/item_074_rung1_multiagent_cascade_fixed.json",
     "item_075_rung1_multiagent_two_track": "results/experiment_items/item_075_rung1_multiagent_two_track.json",
+    "item_076_rung1_multiagent_solvability": "results/experiment_items/item_076_rung1_multiagent_solvability.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
@@ -132,6 +133,7 @@ PATHS = {
     "rung1_multiagent_accounting_anchor": "results/rung1_multiagent_accounting_anchor/results.json",
     "rung1_multiagent_cascade_fixed": "results/rung1_multiagent_cascade_fixed/results.json",
     "rung1_multiagent_two_track": "results/rung1_multiagent_two_track/results.json",
+    "rung1_multiagent_solvability": "results/rung1_multiagent_solvability/results.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
