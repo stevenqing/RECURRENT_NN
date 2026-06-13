@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-13T02:10:44.921621+00:00
+Generated at: 2026-06-13T02:43:08.840245+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -66,6 +66,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 068 | Rung-1 multi-agent wrong-culprit erosion sweep and wrong-commitment closure | UNKNOWN | Do not claim multi-agent erosion positive from this instrument. The current recovery-comm-per-event metric/instrument fails the expected clean anchor and produces decreasing slopes with wrong culprits. Next move is to inspect the comm observable against the prior symbolic-arc double-dissociation tables and strengthen the wrong-culprit instrument before real-LLM placement. |
 | 069 | Rung-1 LLM-native bounded-register benchmark harness alignment | UNKNOWN | Do not treat Item069 as a result item for the LLM-native claim. Treat it as harness alignment/progress. The next execution item should restore port 8001 with clean memory, then run the official Reasoning Gym graph_color slice using create_dataset for instances and score_answer for solve validation; zebra_puzzles follows after graph_color, and AgentsNet follows after the single-agent Reasoning Gym result lands. |
 | 070 | Rung-1 bounded-register paradigm overnight real-LLM official-harness run | UNKNOWN | Treat graph_color official-harness claims 1+2 as the first positive real-LLM validation of the bounded-register search-decision paradigm. Next: install/lock AgentsNet dependencies for real multi-agent contrast, or implement the zebra_puzzles CSP wrapper for external validity. |
+| 071 | Rung-1 controlled multi-agent graph_color official-harness dry-run | UNKNOWN | Do not run real LLM multi-agent on this non-discriminating slice. Increase graph size/trail length and tune partition/separator selection until monolith-fail/team-feasible and cbj-vs-chrono message separation appear under no-LLM official scoring. |
 
 ## Item Details
 
@@ -122,7 +123,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - The validator now reports missing legacy artifacts individually.
   - Current validation is registry-style and does not collapse missing history into one opaque required-files failure.
 - Artifact refs:
-  - analysis/validate_outputs.py (yes, 144544 bytes)
+  - analysis/validate_outputs.py (yes, 144789 bytes)
   - results/validation/validation.json (yes, 191723 bytes)
   - results/validation/validation.md (yes, 148304 bytes)
 #### Referenced Result Summaries
@@ -283,9 +284,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifact refs:
   - CANONICAL_REPO.md (yes, 532 bytes)
-  - analysis/validate_outputs.py (yes, 144544 bytes)
+  - analysis/validate_outputs.py (yes, 144789 bytes)
   - results/validation/validation.json (yes, 191723 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83725929 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83722309 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -409,8 +410,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/continuation_state/post_027.json (yes, 1453 bytes)
   - results/validation/validation.json (yes, 191723 bytes)
   - results/validation/validation.md (yes, 148304 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83725929 bytes)
-  - results/experiment_log/experiment_log.md (yes, 828505 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83722309 bytes)
+  - results/experiment_log/experiment_log.md (yes, 827852 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -780,7 +781,7 @@ No rows recorded.
   - honesty=This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent state. It deliberately turns the registry red until those objects exist.
 - Artifact refs:
   - results/experiment_items/item_033_validation_object_binding.json (yes, 7073 bytes)
-  - analysis/validate_outputs.py (yes, 144544 bytes)
+  - analysis/validate_outputs.py (yes, 144789 bytes)
   - experiments/stage_a_sudoku6_bridge.py (yes, 10922 bytes)
   - experiments/w3_qwen35_probe.py (yes, 47675 bytes)
   - results/stage_a_sudoku6_bridge/results.json (yes, 4890 bytes)
@@ -1213,8 +1214,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 191723 bytes)
   - results/validation/validation.md (yes, 148304 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83725929 bytes)
-  - results/experiment_log/experiment_log.md (yes, 828505 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83722309 bytes)
+  - results/experiment_log/experiment_log.md (yes, 827852 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1342,8 +1343,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 191723 bytes)
   - results/validation/validation.md (yes, 148304 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83725929 bytes)
-  - results/experiment_log/experiment_log.md (yes, 828505 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83722309 bytes)
+  - results/experiment_log/experiment_log.md (yes, 827852 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1430,8 +1431,8 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83725929 bytes)
-  - results/experiment_log/experiment_log.md (yes, 828505 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83722309 bytes)
+  - results/experiment_log/experiment_log.md (yes, 827852 bytes)
   - results/validation/validation.json (yes, 191723 bytes)
   - results/validation/validation.md (yes, 148304 bytes)
 #### Referenced Result Summaries
@@ -1495,15 +1496,15 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (yes, 11255 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (yes, 11389 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (yes, 11218 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83725929 bytes)
-  - results/experiment_log/experiment_log.md (yes, 828505 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83722309 bytes)
+  - results/experiment_log/experiment_log.md (yes, 827852 bytes)
   - results/validation/validation.json (yes, 191723 bytes)
   - results/validation/validation.md (yes, 148304 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-13T02:10:26.490164+00:00 |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-13T02:42:58.901559+00:00 |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | GATES_UNREACHED | G1=0.03906; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | GATES_UNREACHED | G1=0.01562; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
@@ -1597,8 +1598,8 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (yes, 40421 bytes)
   - results/sudoku_engine_gpu/equivalence_1000.json (yes, 167 bytes)
   - results/trm_operator_logging_smoke/progress.jsonl (yes, 968 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83725929 bytes)
-  - results/experiment_log/experiment_log.md (yes, 828505 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83722309 bytes)
+  - results/experiment_log/experiment_log.md (yes, 827852 bytes)
   - results/validation/validation.json (yes, 191723 bytes)
   - results/validation/validation.md (yes, 148304 bytes)
 #### Referenced Result Summaries
@@ -1677,8 +1678,8 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (yes, 322 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83725929 bytes)
-  - results/experiment_log/experiment_log.md (yes, 828505 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83722309 bytes)
+  - results/experiment_log/experiment_log.md (yes, 827852 bytes)
   - results/validation/validation.json (yes, 191723 bytes)
   - results/validation/validation.md (yes, 148304 bytes)
 #### Referenced Result Summaries
@@ -1723,8 +1724,8 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83725929 bytes)
-  - results/experiment_log/experiment_log.md (yes, 828505 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83722309 bytes)
+  - results/experiment_log/experiment_log.md (yes, 827852 bytes)
   - results/validation/validation.json (yes, 191723 bytes)
   - results/validation/validation.md (yes, 148304 bytes)
 #### Referenced Result Summaries
@@ -1780,8 +1781,8 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (yes, 974 bytes)
   - results/trm_operator_compile_smoke/acceptance.json (yes, 10396 bytes)
   - results/trm_operator_compile_smoke/progress.jsonl (yes, 486 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83725929 bytes)
-  - results/experiment_log/experiment_log.md (yes, 828505 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83722309 bytes)
+  - results/experiment_log/experiment_log.md (yes, 827852 bytes)
   - results/validation/validation.json (yes, 191723 bytes)
   - results/validation/validation.md (yes, 148304 bytes)
 #### Referenced Result Summaries
@@ -1848,8 +1849,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (yes, 102640503 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (yes, 102514311 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (yes, 102594183 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83725929 bytes)
-  - results/experiment_log/experiment_log.md (yes, 828505 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83722309 bytes)
+  - results/experiment_log/experiment_log.md (yes, 827852 bytes)
   - results/validation/validation.json (yes, 191723 bytes)
   - results/validation/validation.md (yes, 148304 bytes)
 #### Referenced Result Summaries
@@ -1908,8 +1909,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 42721 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (yes, 80203 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (yes, 55287865 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83725929 bytes)
-  - results/experiment_log/experiment_log.md (yes, 828505 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83722309 bytes)
+  - results/experiment_log/experiment_log.md (yes, 827852 bytes)
   - results/validation/validation.json (yes, 191723 bytes)
   - results/validation/validation.md (yes, 148304 bytes)
 #### Referenced Result Summaries
@@ -4641,8 +4642,8 @@ Truncated to 24 of 28 rows.
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json (yes, 3515 bytes)
   - results/rung1_separator_fallibility_rungs/results.json (yes, 79925 bytes)
   - results/experiment_items/item_060_rung1_separator_fallibility_rungs.json (yes, 191278 bytes)
-  - results/experiment_log/experiment_log.md (yes, 828505 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83725929 bytes)
+  - results/experiment_log/experiment_log.md (yes, 827852 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83722309 bytes)
   - results/rung1_separator_fallibility_rungs/item062_execution.json (yes, 2265658 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json (yes, 3606 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2.log (yes, 9044 bytes)
@@ -5896,6 +5897,75 @@ Truncated to 24 of 378 rows.
 
 - Next action: Treat graph_color official-harness claims 1+2 as the first positive real-LLM validation of the bounded-register search-decision paradigm. Next: install/lock AgentsNet dependencies for real multi-agent contrast, or implement the zebra_puzzles CSP wrapper for external validity.
 
+### Item 071 - Rung-1 controlled multi-agent graph_color official-harness dry-run
+
+- Status: UNKNOWN
+- Key result: Do not run real LLM multi-agent on this non-discriminating slice. Increase graph size/trail length and tune partition/separator selection until monolith-fail/team-feasible and cbj-vs-chrono message separation appear under no-LLM official scoring.
+- Purpose: Implement and dry-run the controlled multi-agent CBJ test on the same Reasoning Gym graph_color official harness, using graph partitions instead of AgentsNet dependencies.
+- Details:
+  - purpose=Implement and dry-run the controlled multi-agent CBJ test on the same Reasoning Gym graph_color official harness, using graph partitions instead of AgentsNet dependencies.
+  - commands=1
+  - result_tables=['preflight', 'by_arm', 'claim3', 'claim4_capacity', 'bounded_view']
+  - honesty=This item does not establish claim 3 or claim 4-multi. It is a controlled no-LLM dry-run proving the official graph_color partition harness runs, while showing the tested slice is not discriminating enough for a real LLM run.
+- Artifact refs:
+  - results/experiment_items/item_071_rung1_multiagent_graphcolor_controlled_dryrun.json (yes, 7812 bytes)
+  - experiments/rung1_multiagent_graphcolor.py (yes, 24435 bytes)
+  - results/rung1_multiagent_graphcolor/dry_run.json (yes, 51889 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_multiagent_graphcolor/dry_run.json | RUNG1_MULTIAGENT_GRAPHCOLOR_COMPLETE | provenance=rung1_multiagent_graphcolor_v0; schema_version=rung1_multiagent_graphcolor_v0; source=autonomous_stage_a_run |  |
+
+#### Contract Result Tables
+
+##### preflight
+
+| metric | value |
+| --- | --- |
+| selected_instances | 4 |
+| min_cross_backtracks | 1 |
+| official_scoring_only | True |
+| b_values | [2, 3] |
+| register_limit | 6 |
+
+##### by_arm
+
+| B | arm | n | solve_rate | mean_official_score | mean_cross_block_messages | mean_cross_block_recoveries | mean_total_retractions | status_counts |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | forward | 4 | 0.25 | 0.2575 | 0 | 0 | 0 | FORWARD_CROSS_BLOCK_CONFLICT=3; SOLVED=1 |
+| 2 | chrono | 4 | 1 | 1 | 2.75 | 2.75 | 2.75 | SOLVED=4 |
+| 2 | cbj_oracle | 4 | 1 | 1 | 2.75 | 2.75 | 2.75 | SOLVED=4 |
+| 2 | cbj_random | 4 | 0.75 | 0.7525 | 1.75 | 1.75 | 7.75 | NO_RECOVERY_TARGET=1; SOLVED=3 |
+| 3 | forward | 4 | 0 | 0.01 | 0 | 0 | 0 | FORWARD_CROSS_BLOCK_CONFLICT=4 |
+| 3 | chrono | 4 | 1 | 1 | 5 | 5 | 5 | SOLVED=4 |
+| 3 | cbj_oracle | 4 | 1 | 1 | 5 | 5 | 5 | SOLVED=4 |
+| 3 | cbj_random | 4 | 0.25 | 0.2575 | 3.25 | 3.25 | 16.25 | NO_RECOVERY_TARGET=3; SOLVED=1 |
+
+##### claim3
+
+| B | cbj_messages | chrono_messages | cbj_solve_rate | chrono_solve_rate | cbj_below_chrono |
+| --- | --- | --- | --- | --- | --- |
+| 2 | 2.75 | 2.75 | 1 | 1 | False |
+| 3 | 5 | 5 | 1 | 1 | False |
+
+##### claim4_capacity
+
+| B | arm | team_solve_rate | monolith_solve_rate | team_minus_monolith |
+| --- | --- | --- | --- | --- |
+| 2 | cbj_oracle | 1 | 1 | 0 |
+| 3 | cbj_oracle | 1 | 1 | 0 |
+
+##### bounded_view
+
+| metric | value |
+| --- | --- |
+| bounded_view_verified | True |
+| max_register_view_len | 6 |
+| max_prompt_chars | 0 |
+
+- Next action: Do not run real LLM multi-agent on this non-discriminating slice. Increase graph size/trail length and tune partition/separator selection until monolith-fail/team-feasible and cbj-vs-chrono message separation appear under no-LLM official scoring.
+
 
 ## Canonical Repo Decision
 
@@ -5987,6 +6057,7 @@ Truncated to 24 of 378 rows.
 | item_068_rung1_culprit_erosion_sweep | results/experiment_items/item_068_rung1_culprit_erosion_sweep.json | yes |
 | item_069_rung1_llm_native_benchmark_harness_alignment | results/experiment_items/item_069_rung1_llm_native_benchmark_harness_alignment.json | yes |
 | item_070_rung1_paradigm_overnight_real_llm | results/experiment_items/item_070_rung1_paradigm_overnight_real_llm.json | yes |
+| item_071_rung1_multiagent_graphcolor_controlled_dryrun | results/experiment_items/item_071_rung1_multiagent_graphcolor_controlled_dryrun.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | rung1_phase1_spec_v01 | specs/rung1_phase1_spec_v01.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
@@ -6074,6 +6145,7 @@ Truncated to 24 of 378 rows.
 | rung1_paradigm_overnight_track123 | results/rung1_paradigm_overnight/track123.json | yes |
 | rung1_paradigm_overnight_smoke | results/rung1_paradigm_overnight/smoke.json | yes |
 | rung1_paradigm_overnight_multiagent_dry_run | results/rung1_paradigm_overnight/multiagent_dry_run.json | yes |
+| rung1_multiagent_graphcolor_dry_run | results/rung1_multiagent_graphcolor/dry_run.json | yes |
 | validation | results/validation/validation.json | yes |
 
 ## Validation Summary

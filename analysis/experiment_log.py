@@ -57,6 +57,7 @@ ARTIFACT_INDEX = {
     "item_068_rung1_culprit_erosion_sweep": "results/experiment_items/item_068_rung1_culprit_erosion_sweep.json",
     "item_069_rung1_llm_native_benchmark_harness_alignment": "results/experiment_items/item_069_rung1_llm_native_benchmark_harness_alignment.json",
     "item_070_rung1_paradigm_overnight_real_llm": "results/experiment_items/item_070_rung1_paradigm_overnight_real_llm.json",
+    "item_071_rung1_multiagent_graphcolor_controlled_dryrun": "results/experiment_items/item_071_rung1_multiagent_graphcolor_controlled_dryrun.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
     "model_readiness": "results/model_readiness/readiness.json",
@@ -144,6 +145,7 @@ ARTIFACT_INDEX = {
     "rung1_paradigm_overnight_track123": "results/rung1_paradigm_overnight/track123.json",
     "rung1_paradigm_overnight_smoke": "results/rung1_paradigm_overnight/smoke.json",
     "rung1_paradigm_overnight_multiagent_dry_run": "results/rung1_paradigm_overnight/multiagent_dry_run.json",
+    "rung1_multiagent_graphcolor_dry_run": "results/rung1_multiagent_graphcolor/dry_run.json",
     "validation": "results/validation/validation.json",
 }
 

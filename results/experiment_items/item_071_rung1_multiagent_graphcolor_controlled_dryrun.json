@@ -1,0 +1,115 @@
+{
+  "item_number": "071",
+  "schema_version": "log_item_contract_v1",
+  "name": "Rung-1 controlled multi-agent graph_color official-harness dry-run",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Implement and dry-run the controlled multi-agent CBJ test on the same Reasoning Gym graph_color official harness, using graph partitions instead of AgentsNet dependencies.",
+  "provenance": {
+    "schema_version": "rung1_multiagent_graphcolor_v0",
+    "source": "autonomous_stage_a_run",
+    "result_artifact": "results/rung1_multiagent_graphcolor/dry_run.json",
+    "code_artifact": "experiments/rung1_multiagent_graphcolor.py"
+  },
+  "artifacts": [
+    "results/experiment_items/item_071_rung1_multiagent_graphcolor_controlled_dryrun.json",
+    "experiments/rung1_multiagent_graphcolor.py",
+    "results/rung1_multiagent_graphcolor/dry_run.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "experiments/rung1_multiagent_graphcolor.py",
+      "change": "Adds a controlled multi-agent Reasoning Gym graph_color runner with balanced graph partitioning, local per-agent domains, forward/chrono/cbj_oracle/cbj_random/cbj_llm arms, monolith baseline, official score_answer validation, and bounded-view metrics."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_multiagent_graphcolor --no-llm --n-instances 4 --scan-limit 80 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --b-values 2,3 --arms forward,chrono,cbj_oracle,cbj_random --register-limit 6 --call-cap 300 --min-cross-backtracks 1 --output results/rung1_multiagent_graphcolor/dry_run.json",
+      "purpose": "Run the cheap official-harness symbolic dry-run for controlled partition routing and read whether the gate is discriminating before spending real LLM budget."
+    }
+  ],
+  "decision": {
+    "outcome": "RUNG1_MULTIAGENT_GRAPHCOLOR_COMPLETE",
+    "overall_pass": false,
+    "headline": {
+      "claim3_determination": "honest_negative_or_underpowered",
+      "claim4_multi_capacity": "honest_negative_or_not_discriminating",
+      "single_next_move": "Strengthen partition/depth selection for a monolith-fail/team-feasible regime before spending real LLM budget on cbj_llm."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "official_scoring_only",
+        "outcome": "PASS",
+        "number": "All solve validation uses Reasoning Gym dataset.score_answer(answer, entry)."
+      },
+      {
+        "gate": "controlled_partition_preflight",
+        "outcome": "PASS_SMALL",
+        "number": "selected_instances=4 with min_cross_backtracks>=1; b_values={2,3}; register_limit=6"
+      },
+      {
+        "gate": "claim3_cbj_vs_chrono_messages",
+        "outcome": "NOT_POSITIVE",
+        "number": "B=2 cbj_messages=2.75 chrono_messages=2.75; B=3 cbj_messages=5 chrono_messages=5 at equal solve_rate=1.0"
+      },
+      {
+        "gate": "claim4_team_vs_monolith",
+        "outcome": "NOT_DISCRIMINATING",
+        "number": "monolith_solve_rate=1.0 and team_cbj_oracle_solve_rate=1.0; no monolith-fail/team-feasible regime found in this small dry-run"
+      }
+    ],
+    "next_step_routing": "Do not run real LLM multi-agent on this non-discriminating slice. Increase graph size/trail length and tune partition/separator selection until monolith-fail/team-feasible and cbj-vs-chrono message separation appear under no-LLM official scoring."
+  },
+  "result_tables": {
+    "preflight": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "selected_instances", "value": 4},
+        {"metric": "min_cross_backtracks", "value": 1},
+        {"metric": "official_scoring_only", "value": true},
+        {"metric": "b_values", "value": [2, 3]},
+        {"metric": "register_limit", "value": 6}
+      ]
+    },
+    "by_arm": {
+      "columns": ["B", "arm", "n", "solve_rate", "mean_official_score", "mean_cross_block_messages", "mean_cross_block_recoveries", "mean_total_retractions", "status_counts"],
+      "rows": [
+        {"B": 2, "arm": "forward", "n": 4, "solve_rate": 0.25, "mean_official_score": 0.2575, "mean_cross_block_messages": 0, "mean_cross_block_recoveries": 0, "mean_total_retractions": 0, "status_counts": {"FORWARD_CROSS_BLOCK_CONFLICT": 3, "SOLVED": 1}},
+        {"B": 2, "arm": "chrono", "n": 4, "solve_rate": 1.0, "mean_official_score": 1.0, "mean_cross_block_messages": 2.75, "mean_cross_block_recoveries": 2.75, "mean_total_retractions": 2.75, "status_counts": {"SOLVED": 4}},
+        {"B": 2, "arm": "cbj_oracle", "n": 4, "solve_rate": 1.0, "mean_official_score": 1.0, "mean_cross_block_messages": 2.75, "mean_cross_block_recoveries": 2.75, "mean_total_retractions": 2.75, "status_counts": {"SOLVED": 4}},
+        {"B": 2, "arm": "cbj_random", "n": 4, "solve_rate": 0.75, "mean_official_score": 0.7525, "mean_cross_block_messages": 1.75, "mean_cross_block_recoveries": 1.75, "mean_total_retractions": 7.75, "status_counts": {"NO_RECOVERY_TARGET": 1, "SOLVED": 3}},
+        {"B": 3, "arm": "forward", "n": 4, "solve_rate": 0.0, "mean_official_score": 0.01, "mean_cross_block_messages": 0, "mean_cross_block_recoveries": 0, "mean_total_retractions": 0, "status_counts": {"FORWARD_CROSS_BLOCK_CONFLICT": 4}},
+        {"B": 3, "arm": "chrono", "n": 4, "solve_rate": 1.0, "mean_official_score": 1.0, "mean_cross_block_messages": 5, "mean_cross_block_recoveries": 5, "mean_total_retractions": 5, "status_counts": {"SOLVED": 4}},
+        {"B": 3, "arm": "cbj_oracle", "n": 4, "solve_rate": 1.0, "mean_official_score": 1.0, "mean_cross_block_messages": 5, "mean_cross_block_recoveries": 5, "mean_total_retractions": 5, "status_counts": {"SOLVED": 4}},
+        {"B": 3, "arm": "cbj_random", "n": 4, "solve_rate": 0.25, "mean_official_score": 0.2575, "mean_cross_block_messages": 3.25, "mean_cross_block_recoveries": 3.25, "mean_total_retractions": 16.25, "status_counts": {"NO_RECOVERY_TARGET": 3, "SOLVED": 1}}
+      ]
+    },
+    "claim3": {
+      "columns": ["B", "cbj_messages", "chrono_messages", "cbj_solve_rate", "chrono_solve_rate", "cbj_below_chrono"],
+      "rows": [
+        {"B": 2, "cbj_messages": 2.75, "chrono_messages": 2.75, "cbj_solve_rate": 1.0, "chrono_solve_rate": 1.0, "cbj_below_chrono": false},
+        {"B": 3, "cbj_messages": 5, "chrono_messages": 5, "cbj_solve_rate": 1.0, "chrono_solve_rate": 1.0, "cbj_below_chrono": false}
+      ]
+    },
+    "claim4_capacity": {
+      "columns": ["B", "arm", "team_solve_rate", "monolith_solve_rate", "team_minus_monolith"],
+      "rows": [
+        {"B": 2, "arm": "cbj_oracle", "team_solve_rate": 1.0, "monolith_solve_rate": 1.0, "team_minus_monolith": 0.0},
+        {"B": 3, "arm": "cbj_oracle", "team_solve_rate": 1.0, "monolith_solve_rate": 1.0, "team_minus_monolith": 0.0}
+      ]
+    },
+    "bounded_view": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "bounded_view_verified", "value": true},
+        {"metric": "max_register_view_len", "value": 6},
+        {"metric": "max_prompt_chars", "value": 0}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish claim 3 or claim 4-multi. It is a controlled no-LLM dry-run proving the official graph_color partition harness runs, while showing the tested slice is not discriminating enough for a real LLM run.",
+    "instrumentation_limit": "The current chronological and cbj_oracle implementations produce identical message counts on the selected small slice; the next run needs stronger depth/separator regimes before interpreting claim 3.",
+    "capacity_limit": "The monolith baseline already solves all selected instances at R=6, so the slice cannot test team-beats-monolith capacity.",
+    "scope_limit": "cbj_llm was not run; real-LLM multi-agent remains gated on a discriminating no-LLM controlled slice."
+  }
+}

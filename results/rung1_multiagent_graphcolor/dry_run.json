@@ -1,0 +1,1799 @@
+{
+  "bounded_view": {
+    "bounded_view_verified": true,
+    "max_prompt_chars": 0,
+    "max_register_view_len": 6,
+    "provenance": "rung1_multiagent_graphcolor_bounded_view_v0",
+    "source": "autonomous_stage_a_run"
+  },
+  "budget_ledger": [
+    {
+      "arms": [
+        "forward",
+        "chrono",
+        "cbj_oracle",
+        "cbj_random"
+      ],
+      "b_values": [
+        2,
+        3
+      ],
+      "batch_size": 64,
+      "call_cap": 300,
+      "max_episode_runs": 32,
+      "n_instances": 4,
+      "provenance": "rung1_multiagent_graphcolor_budget_v0",
+      "register_limit": 6,
+      "source": "autonomous_stage_a_run"
+    }
+  ],
+  "by_arm": [
+    {
+      "B": 2,
+      "arm": "cbj_oracle",
+      "mean_cross_block_messages": 2.75,
+      "mean_cross_block_recoveries": 2.75,
+      "mean_official_score": 1.0,
+      "mean_total_retractions": 2.75,
+      "n": 4,
+      "provenance": "rung1_multiagent_graphcolor_summary_v0",
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 4
+      }
+    },
+    {
+      "B": 2,
+      "arm": "cbj_random",
+      "mean_cross_block_messages": 1.75,
+      "mean_cross_block_recoveries": 1.75,
+      "mean_official_score": 0.7525,
+      "mean_total_retractions": 7.75,
+      "n": 4,
+      "provenance": "rung1_multiagent_graphcolor_summary_v0",
+      "solve_rate": 0.75,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "NO_RECOVERY_TARGET": 1,
+        "SOLVED": 3
+      }
+    },
+    {
+      "B": 2,
+      "arm": "chrono",
+      "mean_cross_block_messages": 2.75,
+      "mean_cross_block_recoveries": 2.75,
+      "mean_official_score": 1.0,
+      "mean_total_retractions": 2.75,
+      "n": 4,
+      "provenance": "rung1_multiagent_graphcolor_summary_v0",
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 4
+      }
+    },
+    {
+      "B": 2,
+      "arm": "forward",
+      "mean_cross_block_messages": 0,
+      "mean_cross_block_recoveries": 0,
+      "mean_official_score": 0.2575,
+      "mean_total_retractions": 0,
+      "n": 4,
+      "provenance": "rung1_multiagent_graphcolor_summary_v0",
+      "solve_rate": 0.25,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "FORWARD_CROSS_BLOCK_CONFLICT": 3,
+        "SOLVED": 1
+      }
+    },
+    {
+      "B": 3,
+      "arm": "cbj_oracle",
+      "mean_cross_block_messages": 5,
+      "mean_cross_block_recoveries": 5,
+      "mean_official_score": 1.0,
+      "mean_total_retractions": 5,
+      "n": 4,
+      "provenance": "rung1_multiagent_graphcolor_summary_v0",
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 4
+      }
+    },
+    {
+      "B": 3,
+      "arm": "cbj_random",
+      "mean_cross_block_messages": 3.25,
+      "mean_cross_block_recoveries": 3.25,
+      "mean_official_score": 0.2575,
+      "mean_total_retractions": 16.25,
+      "n": 4,
+      "provenance": "rung1_multiagent_graphcolor_summary_v0",
+      "solve_rate": 0.25,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "NO_RECOVERY_TARGET": 3,
+        "SOLVED": 1
+      }
+    },
+    {
+      "B": 3,
+      "arm": "chrono",
+      "mean_cross_block_messages": 5,
+      "mean_cross_block_recoveries": 5,
+      "mean_official_score": 1.0,
+      "mean_total_retractions": 5,
+      "n": 4,
+      "provenance": "rung1_multiagent_graphcolor_summary_v0",
+      "solve_rate": 1.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SOLVED": 4
+      }
+    },
+    {
+      "B": 3,
+      "arm": "forward",
+      "mean_cross_block_messages": 0,
+      "mean_cross_block_recoveries": 0,
+      "mean_official_score": 0.01,
+      "mean_total_retractions": 0,
+      "n": 4,
+      "provenance": "rung1_multiagent_graphcolor_summary_v0",
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "FORWARD_CROSS_BLOCK_CONFLICT": 4
+      }
+    }
+  ],
+  "dataset_config": {
+    "dataset": "graph_color",
+    "edge_probability": 0.4,
+    "num_colors": 3,
+    "num_vertices": 14,
+    "official_scoring": "dataset.score_answer(answer, entry)",
+    "provenance": "rung1_multiagent_graphcolor_dataset_config_v0",
+    "seed": 42,
+    "source": "autonomous_stage_a_run"
+  },
+  "episode_rows": [
+    {
+      "B": 2,
+      "answer": "{\"0\": 1, \"1\": 2, \"10\": 3, \"11\": 3, \"12\": 1, \"13\": 3, \"2\": 1, \"3\": 2, \"4\": 2, \"5\": 1, \"6\": 1, \"7\": 2, \"8\": 3, \"9\": 2}",
+      "arm": "forward",
+      "cross_block_messages": 0,
+      "cross_block_recoveries": 0,
+      "decision_calls": 14,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 26,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 8,
+        "cross_block_edges": 6,
+        "separator_ratio_edges": 0.23076923076923078,
+        "separator_ratio_nodes": 0.5714285714285714
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SOLVED",
+      "total_retractions": 0,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": "{\"0\": 1, \"1\": 2, \"10\": 3, \"11\": 3, \"12\": 1, \"13\": 3, \"2\": 1, \"3\": 2, \"4\": 2, \"5\": 1, \"6\": 1, \"7\": 2, \"8\": 3, \"9\": 2}",
+      "arm": "chrono",
+      "cross_block_messages": 0,
+      "cross_block_recoveries": 0,
+      "decision_calls": 14,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 26,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 8,
+        "cross_block_edges": 6,
+        "separator_ratio_edges": 0.23076923076923078,
+        "separator_ratio_nodes": 0.5714285714285714
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SOLVED",
+      "total_retractions": 0,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": "{\"0\": 1, \"1\": 2, \"10\": 3, \"11\": 3, \"12\": 1, \"13\": 3, \"2\": 1, \"3\": 2, \"4\": 2, \"5\": 1, \"6\": 1, \"7\": 2, \"8\": 3, \"9\": 2}",
+      "arm": "cbj_oracle",
+      "cross_block_messages": 0,
+      "cross_block_recoveries": 0,
+      "decision_calls": 14,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 26,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 8,
+        "cross_block_edges": 6,
+        "separator_ratio_edges": 0.23076923076923078,
+        "separator_ratio_nodes": 0.5714285714285714
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SOLVED",
+      "total_retractions": 0,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": "{\"0\": 1, \"1\": 2, \"10\": 3, \"11\": 3, \"12\": 1, \"13\": 3, \"2\": 1, \"3\": 2, \"4\": 2, \"5\": 1, \"6\": 1, \"7\": 2, \"8\": 3, \"9\": 2}",
+      "arm": "cbj_random",
+      "cross_block_messages": 0,
+      "cross_block_recoveries": 0,
+      "decision_calls": 14,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 26,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 8,
+        "cross_block_edges": 6,
+        "separator_ratio_edges": 0.23076923076923078,
+        "separator_ratio_nodes": 0.5714285714285714
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SOLVED",
+      "total_retractions": 0,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": null,
+      "arm": "forward",
+      "cross_block_messages": 0,
+      "cross_block_recoveries": 0,
+      "decision_calls": 11,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 26,
+      "n_vertices": 14,
+      "official_score": 0.01,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 5,
+          "1": 4,
+          "2": 5
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 13,
+        "separator_ratio_edges": 0.5,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "FORWARD_CROSS_BLOCK_CONFLICT",
+      "total_retractions": 0,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": "{\"0\": 1, \"1\": 2, \"10\": 3, \"11\": 3, \"12\": 1, \"13\": 3, \"2\": 1, \"3\": 2, \"4\": 2, \"5\": 1, \"6\": 1, \"7\": 2, \"8\": 3, \"9\": 2}",
+      "arm": "chrono",
+      "cross_block_messages": 4,
+      "cross_block_recoveries": 4,
+      "decision_calls": 18,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 26,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 5,
+          "1": 4,
+          "2": 5
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 13,
+        "separator_ratio_edges": 0.5,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SOLVED",
+      "total_retractions": 4,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": "{\"0\": 1, \"1\": 2, \"10\": 3, \"11\": 3, \"12\": 1, \"13\": 3, \"2\": 1, \"3\": 2, \"4\": 2, \"5\": 1, \"6\": 1, \"7\": 2, \"8\": 3, \"9\": 2}",
+      "arm": "cbj_oracle",
+      "cross_block_messages": 4,
+      "cross_block_recoveries": 4,
+      "decision_calls": 18,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 26,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 5,
+          "1": 4,
+          "2": 5
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 13,
+        "separator_ratio_edges": 0.5,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "SOLVED",
+      "total_retractions": 4,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": null,
+      "arm": "cbj_random",
+      "cross_block_messages": 6,
+      "cross_block_recoveries": 6,
+      "decision_calls": 33,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 26,
+      "n_vertices": 14,
+      "official_score": 0.01,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 5,
+          "1": 4,
+          "2": 5
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 13,
+        "separator_ratio_edges": 0.5,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "NO_RECOVERY_TARGET",
+      "total_retractions": 31,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": null,
+      "arm": "forward",
+      "cross_block_messages": 0,
+      "cross_block_recoveries": 0,
+      "decision_calls": 8,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 25,
+      "n_vertices": 14,
+      "official_score": 0.01,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 12,
+        "cross_block_edges": 10,
+        "separator_ratio_edges": 0.4,
+        "separator_ratio_nodes": 0.8571428571428571
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 5,
+      "status": "FORWARD_CROSS_BLOCK_CONFLICT",
+      "total_retractions": 0,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": "{\"0\": 1, \"1\": 3, \"10\": 3, \"11\": 3, \"12\": 1, \"13\": 3, \"2\": 2, \"3\": 2, \"4\": 2, \"5\": 2, \"6\": 1, \"7\": 1, \"8\": 3, \"9\": 2}",
+      "arm": "chrono",
+      "cross_block_messages": 5,
+      "cross_block_recoveries": 5,
+      "decision_calls": 19,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 25,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 12,
+        "cross_block_edges": 10,
+        "separator_ratio_edges": 0.4,
+        "separator_ratio_nodes": 0.8571428571428571
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 5,
+      "status": "SOLVED",
+      "total_retractions": 5,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": "{\"0\": 1, \"1\": 3, \"10\": 3, \"11\": 3, \"12\": 1, \"13\": 3, \"2\": 2, \"3\": 2, \"4\": 2, \"5\": 2, \"6\": 1, \"7\": 1, \"8\": 3, \"9\": 2}",
+      "arm": "cbj_oracle",
+      "cross_block_messages": 5,
+      "cross_block_recoveries": 5,
+      "decision_calls": 19,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 25,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 12,
+        "cross_block_edges": 10,
+        "separator_ratio_edges": 0.4,
+        "separator_ratio_nodes": 0.8571428571428571
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 5,
+      "status": "SOLVED",
+      "total_retractions": 5,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": "{\"0\": 1, \"1\": 3, \"10\": 3, \"11\": 3, \"12\": 1, \"13\": 3, \"2\": 2, \"3\": 2, \"4\": 2, \"5\": 2, \"6\": 1, \"7\": 1, \"8\": 3, \"9\": 2}",
+      "arm": "cbj_random",
+      "cross_block_messages": 5,
+      "cross_block_recoveries": 5,
+      "decision_calls": 19,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 25,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 12,
+        "cross_block_edges": 10,
+        "separator_ratio_edges": 0.4,
+        "separator_ratio_nodes": 0.8571428571428571
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 5,
+      "status": "SOLVED",
+      "total_retractions": 5,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": null,
+      "arm": "forward",
+      "cross_block_messages": 0,
+      "cross_block_recoveries": 0,
+      "decision_calls": 5,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 3,
+      "n_edges": 25,
+      "n_vertices": 14,
+      "official_score": 0.01,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 4,
+          "1": 5,
+          "2": 5
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 16,
+        "separator_ratio_edges": 0.64,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 5,
+      "status": "FORWARD_CROSS_BLOCK_CONFLICT",
+      "total_retractions": 0,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": "{\"0\": 1, \"1\": 3, \"10\": 3, \"11\": 3, \"12\": 1, \"13\": 3, \"2\": 2, \"3\": 2, \"4\": 2, \"5\": 2, \"6\": 1, \"7\": 1, \"8\": 3, \"9\": 2}",
+      "arm": "chrono",
+      "cross_block_messages": 8,
+      "cross_block_recoveries": 8,
+      "decision_calls": 22,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 25,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 4,
+          "1": 5,
+          "2": 5
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 16,
+        "separator_ratio_edges": 0.64,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 5,
+      "status": "SOLVED",
+      "total_retractions": 8,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": "{\"0\": 1, \"1\": 3, \"10\": 3, \"11\": 3, \"12\": 1, \"13\": 3, \"2\": 2, \"3\": 2, \"4\": 2, \"5\": 2, \"6\": 1, \"7\": 1, \"8\": 3, \"9\": 2}",
+      "arm": "cbj_oracle",
+      "cross_block_messages": 8,
+      "cross_block_recoveries": 8,
+      "decision_calls": 22,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 25,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 4,
+          "1": 5,
+          "2": 5
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 16,
+        "separator_ratio_edges": 0.64,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 5,
+      "status": "SOLVED",
+      "total_retractions": 8,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": null,
+      "arm": "cbj_random",
+      "cross_block_messages": 3,
+      "cross_block_recoveries": 3,
+      "decision_calls": 15,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 3,
+      "n_edges": 25,
+      "n_vertices": 14,
+      "official_score": 0.01,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 4,
+          "1": 5,
+          "2": 5
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 16,
+        "separator_ratio_edges": 0.64,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 5,
+      "status": "NO_RECOVERY_TARGET",
+      "total_retractions": 15,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": null,
+      "arm": "forward",
+      "cross_block_messages": 0,
+      "cross_block_recoveries": 0,
+      "decision_calls": 14,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 27,
+      "n_vertices": 14,
+      "official_score": 0.01,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 13,
+        "separator_ratio_edges": 0.48148148148148145,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 7,
+      "status": "FORWARD_CROSS_BLOCK_CONFLICT",
+      "total_retractions": 0,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": "{\"0\": 2, \"1\": 2, \"10\": 1, \"11\": 2, \"12\": 3, \"13\": 2, \"2\": 2, \"3\": 2, \"4\": 2, \"5\": 1, \"6\": 1, \"7\": 3, \"8\": 1, \"9\": 1}",
+      "arm": "chrono",
+      "cross_block_messages": 1,
+      "cross_block_recoveries": 1,
+      "decision_calls": 15,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 27,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 13,
+        "separator_ratio_edges": 0.48148148148148145,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 7,
+      "status": "SOLVED",
+      "total_retractions": 1,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": "{\"0\": 2, \"1\": 2, \"10\": 1, \"11\": 2, \"12\": 3, \"13\": 2, \"2\": 2, \"3\": 2, \"4\": 2, \"5\": 1, \"6\": 1, \"7\": 3, \"8\": 1, \"9\": 1}",
+      "arm": "cbj_oracle",
+      "cross_block_messages": 1,
+      "cross_block_recoveries": 1,
+      "decision_calls": 15,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 27,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 13,
+        "separator_ratio_edges": 0.48148148148148145,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 7,
+      "status": "SOLVED",
+      "total_retractions": 1,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": "{\"0\": 2, \"1\": 2, \"10\": 1, \"11\": 2, \"12\": 3, \"13\": 2, \"2\": 1, \"3\": 2, \"4\": 2, \"5\": 3, \"6\": 1, \"7\": 3, \"8\": 1, \"9\": 1}",
+      "arm": "cbj_random",
+      "cross_block_messages": 1,
+      "cross_block_recoveries": 1,
+      "decision_calls": 22,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 27,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 13,
+        "separator_ratio_edges": 0.48148148148148145,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 7,
+      "status": "SOLVED",
+      "total_retractions": 8,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": null,
+      "arm": "forward",
+      "cross_block_messages": 0,
+      "cross_block_recoveries": 0,
+      "decision_calls": 6,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 27,
+      "n_vertices": 14,
+      "official_score": 0.01,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 5,
+          "1": 5,
+          "2": 4
+        },
+        "boundary_nodes": 13,
+        "cross_block_edges": 14,
+        "separator_ratio_edges": 0.5185185185185185,
+        "separator_ratio_nodes": 0.9285714285714286
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 7,
+      "status": "FORWARD_CROSS_BLOCK_CONFLICT",
+      "total_retractions": 0,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": "{\"0\": 2, \"1\": 2, \"10\": 1, \"11\": 2, \"12\": 3, \"13\": 2, \"2\": 2, \"3\": 2, \"4\": 2, \"5\": 1, \"6\": 1, \"7\": 3, \"8\": 1, \"9\": 1}",
+      "arm": "chrono",
+      "cross_block_messages": 1,
+      "cross_block_recoveries": 1,
+      "decision_calls": 15,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 27,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 5,
+          "1": 5,
+          "2": 4
+        },
+        "boundary_nodes": 13,
+        "cross_block_edges": 14,
+        "separator_ratio_edges": 0.5185185185185185,
+        "separator_ratio_nodes": 0.9285714285714286
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 7,
+      "status": "SOLVED",
+      "total_retractions": 1,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": "{\"0\": 2, \"1\": 2, \"10\": 1, \"11\": 2, \"12\": 3, \"13\": 2, \"2\": 2, \"3\": 2, \"4\": 2, \"5\": 1, \"6\": 1, \"7\": 3, \"8\": 1, \"9\": 1}",
+      "arm": "cbj_oracle",
+      "cross_block_messages": 1,
+      "cross_block_recoveries": 1,
+      "decision_calls": 15,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 27,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 5,
+          "1": 5,
+          "2": 4
+        },
+        "boundary_nodes": 13,
+        "cross_block_edges": 14,
+        "separator_ratio_edges": 0.5185185185185185,
+        "separator_ratio_nodes": 0.9285714285714286
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 7,
+      "status": "SOLVED",
+      "total_retractions": 1,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": "{\"0\": 2, \"1\": 2, \"10\": 1, \"11\": 2, \"12\": 3, \"13\": 2, \"2\": 2, \"3\": 2, \"4\": 2, \"5\": 1, \"6\": 1, \"7\": 3, \"8\": 1, \"9\": 1}",
+      "arm": "cbj_random",
+      "cross_block_messages": 1,
+      "cross_block_recoveries": 1,
+      "decision_calls": 15,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 27,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 5,
+          "1": 5,
+          "2": 4
+        },
+        "boundary_nodes": 13,
+        "cross_block_edges": 14,
+        "separator_ratio_edges": 0.5185185185185185,
+        "separator_ratio_nodes": 0.9285714285714286
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 7,
+      "status": "SOLVED",
+      "total_retractions": 1,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": null,
+      "arm": "forward",
+      "cross_block_messages": 0,
+      "cross_block_recoveries": 0,
+      "decision_calls": 8,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 35,
+      "n_vertices": 14,
+      "official_score": 0.01,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 18,
+        "separator_ratio_edges": 0.5142857142857142,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 8,
+      "status": "FORWARD_CROSS_BLOCK_CONFLICT",
+      "total_retractions": 0,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": "{\"0\": 1, \"1\": 2, \"10\": 1, \"11\": 3, \"12\": 2, \"13\": 2, \"2\": 1, \"3\": 3, \"4\": 1, \"5\": 1, \"6\": 3, \"7\": 2, \"8\": 2, \"9\": 2}",
+      "arm": "chrono",
+      "cross_block_messages": 5,
+      "cross_block_recoveries": 5,
+      "decision_calls": 19,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 35,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 18,
+        "separator_ratio_edges": 0.5142857142857142,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 8,
+      "status": "SOLVED",
+      "total_retractions": 5,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": "{\"0\": 1, \"1\": 2, \"10\": 1, \"11\": 3, \"12\": 2, \"13\": 2, \"2\": 1, \"3\": 3, \"4\": 1, \"5\": 1, \"6\": 3, \"7\": 2, \"8\": 2, \"9\": 2}",
+      "arm": "cbj_oracle",
+      "cross_block_messages": 5,
+      "cross_block_recoveries": 5,
+      "decision_calls": 19,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 35,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 18,
+        "separator_ratio_edges": 0.5142857142857142,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 8,
+      "status": "SOLVED",
+      "total_retractions": 5,
+      "valid_decisions": 0
+    },
+    {
+      "B": 2,
+      "answer": null,
+      "arm": "cbj_random",
+      "cross_block_messages": 1,
+      "cross_block_recoveries": 1,
+      "decision_calls": 18,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 6,
+      "n_edges": 35,
+      "n_vertices": 14,
+      "official_score": 0.01,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 2,
+        "block_sizes": {
+          "0": 7,
+          "1": 7
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 18,
+        "separator_ratio_edges": 0.5142857142857142,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 8,
+      "status": "NO_RECOVERY_TARGET",
+      "total_retractions": 18,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": null,
+      "arm": "forward",
+      "cross_block_messages": 0,
+      "cross_block_recoveries": 0,
+      "decision_calls": 6,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 35,
+      "n_vertices": 14,
+      "official_score": 0.01,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 5,
+          "1": 4,
+          "2": 5
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 23,
+        "separator_ratio_edges": 0.6571428571428571,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 8,
+      "status": "FORWARD_CROSS_BLOCK_CONFLICT",
+      "total_retractions": 0,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": "{\"0\": 1, \"1\": 2, \"10\": 1, \"11\": 3, \"12\": 2, \"13\": 2, \"2\": 1, \"3\": 3, \"4\": 1, \"5\": 1, \"6\": 3, \"7\": 2, \"8\": 2, \"9\": 2}",
+      "arm": "chrono",
+      "cross_block_messages": 7,
+      "cross_block_recoveries": 7,
+      "decision_calls": 21,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 35,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 5,
+          "1": 4,
+          "2": 5
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 23,
+        "separator_ratio_edges": 0.6571428571428571,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 8,
+      "status": "SOLVED",
+      "total_retractions": 7,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": "{\"0\": 1, \"1\": 2, \"10\": 1, \"11\": 3, \"12\": 2, \"13\": 2, \"2\": 1, \"3\": 3, \"4\": 1, \"5\": 1, \"6\": 3, \"7\": 2, \"8\": 2, \"9\": 2}",
+      "arm": "cbj_oracle",
+      "cross_block_messages": 7,
+      "cross_block_recoveries": 7,
+      "decision_calls": 21,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 35,
+      "n_vertices": 14,
+      "official_score": 1.0,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 5,
+          "1": 4,
+          "2": 5
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 23,
+        "separator_ratio_edges": 0.6571428571428571,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": true,
+      "source": "autonomous_stage_a_run",
+      "source_index": 8,
+      "status": "SOLVED",
+      "total_retractions": 7,
+      "valid_decisions": 0
+    },
+    {
+      "B": 3,
+      "answer": null,
+      "arm": "cbj_random",
+      "cross_block_messages": 3,
+      "cross_block_recoveries": 3,
+      "decision_calls": 18,
+      "llm_calls": 0,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 4,
+      "n_edges": 35,
+      "n_vertices": 14,
+      "official_score": 0.01,
+      "parseable_decisions": 0,
+      "partition": {
+        "B": 3,
+        "block_sizes": {
+          "0": 5,
+          "1": 4,
+          "2": 5
+        },
+        "boundary_nodes": 14,
+        "cross_block_edges": 23,
+        "separator_ratio_edges": 0.6571428571428571,
+        "separator_ratio_nodes": 1.0
+      },
+      "provenance": "rung1_multiagent_graphcolor_episode_v0",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 8,
+      "status": "NO_RECOVERY_TARGET",
+      "total_retractions": 18,
+      "valid_decisions": 0
+    }
+  ],
+  "generated_at": "2026-06-13T02:41:51.861791+00:00",
+  "headline": {
+    "claim3_determination": "honest_negative_or_underpowered",
+    "claim4_multi_capacity": "honest_negative_or_not_discriminating",
+    "single_next_move": "If no-LLM controlled gates discriminate, start vLLM and run cbj_llm culprit arm on the same Reasoning Gym partitions."
+  },
+  "monolith_baseline": {
+    "provenance": "rung1_multiagent_graphcolor_monolith_summary_v0",
+    "rows": [
+      {
+        "R": 6,
+        "official_score": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_monolith_v0",
+        "solved": true,
+        "source": "autonomous_stage_a_run",
+        "source_index": 0,
+        "status": "SOLVED"
+      },
+      {
+        "R": 6,
+        "official_score": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_monolith_v0",
+        "solved": true,
+        "source": "autonomous_stage_a_run",
+        "source_index": 5,
+        "status": "SOLVED"
+      },
+      {
+        "R": 6,
+        "official_score": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_monolith_v0",
+        "solved": true,
+        "source": "autonomous_stage_a_run",
+        "source_index": 7,
+        "status": "SOLVED"
+      },
+      {
+        "R": 6,
+        "official_score": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_monolith_v0",
+        "solved": true,
+        "source": "autonomous_stage_a_run",
+        "source_index": 8,
+        "status": "SOLVED"
+      }
+    ],
+    "solve_rate": 1.0,
+    "source": "autonomous_stage_a_run"
+  },
+  "partition": {
+    "b_values": [
+      2,
+      3
+    ],
+    "provenance": "rung1_multiagent_graphcolor_partition_v0",
+    "rows": [
+      {
+        "provenance": "rung1_multiagent_graphcolor_preflight_row_v0",
+        "selected": true,
+        "source": "autonomous_stage_a_run",
+        "source_index": 0,
+        "stats_by_B": [
+          {
+            "B": 2,
+            "block_sizes": {
+              "0": 7,
+              "1": 7
+            },
+            "boundary_nodes": 8,
+            "cross_block_edges": 6,
+            "cross_block_recoveries": 0,
+            "dry_score": 1.0,
+            "dry_status": "SOLVED",
+            "separator_ratio_edges": 0.23076923076923078,
+            "separator_ratio_nodes": 0.5714285714285714
+          },
+          {
+            "B": 3,
+            "block_sizes": {
+              "0": 5,
+              "1": 4,
+              "2": 5
+            },
+            "boundary_nodes": 14,
+            "cross_block_edges": 13,
+            "cross_block_recoveries": 4,
+            "dry_score": 1.0,
+            "dry_status": "SOLVED",
+            "separator_ratio_edges": 0.5,
+            "separator_ratio_nodes": 1.0
+          }
+        ]
+      },
+      {
+        "provenance": "rung1_multiagent_graphcolor_preflight_row_v0",
+        "selected": false,
+        "source": "autonomous_stage_a_run",
+        "source_index": 1,
+        "stats_by_B": [
+          {
+            "B": 2,
+            "block_sizes": {
+              "0": 7,
+              "1": 7
+            },
+            "boundary_nodes": 12,
+            "cross_block_edges": 8,
+            "cross_block_recoveries": 3,
+            "dry_score": 0.01,
+            "dry_status": "NO_RECOVERY_TARGET",
+            "separator_ratio_edges": 0.3076923076923077,
+            "separator_ratio_nodes": 0.8571428571428571
+          },
+          {
+            "B": 3,
+            "block_sizes": {
+              "0": 5,
+              "1": 5,
+              "2": 4
+            },
+            "boundary_nodes": 13,
+            "cross_block_edges": 13,
+            "cross_block_recoveries": 7,
+            "dry_score": 0.01,
+            "dry_status": "NO_RECOVERY_TARGET",
+            "separator_ratio_edges": 0.5,
+            "separator_ratio_nodes": 0.9285714285714286
+          }
+        ]
+      },
+      {
+        "provenance": "rung1_multiagent_graphcolor_preflight_row_v0",
+        "selected": false,
+        "source": "autonomous_stage_a_run",
+        "source_index": 2,
+        "stats_by_B": [
+          {
+            "B": 2,
+            "block_sizes": {
+              "0": 7,
+              "1": 7
+            },
+            "boundary_nodes": 13,
+            "cross_block_edges": 11,
+            "cross_block_recoveries": 3,
+            "dry_score": 0.01,
+            "dry_status": "NO_RECOVERY_TARGET",
+            "separator_ratio_edges": 0.36666666666666664,
+            "separator_ratio_nodes": 0.9285714285714286
+          },
+          {
+            "B": 3,
+            "block_sizes": {
+              "0": 5,
+              "1": 4,
+              "2": 5
+            },
+            "boundary_nodes": 13,
+            "cross_block_edges": 17,
+            "cross_block_recoveries": 3,
+            "dry_score": 0.01,
+            "dry_status": "NO_RECOVERY_TARGET",
+            "separator_ratio_edges": 0.5666666666666667,
+            "separator_ratio_nodes": 0.9285714285714286
+          }
+        ]
+      },
+      {
+        "provenance": "rung1_multiagent_graphcolor_preflight_row_v0",
+        "selected": false,
+        "source": "autonomous_stage_a_run",
+        "source_index": 3,
+        "stats_by_B": [
+          {
+            "B": 2,
+            "block_sizes": {
+              "0": 7,
+              "1": 7
+            },
+            "boundary_nodes": 14,
+            "cross_block_edges": 18,
+            "cross_block_recoveries": 4,
+            "dry_score": 0.01,
+            "dry_status": "NO_RECOVERY_TARGET",
+            "separator_ratio_edges": 0.5142857142857142,
+            "separator_ratio_nodes": 1.0
+          },
+          {
+            "B": 3,
+            "block_sizes": {
+              "0": 4,
+              "1": 5,
+              "2": 5
+            },
+            "boundary_nodes": 14,
+            "cross_block_edges": 21,
+            "cross_block_recoveries": 8,
+            "dry_score": 0.01,
+            "dry_status": "NO_RECOVERY_TARGET",
+            "separator_ratio_edges": 0.6,
+            "separator_ratio_nodes": 1.0
+          }
+        ]
+      },
+      {
+        "provenance": "rung1_multiagent_graphcolor_preflight_row_v0",
+        "selected": false,
+        "source": "autonomous_stage_a_run",
+        "source_index": 4,
+        "stats_by_B": [
+          {
+            "B": 2,
+            "block_sizes": {
+              "0": 7,
+              "1": 7
+            },
+            "boundary_nodes": 9,
+            "cross_block_edges": 6,
+            "cross_block_recoveries": 1,
+            "dry_score": 0.01,
+            "dry_status": "NO_RECOVERY_TARGET",
+            "separator_ratio_edges": 0.2222222222222222,
+            "separator_ratio_nodes": 0.6428571428571429
+          },
+          {
+            "B": 3,
+            "block_sizes": {
+              "0": 4,
+              "1": 5,
+              "2": 5
+            },
+            "boundary_nodes": 14,
+            "cross_block_edges": 13,
+            "cross_block_recoveries": 1,
+            "dry_score": 0.01,
+            "dry_status": "NO_RECOVERY_TARGET",
+            "separator_ratio_edges": 0.48148148148148145,
+            "separator_ratio_nodes": 1.0
+          }
+        ]
+      },
+      {
+        "provenance": "rung1_multiagent_graphcolor_preflight_row_v0",
+        "selected": true,
+        "source": "autonomous_stage_a_run",
+        "source_index": 5,
+        "stats_by_B": [
+          {
+            "B": 2,
+            "block_sizes": {
+              "0": 7,
+              "1": 7
+            },
+            "boundary_nodes": 12,
+            "cross_block_edges": 10,
+            "cross_block_recoveries": 5,
+            "dry_score": 1.0,
+            "dry_status": "SOLVED",
+            "separator_ratio_edges": 0.4,
+            "separator_ratio_nodes": 0.8571428571428571
+          },
+          {
+            "B": 3,
+            "block_sizes": {
+              "0": 4,
+              "1": 5,
+              "2": 5
+            },
+            "boundary_nodes": 14,
+            "cross_block_edges": 16,
+            "cross_block_recoveries": 8,
+            "dry_score": 1.0,
+            "dry_status": "SOLVED",
+            "separator_ratio_edges": 0.64,
+            "separator_ratio_nodes": 1.0
+          }
+        ]
+      },
+      {
+        "provenance": "rung1_multiagent_graphcolor_preflight_row_v0",
+        "selected": false,
+        "source": "autonomous_stage_a_run",
+        "source_index": 6,
+        "stats_by_B": [
+          {
+            "B": 2,
+            "block_sizes": {
+              "0": 7,
+              "1": 7
+            },
+            "boundary_nodes": 13,
+            "cross_block_edges": 9,
+            "cross_block_recoveries": 4,
+            "dry_score": 0.01,
+            "dry_status": "NO_RECOVERY_TARGET",
+            "separator_ratio_edges": 0.32142857142857145,
+            "separator_ratio_nodes": 0.9285714285714286
+          },
+          {
+            "B": 3,
+            "block_sizes": {
+              "0": 4,
+              "1": 5,
+              "2": 5
+            },
+            "boundary_nodes": 14,
+            "cross_block_edges": 16,
+            "cross_block_recoveries": 4,
+            "dry_score": 0.01,
+            "dry_status": "NO_RECOVERY_TARGET",
+            "separator_ratio_edges": 0.5714285714285714,
+            "separator_ratio_nodes": 1.0
+          }
+        ]
+      },
+      {
+        "provenance": "rung1_multiagent_graphcolor_preflight_row_v0",
+        "selected": true,
+        "source": "autonomous_stage_a_run",
+        "source_index": 7,
+        "stats_by_B": [
+          {
+            "B": 2,
+            "block_sizes": {
+              "0": 7,
+              "1": 7
+            },
+            "boundary_nodes": 14,
+            "cross_block_edges": 13,
+            "cross_block_recoveries": 1,
+            "dry_score": 1.0,
+            "dry_status": "SOLVED",
+            "separator_ratio_edges": 0.48148148148148145,
+            "separator_ratio_nodes": 1.0
+          },
+          {
+            "B": 3,
+            "block_sizes": {
+              "0": 5,
+              "1": 5,
+              "2": 4
+            },
+            "boundary_nodes": 13,
+            "cross_block_edges": 14,
+            "cross_block_recoveries": 1,
+            "dry_score": 1.0,
+            "dry_status": "SOLVED",
+            "separator_ratio_edges": 0.5185185185185185,
+            "separator_ratio_nodes": 0.9285714285714286
+          }
+        ]
+      },
+      {
+        "provenance": "rung1_multiagent_graphcolor_preflight_row_v0",
+        "selected": true,
+        "source": "autonomous_stage_a_run",
+        "source_index": 8,
+        "stats_by_B": [
+          {
+            "B": 2,
+            "block_sizes": {
+              "0": 7,
+              "1": 7
+            },
+            "boundary_nodes": 14,
+            "cross_block_edges": 18,
+            "cross_block_recoveries": 5,
+            "dry_score": 1.0,
+            "dry_status": "SOLVED",
+            "separator_ratio_edges": 0.5142857142857142,
+            "separator_ratio_nodes": 1.0
+          },
+          {
+            "B": 3,
+            "block_sizes": {
+              "0": 5,
+              "1": 4,
+              "2": 5
+            },
+            "boundary_nodes": 14,
+            "cross_block_edges": 23,
+            "cross_block_recoveries": 7,
+            "dry_score": 1.0,
+            "dry_status": "SOLVED",
+            "separator_ratio_edges": 0.6571428571428571,
+            "separator_ratio_nodes": 1.0
+          }
+        ]
+      }
+    ],
+    "selected_source_indices": [
+      0,
+      5,
+      7,
+      8
+    ],
+    "source": "autonomous_stage_a_run"
+  },
+  "preflight": {
+    "min_cross_backtracks": 1,
+    "official_scoring_only": true,
+    "provenance": "rung1_multiagent_graphcolor_preflight_v0",
+    "selected_instances": 4,
+    "source": "autonomous_stage_a_run"
+  },
+  "provenance": "rung1_multiagent_graphcolor_v0",
+  "schema_version": "rung1_multiagent_graphcolor_v0",
+  "source": "autonomous_stage_a_run",
+  "status": "RUNG1_MULTIAGENT_GRAPHCOLOR_COMPLETE",
+  "trackM1_claim3": {
+    "claim3_verdict": "honest_negative_or_underpowered",
+    "provenance": "rung1_multiagent_graphcolor_trackM1_v0",
+    "rows": [
+      {
+        "B": 2,
+        "cbj_below_chrono": false,
+        "cbj_messages": 2.75,
+        "cbj_solve_rate": 1.0,
+        "chrono_messages": 2.75,
+        "chrono_solve_rate": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_claim3_row_v0",
+        "source": "autonomous_stage_a_run"
+      },
+      {
+        "B": 3,
+        "cbj_below_chrono": false,
+        "cbj_messages": 5,
+        "cbj_solve_rate": 1.0,
+        "chrono_messages": 5,
+        "chrono_solve_rate": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_claim3_row_v0",
+        "source": "autonomous_stage_a_run"
+      }
+    ],
+    "source": "autonomous_stage_a_run"
+  },
+  "trackM2A_capacity": {
+    "claim4_capacity_verdict": "honest_negative_or_not_discriminating",
+    "provenance": "rung1_multiagent_graphcolor_trackM2A_v0",
+    "rows": [
+      {
+        "B": 2,
+        "arm": "cbj_oracle",
+        "monolith_solve_rate": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_team_vs_monolith_v0",
+        "source": "autonomous_stage_a_run",
+        "team_minus_monolith": 0.0,
+        "team_solve_rate": 1.0
+      },
+      {
+        "B": 3,
+        "arm": "cbj_oracle",
+        "monolith_solve_rate": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_team_vs_monolith_v0",
+        "source": "autonomous_stage_a_run",
+        "team_minus_monolith": 0.0,
+        "team_solve_rate": 1.0
+      }
+    ],
+    "source": "autonomous_stage_a_run"
+  },
+  "trackM2B_culprit": {
+    "claim4_culprit_verdict": "recorded",
+    "provenance": "rung1_multiagent_graphcolor_trackM2B_v0",
+    "rows": [
+      {
+        "B": 2,
+        "arm": "cbj_oracle",
+        "mean_cross_block_messages": 2.75,
+        "mean_cross_block_recoveries": 2.75,
+        "mean_official_score": 1.0,
+        "mean_total_retractions": 2.75,
+        "n": 4,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 4
+        }
+      },
+      {
+        "B": 2,
+        "arm": "cbj_random",
+        "mean_cross_block_messages": 1.75,
+        "mean_cross_block_recoveries": 1.75,
+        "mean_official_score": 0.7525,
+        "mean_total_retractions": 7.75,
+        "n": 4,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 0.75,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 1,
+          "SOLVED": 3
+        }
+      },
+      {
+        "B": 2,
+        "arm": "chrono",
+        "mean_cross_block_messages": 2.75,
+        "mean_cross_block_recoveries": 2.75,
+        "mean_official_score": 1.0,
+        "mean_total_retractions": 2.75,
+        "n": 4,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 4
+        }
+      },
+      {
+        "B": 3,
+        "arm": "cbj_oracle",
+        "mean_cross_block_messages": 5,
+        "mean_cross_block_recoveries": 5,
+        "mean_official_score": 1.0,
+        "mean_total_retractions": 5,
+        "n": 4,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 4
+        }
+      },
+      {
+        "B": 3,
+        "arm": "cbj_random",
+        "mean_cross_block_messages": 3.25,
+        "mean_cross_block_recoveries": 3.25,
+        "mean_official_score": 0.2575,
+        "mean_total_retractions": 16.25,
+        "n": 4,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 0.25,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 3,
+          "SOLVED": 1
+        }
+      },
+      {
+        "B": 3,
+        "arm": "chrono",
+        "mean_cross_block_messages": 5,
+        "mean_cross_block_recoveries": 5,
+        "mean_official_score": 1.0,
+        "mean_total_retractions": 5,
+        "n": 4,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 4
+        }
+      }
+    ],
+    "source": "autonomous_stage_a_run"
+  }
+}
