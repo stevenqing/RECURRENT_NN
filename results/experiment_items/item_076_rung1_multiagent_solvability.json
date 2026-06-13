@@ -9,6 +9,7 @@
     "source": "autonomous_stage_a_run",
     "result_artifact": "results/rung1_multiagent_solvability/results.json",
     "closeout_artifact": "results/rung1_multiagent_solvability/closeout.json",
+    "distance_slope_reanalysis_artifact": "results/rung1_multiagent_solvability/distance_slope_reanalysis.json",
     "script": "analysis/rung1_multiagent_solvability.py",
     "parent_item": "075"
   },
@@ -16,7 +17,8 @@
     "results/experiment_items/item_076_rung1_multiagent_solvability.json",
     "analysis/rung1_multiagent_solvability.py",
     "results/rung1_multiagent_solvability/results.json",
-    "results/rung1_multiagent_solvability/closeout.json"
+    "results/rung1_multiagent_solvability/closeout.json",
+    "results/rung1_multiagent_solvability/distance_slope_reanalysis.json"
   ],
   "code_added_used": [
     {
@@ -62,6 +64,11 @@
         "gate": "track2_efficiency_fallback",
         "outcome": "SECONDARY_PASS_NO_SOLVABILITY_ADVANTAGE",
         "number": "both_solve_work_invariant_pass=true; both_solve_efficiency_pass=true; claim3_positive=false because complete CBJ does not beat complete chrono on solve-rate"
+      },
+      {
+        "gate": "track2_distance_slope_reanalysis",
+        "outcome": "DENSE_SCOPING_CONFIRMED",
+        "number": "read-only corrected-slice OLS total_work~max_conflict_distance: cbj_slope=0.4867, chrono_slope=0.6018, chrono_minus_cbj=0.1150, cbj_r2=0.0209, chrono_r2=0.0308; cbj approximately chrono, not cbj flat / chrono rising"
       },
       {
         "gate": "track2_real_llm_gate",
@@ -114,7 +121,11 @@
         {"metric": "cbj_exhausted_on_sat", "value": 0},
         {"metric": "same_register_budget", "value": true},
         {"metric": "both_solve_work_invariant_pass", "value": true},
-        {"metric": "both_solve_efficiency_pass", "value": true}
+        {"metric": "both_solve_efficiency_pass", "value": true},
+        {"metric": "distance_slope_verdict", "value": "dense_scoping_confirmed"},
+        {"metric": "cbj_work_vs_distance_slope", "value": 0.48672566371681414},
+        {"metric": "chrono_work_vs_distance_slope", "value": 0.6017699115044246},
+        {"metric": "chrono_minus_cbj_slope", "value": 0.11504424778761047}
       ]
     },
     "track1_capacity_intersection": {
@@ -136,8 +147,8 @@
     }
   },
   "honesty": {
-    "does_not_establish": "This item does not establish a uniform positive dense graph_color solve-rate advantage for claim 3. After reference-style complete CBJ, CBJ and chrono both solve all swept distant-culprit instances at every budget; CBJ does not beat chrono on solve rate.",
-    "track2_limit": "Claim 3 is banked as structure-dependent scoping: mechanism confirmed on controlled/separator structure, but dense graph_color does not exhibit a CBJ solve-rate separation after completeness is fixed.",
+    "does_not_establish": "This item does not establish a uniform positive dense graph_color solve-rate or work-vs-distance advantage for claim 3. After reference-style complete CBJ, CBJ and chrono both solve all swept distant-culprit instances at every budget; a read-only slope analysis gives cbj_slope=0.4867 and chrono_slope=0.6018, which is cbj approximately chrono rather than cbj flat / chrono rising.",
+    "track2_limit": "Claim 3 is banked as structure-dependent scoping: mechanism confirmed on controlled/separator structure, but dense graph_color does not exhibit a CBJ solve-rate separation or strong work-vs-distance slope separation after completeness is fixed.",
     "track1_scope": "The capacity result is evaluated only on monolith-fail and static-team-feasible intersection rows, with monolith baseline using the same R and same official-scored instances.",
     "scope_limit": "All closeout results are no-LLM official Reasoning Gym graph_color scoring. The multi-agent instrument cycle is stopped; optional real-LLM work is limited to a claim-4 capacity datapoint."
   }

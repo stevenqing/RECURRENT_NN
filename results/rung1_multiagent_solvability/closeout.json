@@ -4,6 +4,7 @@
   "source": "autonomous_stage_a_run",
   "provenance": "final_cbj_completeness_and_banked_verdict_v0",
   "parent_artifact": "results/rung1_multiagent_solvability/results.json",
+  "distance_slope_reanalysis_artifact": "results/rung1_multiagent_solvability/distance_slope_reanalysis.json",
   "hard_stop": true,
   "cbj_completeness": {
     "verified_on_distant_sat": true,
@@ -27,6 +28,16 @@
     "n_separation_pairs": 0,
     "n_both_solve_pairs": 60,
     "both_solve_work_invariant_pass": true,
+    "distance_slope_reanalysis": {
+      "x": "max_conflict_distance",
+      "y": "total_work",
+      "cbj_slope": 0.48672566371681414,
+      "chrono_slope": 0.6017699115044246,
+      "chrono_minus_cbj_slope": 0.11504424778761047,
+      "cbj_r2": 0.020865090806254427,
+      "chrono_r2": 0.030813519564986125,
+      "verdict": "dense_scoping_confirmed"
+    },
     "interpretation": "Complete CBJ does not beat complete chrono on dense Reasoning Gym graph_color. Bank claim 3 as structure-dependent scoping: mechanism confirmed on controlled/separator structure, not a uniform dense graph_color advantage."
   },
   "track1_claim4_final": {
@@ -40,11 +51,11 @@
   "consolidated_multiagent_verdict": {
     "single_agent_claims_1_2": "positive on real LLM in Item070",
     "claim4_capacity_multiagent": "positive",
-    "claim3_cbj_coordination": "structure-dependent scoping; confirmed on controlled anchor and separator substrate, not manifesting as dense graph_color solve-rate advantage",
+    "claim3_cbj_coordination": "structure-dependent scoping; confirmed on controlled anchor and separator substrate, not manifesting as dense graph_color solve-rate or work-vs-distance advantage",
     "instrument_cycle": "STOP"
   },
   "honesty": {
     "binding_closeout": "Do not re-engineer the dense graph_color slice toward claim3 positivity; this is the final CBJ completeness fix and banked readout.",
-    "publishable_map": "The result is a holds-here, not-there map: capacity is positive, while CBJ coordination advantage depends on separable conflict structure."
+    "publishable_map": "The result is a holds-here, not-there map: capacity is positive, while CBJ coordination advantage depends on separable conflict structure. A read-only work-vs-distance reanalysis on the corrected dense slice confirms cbj approximately chrono rather than cbj flat / chrono rising."
   }
 }

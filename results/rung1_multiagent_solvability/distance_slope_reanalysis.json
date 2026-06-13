@@ -1,0 +1,74 @@
+{
+  "schema_version": "rung1_multiagent_distance_slope_reanalysis_v0",
+  "status": "RUNG1_MULTIAGENT_DISTANCE_SLOPE_REANALYSIS_COMPLETE",
+  "source": "autonomous_stage_a_run",
+  "provenance": "read_only_corrected_cbj_slice_reanalysis_v0",
+  "parent_artifact": "results/rung1_multiagent_solvability/results.json",
+  "hard_stop_respected": true,
+  "instrument_changes": "none",
+  "analysis_target": "claim3 original efficiency observable on the corrected dense graph_color distant-conflict slice",
+  "method": {
+    "x": "max_conflict_distance",
+    "y": "total_work",
+    "model": "ordinary least squares slope y ~ x",
+    "rows": 120,
+    "slice_instances": 12,
+    "budgets": [20, 40, 80, 160, 320],
+    "note": "All rows solve by the tightest budget after the complete-CBJ fix, so the per-budget slopes are identical to the unique-slice slope."
+  },
+  "overall_slope": {
+    "cbj": {
+      "n": 60,
+      "x_min": 3,
+      "x_max": 9,
+      "mean_total_work": 13.166666666666666,
+      "intercept": 9.84070796460177,
+      "slope_total_work_per_distance": 0.48672566371681414,
+      "r2": 0.020865090806254427
+    },
+    "chrono": {
+      "n": 60,
+      "x_min": 3,
+      "x_max": 9,
+      "mean_total_work": 13.333333333333334,
+      "intercept": 9.2212389380531,
+      "slope_total_work_per_distance": 0.6017699115044246,
+      "r2": 0.030813519564986125
+    },
+    "chrono_minus_cbj_slope": 0.11504424778761047
+  },
+  "per_budget_slope": [
+    {"node_budget": 20, "cbj_slope": 0.48672566371681414, "chrono_slope": 0.6017699115044246, "chrono_minus_cbj_slope": 0.11504424778761047, "cbj_r2": 0.02086509080625465, "chrono_r2": 0.03081351956498568},
+    {"node_budget": 40, "cbj_slope": 0.48672566371681414, "chrono_slope": 0.6017699115044246, "chrono_minus_cbj_slope": 0.11504424778761047, "cbj_r2": 0.02086509080625465, "chrono_r2": 0.03081351956498568},
+    {"node_budget": 80, "cbj_slope": 0.48672566371681414, "chrono_slope": 0.6017699115044246, "chrono_minus_cbj_slope": 0.11504424778761047, "cbj_r2": 0.02086509080625465, "chrono_r2": 0.03081351956498568},
+    {"node_budget": 160, "cbj_slope": 0.48672566371681414, "chrono_slope": 0.6017699115044246, "chrono_minus_cbj_slope": 0.11504424778761047, "cbj_r2": 0.02086509080625465, "chrono_r2": 0.03081351956498568},
+    {"node_budget": 320, "cbj_slope": 0.48672566371681414, "chrono_slope": 0.6017699115044246, "chrono_minus_cbj_slope": 0.11504424778761047, "cbj_r2": 0.02086509080625465, "chrono_r2": 0.03081351956498568}
+  ],
+  "mean_work_by_distance": {
+    "cbj": [
+      {"distance": 3, "n": 5, "mean_total_work": 10.0},
+      {"distance": 5, "n": 10, "mean_total_work": 10.0},
+      {"distance": 6, "n": 10, "mean_total_work": 18.0},
+      {"distance": 7, "n": 5, "mean_total_work": 10.0},
+      {"distance": 8, "n": 20, "mean_total_work": 14.0},
+      {"distance": 9, "n": 10, "mean_total_work": 13.0}
+    ],
+    "chrono": [
+      {"distance": 3, "n": 5, "mean_total_work": 10.0},
+      {"distance": 5, "n": 10, "mean_total_work": 10.0},
+      {"distance": 6, "n": 10, "mean_total_work": 18.0},
+      {"distance": 7, "n": 5, "mean_total_work": 10.0},
+      {"distance": 8, "n": 20, "mean_total_work": 14.0},
+      {"distance": 9, "n": 10, "mean_total_work": 14.0}
+    ]
+  },
+  "decision_rule": {
+    "cbj_flat_chrono_rising": "claim3 efficiency positive on graph_color",
+    "cbj_approximately_chrono": "dense scoping confirmed"
+  },
+  "verdict": {
+    "claim3_efficiency_positive_on_graph_color": false,
+    "dense_scoping_confirmed": true,
+    "reason": "CBJ and chrono work-vs-distance slopes are both shallow and close: 0.4867 vs 0.6018, with low R2 values and identical solve rates. This reads as cbj approximately chrono, not cbj flat while chrono rises."
+  }
+}

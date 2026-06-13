@@ -157,6 +157,7 @@ ARTIFACT_INDEX = {
     "rung1_multiagent_two_track": "results/rung1_multiagent_two_track/results.json",
     "rung1_multiagent_solvability": "results/rung1_multiagent_solvability/results.json",
     "rung1_multiagent_solvability_closeout": "results/rung1_multiagent_solvability/closeout.json",
+    "rung1_multiagent_solvability_distance_slope_reanalysis": "results/rung1_multiagent_solvability/distance_slope_reanalysis.json",
     "validation": "results/validation/validation.json",
 }
 
