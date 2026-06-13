@@ -1,0 +1,109 @@
+{
+  "item_number": "091",
+  "schema_version": "log_item_contract_v1",
+  "name": "Reasoning Gym baseline derived metrics and pass@k readiness",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Respond to the observation that solve_rate is often binary by adding a derived metrics dashboard over existing Reasoning Gym baseline artifacts. The dashboard reports mean official score, nonzero-score rate, truncation rate, parseability, finish_reason distribution, total tokens, and pass@k/oracle-best@k readiness. It does not add new model samples.",
+  "provenance": {
+    "schema_version": "reasoning_gym_baseline_metrics_v1",
+    "source": "autonomous_stage_a_run",
+    "script": "analysis/reasoning_gym_baseline_metrics.py",
+    "result_artifact": "results/reasoning_gym_baselines/baseline_metrics_dashboard.json",
+    "parent_item": "090"
+  },
+  "artifacts": [
+    "results/experiment_items/item_091_reasoning_gym_baseline_metrics.json",
+    "analysis/reasoning_gym_baseline_metrics.py",
+    "analysis/reasoning_gym_baseline_matrix.py",
+    "results/reasoning_gym_baselines/baseline_metrics_dashboard.json",
+    "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_pilot.json",
+    "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_pilot_checkpoint.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/reasoning_gym_baseline_metrics.py",
+      "change": "Adds derived metrics over baseline artifacts, including pass@k readiness, oracle-best@k readiness, nonzero-score rate, truncation rate, parseability, and finish_reason counts."
+    },
+    {
+      "path": "analysis/reasoning_gym_baseline_matrix.py",
+      "change": "Carries the previously run thinking-arm support and parsed-answer metrics used by the graph_color thinking pilot artifact."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m py_compile analysis/reasoning_gym_baseline_matrix.py analysis/reasoning_gym_baseline_metrics.py",
+      "purpose": "Validate baseline harness and metrics dashboard compile."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.reasoning_gym_baseline_metrics --output results/reasoning_gym_baselines/baseline_metrics_dashboard.json",
+      "purpose": "Compute derived metrics over current Reasoning Gym baseline artifacts."
+    }
+  ],
+  "decision": {
+    "outcome": "REASONING_GYM_BASELINE_METRICS_COMPLETE",
+    "overall_pass": true,
+    "headline": {
+      "solve_rate_too_coarse": true,
+      "derived_metrics_added": ["mean_official_score", "nonzero_score_rate", "truncated_rate", "parseable_answer_rate", "finish_reason_counts", "pass_at_k", "oracle_best_at_k"],
+      "current_passk_status": "PASS_AT_1_ONLY_FOR_CURRENT_SINGLE_SAMPLE_ARTIFACTS",
+      "graph_color_direct_nonzero_score_rate": 0.0,
+      "sudoku_direct_nonzero_score_rate": 0.13333333333333333,
+      "zebra_direct_nonzero_score_rate": 0.0,
+      "graph_color_thinking_pilot_pass_at_1": 0.25,
+      "graph_color_thinking_truncated_rate": 1.0,
+      "single_next_move": "Run repeated-sample BoN/self-consistency artifacts to populate pass@5/pass@10; current artifacts have one sample per instance so pass@k>1 is not yet meaningful."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "derived_metrics_dashboard",
+        "outcome": "PASS",
+        "number": "baseline_metrics_dashboard.json generated over current L1 direct and graph_color thinking pilot artifacts."
+      },
+      {
+        "gate": "partial_score_visibility",
+        "outcome": "PASS",
+        "number": "Sudoku L1 direct has solve_rate=0.0 but nonzero_score_rate=0.1333 and mean_official_score=0.00046."
+      },
+      {
+        "gate": "truncation_visibility",
+        "outcome": "PASS",
+        "number": "All current L1 direct rows and graph_color thinking pilot rows have truncated_rate=1.0 / finish_reason=length."
+      },
+      {
+        "gate": "passk_readiness",
+        "outcome": "PASS_AT_1_ONLY",
+        "number": "Current artifacts have one sample per source_index, so pass@5/pass@10 are null with eligible_instances=0."
+      },
+      {
+        "gate": "method_comparison",
+        "outcome": "STILL_PAUSED",
+        "number": "No method comparison is added; this is metrics over baselines only."
+      }
+    ],
+    "next_step_routing": "Add/run L1-bestofN or repeated one-shot sampling artifacts so pass@5/pass@10 and oracle-best@k are populated. Continue recording mean official score, nonzero-score rate, parseability, truncation, and total tokens alongside solve_rate."
+  },
+  "result_tables": {
+    "l1_metric_rows": {
+      "columns": ["artifact", "benchmark", "arm", "n_rows", "solve_rate", "mean_official_score", "nonzero_score_rate", "truncated_rate", "parseable_answer_rate", "pass_at_1", "pass_at_5"],
+      "rows": [
+        {"artifact": "baseline_matrix_graph_color_l1_direct", "benchmark": "graph_color", "arm": "L1-one_shot_direct", "n_rows": 30, "solve_rate": 0.0, "mean_official_score": 0.0, "nonzero_score_rate": 0.0, "truncated_rate": 1.0, "parseable_answer_rate": null, "pass_at_1": 0.0, "pass_at_5": null},
+        {"artifact": "baseline_matrix_sudoku_l1_direct", "benchmark": "sudoku", "arm": "L1-one_shot_direct", "n_rows": 30, "solve_rate": 0.0, "mean_official_score": 0.00046151747430524855, "nonzero_score_rate": 0.13333333333333333, "truncated_rate": 1.0, "parseable_answer_rate": null, "pass_at_1": 0.0, "pass_at_5": null},
+        {"artifact": "baseline_matrix_zebra_l1_direct", "benchmark": "zebra_puzzles", "arm": "L1-one_shot_direct", "n_rows": 30, "solve_rate": 0.0, "mean_official_score": 0.0, "nonzero_score_rate": 0.0, "truncated_rate": 1.0, "parseable_answer_rate": null, "pass_at_1": 0.0, "pass_at_5": null},
+        {"artifact": "baseline_matrix_graph_color_l1_thinking_pilot", "benchmark": "graph_color", "arm": "L1-one_shot_thinking", "n_rows": 4, "solve_rate": 0.25, "mean_official_score": 0.25, "nonzero_score_rate": 0.25, "truncated_rate": 1.0, "parseable_answer_rate": 0.25, "pass_at_1": 0.25, "pass_at_5": null}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "L1_bestofN_passk", "gate": "GO", "reason": "pass@5/pass@10 require repeated samples per source_index."},
+        {"track": "thinking_K1", "gate": "OPEN_TRUNCATION_BLOCKED", "reason": "thinking pilot has pass@1=0.25 but truncated_rate=1.0."},
+        {"track": "method_comparisons", "gate": "PAUSED", "reason": "baseline metrics only; no method comparison."}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item computes derived metrics only. It does not add samples, complete pass@k baselines, or compare our method.",
+    "passk_limit": "pass@k for k>1 is null until repeated samples per source_index exist.",
+    "truncation_limit": "Thinking pilot solve_rate/pass@1 is not K1-readable because all rows are truncated."
+  }
+}

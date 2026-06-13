@@ -8,6 +8,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import re
 from statistics import mean
 from typing import Any
 from urllib.request import Request, urlopen
@@ -161,15 +162,21 @@ def _symbolic_rows(dataset: Any, benchmark: str, entry: dict[str, Any], index: i
     return rows
 
 
-def _one_shot_prompt(entry: dict[str, Any], cot: bool) -> str:
+def _one_shot_prompt(benchmark: str, entry: dict[str, Any], mode: str) -> str:
     prompt = entry.get("question", "")
-    if cot:
+    if benchmark == "graph_color":
+        prompt += "\nFinal answer must include exactly one JSON object mapping every vertex string to an integer color."
+    if mode == "cot":
         prompt += "\nThink privately if needed, then give only the final answer in the requested format."
+    if mode == "thinking":
+        prompt += "\nYou may think internally, but the final visible answer must be only the requested final answer."
     return prompt
 
 
-def _openai_text_call_timeout(base_url: str, model: str, prompt: str, max_tokens: int, timeout_seconds: float) -> dict[str, Any]:
+def _openai_text_call_timeout(base_url: str, model: str, prompt: str, max_tokens: int, timeout_seconds: float, enable_thinking: bool) -> dict[str, Any]:
     payload = {"model": model, "messages": [{"role": "user", "content": prompt}], "temperature": 0, "max_tokens": max_tokens}
+    if enable_thinking:
+        payload["chat_template_kwargs"] = {"enable_thinking": True}
     request = Request(base_url.rstrip("/") + "/chat/completions", data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"}, method="POST")
     with urlopen(request, timeout=timeout_seconds) as response:
         decoded = json.loads(response.read().decode("utf-8"))
@@ -184,10 +191,38 @@ def _openai_text_call_timeout(base_url: str, model: str, prompt: str, max_tokens
     }
 
 
-def _one_shot_row(dataset: Any, benchmark: str, entry: dict[str, Any], index: int, args: argparse.Namespace, cot: bool) -> dict[str, Any]:
-    arm = "L1-one_shot_cot" if cot else "L1-one_shot_direct"
+def _extract_answer(benchmark: str, text: str) -> str | None:
+    if benchmark == "graph_color":
+        fenced = re.findall(r"```(?:json)?\s*(\{.*?\})\s*```", text, flags=re.DOTALL)
+        candidates = fenced + re.findall(r"\{.*?\}", text, flags=re.DOTALL)
+        valid = []
+        for candidate in candidates:
+            try:
+                parsed = json.loads(candidate)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(parsed, dict):
+                valid.append(json.dumps({str(key): int(value) for key, value in parsed.items()}, sort_keys=True))
+        return valid[-1] if valid else None
+    if benchmark == "sudoku":
+        lines = [line.strip() for line in text.splitlines()]
+        grid_lines = []
+        for line in lines:
+            tokens = re.findall(r"[1-9]", line)
+            if len(tokens) == 9:
+                grid_lines.append(" ".join(tokens))
+                if len(grid_lines) == 9:
+                    return "\n".join(grid_lines)
+            elif grid_lines:
+                grid_lines = []
+        return None
+    return None
+
+
+def _one_shot_row(dataset: Any, benchmark: str, entry: dict[str, Any], index: int, args: argparse.Namespace, mode: str) -> dict[str, Any]:
+    arm = {"direct": "L1-one_shot_direct", "cot": "L1-one_shot_cot", "thinking": "L1-one_shot_thinking"}[mode]
     try:
-        generation = _openai_text_call_timeout(args.openai_base_url, args.openai_model, _one_shot_prompt(entry, cot), args.max_new_tokens, args.request_timeout)
+        generation = _openai_text_call_timeout(args.openai_base_url, args.openai_model, _one_shot_prompt(benchmark, entry, mode), args.max_new_tokens, args.request_timeout, mode == "thinking")
     except Exception as exc:  # noqa: BLE001
         text = f"{type(exc).__name__}: {exc}"
         status = "TIMEOUT" if "timed out" in text.lower() or "timeout" in type(exc).__name__.lower() else "REQUEST_ERROR"
@@ -208,18 +243,26 @@ def _one_shot_row(dataset: Any, benchmark: str, entry: dict[str, Any], index: in
             "provenance": "rg_baseline_one_shot_v1",
         }
     answer = generation.get("text", "")
-    score = _score(dataset, entry, answer)
+    raw_score = _score(dataset, entry, answer)
+    parsed_answer = _extract_answer(benchmark, answer)
+    parsed_score = _score(dataset, entry, parsed_answer) if parsed_answer is not None else 0.0
+    score = parsed_score if parsed_answer is not None else raw_score
     return {
         "benchmark": benchmark,
         "source_index": index,
         "arm": arm,
         "official_score": score,
+        "raw_official_score": raw_score,
+        "parsed_official_score": parsed_score,
         "solved": score >= 1.0,
         "status": "SOLVED" if score >= 1.0 else "SCORE_FAIL",
         "finish_reason": generation.get("finish_reason"),
+        "truncated": generation.get("finish_reason") == "length",
+        "parseable_answer": parsed_answer is not None,
         "prompt_tokens": int(generation.get("prompt_tokens", 0)),
         "output_tokens": int(generation.get("output_tokens", 0)),
         "total_tokens": int(generation.get("total_tokens", 0)),
+        "parsed_answer_prefix": (parsed_answer or "")[:240],
         "answer_prefix": answer[:240],
         "source": SOURCE,
         "provenance": "rg_baseline_one_shot_v1",
@@ -264,11 +307,15 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             if args.run_llm:
                 direct_key = (benchmark, index, "L1-one_shot_direct")
                 if direct_key not in completed_llm:
-                    llm_tasks.append((dataset, benchmark, entry, index, False))
+                    llm_tasks.append((dataset, benchmark, entry, index, "direct"))
                 if args.run_cot:
                     cot_key = (benchmark, index, "L1-one_shot_cot")
                     if cot_key not in completed_llm:
-                        llm_tasks.append((dataset, benchmark, entry, index, True))
+                        llm_tasks.append((dataset, benchmark, entry, index, "cot"))
+                if args.run_thinking:
+                    thinking_key = (benchmark, index, "L1-one_shot_thinking")
+                    if thinking_key not in completed_llm:
+                        llm_tasks.append((dataset, benchmark, entry, index, "thinking"))
     if args.max_new_llm_rows > 0:
         llm_tasks = llm_tasks[: args.max_new_llm_rows]
     if llm_tasks:
@@ -276,7 +323,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         for start in range(0, len(llm_tasks), max(1, llm_task_batch_size)):
             batch = llm_tasks[start : start + max(1, llm_task_batch_size)]
             with ThreadPoolExecutor(max_workers=max(1, min(args.batch_size, len(batch)))) as pool:
-                futures = [pool.submit(_one_shot_row, dataset, benchmark, entry, index, args, cot) for dataset, benchmark, entry, index, cot in batch]
+                futures = [pool.submit(_one_shot_row, dataset, benchmark, entry, index, args, mode) for dataset, benchmark, entry, index, mode in batch]
                 for future in as_completed(futures):
                     row = future.result()
                     llm_rows.append(row)
@@ -306,6 +353,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "symbolic_heuristic_random": "graph_color and sudoku; zebra_puzzles adapter pending",
             "one_shot_direct": "optional via --run-llm",
             "one_shot_cot": "optional via --run-llm --run-cot",
+            "one_shot_thinking": "optional via --run-llm --run-thinking",
             "source": SOURCE,
             "provenance": "rg_baseline_coverage_v1",
         },
@@ -340,6 +388,7 @@ def main() -> None:
     parser.add_argument("--sudoku-node-budget", type=int, default=320)
     parser.add_argument("--run-llm", action="store_true")
     parser.add_argument("--run-cot", action="store_true")
+    parser.add_argument("--run-thinking", action="store_true")
     parser.add_argument("--checkpoint-path", type=Path, default=Path("results/reasoning_gym_baselines/baseline_matrix_llm_checkpoint.json"))
     parser.add_argument("--request-timeout", type=float, default=120.0)
     parser.add_argument("--llm-task-batch-size", type=int, default=0)

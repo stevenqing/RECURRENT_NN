@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=63",
+      "detail": "count=64",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -2839,6 +2839,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_091_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_091_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=091",
+      "name": "log_item_091_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_091_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item computes derived metrics only. It does not add samples, complete pass@k baselines, or compare our method.",
+      "name": "log_item_091_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=5; routing=Add/run L1-bestofN or repeated one-shot sampling artifacts so pass@5/pass@10 and oracle-best@k are populated. Continue recording mean official score, nonzero-score rate, parseability, truncation, and total tokens alongside solve_rate.",
+      "name": "log_item_091_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -3415,13 +3451,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'final_solution_readback', 'write_drop_mask', 'forward_read', 'pop_read', 'spill_off_write_drop', 'register_entry_classification'}",
+      "detail": "rules={'pop_read', 'final_solution_readback', 'write_drop_mask', 'spill_off_write_drop', 'forward_read', 'register_entry_classification'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop', 'P_choice_unmasked', 'threshold_D_pop', 'P_all_unmasked', 'P_pop_unmasked', 'P_all', 'threshold_D_peak', 'P_choice'}; rows=768",
+      "detail": "candidates={'threshold_D_peak', 'P_choice', 'P_pop_unmasked', 'P_choice_unmasked', 'threshold_D_pop', 'P_pop', 'P_all', 'P_all_unmasked'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3445,7 +3481,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rows=64; statuses={'measured', 'timeout'}",
+      "detail": "rows=64; statuses={'timeout', 'measured'}",
       "name": "e1_sudoku_compositional_real_trace_subsample",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3457,7 +3493,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop', 'P_choice_unmasked', 'P_all_unmasked', 'P_pop_unmasked', 'P_all', 'P_choice'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_choice', 'P_pop_unmasked', 'P_choice_unmasked', 'P_pop', 'P_all', 'P_all_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -4255,11 +4291,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-13T13:42:34.031463+00:00",
+  "generated_at": "2026-06-13T14:22:48.644404+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 709,
+    "n_checks": 715,
     "n_fail": 3,
-    "n_pass": 706
+    "n_pass": 712
   }
 }
