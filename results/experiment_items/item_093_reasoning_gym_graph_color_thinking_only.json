@@ -1,0 +1,108 @@
+{
+  "item_number": "093",
+  "schema_version": "log_item_contract_v1",
+  "name": "Reasoning Gym graph_color thinking-only K1 pilot",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Run a clean graph_color L1-one_shot_thinking-only pilot after Item092 showed direct BoN@5 has no lift and the earlier thinking pilot had mixed direct rows. Adds an --llm-modes override to the baseline harness, runs only thinking rows, computes derived metrics, and records the K1 anti-truncation readout. This is still a pilot because n=8 and all rows hit finish_reason=length.",
+  "provenance": {
+    "schema_version": "reasoning_gym_baseline_matrix_v1",
+    "source": "autonomous_stage_a_run",
+    "script": "analysis/reasoning_gym_baseline_matrix.py",
+    "metrics_script": "analysis/reasoning_gym_baseline_metrics.py",
+    "result_artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot.json",
+    "checkpoint_artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot_checkpoint.json",
+    "metrics_artifact": "results/reasoning_gym_baselines/baseline_metrics_dashboard_thinking_only.json",
+    "parent_item": "092"
+  },
+  "artifacts": [
+    "results/experiment_items/item_093_reasoning_gym_graph_color_thinking_only.json",
+    "analysis/reasoning_gym_baseline_matrix.py",
+    "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot.json",
+    "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot_checkpoint.json",
+    "results/reasoning_gym_baselines/baseline_metrics_dashboard_thinking_only.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/reasoning_gym_baseline_matrix.py",
+      "change": "Adds --llm-modes override so LLM baselines can run thinking-only without also running direct rows."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.reasoning_gym_baseline_matrix --output results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot.json --checkpoint-path results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot_checkpoint.json --benchmarks graph_color --n-instances 8 --seed 42 --graph-vertices 14 --graph-edge-probability 0.4 --graph-node-budget 80 --run-llm --llm-modes thinking --max-new-tokens 8192 --batch-size 8 --llm-task-batch-size 8 --max-new-llm-rows 8 --request-timeout 900 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "purpose": "Run graph_color L1-one_shot_thinking only, n=8, 8192-token budget."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.reasoning_gym_baseline_metrics --output results/reasoning_gym_baselines/baseline_metrics_dashboard_thinking_only.json --inputs results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_only_pilot.json,results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5.json,results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct.json --k-values 1,5,10",
+      "purpose": "Compute derived metrics and compare thinking-only pilot with direct BoN@5."
+    }
+  ],
+  "decision": {
+    "outcome": "REASONING_GYM_GRAPH_COLOR_THINKING_ONLY_PILOT_COMPLETE_TRUNCATION_BLOCKED",
+    "overall_pass": true,
+    "headline": {
+      "benchmark": "graph_color",
+      "arm": "L1-one_shot_thinking",
+      "n": 8,
+      "solve_rate": 0.125,
+      "mean_official_score": 0.12625,
+      "nonzero_score_rate": 0.25,
+      "parseable_answer_rate": 0.25,
+      "truncated_rate": 1.0,
+      "finish_reason_length_rows": 8,
+      "mean_total_tokens": 8552.625,
+      "pass_at_1": 0.125,
+      "K1_status": "OPEN_TRUNCATION_BLOCKED",
+      "single_next_move": "Do not bank K1. Either raise thinking budget/context or run a bounded final-answer protocol; keep anti-truncation guard."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "thinking_only_mode",
+        "outcome": "PASS",
+        "number": "The artifact contains 8 L1-one_shot_thinking rows and no L1-one_shot_direct rows."
+      },
+      {
+        "gate": "K1_solve_signal",
+        "outcome": "NONZERO_BUT_UNREADABLE",
+        "number": "solve_rate=0.125 and nonzero_score_rate=0.25 on n=8."
+      },
+      {
+        "gate": "anti_truncation_guard",
+        "outcome": "FAIL_TRUNCATION_BLOCKED",
+        "number": "finish_reason=length for 8/8 rows at max_new_tokens=8192."
+      },
+      {
+        "gate": "pass_at_k",
+        "outcome": "PASS_AT_1_ONLY",
+        "number": "pass@1=0.125; pass@5/pass@10 are null because there is one thinking sample per source_index."
+      },
+      {
+        "gate": "method_comparison",
+        "outcome": "STILL_PAUSED",
+        "number": "This is a baseline pilot only; no M-register or multi-agent method comparison is added."
+      }
+    ],
+    "next_step_routing": "K1 remains open. To make thinking readable, either increase budget/context and require finish_reason=stop, or design a bounded final-answer-only protocol distinct from free-form thinking. Then repeat with pass@k metrics."
+  },
+  "result_tables": {
+    "thinking_only_metrics": {
+      "columns": ["benchmark", "arm", "n", "solve_rate", "mean_official_score", "nonzero_score_rate", "parseable_answer_rate", "truncated_rate", "mean_total_tokens", "pass_at_1"],
+      "rows": [
+        {"benchmark": "graph_color", "arm": "L1-one_shot_thinking", "n": 8, "solve_rate": 0.125, "mean_official_score": 0.12625, "nonzero_score_rate": 0.25, "parseable_answer_rate": 0.25, "truncated_rate": 1.0, "mean_total_tokens": 8552.625, "pass_at_1": 0.125}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "K1_thinking", "gate": "OPEN_TRUNCATION_BLOCKED", "reason": "all thinking-only rows ended length"},
+        {"track": "thinking_BoN", "gate": "WAIT", "reason": "pass@k over thinking is not useful until truncation behavior is addressed"},
+        {"track": "method_comparisons", "gate": "PAUSED", "reason": "baseline-first program continues"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish K1 and does not compare our method. It shows a nonzero but fully truncated graph_color thinking-only pilot.",
+    "truncation_limit": "Because finish_reason=length for 8/8 rows, the solve_rate is not K1-readable under the anti-truncation guard.",
+    "sample_limit": "n=8 and one sample per instance; pass@5/pass@10 are not populated."
+  }
+}

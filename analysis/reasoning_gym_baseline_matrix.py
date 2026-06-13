@@ -54,6 +54,19 @@ def _benchmarks(args: argparse.Namespace) -> list[str]:
     return [item.strip() for item in args.benchmarks.split(",") if item.strip()]
 
 
+def _llm_modes(args: argparse.Namespace) -> list[str]:
+    if args.llm_modes.strip():
+        return [item.strip() for item in args.llm_modes.split(",") if item.strip()]
+    if not args.run_llm:
+        return []
+    modes = ["direct"]
+    if args.run_cot:
+        modes.append("cot")
+    if args.run_thinking:
+        modes.append("thinking")
+    return modes
+
+
 def _make_dataset(reasoning_gym: Any, benchmark: str, args: argparse.Namespace) -> Any:
     if benchmark == "graph_color":
         return reasoning_gym.create_dataset(
@@ -299,6 +312,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     llm_rows: list[dict[str, Any]] = _read_json(checkpoint) if args.resume else []
     completed_llm = {_row_key(row) for row in llm_rows}
     new_llm_rows = 0
+    llm_modes = _llm_modes(args)
     for benchmark in _benchmarks(args):
         dataset = _make_dataset(reasoning_gym, benchmark, args)
         for index in range(args.n_instances):
@@ -306,21 +320,12 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             rows.append(_oracle_row(dataset, benchmark, entry, index))
             rows.append(_empty_row(dataset, benchmark, entry, index))
             rows.extend(_symbolic_rows(dataset, benchmark, entry, index, args))
-            if args.run_llm:
+            for mode in llm_modes:
+                arm = {"direct": "L1-one_shot_direct", "cot": "L1-one_shot_cot", "thinking": "L1-one_shot_thinking"}[mode]
                 for sample_index in range(args.samples_per_instance):
-                    direct_key = (benchmark, index, "L1-one_shot_direct", sample_index)
-                    if direct_key not in completed_llm:
-                        llm_tasks.append((dataset, benchmark, entry, index, "direct", sample_index))
-                if args.run_cot:
-                    for sample_index in range(args.samples_per_instance):
-                        cot_key = (benchmark, index, "L1-one_shot_cot", sample_index)
-                        if cot_key not in completed_llm:
-                            llm_tasks.append((dataset, benchmark, entry, index, "cot", sample_index))
-                if args.run_thinking:
-                    for sample_index in range(args.samples_per_instance):
-                        thinking_key = (benchmark, index, "L1-one_shot_thinking", sample_index)
-                        if thinking_key not in completed_llm:
-                            llm_tasks.append((dataset, benchmark, entry, index, "thinking", sample_index))
+                    key = (benchmark, index, arm, sample_index)
+                    if key not in completed_llm:
+                        llm_tasks.append((dataset, benchmark, entry, index, mode, sample_index))
     if args.max_new_llm_rows > 0:
         llm_tasks = llm_tasks[: args.max_new_llm_rows]
     if llm_tasks:
@@ -359,6 +364,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "one_shot_direct": "optional via --run-llm",
             "one_shot_cot": "optional via --run-llm --run-cot",
             "one_shot_thinking": "optional via --run-llm --run-thinking",
+            "llm_modes": llm_modes,
             "source": SOURCE,
             "provenance": "rg_baseline_coverage_v1",
         },
@@ -394,6 +400,7 @@ def main() -> None:
     parser.add_argument("--run-llm", action="store_true")
     parser.add_argument("--run-cot", action="store_true")
     parser.add_argument("--run-thinking", action="store_true")
+    parser.add_argument("--llm-modes", default="", help="Comma-separated override among direct,cot,thinking. If set, only these LLM modes run.")
     parser.add_argument("--samples-per-instance", type=int, default=1)
     parser.add_argument("--checkpoint-path", type=Path, default=Path("results/reasoning_gym_baselines/baseline_matrix_llm_checkpoint.json"))
     parser.add_argument("--request-timeout", type=float, default=120.0)
