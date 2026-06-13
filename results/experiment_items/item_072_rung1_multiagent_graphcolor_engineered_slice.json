@@ -1,0 +1,115 @@
+{
+  "item_number": "072",
+  "schema_version": "log_item_contract_v1",
+  "name": "Rung-1 engineered multi-agent graph_color distant-culprit slice",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Engineer and test a post-Item071 controlled multi-agent graph_color slice with distant cross-block culprits under official Reasoning Gym scoring before any real-LLM multi-agent spend.",
+  "provenance": {
+    "schema_version": "rung1_multiagent_graphcolor_v0",
+    "source": "autonomous_stage_a_run",
+    "result_artifact": "results/rung1_multiagent_graphcolor/engineered_dry_run.json",
+    "code_artifact": "experiments/rung1_multiagent_graphcolor.py",
+    "parent_item": "071"
+  },
+  "artifacts": [
+    "results/experiment_items/item_072_rung1_multiagent_graphcolor_engineered_slice.json",
+    "experiments/rung1_multiagent_graphcolor.py",
+    "results/rung1_multiagent_graphcolor/engineered_dry_run.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "experiments/rung1_multiagent_graphcolor.py",
+      "change": "Adds culprit-distance instrumentation and gate, fixes cross-block oracle culprit to the earlier conflicting assignment, supports round-robin agent order for distant culprits, and records culprit-distance summaries."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_multiagent_graphcolor --no-llm --n-instances 8 --scan-limit 120 --num-vertices 10 --num-colors 3 --edge-probability 0.25 --b-values 6 --arms forward,chrono,cbj_oracle,cbj_random --agent-order round_robin --register-limit 8 --call-cap 1000 --min-cross-backtracks 1 --min-culprit-distance-gt1 1 --output results/rung1_multiagent_graphcolor/engineered_dry_run.json",
+      "purpose": "Run the engineered no-LLM controlled graph_color slice after finding a parameter setting with abundant distant culprit events."
+    }
+  ],
+  "decision": {
+    "outcome": "RUNG1_MULTIAGENT_GRAPHCOLOR_COMPLETE",
+    "overall_pass": false,
+    "headline": {
+      "claim3_determination": "honest_negative_or_underpowered",
+      "claim4_multi_capacity": "honest_negative_or_not_discriminating",
+      "single_next_move": "Do not run real-LLM multi-agent yet. Fix/strengthen the no-LLM controlled slice so cbj beats chrono in messages and monolith-fail/team-feasible cases exist."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "distant_culprit_distribution",
+        "outcome": "PASS",
+        "number": "selected_instances=8; B=6 has max_culprit_distance=8 and n_gt1_culprit_distance=35 in cbj_oracle episodes"
+      },
+      {
+        "gate": "claim3_cbj_vs_chrono_messages",
+        "outcome": "KILL_FIRED_OR_UNDERPOWERED",
+        "number": "B=6 cbj_oracle messages=8.2857, chrono messages=3.4286 at equal solve_rate=1.0; cbj is not below chrono"
+      },
+      {
+        "gate": "claim4_capacity_team_vs_monolith",
+        "outcome": "NOT_DISCRIMINATING",
+        "number": "monolith_solve_rate=1.0 and team_cbj_oracle_solve_rate=1.0; no monolith-fail/team-feasible capacity gap"
+      },
+      {
+        "gate": "culprit_quality_erosion_no_llm",
+        "outcome": "DIRECTIONAL_EROSION_PRESENT",
+        "number": "B=6 cbj_oracle solve_rate=1.0 vs cbj_random solve_rate=0.7143; random has lower messages but degrades solve and increases no-recovery"
+      }
+    ],
+    "next_step_routing": "Do not burn real-LLM budget on this slice. The distant-culprit gate now works, but the message observable/route dynamics still do not show cbj below chrono, and monolith capacity is not stressed. Next change should engineer a monolith-fail/team-feasible regime and/or revise total-message accounting so chrono counts all intervening rewinds as intended by the spec."
+  },
+  "result_tables": {
+    "preflight": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "selected_instances", "value": 8},
+        {"metric": "agent_order", "value": "round_robin"},
+        {"metric": "min_cross_backtracks", "value": 1},
+        {"metric": "min_culprit_distance_gt1", "value": 1},
+        {"metric": "official_scoring_only", "value": true}
+      ]
+    },
+    "by_arm": {
+      "columns": ["B", "arm", "n", "solve_rate", "mean_cross_block_messages", "mean_cross_block_recoveries", "mean_culprit_distance", "max_culprit_distance", "n_gt1_culprit_distance", "mean_total_retractions", "status_counts"],
+      "rows": [
+        {"B": 5, "arm": "forward", "n": 1, "solve_rate": 0.0, "mean_cross_block_messages": 0, "mean_cross_block_recoveries": 0, "mean_culprit_distance": 0.0, "max_culprit_distance": 0, "n_gt1_culprit_distance": 0, "mean_total_retractions": 0, "status_counts": {"FORWARD_CROSS_BLOCK_CONFLICT": 1}},
+        {"B": 5, "arm": "chrono", "n": 1, "solve_rate": 1.0, "mean_cross_block_messages": 3, "mean_cross_block_recoveries": 3, "mean_culprit_distance": 2.6666666666666665, "max_culprit_distance": 4, "n_gt1_culprit_distance": 3, "mean_total_retractions": 3, "status_counts": {"SOLVED": 1}},
+        {"B": 5, "arm": "cbj_oracle", "n": 1, "solve_rate": 1.0, "mean_cross_block_messages": 24, "mean_cross_block_recoveries": 24, "mean_culprit_distance": 3.0, "max_culprit_distance": 4, "n_gt1_culprit_distance": 24, "mean_total_retractions": 96, "status_counts": {"SOLVED": 1}},
+        {"B": 5, "arm": "cbj_random", "n": 1, "solve_rate": 0.0, "mean_cross_block_messages": 6, "mean_cross_block_recoveries": 6, "mean_culprit_distance": 2.1666666666666665, "max_culprit_distance": 4, "n_gt1_culprit_distance": 5, "mean_total_retractions": 25, "status_counts": {"NO_RECOVERY_TARGET": 1}},
+        {"B": 6, "arm": "forward", "n": 7, "solve_rate": 0.0, "mean_cross_block_messages": 0, "mean_cross_block_recoveries": 0, "mean_culprit_distance": 0.0, "max_culprit_distance": 0, "n_gt1_culprit_distance": 0, "mean_total_retractions": 0, "status_counts": {"FORWARD_CROSS_BLOCK_CONFLICT": 7}},
+        {"B": 6, "arm": "chrono", "n": 7, "solve_rate": 1.0, "mean_cross_block_messages": 3.4285714285714284, "mean_cross_block_recoveries": 3.4285714285714284, "mean_culprit_distance": 2.4333333333333336, "max_culprit_distance": 7, "n_gt1_culprit_distance": 17, "mean_total_retractions": 3.4285714285714284, "status_counts": {"SOLVED": 7}},
+        {"B": 6, "arm": "cbj_oracle", "n": 7, "solve_rate": 1.0, "mean_cross_block_messages": 8.285714285714286, "mean_cross_block_recoveries": 8.285714285714286, "mean_culprit_distance": 2.357482993197279, "max_culprit_distance": 8, "n_gt1_culprit_distance": 35, "mean_total_retractions": 26.428571428571427, "status_counts": {"SOLVED": 7}},
+        {"B": 6, "arm": "cbj_random", "n": 7, "solve_rate": 0.7142857142857143, "mean_cross_block_messages": 5.857142857142857, "mean_cross_block_recoveries": 5.857142857142857, "mean_culprit_distance": 2.432539682539683, "max_culprit_distance": 7, "n_gt1_culprit_distance": 34, "mean_total_retractions": 15.571428571428571, "status_counts": {"NO_RECOVERY_TARGET": 2, "SOLVED": 5}}
+      ]
+    },
+    "claim3": {
+      "columns": ["B", "cbj_messages", "chrono_messages", "cbj_solve_rate", "chrono_solve_rate", "cbj_below_chrono"],
+      "rows": [
+        {"B": 6, "cbj_messages": 8.285714285714286, "chrono_messages": 3.4285714285714284, "cbj_solve_rate": 1.0, "chrono_solve_rate": 1.0, "cbj_below_chrono": false}
+      ]
+    },
+    "claim4_capacity": {
+      "columns": ["B", "arm", "team_solve_rate", "monolith_solve_rate", "team_minus_monolith"],
+      "rows": [
+        {"B": 5, "arm": "cbj_oracle", "team_solve_rate": 1.0, "monolith_solve_rate": 1.0, "team_minus_monolith": 0.0},
+        {"B": 6, "arm": "cbj_oracle", "team_solve_rate": 1.0, "monolith_solve_rate": 1.0, "team_minus_monolith": 0.0}
+      ]
+    },
+    "bounded_view": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "bounded_view_verified", "value": true},
+        {"metric": "max_register_view_len", "value": 1},
+        {"metric": "max_prompt_chars", "value": 0}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish claim 3 or claim 4-multi. It proves the distant-culprit gate now exists, but the no-LLM engineered slice still fails the proceed gate for real LLM.",
+    "claim3_limit": "Despite distant culprits, cbj_oracle produces more total cross-block messages than chrono at equal solve rate under the current route dynamics/message accounting.",
+    "capacity_limit": "Monolith still solves all selected instances at the tested R, so team-vs-monolith capacity remains non-discriminating.",
+    "scope_limit": "No real LLM run was launched; this is the required no-LLM gate before spending budget."
+  }
+}

@@ -71,6 +71,22 @@ def _partition_stats(view: dict[str, Any], owner: dict[int, int]) -> dict[str, A
     return {"B": len(set(owner.values())), "block_sizes": dict(Counter(owner.values())), "cross_block_edges": len(cross_edges), "boundary_nodes": len(boundary), "separator_ratio_edges": len(cross_edges) / max(1, len(view["edges"])), "separator_ratio_nodes": len(boundary) / max(1, len(view["vertices"]))}
 
 
+def _agent_order(view: dict[str, Any], owner: dict[int, int], mode: str) -> list[int]:
+    per_agent: dict[int, list[int]] = defaultdict(list)
+    for vertex in sorted(view["vertices"], key=lambda item: (-len(view["adjacency"][item]), item)):
+        per_agent[owner[vertex]].append(vertex)
+    if mode == "agent_blocks":
+        return [vertex for agent in sorted(per_agent) for vertex in per_agent[agent]]
+    if mode == "round_robin":
+        order = []
+        while any(per_agent.values()):
+            for agent in sorted(per_agent):
+                if per_agent[agent]:
+                    order.append(per_agent[agent].pop(0))
+        return order
+    return sorted(view["vertices"], key=lambda vertex: (-len(view["adjacency"][vertex]), owner[vertex], vertex))
+
+
 def _domain(view: dict[str, Any], vertex: int, assignment: dict[int, int], tried: dict[int, set[int]]) -> list[int]:
     blocked = {assignment[neighbor] for neighbor in view["adjacency"][vertex] if neighbor in assignment}
     return [color for color in view["color_options"] if color not in blocked and color not in tried[vertex]]
@@ -119,19 +135,21 @@ def _culprit_prompt(entry: dict[str, Any], conflict: tuple[int, int], candidates
 
 
 def _row(entry: dict[str, Any], view: dict[str, Any], owner: dict[int, int], arm: str, status: str, score: float, assignment: dict[int, int], stats: dict[str, Any]) -> dict[str, Any]:
-    return {"source_index": int(entry["metadata"].get("source_index", -1)), "arm": arm, "status": status, "official_score": score, "solved": score >= 1.0, "answer": _official_answer(assignment) if score >= 1.0 else None, "B": len(set(owner.values())), "n_vertices": len(view["vertices"]), "n_edges": len(view["edges"]), "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_episode_v0", **stats}
+    row = {"source_index": int(entry["metadata"].get("source_index", -1)), "arm": arm, "status": status, "official_score": score, "solved": score >= 1.0, "answer": _official_answer(assignment) if score >= 1.0 else None, "B": len(set(owner.values())), "n_vertices": len(view["vertices"]), "n_edges": len(view["edges"]), "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_episode_v0", **stats}
+    row["mean_culprit_distance"] = row["culprit_distance_sum"] / max(1, row["cross_block_recoveries"])
+    return row
 
 
 def _run_team(dataset: Any, entry: dict[str, Any], owner: dict[int, int], arm: str, args: argparse.Namespace) -> dict[str, Any]:
     view = _graph_color_view(entry, args.order_mode)
-    order = sorted(view["vertices"], key=lambda vertex: (-len(view["adjacency"][vertex]), owner[vertex], vertex))
+    order = _agent_order(view, owner, args.agent_order)
     position = {vertex: idx for idx, vertex in enumerate(order)}
     assignment: dict[int, int] = {}
     tried: dict[int, set[int]] = defaultdict(set)
     trail: list[dict[str, Any]] = []
     registers: dict[int, list[dict[str, Any]]] = defaultdict(list)
     cursor = 0
-    stats = {"decision_calls": 0, "llm_calls": 0, "parseable_decisions": 0, "valid_decisions": 0, "cross_block_messages": 0, "cross_block_recoveries": 0, "total_retractions": 0, "max_register_view_len": 0, "max_prompt_chars": 0}
+    stats = {"decision_calls": 0, "llm_calls": 0, "parseable_decisions": 0, "valid_decisions": 0, "cross_block_messages": 0, "cross_block_recoveries": 0, "total_retractions": 0, "max_register_view_len": 0, "max_prompt_chars": 0, "culprit_distance_sum": 0, "culprit_distance_max": 0, "culprit_distance_gt1": 0}
     while True:
         if stats["decision_calls"] >= args.call_cap:
             return _row(entry, view, owner, arm, "CALL_CAP", _official_score(dataset, entry, assignment), assignment, stats)
@@ -140,9 +158,17 @@ def _run_team(dataset: Any, entry: dict[str, Any], owner: dict[int, int], arm: s
             if arm == "forward":
                 return _row(entry, view, owner, arm, "FORWARD_CROSS_BLOCK_CONFLICT", _official_score(dataset, entry, assignment), assignment, stats)
             candidates = sorted({owner[conflict[0]], owner[conflict[1]]})
-            oracle_vertex = max(conflict, key=lambda vertex: position[vertex])
+            oracle_vertex = min(conflict, key=lambda vertex: position[vertex])
             oracle_agent = owner[oracle_vertex]
             latest_agent = trail[-1]["agent"] if trail else oracle_agent
+            oracle_indices = [idx for idx, item in enumerate(trail) if item["agent"] == oracle_agent]
+            latest_indices = [idx for idx, item in enumerate(trail) if item["agent"] == latest_agent]
+            culprit_index = oracle_indices[-1] if oracle_indices else len(trail) - 1
+            latest_index = latest_indices[-1] if latest_indices else len(trail) - 1
+            culprit_distance = max(0, latest_index - culprit_index)
+            stats["culprit_distance_sum"] += culprit_distance
+            stats["culprit_distance_max"] = max(stats["culprit_distance_max"], culprit_distance)
+            stats["culprit_distance_gt1"] += int(culprit_distance > 1)
             if arm == "chrono":
                 target_agent = latest_agent
                 stats["cross_block_messages"] += max(1, len(trail) - max(idx for idx, item in enumerate(trail) if item["agent"] == target_agent)) if trail else 1
@@ -257,7 +283,7 @@ def _summarize(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for key in sorted({(row["B"], row["arm"]) for row in rows}):
         b_value, arm = key
         subset = [row for row in rows if (row["B"], row["arm"]) == key]
-        out.append({"B": b_value, "arm": arm, "n": len(subset), "solve_rate": mean(float(row["official_score"] >= 1.0) for row in subset), "mean_official_score": mean(row["official_score"] for row in subset), "mean_cross_block_messages": mean(row["cross_block_messages"] for row in subset), "mean_cross_block_recoveries": mean(row["cross_block_recoveries"] for row in subset), "mean_total_retractions": mean(row["total_retractions"] for row in subset), "status_counts": dict(Counter(row["status"] for row in subset)), "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_summary_v0"})
+        out.append({"B": b_value, "arm": arm, "n": len(subset), "solve_rate": mean(float(row["official_score"] >= 1.0) for row in subset), "mean_official_score": mean(row["official_score"] for row in subset), "mean_cross_block_messages": mean(row["cross_block_messages"] for row in subset), "mean_cross_block_recoveries": mean(row["cross_block_recoveries"] for row in subset), "mean_culprit_distance": mean(row["mean_culprit_distance"] for row in subset), "max_culprit_distance": max(row["culprit_distance_max"] for row in subset), "n_gt1_culprit_distance": sum(row["culprit_distance_gt1"] for row in subset), "mean_total_retractions": mean(row["total_retractions"] for row in subset), "status_counts": dict(Counter(row["status"] for row in subset)), "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_summary_v0"})
     return out
 
 
@@ -277,9 +303,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             owner = _partition(view, b_value, args.balance_weight, args.seed + index)
             part_stats = _partition_stats(view, owner)
             dry = _run_team(dataset, entry, owner, "cbj_oracle", dry_args)
-            part_stats |= {"cross_block_recoveries": dry["cross_block_recoveries"], "dry_score": dry["official_score"], "dry_status": dry["status"]}
+            part_stats |= {"cross_block_recoveries": dry["cross_block_recoveries"], "max_culprit_distance": dry["culprit_distance_max"], "n_gt1_culprit_distance": dry["culprit_distance_gt1"], "mean_culprit_distance": dry["mean_culprit_distance"], "dry_score": dry["official_score"], "dry_status": dry["status"]}
             stats.append(part_stats)
-            ok = ok or (dry["official_score"] >= 1.0 and dry["cross_block_recoveries"] >= args.min_cross_backtracks)
+            ok = ok or (dry["official_score"] >= 1.0 and dry["cross_block_recoveries"] >= args.min_cross_backtracks and dry["culprit_distance_gt1"] >= args.min_culprit_distance_gt1)
         preflight.append({"source_index": index, "selected": ok, "stats_by_B": stats, "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_preflight_row_v0"})
         if ok:
             selected.append({"entry": entry, "view": view, "source_index": index})
@@ -318,7 +344,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     for row in by_arm:
         if row["arm"] in {"cbj_llm", "cbj_oracle"}:
             team_vs_mono.append({"B": row["B"], "arm": row["arm"], "team_solve_rate": row["solve_rate"], "monolith_solve_rate": monolith_solve_rate, "team_minus_monolith": None if monolith_solve_rate is None else row["solve_rate"] - monolith_solve_rate, "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_team_vs_monolith_v0"})
-    payload = {"schema_version": SCHEMA_VERSION, "status": status, "generated_at": _now(), "dataset_config": {"dataset": "graph_color", "seed": args.seed, "num_vertices": args.num_vertices, "num_colors": args.num_colors, "edge_probability": args.edge_probability, "official_scoring": "dataset.score_answer(answer, entry)", "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_dataset_config_v0"}, "preflight": {"selected_instances": len(selected), "min_cross_backtracks": args.min_cross_backtracks, "official_scoring_only": True, "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_preflight_v0"}, "partition": {"b_values": b_values, "rows": preflight[: args.max_preflight_rows], "selected_source_indices": [item["source_index"] for item in selected], "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_partition_v0"}, "by_arm": by_arm, "monolith_baseline": {"rows": monolith_rows, "solve_rate": monolith_solve_rate, "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_monolith_summary_v0"}, "trackM1_claim3": {"rows": claim3_rows, "claim3_verdict": "positive" if claim3_rows and all(row["cbj_below_chrono"] for row in claim3_rows) else "honest_negative_or_underpowered", "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_trackM1_v0"}, "trackM2A_capacity": {"rows": team_vs_mono, "claim4_capacity_verdict": "positive" if any((row.get("team_minus_monolith") or 0) > 0 for row in team_vs_mono) else "honest_negative_or_not_discriminating", "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_trackM2A_v0"}, "trackM2B_culprit": {"rows": [row for row in by_arm if row["arm"] in {"cbj_llm", "cbj_oracle", "cbj_random", "chrono"}], "claim4_culprit_verdict": "recorded", "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_trackM2B_v0"}, "bounded_view": {"bounded_view_verified": all(row["max_register_view_len"] <= args.register_limit for row in rows), "max_register_view_len": max([row["max_register_view_len"] for row in rows], default=0), "max_prompt_chars": max([row["max_prompt_chars"] for row in rows], default=0), "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_bounded_view_v0"}, "budget_ledger": [{"n_instances": len(selected), "b_values": b_values, "arms": arms, "register_limit": args.register_limit, "call_cap": args.call_cap, "batch_size": args.batch_size, "max_episode_runs": len(selected) * len(b_values) * len(arms), "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_budget_v0"}], "episode_rows": rows, "headline": {"claim3_determination": "positive" if claim3_rows and all(row["cbj_below_chrono"] for row in claim3_rows) else "honest_negative_or_underpowered", "claim4_multi_capacity": "positive" if any((row.get("team_minus_monolith") or 0) > 0 for row in team_vs_mono) else "honest_negative_or_not_discriminating", "single_next_move": "If no-LLM controlled gates discriminate, start vLLM and run cbj_llm culprit arm on the same Reasoning Gym partitions."}, "source": SOURCE, "provenance": SCHEMA_VERSION}
+    payload = {"schema_version": SCHEMA_VERSION, "status": status, "generated_at": _now(), "dataset_config": {"dataset": "graph_color", "seed": args.seed, "num_vertices": args.num_vertices, "num_colors": args.num_colors, "edge_probability": args.edge_probability, "official_scoring": "dataset.score_answer(answer, entry)", "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_dataset_config_v0"}, "preflight": {"selected_instances": len(selected), "min_cross_backtracks": args.min_cross_backtracks, "min_culprit_distance_gt1": args.min_culprit_distance_gt1, "agent_order": args.agent_order, "official_scoring_only": True, "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_preflight_v0"}, "partition": {"b_values": b_values, "rows": preflight[: args.max_preflight_rows], "selected_source_indices": [item["source_index"] for item in selected], "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_partition_v0"}, "by_arm": by_arm, "monolith_baseline": {"rows": monolith_rows, "solve_rate": monolith_solve_rate, "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_monolith_summary_v0"}, "trackM1_claim3": {"rows": claim3_rows, "claim3_verdict": "positive" if claim3_rows and all(row["cbj_below_chrono"] for row in claim3_rows) else "honest_negative_or_underpowered", "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_trackM1_v0"}, "trackM2A_capacity": {"rows": team_vs_mono, "claim4_capacity_verdict": "positive" if any((row.get("team_minus_monolith") or 0) > 0 for row in team_vs_mono) else "honest_negative_or_not_discriminating", "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_trackM2A_v0"}, "trackM2B_culprit": {"rows": [row for row in by_arm if row["arm"] in {"cbj_llm", "cbj_oracle", "cbj_random", "chrono"}], "claim4_culprit_verdict": "recorded", "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_trackM2B_v0"}, "bounded_view": {"bounded_view_verified": all(row["max_register_view_len"] <= args.register_limit for row in rows), "max_register_view_len": max([row["max_register_view_len"] for row in rows], default=0), "max_prompt_chars": max([row["max_prompt_chars"] for row in rows], default=0), "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_bounded_view_v0"}, "budget_ledger": [{"n_instances": len(selected), "b_values": b_values, "arms": arms, "register_limit": args.register_limit, "call_cap": args.call_cap, "batch_size": args.batch_size, "max_episode_runs": len(selected) * len(b_values) * len(arms), "source": SOURCE, "provenance": "rung1_multiagent_graphcolor_budget_v0"}], "episode_rows": rows, "headline": {"claim3_determination": "positive" if claim3_rows and all(row["cbj_below_chrono"] for row in claim3_rows) else "honest_negative_or_underpowered", "claim4_multi_capacity": "positive" if any((row.get("team_minus_monolith") or 0) > 0 for row in team_vs_mono) else "honest_negative_or_not_discriminating", "single_next_move": "If no-LLM controlled gates discriminate, start vLLM and run cbj_llm culprit arm on the same Reasoning Gym partitions."}, "source": SOURCE, "provenance": SCHEMA_VERSION}
     _write_json(args.output, payload)
     return payload
 
@@ -337,9 +363,11 @@ def main() -> None:
     parser.add_argument("--order-mode", default="degree_desc")
     parser.add_argument("--b-values", default="2,3,4")
     parser.add_argument("--arms", default="forward,chrono,cbj_oracle,cbj_random")
+    parser.add_argument("--agent-order", default="round_robin", choices=["degree_owner", "round_robin", "agent_blocks"])
     parser.add_argument("--register-limit", type=int, default=8)
     parser.add_argument("--call-cap", type=int, default=400)
     parser.add_argument("--min-cross-backtracks", type=int, default=1)
+    parser.add_argument("--min-culprit-distance-gt1", type=int, default=1)
     parser.add_argument("--balance-weight", type=float, default=0.05)
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--max-new-tokens", type=int, default=64)
