@@ -1,0 +1,88 @@
+{
+  "item_number": "099",
+  "schema_version": "log_item_contract_v1",
+  "status": "INTERNALIZATION_TTT_LORA_TRAINING_DESIGN_RECORDED",
+  "name": "Internalization TTT-LoRA training design",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Insert a careful training-design gate before converting traces to datasets or training adapters. The design adopts a test-time-training style LoRA program while preserving the internalization definition: the external register/controller must eventually be removed, and fast LoRA updates may not use oracle actions or official scores at evaluation time.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_item": "098",
+    "plan_item": "096",
+    "single_agent_trace_item": "097",
+    "multiagent_trace_item": "098",
+    "spec": "specs/internalization_ttt_lora_training_design_v1.md",
+    "ttt_mechanism_context": "results/ttt/results.json",
+    "dependency_context": ["requirements.txt", "config/backbone.yaml", "disciplines.md"]
+  },
+  "artifacts": [
+    "results/experiment_items/item_099_internalization_ttt_lora_training_design.json",
+    "specs/internalization_ttt_lora_training_design_v1.md"
+  ],
+  "code_added_used": [
+    {
+      "path": "specs/internalization_ttt_lora_training_design_v1.md",
+      "change": "Defines static policy LoRA, episode/agent fast TTT LoRA, allowed/disallowed test-time losses, curriculum stages, required controls, and updated item routing before any training."
+    }
+  ],
+  "commands": [
+    {
+      "command": "Created specs/internalization_ttt_lora_training_design_v1.md",
+      "purpose": "Record the training design and TTT-LoRA constraints before building datasets or training adapters."
+    }
+  ],
+  "decision": {
+    "outcome": "TTT_LORA_TRAINING_DESIGN_READY_DATASET_BUILDER_NEXT",
+    "overall_pass": true,
+    "headline": {
+      "core_decision": "Use static LoRA as an offline policy prior, fast TTT LoRA as resettable episode/agent adaptation state, and textual bounded register as the only reversible search stack.",
+      "why_not_fast_lora_as_stack": "Prior TTT diagnostic shows gradient fast weights are not cleanly reversible; rollback semantics must live in bounded text and be consistency-checked.",
+      "next_item": "100",
+      "next_artifact": "trace-to-SFT and TTT auxiliary dataset builder",
+      "allowed_test_time_update_signal": "visible-state reconstruction and consistency only; no oracle target_action and no official score."
+    },
+    "gate_outcomes": [
+      {"gate": "lora_state_separation", "outcome": "PASS", "number": "Spec defines theta_static, delta_theta_ep, and textual bounded register as separate state carriers."},
+      {"gate": "ttt_loss_legality", "outcome": "PASS", "number": "Allowed test-time losses are visible-state reconstruction, local consistency, register serialization, rollback text consistency, and message roundtrip consistency."},
+      {"gate": "leakage_guard", "outcome": "PASS", "number": "Spec forbids oracle target_action, official score, hidden full assignment, and unrendered scaffold state in test-time updates."},
+      {"gate": "controls", "outcome": "PASS", "number": "Spec requires frozen, static-only, no-update, shuffled-aux, no-rollback, oracle-scaffold, monolith-R, and monolith-KR controls."},
+      {"gate": "item_route_revision", "outcome": "PASS", "number": "Spec revises Item099-106 route so training design precedes dataset builder."}
+    ],
+    "next_step_routing": "Proceed to Item100: build episode-split action SFT and TTT auxiliary datasets from Items097-098 traces with split hashes, leakage checks, and action coverage accounting."
+  },
+  "result_tables": {
+    "lora_forms": {
+      "columns": ["form", "reset_scope", "role", "internalization_status"],
+      "rows": [
+        {"form": "static_policy_lora", "reset_scope": "persistent checkpoint", "role": "offline action policy prior", "internalization_status": "not internalized while external scaffold owns state"},
+        {"form": "fast_ttt_lora", "reset_scope": "episode or agent episode", "role": "test-time adaptation to graph/agent/register serialization", "internalization_status": "allowed only with visible-data losses"},
+        {"form": "textual_bounded_register", "reset_scope": "episode transcript", "role": "only reversible search stack in internalized eval", "internalization_status": "required for real internalization"}
+      ]
+    },
+    "allowed_vs_disallowed_test_time_losses": {
+      "columns": ["class", "examples"],
+      "rows": [
+        {"class": "allowed", "examples": "masked visible-state reconstruction; local constraint consistency; register serialization; rollback text consistency; message roundtrip consistency"},
+        {"class": "disallowed", "examples": "oracle target_action; official score; hidden full assignment; unrendered scaffold rollback target"}
+      ]
+    },
+    "revised_item_route": {
+      "columns": ["item", "stage"],
+      "rows": [
+        {"item": "099", "stage": "TTT-LoRA training design and gates"},
+        {"item": "100", "stage": "Trace-to-SFT and TTT auxiliary dataset builder"},
+        {"item": "101", "stage": "Static policy LoRA smoke under external scaffold"},
+        {"item": "102", "stage": "TTT auxiliary inner-loop smoke under external scaffold"},
+        {"item": "103", "stage": "Register-in-text eval harness"},
+        {"item": "104", "stage": "Single-agent register-internalized TTT-LoRA pilot"},
+        {"item": "105", "stage": "Multi-agent internalized TTT-LoRA pilot"},
+        {"item": "106", "stage": "Scale or fail-close"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This is a training design item only. It does not build datasets, train LoRA adapters, run test-time updates, or evaluate internalized agents.",
+    "ttt_limit": "TTT-LoRA is proposed as adaptive policy state, not as a reversible stack. A future item must empirically test whether fast updates help beyond static LoRA.",
+    "route_revision_limit": "This item revises the Item096 route by inserting training design before dataset building; future deviations require their own item and gates."
+  }
+}

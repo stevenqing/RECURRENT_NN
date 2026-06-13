@@ -13,13 +13,14 @@ No training item may claim internalization while the external scaffold still own
 | 096 | Plan and gates | This spec plus log item | Itemized route exists; each future stage has a measurable pass gate and caveat | No new traces or training |
 | 097 | Single-agent trace schema and harvester | `results/internalization_traces/graph_color_single_agent_mregister_trace_smoke.{json,jsonl}` | Exports step-level branch/backtrack/final rows from solved R8 graph_color episodes; schema includes visible state, target action, before/after summaries, and SFT messages | No LLM training; oracle-scaffold teacher only |
 | 098 | Multi-agent trace schema and trace pilot | Multi-agent team/monolith trace artifacts | Row-isolated team/monolith episodes export branch, local backtrack, cross-block conflict, message, rollback, and final rows | No internalized agents yet |
-| 099 | Trace-to-SFT dataset builder | JSONL train/validation splits plus dataset card | Converts traces into stable chat-format examples with split hashes and leakage checks | No model update |
-| 100 | Policy LoRA under external scaffold | LoRA smoke plus external-scaffold eval | LoRA improves parseable/valid/target-action accuracy and solves inside the external scaffold | Scaffold still owns register and state, so not internalized |
-| 101 | Register-in-text eval harness | Closed-loop transcript evaluator | Frozen or LoRA model must maintain a bounded textual register; evaluator only parses transcript and official final answer | No training claim |
-| 102 | Single-agent register internalization LoRA | LoRA checkpoint plus transcript eval | External register removed; model maintains bounded textual state and beats one-shot/two-stage baselines on held-out graph_color | Single-agent only |
-| 103 | Multi-agent internalized dataset and controls | Homo/hetero/team/monolith dataset cards | Produces comparable train/eval splits for team, monolith-R, and monolith-KR controls | No capacity claim |
-| 104 | Multi-agent internalized LoRA pilot | Homo vs hetero LoRA controls | Team agents maintain local bounded registers and communicate conflicts; compare to monolith-R/KR with official scoring | Pilot only unless n>=30 per K |
-| 105 | Scale or fail-close | Full table or scoped negative | Either scale the successful internalized setting or record why internalization fails | Does not move goalposts |
+| 099 | TTT-LoRA training design | Training design spec | Defines static LoRA, fast TTT LoRA, textual register, legal test-time losses, and controls before dataset building | No dataset or training |
+| 100 | Trace-to-SFT and TTT auxiliary dataset builder | JSONL train/validation splits plus dataset card | Converts traces into stable chat-format action and auxiliary examples with split hashes and leakage checks | No model update |
+| 101 | Static policy LoRA under external scaffold | LoRA smoke plus external-scaffold eval | LoRA improves parseable/valid/target-action accuracy and solves inside the external scaffold | Scaffold still owns register and state, so not internalized |
+| 102 | TTT auxiliary inner-loop smoke | Static+fast LoRA smoke under external scaffold | Fast TTT updates improve validation action accuracy over static LoRA using only visible-state losses | Still external-scaffold evaluation |
+| 103 | Register-in-text eval harness | Closed-loop transcript evaluator | Frozen or LoRA model must maintain a bounded textual register; evaluator only parses transcript and official final answer | No training claim |
+| 104 | Single-agent register-internalized TTT-LoRA | LoRA checkpoint plus transcript eval | External register removed; model maintains bounded textual state and beats one-shot/two-stage baselines on held-out graph_color | Single-agent only |
+| 105 | Multi-agent internalized TTT-LoRA pilot | Homo/hetero/team/monolith controls | Team agents maintain local bounded registers and communicate conflicts; compare to monolith-R/KR with official scoring | Pilot only unless n>=30 per K |
+| 106 | Scale or fail-close | Full table or scoped negative | Either scale the successful internalized setting or record why internalization fails | Does not move goalposts |
 
 ## Trace Schema Requirements
 
@@ -65,4 +66,4 @@ Multi-agent internalization gates:
 
 ## Routing
 
-Start with Item097 single-agent traces because Item095 already supplies the method-positive source. Then run Item098 multi-agent traces before any training. Training without trace-positive externalized runs is premature.
+Start with Item097 single-agent traces because Item095 already supplies the method-positive source. Then run Item098 multi-agent traces before any training. Insert Item099 training design before any trace-to-SFT conversion or LoRA update. Training without trace-positive externalized runs and explicit TTT-LoRA leakage guards is premature.
