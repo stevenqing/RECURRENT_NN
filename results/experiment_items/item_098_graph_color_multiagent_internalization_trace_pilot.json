@@ -1,0 +1,99 @@
+{
+  "item_number": "098",
+  "schema_version": "log_item_contract_v1",
+  "status": "GRAPH_COLOR_MULTIAGENT_INTERNALIZATION_TRACE_PILOT_COMPLETE",
+  "name": "Graph_color multi-agent internalization trace pilot",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Extend Item097 from single-agent traces to multi-agent internalization traces. This pilot exports oracle-scaffold step-level traces for team, monolith-R, and monolith-KR graph_color episodes, including branch, monolith backtrack, local backtrack, cross-block conflict, message, rollback, and final rows. The artifact prepares the training-data substrate for future multi-agent LLM internalization without starting training.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_item": "097",
+    "plan_item": "096",
+    "method_source_item": "095",
+    "script": "analysis/internalization_multiagent_trace_harvester.py",
+    "trace_artifact": "results/internalization_traces/graph_color_multiagent_trace_pilot.json",
+    "trace_jsonl": "results/internalization_traces/graph_color_multiagent_trace_pilot.jsonl",
+    "trace_schema_version": "internalization_multiagent_step_trace_v1",
+    "teacher_source": "oracle_scaffold"
+  },
+  "artifacts": [
+    "results/experiment_items/item_098_graph_color_multiagent_internalization_trace_pilot.json",
+    "analysis/internalization_multiagent_trace_harvester.py",
+    "results/internalization_traces/graph_color_multiagent_trace_pilot.json",
+    "results/internalization_traces/graph_color_multiagent_trace_pilot.jsonl"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/internalization_multiagent_trace_harvester.py",
+      "change": "Adds a K=2 graph_color multi-agent trace harvester that selects oracle-solvable partitioned episodes and exports team, monolith-R, and monolith-KR step traces with chat-format SFT messages."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.internalization_multiagent_trace_harvester --output results/internalization_traces/graph_color_multiagent_trace_pilot.json --jsonl-output results/internalization_traces/graph_color_multiagent_trace_pilot.jsonl --seed 42 --scan-limit 200 --n-instances 4 --k-value 2 --block-size 8 --num-colors 3 --edge-probability 0.35 --order-mode degree_desc --agent-order round_robin --register-limit 8 --min-recoveries 1 --balance-weight 0.05 --max-steps 240 --teacher-source oracle_scaffold",
+      "purpose": "Export multi-agent/team-vs-monolith step-level traces for internalization dataset bootstrapping."
+    }
+  ],
+  "decision": {
+    "outcome": "MULTIAGENT_TRACE_SCHEMA_AND_PILOT_PASS",
+    "overall_pass": true,
+    "headline": {
+      "benchmark": "graph_color",
+      "teacher_source": "oracle_scaffold",
+      "K": 2,
+      "register_limit": 8,
+      "n_instances_per_arm": 4,
+      "n_episodes": 12,
+      "n_trace_rows": 305,
+      "branch_rows": 248,
+      "monolith_backtrack_rows": 8,
+      "local_backtrack_rows": 1,
+      "cross_block_conflict_rows": 9,
+      "message_rows": 9,
+      "rollback_rows": 18,
+      "final_rows": 12,
+      "team_solve_rate": 1.0,
+      "monolith_R_solve_rate": 1.0,
+      "monolith_KR_solve_rate": 1.0,
+      "bounded_view_verified": true,
+      "jsonl_rows_parseable": true,
+      "single_next_move": "Proceed to Item099 trace-to-SFT dataset builder with train/validation splits and leakage checks."
+    },
+    "gate_outcomes": [
+      {"gate": "jsonl_parseability", "outcome": "PASS", "number": "305/305 JSONL rows parse."},
+      {"gate": "multiagent_action_coverage", "outcome": "PASS", "number": "branch=248, cross_block_conflict=9, message=9, rollback=18, local_backtrack=1, monolith_backtrack=8, final=12."},
+      {"gate": "control_arms", "outcome": "PASS", "number": "team=4 episodes, monolith_R=4 episodes, monolith_KR=4 episodes."},
+      {"gate": "official_solved_trace", "outcome": "PASS", "number": "team, monolith_R, and monolith_KR all solve 4/4 with mean_official_score=1.0."},
+      {"gate": "bounded_register_view", "outcome": "PASS", "number": "team max_register_view_len=7<=8; monolith_R max=8<=8; monolith_KR max=15<=16."},
+      {"gate": "internalization_training", "outcome": "NOT_STARTED", "number": "Trace export only; no model weights updated."}
+    ],
+    "next_step_routing": "Proceed to Item099: convert Item097 and Item098 traces into chat-format SFT train/validation splits with split hashes, schema validation, and leakage checks before any LoRA training."
+  },
+  "result_tables": {
+    "summary_by_arm": {
+      "columns": ["arm", "n", "solve_rate", "mean_official_score", "mean_trace_rows", "max_register_view_len", "bounded_view_verified", "action_counts"],
+      "rows": [
+        {"arm": "team", "n": 4, "solve_rate": 1.0, "mean_official_score": 1.0, "mean_trace_rows": 35.25, "max_register_view_len": 7, "bounded_view_verified": true, "action_counts": {"branch": 108, "cross_block_conflict": 9, "message": 9, "rollback": 10, "local_backtrack": 1, "final": 4}},
+        {"arm": "monolith_R", "n": 4, "solve_rate": 1.0, "mean_official_score": 1.0, "mean_trace_rows": 20.5, "max_register_view_len": 8, "bounded_view_verified": true, "action_counts": {"branch": 70, "backtrack": 4, "rollback": 4, "final": 4}},
+        {"arm": "monolith_KR", "n": 4, "solve_rate": 1.0, "mean_official_score": 1.0, "mean_trace_rows": 20.5, "max_register_view_len": 15, "bounded_view_verified": true, "action_counts": {"branch": 70, "backtrack": 4, "rollback": 4, "final": 4}}
+      ]
+    },
+    "trace_action_totals": {
+      "columns": ["action_kind", "rows"],
+      "rows": [
+        {"action_kind": "branch", "rows": 248},
+        {"action_kind": "backtrack", "rows": 8},
+        {"action_kind": "local_backtrack", "rows": 1},
+        {"action_kind": "cross_block_conflict", "rows": 9},
+        {"action_kind": "message", "rows": 9},
+        {"action_kind": "rollback", "rows": 18},
+        {"action_kind": "final", "rows": 12}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item exports oracle-scaffold multi-agent traces only. It does not train a LoRA adapter, evaluate internalized agents, or establish the full multi-agent capacity claim.",
+    "teacher_limit": "The teacher is oracle_scaffold, not replayed Qwen decisions. LLM-scaffold trace harvesting remains a follow-up item if needed.",
+    "scale_limit": "K=2 and n=4 per arm are trace-schema smoke settings, not a claim-scale experiment."
+  }
+}
