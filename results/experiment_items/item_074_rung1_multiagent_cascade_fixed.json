@@ -1,0 +1,135 @@
+{
+  "item_number": "074",
+  "schema_version": "log_item_contract_v1",
+  "name": "Rung-1 multi-agent cascade invariant no-LLM gate",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Apply the theorem-grounded cbj<=chrono invariant, validate a multi-recovery anchor, and gate the controlled graph_color multi-agent slice before any real-LLM run.",
+  "provenance": {
+    "schema_version": "rung1_multiagent_cascade_fixed_v0",
+    "source": "autonomous_stage_a_run",
+    "result_artifact": "results/rung1_multiagent_cascade_fixed/results.json",
+    "script": "analysis/rung1_multiagent_cascade_fixed.py",
+    "slice_artifact": "results/rung1_multiagent_graphcolor/engineered_dry_run.json",
+    "parent_item": "073"
+  },
+  "artifacts": [
+    "results/experiment_items/item_074_rung1_multiagent_cascade_fixed.json",
+    "analysis/rung1_multiagent_cascade_fixed.py",
+    "results/rung1_multiagent_cascade_fixed/results.json",
+    "results/rung1_multiagent_graphcolor/engineered_dry_run.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/rung1_multiagent_cascade_fixed.py",
+      "change": "Adds the theorem-grounded cbj<=chrono per-instance invariant gate, multi-recovery cascade anchor, corrected slice NO-GO readout, capacity regime summary, and real-LLM proceed gate."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m analysis.rung1_multiagent_cascade_fixed --slice-path results/rung1_multiagent_graphcolor/engineered_dry_run.json --output results/rung1_multiagent_cascade_fixed/results.json",
+      "purpose": "Run the single no-LLM cascade invariant pass against the engineered controlled graph_color slice."
+    }
+  ],
+  "decision": {
+    "outcome": "RUNG1_MULTIAGENT_CASCADE_FIXED_COMPLETE",
+    "overall_pass": false,
+    "headline": {
+      "determination": "fix_incomplete_invariant_violation",
+      "claim3_verdict": "fix_incomplete",
+      "claim4_capacity_verdict": "non_discriminating_or_negative",
+      "invariant_violations": 8,
+      "multirecovery_anchor_validated": true,
+      "real_llm": "NO_GO",
+      "single_next_move": "Fix cbj cascade implementation so per-instance cbj total work is never above chronological before reading a slice verdict."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "slice_cbj_leq_chrono_invariant",
+        "outcome": "FAIL",
+        "number": "8 per-instance cbj_oracle total-work violations vs paired chrono; slice_invariant_pass=false"
+      },
+      {
+        "gate": "multi_recovery_anchor",
+        "outcome": "PASS",
+        "number": "cbj total-work slope=0.0, chrono total-work slope=1.0, invariant_holds=true"
+      },
+      {
+        "gate": "slice_claim3_verdict",
+        "outcome": "FIX_INCOMPLETE_NO_VERDICT",
+        "number": "cbj>chrono is forbidden by invariant, so no claim3 verdict is banked"
+      },
+      {
+        "gate": "capacity_regime",
+        "outcome": "NOT_DISCRIMINATING",
+        "number": "monolith_fail_fraction=0.0; team_feasible_fraction=1.0"
+      },
+      {
+        "gate": "real_llm_proceed",
+        "outcome": "NO_GO",
+        "number": "real_llm=NO_GO because slice_anchor_invariant=false and capacity_discriminating=false"
+      }
+    ],
+    "next_step_routing": "Do not run real LLM. The multi-recovery anchor validates the intended accounting, but the actual graph_color slice still violates cbj<=chrono, so the implementation/regime is fix-incomplete before verdict."
+  },
+  "result_tables": {
+    "invariant_check": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "slice_invariant_pass", "value": false},
+        {"metric": "anchor_invariant_pass", "value": true},
+        {"metric": "n_violations", "value": 8}
+      ]
+    },
+    "invariant_violations": {
+      "columns": ["source_index", "B", "cbj_total_work", "chrono_total_work", "cbj_messages", "chrono_messages", "cbj_solve", "chrono_solve"],
+      "rows": [
+        {"source_index": 0, "B": 5, "cbj_total_work": 202.0, "chrono_total_work": 16.0, "cbj_messages": 24, "chrono_messages": 3, "cbj_solve": true, "chrono_solve": true},
+        {"source_index": 1, "B": 6, "cbj_total_work": 76.0, "chrono_total_work": 20.0, "cbj_messages": 9, "chrono_messages": 5, "cbj_solve": true, "chrono_solve": true},
+        {"source_index": 2, "B": 6, "cbj_total_work": 12.0, "chrono_total_work": 9.0, "cbj_messages": 1, "chrono_messages": 1, "cbj_solve": true, "chrono_solve": true},
+        {"source_index": 5, "B": 6, "cbj_total_work": 110.0, "chrono_total_work": 9.0, "cbj_messages": 17, "chrono_messages": 1, "cbj_solve": true, "chrono_solve": true},
+        {"source_index": 6, "B": 6, "cbj_total_work": 39.0, "chrono_total_work": 28.0, "cbj_messages": 5, "chrono_messages": 6, "cbj_solve": true, "chrono_solve": true},
+        {"source_index": 8, "B": 6, "cbj_total_work": 17.0, "chrono_total_work": 9.0, "cbj_messages": 2, "chrono_messages": 1, "cbj_solve": true, "chrono_solve": true},
+        {"source_index": 11, "B": 6, "cbj_total_work": 35.0, "chrono_total_work": 21.0, "cbj_messages": 4, "chrono_messages": 5, "cbj_solve": true, "chrono_solve": true},
+        {"source_index": 17, "B": 6, "cbj_total_work": 68.0, "chrono_total_work": 21.0, "cbj_messages": 4, "chrono_messages": 5, "cbj_solve": true, "chrono_solve": true}
+      ]
+    },
+    "multirecovery_anchor": {
+      "columns": ["arm", "message_slope_vs_cascade_depth", "total_work_slope_vs_cascade_depth", "retraction_slope_vs_cascade_depth"],
+      "rows": [
+        {"arm": "cbj", "message_slope_vs_cascade_depth": 0.0, "total_work_slope_vs_cascade_depth": 0.0, "retraction_slope_vs_cascade_depth": 1.0},
+        {"arm": "chrono", "message_slope_vs_cascade_depth": 1.0, "total_work_slope_vs_cascade_depth": 1.0, "retraction_slope_vs_cascade_depth": 1.0}
+      ]
+    },
+    "slice_claim3": {
+      "columns": ["verdict", "reason"],
+      "rows": [
+        {"verdict": "fix_incomplete", "reason": "cbj>chrono invariant violation remains on actual slice; no claim3 verdict banked"}
+      ]
+    },
+    "capacity_regime": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "monolith_fail_fraction", "value": 0.0},
+        {"metric": "team_feasible_fraction", "value": 1.0},
+        {"metric": "claim4_capacity_verdict", "value": "non_discriminating_or_negative"}
+      ]
+    },
+    "proceed_gate": {
+      "columns": ["gate", "value"],
+      "rows": [
+        {"gate": "slice_anchor_invariant", "value": false},
+        {"gate": "multirecovery_anchor_validated", "value": true},
+        {"gate": "slice_verdict_resolved", "value": false},
+        {"gate": "capacity_discriminating", "value": false},
+        {"gate": "capacity_positive", "value": false},
+        {"gate": "real_llm", "value": "NO_GO"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish claim 3 or claim 4-multi. It proves the actual graph_color slice still violates the cbj<=chrono theorem-grounded invariant, so the fix is incomplete and no verdict may be banked.",
+    "instrument_limit": "The multi-recovery anchor validates the target accounting pattern, but the actual slice implementation still violates the invariant on all paired instances.",
+    "capacity_limit": "The monolith-fail/team-feasible capacity regime is still not built; monolith_fail_fraction remains 0.0.",
+    "scope_limit": "No real LLM run was launched because the proceed gate is NO_GO."
+  }
+}

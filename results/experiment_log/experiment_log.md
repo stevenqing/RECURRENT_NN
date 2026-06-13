@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-13T03:35:06.296656+00:00
+Generated at: 2026-06-13T03:49:20.919671+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -69,6 +69,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 071 | Rung-1 controlled multi-agent graph_color official-harness dry-run | UNKNOWN | Do not run real LLM multi-agent on this non-discriminating slice. Increase graph size/trail length and tune partition/separator selection until monolith-fail/team-feasible and cbj-vs-chrono message separation appear under no-LLM official scoring. |
 | 072 | Rung-1 engineered multi-agent graph_color distant-culprit slice | UNKNOWN | Do not burn real-LLM budget on this slice. The distant-culprit gate now works, but the message observable/route dynamics still do not show cbj below chrono, and monolith capacity is not stressed. Next change should engineer a monolith-fail/team-feasible regime and/or revise total-message accounting so chrono counts all intervening rewinds as intended by the spec. |
 | 073 | Rung-1 multi-agent accounting anchor and proceed gate | UNKNOWN | Do not spend real LLM on this multi-agent slice. Since the anchor validates the instrument, the current graph_color controlled slice is an accepted claim3 negative; capacity remains non-discriminating. Next move is either accept the controlled-substrate negative or define a new substrate/regime before real LLM. |
+| 074 | Rung-1 multi-agent cascade invariant no-LLM gate | UNKNOWN | Do not run real LLM. The multi-recovery anchor validates the intended accounting, but the actual graph_color slice still violates cbj<=chrono, so the implementation/regime is fix-incomplete before verdict. |
 
 ## Item Details
 
@@ -125,7 +126,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - The validator now reports missing legacy artifacts individually.
   - Current validation is registry-style and does not collapse missing history into one opaque required-files failure.
 - Artifact refs:
-  - analysis/validate_outputs.py (yes, 145283 bytes)
+  - analysis/validate_outputs.py (yes, 145496 bytes)
   - results/validation/validation.json (yes, 195844 bytes)
   - results/validation/validation.md (yes, 151093 bytes)
 #### Referenced Result Summaries
@@ -286,9 +287,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifact refs:
   - CANONICAL_REPO.md (yes, 532 bytes)
-  - analysis/validate_outputs.py (yes, 145283 bytes)
+  - analysis/validate_outputs.py (yes, 145496 bytes)
   - results/validation/validation.json (yes, 195844 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83774479 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83791654 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -412,8 +413,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/continuation_state/post_027.json (yes, 1453 bytes)
   - results/validation/validation.json (yes, 195844 bytes)
   - results/validation/validation.md (yes, 151093 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83774479 bytes)
-  - results/experiment_log/experiment_log.md (yes, 840238 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83791654 bytes)
+  - results/experiment_log/experiment_log.md (yes, 844095 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -783,7 +784,7 @@ No rows recorded.
   - honesty=This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent state. It deliberately turns the registry red until those objects exist.
 - Artifact refs:
   - results/experiment_items/item_033_validation_object_binding.json (yes, 7073 bytes)
-  - analysis/validate_outputs.py (yes, 145283 bytes)
+  - analysis/validate_outputs.py (yes, 145496 bytes)
   - experiments/stage_a_sudoku6_bridge.py (yes, 10922 bytes)
   - experiments/w3_qwen35_probe.py (yes, 47675 bytes)
   - results/stage_a_sudoku6_bridge/results.json (yes, 4890 bytes)
@@ -1216,8 +1217,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 195844 bytes)
   - results/validation/validation.md (yes, 151093 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83774479 bytes)
-  - results/experiment_log/experiment_log.md (yes, 840238 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83791654 bytes)
+  - results/experiment_log/experiment_log.md (yes, 844095 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1345,8 +1346,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 195844 bytes)
   - results/validation/validation.md (yes, 151093 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83774479 bytes)
-  - results/experiment_log/experiment_log.md (yes, 840238 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83791654 bytes)
+  - results/experiment_log/experiment_log.md (yes, 844095 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1433,8 +1434,8 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83774479 bytes)
-  - results/experiment_log/experiment_log.md (yes, 840238 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83791654 bytes)
+  - results/experiment_log/experiment_log.md (yes, 844095 bytes)
   - results/validation/validation.json (yes, 195844 bytes)
   - results/validation/validation.md (yes, 151093 bytes)
 #### Referenced Result Summaries
@@ -1498,15 +1499,15 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (yes, 11255 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (yes, 11389 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (yes, 11218 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83774479 bytes)
-  - results/experiment_log/experiment_log.md (yes, 840238 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83791654 bytes)
+  - results/experiment_log/experiment_log.md (yes, 844095 bytes)
   - results/validation/validation.json (yes, 195844 bytes)
   - results/validation/validation.md (yes, 151093 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-13T03:35:02.843482+00:00 |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-13T03:49:03.962725+00:00 |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | GATES_UNREACHED | G1=0.03906; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | GATES_UNREACHED | G1=0.01562; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
@@ -1600,8 +1601,8 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (yes, 40421 bytes)
   - results/sudoku_engine_gpu/equivalence_1000.json (yes, 167 bytes)
   - results/trm_operator_logging_smoke/progress.jsonl (yes, 968 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83774479 bytes)
-  - results/experiment_log/experiment_log.md (yes, 840238 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83791654 bytes)
+  - results/experiment_log/experiment_log.md (yes, 844095 bytes)
   - results/validation/validation.json (yes, 195844 bytes)
   - results/validation/validation.md (yes, 151093 bytes)
 #### Referenced Result Summaries
@@ -1680,8 +1681,8 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (yes, 322 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83774479 bytes)
-  - results/experiment_log/experiment_log.md (yes, 840238 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83791654 bytes)
+  - results/experiment_log/experiment_log.md (yes, 844095 bytes)
   - results/validation/validation.json (yes, 195844 bytes)
   - results/validation/validation.md (yes, 151093 bytes)
 #### Referenced Result Summaries
@@ -1726,8 +1727,8 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83774479 bytes)
-  - results/experiment_log/experiment_log.md (yes, 840238 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83791654 bytes)
+  - results/experiment_log/experiment_log.md (yes, 844095 bytes)
   - results/validation/validation.json (yes, 195844 bytes)
   - results/validation/validation.md (yes, 151093 bytes)
 #### Referenced Result Summaries
@@ -1783,8 +1784,8 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (yes, 974 bytes)
   - results/trm_operator_compile_smoke/acceptance.json (yes, 10396 bytes)
   - results/trm_operator_compile_smoke/progress.jsonl (yes, 486 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83774479 bytes)
-  - results/experiment_log/experiment_log.md (yes, 840238 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83791654 bytes)
+  - results/experiment_log/experiment_log.md (yes, 844095 bytes)
   - results/validation/validation.json (yes, 195844 bytes)
   - results/validation/validation.md (yes, 151093 bytes)
 #### Referenced Result Summaries
@@ -1851,8 +1852,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (yes, 102640503 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (yes, 102514311 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (yes, 102594183 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83774479 bytes)
-  - results/experiment_log/experiment_log.md (yes, 840238 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83791654 bytes)
+  - results/experiment_log/experiment_log.md (yes, 844095 bytes)
   - results/validation/validation.json (yes, 195844 bytes)
   - results/validation/validation.md (yes, 151093 bytes)
 #### Referenced Result Summaries
@@ -1911,8 +1912,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 42721 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (yes, 80203 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (yes, 55287865 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83774479 bytes)
-  - results/experiment_log/experiment_log.md (yes, 840238 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83791654 bytes)
+  - results/experiment_log/experiment_log.md (yes, 844095 bytes)
   - results/validation/validation.json (yes, 195844 bytes)
   - results/validation/validation.md (yes, 151093 bytes)
 #### Referenced Result Summaries
@@ -4644,8 +4645,8 @@ Truncated to 24 of 28 rows.
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json (yes, 3515 bytes)
   - results/rung1_separator_fallibility_rungs/results.json (yes, 79925 bytes)
   - results/experiment_items/item_060_rung1_separator_fallibility_rungs.json (yes, 191278 bytes)
-  - results/experiment_log/experiment_log.md (yes, 840238 bytes)
-  - results/experiment_log/experiment_log.json (yes, 83774479 bytes)
+  - results/experiment_log/experiment_log.md (yes, 844095 bytes)
+  - results/experiment_log/experiment_log.json (yes, 83791654 bytes)
   - results/rung1_separator_fallibility_rungs/item062_execution.json (yes, 2265658 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json (yes, 3606 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2.log (yes, 9044 bytes)
@@ -6175,6 +6176,85 @@ Truncated to 24 of 378 rows.
 
 - Next action: Do not spend real LLM on this multi-agent slice. Since the anchor validates the instrument, the current graph_color controlled slice is an accepted claim3 negative; capacity remains non-discriminating. Next move is either accept the controlled-substrate negative or define a new substrate/regime before real LLM.
 
+### Item 074 - Rung-1 multi-agent cascade invariant no-LLM gate
+
+- Status: UNKNOWN
+- Key result: Do not run real LLM. The multi-recovery anchor validates the intended accounting, but the actual graph_color slice still violates cbj<=chrono, so the implementation/regime is fix-incomplete before verdict.
+- Purpose: Apply the theorem-grounded cbj<=chrono invariant, validate a multi-recovery anchor, and gate the controlled graph_color multi-agent slice before any real-LLM run.
+- Details:
+  - purpose=Apply the theorem-grounded cbj<=chrono invariant, validate a multi-recovery anchor, and gate the controlled graph_color multi-agent slice before any real-LLM run.
+  - commands=1
+  - result_tables=['invariant_check', 'invariant_violations', 'multirecovery_anchor', 'slice_claim3', 'capacity_regime', 'proceed_gate']
+  - honesty=This item does not establish claim 3 or claim 4-multi. It proves the actual graph_color slice still violates the cbj<=chrono theorem-grounded invariant, so the fix is incomplete and no verdict may be banked.
+- Artifact refs:
+  - results/experiment_items/item_074_rung1_multiagent_cascade_fixed.json (yes, 7395 bytes)
+  - analysis/rung1_multiagent_cascade_fixed.py (yes, 9162 bytes)
+  - results/rung1_multiagent_cascade_fixed/results.json (yes, 20737 bytes)
+  - results/rung1_multiagent_graphcolor/engineered_dry_run.json (yes, 59372 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/rung1_multiagent_cascade_fixed/results.json | RUNG1_MULTIAGENT_CASCADE_FIXED_COMPLETE | provenance=rung1_multiagent_cascade_fixed_v0; schema_version=rung1_multiagent_cascade_fixed_v0; source=autonomous_stage_a_run |  |
+| results/rung1_multiagent_graphcolor/engineered_dry_run.json | RUNG1_MULTIAGENT_GRAPHCOLOR_COMPLETE | provenance=rung1_multiagent_graphcolor_v0; schema_version=rung1_multiagent_graphcolor_v0; source=autonomous_stage_a_run |  |
+
+#### Contract Result Tables
+
+##### invariant_check
+
+| metric | value |
+| --- | --- |
+| slice_invariant_pass | False |
+| anchor_invariant_pass | True |
+| n_violations | 8 |
+
+##### invariant_violations
+
+| source_index | B | cbj_total_work | chrono_total_work | cbj_messages | chrono_messages | cbj_solve | chrono_solve |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | 5 | 202 | 16 | 24 | 3 | True | True |
+| 1 | 6 | 76 | 20 | 9 | 5 | True | True |
+| 2 | 6 | 12 | 9 | 1 | 1 | True | True |
+| 5 | 6 | 110 | 9 | 17 | 1 | True | True |
+| 6 | 6 | 39 | 28 | 5 | 6 | True | True |
+| 8 | 6 | 17 | 9 | 2 | 1 | True | True |
+| 11 | 6 | 35 | 21 | 4 | 5 | True | True |
+| 17 | 6 | 68 | 21 | 4 | 5 | True | True |
+
+##### multirecovery_anchor
+
+| arm | message_slope_vs_cascade_depth | total_work_slope_vs_cascade_depth | retraction_slope_vs_cascade_depth |
+| --- | --- | --- | --- |
+| cbj | 0 | 0 | 1 |
+| chrono | 1 | 1 | 1 |
+
+##### slice_claim3
+
+| verdict | reason |
+| --- | --- |
+| fix_incomplete | cbj>chrono invariant violation remains on actual slice; no claim3 verdict banked |
+
+##### capacity_regime
+
+| metric | value |
+| --- | --- |
+| monolith_fail_fraction | 0 |
+| team_feasible_fraction | 1 |
+| claim4_capacity_verdict | non_discriminating_or_negative |
+
+##### proceed_gate
+
+| gate | value |
+| --- | --- |
+| slice_anchor_invariant | False |
+| multirecovery_anchor_validated | True |
+| slice_verdict_resolved | False |
+| capacity_discriminating | False |
+| capacity_positive | False |
+| real_llm | NO_GO |
+
+- Next action: Do not run real LLM. The multi-recovery anchor validates the intended accounting, but the actual graph_color slice still violates cbj<=chrono, so the implementation/regime is fix-incomplete before verdict.
+
 
 ## Canonical Repo Decision
 
@@ -6269,6 +6349,7 @@ Truncated to 24 of 378 rows.
 | item_071_rung1_multiagent_graphcolor_controlled_dryrun | results/experiment_items/item_071_rung1_multiagent_graphcolor_controlled_dryrun.json | yes |
 | item_072_rung1_multiagent_graphcolor_engineered_slice | results/experiment_items/item_072_rung1_multiagent_graphcolor_engineered_slice.json | yes |
 | item_073_rung1_multiagent_accounting_anchor | results/experiment_items/item_073_rung1_multiagent_accounting_anchor.json | yes |
+| item_074_rung1_multiagent_cascade_fixed | results/experiment_items/item_074_rung1_multiagent_cascade_fixed.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | rung1_phase1_spec_v01 | specs/rung1_phase1_spec_v01.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
@@ -6359,6 +6440,7 @@ Truncated to 24 of 378 rows.
 | rung1_multiagent_graphcolor_dry_run | results/rung1_multiagent_graphcolor/dry_run.json | yes |
 | rung1_multiagent_graphcolor_engineered_dry_run | results/rung1_multiagent_graphcolor/engineered_dry_run.json | yes |
 | rung1_multiagent_accounting_anchor | results/rung1_multiagent_accounting_anchor/results.json | yes |
+| rung1_multiagent_cascade_fixed | results/rung1_multiagent_cascade_fixed/results.json | yes |
 | validation | results/validation/validation.json | yes |
 
 ## Validation Summary

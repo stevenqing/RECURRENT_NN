@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=46",
+      "detail": "count=47",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -2227,6 +2227,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_074_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_074_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=074",
+      "name": "log_item_074_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_074_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish claim 3 or claim 4-multi. It proves the actual graph_color slice still violates the cbj<=chrono theorem-grounded invariant, so the ",
+      "name": "log_item_074_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=5; routing=Do not run real LLM. The multi-recovery anchor validates the intended accounting, but the actual graph_color slice still violates cbj<=chrono, so the implementation/regime is fix-incomplete before verdict.",
+      "name": "log_item_074_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -2803,13 +2839,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'forward_read', 'final_solution_readback', 'write_drop_mask', 'pop_read', 'register_entry_classification', 'spill_off_write_drop'}",
+      "detail": "rules={'register_entry_classification', 'forward_read', 'final_solution_readback', 'pop_read', 'write_drop_mask', 'spill_off_write_drop'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_choice', 'P_all_unmasked', 'P_pop_unmasked', 'P_choice_unmasked', 'P_all', 'threshold_D_pop', 'P_pop', 'threshold_D_peak'}; rows=768",
+      "detail": "candidates={'P_all_unmasked', 'P_pop_unmasked', 'P_pop', 'P_choice', 'P_choice_unmasked', 'threshold_D_pop', 'P_all', 'threshold_D_peak'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2845,7 +2881,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_choice', 'P_all_unmasked', 'P_pop_unmasked', 'P_choice_unmasked', 'P_all', 'P_pop'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_all_unmasked', 'P_pop_unmasked', 'P_pop', 'P_choice', 'P_choice_unmasked', 'P_all'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3643,11 +3679,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-13T03:35:24.777128+00:00",
+  "generated_at": "2026-06-13T03:49:39.164899+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 607,
+    "n_checks": 613,
     "n_fail": 3,
-    "n_pass": 604
+    "n_pass": 610
   }
 }
