@@ -75,7 +75,15 @@ def _openai_json_call(base_url: str, model: str, prompt: str, max_tokens: int, s
         parsed = json.loads(text)
     except json.JSONDecodeError:
         parsed = {}
-    return {"text": text, "parsed": parsed, "finish_reason": choice.get("finish_reason"), "output_tokens": int(decoded.get("usage", {}).get("completion_tokens") or 0)}
+    usage = decoded.get("usage", {}) or {}
+    return {
+        "text": text,
+        "parsed": parsed,
+        "finish_reason": choice.get("finish_reason"),
+        "output_tokens": int(usage.get("completion_tokens") or 0),
+        "prompt_tokens": int(usage.get("prompt_tokens") or 0),
+        "total_tokens": int(usage.get("total_tokens") or 0),
+    }
 
 
 def _openai_text_call(base_url: str, model: str, prompt: str, max_tokens: int) -> dict[str, Any]:
@@ -87,7 +95,14 @@ def _openai_text_call(base_url: str, model: str, prompt: str, max_tokens: int) -
     except URLError as exc:
         raise RuntimeError(f"OpenAI-compatible request failed: {exc}") from exc
     choice = decoded.get("choices", [{}])[0]
-    return {"text": choice.get("message", {}).get("content", ""), "finish_reason": choice.get("finish_reason"), "output_tokens": int(decoded.get("usage", {}).get("completion_tokens") or 0)}
+    usage = decoded.get("usage", {}) or {}
+    return {
+        "text": choice.get("message", {}).get("content", ""),
+        "finish_reason": choice.get("finish_reason"),
+        "output_tokens": int(usage.get("completion_tokens") or 0),
+        "prompt_tokens": int(usage.get("prompt_tokens") or 0),
+        "total_tokens": int(usage.get("total_tokens") or 0),
+    }
 
 
 def _graph_color_view(entry: dict[str, Any], order_mode: str) -> dict[str, Any]:
@@ -242,14 +257,25 @@ def _run_one_shot(dataset: Any, entry: dict[str, Any], args: argparse.Namespace)
     if args.no_llm:
         possible = entry["metadata"].get("possible_answer")
         answer = json.dumps(possible, sort_keys=True) if possible is not None else str(entry.get("answer", ""))
-        return {"answer": answer, "official_score": float(dataset.score_answer(answer, entry)), "llm_calls": 0, "output_tokens": 0, "mode": "oracle_no_llm", "source": SOURCE, "provenance": "rg_one_shot_baseline_v0"}
+        return {"answer": answer, "official_score": float(dataset.score_answer(answer, entry)), "llm_calls": 0, "output_tokens": 0, "prompt_tokens": 0, "total_tokens": 0, "mode": "oracle_no_llm", "source": SOURCE, "provenance": "rg_one_shot_baseline_v0"}
     prompt = entry["question"]
     if args.one_shot_cot:
         prompt += "\nThink privately if needed, then provide the final answer in the requested format."
     generation = _openai_text_call(args.openai_base_url, args.openai_model, prompt, args.one_shot_max_tokens)
     text = generation["text"]
     score = float(dataset.score_answer(text, entry))
-    return {"answer": text, "official_score": score, "llm_calls": 1, "output_tokens": generation.get("output_tokens", 0), "finish_reason": generation.get("finish_reason"), "mode": "one_shot_cot" if args.one_shot_cot else "one_shot", "source": SOURCE, "provenance": "rg_one_shot_baseline_v0"}
+    return {
+        "answer": text,
+        "official_score": score,
+        "llm_calls": 1,
+        "output_tokens": generation.get("output_tokens", 0),
+        "prompt_tokens": generation.get("prompt_tokens", 0),
+        "total_tokens": generation.get("total_tokens", 0),
+        "finish_reason": generation.get("finish_reason"),
+        "mode": "one_shot_cot" if args.one_shot_cot else "one_shot",
+        "source": SOURCE,
+        "provenance": "rg_one_shot_baseline_v0",
+    }
 
 
 def _run_episode(dataset: Any, selected: dict[str, Any], r_value: int, target_source: str, args: argparse.Namespace) -> dict[str, Any]:
@@ -273,6 +299,8 @@ def _run_episode(dataset: Any, selected: dict[str, Any], r_value: int, target_so
     register_view_lens = []
     assigned_neighbor_lens = []
     output_tokens = 0
+    prompt_tokens = 0
+    total_tokens = 0
     retractions = 0
     nodes_visited = 0
     while True:
@@ -312,6 +340,8 @@ def _run_episode(dataset: Any, selected: dict[str, Any], r_value: int, target_so
             decision_calls += 1
             branch_calls += 1
             output_tokens += int(generation.get("output_tokens", 0))
+            prompt_tokens += int(generation.get("prompt_tokens", 0))
+            total_tokens += int(generation.get("total_tokens", 0))
             branch_correct += int(color == oracle_color)
             tried_colors[vertex].add(color)
             assignment[vertex] = color
@@ -365,6 +395,8 @@ def _run_episode(dataset: Any, selected: dict[str, Any], r_value: int, target_so
         decision_calls += 1
         backtrack_calls += 1
         output_tokens += int(generation.get("output_tokens", 0))
+        prompt_tokens += int(generation.get("prompt_tokens", 0))
+        total_tokens += int(generation.get("total_tokens", 0))
         backtrack_correct += int(chosen_view == oracle_view)
         target_abs = view_start + chosen_view
         popped = register[target_abs:]
@@ -395,6 +427,8 @@ def _run_episode(dataset: Any, selected: dict[str, Any], r_value: int, target_so
         "nodes_visited": nodes_visited,
         "total_retractions": retractions,
         "output_tokens": output_tokens,
+        "prompt_tokens": prompt_tokens,
+        "total_tokens": total_tokens,
         "branch_accuracy_vs_oracle": branch_correct / max(1, branch_calls),
         "backtrack_accuracy_vs_oracle": backtrack_correct / max(1, backtrack_calls),
         "max_prompt_chars": max(prompt_chars or [0]),

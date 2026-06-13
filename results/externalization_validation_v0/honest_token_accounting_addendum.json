@@ -1,0 +1,47 @@
+{
+  "schema_version": "externalization_honest_token_accounting_addendum_v0",
+  "status": "EXTERNALIZATION_HONEST_TOKEN_ACCOUNTING_ADDENDUM_COMPLETE",
+  "source": "autonomous_stage_a_run",
+  "provenance": "item081_token_accounting_correction_v0",
+  "correction": {
+    "item081_error": "The token_efficiency table compared M-register completion tokens against thinking completion tokens and implied a fewer-token win.",
+    "corrected_claim": "Do not claim fewer tokens from Item080/Item081. The defensible current claim is matched/comparable token budget: M-register solves much more at roughly comparable total token scale, while thinking is truncation-blocked.",
+    "future_requirement": "A fewer-tokens claim requires solve_rate vs mean_total_tokens curves for M-register, thinking max_tokens, and best-of-N/selfverify baselines."
+  },
+  "instrumentation_change": {
+    "path": "experiments/rung1_reasoning_gym_bounded_register.py",
+    "change": "Future M-register and one-shot rows now log prompt_tokens, completion/output_tokens, and total_tokens from vLLM usage for every call/episode.",
+    "exact_item080_prompt_tokens_available": false,
+    "reason": "Item080 was run before prompt_tokens/total_tokens were recorded in the M-register runner."
+  },
+  "current_token_readout": {
+    "m_register_estimated_total_tokens": [
+      {"R": 0, "solve_rate": 0.0, "mean_completion_tokens": 465.8, "mean_llm_calls": 8.7, "estimated_prompt_tokens_at_200_per_call": 1740.0, "estimated_total_tokens": 2205.8},
+      {"R": 2, "solve_rate": 0.16666666666666666, "mean_completion_tokens": 687.1666666666666, "mean_llm_calls": 12.666666666666666, "estimated_prompt_tokens_at_200_per_call": 2533.333333333333, "estimated_total_tokens": 3220.5},
+      {"R": 4, "solve_rate": 0.6, "mean_completion_tokens": 1148.0333333333333, "mean_llm_calls": 21.066666666666666, "estimated_prompt_tokens_at_200_per_call": 4213.333333333333, "estimated_total_tokens": 5361.366666666667},
+      {"R": 8, "solve_rate": 0.7666666666666667, "mean_completion_tokens": 2026.8666666666666, "mean_llm_calls": 37.03333333333333, "estimated_prompt_tokens_at_200_per_call": 7406.666666666666, "estimated_total_tokens": 9433.533333333333},
+      {"R": 16, "solve_rate": 0.8333333333333334, "mean_completion_tokens": 1793.4666666666667, "mean_llm_calls": 32.9, "estimated_prompt_tokens_at_200_per_call": 6580.0, "estimated_total_tokens": 8373.466666666667}
+    ],
+    "thinking_completed_rows_exact_total_tokens": {
+      "n_completed": 8,
+      "finish_reason": "length for all completed rows",
+      "solve_rate_on_truncated_rows_not_for_K1": 0.125,
+      "mean_prompt_tokens": 394.5,
+      "mean_completion_tokens": 8192.0,
+      "mean_total_tokens": 8586.5,
+      "truncated_count": 8
+    },
+    "interpretation": "At roughly 8k-9k total tokens per instance, M-register R16 solves 0.833 while thinking rows are all truncated and not K1-readable. This supports matched-budget externalized-search positioning, not a completed fewer-token claim."
+  },
+  "open_tracks": {
+    "K1": "OPEN_UNTIL_UNTRUNCATED_THINKING_OR_DECLARED_TOKEN_EXPLOSION_AT_32768",
+    "token_curve": "OPEN_REQUIRES_RERUN_WITH_TOTAL_TOKEN_LOGGING_AND_BASELINE_SWEEPS",
+    "sudoku_regime": "OPEN_FORWARD_R0_MUST_BE_NEAR_ZERO_BEFORE_REAL_SUDOKU_LLM_CLAIMS",
+    "graph_color_middle_band": "GO_FOR_K3B_SHARD"
+  },
+  "honesty": {
+    "does_not_establish": "This addendum does not establish a fewer-token claim. It corrects the token accounting and instruments future runs for exact total-token curves.",
+    "claim1_status": "K1 remains unbanked because thinking rows are truncated.",
+    "sudoku_status": "The sudoku adapter preflight was in a propagation-heavy regime; real sudoku claims require forward R0 near zero."
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "item_number": "082",
+  "schema_version": "log_item_contract_v1",
+  "name": "Externalization honest token accounting addendum",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Correct Item081's completion-only token-efficiency table, add total-token logging instrumentation for future M-register/one-shot runs, keep K1 open under the thinking truncation guard, and clarify sudoku/middle-band next gates.",
+  "provenance": {
+    "schema_version": "externalization_honest_token_accounting_addendum_v0",
+    "source": "autonomous_stage_a_run",
+    "result_artifact": "results/externalization_validation_v0/honest_token_accounting_addendum.json",
+    "instrumented_script": "experiments/rung1_reasoning_gym_bounded_register.py",
+    "parent_item": "081"
+  },
+  "artifacts": [
+    "results/experiment_items/item_082_externalization_honest_token_accounting.json",
+    "results/externalization_validation_v0/honest_token_accounting_addendum.json",
+    "experiments/rung1_reasoning_gym_bounded_register.py"
+  ],
+  "code_added_used": [
+    {
+      "path": "experiments/rung1_reasoning_gym_bounded_register.py",
+      "change": "Adds prompt_tokens and total_tokens from vLLM usage to one-shot and M-register rows/episodes for future exact token curves."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m py_compile experiments/rung1_reasoning_gym_bounded_register.py analysis/externalization_oneshot_thinking.py analysis/externalization_sudoku_adapter.py",
+      "purpose": "Validate token logging instrumentation and related scripts compile."
+    }
+  ],
+  "decision": {
+    "outcome": "EXTERNALIZATION_HONEST_TOKEN_ACCOUNTING_ADDENDUM_COMPLETE",
+    "overall_pass": true,
+    "headline": {
+      "token_claim": "matched_budget_not_fewer_tokens",
+      "m_register_R16_estimated_total_tokens": 8373.466666666667,
+      "thinking_truncated_mean_total_tokens": 8586.5,
+      "m_register_R16_solve_rate": 0.8333333333333334,
+      "thinking_truncated_solve_rate_not_k1_readable": 0.125,
+      "K1": "OPEN_TRUNCATION_BLOCKED",
+      "single_next_move": "Run exact token-logged curves or proceed to graph_color middle-band K3b; do not claim fewer tokens yet."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "token_accounting_correction",
+        "outcome": "PASS_CORRECTED",
+        "number": "Item081 completion-only comparison replaced by total-token matched-budget interpretation."
+      },
+      {
+        "gate": "runner_token_instrumentation",
+        "outcome": "PASS_INSTALLED",
+        "number": "Future rows include prompt_tokens, output_tokens/completion_tokens, and total_tokens."
+      },
+      {
+        "gate": "K1",
+        "outcome": "OPEN_TRUNCATION_BLOCKED",
+        "number": "8/8 completed thinking rows truncated at 8192; no solve number from truncated rows is banked."
+      },
+      {
+        "gate": "sudoku_regime",
+        "outcome": "OPEN_WRONG_REGIME",
+        "number": "Sudoku adapter preflight forward R0 solve_rate=0.875; real sudoku claims require forward R0 near zero."
+      },
+      {
+        "gate": "graph_color_middle_band",
+        "outcome": "GO",
+        "number": "Selected bin n_vertices=14 edge_probability=0.4 node_budget=18 with random=0.05 and heuristic=0.9."
+      }
+    ],
+    "next_step_routing": "Do not use Item081 as a fewer-token claim. Either rerun exact token-logged M-register/token curves, close K1 with an untruncated thinking budget up to 32768, or proceed to the graph_color middle-band K3b shard."
+  },
+  "result_tables": {
+    "token_curve_current_estimate": {
+      "columns": ["arm", "config", "solve_rate", "mean_total_tokens", "token_status"],
+      "rows": [
+        {"arm": "M-register R16", "config": "graph_color ceiling", "solve_rate": 0.8333333333333334, "mean_total_tokens": 8373.466666666667, "token_status": "estimated prompt tokens at 200/call"},
+        {"arm": "L1-oneshot-thinking", "config": "graph_color ceiling completed rows", "solve_rate": 0.125, "mean_total_tokens": 8586.5, "token_status": "exact total tokens but truncated; not K1-readable"}
+      ]
+    },
+    "open_gates": {
+      "columns": ["gate", "status", "reason"],
+      "rows": [
+        {"gate": "K1", "status": "OPEN", "reason": "thinking truncation guard failed"},
+        {"gate": "fewer_tokens", "status": "OPEN", "reason": "requires solve-vs-total-token curves"},
+        {"gate": "sudoku_claims", "status": "OPEN", "reason": "needs forward R0 near-zero regime"},
+        {"gate": "K3b_graph_color_middle_band", "status": "GO", "reason": "middle-band bin selected"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish a fewer-token claim or K1. It corrects accounting and instruments future exact token curves.",
+    "token_limit": "Item080 prompt tokens are not available because instrumentation was added after that run; M-register total tokens are estimated here and must be exactly measured in future reruns.",
+    "thinking_limit": "Truncated thinking rows cannot be used for K1 solve-rate claims."
+  }
+}
