@@ -1,0 +1,76 @@
+{
+  "generated_at": "2026-06-13T13:41:02.386693+00:00",
+  "headline": {
+    "all_finish_reason_length": true,
+    "all_n_at_least_30": true,
+    "all_solve_rate_zero": true,
+    "benchmarks_completed": [
+      "graph_color",
+      "sudoku",
+      "zebra_puzzles"
+    ],
+    "interpretation": "L1-one_shot_direct at 512 max_new_tokens is a capped weak baseline with solve_rate 0 on all Tier-1 smoke bins; not a K1 thinking read.",
+    "provenance": "rg_l1_direct_baseline_headline_v1",
+    "source": "autonomous_stage_a_run"
+  },
+  "honesty": {
+    "does_not_establish": "This completes only L1-one_shot_direct baseline rows at a 512-token cap. It does not complete thinking, best-of-N, self-verify, ToT, solver-outsourcing, or our method comparisons.",
+    "provenance": "rg_l1_direct_baseline_honesty_v1",
+    "source": "autonomous_stage_a_run",
+    "truncation_limit": "All L1 direct rows finished by length, so the result is a capped direct-answer baseline, not an anti-truncated thinking baseline."
+  },
+  "provenance": "reasoning_gym_l1_direct_baseline_batch_v1",
+  "rows": [
+    {
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct.json",
+      "benchmark": "graph_color",
+      "finish_reason_counts": {
+        "length": 30
+      },
+      "mean_official_score": 0.0,
+      "mean_total_tokens": 840.9333333333333,
+      "n": 30,
+      "provenance": "rg_l1_direct_baseline_row_v1",
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 30
+      }
+    },
+    {
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_sudoku_l1_direct.json",
+      "benchmark": "sudoku",
+      "finish_reason_counts": {
+        "length": 30
+      },
+      "mean_official_score": 0.00046151747430524855,
+      "mean_total_tokens": 681.3666666666667,
+      "n": 30,
+      "provenance": "rg_l1_direct_baseline_row_v1",
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 30
+      }
+    },
+    {
+      "artifact": "results/reasoning_gym_baselines/baseline_matrix_zebra_l1_direct.json",
+      "benchmark": "zebra_puzzles",
+      "finish_reason_counts": {
+        "length": 30
+      },
+      "mean_official_score": 0.0,
+      "mean_total_tokens": 824.8333333333334,
+      "n": 30,
+      "provenance": "rg_l1_direct_baseline_row_v1",
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "SCORE_FAIL": 30
+      }
+    }
+  ],
+  "schema_version": "reasoning_gym_l1_direct_baseline_batch_v1",
+  "source": "autonomous_stage_a_run",
+  "status": "REASONING_GYM_L1_DIRECT_BASELINE_BATCH_COMPLETE"
+}

@@ -1,0 +1,110 @@
+{
+  "item_number": "090",
+  "schema_version": "log_item_contract_v1",
+  "name": "Reasoning Gym L1 one-shot direct baselines",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Populate the first LLM baseline layer from SPEC v1 after adding timeout/checkpoint support: L1-one_shot_direct on graph_color, sudoku, and zebra_puzzles, n=30 each, official Reasoning Gym score_answer, total token accounting, batched vLLM Qwen3.5. This is a capped direct-answer baseline, not the K1 thinking baseline.",
+  "provenance": {
+    "schema_version": "reasoning_gym_l1_direct_baseline_batch_v1",
+    "source": "autonomous_stage_a_run",
+    "result_artifact": "results/reasoning_gym_baselines/l1_direct_baseline_batch.json",
+    "script": "analysis/reasoning_gym_baseline_matrix.py",
+    "parent_item": "089"
+  },
+  "artifacts": [
+    "results/experiment_items/item_090_reasoning_gym_l1_direct_baselines.json",
+    "results/reasoning_gym_baselines/l1_direct_baseline_batch.json",
+    "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct.json",
+    "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_checkpoint.json",
+    "results/reasoning_gym_baselines/baseline_matrix_sudoku_l1_direct.json",
+    "results/reasoning_gym_baselines/baseline_matrix_sudoku_l1_direct_checkpoint.json",
+    "results/reasoning_gym_baselines/baseline_matrix_zebra_l1_direct.json",
+    "results/reasoning_gym_baselines/baseline_matrix_zebra_l1_direct_checkpoint.json",
+    "analysis/reasoning_gym_baseline_matrix.py"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/reasoning_gym_baseline_matrix.py",
+      "change": "Reused the Item089 checkpointed/timeout LLM baseline path with high vLLM concurrency."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.reasoning_gym_baseline_matrix --output results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct.json --checkpoint-path results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_checkpoint.json --benchmarks graph_color --n-instances 30 --seed 42 --graph-vertices 14 --graph-edge-probability 0.4 --graph-node-budget 80 --run-llm --max-new-tokens 512 --batch-size 32 --llm-task-batch-size 32 --max-new-llm-rows 30 --request-timeout 180 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "purpose": "Run graph_color L1-one_shot_direct n=30 baseline."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.reasoning_gym_baseline_matrix --output results/reasoning_gym_baselines/baseline_matrix_sudoku_l1_direct.json --checkpoint-path results/reasoning_gym_baselines/baseline_matrix_sudoku_l1_direct_checkpoint.json --benchmarks sudoku --n-instances 30 --seed 42 --sudoku-empty 45 --sudoku-node-budget 320 --run-llm --max-new-tokens 512 --batch-size 32 --llm-task-batch-size 32 --max-new-llm-rows 30 --request-timeout 180 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "purpose": "Run sudoku L1-one_shot_direct n=30 baseline."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.reasoning_gym_baseline_matrix --output results/reasoning_gym_baselines/baseline_matrix_zebra_l1_direct.json --checkpoint-path results/reasoning_gym_baselines/baseline_matrix_zebra_l1_direct_checkpoint.json --benchmarks zebra_puzzles --n-instances 30 --seed 42 --run-llm --max-new-tokens 512 --batch-size 32 --llm-task-batch-size 32 --max-new-llm-rows 30 --request-timeout 180 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "purpose": "Run zebra_puzzles L1-one_shot_direct n=30 baseline."
+    }
+  ],
+  "decision": {
+    "outcome": "REASONING_GYM_L1_DIRECT_BASELINE_BATCH_COMPLETE",
+    "overall_pass": true,
+    "headline": {
+      "benchmarks_completed": ["graph_color", "sudoku", "zebra_puzzles"],
+      "n_per_benchmark": 30,
+      "graph_color_solve_rate": 0.0,
+      "sudoku_solve_rate": 0.0,
+      "zebra_puzzles_solve_rate": 0.0,
+      "all_finish_reason_length": true,
+      "baseline_interpretation": "capped_direct_answer_weak_baseline",
+      "single_next_move": "Run anti-truncation L1-thinking baseline next; do not treat this capped direct baseline as K1's strong baseline."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "graph_color_l1_direct",
+        "outcome": "COMPLETE_ZERO_SOLVE",
+        "number": "n=30; solve_rate=0.0; mean_total_tokens=840.93; finish_reason=length for 30/30."
+      },
+      {
+        "gate": "sudoku_l1_direct",
+        "outcome": "COMPLETE_ZERO_SOLVE",
+        "number": "n=30; solve_rate=0.0; mean_total_tokens=681.37; finish_reason=length for 30/30."
+      },
+      {
+        "gate": "zebra_puzzles_l1_direct",
+        "outcome": "COMPLETE_ZERO_SOLVE",
+        "number": "n=30; solve_rate=0.0; mean_total_tokens=824.83; finish_reason=length for 30/30."
+      },
+      {
+        "gate": "K1_strong_baseline",
+        "outcome": "STILL_OPEN",
+        "number": "K1 requires L1-thinking with anti-truncation; direct baseline is capped and all rows hit length."
+      },
+      {
+        "gate": "method_comparison",
+        "outcome": "STILL_PAUSED",
+        "number": "Baseline-first program continues; method comparisons wait for thinking/strong baselines."
+      }
+    ],
+    "next_step_routing": "Run L1-one_shot_thinking with checkpointing and finish_reason guard. Start graph_color with a larger token budget and record truncation; if all rows length, K1 remains open/truncation-blocked."
+  },
+  "result_tables": {
+    "l1_direct_summary": {
+      "columns": ["benchmark", "n", "solve_rate", "mean_official_score", "mean_total_tokens", "finish_reason_counts"],
+      "rows": [
+        {"benchmark": "graph_color", "n": 30, "solve_rate": 0.0, "mean_official_score": 0.0, "mean_total_tokens": 840.9333333333333, "finish_reason_counts": {"length": 30}},
+        {"benchmark": "sudoku", "n": 30, "solve_rate": 0.0, "mean_official_score": 0.00046151747430524855, "mean_total_tokens": 681.3666666666667, "finish_reason_counts": {"length": 30}},
+        {"benchmark": "zebra_puzzles", "n": 30, "solve_rate": 0.0, "mean_official_score": 0.0, "mean_total_tokens": 824.8333333333334, "finish_reason_counts": {"length": 30}}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "L1_thinking", "gate": "GO_NEXT", "reason": "Direct baseline is complete but capped; strong K1 baseline is thinking."},
+        {"track": "L1_bestofN_selfverify", "gate": "QUEUED", "reason": "Run after thinking anti-truncation behavior is known."},
+        {"track": "method_comparisons", "gate": "PAUSED", "reason": "Baseline matrix not fully populated."}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item completes only capped L1-one_shot_direct baselines. It does not establish K1 against thinking, best-of-N, self-verify, ToT, solver-outsourcing, or any method comparison.",
+    "truncation_limit": "All rows ended with finish_reason=length at max_new_tokens=512, so the result is a capped weak direct-answer baseline.",
+    "baseline_first_scope": "Method comparisons remain paused."
+  }
+}
