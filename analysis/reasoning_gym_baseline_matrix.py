@@ -46,8 +46,8 @@ def _checkpoint_path(args: argparse.Namespace) -> Path:
     return args.checkpoint_path if args.checkpoint_path.is_absolute() else REPO_ROOT / args.checkpoint_path
 
 
-def _row_key(row: dict[str, Any]) -> tuple[str, int, str]:
-    return (str(row.get("benchmark", "")), int(row.get("source_index", -1)), str(row.get("arm", "")))
+def _row_key(row: dict[str, Any]) -> tuple[str, int, str, int]:
+    return (str(row.get("benchmark", "")), int(row.get("source_index", -1)), str(row.get("arm", "")), int(row.get("sample_index", 0)))
 
 
 def _benchmarks(args: argparse.Namespace) -> list[str]:
@@ -173,8 +173,8 @@ def _one_shot_prompt(benchmark: str, entry: dict[str, Any], mode: str) -> str:
     return prompt
 
 
-def _openai_text_call_timeout(base_url: str, model: str, prompt: str, max_tokens: int, timeout_seconds: float, enable_thinking: bool) -> dict[str, Any]:
-    payload = {"model": model, "messages": [{"role": "user", "content": prompt}], "temperature": 0, "max_tokens": max_tokens}
+def _openai_text_call_timeout(base_url: str, model: str, prompt: str, max_tokens: int, timeout_seconds: float, enable_thinking: bool, temperature: float) -> dict[str, Any]:
+    payload = {"model": model, "messages": [{"role": "user", "content": prompt}], "temperature": temperature, "max_tokens": max_tokens}
     if enable_thinking:
         payload["chat_template_kwargs"] = {"enable_thinking": True}
     request = Request(base_url.rstrip("/") + "/chat/completions", data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"}, method="POST")
@@ -219,16 +219,17 @@ def _extract_answer(benchmark: str, text: str) -> str | None:
     return None
 
 
-def _one_shot_row(dataset: Any, benchmark: str, entry: dict[str, Any], index: int, args: argparse.Namespace, mode: str) -> dict[str, Any]:
+def _one_shot_row(dataset: Any, benchmark: str, entry: dict[str, Any], index: int, args: argparse.Namespace, mode: str, sample_index: int) -> dict[str, Any]:
     arm = {"direct": "L1-one_shot_direct", "cot": "L1-one_shot_cot", "thinking": "L1-one_shot_thinking"}[mode]
     try:
-        generation = _openai_text_call_timeout(args.openai_base_url, args.openai_model, _one_shot_prompt(benchmark, entry, mode), args.max_new_tokens, args.request_timeout, mode == "thinking")
+        generation = _openai_text_call_timeout(args.openai_base_url, args.openai_model, _one_shot_prompt(benchmark, entry, mode), args.max_new_tokens, args.request_timeout, mode == "thinking", args.temperature)
     except Exception as exc:  # noqa: BLE001
         text = f"{type(exc).__name__}: {exc}"
         status = "TIMEOUT" if "timed out" in text.lower() or "timeout" in type(exc).__name__.lower() else "REQUEST_ERROR"
         return {
             "benchmark": benchmark,
             "source_index": index,
+            "sample_index": sample_index,
             "arm": arm,
             "official_score": 0.0,
             "solved": False,
@@ -250,6 +251,7 @@ def _one_shot_row(dataset: Any, benchmark: str, entry: dict[str, Any], index: in
     return {
         "benchmark": benchmark,
         "source_index": index,
+        "sample_index": sample_index,
         "arm": arm,
         "official_score": score,
         "raw_official_score": raw_score,
@@ -305,17 +307,20 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             rows.append(_empty_row(dataset, benchmark, entry, index))
             rows.extend(_symbolic_rows(dataset, benchmark, entry, index, args))
             if args.run_llm:
-                direct_key = (benchmark, index, "L1-one_shot_direct")
-                if direct_key not in completed_llm:
-                    llm_tasks.append((dataset, benchmark, entry, index, "direct"))
+                for sample_index in range(args.samples_per_instance):
+                    direct_key = (benchmark, index, "L1-one_shot_direct", sample_index)
+                    if direct_key not in completed_llm:
+                        llm_tasks.append((dataset, benchmark, entry, index, "direct", sample_index))
                 if args.run_cot:
-                    cot_key = (benchmark, index, "L1-one_shot_cot")
-                    if cot_key not in completed_llm:
-                        llm_tasks.append((dataset, benchmark, entry, index, "cot"))
+                    for sample_index in range(args.samples_per_instance):
+                        cot_key = (benchmark, index, "L1-one_shot_cot", sample_index)
+                        if cot_key not in completed_llm:
+                            llm_tasks.append((dataset, benchmark, entry, index, "cot", sample_index))
                 if args.run_thinking:
-                    thinking_key = (benchmark, index, "L1-one_shot_thinking")
-                    if thinking_key not in completed_llm:
-                        llm_tasks.append((dataset, benchmark, entry, index, "thinking"))
+                    for sample_index in range(args.samples_per_instance):
+                        thinking_key = (benchmark, index, "L1-one_shot_thinking", sample_index)
+                        if thinking_key not in completed_llm:
+                            llm_tasks.append((dataset, benchmark, entry, index, "thinking", sample_index))
     if args.max_new_llm_rows > 0:
         llm_tasks = llm_tasks[: args.max_new_llm_rows]
     if llm_tasks:
@@ -323,7 +328,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         for start in range(0, len(llm_tasks), max(1, llm_task_batch_size)):
             batch = llm_tasks[start : start + max(1, llm_task_batch_size)]
             with ThreadPoolExecutor(max_workers=max(1, min(args.batch_size, len(batch)))) as pool:
-                futures = [pool.submit(_one_shot_row, dataset, benchmark, entry, index, args, mode) for dataset, benchmark, entry, index, mode in batch]
+                futures = [pool.submit(_one_shot_row, dataset, benchmark, entry, index, args, mode, sample_index) for dataset, benchmark, entry, index, mode, sample_index in batch]
                 for future in as_completed(futures):
                     row = future.result()
                     llm_rows.append(row)
@@ -389,12 +394,14 @@ def main() -> None:
     parser.add_argument("--run-llm", action="store_true")
     parser.add_argument("--run-cot", action="store_true")
     parser.add_argument("--run-thinking", action="store_true")
+    parser.add_argument("--samples-per-instance", type=int, default=1)
     parser.add_argument("--checkpoint-path", type=Path, default=Path("results/reasoning_gym_baselines/baseline_matrix_llm_checkpoint.json"))
     parser.add_argument("--request-timeout", type=float, default=120.0)
     parser.add_argument("--llm-task-batch-size", type=int, default=0)
     parser.add_argument("--max-new-llm-rows", type=int, default=0)
     parser.add_argument("--openai-base-url", default=DEFAULT_OPENAI_BASE_URL)
     parser.add_argument("--openai-model", default=DEFAULT_OPENAI_MODEL)
+    parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--max-new-tokens", type=int, default=512)
     parser.add_argument("--batch-size", type=int, default=4)
     parser.add_argument("--no-resume", dest="resume", action="store_false")

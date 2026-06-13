@@ -1,0 +1,114 @@
+{
+  "item_number": "092",
+  "schema_version": "log_item_contract_v1",
+  "name": "Reasoning Gym graph_color L1 direct BoN@5 baseline",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Populate an actual pass@k baseline after Item091 showed pass@5/pass@10 were N/A without repeated samples. Runs graph_color L1-one_shot_direct with 5 samples per instance, n=30 instances, temperature=0.7, official Reasoning Gym score_answer, total token accounting, and high-concurrency vLLM batching. This is a direct-answer BoN@5 baseline, not the strong thinking BoN baseline.",
+  "provenance": {
+    "schema_version": "reasoning_gym_baseline_matrix_v1",
+    "source": "autonomous_stage_a_run",
+    "script": "analysis/reasoning_gym_baseline_matrix.py",
+    "metrics_script": "analysis/reasoning_gym_baseline_metrics.py",
+    "result_artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5.json",
+    "checkpoint_artifact": "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5_checkpoint.json",
+    "metrics_artifact": "results/reasoning_gym_baselines/baseline_metrics_dashboard_bon5.json",
+    "parent_item": "091"
+  },
+  "artifacts": [
+    "results/experiment_items/item_092_reasoning_gym_graph_color_bon5.json",
+    "analysis/reasoning_gym_baseline_matrix.py",
+    "analysis/reasoning_gym_baseline_metrics.py",
+    "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5.json",
+    "results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5_checkpoint.json",
+    "results/reasoning_gym_baselines/baseline_metrics_dashboard_bon5.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/reasoning_gym_baseline_matrix.py",
+      "change": "Adds repeated sampling support via --samples-per-instance, sample_index row keys, and configurable temperature for LLM baselines."
+    },
+    {
+      "path": "analysis/reasoning_gym_baseline_metrics.py",
+      "change": "Reused pass@k/oracle-best@k metrics to read BoN@5 over repeated samples."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.reasoning_gym_baseline_matrix --output results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5.json --checkpoint-path results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5_checkpoint.json --benchmarks graph_color --n-instances 30 --seed 42 --graph-vertices 14 --graph-edge-probability 0.4 --graph-node-budget 80 --run-llm --samples-per-instance 5 --temperature 0.7 --max-new-tokens 512 --batch-size 64 --llm-task-batch-size 64 --max-new-llm-rows 150 --request-timeout 180 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B",
+      "purpose": "Run graph_color direct one-shot repeated samples, 5 samples per instance, 150 total LLM rows."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.reasoning_gym_baseline_metrics --output results/reasoning_gym_baselines/baseline_metrics_dashboard_bon5.json --inputs results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct_bon5.json,results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_direct.json,results/reasoning_gym_baselines/baseline_matrix_sudoku_l1_direct.json,results/reasoning_gym_baselines/baseline_matrix_zebra_l1_direct.json,results/reasoning_gym_baselines/baseline_matrix_graph_color_l1_thinking_pilot.json --k-values 1,5,10",
+      "purpose": "Compute pass@5 and oracle-best@5 over the repeated-sample direct baseline."
+    }
+  ],
+  "decision": {
+    "outcome": "REASONING_GYM_GRAPH_COLOR_L1_DIRECT_BON5_COMPLETE",
+    "overall_pass": true,
+    "headline": {
+      "benchmark": "graph_color",
+      "arm": "L1-one_shot_direct",
+      "n_instances": 30,
+      "samples_per_instance": 5,
+      "n_rows": 150,
+      "temperature": 0.7,
+      "pass_at_1": 0.0,
+      "pass_at_5": 0.0,
+      "oracle_best_at_5": 0.0,
+      "mean_official_score": 0.0,
+      "nonzero_score_rate": 0.0,
+      "truncated_rate": 1.0,
+      "finish_reason_length_rows": 150,
+      "single_next_move": "Run thinking BoN or stronger final-answer protocol next; direct BoN@5 at 512 tokens is a capped weak baseline with no pass@5 lift."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "repeated_sampling_support",
+        "outcome": "PASS",
+        "number": "samples_per_instance=5 produced exactly 150 L1-one_shot_direct rows for 30 source instances."
+      },
+      {
+        "gate": "pass_at_5",
+        "outcome": "COMPLETE_ZERO",
+        "number": "pass@5=0.0, oracle_best@5=0.0, eligible_instances=30."
+      },
+      {
+        "gate": "score_distribution",
+        "outcome": "ZERO_PARTIAL_SIGNAL",
+        "number": "mean_official_score=0.0 and nonzero_score_rate=0.0."
+      },
+      {
+        "gate": "truncation",
+        "outcome": "TRUNCATED_DIRECT_BASELINE",
+        "number": "finish_reason=length for 150/150 rows at max_new_tokens=512."
+      },
+      {
+        "gate": "K1_strong_baseline",
+        "outcome": "STILL_OPEN",
+        "number": "This is direct BoN@5, not thinking BoN and not anti-truncated."
+      }
+    ],
+    "next_step_routing": "Do not draw K1 from direct BoN@5. Next run repeated thinking or a bounded final-answer protocol with anti-truncation accounting, and keep pass@k/oracle-best@k metrics enabled."
+  },
+  "result_tables": {
+    "bon5_metrics": {
+      "columns": ["benchmark", "arm", "n_instances", "n_rows", "pass_at_1", "pass_at_5", "oracle_best_at_5", "mean_score", "nonzero_score_rate", "truncated_rate"],
+      "rows": [
+        {"benchmark": "graph_color", "arm": "L1-one_shot_direct", "n_instances": 30, "n_rows": 150, "pass_at_1": 0.0, "pass_at_5": 0.0, "oracle_best_at_5": 0.0, "mean_score": 0.0, "nonzero_score_rate": 0.0, "truncated_rate": 1.0}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "direct_BoN", "gate": "BANK_ZERO_CAPPED_BASELINE", "reason": "direct BoN@5 gives no lift under 512-token cap"},
+        {"track": "thinking_BoN", "gate": "GO_NEXT", "reason": "pass@k for strong baseline requires thinking or better final-answer protocol"},
+        {"track": "method_comparisons", "gate": "PAUSED", "reason": "baseline-first program continues"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item only establishes graph_color direct BoN@5 at a 512-token cap. It does not test thinking BoN, self-verify, ToT, solver-outsourcing, or our method.",
+    "truncation_limit": "All 150 rows ended with finish_reason=length, so this is a capped weak baseline.",
+    "passk_scope": "pass@5 is now meaningful for this artifact because every source_index has five samples; pass@10 remains null."
+  }
+}
