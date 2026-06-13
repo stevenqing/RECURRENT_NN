@@ -96,7 +96,7 @@
     "runnable_next_commands": {
       "columns": ["name", "gate", "command"],
       "rows": [
-        {"name": "graph_color_ceiling_llm_shard", "gate": "GO", "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_reasoning_gym_bounded_register --dataset graph_color --n-instances 30 --scan-limit 500 --node-cap 2000 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --r-values 0,2,4,8,16 --claim4-r 4 --batch-size 128 --call-cap 40 --output results/externalization_validation_v0/graph_color_ceiling_llm.json --checkpoint-path results/externalization_validation_v0/graph_color_ceiling_llm_checkpoint.json --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B"},
+        {"name": "graph_color_ceiling_llm_shard", "gate": "GO", "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_reasoning_gym_bounded_register --dataset graph_color --n-instances 30 --scan-limit 500 --node-cap 2000 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --r-values 0,2,4,8,16 --claim4-r 4 --batch-size 128 --call-cap 80 --one-shot-max-tokens 512 --output results/externalization_validation_v0/graph_color_ceiling_llm.json --checkpoint-path results/externalization_validation_v0/graph_color_ceiling_llm_checkpoint.json --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B"},
         {"name": "sudoku_adapter_next", "gate": "IMPLEMENTATION_REQUIRED", "command": "Implement bounded-register RG sudoku M-register runner before real sudoku LLM shard"},
         {"name": "middle_band_calibration", "gate": "TODO", "command": "Run n>=20 no-LLM calibration to find L0-heuristic 0.3..0.9 and L0-random <0.3 bins"}
       ]

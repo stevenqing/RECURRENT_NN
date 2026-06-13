@@ -1,0 +1,137 @@
+{
+  "item_number": "080",
+  "schema_version": "log_item_contract_v1",
+  "name": "Externalization graph_color ceiling real-LLM shard",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Run the first Item079 real-LLM phase: graph_color ceiling-bin M-register R sweep on the Item078 two-rail hard bin with frozen Qwen3.5 served by vLLM, n>=30, official Reasoning Gym score_answer, and bounded-register externalization contract.",
+  "provenance": {
+    "schema_version": "rung1_reasoning_gym_bounded_register_v0",
+    "source": "autonomous_stage_a_run",
+    "result_artifact": "results/externalization_validation_v0/graph_color_ceiling_llm.json",
+    "checkpoint_artifact": "results/externalization_validation_v0/graph_color_ceiling_llm_checkpoint.json",
+    "parent_item": "079"
+  },
+  "artifacts": [
+    "results/experiment_items/item_080_externalization_graph_color_ceiling_llm.json",
+    "results/externalization_validation_v0/graph_color_ceiling_llm.json",
+    "results/externalization_validation_v0/graph_color_ceiling_llm_checkpoint.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "experiments/rung1_reasoning_gym_bounded_register.py",
+      "change": "Reused the Item070 official Reasoning Gym graph_color bounded-register runner with Qwen3.5 vLLM endpoint and corrected caps."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_reasoning_gym_bounded_register --dataset graph_color --n-instances 30 --scan-limit 500 --node-cap 2000 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --r-values 0,2,4,8,16 --claim4-r 4 --batch-size 128 --call-cap 80 --one-shot-max-tokens 512 --output results/externalization_validation_v0/graph_color_ceiling_llm.json --checkpoint-path results/externalization_validation_v0/graph_color_ceiling_llm_checkpoint.json --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B --no-resume",
+      "purpose": "Run graph_color ceiling-bin real-LLM R sweep with call_cap above preflight floor and one-shot max tokens below vLLM context limit."
+    }
+  ],
+  "decision": {
+    "outcome": "RUNG1_REASONING_GYM_BOUNDED_REGISTER_COMPLETE",
+    "overall_pass": true,
+    "headline": {
+      "claim1_externalization": "positive_on_graph_color_ceiling_bin",
+      "claim2_capacity_law": "positive_on_graph_color_ceiling_bin",
+      "llm_beats_random_ceiling_bin": "positive",
+      "llm_vs_heuristic_ceiling_bin": "not_established_heuristic_ceiling_is_1.0",
+      "one_shot_vanilla": 0.0,
+      "best_R": 16,
+      "best_R_solve_rate": 0.8333333333333334,
+      "single_next_move": "Implement sudoku M-register adapter or calibrate middle-band graph_color bins before K3b stressed-heuristic read."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "vllm_graph_color_shard",
+        "outcome": "PASS",
+        "number": "vLLM Qwen3.5 served on 8001; run completed after correcting call_cap=80 and one_shot_max_tokens=512"
+      },
+      {
+        "gate": "official_scoring",
+        "outcome": "PASS",
+        "number": "Reasoning Gym graph_color score_answer used for all solve labels; n=30"
+      },
+      {
+        "gate": "claim1_forward_and_oneshot_vs_reversible",
+        "outcome": "PASS_POSITIVE",
+        "number": "R0 solve_rate=0.0; one_shot solve_rate=0.0; best reversible R16 solve_rate=0.8333333333333334"
+      },
+      {
+        "gate": "claim2_capacity_curve",
+        "outcome": "PASS_POSITIVE",
+        "number": "LLM solve_rate by R: R0=0.0, R2=0.1667, R4=0.6, R8=0.7667, R16=0.8333; slope_vs_log2_R=0.2167"
+      },
+      {
+        "gate": "llm_beats_random_decisions_ceiling_bin",
+        "outcome": "PASS_POSITIVE",
+        "number": "At R4, LLM=0.6, random=0.4333, oracle=0.5667; Item078 L0-random lower rail was 0.0 at the matched bin"
+      },
+      {
+        "gate": "llm_vs_heuristic_ceiling_bin",
+        "outcome": "NOT_ESTABLISHED_BY_DESIGN",
+        "number": "Item078 L0-heuristic upper rail was 1.0 on this ceiling bin; this shard does not beat that ceiling and K3b requires middle-band calibration."
+      },
+      {
+        "gate": "bounded_view",
+        "outcome": "PASS_WITH_NOTE",
+        "number": "bounded_view_verified=true; max_register_view_len=13; max_prompt_chars=1015; prompt_size_slope_vs_decision_calls=5.995"
+      }
+    ],
+    "next_step_routing": "Do not read K3b on this ceiling bin. Next either implement the sudoku bounded-register adapter for the second Tier-1 ceiling shard, or run n>=20 middle-band calibration where L0-heuristic is 0.3..0.9 and L0-random remains low."
+  },
+  "result_tables": {
+    "solve_by_R": {
+      "columns": ["R", "n", "solve_rate", "status_counts"],
+      "rows": [
+        {"R": 0, "n": 30, "solve_rate": 0.0, "status_counts": {"FORWARD_DEAD_END": 30}},
+        {"R": 2, "n": 30, "solve_rate": 0.16666666666666666, "status_counts": {"NO_RECOVERY_TARGET": 25, "SOLVED": 5}},
+        {"R": 4, "n": 30, "solve_rate": 0.6, "status_counts": {"NO_RECOVERY_TARGET": 12, "SOLVED": 18}},
+        {"R": 8, "n": 30, "solve_rate": 0.7666666666666667, "status_counts": {"CALL_CAP": 4, "NO_RECOVERY_TARGET": 3, "SOLVED": 23}},
+        {"R": 16, "n": 30, "solve_rate": 0.8333333333333334, "status_counts": {"CALL_CAP": 1, "NO_RECOVERY_TARGET": 4, "SOLVED": 25}}
+      ]
+    },
+    "one_shot_baseline": {
+      "columns": ["arm", "n", "solve_rate", "mean_official_score"],
+      "rows": [
+        {"arm": "L1-oneshot-vanilla", "n": 30, "solve_rate": 0.0, "mean_official_score": 0.0}
+      ]
+    },
+    "target_source_ablation": {
+      "columns": ["R", "target_source", "n", "solve_rate"],
+      "rows": [
+        {"R": 2, "target_source": "llm", "n": 30, "solve_rate": 0.16666666666666666},
+        {"R": 4, "target_source": "llm", "n": 30, "solve_rate": 0.6},
+        {"R": 4, "target_source": "oracle", "n": 30, "solve_rate": 0.5666666666666667},
+        {"R": 4, "target_source": "random", "n": 30, "solve_rate": 0.43333333333333335},
+        {"R": 8, "target_source": "llm", "n": 30, "solve_rate": 0.7666666666666667},
+        {"R": 16, "target_source": "llm", "n": 30, "solve_rate": 0.8333333333333334}
+      ]
+    },
+    "decision_quality": {
+      "columns": ["R", "parseable_rate", "valid_decision_rate", "branch_accuracy_vs_oracle", "backtrack_accuracy_vs_oracle", "mean_llm_calls", "max_prompt_chars"],
+      "rows": [
+        {"R": 0, "parseable_rate": 1.0, "valid_decision_rate": 1.0, "branch_accuracy_vs_oracle": 1.0, "backtrack_accuracy_vs_oracle": 0.0, "mean_llm_calls": 8.7, "max_prompt_chars": 538},
+        {"R": 2, "parseable_rate": 1.0, "valid_decision_rate": 0.9419871359577242, "branch_accuracy_vs_oracle": 1.0, "backtrack_accuracy_vs_oracle": 0.55, "mean_llm_calls": 12.666666666666666, "max_prompt_chars": 539},
+        {"R": 4, "parseable_rate": 1.0, "valid_decision_rate": 0.9573847081916358, "branch_accuracy_vs_oracle": 1.0, "backtrack_accuracy_vs_oracle": 0.5551587301587302, "mean_llm_calls": 21.066666666666666, "max_prompt_chars": 593},
+        {"R": 8, "parseable_rate": 1.0, "valid_decision_rate": 1.0, "branch_accuracy_vs_oracle": 1.0, "backtrack_accuracy_vs_oracle": 0.3181162843004948, "mean_llm_calls": 37.03333333333333, "max_prompt_chars": 782},
+        {"R": 16, "parseable_rate": 1.0, "valid_decision_rate": 0.9982456140350877, "branch_accuracy_vs_oracle": 0.9980375665825624, "backtrack_accuracy_vs_oracle": 0.3309065934065934, "mean_llm_calls": 32.9, "max_prompt_chars": 1015}
+      ]
+    },
+    "proceed_gates": {
+      "columns": ["track", "gate", "reason"],
+      "rows": [
+        {"track": "graph_color_ceiling_claim1_claim2", "gate": "BANK_POSITIVE", "reason": "one-shot/forward zero and reversible R sweep rises to 0.8333"},
+        {"track": "llm_vs_random_ceiling", "gate": "BANK_POSITIVE", "reason": "M-register positive while L0-random lower rail was zero; target-source R4 LLM exceeds random"},
+        {"track": "llm_vs_heuristic", "gate": "DEFER_TO_MIDDLE_BAND", "reason": "heuristic ceiling is 1.0 on this bin"},
+        {"track": "sudoku_ceiling_llm", "gate": "IMPLEMENT_ADAPTER", "reason": "Item079 notes existing runner is graph_color-specific"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item establishes the graph_color ceiling-bin real-LLM shard only. It does not establish sudoku, zebra_puzzles, middle-band K3b, strong secondary baselines, or real multi-agent phases.",
+    "heuristic_limit": "The two-rail upper rail for graph_color is L0-heuristic=1.0, so this ceiling shard cannot establish M-register competitiveness with a stressed competent heuristic. That must be read on a middle-band bin.",
+    "runner_limit": "The first attempted command failed because call_cap=40 was below the preflight floor; the second failed because one-shot max_tokens defaulted to 4096 under max_model_len=4096. The successful run used call_cap=80 and one_shot_max_tokens=512.",
+    "target_source_limit": "The legacy target-source summary emits n=0 rows for oracle/random at some R values; only non-empty target-source rows are interpreted."
+  }
+}

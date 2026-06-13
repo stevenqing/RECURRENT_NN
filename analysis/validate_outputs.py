@@ -85,6 +85,7 @@ PATHS = {
     "item_077_externalization_validation_preflight": "results/experiment_items/item_077_externalization_validation_preflight.json",
     "item_078_externalization_power_calibration": "results/experiment_items/item_078_externalization_power_calibration.json",
     "item_079_externalization_full_execution_v1": "results/experiment_items/item_079_externalization_full_execution_v1.json",
+    "item_080_externalization_graph_color_ceiling_llm": "results/experiment_items/item_080_externalization_graph_color_ceiling_llm.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
@@ -145,6 +146,7 @@ PATHS = {
     "externalization_two_rail_gate": "results/externalization_validation_v0/two_rail_gate.json",
     "externalization_paper_full_execution_spec_v1": "specs/externalization_paper_full_execution_v1.md",
     "externalization_full_execution_manifest": "results/externalization_validation_v0/full_execution_manifest.json",
+    "externalization_graph_color_ceiling_llm": "results/externalization_validation_v0/graph_color_ceiling_llm.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 
