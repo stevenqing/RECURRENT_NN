@@ -74,6 +74,8 @@ PATHS = {
     "item_066_rung1_paired_register_requirement": "results/experiment_items/item_066_rung1_paired_register_requirement.json",
     "item_067_rung1_rho_sweep_register_requirement": "results/experiment_items/item_067_rung1_rho_sweep_register_requirement.json",
     "item_068_rung1_culprit_erosion_sweep": "results/experiment_items/item_068_rung1_culprit_erosion_sweep.json",
+    "item_069_rung1_llm_native_benchmark_harness_alignment": "results/experiment_items/item_069_rung1_llm_native_benchmark_harness_alignment.json",
+    "item_070_rung1_paradigm_overnight_real_llm": "results/experiment_items/item_070_rung1_paradigm_overnight_real_llm.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
@@ -114,6 +116,12 @@ PATHS = {
     "rung1_paired_register_requirement": "results/rung1_paired_register_requirement/results.json",
     "rung1_rho_sweep_register_requirement": "results/rung1_rho_sweep_register_requirement/results.json",
     "rung1_culprit_erosion_sweep": "results/rung1_culprit_erosion_sweep/results.json",
+    "rung1_llm_search_decision_paradigm_dry_run": "results/rung1_llm_search_decision_paradigm/dry_run.json",
+    "rung1_reasoning_gym_bounded_register_dry_run": "results/rung1_reasoning_gym_bounded_register/dry_run.json",
+    "rung1_paradigm_overnight": "results/rung1_paradigm_overnight/results.json",
+    "rung1_paradigm_overnight_track123": "results/rung1_paradigm_overnight/track123.json",
+    "rung1_paradigm_overnight_smoke": "results/rung1_paradigm_overnight/smoke.json",
+    "rung1_paradigm_overnight_multiagent_dry_run": "results/rung1_paradigm_overnight/multiagent_dry_run.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 

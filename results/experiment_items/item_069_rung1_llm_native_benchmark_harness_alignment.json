@@ -1,0 +1,163 @@
+{
+  "item_number": "069",
+  "schema_version": "log_item_contract_v1",
+  "name": "Rung-1 LLM-native bounded-register benchmark harness alignment",
+  "generated_at": "2026-06-12T16:10:00.000000+00:00",
+  "purpose": "Record the current progress on the LLM-native paradigm shift: a bounded-register search-decision runner was implemented and dry-run validated, while external benchmark harnesses were corrected to Reasoning Gym and AgentsNet after inspecting their repositories.",
+  "provenance": {
+    "schema_version": "rung1_llm_search_decision_paradigm_v0",
+    "source": "autonomous_stage_a_run",
+    "code_artifact": "experiments/rung1_llm_search_decision_paradigm.py",
+    "dry_run_artifact": "results/rung1_llm_search_decision_paradigm/dry_run.json",
+    "external_repositories_inspected": [
+      "https://github.com/open-thought/reasoning-gym",
+      "https://github.com/floriangroetschla/AgentsNet"
+    ]
+  },
+  "artifacts": [
+    "results/experiment_items/item_069_rung1_llm_native_benchmark_harness_alignment.json",
+    "experiments/rung1_llm_search_decision_paradigm.py",
+    "results/rung1_llm_search_decision_paradigm/dry_run.json",
+    "experiments/rung1_reasoning_gym_bounded_register.py",
+    "results/rung1_reasoning_gym_bounded_register/dry_run.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "experiments/rung1_llm_search_decision_paradigm.py",
+      "change": "Adds the LLM-native bounded-register search-decision pilot: symbolic assignment/domain/conflict state, LLM branch/backtrack decision prompts, R sweep over {0,2,4,8,16,32}, llm/oracle/random backtrack-source contrast, checkpoint/resume, dry-run mode, claim summaries, and external benchmark harness metadata."
+    },
+    {
+      "path": "/tmp/reasoning_benchmarks/reasoning-gym",
+      "change": "External repo cloned and inspected outside the worktree. Relevant harness API is reasoning_gym.create_dataset(...) plus dataset.score_answer(answer, entry); eval/AsyncModelEvaluator supplies async OpenAI-compatible concurrency and resume. Relevant tasks are graph_color and zebra_puzzles."
+    },
+    {
+      "path": "/tmp/reasoning_benchmarks/AgentsNet",
+      "change": "External repo cloned and inspected outside the worktree. Relevant harness API is LiteralMessagePassing with synchronous rounds, transcripts, parsing fallbacks, and task score functions; main.py loads graph instances from disco-eth/AgentsNet. Relevant task for this line is coloring."
+    },
+    {
+      "path": "experiments/rung1_reasoning_gym_bounded_register.py",
+      "change": "Adds the official Reasoning Gym graph_color integration runner: instances come from reasoning_gym.create_dataset, final solve validation uses dataset.score_answer only, and the bounded-register search loop supplies branch/backtrack decisions over an R-limited view."
+    }
+  ],
+  "commands": [
+    {
+      "command": "git clone --depth 1 https://github.com/open-thought/reasoning-gym.git /tmp/reasoning_benchmarks/reasoning-gym",
+      "purpose": "Inspect the intended external verifiable benchmark harness instead of treating this repo's Module1 capacity benchmark as the benchmark."
+    },
+    {
+      "command": "git clone --depth 1 https://github.com/floriangroetschla/AgentsNet.git /tmp/reasoning_benchmarks/AgentsNet",
+      "purpose": "Inspect the intended multi-agent graph benchmark harness and score functions."
+    },
+    {
+      "command": ".venv/bin/python -m py_compile experiments/rung1_llm_search_decision_paradigm.py",
+      "purpose": "Verify the new LLM-native runner compiles after harness and benchmark metadata corrections."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.rung1_llm_search_decision_paradigm --no-llm --n-instances 2 --min-backtracks 4 --checkpoint-path results/rung1_llm_search_decision_paradigm/dry_checkpoint.json --output results/rung1_llm_search_decision_paradigm/dry_run.json",
+      "purpose": "Run an oracle/no-LLM sanity check for the bounded-register search-decision harness and external benchmark metadata payload."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.rung1_llm_search_decision_paradigm --n-instances 4 --min-backtracks 4 --batch-size 64 --max-new-tokens 128 --openai-base-url http://127.0.0.1:8001/v1 --openai-model Qwen/Qwen3.5-4B --checkpoint-path results/rung1_llm_search_decision_paradigm/checkpoint_rows.json --output results/rung1_llm_search_decision_paradigm/results.json --no-resume",
+      "purpose": "Attempt the real-vLLM pilot; this was stopped after only the R=0 forward baseline checkpointed and port 8001 became unresponsive."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_reasoning_gym_bounded_register --no-llm --n-instances 2 --min-backtracks 2 --scan-limit 100 --node-cap 1000 --output results/rung1_reasoning_gym_bounded_register/dry_run.json --checkpoint-path results/rung1_reasoning_gym_bounded_register/dry_checkpoint.json --no-resume",
+      "purpose": "Run the first official-harness graph_color dry-run: Reasoning Gym supplies instances and score_answer; the bounded-register loop supplies the symbolic/oracle search decisions."
+    }
+  ],
+  "decision": {
+    "outcome": "RUNG1_LLM_NATIVE_BENCHMARK_HARNESS_ALIGNMENT_RECORDED",
+    "overall_pass": false,
+    "headline": {
+      "determination": "harness_progress_not_real_llm_result",
+      "dry_run_status": "RUNG1_LLM_SEARCH_DECISION_PARADIGM_COMPLETE",
+      "real_llm_pilot_status": "blocked_by_vllm_8001_unresponsive_and_restart_memory_failure",
+      "single_next_move": "Restart vLLM on a memory-clean GPU set or lower utilization, then run a single-request structured-call probe before resuming the real LLM-native pilot."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "bounded_register_dry_run_sanity",
+        "outcome": "PASS_ORACLE_NO_LLM",
+        "number": "n_instances=2; R=0 forward solve_rate=0.0; best reversible R=2 solve_rate=1.0; claim1_delta=1.0; claim2_slope=0.0"
+      },
+      {
+        "gate": "external_benchmark_identification",
+        "outcome": "PASS_REPOS_INSPECTED",
+        "number": "Reasoning Gym harness=create_dataset+score_answer for graph_color/zebra_puzzles; AgentsNet harness=LiteralMessagePassing+task get_score for coloring and related distributed tasks"
+      },
+      {
+        "gate": "real_llm_pilot_completion",
+        "outcome": "BLOCKED_NOT_COMPLETED",
+        "number": "checkpoint_rows=4 all R=0 FORWARD_DEAD_END before stop; subsequent smoke produced no checkpoint; /v1/models on 8001 timed out; restart failed because cuda:3 free memory 9.05/79.25 GiB < requested 0.60 utilization 47.55 GiB"
+      },
+      {
+        "gate": "official_reasoning_gym_graph_color_dry_run",
+        "outcome": "PASS_ORACLE_NO_LLM_OFFICIAL_SCORE",
+        "number": "Reasoning Gym graph_color n=2 selected with min_backtracks=4; score_answer validation only; R=0 solve_rate=0.0; R=2 solve_rate=0.5; R>=4 solve_rate=1.0; claim2 slope=0.1"
+      }
+    ],
+    "next_step_routing": "Do not treat Item069 as a result item for the LLM-native claim. Treat it as harness alignment/progress. The next execution item should restore port 8001 with clean memory, then run the official Reasoning Gym graph_color slice using create_dataset for instances and score_answer for solve validation; zebra_puzzles follows after graph_color, and AgentsNet follows after the single-agent Reasoning Gym result lands."
+  },
+  "result_tables": {
+    "dry_run_sanity": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "status", "value": "RUNG1_LLM_SEARCH_DECISION_PARADIGM_COMPLETE"},
+        {"metric": "n_instances", "value": 2},
+        {"metric": "call_cap_floor", "value": 86},
+        {"metric": "forward_R0_solve_rate", "value": 0.0},
+        {"metric": "best_reversible_R", "value": 2},
+        {"metric": "best_reversible_solve_rate", "value": 1.0},
+        {"metric": "claim2_solve_rate_slope_vs_log2_R", "value": 0.0}
+      ]
+    },
+    "external_benchmark_harnesses": {
+      "columns": ["benchmark", "repo", "harness", "first_slice"],
+      "rows": [
+        {"benchmark": "Reasoning Gym", "repo": "open-thought/reasoning-gym", "harness": "reasoning_gym.create_dataset(...) plus dataset.score_answer(answer, entry); eval/AsyncModelEvaluator for async API evaluation", "first_slice": "graph_color, zebra_puzzles"},
+        {"benchmark": "AgentsNet", "repo": "floriangroetschla/AgentsNet", "harness": "LiteralMessagePassing synchronous rounds, transcripts, parsing fallbacks, and task get_score functions", "first_slice": "coloring"}
+      ]
+    },
+    "real_llm_blocker": {
+      "columns": ["stage", "observation"],
+      "rows": [
+        {"stage": "initial_real_pilot", "observation": "R=0 forward baseline wrote 4 checkpoint rows, then R>0 calls did not complete before 8001 became unresponsive."},
+        {"stage": "smoke_retry", "observation": "1-instance smoke wrote no checkpoint before termination."},
+        {"stage": "8001_restart", "observation": "vLLM restart failed because GPU free memory on cuda:3 was below requested gpu_memory_utilization=0.60."}
+      ]
+    },
+    "official_harness_integration_design": {
+      "columns": ["component", "decision"],
+      "rows": [
+        {"component": "instances", "decision": "Use Reasoning Gym create_dataset('graph_color', ...) first; use create_dataset('zebra_puzzles', ...) next."},
+        {"component": "solve_validation", "decision": "Use dataset.score_answer(answer, entry) only; no custom validator for final solve_rate."},
+        {"component": "search_paradigm", "decision": "Our symbolic loop owns propagation, conflict detection, and bounded register; LLM only chooses branch color and backtrack target."},
+        {"component": "contrast", "decision": "Report one-shot baseline, R=0 forward search, and R>0 reversible search on official score_answer scores."},
+        {"component": "guards", "decision": "Require call_cap >= clean search length, bounded prompt size, and selected instances with at least min_backtracks reference retractions."},
+        {"component": "kills", "decision": "Reversible not beating forward fails claim1; no R-scaling fails claim2; LLM target near random caps claim4-LLM."}
+      ]
+    },
+    "official_rg_graph_color_dry_run": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "status", "value": "RUNG1_REASONING_GYM_BOUNDED_REGISTER_COMPLETE"},
+        {"metric": "official_instance_source", "value": "reasoning_gym.create_dataset('graph_color', ...)"},
+        {"metric": "official_scoring", "value": "dataset.score_answer(answer, entry)"},
+        {"metric": "selected_instances", "value": 2},
+        {"metric": "min_backtracks", "value": 4},
+        {"metric": "call_cap_floor", "value": 38},
+        {"metric": "R0_solve_rate", "value": 0.0},
+        {"metric": "R2_solve_rate", "value": 0.5},
+        {"metric": "R4plus_solve_rate", "value": 1.0},
+        {"metric": "bounded_view_verified", "value": true},
+        {"metric": "no_llm_scope", "value": "oracle/symbolic dry-run only; not a real LLM result"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish the LLM-native bounded-register claim on a real LLM. It records harness implementation, external benchmark correction, and a no-LLM sanity pass only.",
+    "real_llm_limit": "The real Qwen/vLLM pilot did not complete beyond the R=0 checkpoint rows because port 8001 became unresponsive and the restart failed on insufficient free GPU memory.",
+    "external_validity_limit": "Reasoning Gym and AgentsNet were inspected and identified as the correct external benchmark harnesses, but no external benchmark slice has been run yet.",
+    "scope_limit": "The original runner still uses separator graph-color instances for the internal bounded-register search pilot; the new official-harness runner starts with Reasoning Gym graph_color, while zebra_puzzles and AgentsNet integration remain subsequent execution steps."
+  }
+}

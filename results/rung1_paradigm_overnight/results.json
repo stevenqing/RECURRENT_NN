@@ -1,0 +1,400 @@
+{
+  "artifacts": {
+    "multiagent_dry_run": "results/rung1_paradigm_overnight/multiagent_dry_run.json",
+    "smoke": "results/rung1_paradigm_overnight/smoke.json",
+    "track123": "results/rung1_paradigm_overnight/track123.json"
+  },
+  "budget_ledger": [
+    {
+      "R_values": [
+        0,
+        2,
+        4,
+        8,
+        16
+      ],
+      "batch_size": 256,
+      "call_cap": 125,
+      "call_cap_floor": 125,
+      "claim4_r": 8,
+      "dataset": "graph_color",
+      "max_llm_calls_upper_bound": 26280,
+      "n_instances": 30,
+      "provenance": "rg_bounded_register_budget_v0",
+      "scan_limit": 500,
+      "source": "autonomous_stage_a_run",
+      "target_sources": [
+        "llm",
+        "oracle",
+        "random"
+      ],
+      "track": "single_agent_track123",
+      "what_ran": "graph_color R sweep + one-shot + R8 target-source arms"
+    },
+    {
+      "n_rows": 36,
+      "track": "multiagent_dry_run",
+      "what_ran": "AgentsNet symbolic routing dry-run with official score formula fallback"
+    },
+    {
+      "reason": "Single-agent gate passed, but official AgentsNet runtime import is blocked by missing dependencies; dry-run used recorded exact Coloring.get_score formula fallback only.",
+      "track": "multiagent_real_llm",
+      "what_ran": "skipped"
+    },
+    {
+      "reason": "budget/scope gated after graph_color headline",
+      "track": "zebra",
+      "what_ran": "skipped"
+    }
+  ],
+  "generated_at": "2026-06-12T16:55:00.473231+00:00",
+  "headline": {
+    "claim1_delta": 0.9666666666666667,
+    "claim2_slope": 0.23666666666666664,
+    "claim4_llm_placement": "near_oracle_high_solve",
+    "claims_1_2_real_llm_determination": "positive",
+    "depth_flatness_verdict": "bounded_view_verified",
+    "multiagent_determination": "SKIPPED_DEPENDENCY",
+    "single_next_move": "Install/lock AgentsNet dependencies and run real multi-agent contrast, or implement zebra_puzzles CSP runner for external validity."
+  },
+  "multiagent_dry_run": {
+    "bounded_view_verified": true,
+    "min_backtracks_proxy": 0,
+    "official_scoring_verified": true,
+    "provenance": "agentsnet_dry_run_gate_v0",
+    "routing_arms": [
+      "forward",
+      "chrono",
+      "cbj"
+    ],
+    "source": "autonomous_stage_a_run"
+  },
+  "multiagent_gate": {
+    "provenance": "rung1_paradigm_multiagent_gate_v0",
+    "reason": "Single-agent gate passed, but official AgentsNet runtime import is blocked by missing dependencies; dry-run used recorded exact Coloring.get_score formula fallback only.",
+    "source": "autonomous_stage_a_run",
+    "status": "SKIPPED_DEPENDENCY",
+    "track1_claim1_passed": true,
+    "track1_claim2_passed": true
+  },
+  "multiagent_real_llm": {
+    "claim3_verdict": null,
+    "claim4_multi": null,
+    "provenance": "rung1_paradigm_multiagent_real_llm_v0",
+    "reason": "Single-agent gate passed, but official AgentsNet runtime import is blocked by missing dependencies; dry-run used recorded exact Coloring.get_score formula fallback only.",
+    "source": "autonomous_stage_a_run",
+    "status": "SKIPPED_DEPENDENCY"
+  },
+  "preflight": {
+    "bounded_view_verified": true,
+    "call_cap_floor": 125,
+    "min_backtracks": 4,
+    "official_scoring": "Reasoning Gym dataset.score_answer(answer, entry)",
+    "provenance": "rung1_paradigm_preflight_v0",
+    "smoke_parseable_rate": 0.9312977099236641,
+    "source": "autonomous_stage_a_run",
+    "vllm_config": {
+      "gpu_memory_utilization": 0.3,
+      "gpus": "0,1,2,3",
+      "max_model_len": 4096,
+      "max_num_seqs": 512,
+      "port": 8001
+    },
+    "vllm_stability_trial": {
+      "n": 20,
+      "parse_ok": 20,
+      "parseable_rate": 1.0,
+      "server_ok": 20
+    },
+    "vllm_stable": true
+  },
+  "provenance": "rung1_paradigm_overnight_v0",
+  "schema_version": "rung1_paradigm_overnight_v0",
+  "source": "autonomous_stage_a_run",
+  "status": "RUNG1_PARADIGM_OVERNIGHT_COMPLETE",
+  "track1": {
+    "censoring_counts_by_R": [
+      {
+        "R": 0,
+        "status_counts": {
+          "FORWARD_DEAD_END": 30
+        }
+      },
+      {
+        "R": 2,
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 23,
+          "SOLVED": 7
+        }
+      },
+      {
+        "R": 4,
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 6,
+          "SOLVED": 24
+        }
+      },
+      {
+        "R": 8,
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 1,
+          "SOLVED": 29
+        }
+      },
+      {
+        "R": 16,
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 1,
+          "SOLVED": 29
+        }
+      },
+      {
+        "R": 2,
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 23,
+          "SOLVED": 7
+        }
+      },
+      {
+        "R": 4,
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 6,
+          "SOLVED": 24
+        }
+      },
+      {
+        "R": 8,
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 1,
+          "SOLVED": 29
+        }
+      },
+      {
+        "R": 16,
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 1,
+          "SOLVED": 29
+        }
+      }
+    ],
+    "claim1_verdict": {
+      "best_reversible_R": 8,
+      "best_reversible_solve_rate": 0.9666666666666667,
+      "delta": 0.9666666666666667,
+      "forward_R0_solve_rate": 0.0,
+      "kill_if_false": "reversible_not_beating_forward_fails_claim1",
+      "provenance": "rg_bounded_register_claim1_v0",
+      "reversible_beats_forward": true,
+      "source": "autonomous_stage_a_run"
+    },
+    "claim2_verdict": {
+      "kill_if_false": "no_R_scaling_fails_claim2",
+      "provenance": "rg_bounded_register_claim2_v0",
+      "scales_with_R": true,
+      "solve_rate_slope_vs_log2_R": 0.23666666666666664,
+      "source": "autonomous_stage_a_run"
+    },
+    "provenance": "rung1_paradigm_track1_v0",
+    "solve_by_R": [
+      {
+        "R": 0,
+        "mean_decision_calls_solved": null,
+        "mean_official_score": 0.0,
+        "n": 30,
+        "provenance": "rg_bounded_register_solve_by_R_v0",
+        "solve_rate": 0.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "FORWARD_DEAD_END": 30
+        },
+        "target_source": "llm"
+      },
+      {
+        "R": 2,
+        "mean_decision_calls_solved": 21.285714285714285,
+        "mean_official_score": 0.23333333333333334,
+        "n": 30,
+        "provenance": "rg_bounded_register_solve_by_R_v0",
+        "solve_rate": 0.23333333333333334,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 23,
+          "SOLVED": 7
+        },
+        "target_source": "llm"
+      },
+      {
+        "R": 4,
+        "mean_decision_calls_solved": 25.833333333333332,
+        "mean_official_score": 0.8,
+        "n": 30,
+        "provenance": "rg_bounded_register_solve_by_R_v0",
+        "solve_rate": 0.8,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 6,
+          "SOLVED": 24
+        },
+        "target_source": "llm"
+      },
+      {
+        "R": 8,
+        "mean_decision_calls_solved": 30.17241379310345,
+        "mean_official_score": 0.9666666666666667,
+        "n": 30,
+        "provenance": "rg_bounded_register_solve_by_R_v0",
+        "solve_rate": 0.9666666666666667,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 1,
+          "SOLVED": 29
+        },
+        "target_source": "llm"
+      },
+      {
+        "R": 16,
+        "mean_decision_calls_solved": 30.896551724137932,
+        "mean_official_score": 0.9666666666666667,
+        "n": 30,
+        "provenance": "rg_bounded_register_solve_by_R_v0",
+        "solve_rate": 0.9666666666666667,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 1,
+          "SOLVED": 29
+        },
+        "target_source": "llm"
+      },
+      {
+        "R": 2,
+        "mean_official_score": 0.23333333333333334,
+        "n": 30,
+        "provenance": "rg_bounded_register_target_source_v0",
+        "solve_rate": 0.23333333333333334,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 23,
+          "SOLVED": 7
+        },
+        "target_source": "llm"
+      },
+      {
+        "R": 4,
+        "mean_official_score": 0.8,
+        "n": 30,
+        "provenance": "rg_bounded_register_target_source_v0",
+        "solve_rate": 0.8,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 6,
+          "SOLVED": 24
+        },
+        "target_source": "llm"
+      },
+      {
+        "R": 8,
+        "mean_official_score": 0.9666666666666667,
+        "n": 30,
+        "provenance": "rg_bounded_register_target_source_v0",
+        "solve_rate": 0.9666666666666667,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 1,
+          "SOLVED": 29
+        },
+        "target_source": "llm"
+      },
+      {
+        "R": 16,
+        "mean_official_score": 0.9666666666666667,
+        "n": 30,
+        "provenance": "rg_bounded_register_target_source_v0",
+        "solve_rate": 0.9666666666666667,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 1,
+          "SOLVED": 29
+        },
+        "target_source": "llm"
+      }
+    ],
+    "source": "autonomous_stage_a_run"
+  },
+  "track2": {
+    "claim4_llm": {
+      "R": 8,
+      "kill_if_llm_near_random": "LLM target selection cap if llm approximates random",
+      "llm_solve_rate": 0.9666666666666667,
+      "oracle_solve_rate": 1.0,
+      "provenance": "rg_bounded_register_claim4_v0",
+      "random_solve_rate": 0.9,
+      "source": "autonomous_stage_a_run"
+    },
+    "decision_quality_vs_depth": {
+      "rows": [
+        {
+          "R": 0,
+          "backtrack_accuracy_vs_oracle": 0.0,
+          "branch_accuracy_vs_oracle": 1.0,
+          "n": 30,
+          "parseable_rate": 0.9767441860465116,
+          "provenance": "rung1_paradigm_decision_quality_by_R_v0",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "R": 2,
+          "backtrack_accuracy_vs_oracle": 0.5416666666666666,
+          "branch_accuracy_vs_oracle": 0.9980392156862745,
+          "n": 30,
+          "parseable_rate": 0.9346049046321526,
+          "provenance": "rung1_paradigm_decision_quality_by_R_v0",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "R": 4,
+          "backtrack_accuracy_vs_oracle": 0.5146031746031746,
+          "branch_accuracy_vs_oracle": 0.9980392156862745,
+          "n": 30,
+          "parseable_rate": 0.9360795454545454,
+          "provenance": "rung1_paradigm_decision_quality_by_R_v0",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "R": 8,
+          "backtrack_accuracy_vs_oracle": 0.5694901394901395,
+          "branch_accuracy_vs_oracle": 0.9980392156862745,
+          "n": 30,
+          "parseable_rate": 0.9192477876106194,
+          "provenance": "rung1_paradigm_decision_quality_by_R_v0",
+          "source": "autonomous_stage_a_run"
+        },
+        {
+          "R": 16,
+          "backtrack_accuracy_vs_oracle": 0.5357864357864358,
+          "branch_accuracy_vs_oracle": 0.9980392156862745,
+          "n": 30,
+          "parseable_rate": 0.9221621621621622,
+          "provenance": "rung1_paradigm_decision_quality_by_R_v0",
+          "source": "autonomous_stage_a_run"
+        }
+      ],
+      "verdict": "flat_enough_under_bounded_view"
+    },
+    "provenance": "rung1_paradigm_track2_v0",
+    "source": "autonomous_stage_a_run"
+  },
+  "track3": {
+    "best_reversible_R": 8,
+    "best_reversible_solve_rate": 0.9666666666666667,
+    "forward_R0_solve_rate": 0.0,
+    "one_shot_solve_rate": 0.0,
+    "provenance": "rung1_paradigm_track3_v0",
+    "source": "autonomous_stage_a_run"
+  },
+  "track4": {
+    "provenance": "rung1_paradigm_track4_v0",
+    "reason": "zebra_puzzles runner not implemented in this first graph_color official-harness overnight; graph_color Track1-3 resolved headline.",
+    "source": "autonomous_stage_a_run",
+    "status": "SKIPPED_BUDGET_AND_SCOPE"
+  }
+}

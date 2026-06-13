@@ -55,6 +55,8 @@ ARTIFACT_INDEX = {
     "item_066_rung1_paired_register_requirement": "results/experiment_items/item_066_rung1_paired_register_requirement.json",
     "item_067_rung1_rho_sweep_register_requirement": "results/experiment_items/item_067_rung1_rho_sweep_register_requirement.json",
     "item_068_rung1_culprit_erosion_sweep": "results/experiment_items/item_068_rung1_culprit_erosion_sweep.json",
+    "item_069_rung1_llm_native_benchmark_harness_alignment": "results/experiment_items/item_069_rung1_llm_native_benchmark_harness_alignment.json",
+    "item_070_rung1_paradigm_overnight_real_llm": "results/experiment_items/item_070_rung1_paradigm_overnight_real_llm.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
     "model_readiness": "results/model_readiness/readiness.json",
@@ -136,6 +138,12 @@ ARTIFACT_INDEX = {
     "rung1_paired_register_requirement": "results/rung1_paired_register_requirement/results.json",
     "rung1_rho_sweep_register_requirement": "results/rung1_rho_sweep_register_requirement/results.json",
     "rung1_culprit_erosion_sweep": "results/rung1_culprit_erosion_sweep/results.json",
+    "rung1_llm_search_decision_paradigm_dry_run": "results/rung1_llm_search_decision_paradigm/dry_run.json",
+    "rung1_reasoning_gym_bounded_register_dry_run": "results/rung1_reasoning_gym_bounded_register/dry_run.json",
+    "rung1_paradigm_overnight": "results/rung1_paradigm_overnight/results.json",
+    "rung1_paradigm_overnight_track123": "results/rung1_paradigm_overnight/track123.json",
+    "rung1_paradigm_overnight_smoke": "results/rung1_paradigm_overnight/smoke.json",
+    "rung1_paradigm_overnight_multiagent_dry_run": "results/rung1_paradigm_overnight/multiagent_dry_run.json",
     "validation": "results/validation/validation.json",
 }
 

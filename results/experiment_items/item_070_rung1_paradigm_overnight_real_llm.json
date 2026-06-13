@@ -1,0 +1,144 @@
+{
+  "item_number": "070",
+  "schema_version": "log_item_contract_v1",
+  "name": "Rung-1 bounded-register paradigm overnight real-LLM official-harness run",
+  "generated_at": "2026-06-12T17:05:00.000000+00:00",
+  "purpose": "Record the first real-LLM bounded-register search-decision result on official Reasoning Gym graph_color scoring, plus the queued multi-agent AgentsNet official-harness dry-run addendum.",
+  "provenance": {
+    "schema_version": "rung1_paradigm_overnight_v0",
+    "source": "autonomous_stage_a_run",
+    "result_artifact": "results/rung1_paradigm_overnight/results.json",
+    "track123_artifact": "results/rung1_paradigm_overnight/track123.json",
+    "smoke_artifact": "results/rung1_paradigm_overnight/smoke.json",
+    "multiagent_dry_run_artifact": "results/rung1_paradigm_overnight/multiagent_dry_run.json"
+  },
+  "artifacts": [
+    "results/experiment_items/item_070_rung1_paradigm_overnight_real_llm.json",
+    "experiments/rung1_reasoning_gym_bounded_register.py",
+    "experiments/rung1_agentsnet_bounded_register_dryrun.py",
+    "results/rung1_paradigm_overnight/results.json",
+    "results/rung1_paradigm_overnight/track123.json",
+    "results/rung1_paradigm_overnight/smoke.json",
+    "results/rung1_paradigm_overnight/multiagent_dry_run.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "experiments/rung1_reasoning_gym_bounded_register.py",
+      "change": "Runs the LLM-as-bounded-search-decision paradigm on official Reasoning Gym graph_color instances, with score_answer-only solve validation, R sweep, one-shot baseline, bounded-view guard, and checkpoint/resume."
+    },
+    {
+      "path": "experiments/rung1_agentsnet_bounded_register_dryrun.py",
+      "change": "Adds the queued multi-agent AgentsNet symbolic dry-run using official Coloring.get_score semantics and forward/chrono/cbj routing arms; records dependency fallback when full AgentsNet runtime cannot import."
+    }
+  ],
+  "commands": [
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0,1,2,3 .venv-vllm/bin/python -m vllm.entrypoints.openai.api_server --model <Qwen3.5-4B snapshot> --served-model-name Qwen/Qwen3.5-4B --port 8001 --tensor-parallel-size 4 --gpu-memory-utilization 0.30 --max-model-len 4096 --max-num-seqs 512",
+      "purpose": "Start the 0-3 GPU vLLM service with high request concurrency and memory fraction low enough to coexist with existing GPU users."
+    },
+    {
+      "command": "20 concurrent structured JSON trial calls against http://127.0.0.1:8001/v1/chat/completions",
+      "purpose": "vLLM stability preflight: server_ok=20/20, parse_ok=20/20, parseable_rate=1.0."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_reasoning_gym_bounded_register --n-instances 2 --min-backtracks 4 --r-values 0,4 --claim4-r 4 --batch-size 256 --output results/rung1_paradigm_overnight/smoke.json --checkpoint-path results/rung1_paradigm_overnight/smoke_checkpoint.json --no-resume",
+      "purpose": "Real-LLM smoke gate on official graph_color instances; parseable_rate=0.931 and score_answer end-to-end functional."
+    },
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m experiments.rung1_reasoning_gym_bounded_register --n-instances 30 --min-backtracks 4 --scan-limit 500 --node-cap 2000 --num-vertices 12 --num-colors 3 --edge-probability 0.4 --r-values 0,2,4,8,16 --claim4-r 8 --batch-size 256 --output results/rung1_paradigm_overnight/track123.json --checkpoint-path results/rung1_paradigm_overnight/track123_checkpoint.json",
+      "purpose": "Run Track1-3 real Qwen official-harness R sweep with checkpoint/resume, one-shot baseline, and R=8 target-source contrast."
+    },
+    {
+      "command": ".venv/bin/python -m experiments.rung1_agentsnet_bounded_register_dryrun --output results/rung1_paradigm_overnight/multiagent_dry_run.json --n-graphs-per-model 4 --graph-size 16 --num-colors 4 --register-limit 8",
+      "purpose": "Run the queued multi-agent symbolic dry-run on AgentsNet-style graph families with official Coloring.get_score semantics and forward/chrono/cbj routing."
+    }
+  ],
+  "decision": {
+    "outcome": "RUNG1_PARADIGM_OVERNIGHT_COMPLETE",
+    "overall_pass": true,
+    "headline": {
+      "claims_1_2_real_llm_determination": "positive",
+      "claim1_delta": 0.9666666666666667,
+      "claim2_slope": 0.23666666666666664,
+      "depth_flatness_verdict": "bounded_view_verified",
+      "claim4_llm_placement": "near_oracle_high_solve",
+      "multiagent_determination": "SKIPPED_DEPENDENCY",
+      "single_next_move": "Install/lock AgentsNet dependencies and run real multi-agent contrast, or implement zebra_puzzles CSP runner for external validity."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "vllm_stability_preflight",
+        "outcome": "PASS",
+        "number": "20/20 server_ok; 20/20 parse_ok; vLLM on GPUs 0-3, TP=4, gpu_memory_utilization=0.30, max_num_seqs=512"
+      },
+      {
+        "gate": "real_llm_smoke",
+        "outcome": "PASS",
+        "number": "parseable_rate=0.9312977099236641; official score_answer functional; R=0 forward dead-end and R=4 reversible solved smoke instances"
+      },
+      {
+        "gate": "track1_claim1",
+        "outcome": "PASS_POSITIVE",
+        "number": "R0 solve_rate=0.0; best reversible R=8 solve_rate=0.9666666666666667; delta=0.9666666666666667"
+      },
+      {
+        "gate": "track1_claim2",
+        "outcome": "PASS_POSITIVE",
+        "number": "solve_rate_slope_vs_log2_R=0.23666666666666664 over R={2,4,8,16}"
+      },
+      {
+        "gate": "claim4_llm_R8",
+        "outcome": "NEAR_ORACLE_HIGH_SOLVE",
+        "number": "R=8 llm_solve_rate=0.9666666666666667; oracle=1.0; random=0.9"
+      },
+      {
+        "gate": "multiagent_real_llm",
+        "outcome": "SKIPPED_DEPENDENCY",
+        "number": "Single-agent gate passed, but official AgentsNet runtime import blocked by missing langchain/scipy; symbolic dry-run completed with recorded score-formula fallback."
+      }
+    ],
+    "next_step_routing": "Treat graph_color official-harness claims 1+2 as the first positive real-LLM validation of the bounded-register search-decision paradigm. Next: install/lock AgentsNet dependencies for real multi-agent contrast, or implement the zebra_puzzles CSP wrapper for external validity."
+  },
+  "result_tables": {
+    "track1_solve_by_R": {
+      "columns": ["R", "solve_rate", "status_counts"],
+      "rows": [
+        {"R": 0, "solve_rate": 0.0, "status_counts": {"FORWARD_DEAD_END": 30}},
+        {"R": 2, "solve_rate": 0.23333333333333334, "status_counts": {"NO_RECOVERY_TARGET": 23, "SOLVED": 7}},
+        {"R": 4, "solve_rate": 0.8, "status_counts": {"NO_RECOVERY_TARGET": 6, "SOLVED": 24}},
+        {"R": 8, "solve_rate": 0.9666666666666667, "status_counts": {"NO_RECOVERY_TARGET": 1, "SOLVED": 29}},
+        {"R": 16, "solve_rate": 0.9666666666666667, "status_counts": {"NO_RECOVERY_TARGET": 1, "SOLVED": 29}}
+      ]
+    },
+    "track2_claim4_R8": {
+      "columns": ["target_source", "solve_rate"],
+      "rows": [
+        {"target_source": "llm", "solve_rate": 0.9666666666666667},
+        {"target_source": "oracle", "solve_rate": 1.0},
+        {"target_source": "random", "solve_rate": 0.9}
+      ]
+    },
+    "track3_one_shot_vs_search": {
+      "columns": ["condition", "solve_rate"],
+      "rows": [
+        {"condition": "one_shot_cot", "solve_rate": 0.0},
+        {"condition": "forward_R0", "solve_rate": 0.0},
+        {"condition": "best_reversible_R8", "solve_rate": 0.9666666666666667}
+      ]
+    },
+    "multiagent_dry_run_summary": {
+      "columns": ["arm", "solve_rate", "mean_routing_messages"],
+      "rows": [
+        {"arm": "forward", "solve_rate": 0.75, "mean_routing_messages": 0},
+        {"arm": "chrono", "solve_rate": 0.75, "mean_routing_messages": 64},
+        {"arm": "cbj", "solve_rate": 0.75, "mean_routing_messages": 48.25}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item establishes a positive real-LLM result for claims 1+2 on Reasoning Gym graph_color only. It does not establish zebra transfer, P1c, or real multi-agent AgentsNet claims.",
+    "multiagent_limit": "The real multi-agent run was skipped because the full AgentsNet runtime could not import without langchain/scipy. The dry-run used a recorded fallback matching the official Coloring.get_score formula, so it is readiness evidence, not a real multi-agent LLM result.",
+    "claim4_limit": "At R=8 the LLM target source is high and close to oracle, but random is also high; this is a high-solve placement, not a clean large separation of target-selection quality.",
+    "scope_limit": "The official-harness result is for graph_color. zebra_puzzles remains skipped/gated, and AgentsNet real-LLM validation remains dependency-gated."
+  }
+}
