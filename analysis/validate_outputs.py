@@ -78,6 +78,7 @@ PATHS = {
     "item_070_rung1_paradigm_overnight_real_llm": "results/experiment_items/item_070_rung1_paradigm_overnight_real_llm.json",
     "item_071_rung1_multiagent_graphcolor_controlled_dryrun": "results/experiment_items/item_071_rung1_multiagent_graphcolor_controlled_dryrun.json",
     "item_072_rung1_multiagent_graphcolor_engineered_slice": "results/experiment_items/item_072_rung1_multiagent_graphcolor_engineered_slice.json",
+    "item_073_rung1_multiagent_accounting_anchor": "results/experiment_items/item_073_rung1_multiagent_accounting_anchor.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
@@ -126,6 +127,7 @@ PATHS = {
     "rung1_paradigm_overnight_multiagent_dry_run": "results/rung1_paradigm_overnight/multiagent_dry_run.json",
     "rung1_multiagent_graphcolor_dry_run": "results/rung1_multiagent_graphcolor/dry_run.json",
     "rung1_multiagent_graphcolor_engineered_dry_run": "results/rung1_multiagent_graphcolor/engineered_dry_run.json",
+    "rung1_multiagent_accounting_anchor": "results/rung1_multiagent_accounting_anchor/results.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
 }
 

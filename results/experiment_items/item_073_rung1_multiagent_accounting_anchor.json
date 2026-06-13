@@ -1,0 +1,129 @@
+{
+  "item_number": "073",
+  "schema_version": "log_item_contract_v1",
+  "name": "Rung-1 multi-agent accounting anchor and proceed gate",
+  "generated_at": "2026-06-13T00:00:00.000000+00:00",
+  "purpose": "Fix and validate the multi-agent accounting instrument with a distant-culprit anchor, then apply the no-LLM proceed gate to the engineered graph_color slice before any real-LLM spend.",
+  "provenance": {
+    "schema_version": "rung1_multiagent_accounting_anchor_v0",
+    "source": "autonomous_stage_a_run",
+    "result_artifact": "results/rung1_multiagent_accounting_anchor/results.json",
+    "anchor_script": "analysis/rung1_multiagent_accounting_anchor.py",
+    "slice_artifact": "results/rung1_multiagent_graphcolor/engineered_dry_run.json",
+    "parent_item": "072"
+  },
+  "artifacts": [
+    "results/experiment_items/item_073_rung1_multiagent_accounting_anchor.json",
+    "analysis/rung1_multiagent_accounting_anchor.py",
+    "experiments/rung1_multiagent_graphcolor.py",
+    "results/rung1_multiagent_accounting_anchor/results.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/rung1_multiagent_accounting_anchor.py",
+      "change": "Adds synthetic distant-culprit accounting anchor, chrono retraction sanity check, cbj backjump-includes-culprit sanity, slice claim3/capacity summaries, and real-LLM proceed gate."
+    },
+    {
+      "path": "experiments/rung1_multiagent_graphcolor.py",
+      "change": "Adds distant-culprit instrumentation and selection gates used by the accounting anchor readout."
+    }
+  ],
+  "commands": [
+    {
+      "command": ".venv/bin/python -m analysis.rung1_multiagent_accounting_anchor --slice-path results/rung1_multiagent_graphcolor/engineered_dry_run.json --output results/rung1_multiagent_accounting_anchor/results.json",
+      "purpose": "Run the no-LLM accounting anchor and proceed gate against the engineered controlled graph_color slice."
+    }
+  ],
+  "decision": {
+    "outcome": "RUNG1_MULTIAGENT_ACCOUNTING_ANCHOR_COMPLETE",
+    "overall_pass": false,
+    "headline": {
+      "determination": "accepted_negative_claim3_on_current_slice",
+      "anchor_reproduces_dissociation": true,
+      "claim3_verdict": "accepted_negative",
+      "capacity_verdict": "non_discriminating_or_negative",
+      "real_llm": "NO_GO",
+      "single_next_move": "Do not run real LLM; either accept claim3 negative on this controlled substrate or define a new substrate before any real spend."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "chrono_retraction_arithmetic",
+        "outcome": "PASS",
+        "number": "chrono retractions match recoveries*(distance+1) in the synthetic anchor"
+      },
+      {
+        "gate": "cbj_backjump_semantics",
+        "outcome": "PASS",
+        "number": "cbj backjump includes the culprit in the synthetic anchor"
+      },
+      {
+        "gate": "anchor_double_dissociation",
+        "outcome": "PASS",
+        "number": "cbj message slope=0.0 and total-work slope=0.0; chrono message slope=1.0 and total-work slope=1.0"
+      },
+      {
+        "gate": "slice_claim3",
+        "outcome": "ACCEPTED_NEGATIVE",
+        "number": "Instrument anchor validated, but graph_color slice has cbj_messages=8.2857 vs chrono_messages=3.4286 at equal solve_rate=1.0"
+      },
+      {
+        "gate": "capacity_regime",
+        "outcome": "NOT_DISCRIMINATING",
+        "number": "monolith_fail_fraction=0.0; team_feasible_fraction=1.0; no monolith-fail/team-feasible capacity gap"
+      },
+      {
+        "gate": "real_llm_proceed",
+        "outcome": "NO_GO",
+        "number": "real_llm=NO_GO because claim3_positive=false and capacity_discriminating=false"
+      }
+    ],
+    "next_step_routing": "Do not spend real LLM on this multi-agent slice. Since the anchor validates the instrument, the current graph_color controlled slice is an accepted claim3 negative; capacity remains non-discriminating. Next move is either accept the controlled-substrate negative or define a new substrate/regime before real LLM."
+  },
+  "result_tables": {
+    "accounting_sanity": {
+      "columns": ["check", "pass"],
+      "rows": [
+        {"check": "chrono_retractions_match_recoveries_times_distance_plus_one", "pass": true},
+        {"check": "cbj_backjump_includes_culprit", "pass": true},
+        {"check": "cascade_fixed_in_anchor", "pass": true}
+      ]
+    },
+    "anchor_slopes": {
+      "columns": ["arm", "message_slope_vs_distance", "total_work_slope_vs_distance", "retraction_slope_vs_distance"],
+      "rows": [
+        {"arm": "cbj", "message_slope_vs_distance": 0.0, "total_work_slope_vs_distance": 0.0, "retraction_slope_vs_distance": 1.0},
+        {"arm": "chrono", "message_slope_vs_distance": 1.0, "total_work_slope_vs_distance": 1.0, "retraction_slope_vs_distance": 1.0}
+      ]
+    },
+    "slice_claim3": {
+      "columns": ["B", "cbj_messages", "chrono_messages", "cbj_solve_rate", "chrono_solve_rate", "cbj_below_chrono"],
+      "rows": [
+        {"B": 6, "cbj_messages": 8.285714285714286, "chrono_messages": 3.4285714285714284, "cbj_solve_rate": 1.0, "chrono_solve_rate": 1.0, "cbj_below_chrono": false}
+      ]
+    },
+    "capacity_regime": {
+      "columns": ["metric", "value"],
+      "rows": [
+        {"metric": "monolith_fail_fraction", "value": 0.0},
+        {"metric": "team_feasible_fraction", "value": 1.0},
+        {"metric": "claim4_capacity_verdict", "value": "non_discriminating_or_negative"}
+      ]
+    },
+    "proceed_gate": {
+      "columns": ["gate", "value"],
+      "rows": [
+        {"gate": "instrument_anchor_validated", "value": true},
+        {"gate": "claim3_positive", "value": false},
+        {"gate": "capacity_discriminating", "value": false},
+        {"gate": "capacity_positive", "value": false},
+        {"gate": "real_llm", "value": "NO_GO"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish positive claim 3 or claim 4-multi. It validates the accounting anchor and then reports an accepted negative/no-go on the current controlled graph_color slice.",
+    "instrument_limit": "The synthetic anchor validates the accounting instrument, but the graph_color slice still has cbj worse than chrono on total cross-block messages at equal solve rate.",
+    "capacity_limit": "The monolith baseline still solves all selected instances, so the capacity regime is not discriminating for team-vs-monolith.",
+    "scope_limit": "No real LLM multi-agent run was launched because the proceed gate is NO_GO."
+  }
+}

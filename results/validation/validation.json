@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=45",
+      "detail": "count=46",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -2191,6 +2191,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_073_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_073_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=073",
+      "name": "log_item_073_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_073_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish positive claim 3 or claim 4-multi. It validates the accounting anchor and then reports an accepted negative/no-go on the current co",
+      "name": "log_item_073_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=6; routing=Do not spend real LLM on this multi-agent slice. Since the anchor validates the instrument, the current graph_color controlled slice is an accepted claim3 negative; capacity remains non-discriminating. Next move is either accept the controlled-substrate negative or define a new substrate/regime before real LLM.",
+      "name": "log_item_073_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -2767,13 +2803,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'pop_read', 'spill_off_write_drop', 'write_drop_mask', 'register_entry_classification', 'forward_read', 'final_solution_readback'}",
+      "detail": "rules={'pop_read', 'spill_off_write_drop', 'write_drop_mask', 'final_solution_readback', 'forward_read', 'register_entry_classification'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_choice_unmasked', 'P_pop_unmasked', 'P_all', 'P_pop', 'P_choice', 'threshold_D_pop', 'P_all_unmasked', 'threshold_D_peak'}; rows=768",
+      "detail": "candidates={'P_pop_unmasked', 'P_all_unmasked', 'threshold_D_peak', 'threshold_D_pop', 'P_choice_unmasked', 'P_choice', 'P_pop', 'P_all'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -2809,7 +2845,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_choice_unmasked', 'P_pop_unmasked', 'P_all', 'P_pop', 'P_choice', 'P_all_unmasked'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_pop_unmasked', 'P_all_unmasked', 'P_choice_unmasked', 'P_choice', 'P_pop', 'P_all'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3607,11 +3643,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-13T03:04:55.206879+00:00",
+  "generated_at": "2026-06-13T03:24:08.224273+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 601,
+    "n_checks": 607,
     "n_fail": 3,
-    "n_pass": 598
+    "n_pass": 604
   }
 }

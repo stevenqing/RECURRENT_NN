@@ -59,6 +59,7 @@ ARTIFACT_INDEX = {
     "item_070_rung1_paradigm_overnight_real_llm": "results/experiment_items/item_070_rung1_paradigm_overnight_real_llm.json",
     "item_071_rung1_multiagent_graphcolor_controlled_dryrun": "results/experiment_items/item_071_rung1_multiagent_graphcolor_controlled_dryrun.json",
     "item_072_rung1_multiagent_graphcolor_engineered_slice": "results/experiment_items/item_072_rung1_multiagent_graphcolor_engineered_slice.json",
+    "item_073_rung1_multiagent_accounting_anchor": "results/experiment_items/item_073_rung1_multiagent_accounting_anchor.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
     "model_readiness": "results/model_readiness/readiness.json",
@@ -148,6 +149,7 @@ ARTIFACT_INDEX = {
     "rung1_paradigm_overnight_multiagent_dry_run": "results/rung1_paradigm_overnight/multiagent_dry_run.json",
     "rung1_multiagent_graphcolor_dry_run": "results/rung1_multiagent_graphcolor/dry_run.json",
     "rung1_multiagent_graphcolor_engineered_dry_run": "results/rung1_multiagent_graphcolor/engineered_dry_run.json",
+    "rung1_multiagent_accounting_anchor": "results/rung1_multiagent_accounting_anchor/results.json",
     "validation": "results/validation/validation.json",
 }
 

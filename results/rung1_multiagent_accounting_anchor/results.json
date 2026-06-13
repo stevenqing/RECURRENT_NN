@@ -1,0 +1,495 @@
+{
+  "accounting_sanity": {
+    "cascade_fixed_in_anchor": true,
+    "cbj_backjump_includes_culprit": true,
+    "chrono_retractions_match_recoveries_times_distance_plus_one": true,
+    "provenance": "multiagent_accounting_sanity_v0",
+    "source": "autonomous_stage_a_run"
+  },
+  "anchor": {
+    "accounting_sanity": {
+      "cascade_fixed_in_anchor": true,
+      "cbj_backjump_includes_culprit": true,
+      "chrono_retractions_match_recoveries_times_distance_plus_one": true,
+      "provenance": "multiagent_accounting_sanity_v0",
+      "source": "autonomous_stage_a_run"
+    },
+    "anchor_reproduces_dissociation": true,
+    "by_arm": {
+      "cbj": {
+        "message_slope_vs_distance": 0.0,
+        "retraction_slope_vs_distance": 1.0,
+        "total_work_slope_vs_distance": 0.0
+      },
+      "chrono": {
+        "message_slope_vs_distance": 1.0,
+        "retraction_slope_vs_distance": 1.0,
+        "total_work_slope_vs_distance": 1.0
+      }
+    },
+    "provenance": "multiagent_accounting_anchor_v0",
+    "rows": [
+      {
+        "arm": "cbj",
+        "cbj_includes_culprit": true,
+        "chrono_retractions_expected": null,
+        "distance": 1,
+        "messages": 1,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 2,
+        "source": "autonomous_stage_a_run",
+        "total_work": 2
+      },
+      {
+        "arm": "chrono",
+        "cbj_includes_culprit": null,
+        "chrono_retractions_expected": 2,
+        "distance": 1,
+        "messages": 2,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 2,
+        "source": "autonomous_stage_a_run",
+        "total_work": 3
+      },
+      {
+        "arm": "cbj",
+        "cbj_includes_culprit": true,
+        "chrono_retractions_expected": null,
+        "distance": 2,
+        "messages": 1,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 3,
+        "source": "autonomous_stage_a_run",
+        "total_work": 2
+      },
+      {
+        "arm": "chrono",
+        "cbj_includes_culprit": null,
+        "chrono_retractions_expected": 3,
+        "distance": 2,
+        "messages": 3,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 3,
+        "source": "autonomous_stage_a_run",
+        "total_work": 4
+      },
+      {
+        "arm": "cbj",
+        "cbj_includes_culprit": true,
+        "chrono_retractions_expected": null,
+        "distance": 3,
+        "messages": 1,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 4,
+        "source": "autonomous_stage_a_run",
+        "total_work": 2
+      },
+      {
+        "arm": "chrono",
+        "cbj_includes_culprit": null,
+        "chrono_retractions_expected": 4,
+        "distance": 3,
+        "messages": 4,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 4,
+        "source": "autonomous_stage_a_run",
+        "total_work": 5
+      },
+      {
+        "arm": "cbj",
+        "cbj_includes_culprit": true,
+        "chrono_retractions_expected": null,
+        "distance": 4,
+        "messages": 1,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 5,
+        "source": "autonomous_stage_a_run",
+        "total_work": 2
+      },
+      {
+        "arm": "chrono",
+        "cbj_includes_culprit": null,
+        "chrono_retractions_expected": 5,
+        "distance": 4,
+        "messages": 5,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 5,
+        "source": "autonomous_stage_a_run",
+        "total_work": 6
+      },
+      {
+        "arm": "cbj",
+        "cbj_includes_culprit": true,
+        "chrono_retractions_expected": null,
+        "distance": 5,
+        "messages": 1,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 6,
+        "source": "autonomous_stage_a_run",
+        "total_work": 2
+      },
+      {
+        "arm": "chrono",
+        "cbj_includes_culprit": null,
+        "chrono_retractions_expected": 6,
+        "distance": 5,
+        "messages": 6,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 6,
+        "source": "autonomous_stage_a_run",
+        "total_work": 7
+      },
+      {
+        "arm": "cbj",
+        "cbj_includes_culprit": true,
+        "chrono_retractions_expected": null,
+        "distance": 6,
+        "messages": 1,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 7,
+        "source": "autonomous_stage_a_run",
+        "total_work": 2
+      },
+      {
+        "arm": "chrono",
+        "cbj_includes_culprit": null,
+        "chrono_retractions_expected": 7,
+        "distance": 6,
+        "messages": 7,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 7,
+        "source": "autonomous_stage_a_run",
+        "total_work": 8
+      },
+      {
+        "arm": "cbj",
+        "cbj_includes_culprit": true,
+        "chrono_retractions_expected": null,
+        "distance": 7,
+        "messages": 1,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 8,
+        "source": "autonomous_stage_a_run",
+        "total_work": 2
+      },
+      {
+        "arm": "chrono",
+        "cbj_includes_culprit": null,
+        "chrono_retractions_expected": 8,
+        "distance": 7,
+        "messages": 8,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 8,
+        "source": "autonomous_stage_a_run",
+        "total_work": 9
+      },
+      {
+        "arm": "cbj",
+        "cbj_includes_culprit": true,
+        "chrono_retractions_expected": null,
+        "distance": 8,
+        "messages": 1,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 9,
+        "source": "autonomous_stage_a_run",
+        "total_work": 2
+      },
+      {
+        "arm": "chrono",
+        "cbj_includes_culprit": null,
+        "chrono_retractions_expected": 9,
+        "distance": 8,
+        "messages": 9,
+        "provenance": "synthetic_distant_culprit_anchor_v0",
+        "recoveries": 1,
+        "retractions": 9,
+        "source": "autonomous_stage_a_run",
+        "total_work": 10
+      }
+    ],
+    "source": "autonomous_stage_a_run"
+  },
+  "capacity_regime": {
+    "claim4_capacity_verdict": "non_discriminating_or_negative",
+    "monolith_fail_fraction": 0.0,
+    "provenance": "multiagent_capacity_regime_v0",
+    "rows": [
+      {
+        "B": 5,
+        "arm": "cbj_oracle",
+        "monolith_solve_rate": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_team_vs_monolith_v0",
+        "source": "autonomous_stage_a_run",
+        "team_minus_monolith": 0.0,
+        "team_solve_rate": 1.0
+      },
+      {
+        "B": 6,
+        "arm": "cbj_oracle",
+        "monolith_solve_rate": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_team_vs_monolith_v0",
+        "source": "autonomous_stage_a_run",
+        "team_minus_monolith": 0.0,
+        "team_solve_rate": 1.0
+      }
+    ],
+    "source": "autonomous_stage_a_run",
+    "team_feasible_fraction": 1.0
+  },
+  "headline": {
+    "anchor_reproduces_dissociation": true,
+    "capacity_verdict": "non_discriminating_or_negative",
+    "claim3_verdict": "accepted_negative",
+    "determination": "accepted_negative_claim3_on_current_slice",
+    "single_next_move": "Do not run real LLM; either accept claim3 negative on this controlled substrate or define a new substrate before any real spend."
+  },
+  "proceed_gate": {
+    "capacity_discriminating": false,
+    "capacity_positive": false,
+    "claim3_positive": false,
+    "instrument_anchor_validated": true,
+    "provenance": "multiagent_real_llm_proceed_gate_v0",
+    "real_llm": "NO_GO",
+    "reason": "Do not run real LLM; either accept claim3 negative on this controlled substrate or define a new substrate before any real spend.",
+    "source": "autonomous_stage_a_run"
+  },
+  "provenance": "rung1_multiagent_accounting_anchor_v0",
+  "schema_version": "rung1_multiagent_accounting_anchor_v0",
+  "slice_claim3": {
+    "cbj_below_chrono": false,
+    "claim3_verdict": "accepted_negative",
+    "provenance": "multiagent_slice_claim3_v0",
+    "rows": [
+      {
+        "B": 6,
+        "cbj_below_chrono": false,
+        "cbj_messages": 8.285714285714286,
+        "cbj_solve_rate": 1.0,
+        "chrono_messages": 3.4285714285714284,
+        "chrono_solve_rate": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_claim3_row_v0",
+        "source": "autonomous_stage_a_run"
+      }
+    ],
+    "source": "autonomous_stage_a_run"
+  },
+  "slice_summary": {
+    "bounded_view": {
+      "bounded_view_verified": true,
+      "max_prompt_chars": 0,
+      "max_register_view_len": 1,
+      "provenance": "rung1_multiagent_graphcolor_bounded_view_v0",
+      "source": "autonomous_stage_a_run"
+    },
+    "by_arm": [
+      {
+        "B": 5,
+        "arm": "cbj_oracle",
+        "max_culprit_distance": 4,
+        "mean_cross_block_messages": 24,
+        "mean_cross_block_recoveries": 24,
+        "mean_culprit_distance": 3.0,
+        "mean_official_score": 1.0,
+        "mean_total_retractions": 96,
+        "n": 1,
+        "n_gt1_culprit_distance": 24,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 1
+        }
+      },
+      {
+        "B": 5,
+        "arm": "cbj_random",
+        "max_culprit_distance": 4,
+        "mean_cross_block_messages": 6,
+        "mean_cross_block_recoveries": 6,
+        "mean_culprit_distance": 2.1666666666666665,
+        "mean_official_score": 0.01,
+        "mean_total_retractions": 25,
+        "n": 1,
+        "n_gt1_culprit_distance": 5,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 0.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 1
+        }
+      },
+      {
+        "B": 5,
+        "arm": "chrono",
+        "max_culprit_distance": 4,
+        "mean_cross_block_messages": 3,
+        "mean_cross_block_recoveries": 3,
+        "mean_culprit_distance": 2.6666666666666665,
+        "mean_official_score": 1.0,
+        "mean_total_retractions": 3,
+        "n": 1,
+        "n_gt1_culprit_distance": 3,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 1
+        }
+      },
+      {
+        "B": 5,
+        "arm": "forward",
+        "max_culprit_distance": 0,
+        "mean_cross_block_messages": 0,
+        "mean_cross_block_recoveries": 0,
+        "mean_culprit_distance": 0.0,
+        "mean_official_score": 0.01,
+        "mean_total_retractions": 0,
+        "n": 1,
+        "n_gt1_culprit_distance": 0,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 0.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "FORWARD_CROSS_BLOCK_CONFLICT": 1
+        }
+      },
+      {
+        "B": 6,
+        "arm": "cbj_oracle",
+        "max_culprit_distance": 8,
+        "mean_cross_block_messages": 8.285714285714286,
+        "mean_cross_block_recoveries": 8.285714285714286,
+        "mean_culprit_distance": 2.357482993197279,
+        "mean_official_score": 1.0,
+        "mean_total_retractions": 26.428571428571427,
+        "n": 7,
+        "n_gt1_culprit_distance": 35,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 7
+        }
+      },
+      {
+        "B": 6,
+        "arm": "cbj_random",
+        "max_culprit_distance": 7,
+        "mean_cross_block_messages": 5.857142857142857,
+        "mean_cross_block_recoveries": 5.857142857142857,
+        "mean_culprit_distance": 2.432539682539683,
+        "mean_official_score": 0.7171428571428572,
+        "mean_total_retractions": 15.571428571428571,
+        "n": 7,
+        "n_gt1_culprit_distance": 34,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 0.7142857142857143,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "NO_RECOVERY_TARGET": 2,
+          "SOLVED": 5
+        }
+      },
+      {
+        "B": 6,
+        "arm": "chrono",
+        "max_culprit_distance": 7,
+        "mean_cross_block_messages": 3.4285714285714284,
+        "mean_cross_block_recoveries": 3.4285714285714284,
+        "mean_culprit_distance": 2.4333333333333336,
+        "mean_official_score": 1.0,
+        "mean_total_retractions": 3.4285714285714284,
+        "n": 7,
+        "n_gt1_culprit_distance": 17,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 1.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "SOLVED": 7
+        }
+      },
+      {
+        "B": 6,
+        "arm": "forward",
+        "max_culprit_distance": 0,
+        "mean_cross_block_messages": 0,
+        "mean_cross_block_recoveries": 0,
+        "mean_culprit_distance": 0.0,
+        "mean_official_score": 0.01,
+        "mean_total_retractions": 0,
+        "n": 7,
+        "n_gt1_culprit_distance": 0,
+        "provenance": "rung1_multiagent_graphcolor_summary_v0",
+        "solve_rate": 0.0,
+        "source": "autonomous_stage_a_run",
+        "status_counts": {
+          "FORWARD_CROSS_BLOCK_CONFLICT": 7
+        }
+      }
+    ],
+    "capacity_rows": [
+      {
+        "B": 5,
+        "arm": "cbj_oracle",
+        "monolith_solve_rate": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_team_vs_monolith_v0",
+        "source": "autonomous_stage_a_run",
+        "team_minus_monolith": 0.0,
+        "team_solve_rate": 1.0
+      },
+      {
+        "B": 6,
+        "arm": "cbj_oracle",
+        "monolith_solve_rate": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_team_vs_monolith_v0",
+        "source": "autonomous_stage_a_run",
+        "team_minus_monolith": 0.0,
+        "team_solve_rate": 1.0
+      }
+    ],
+    "claim3_cbj_below_chrono": false,
+    "claim3_rows": [
+      {
+        "B": 6,
+        "cbj_below_chrono": false,
+        "cbj_messages": 8.285714285714286,
+        "cbj_solve_rate": 1.0,
+        "chrono_messages": 3.4285714285714284,
+        "chrono_solve_rate": 1.0,
+        "provenance": "rung1_multiagent_graphcolor_claim3_row_v0",
+        "source": "autonomous_stage_a_run"
+      }
+    ],
+    "monolith_fail_fraction": 0.0,
+    "preflight": {
+      "agent_order": "round_robin",
+      "min_cross_backtracks": 1,
+      "min_culprit_distance_gt1": 1,
+      "official_scoring_only": true,
+      "provenance": "rung1_multiagent_graphcolor_preflight_v0",
+      "selected_instances": 8,
+      "source": "autonomous_stage_a_run"
+    },
+    "provenance": "multiagent_graphcolor_slice_summary_v0",
+    "source": "autonomous_stage_a_run",
+    "team_feasible_fraction": 1.0
+  },
+  "source": "autonomous_stage_a_run",
+  "status": "RUNG1_MULTIAGENT_ACCOUNTING_ANCHOR_COMPLETE"
+}
