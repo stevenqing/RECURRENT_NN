@@ -112,6 +112,10 @@ PATHS = {
     "item_104_kvcache_graph_color_oracle_search_fast_screen": "results/experiment_items/item_104_kvcache_graph_color_oracle_search_fast_screen.json",
     "item_105_kvcache_decision_probe_part1": "results/experiment_items/item_105_kvcache_decision_probe_part1.json",
     "item_106_kvcache_backjump_lora_part2": "results/experiment_items/item_106_kvcache_backjump_lora_part2.json",
+    "item_107_kvcache_chronological_solve_parta": "results/experiment_items/item_107_kvcache_chronological_solve_parta.json",
+    "item_108_kvcache_conflict_analysis_cot_c1": "results/experiment_items/item_108_kvcache_conflict_analysis_cot_c1.json",
+    "item_109_kvcache_c2_reasoning_lora": "results/experiment_items/item_109_kvcache_c2_reasoning_lora.json",
+    "item_110_kvcache_multiagent_cbj_v0": "results/experiment_items/item_110_kvcache_multiagent_cbj_v0.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
@@ -211,6 +215,15 @@ PATHS = {
     "kvcache_backjump_lora_km3": "results/kvcache_backjump_lora/km3_lora_v0.json",
     "kvcache_backjump_lora_eval_decisions": "results/kvcache_backjump_lora/eval_decisions_v0.json",
     "kvcache_backjump_lora_summary": "results/kvcache_backjump_lora/summary_v0.json",
+    "kvcache_backjump_lora_parta_chrono_solve": "results/kvcache_backjump_lora/partA_chrono_solve_v0/merged_partA_chrono_solve.json",
+    "kvcache_conflict_analysis_cot_c1_full_r4": "results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/merged_c1_conflict_cot_full_r4.json",
+    "kvcache_c2_reasoning_data_manifest": "results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/manifest.json",
+    "kvcache_c2_reasoning_train": "results/kvcache_backjump_lora/c2_reasoning_train_repaired_v0/train.json",
+    "kvcache_c2_reasoning_km3": "results/kvcache_backjump_lora/km3_c2_reasoning_repaired_v0.json",
+    "kvcache_c2_reasoning_eval": "results/kvcache_backjump_lora/c2_reasoning_repaired_eval_v0/merged_c2_reasoning_repaired_eval.json",
+    "kvcache_multiagent_cbj_script": "analysis/kvcache_multiagent_cbj.py",
+    "kvcache_multiagent_cbj_km3_gate": "results/kvcache_multiagent_cbj/km3_gate_k2_v0.json",
+    "kvcache_multiagent_cbj_k2_probe": "results/kvcache_multiagent_cbj/k2_probe_shards_v0/merged_k2_probe.json",
     "reasoning_gym_baseline_first_spec_v1": "specs/reasoning_gym_baseline_first_v1.md",
     "externalization_full_execution_manifest": "results/externalization_validation_v0/full_execution_manifest.json",
     "externalization_graph_color_ceiling_llm": "results/externalization_validation_v0/graph_color_ceiling_llm.json",
@@ -578,6 +591,37 @@ def _w3_checks(checks: list[dict[str, Any]]) -> None:
         _check(checks, verdicts.get("W3.2_qwen3_4b_delta_table") != "MEASURED_MIXED_SCALE_PROPAGATION_DELTA_NOT_ACCEPTED", "w3_propagation_scale_not_mixed", f"verdict={verdicts.get('W3.2_qwen3_4b_delta_table')}", "tier_c")
         if verdicts.get("W3.2_qwen3_4b_delta_table") in {"MEASURED_SMALL_PROPAGATION_DELTA_NOT_ACCEPTED", "MEASURED_50X2_PROPAGATION_DELTA_NOT_ACCEPTED"}:
             _check(checks, bool(propagation_rows) and all(row.get("qwen35_verdict") for row in propagation_rows), "w3_propagation_per_task_delta_measured", f"rows={len(propagation_rows)}", "tier_c")
+
+
+def _kvcache_multiagent_cbj_checks(checks: list[dict[str, Any]]) -> None:
+    _exists(checks, "item_110_kvcache_multiagent_cbj_v0", "kvcache_ma")
+    _exists(checks, "kvcache_multiagent_cbj_script", "kvcache_ma")
+    _exists(checks, "kvcache_multiagent_cbj_km3_gate", "kvcache_ma")
+    _exists(checks, "kvcache_multiagent_cbj_k2_probe", "kvcache_ma")
+    item = _read_json("item_110_kvcache_multiagent_cbj_v0")
+    gate = _read_json("kvcache_multiagent_cbj_km3_gate")
+    probe = _read_json("kvcache_multiagent_cbj_k2_probe")
+    if item:
+        _check(checks, item.get("status") == "KVCACHE_MULTIAGENT_CBJ_V0_COMPLETE_PARTIAL_POSITIVE", "kvcache_ma_item110_status", f"status={item.get('status')}", "kvcache_ma")
+        headline = item.get("decision", {}).get("headline", {})
+        _check(checks, headline.get("all_cells_beat_chrono_exact") is True, "kvcache_ma_item110_beats_chrono_recorded", f"headline={headline}", "kvcache_ma")
+        _check(checks, "symbolic cross-block CBJ fallback" in item.get("honesty", {}).get("fallback_policy", ""), "kvcache_ma_item110_fallback_honesty", item.get("honesty", {}).get("fallback_policy", "")[:180], "kvcache_ma")
+    if gate:
+        _check(checks, gate.get("status") == "KVCACHE_MULTIAGENT_CBJ_KM3_PASS" and gate.get("overall_pass") is True, "kvcache_ma_km3_pass", f"status={gate.get('status')}; overall={gate.get('overall_pass')}", "kvcache_ma")
+        _check(checks, float(gate.get("max_abs_logit_delta", 1.0)) <= 1e-3, "kvcache_ma_km3_delta_tol", f"max_abs_logit_delta={gate.get('max_abs_logit_delta')}", "kvcache_ma")
+        inventory = gate.get("cache_inventory", [])
+        pure_kv = bool(inventory) and all("keys" in row and "values" in row and "recurrent_states" not in row and "conv_states" not in row for row in inventory)
+        _check(checks, pure_kv, "kvcache_ma_km3_pure_kv_inventory", f"layers={len(inventory)}", "kvcache_ma")
+    if probe:
+        summary = probe.get("summary", [])
+        rows = probe.get("rows", [])
+        _check(checks, probe.get("status") == "KVCACHE_MULTIAGENT_CBJ_COMPLETE" and len(rows) >= 200 and len(summary) >= 6, "kvcache_ma_k2_probe_complete", f"status={probe.get('status')}; rows={len(rows)}; summary={len(summary)}", "kvcache_ma")
+        parse_valid = bool(summary) and all(float(row.get("parse_rate", 0.0)) == 1.0 and float(row.get("valid_rate", 0.0)) == 1.0 for row in summary)
+        _check(checks, parse_valid, "kvcache_ma_k2_parse_valid_all_cells", f"summary={summary}", "kvcache_ma")
+        beats_chrono = bool(summary) and all(float(row.get("exact_rate", 0.0)) > float(row.get("chrono_exact_rate", 1.0)) for row in summary)
+        _check(checks, beats_chrono, "kvcache_ma_k2_exact_beats_chrono", f"summary={summary}", "kvcache_ma")
+        not_closed = bool(summary) and min(float(row.get("exact_rate", 1.0)) for row in summary) < 0.8
+        _check(checks, not_closed, "kvcache_ma_k2_not_standalone_router", f"min_exact={min((float(row.get('exact_rate', 1.0)) for row in summary), default=None)}", "kvcache_ma")
 
 
 def _item_contract_checks(checks: list[dict[str, Any]]) -> None:
@@ -1461,6 +1505,7 @@ def validate_outputs(output_dir: str = "results/validation") -> dict[str, Any]:
     _m2_checks(checks)
     _stage_a_checks(checks)
     _w3_checks(checks)
+    _kvcache_multiagent_cbj_checks(checks)
     _item_contract_checks(checks)
     _closeout_047_checks(checks)
     _track_b_value_head_retrain_checks(checks)

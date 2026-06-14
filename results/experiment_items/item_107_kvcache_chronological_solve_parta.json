@@ -1,0 +1,104 @@
+{
+  "item_number": "107",
+  "schema_version": "log_item_contract_v1",
+  "status": "KVCACHE_CHRONOLOGICAL_SOLVE_PARTA_COMPLETE_LOW_R_CBJNEED",
+  "name": "KV-cache chronological-solve Part A",
+  "generated_at": "2026-06-14T12:07:33.898585+00:00",
+  "purpose": "Run CODE SPEC Chronological-Solve Test Part A on the exact KV-cache graph_color search substrate. The experiment asks whether chronological backtracking alone solves the benchmark when the backjump window R is varied, before spending more work on contrastive/listwise backjump LoRA. It compares frozen, chronological, random, and oracle backjump policies under both oracle-branch isolation and frozen-branch autonomous conditions across v14/v16 validation and v18 OOD bins.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["102", "104", "105", "106"],
+    "spec": "user CODE SPEC Chronological-Solve Test + Optional Contrastive Backjump LoRA v0",
+    "script": "analysis/kvcache_backjump_lora.py",
+    "final_merge": "results/kvcache_backjump_lora/partA_chrono_solve_v0/merged_partA_chrono_solve.json",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "dtype": "fp32",
+    "execution": "Four sharded eval-search workers on GPUs 0-3 with resume checkpoints; final merge over 2880 cache-search rows.",
+    "branch_conditions": ["isolation", "autonomous"],
+    "backjump_policies": ["frozen", "chrono", "random", "oracle"],
+    "bins": ["v14_p04", "v16_p04", "v18_p04"],
+    "r_values": [2, 4, 8, 16],
+    "n_instances_per_cell": 30
+  },
+  "artifacts": [
+    "results/experiment_items/item_107_kvcache_chronological_solve_parta.json",
+    "analysis/kvcache_backjump_lora.py",
+    "results/kvcache_backjump_lora/partA_chrono_solve_v0/merged_partA_chrono_solve.json",
+    "results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_0.json",
+    "results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_1.json",
+    "results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_2.json",
+    "results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_3.json",
+    "results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_0_checkpoint.json",
+    "results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_1_checkpoint.json",
+    "results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_2_checkpoint.json",
+    "results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_3_checkpoint.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/kvcache_backjump_lora.py",
+      "change": "Uses eval-search and merge-search with corrected R semantics: R is a dead-end backjump window over open checkpoints, not a forward branch-depth cap. Policies include frozen, chronological, random, and oracle backjump selection; branch conditions include isolation and autonomous."
+    }
+  ],
+  "commands": [
+    {
+      "command": "CUDA_VISIBLE_DEVICES={0,1,2,3} .venv/bin/python -m analysis.kvcache_backjump_lora eval-search --model Qwen/Qwen3-4B-Instruct-2507 --device cuda --dtype fp32 --seed 42 --scan-limit 5000 --n-instances 30 --max-selected-instances 120 --min-backtracks 4 --node-cap 500 --num-colors 3 --order-mode degree_desc --bins v14_p04:14:0.4,v16_p04:16:0.4,v18_p04:18:0.4 --r-values 2,4,8,16 --conditions isolation,autonomous --backjump-policies frozen,chrono,random,oracle --call-cap 220 --num-shards 4 --shard-index {0,1,2,3} --resume",
+      "purpose": "Run the full Part A chronological-solve matrix over three graph_color bins, two branch conditions, four R values, and four backjump policies."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.kvcache_backjump_lora merge-search --output results/kvcache_backjump_lora/partA_chrono_solve_v0/merged_partA_chrono_solve.json --inputs 'results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_*_checkpoint.json'",
+      "purpose": "Merge the completed four-shard Part A checkpoints into the final summary artifact."
+    }
+  ],
+  "decision": {
+    "outcome": "PARTA_CHRONO_SUFFICIENT_AT_R16_LOW_R_CBJNEED",
+    "overall_pass": true,
+    "headline": {
+      "status": "KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE",
+      "raw_rows": 2880,
+      "summary_cells": 96,
+      "gap_cells": 24,
+      "v14_R4_chrono_solve": 0.16666666666666666,
+      "v14_R4_oracle_solve": 0.6333333333333333,
+      "v16_R4_chrono_solve": 0.36666666666666664,
+      "v16_R4_oracle_solve": 0.6333333333333333,
+      "v18_R4_chrono_solve": 0.2,
+      "v18_R4_oracle_solve": 0.3333333333333333,
+      "R16_chrono_solve_all_bins": 1.0,
+      "R16_oracle_solve_all_bins": 1.0,
+      "single_next_move": "Part A fires a low-R CBJ-need signal but also shows that large-window chronological search is already sufficient. Only run contrastive/listwise Part B if the intended claim requires low-R compute savings rather than merely solving with a larger chronological window."
+    },
+    "gate_outcomes": [
+      {"gate": "matrix_complete", "outcome": "PASS", "number": "2880/2880 rows; 3 bins x 2 conditions x 4 policies x 4 R values x 30 instances."},
+      {"gate": "A_suff_R16", "outcome": "PASS", "number": "Chronological solve=1.0 and oracle solve=1.0 for v14, v16, and v18 at R=16 under both branch conditions."},
+      {"gate": "A_CBJneed_low_R", "outcome": "PASS", "number": "At R=4, chrono trails oracle by 0.467 on v14, 0.267 on v16, and 0.133 on v18; the same gaps appear in isolation and autonomous conditions."},
+      {"gate": "A_order_random", "outcome": "MIXED", "number": "Chrono is below random at R=4 on all bins, slightly below random on v16 R=8, above random on v14/v18 R=8, and above random by 0.233-0.300 at R=16."},
+      {"gate": "branch_condition_split", "outcome": "NO_SOLVE_GAP_DIFFERENCE_FOR_CHRONO_ORACLE_RANDOM", "number": "Chrono/oracle/random solve rates match between isolation and autonomous in the merged gap table; frozen differs because it uses model branch/backjump decisions."}
+    ],
+    "next_step_routing": "Do not run Part B by default for solve sufficiency at R=16. If the research target is bounded low-R backjump efficiency, Part B is justified as a contrastive/listwise learner because the oracle has a clear low-R solve advantage over chronological."
+  },
+  "result_tables": {
+    "chrono_oracle_random_solve_gaps": {
+      "columns": ["bin", "R", "chrono_solve", "oracle_solve", "random_solve", "chrono_minus_oracle", "chrono_minus_random"],
+      "rows": [
+        {"bin": "v14_p04", "R": 2, "chrono_solve": 0.03333333333333333, "oracle_solve": 0.06666666666666667, "random_solve": 0.06666666666666667, "chrono_minus_oracle": -0.03333333333333333, "chrono_minus_random": -0.03333333333333333},
+        {"bin": "v14_p04", "R": 4, "chrono_solve": 0.16666666666666666, "oracle_solve": 0.6333333333333333, "random_solve": 0.4, "chrono_minus_oracle": -0.4666666666666667, "chrono_minus_random": -0.23333333333333336},
+        {"bin": "v14_p04", "R": 8, "chrono_solve": 0.8666666666666667, "oracle_solve": 0.9666666666666667, "random_solve": 0.7333333333333333, "chrono_minus_oracle": -0.09999999999999998, "chrono_minus_random": 0.13333333333333341},
+        {"bin": "v14_p04", "R": 16, "chrono_solve": 1.0, "oracle_solve": 1.0, "random_solve": 0.7666666666666667, "chrono_minus_oracle": 0.0, "chrono_minus_random": 0.23333333333333328},
+        {"bin": "v16_p04", "R": 2, "chrono_solve": 0.03333333333333333, "oracle_solve": 0.16666666666666666, "random_solve": 0.06666666666666667, "chrono_minus_oracle": -0.13333333333333333, "chrono_minus_random": -0.03333333333333333},
+        {"bin": "v16_p04", "R": 4, "chrono_solve": 0.36666666666666664, "oracle_solve": 0.6333333333333333, "random_solve": 0.43333333333333335, "chrono_minus_oracle": -0.26666666666666666, "chrono_minus_random": -0.06666666666666671},
+        {"bin": "v16_p04", "R": 8, "chrono_solve": 0.8333333333333334, "oracle_solve": 0.9666666666666667, "random_solve": 0.8666666666666667, "chrono_minus_oracle": -0.1333333333333333, "chrono_minus_random": -0.033333333333333326},
+        {"bin": "v16_p04", "R": 16, "chrono_solve": 1.0, "oracle_solve": 1.0, "random_solve": 0.7666666666666667, "chrono_minus_oracle": 0.0, "chrono_minus_random": 0.23333333333333328},
+        {"bin": "v18_p04", "R": 2, "chrono_solve": 0.06666666666666667, "oracle_solve": 0.06666666666666667, "random_solve": 0.06666666666666667, "chrono_minus_oracle": 0.0, "chrono_minus_random": 0.0},
+        {"bin": "v18_p04", "R": 4, "chrono_solve": 0.2, "oracle_solve": 0.3333333333333333, "random_solve": 0.3333333333333333, "chrono_minus_oracle": -0.1333333333333333, "chrono_minus_random": -0.1333333333333333},
+        {"bin": "v18_p04", "R": 8, "chrono_solve": 0.8, "oracle_solve": 0.9666666666666667, "random_solve": 0.7, "chrono_minus_oracle": -0.16666666666666663, "chrono_minus_random": 0.10000000000000009},
+        {"bin": "v18_p04", "R": 16, "chrono_solve": 1.0, "oracle_solve": 1.0, "random_solve": 0.7, "chrono_minus_oracle": 0.0, "chrono_minus_random": 0.30000000000000004}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish a trained backjump learner. It establishes the Part A solve-rate landscape before optional contrastive/listwise Part B.",
+    "policy_limit": "Chronological is a hand-coded policy, not an LLM-internalized policy. Frozen remains weak and expensive, especially under autonomous branching/backjump decisions.",
+    "sample_limit": "Each summary cell uses n=30 instances. The low-R oracle advantage is large enough to justify a follow-up, but a paper-grade claim should increase n or bootstrap uncertainty.",
+    "implementation_note": "The Part A entry point is analysis/kvcache_backjump_lora.py rather than analysis/kvcache_graph_color_search.py, but it uses the same graph_color helpers, exact cache truncation substrate, and official scoring path."
+  }
+}

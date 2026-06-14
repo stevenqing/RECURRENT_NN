@@ -1,0 +1,120 @@
+{
+  "item_number": "109",
+  "schema_version": "log_item_contract_v1",
+  "status": "KVCACHE_C2_REASONING_LORA_COMPLETE_TRAINING_DOES_NOT_BEAT_C1",
+  "name": "KV-cache C2 reasoning LoRA",
+  "generated_at": "2026-06-14T15:25:31.144472+00:00",
+  "purpose": "Run CODE SPEC C2, SFT on Conflict-Analysis Reasoning Traces. C2 trains a LoRA on full conflict-analysis reasoning traces, using STaR positives where C1 chose the exact CBJ target and gold derivations for C1 errors. The adapter is evaluated through the same reasoning-then-truncate cache-search hook with no oracle or chronological fallback. The outcome is a clean negative for training benefit over C1: C2 trains cleanly and parses reliably, but does not beat C1-untrained exact-CBJ or solve rates consistently at R=4 and does not close the oracle gap.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["102", "107", "108"],
+    "spec": "user CODE SPEC C2, SFT on Conflict-Analysis Reasoning Traces v0",
+    "script": "analysis/kvcache_backjump_lora.py",
+    "data_manifest": "results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/manifest.json",
+    "adapter": "results/kvcache_backjump_lora/adapter_c2_reasoning_repaired_v0",
+    "train_result": "results/kvcache_backjump_lora/c2_reasoning_train_repaired_v0/train.json",
+    "km3_result": "results/kvcache_backjump_lora/km3_c2_reasoning_repaired_v0.json",
+    "eval_result": "results/kvcache_backjump_lora/c2_reasoning_repaired_eval_v0/merged_c2_reasoning_repaired_eval.json",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "train_dtype": "bf16",
+    "eval_dtype": "fp32",
+    "execution": "C2 data collection/eval used 0-3 GPU sharding with resume checkpoints. Training used torch.distributed.run on GPUs 0-3 with PEFT LoRA. Search/eval used batch 1 because each row has a different live KV cache and truncation trajectory.",
+    "no_training_on_v18": true,
+    "cot_fallback": "fail",
+    "invalid_index_repair": "model-scored valid-index confirmation, logged separately; no oracle or chronological fallback"
+  },
+  "artifacts": [
+    "results/experiment_items/item_109_kvcache_c2_reasoning_lora.json",
+    "analysis/kvcache_backjump_lora.py",
+    "results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/manifest.json",
+    "results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/train.jsonl",
+    "results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/val.jsonl",
+    "results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/ood_eval.jsonl",
+    "results/kvcache_backjump_lora/c2_reasoning_train_repaired_v0/train.json",
+    "results/kvcache_backjump_lora/adapter_c2_reasoning_repaired_v0",
+    "results/kvcache_backjump_lora/km3_c2_reasoning_repaired_v0.json",
+    "results/kvcache_backjump_lora/c2_reasoning_repaired_eval_v0/merged_c2_reasoning_repaired_eval.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/kvcache_backjump_lora.py",
+      "change": "Adds C2 reasoning-data collection, STaR/gold merge, STaR format repair, full-sequence SFT validation loss, and optional model-scored valid-index repair for malformed BACKJUMP values."
+    }
+  ],
+  "commands": [
+    {
+      "command": "collect-c2-data over v14/v16/v18 R=2,4,8 conditions isolation/autonomous, sharded on GPUs 0-3; stopped after v14+v16 train coverage reached 360 tasks, leaving v18 only as held-out eval data.",
+      "purpose": "Build C2 STaR/gold reasoning traces without training on v18."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.kvcache_backjump_lora repair-c2-data --input-dir results/kvcache_backjump_lora/c2_reasoning_data_n30_v0 --output-dir results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0",
+      "purpose": "Replace STaR positives whose intermediate reasoning contains out-of-range local indices with gold derivations."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0,1,2,3 .venv/bin/python -m torch.distributed.run --standalone --nproc_per_node=4 -m analysis.kvcache_backjump_lora train --train-jsonl results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/train.jsonl --val-jsonl results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/val.jsonl --output-dir results/kvcache_backjump_lora/adapter_c2_reasoning_repaired_v0 --output results/kvcache_backjump_lora/c2_reasoning_train_repaired_v0/train.json --model Qwen/Qwen3-4B-Instruct-2507 --device cuda --dtype bf16 --epochs 3 --batch-size 1 --grad-accum-steps 4 --max-length 2048 --learning-rate 1e-4 --lora-r 16 --lora-alpha 32 --lora-dropout 0.0 --target-modules q_proj,k_proj,v_proj,o_proj --max-val-examples 128 --log-every 10 --full-sequence-val-loss",
+      "purpose": "Train the full-sequence C2 reasoning LoRA."
+    },
+    {
+      "command": "km3-check with adapter_c2_reasoning_repaired_v0, fp32, depth=16, checkpoints=2,4,8,12, tol=1e-3.",
+      "purpose": "Verify pure-KV cache truncation exactness with the C2 adapter loaded."
+    },
+    {
+      "command": "eval-search with adapter_c2_reasoning_repaired_v0, R=2,4,8, v14/v16/v18, isolation/autonomous, n=30, 4 shards on GPUs 0-3, --cot-fallback fail --cot-invalid-repair score, then merge-search.",
+      "purpose": "Evaluate C2 through the same reasoning-then-truncate hook."
+    }
+  ],
+  "decision": {
+    "outcome": "C2_TRAINING_DOES_NOT_BEAT_C1_UNTRAINED",
+    "overall_pass": true,
+    "headline": {
+      "data_examples": 1299,
+      "train_examples": 783,
+      "val_examples": 251,
+      "ood_examples_held_out": 265,
+      "star_examples_after_repair": 786,
+      "gold_examples": 335,
+      "gold_format_repair_examples": 178,
+      "star_rate_after_repair": 0.605080831408776,
+      "train_global_steps": 147,
+      "final_val_loss": 0.07950035901012598,
+      "final_val_perplexity": 1.082745909690857,
+      "km3_status": "KVCACHE_BACKJUMP_LORA_KM3_PASS",
+      "km3_max_abs_logit_delta": 0.00007534027099609375,
+      "eval_rows": 540,
+      "eval_valid_parse_rate": 1.0,
+      "eval_fallback_rate": 0.0,
+      "eval_repair_attempt_rate": 0.026,
+      "eval_exact_cbj_aggregate": 0.6708,
+      "single_next_move": "Do not claim C2 improves targeting. Report C1 zero-training conflict analysis as the main positive result; C2 is useful negative evidence that full-trace SFT did not reliably improve exact CBJ or solve over C1."
+    },
+    "gate_outcomes": [
+      {"gate": "data", "outcome": "PASS", "number": "1299 examples; train=783, val=251, OOD=265 held out; repaired 178 STaR positives with out-of-range intermediate indices."},
+      {"gate": "training", "outcome": "PASS", "number": "DDP world_size=4, 147 steps, final val loss=0.0795, ppl=1.083."},
+      {"gate": "km3_lora", "outcome": "PASS", "number": "C2 adapter fp32 KM-3 PASS, max_abs_logit_delta=7.53e-05."},
+      {"gate": "parse", "outcome": "PASS_WITH_REPAIR", "number": "valid_parse_rate=1.0, fallback_rate=0.0; model-scored valid-index repair_attempt_rate=0.026."},
+      {"gate": "C2_1_above_C1", "outcome": "FAIL", "number": "At R=4, C2 exact-CBJ is below C1 in 5/6 cells and only +0.011 on v16 autonomous; solve is equal or only +0.033 in most cells and regresses on v18 isolation."},
+      {"gate": "C2_2_approaches_oracle", "outcome": "FAIL", "number": "R=4 solve remains below oracle in all but none of the cells; exact-CBJ remains around 0.50-0.70, not toward 0.9."},
+      {"gate": "OOD", "outcome": "FAIL_RELATIVE_TO_C1_ON_KEY_CELL", "number": "v18 isolation R=4 regresses from C1 solve=0.333 to C2 solve=0.300 and exact also drops; autonomous solve improves slightly but exact drops."}
+    ],
+    "next_step_routing": "Stop the C2 recipe as a training-improves-targeting claim. The principled conclusion is that C1 zero-training conflict-analysis reasoning is the result; C2 full-trace SFT did not add reliable benefit under the current data/hook."
+  },
+  "result_tables": {
+    "r4_c2_vs_c1_and_oracle": {
+      "columns": ["bin", "condition", "c2_solve", "c1_solve", "oracle_solve", "c2_exact", "c1_exact", "valid_parse", "repair_attempt"],
+      "rows": [
+        {"bin": "v14_p04", "condition": "autonomous", "c2_solve": 0.4666666666666667, "c1_solve": 0.43333333333333335, "oracle_solve": 0.6333333333333333, "c2_exact": 0.5873015873015873, "c1_exact": 0.6041666666666666, "valid_parse": 1.0, "repair_attempt": 0.03968253968253968},
+        {"bin": "v14_p04", "condition": "isolation", "c2_solve": 0.43333333333333335, "c1_solve": 0.43333333333333335, "oracle_solve": 0.6333333333333333, "c2_exact": 0.5046728971962616, "c1_exact": 0.6363636363636364, "valid_parse": 1.0, "repair_attempt": 0.06542056074766354},
+        {"bin": "v16_p04", "condition": "autonomous", "c2_solve": 0.5333333333333333, "c1_solve": 0.5, "oracle_solve": 0.6333333333333333, "c2_exact": 0.6513157894736842, "c1_exact": 0.640625, "valid_parse": 1.0, "repair_attempt": 0.05263157894736842},
+        {"bin": "v16_p04", "condition": "isolation", "c2_solve": 0.5666666666666667, "c1_solve": 0.5666666666666667, "oracle_solve": 0.6333333333333333, "c2_exact": 0.5863874345549738, "c1_exact": 0.7068965517241379, "valid_parse": 1.0, "repair_attempt": 0.05759162303664921},
+        {"bin": "v18_p04", "condition": "autonomous", "c2_solve": 0.3, "c1_solve": 0.26666666666666666, "oracle_solve": 0.3333333333333333, "c2_exact": 0.6964285714285714, "c1_exact": 0.7156862745098039, "valid_parse": 1.0, "repair_attempt": 0.026785714285714284},
+        {"bin": "v18_p04", "condition": "isolation", "c2_solve": 0.3, "c1_solve": 0.3333333333333333, "oracle_solve": 0.3333333333333333, "c2_exact": 0.5932203389830508, "c1_exact": 0.7102803738317757, "valid_parse": 1.0, "repair_attempt": 0.01694915254237288}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish that C2 training improves conflict-directed backjump targeting over C1. It establishes that the C2 training pipeline runs and parses, but fails the main improvement kill.",
+    "repair_limit": "The eval uses a model-scored valid-index confirmation when the generated BACKJUMP value is out of range. This is not oracle or chronological fallback, but it is still an extra formatting repair step and is reported explicitly.",
+    "baseline_limit": "C1-untrained full baselines are complete for R=4 via item108. R=2/R=8 C2 cells are compared against chronological/random/oracle Part A baselines, while the decisive C2-vs-C1 kill is made at R=4 as specified in the headline read.",
+    "next_fix": "A further training recipe would need a new principled reason. Under the current spec, the honest endpoint is to report C1 as the positive and C2 as non-improving."
+  }
+}

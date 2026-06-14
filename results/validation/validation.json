@@ -559,13 +559,97 @@
       "tier": "tier_c"
     },
     {
+      "detail": "results/experiment_items/item_110_kvcache_multiagent_cbj_v0.json",
+      "name": "item_110_kvcache_multiagent_cbj_v0_present",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "analysis/kvcache_multiagent_cbj.py",
+      "name": "kvcache_multiagent_cbj_script_present",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "results/kvcache_multiagent_cbj/km3_gate_k2_v0.json",
+      "name": "kvcache_multiagent_cbj_km3_gate_present",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "results/kvcache_multiagent_cbj/k2_probe_shards_v0/merged_k2_probe.json",
+      "name": "kvcache_multiagent_cbj_k2_probe_present",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "status=KVCACHE_MULTIAGENT_CBJ_V0_COMPLETE_PARTIAL_POSITIVE",
+      "name": "kvcache_ma_item110_status",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "headline={'km3_status': 'KVCACHE_MULTIAGENT_CBJ_KM3_PASS', 'km3_max_abs_logit_delta': 7.2479248046875e-05, 'probe_rows': 266, 'probe_bins': ['v14_p04', 'v16_p04'], 'probe_K': 2, 'probe_R_values': [2, 4, 8], 'parse_rate_all_cells': 1.0, 'valid_rate_all_cells': 1.0, 'exact_rate_range': [0.5, 0.7931034482758621], 'chrono_exact_rate_range': [0.25396825396825395, 0.3404255319148936], 'all_cells_beat_chrono_exact': True, 'single_next_move': 'Use this as positive evidence for zero-shot cross-block conflict reasoning, but do not run full multi-agent search with the model decision as the sole router. For full arms, keep symbolic cross-block CBJ fallback or treat the model route as a probe until exact routing improves.'}",
+      "name": "kvcache_ma_item110_beats_chrono_recorded",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "Because exact routing is below 0.8 in multiple cells and below 0.6 in two cells, later system arms should include symbolic cross-block CBJ fallback or report the model route separa",
+      "name": "kvcache_ma_item110_fallback_honesty",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "status=KVCACHE_MULTIAGENT_CBJ_KM3_PASS; overall=True",
+      "name": "kvcache_ma_km3_pass",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "max_abs_logit_delta=7.2479248046875e-05",
+      "name": "kvcache_ma_km3_delta_tol",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "layers=36",
+      "name": "kvcache_ma_km3_pure_kv_inventory",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "status=KVCACHE_MULTIAGENT_CBJ_COMPLETE; rows=266; summary=6",
+      "name": "kvcache_ma_k2_probe_complete",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "summary=[{'K': 2, 'R': 2, 'any_legal_rate': 1.0, 'bin': 'v14_p04', 'chrono_exact_rate': 0.3103448275862069, 'exact_rate': 0.7931034482758621, 'mean_output_tokens': 10.0, 'n': 29, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_cross_probe_summary_v0', 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}, {'K': 2, 'R': 4, 'any_legal_rate': 1.0, 'bin': 'v14_p04', 'chrono_exact_rate': 0.28125, 'exact_rate': 0.59375, 'mean_output_tokens': 10.5625, 'n': 32, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_cross_probe_summary_v0', 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}, {'K': 2, 'R': 8, 'any_legal_rate': 1.0, 'bin': 'v14_p04', 'chrono_exact_rate': 0.28125, 'exact_rate': 0.5, 'mean_output_tokens': 10.5625, 'n': 32, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_cross_probe_summary_v0', 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}, {'K': 2, 'R': 2, 'any_legal_rate': 1.0, 'bin': 'v16_p04', 'chrono_exact_rate': 0.3404255319148936, 'exact_rate': 0.7021276595744681, 'mean_output_tokens': 10.0, 'n': 47, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_cross_probe_summary_v0', 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}, {'K': 2, 'R': 4, 'any_legal_rate': 1.0, 'bin': 'v16_p04', 'chrono_exact_rate': 0.25396825396825395, 'exact_rate': 0.6666666666666666, 'mean_output_tokens': 10.0, 'n': 63, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_cross_probe_summary_v0', 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}, {'K': 2, 'R': 8, 'any_legal_rate': 1.0, 'bin': 'v16_p04', 'chrono_exact_rate': 0.25396825396825395, 'exact_rate': 0.5714285714285714, 'mean_output_tokens': 10.0, 'n': 63, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_cross_probe_summary_v0', 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}]",
+      "name": "kvcache_ma_k2_parse_valid_all_cells",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "summary=[{'K': 2, 'R': 2, 'any_legal_rate': 1.0, 'bin': 'v14_p04', 'chrono_exact_rate': 0.3103448275862069, 'exact_rate': 0.7931034482758621, 'mean_output_tokens': 10.0, 'n': 29, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_cross_probe_summary_v0', 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}, {'K': 2, 'R': 4, 'any_legal_rate': 1.0, 'bin': 'v14_p04', 'chrono_exact_rate': 0.28125, 'exact_rate': 0.59375, 'mean_output_tokens': 10.5625, 'n': 32, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_cross_probe_summary_v0', 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}, {'K': 2, 'R': 8, 'any_legal_rate': 1.0, 'bin': 'v14_p04', 'chrono_exact_rate': 0.28125, 'exact_rate': 0.5, 'mean_output_tokens': 10.5625, 'n': 32, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_cross_probe_summary_v0', 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}, {'K': 2, 'R': 2, 'any_legal_rate': 1.0, 'bin': 'v16_p04', 'chrono_exact_rate': 0.3404255319148936, 'exact_rate': 0.7021276595744681, 'mean_output_tokens': 10.0, 'n': 47, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_cross_probe_summary_v0', 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}, {'K': 2, 'R': 4, 'any_legal_rate': 1.0, 'bin': 'v16_p04', 'chrono_exact_rate': 0.25396825396825395, 'exact_rate': 0.6666666666666666, 'mean_output_tokens': 10.0, 'n': 63, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_cross_probe_summary_v0', 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}, {'K': 2, 'R': 8, 'any_legal_rate': 1.0, 'bin': 'v16_p04', 'chrono_exact_rate': 0.25396825396825395, 'exact_rate': 0.5714285714285714, 'mean_output_tokens': 10.0, 'n': 63, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_cross_probe_summary_v0', 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}]",
+      "name": "kvcache_ma_k2_exact_beats_chrono",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "min_exact=0.5",
+      "name": "kvcache_ma_k2_not_standalone_router",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
       "detail": "specs/log_item_contract.md",
       "name": "log_item_contract_spec_present",
       "status": "PASS",
       "tier": "contract"
     },
     {
-      "detail": "count=79",
+      "detail": "count=83",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -3415,6 +3499,150 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_107_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_107_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=107",
+      "name": "log_item_107_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_107_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish a trained backjump learner. It establishes the Part A solve-rate landscape before optional contrastive/listwise Part B.",
+      "name": "log_item_107_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=5; routing=Do not run Part B by default for solve sufficiency at R=16. If the research target is bounded low-R backjump efficiency, Part B is justified as a contrastive/listwise learner because the oracle has a clear low-R solve advantage over chronological.",
+      "name": "log_item_107_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_108_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_108_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=108",
+      "name": "log_item_108_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_108_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish oracle-level conflict targeting or a trained internalized backjump learner. It establishes a zero-training C1 positive over chronol",
+      "name": "log_item_108_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=5; routing=Do not declare targeting fully solved. If continuing under the user spec, implement C2 SFT-on-reasoning traces to close the residual oracle gap. If the acceptable claim is only low-R improvement over chronological, C1 is already a positive result.",
+      "name": "log_item_108_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_109_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_109_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=109",
+      "name": "log_item_109_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_109_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish that C2 training improves conflict-directed backjump targeting over C1. It establishes that the C2 training pipeline runs and parse",
+      "name": "log_item_109_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=7; routing=Stop the C2 recipe as a training-improves-targeting claim. The principled conclusion is that C1 zero-training conflict-analysis reasoning is the result; C2 full-trace SFT did not add reliable benefit under the current data/hook.",
+      "name": "log_item_109_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_110_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_110_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=110",
+      "name": "log_item_110_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_110_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish full multi-agent solve-rate gains, K>2 behavior, v18 OOD robustness, or that a zero-shot model route can replace symbolic CBJ routi",
+      "name": "log_item_110_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=Use this as positive evidence for zero-shot cross-block conflict reasoning, but do not run full multi-agent search with the model decision as the sole router. For full arms, keep symbolic cross-block CBJ fallback or treat the model route as a probe until exact routing improves.",
+      "name": "log_item_110_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -3991,13 +4219,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'pop_read', 'write_drop_mask', 'spill_off_write_drop', 'register_entry_classification', 'final_solution_readback', 'forward_read'}",
+      "detail": "rules={'pop_read', 'spill_off_write_drop', 'write_drop_mask', 'final_solution_readback', 'forward_read', 'register_entry_classification'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_all', 'P_all_unmasked', 'P_choice_unmasked', 'P_pop', 'P_choice', 'P_pop_unmasked', 'threshold_D_pop', 'threshold_D_peak'}; rows=768",
+      "detail": "candidates={'threshold_D_peak', 'threshold_D_pop', 'P_pop_unmasked', 'P_all', 'P_all_unmasked', 'P_pop', 'P_choice', 'P_choice_unmasked'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -4033,7 +4261,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_all', 'P_all_unmasked', 'P_choice_unmasked', 'P_pop', 'P_choice', 'P_pop_unmasked'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_pop_unmasked', 'P_all', 'P_all_unmasked', 'P_pop', 'P_choice', 'P_choice_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -4831,11 +5059,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-14T09:15:15.783980+00:00",
+  "generated_at": "2026-06-14T15:50:45.219384+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 805,
+    "n_checks": 843,
     "n_fail": 3,
-    "n_pass": 802
+    "n_pass": 840
   }
 }

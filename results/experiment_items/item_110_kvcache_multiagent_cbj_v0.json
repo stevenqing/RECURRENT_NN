@@ -1,0 +1,98 @@
+{
+  "item_number": "110",
+  "schema_version": "log_item_contract_v1",
+  "status": "KVCACHE_MULTIAGENT_CBJ_V0_COMPLETE_PARTIAL_POSITIVE",
+  "name": "KV-cache multi-agent cross-block CBJ v0",
+  "generated_at": "2026-06-14T15:55:00+00:00",
+  "purpose": "Run SPEC Multi-Agent Cross-Block CBJ v0 through the first two kill gates: MA-gate exact cache truncation on a multi-agent prompt format, then K=2 zero-shot cross-block culprit routing on graph_color dead-end states. The result is a partial positive: pure-KV cache truncation remains exact and zero-shot cross-block routing parses cleanly and beats chronological routing, but it is not accurate enough to replace symbolic/oracle CBJ routing in full search arms.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["102", "107", "108", "109"],
+    "spec": "user SPEC Multi-Agent Cross-Block CBJ v0",
+    "script": "analysis/kvcache_multiagent_cbj.py",
+    "gate_result": "results/kvcache_multiagent_cbj/km3_gate_k2_v0.json",
+    "smoke_probe_result": "results/kvcache_multiagent_cbj/probe_k2_smoke_v0.json",
+    "merged_probe_result": "results/kvcache_multiagent_cbj/k2_probe_shards_v0/merged_k2_probe.json",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "dtype": "fp32",
+    "execution": "MA-gate ran on GPU 0. K=2 probe ran as four source-index shards on GPUs 0-3 with direct Transformers, batch 1, no LoRA training, and no oracle/chronological fallback in model parsing. The symbolic trace generator supplies gold targets only for scoring."
+  },
+  "artifacts": [
+    "results/experiment_items/item_110_kvcache_multiagent_cbj_v0.json",
+    "analysis/kvcache_multiagent_cbj.py",
+    "results/kvcache_multiagent_cbj/km3_gate_k2_v0.json",
+    "results/kvcache_multiagent_cbj/probe_k2_smoke_v0.json",
+    "results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_0.json",
+    "results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_1.json",
+    "results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_2.json",
+    "results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_3.json",
+    "results/kvcache_multiagent_cbj/k2_probe_shards_v0/merged_k2_probe.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/kvcache_multiagent_cbj.py",
+      "change": "Adds km3-gate, probe, shard, and merge-probe commands for multi-agent KV-cache cross-block CBJ v0. Reuses graph_color partition/order helpers and exact DynamicCache crop checks."
+    }
+  ],
+  "commands": [
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 ~/.local/bin/uv run --python .venv/bin/python python -m analysis.kvcache_multiagent_cbj km3-gate --output results/kvcache_multiagent_cbj/km3_gate_k2_v0.json --bins v14_p04:14:0.4 --scan-limit 16 --source-index 0 --k-value 2 --depth 16 --checkpoints 2,4,8,12 --dtype fp32 --device cuda --tol 1e-3",
+      "purpose": "Verify cross-block single-agent cache truncation exactness on the multi-agent prompt format before reading any multi-agent probe result."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=1 ~/.local/bin/uv run --python .venv/bin/python python -m analysis.kvcache_multiagent_cbj probe --output results/kvcache_multiagent_cbj/probe_k2_smoke_v0.json --bins v14_p04:14:0.4 --scan-limit 120 --n-instances 3 --k-values 2 --r-values 2,4 --node-cap 500 --agent-order round_robin --max-new-tokens 96 --dtype fp32 --device cuda",
+      "purpose": "Smoke-test K=2 cross-block prompt, parse, and target scoring."
+    },
+    {
+      "command": "Four source-index shards on GPUs 0-3: python -m analysis.kvcache_multiagent_cbj probe --bins v14_p04:14:0.4,v16_p04:16:0.4 --scan-limit 400 --n-instances 4 --k-values 2 --r-values 2,4,8 --node-cap 800 --agent-order round_robin --max-new-tokens 96 --dtype fp32 --num-shards 4 --shard-index <0..3>",
+      "purpose": "Run the K=2 zero-shot cross-block culprit routing probe across v14/v16."
+    },
+    {
+      "command": "~/.local/bin/uv run --python .venv/bin/python python -m analysis.kvcache_multiagent_cbj merge-probe --inputs results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_0.json results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_1.json results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_2.json results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_3.json --output results/kvcache_multiagent_cbj/k2_probe_shards_v0/merged_k2_probe.json",
+      "purpose": "Merge sharded K=2 probe artifacts."
+    }
+  ],
+  "decision": {
+    "outcome": "PARTIAL_POSITIVE_ZERO_SHOT_BEATS_CHRONO_BUT_NOT_ORACLE_ROUTER",
+    "overall_pass": true,
+    "headline": {
+      "km3_status": "KVCACHE_MULTIAGENT_CBJ_KM3_PASS",
+      "km3_max_abs_logit_delta": 0.000072479248046875,
+      "probe_rows": 266,
+      "probe_bins": ["v14_p04", "v16_p04"],
+      "probe_K": 2,
+      "probe_R_values": [2, 4, 8],
+      "parse_rate_all_cells": 1.0,
+      "valid_rate_all_cells": 1.0,
+      "exact_rate_range": [0.5, 0.7931034482758621],
+      "chrono_exact_rate_range": [0.25396825396825395, 0.3404255319148936],
+      "all_cells_beat_chrono_exact": true,
+      "single_next_move": "Use this as positive evidence for zero-shot cross-block conflict reasoning, but do not run full multi-agent search with the model decision as the sole router. For full arms, keep symbolic cross-block CBJ fallback or treat the model route as a probe until exact routing improves."
+    },
+    "gate_outcomes": [
+      {"gate": "MA_KM3", "outcome": "PASS", "number": "K=2 multi-agent prompt, fp32 Qwen3, DynamicLayer pure KV, max_abs_logit_delta about 1.22e-4 under tol=1e-3."},
+      {"gate": "K2_parse", "outcome": "PASS", "number": "parse_rate=1.0 and valid_rate=1.0 in all v14/v16 R=2/4/8 cells."},
+      {"gate": "K2_vs_chrono", "outcome": "PASS_PARTIAL", "number": "exact_rate beats chrono_exact_rate in every cell; best v14 R=2 0.793 vs 0.310, weakest v14 R=8 0.500 vs 0.281."},
+      {"gate": "K2_as_system_router", "outcome": "FAIL_TO_CLOSE", "number": "exact routing remains 0.50-0.79, so it is not strong enough as a standalone backjump router for full search."}
+    ],
+    "next_step_routing": "Use this as positive evidence for zero-shot cross-block conflict reasoning, but do not run full multi-agent search with the model decision as the sole router. For full arms, keep symbolic cross-block CBJ fallback or treat the model route as a probe until exact routing improves."
+  },
+  "result_tables": {
+    "k2_probe_summary": {
+      "columns": ["bin", "K", "R", "n", "parse_rate", "valid_rate", "exact_rate", "chrono_exact_rate", "any_legal_rate"],
+      "rows": [
+        {"bin": "v14_p04", "K": 2, "R": 2, "n": 29, "parse_rate": 1.0, "valid_rate": 1.0, "exact_rate": 0.7931034482758621, "chrono_exact_rate": 0.3103448275862069, "any_legal_rate": 1.0},
+        {"bin": "v14_p04", "K": 2, "R": 4, "n": 32, "parse_rate": 1.0, "valid_rate": 1.0, "exact_rate": 0.59375, "chrono_exact_rate": 0.28125, "any_legal_rate": 1.0},
+        {"bin": "v14_p04", "K": 2, "R": 8, "n": 32, "parse_rate": 1.0, "valid_rate": 1.0, "exact_rate": 0.5, "chrono_exact_rate": 0.28125, "any_legal_rate": 1.0},
+        {"bin": "v16_p04", "K": 2, "R": 2, "n": 47, "parse_rate": 1.0, "valid_rate": 1.0, "exact_rate": 0.7021276595744681, "chrono_exact_rate": 0.3404255319148936, "any_legal_rate": 1.0},
+        {"bin": "v16_p04", "K": 2, "R": 4, "n": 63, "parse_rate": 1.0, "valid_rate": 1.0, "exact_rate": 0.6666666666666666, "chrono_exact_rate": 0.25396825396825395, "any_legal_rate": 1.0},
+        {"bin": "v16_p04", "K": 2, "R": 8, "n": 63, "parse_rate": 1.0, "valid_rate": 1.0, "exact_rate": 0.5714285714285714, "chrono_exact_rate": 0.25396825396825395, "any_legal_rate": 1.0}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish full multi-agent solve-rate gains, K>2 behavior, v18 OOD robustness, or that a zero-shot model route can replace symbolic CBJ routing. It only establishes the MA cache gate and a K=2 cross-block culprit routing probe.",
+    "probe_limit": "Gold targets come from the symbolic trace generator for scoring; model parsing has no oracle or chronological fallback, but this is not a full search loop.",
+    "fallback_policy": "Because exact routing is below 0.8 in multiple cells and below 0.6 in two cells, later system arms should include symbolic cross-block CBJ fallback or report the model route separately as a decision probe."
+  }
+}
