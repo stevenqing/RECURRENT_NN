@@ -1,0 +1,112 @@
+{
+  "item_number": "100",
+  "schema_version": "log_item_contract_v1",
+  "status": "KVCACHE_CHECKPOINT_KM3_EXACTNESS_FAIL_CLOSED",
+  "name": "KV-cache checkpoint search KM-3 exactness gate",
+  "generated_at": "2026-06-14T00:00:00.000000+00:00",
+  "purpose": "Start the KV-cache checkpoint-search redesign by running the KM-3 exactness gate before any search arm is interpreted. The gate tests whether truncating a cached Qwen/Qwen3.5-4B continuation to checkpoint lengths exactly restores the state needed for same-token resume and different-token resume versus a fresh prefix. The gate fails, so the new KV-cache checkpoint-search line is fail-closed until cache restore semantics are fixed or scoped to a pure-KV model/cache path.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "spec": "specs/kvcache_checkpoint_search_v1.md",
+    "script": "analysis/kvcache_exactness_gate.py",
+    "result_artifact": "results/kvcache_exactness/km3_result.json",
+    "model": "Qwen/Qwen3.5-4B",
+    "device_scope": "CUDA_VISIBLE_DEVICES=0",
+    "parent_context": "User supplied KV-cache checkpoint-search v1 spec; TTT-LoRA/textual-register path paused."
+  },
+  "artifacts": [
+    "results/experiment_items/item_100_kvcache_checkpoint_km3_exactness.json",
+    "specs/kvcache_checkpoint_search_v1.md",
+    "analysis/kvcache_exactness_gate.py",
+    "results/kvcache_exactness/km3_result.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/kvcache_exactness_gate.py",
+      "change": "Adds KM-3 cache truncation exactness tests: resume_same and resume_different_equals_fresh, cache length assertions, crop path diagnostics, and cache layer inventory."
+    },
+    {
+      "path": "specs/kvcache_checkpoint_search_v1.md",
+      "change": "Records the KV-cache checkpoint-search claim, build order, exactness gate, single-agent mechanism, multi-agent extension, and honesty rules."
+    }
+  ],
+  "commands": [
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m analysis.kvcache_exactness_gate --model Qwen/Qwen3.5-4B --depth 16 --checkpoints 2,4,8,12 --tol 1e-3 --device cuda --dtype bf16 --out results/kvcache_exactness/km3_result.json",
+      "purpose": "Run KM-3 exactness gate on Qwen3.5 before any KV-cache checkpoint-search arms."
+    }
+  ],
+  "decision": {
+    "outcome": "KM3_FAIL_CLOSED_DO_NOT_RUN_CACHE_SEARCH_ARMS",
+    "overall_pass": false,
+    "headline": {
+      "model": "Qwen/Qwen3.5-4B",
+      "gate_status": "KVCACHE_EXACTNESS_GATE_FAIL",
+      "overall_pass": false,
+      "max_abs_logit_delta": 6.75,
+      "all_argmax_equal": false,
+      "crop_path": "dynamic_cache_crop",
+      "cache_type": "DynamicCache",
+      "first_layer_cache_class": "LinearAttentionLayer",
+      "first_layer_has_recurrent_states": true,
+      "first_layer_has_conv_states": true,
+      "prompt_tokens": 24,
+      "full_cache_seq_len": 40,
+      "single_next_move": "Do not read any A/B/C/D KV-cache checkpoint-search arm. Either implement full checkpoint/restore of recurrent_states and conv_states as well as sequence cache, or rerun KM-3 on a pure causal-attention model/cache path."
+    },
+    "gate_outcomes": [
+      {
+        "gate": "cache_length_after_crop",
+        "outcome": "PASS_LENGTH_ONLY",
+        "number": "DynamicCache.crop produced expected sequence lengths at checkpoints 26,28,32,36 and after-token lengths 27,29,33,37."
+      },
+      {
+        "gate": "resume_same_logits",
+        "outcome": "FAIL",
+        "number": "resume_same max_abs_logit_delta ranged from 4.90625 to 6.75, above tol=0.001, though argmax stayed equal after indexing fix."
+      },
+      {
+        "gate": "resume_different_equals_fresh",
+        "outcome": "FAIL",
+        "number": "different-token resume max_abs_logit_delta ranged from 4.296875 to 6.5625 with argmax flips at checkpoints 2,4,12."
+      },
+      {
+        "gate": "pure_kv_assumption",
+        "outcome": "FAIL_FOR_QWEN35_PATH",
+        "number": "cache inventory shows layer0 cache_layer_class=LinearAttentionLayer with recurrent_states shape [1,32,128,128] and conv_states shape [1,8192,4]."
+      },
+      {
+        "gate": "arm_readout",
+        "outcome": "KILL",
+        "number": "Spec kill rule triggers: no arm A/B/C/D result may be read until KM-3 passes."
+      }
+    ],
+    "next_step_routing": "Fix or rescope cache restore. For Qwen3.5, minimal checkpoint may need full cache-state snapshots including recurrent_states and conv_states, not just KV sequence truncation. Alternatively test a pure-KV causal-attention model before claiming KV truncation exactness."
+  },
+  "result_tables": {
+    "km3_tests": {
+      "columns": ["test", "checkpoint_generated_tokens", "pass", "max_abs_logit_delta", "argmax_equal", "cache_len_before_feed", "cache_len_after_feed", "fresh_cache_len_after_feed"],
+      "rows": [
+        {"test": "resume_same", "checkpoint_generated_tokens": 2, "pass": false, "max_abs_logit_delta": 4.90625, "argmax_equal": true, "cache_len_before_feed": 26, "cache_len_after_feed": 27, "fresh_cache_len_after_feed": null},
+        {"test": "resume_different_equals_fresh", "checkpoint_generated_tokens": 2, "pass": false, "max_abs_logit_delta": 4.59375, "argmax_equal": false, "cache_len_before_feed": 26, "cache_len_after_feed": 27, "fresh_cache_len_after_feed": 27},
+        {"test": "resume_same", "checkpoint_generated_tokens": 4, "pass": false, "max_abs_logit_delta": 4.9375, "argmax_equal": true, "cache_len_before_feed": 28, "cache_len_after_feed": 29, "fresh_cache_len_after_feed": null},
+        {"test": "resume_different_equals_fresh", "checkpoint_generated_tokens": 4, "pass": false, "max_abs_logit_delta": 6.5625, "argmax_equal": false, "cache_len_before_feed": 28, "cache_len_after_feed": 29, "fresh_cache_len_after_feed": 29},
+        {"test": "resume_same", "checkpoint_generated_tokens": 8, "pass": false, "max_abs_logit_delta": 6.421875, "argmax_equal": true, "cache_len_before_feed": 32, "cache_len_after_feed": 33, "fresh_cache_len_after_feed": null},
+        {"test": "resume_different_equals_fresh", "checkpoint_generated_tokens": 8, "pass": false, "max_abs_logit_delta": 5.0390625, "argmax_equal": true, "cache_len_before_feed": 32, "cache_len_after_feed": 33, "fresh_cache_len_after_feed": 33},
+        {"test": "resume_same", "checkpoint_generated_tokens": 12, "pass": false, "max_abs_logit_delta": 6.75, "argmax_equal": true, "cache_len_before_feed": 36, "cache_len_after_feed": 37, "fresh_cache_len_after_feed": null},
+        {"test": "resume_different_equals_fresh", "checkpoint_generated_tokens": 12, "pass": false, "max_abs_logit_delta": 4.296875, "argmax_equal": false, "cache_len_before_feed": 36, "cache_len_after_feed": 37, "fresh_cache_len_after_feed": 37}
+      ]
+    },
+    "cache_inventory_head": {
+      "columns": ["layer", "cache_layer_class", "recurrent_states", "conv_states"],
+      "rows": [
+        {"layer": 0, "cache_layer_class": "LinearAttentionLayer", "recurrent_states": "[1,32,128,128] bf16 cuda:0", "conv_states": "[1,8192,4] bf16 cuda:0"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish KV-cache checkpoint search, branch quality, backjump LoRA, or multi-agent cache search. It only runs the mandatory exactness gate and records a fail-closed result.",
+    "implementation_note": "The first run had an off-by-one comparison for resume_same; the recorded artifact is from the corrected gate. resume_different_equals_fresh still fails.",
+    "model_scope_limit": "Qwen3.5 exposes LinearAttentionLayer cache states with recurrent_states and conv_states. The user's pure KV truncation claim may require a pure causal-attention cache path or a broader full-cache-state checkpoint for this model."
+  }
+}
