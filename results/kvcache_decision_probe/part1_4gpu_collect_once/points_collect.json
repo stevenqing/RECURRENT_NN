@@ -1,0 +1,296 @@
+{
+  "config": {
+    "allow_underfilled": false,
+    "batch_size": 8,
+    "bins": "v14_p04:14:0.4,v16_p04:16:0.4,v18_p04:18:0.4",
+    "checkpoint_path": "results/kvcache_decision_probe/decision_probe_checkpoint.json",
+    "collect_only": true,
+    "device": "cuda",
+    "dtype": "fp32",
+    "km3_real_prompt": "results/kvcache_exactness/km3_real_graph_color_prompt_qwen3_fp32.json",
+    "max_selected_instances": 200,
+    "min_backtracks": 4,
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "n_per_kind_level": 30,
+    "n_values": "0,2,4,8,16,32",
+    "node_cap": 500,
+    "num_colors": 3,
+    "num_shards": 1,
+    "order_mode": "degree_desc",
+    "output": "results/kvcache_decision_probe/part1_4gpu_collect_once/points_collect.json",
+    "points_path": "results/kvcache_decision_probe/part1_4gpu_collect_once/points_cache.json",
+    "progress_every_scan": 100,
+    "progress_every_selected": 5,
+    "reasoning_gym_repo": null,
+    "register_window": 8,
+    "resume": false,
+    "scan_limit": 5000,
+    "seed": 42,
+    "shard_index": 0
+  },
+  "coverage": [
+    {
+      "N": 0,
+      "difficulty_bin": "v14_p04",
+      "eligible_points": 3021,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 2,
+      "difficulty_bin": "v14_p04",
+      "eligible_points": 2054,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 4,
+      "difficulty_bin": "v14_p04",
+      "eligible_points": 2006,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 8,
+      "difficulty_bin": "v14_p04",
+      "eligible_points": 1341,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 16,
+      "difficulty_bin": "v14_p04",
+      "eligible_points": 603,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 32,
+      "difficulty_bin": "v14_p04",
+      "eligible_points": 152,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 0,
+      "difficulty_bin": "v14_p04",
+      "eligible_points": 551,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 2,
+      "difficulty_bin": "v14_p04",
+      "eligible_points": 410,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 4,
+      "difficulty_bin": "v14_p04",
+      "eligible_points": 340,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 8,
+      "difficulty_bin": "v14_p04",
+      "eligible_points": 223,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 16,
+      "difficulty_bin": "v14_p04",
+      "eligible_points": 100,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 32,
+      "difficulty_bin": "v14_p04",
+      "eligible_points": 30,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 0,
+      "difficulty_bin": "v16_p04",
+      "eligible_points": 3498,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 2,
+      "difficulty_bin": "v16_p04",
+      "eligible_points": 2497,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 4,
+      "difficulty_bin": "v16_p04",
+      "eligible_points": 2416,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 8,
+      "difficulty_bin": "v16_p04",
+      "eligible_points": 1733,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 16,
+      "difficulty_bin": "v16_p04",
+      "eligible_points": 851,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 32,
+      "difficulty_bin": "v16_p04",
+      "eligible_points": 233,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 0,
+      "difficulty_bin": "v16_p04",
+      "eligible_points": 602,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 2,
+      "difficulty_bin": "v16_p04",
+      "eligible_points": 454,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 4,
+      "difficulty_bin": "v16_p04",
+      "eligible_points": 391,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 8,
+      "difficulty_bin": "v16_p04",
+      "eligible_points": 282,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 16,
+      "difficulty_bin": "v16_p04",
+      "eligible_points": 143,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 32,
+      "difficulty_bin": "v16_p04",
+      "eligible_points": 30,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 0,
+      "difficulty_bin": "v18_p04",
+      "eligible_points": 660,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 2,
+      "difficulty_bin": "v18_p04",
+      "eligible_points": 536,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 4,
+      "difficulty_bin": "v18_p04",
+      "eligible_points": 530,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 8,
+      "difficulty_bin": "v18_p04",
+      "eligible_points": 432,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 16,
+      "difficulty_bin": "v18_p04",
+      "eligible_points": 298,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 32,
+      "difficulty_bin": "v18_p04",
+      "eligible_points": 132,
+      "kind": "branch",
+      "required_points": 30
+    },
+    {
+      "N": 0,
+      "difficulty_bin": "v18_p04",
+      "eligible_points": 136,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 2,
+      "difficulty_bin": "v18_p04",
+      "eligible_points": 117,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 4,
+      "difficulty_bin": "v18_p04",
+      "eligible_points": 107,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 8,
+      "difficulty_bin": "v18_p04",
+      "eligible_points": 88,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 16,
+      "difficulty_bin": "v18_p04",
+      "eligible_points": 59,
+      "kind": "backtrack",
+      "required_points": 30
+    },
+    {
+      "N": 32,
+      "difficulty_bin": "v18_p04",
+      "eligible_points": 36,
+      "kind": "backtrack",
+      "required_points": 30
+    }
+  ],
+  "generated_at": "2026-06-14T07:30:17.127800+00:00",
+  "preflight_summary": {
+    "collected_points": 8468,
+    "points_loaded_from_cache": false,
+    "preflight_rows": 699,
+    "sampled_rows_all_shards": 1080
+  },
+  "provenance": "kvcache_decision_probe_v0",
+  "schema_version": "kvcache_decision_probe_v0",
+  "source": "autonomous_stage_a_run",
+  "status": "KVCACHE_DECISION_PROBE_POINTS_COMPLETE"
+}

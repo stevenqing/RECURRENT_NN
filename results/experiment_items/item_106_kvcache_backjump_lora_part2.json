@@ -1,0 +1,123 @@
+{
+  "item_number": "106",
+  "schema_version": "log_item_contract_v1",
+  "status": "KVCACHE_BACKJUMP_LORA_PART2_COMPLETE_DECISION_KILLS_FAIL",
+  "name": "KV-cache backjump-only LoRA Part 2",
+  "generated_at": "2026-06-14T00:00:00.000000+00:00",
+  "purpose": "Implement and run CODE SPEC Backjump-Only LoRA Part 2. The experiment builds oracle CBJ backjump-target examples for graph_color, trains a small LoRA only for the backjump target decision while branch/execution remain frozen in the harness, verifies KM-3 with the LoRA-loaded model, and evaluates exact target selection against frozen, chronological, chance, and oracle baselines on v14/v16 in-distribution and v18 OOD. The result is a clean negative for conflict-directed exact target learning: the LoRA learns an always-legal backjump bias but does not beat frozen or chronological on exact CBJ target selection.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["102", "104", "105"],
+    "spec": "user CODE SPEC Backjump-Only LoRA Part 2",
+    "script": "analysis/kvcache_backjump_lora.py",
+    "data_manifest": "results/kvcache_backjump_lora/data_v0/manifest.json",
+    "adapter": "results/kvcache_backjump_lora/adapter_v0",
+    "train_result": "results/kvcache_backjump_lora/train_v0.json",
+    "km3_result": "results/kvcache_backjump_lora/km3_lora_v0.json",
+    "decision_eval": "results/kvcache_backjump_lora/eval_decisions_v0.json",
+    "summary": "results/kvcache_backjump_lora/summary_v0.json",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "training_dtype": "bf16",
+    "eval_dtype": "bf16 decision eval, fp32 KM-3 and search smoke",
+    "execution": "Data build over v14/v16 train/val and v18 OOD; LoRA train under torchrun/DDP on GPUs 0-3; decision eval batched/sharded on GPUs 0-3."
+  },
+  "artifacts": [
+    "results/experiment_items/item_106_kvcache_backjump_lora_part2.json",
+    "analysis/kvcache_backjump_lora.py",
+    "results/kvcache_backjump_lora/data_v0/manifest.json",
+    "results/kvcache_backjump_lora/train_v0.json",
+    "results/kvcache_backjump_lora/adapter_v0",
+    "results/kvcache_backjump_lora/km3_lora_v0.json",
+    "results/kvcache_backjump_lora/eval_decisions_v0.json",
+    "results/kvcache_backjump_lora/summary_v0.json",
+    "results/kvcache_backjump_lora/smoke_data/eval_search_r8_semantics_smoke.json",
+    "results/kvcache_backjump_lora/eval_search_v0_live.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/kvcache_backjump_lora.py",
+      "change": "Adds build-data, train, km3-check, eval-decisions, merge-decisions, eval-search, and merge-search commands for backjump-only LoRA experiments. Training supports torchrun/DDP; decision eval supports batched sharded scoring."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.kvcache_backjump_lora build-data --output-dir results/kvcache_backjump_lora/data_v0 --seed 42 --scan-limit 5000 --max-selected-instances 120 --min-backtracks 4 --node-cap 500 --num-colors 3 --order-mode degree_desc --bins v14_p04:14:0.4,v16_p04:16:0.4,v18_p04:18:0.4 --r-values 2,4,8 --train-fraction 0.8",
+      "purpose": "Build oracle CBJ backjump-target dataset with v14/v16 train/val and v18 OOD."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0,1,2,3 PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m torch.distributed.run --standalone --nproc_per_node=4 -m analysis.kvcache_backjump_lora train --train-jsonl results/kvcache_backjump_lora/data_v0/train.jsonl --val-jsonl results/kvcache_backjump_lora/data_v0/val.jsonl --output-dir results/kvcache_backjump_lora/adapter_v0 --output results/kvcache_backjump_lora/train_v0.json --model Qwen/Qwen3-4B-Instruct-2507 --device cuda --dtype bf16 --epochs 2 --batch-size 2 --grad-accum-steps 2 --max-length 2048 --learning-rate 2e-4 --lora-r 8 --lora-alpha 16 --lora-dropout 0.05",
+      "purpose": "Train the backjump-only LoRA on GPUs 0-3."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.kvcache_backjump_lora km3-check --examples-jsonl results/kvcache_backjump_lora/data_v0/val.jsonl --output results/kvcache_backjump_lora/km3_lora_v0.json --adapter-path results/kvcache_backjump_lora/adapter_v0 --model Qwen/Qwen3-4B-Instruct-2507 --device cuda --dtype fp32 --depth 16 --checkpoints 2,4,8,12 --tol 1e-3",
+      "purpose": "Reverify KM-3 exactness with the LoRA-loaded model on a real backjump prompt."
+    },
+    {
+      "command": "Four-shard batched eval-decisions on GPUs 0-3 with --batch-size 16, then merge-decisions to results/kvcache_backjump_lora/eval_decisions_v0.json.",
+      "purpose": "Evaluate frozen, LoRA, chronological, chance, and oracle backjump target selection over all 4908 examples."
+    },
+    {
+      "command": "Corrected eval-search smoke on R=8 and partial full search checkpoint; full n=30 search was stopped after direct decision-level BJ-1/BJ-1b failure and long runtime estimate.",
+      "purpose": "Validate the corrected cache-search harness without spending an hour on a downstream eval after the direct decision kill."
+    }
+  ],
+  "decision": {
+    "outcome": "BACKJUMP_LORA_LEGAL_BIAS_NOT_CONFLICT_DIRECTED_CBJ",
+    "overall_pass": true,
+    "headline": {
+      "n_examples": 4908,
+      "train_examples": 2433,
+      "val_examples": 559,
+      "ood_examples": 1916,
+      "cbj_equals_chrono_rate": 0.37775061124694376,
+      "km3_status": "KVCACHE_BACKJUMP_LORA_KM3_PASS",
+      "train_status": "KVCACHE_BACKJUMP_LORA_TRAIN_COMPLETE",
+      "train_global_steps": 306,
+      "final_val_accuracy_during_train": 0.21875,
+      "final_val_any_legal_during_train": 1.0,
+      "val_weighted_frozen_accuracy": 0.2701252236135957,
+      "val_weighted_chrono_accuracy": 0.33273703041144903,
+      "val_weighted_lora_accuracy": 0.23971377459749552,
+      "val_weighted_lora_any_legal": 1.0,
+      "ood_weighted_frozen_accuracy": 0.28549060542797494,
+      "ood_weighted_chrono_accuracy": 0.3914405010438413,
+      "ood_weighted_lora_accuracy": 0.21085594989561587,
+      "ood_weighted_lora_any_legal": 1.0,
+      "single_next_move": "Do not claim BJ-1/BJ-1b. If continuing, redesign the target/loss or prompt so the LoRA learns exact culprit index rather than a conservative legal-overjump policy."
+    },
+    "gate_outcomes": [
+      {"gate": "dataset", "outcome": "PASS", "number": "4908 examples; train=2433, val=559, OOD=1916; cbj_equals_chrono_rate=0.378."},
+      {"gate": "km3_lora", "outcome": "PASS", "number": "LoRA-loaded fp32 KM-3 status KVCACHE_BACKJUMP_LORA_KM3_PASS."},
+      {"gate": "training", "outcome": "COMPLETE", "number": "DDP world_size=4, 306 optimizer steps, adapter saved to results/kvcache_backjump_lora/adapter_v0."},
+      {"gate": "BJ_1_lora_above_frozen", "outcome": "FAIL", "number": "Weighted val exact: LoRA=0.240, frozen=0.270."},
+      {"gate": "BJ_1b_lora_above_chronological", "outcome": "FAIL", "number": "Weighted val exact: LoRA=0.240, chronological=0.333."},
+      {"gate": "OOD", "outcome": "FAIL_RELATIVE_TO_CHRONO", "number": "v18 OOD exact: LoRA=0.211, frozen=0.285, chronological=0.391."},
+      {"gate": "any_legal", "outcome": "PASS_BUT_NOT_CBJ", "number": "LoRA any_legal=1.0 on val and OOD, indicating legal/overjump bias rather than exact culprit selection."}
+    ],
+    "next_step_routing": "Stop treating this LoRA recipe as a successful conflict-directed backjump learner. It is useful negative evidence: the adapter can learn to choose legal earlier checkpoints but does not beat frozen or chronological on exact CBJ target. A follow-up should change the target formulation, add ranking/listwise loss, weight exact target errors, or train with contrastive negatives before any autonomous solve claim."
+  },
+  "result_tables": {
+    "weighted_decision_summary": {
+      "columns": ["split", "frozen_exact", "chronological_exact", "lora_exact", "lora_any_legal"],
+      "rows": [
+        {"split": "val", "frozen_exact": 0.2701252236135957, "chronological_exact": 0.33273703041144903, "lora_exact": 0.23971377459749552, "lora_any_legal": 1.0},
+        {"split": "ood_eval", "frozen_exact": 0.28549060542797494, "chronological_exact": 0.3914405010438413, "lora_exact": 0.21085594989561587, "lora_any_legal": 1.0}
+      ]
+    },
+    "kill_verdicts": {
+      "columns": ["kill", "pass", "number"],
+      "rows": [
+        {"kill": "BJ-1", "pass": false, "number": "LoRA exact 0.240 < frozen exact 0.270 on val."},
+        {"kill": "BJ-1b", "pass": false, "number": "LoRA exact 0.240 < chronological exact 0.333 on val."},
+        {"kill": "OOD", "pass": false, "number": "LoRA exact 0.211 < chronological exact 0.391 on v18 OOD."},
+        {"kill": "legal_bias", "pass": true, "number": "LoRA any_legal=1.0 on val and OOD; this is not exact CBJ."}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish successful conflict-directed backjump learning. It establishes a negative: the trained LoRA does not beat frozen or chronological exact target selection.",
+    "search_limit": "Full n=30 cache-search eval was stopped after the direct decision eval failed BJ-1/BJ-1b and runtime was close to an hour. The search harness was smoke-tested after correcting R-window semantics, but no full solve-rate claim is made here.",
+    "metric_limit": "The LoRA any_legal rate is high because it often chooses an earlier legal checkpoint; this can avoid immediate re-conflict but is not exact culprit identification.",
+    "next_fix": "Use a target formulation that rewards exact culprit index rather than any legal overjump, for example contrastive/ranking loss over candidate checkpoints or stronger supervision around near-chrono distractors."
+  }
+}

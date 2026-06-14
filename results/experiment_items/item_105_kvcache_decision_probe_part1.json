@@ -1,0 +1,137 @@
+{
+  "item_number": "105",
+  "schema_version": "log_item_contract_v1",
+  "status": "KVCACHE_DECISION_PROBE_PART1_COMPLETE_DP_NEGATIVE_BACKTRACK_WEAK",
+  "name": "KV-cache decision probe Part 1 clean-vs-polluted context",
+  "generated_at": "2026-06-14T00:00:00.000000+00:00",
+  "purpose": "Run SPEC Decision Probe + Backjump-Only LoRA v0 Part 1: directly measure the model decision layer on oracle graph_color trajectory decision points under clean A-like context versus polluted C-like context. The probe uses direct Transformers fp32 Qwen/Qwen3-4B-Instruct-2507, the KM-3 real prompt gate, next-token integer-choice scoring, one collect-once decision-point cache, and four batched GPU shards on devices 0-3. It tests whether branch/backtrack accuracy degrades as N retracted dead branches are appended, with N in {0,2,4,8,16,32} and n=30 per bin/kind/N across v14, v16, and v18 p0.4.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["100", "102", "103", "104"],
+    "spec": "user SPEC Decision Probe + Backjump-Only LoRA v0",
+    "decision_probe_script": "analysis/kvcache_decision_probe.py",
+    "merge_script": "analysis/kvcache_decision_probe_merge.py",
+    "status_script": "scripts/kvcache_decision_probe_status.py",
+    "km3_real_prompt_artifact": "results/kvcache_exactness/km3_real_graph_color_prompt_qwen3_fp32.json",
+    "merged_result": "results/kvcache_decision_probe/part1_4gpu_collect_once/merged_decision_probe.json",
+    "summary": "results/kvcache_decision_probe/part1_4gpu_collect_once/summary.json",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "dtype": "fp32",
+    "execution": "Collect decision points once on CPU, then evaluate 1080 sampled rows with batch_size=8 across CUDA_VISIBLE_DEVICES=0,1,2,3; merge four 270-row shards."
+  },
+  "artifacts": [
+    "results/experiment_items/item_105_kvcache_decision_probe_part1.json",
+    "analysis/kvcache_decision_probe.py",
+    "analysis/kvcache_decision_probe_merge.py",
+    "scripts/kvcache_decision_probe_status.py",
+    "results/kvcache_exactness/km3_real_graph_color_prompt_qwen3_fp32.json",
+    "results/kvcache_decision_probe/part1_4gpu_collect_once/merged_decision_probe.json",
+    "results/kvcache_decision_probe/part1_4gpu_collect_once/summary.json",
+    "results/kvcache_decision_probe/part1_4gpu_collect_once/points_collect.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/kvcache_decision_probe.py",
+      "change": "Adds clean-vs-polluted graph_color decision point collection, collect-once points cache, batched next-token integer-choice scoring, shard/checkpoint/resume support, and DP-1/DP-2 summaries."
+    },
+    {
+      "path": "analysis/kvcache_decision_probe_merge.py",
+      "change": "Merges sharded decision-probe outputs, deduplicates by row_index, and recomputes accuracy_by_N_kind, overall_by_N, and fork_verdicts."
+    },
+    {
+      "path": "scripts/kvcache_decision_probe_status.py",
+      "change": "Reports active runners, points-cache status, per-shard checkpoint/final rows, and merged result status for background probe monitoring."
+    }
+  ],
+  "commands": [
+    {
+      "command": "PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.kvcache_decision_probe --output results/kvcache_decision_probe/part1_4gpu_collect_once/points_collect.json --points-path results/kvcache_decision_probe/part1_4gpu_collect_once/points_cache.json --km3-real-prompt results/kvcache_exactness/km3_real_graph_color_prompt_qwen3_fp32.json --seed 42 --scan-limit 5000 --max-selected-instances 200 --n-per-kind-level 30 --min-backtracks 4 --node-cap 500 --register-window 8 --num-colors 3 --order-mode degree_desc --bins v14_p04:14:0.4,v16_p04:16:0.4,v18_p04:18:0.4 --n-values 0,2,4,8,16,32 --progress-every-scan 100 --progress-every-selected 5 --collect-only",
+      "purpose": "Collect oracle graph_color decision points once, avoiding repeated v18 preflight across GPU shards."
+    },
+    {
+      "command": "For shard in 0..3, CUDA_VISIBLE_DEVICES=$shard PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.kvcache_decision_probe --output results/kvcache_decision_probe/part1_4gpu_collect_once/shard_${shard}.json --checkpoint-path results/kvcache_decision_probe/part1_4gpu_collect_once/shard_${shard}_checkpoint.json --points-path results/kvcache_decision_probe/part1_4gpu_collect_once/points_cache.json --km3-real-prompt results/kvcache_exactness/km3_real_graph_color_prompt_qwen3_fp32.json --model Qwen/Qwen3-4B-Instruct-2507 --seed 42 --scan-limit 5000 --max-selected-instances 200 --n-per-kind-level 30 --min-backtracks 4 --node-cap 500 --register-window 8 --num-colors 3 --order-mode degree_desc --bins v14_p04:14:0.4,v16_p04:16:0.4,v18_p04:18:0.4 --n-values 0,2,4,8,16,32 --batch-size 8 --device cuda --dtype fp32 --num-shards 4 --shard-index $shard --resume",
+      "purpose": "Evaluate 1080 sampled decision rows in four fp32 batched GPU shards on GPUs 0-3."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.kvcache_decision_probe_merge --output results/kvcache_decision_probe/part1_4gpu_collect_once/merged_decision_probe.json --inputs results/kvcache_decision_probe/part1_4gpu_collect_once/shard_*.json --n-values 0,2,4,8,16,32",
+      "purpose": "Merge four completed 270-row shards and recompute DP verdict tables."
+    }
+  ],
+  "decision": {
+    "outcome": "DP_1_DP_2_NOT_CONFIRMED_BASE_BACKTRACK_WEAK_AT_CLEAN_CONTEXT",
+    "overall_pass": true,
+    "headline": {
+      "rows": 1080,
+      "unique_row_indices": 1080,
+      "shards": [0, 1, 2, 3],
+      "scoring_mode": "batched_next_token_integer_choice",
+      "branch_accuracy_N0": 0.9444444444444444,
+      "branch_accuracy_N32": 0.9111111111111111,
+      "branch_drop_N0_to_N32": 0.033333333333333326,
+      "backtrack_accuracy_N0": 0.15555555555555556,
+      "backtrack_accuracy_N32": 0.24444444444444444,
+      "backtrack_drop_N0_to_N32": -0.08888888888888888,
+      "overall_accuracy_N0": 0.55,
+      "overall_accuracy_N32": 0.5777777777777777,
+      "DP_1_accuracy_falls_with_N": false,
+      "DP_2_backtrack_falls_faster_than_branch": false,
+      "base_weak_at_N0_backtrack_below_0p5": true,
+      "base_weak_at_N0_branch_below_0p5": false,
+      "single_next_move": "Proceed to backjump-only learning only as a base-backtrack-weakness fix, not as a pollution-degradation fix; keep branch frozen/oracle-separated."
+    },
+    "gate_outcomes": [
+      {"gate": "km3_real_prompt", "outcome": "PASS", "number": "Probe uses the existing KVCACHE_REAL_PROMPT_KM3_PASS artifact for Qwen3-4B-Instruct-2507 fp32 real graph_color prompts."},
+      {"gate": "coverage", "outcome": "PASS", "number": "Evaluated 1080 rows: 3 bins x 2 decision kinds x 6 N levels x 30 points."},
+      {"gate": "execution", "outcome": "PASS", "number": "Collect-once produced 8468 points and 699 preflight rows; four GPU shards each completed 270 rows and merged successfully."},
+      {"gate": "DP_1_accuracy_falls_with_N", "outcome": "FAIL_NOT_CONFIRMED", "number": "Overall accuracy is 0.550 at N=0 and 0.578 at N=32; no monotone pollution-degradation evidence."},
+      {"gate": "DP_2_backtrack_falls_faster_than_branch", "outcome": "FAIL_NOT_CONFIRMED", "number": "Branch drops only 0.033 from N=0 to N=32, while backtrack rises from 0.156 to 0.244; backtrack does not fall faster."},
+      {"gate": "diagnostic_bonus", "outcome": "BASE_BACKTRACK_WEAK", "number": "Branch is strong at clean N=0 (0.944), but backtrack is weak at clean N=0 (0.156)."}
+    ],
+    "next_step_routing": "Do not claim append-only context pollution is the observed cause of decision failure from this probe. Treat Part 1 as showing that branch decisions are already strong in clean context and backjump decisions are weak even in clean context. Part 2 remains motivated, but as backjump-only LoRA for base clean-context culprit-target weakness, with branch frozen/oracle-separated and DP-1/DP-2 reported negative."
+  },
+  "result_tables": {
+    "headline_by_N": {
+      "columns": ["kind", "N", "n", "accuracy_vs_oracle", "mean_context_tokens"],
+      "rows": [
+        {"kind": "branch", "N": 0, "n": 90, "accuracy_vs_oracle": 0.9444444444444444, "mean_context_tokens": 518.2333333333333},
+        {"kind": "branch", "N": 2, "n": 90, "accuracy_vs_oracle": 0.9444444444444444, "mean_context_tokens": 598.3444444444444},
+        {"kind": "branch", "N": 4, "n": 90, "accuracy_vs_oracle": 0.8888888888888888, "mean_context_tokens": 654.6222222222223},
+        {"kind": "branch", "N": 8, "n": 90, "accuracy_vs_oracle": 0.8555555555555555, "mean_context_tokens": 764.5111111111111},
+        {"kind": "branch", "N": 16, "n": 90, "accuracy_vs_oracle": 0.8333333333333334, "mean_context_tokens": 1024.0555555555557},
+        {"kind": "branch", "N": 32, "n": 90, "accuracy_vs_oracle": 0.9111111111111111, "mean_context_tokens": 1447.2777777777778},
+        {"kind": "backtrack", "N": 0, "n": 90, "accuracy_vs_oracle": 0.15555555555555556, "mean_context_tokens": 670.2},
+        {"kind": "backtrack", "N": 2, "n": 90, "accuracy_vs_oracle": 0.2111111111111111, "mean_context_tokens": 718.3777777777777},
+        {"kind": "backtrack", "N": 4, "n": 90, "accuracy_vs_oracle": 0.2222222222222222, "mean_context_tokens": 774.9777777777778},
+        {"kind": "backtrack", "N": 8, "n": 90, "accuracy_vs_oracle": 0.17777777777777778, "mean_context_tokens": 888.8},
+        {"kind": "backtrack", "N": 16, "n": 90, "accuracy_vs_oracle": 0.23333333333333334, "mean_context_tokens": 1095.4333333333334},
+        {"kind": "backtrack", "N": 32, "n": 90, "accuracy_vs_oracle": 0.24444444444444444, "mean_context_tokens": 1542.9888888888888}
+      ]
+    },
+    "per_bin_N0_N32": {
+      "columns": ["difficulty_bin", "kind", "accuracy_N0", "accuracy_N32"],
+      "rows": [
+        {"difficulty_bin": "v14_p04", "kind": "branch", "accuracy_N0": 0.9666666666666667, "accuracy_N32": 0.8333333333333334},
+        {"difficulty_bin": "v14_p04", "kind": "backtrack", "accuracy_N0": 0.2, "accuracy_N32": 0.26666666666666666},
+        {"difficulty_bin": "v16_p04", "kind": "branch", "accuracy_N0": 0.8666666666666667, "accuracy_N32": 0.9333333333333333},
+        {"difficulty_bin": "v16_p04", "kind": "backtrack", "accuracy_N0": 0.16666666666666666, "accuracy_N32": 0.3333333333333333},
+        {"difficulty_bin": "v18_p04", "kind": "branch", "accuracy_N0": 1.0, "accuracy_N32": 0.9666666666666667},
+        {"difficulty_bin": "v18_p04", "kind": "backtrack", "accuracy_N0": 0.1, "accuracy_N32": 0.13333333333333333}
+      ]
+    },
+    "fork_verdicts": {
+      "columns": ["check", "pass", "number"],
+      "rows": [
+        {"check": "DP_1_accuracy_falls_with_N", "pass": false, "number": "overall N0=0.550, N32=0.578"},
+        {"check": "DP_2_backtrack_falls_faster_than_branch", "pass": false, "number": "branch_drop=0.033, backtrack_drop=-0.089"},
+        {"check": "base_weak_at_N0_backtrack_below_0p5", "pass": true, "number": "backtrack N0=0.156"},
+        {"check": "base_weak_at_N0_branch_below_0p5", "pass": false, "number": "branch N0=0.944"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish append-only context pollution as the cause of decision failure. DP-1 and DP-2 are both negative in this next-token integer-choice probe.",
+    "probe_limit": "The probe scores candidate integers with single forward passes rather than full JSON generation or full search loops. It is a cheap decision-layer substitute, not an end-to-end solve experiment.",
+    "prompt_limit": "The prompt format is a compact decision probe format with explicit candidate integers. Results should be interpreted as candidate-selection evidence under this prompt, not as unconstrained generation quality.",
+    "next_fix": "Part 2 should be scoped to learning clean-context backjump target selection because base backtrack accuracy is weak at N=0, while branch is already strong."
+  }
+}

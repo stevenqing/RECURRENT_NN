@@ -1,0 +1,62 @@
+{
+  "adapter_path": "results/kvcache_backjump_lora/adapter_v0",
+  "config": {
+    "adapter_path": null,
+    "batch_size": 2,
+    "command": "train",
+    "device": "cuda:0",
+    "dtype": "bf16",
+    "epochs": 2,
+    "grad_accum_steps": 2,
+    "learning_rate": 0.0002,
+    "log_every": 10,
+    "lora_alpha": 16,
+    "lora_dropout": 0.05,
+    "lora_r": 8,
+    "max_length": 2048,
+    "max_val_examples": 128,
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "output": "results/kvcache_backjump_lora/train_v0.json",
+    "output_dir": "results/kvcache_backjump_lora/adapter_v0",
+    "target_modules": "q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj",
+    "train_jsonl": "results/kvcache_backjump_lora/data_v0/train.jsonl",
+    "val_jsonl": "results/kvcache_backjump_lora/data_v0/val.jsonl",
+    "weight_decay": 0.0
+  },
+  "distributed": {
+    "distributed": true,
+    "local_rank": 0,
+    "rank": 0,
+    "world_size": 4
+  },
+  "generated_at": "2026-06-14T08:16:01.087562+00:00",
+  "global_steps": 306,
+  "history": [
+    {
+      "epoch": 1,
+      "rank0_mean_train_loss": 0.12592216709740048,
+      "val": {
+        "accuracy": 0.21875,
+        "any_legal_rate": 1.0,
+        "chance": 0.2918154761904762,
+        "n": 128
+      }
+    },
+    {
+      "epoch": 2,
+      "rank0_mean_train_loss": 2.7202865586615623e-05,
+      "val": {
+        "accuracy": 0.21875,
+        "any_legal_rate": 1.0,
+        "chance": 0.2918154761904762,
+        "n": 128
+      }
+    }
+  ],
+  "n_train": 2433,
+  "n_val": 559,
+  "provenance": "kvcache_backjump_lora_train_v0",
+  "schema_version": "kvcache_backjump_lora_v0",
+  "source": "autonomous_stage_a_run",
+  "status": "KVCACHE_BACKJUMP_LORA_TRAIN_COMPLETE"
+}

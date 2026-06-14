@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=76",
+      "detail": "count=79",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -3307,6 +3307,114 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_104_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_104_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=104",
+      "name": "log_item_104_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_104_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish that A_cache solves more instances than C_incontext, nor does it measure learned model branch/backtrack decision quality. The branc",
+      "name": "log_item_104_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=7; routing=Bank Item104 as a clean, fast mechanism/cost screen: A_cache does not show solve-rate advantage over C_incontext under oracle_search, but it avoids append-only context growth by 28x-43x at solving thresholds. For full harder-bin statistics, reuse selected instances or run preflight once before sharding; for internalization, use this as restore/cost evidence rather than model-decision evidence.",
+      "name": "log_item_104_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_105_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_105_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=105",
+      "name": "log_item_105_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_105_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish append-only context pollution as the cause of decision failure. DP-1 and DP-2 are both negative in this next-token integer-choice p",
+      "name": "log_item_105_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=6; routing=Do not claim append-only context pollution is the observed cause of decision failure from this probe. Treat Part 1 as showing that branch decisions are already strong in clean context and backjump decisions are weak even in clean context. Part 2 remains motivated, but as backjump-only LoRA for base clean-context culprit-target weakness, with branch frozen/oracle-separated and DP-1/DP-2 reported negative.",
+      "name": "log_item_105_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]",
+      "name": "log_item_106_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_106_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=106",
+      "name": "log_item_106_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_106_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish successful conflict-directed backjump learning. It establishes a negative: the trained LoRA does not beat frozen or chronological e",
+      "name": "log_item_106_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=7; routing=Stop treating this LoRA recipe as a successful conflict-directed backjump learner. It is useful negative evidence: the adapter can learn to choose legal earlier checkpoints but does not beat frozen or chronological on exact CBJ target. A follow-up should change the target formulation, add ranking/listwise loss, weight exact target errors, or train with contrastive negatives before any autonomous solve claim.",
+      "name": "log_item_106_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -3883,13 +3991,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'write_drop_mask', 'register_entry_classification', 'pop_read', 'forward_read', 'final_solution_readback', 'spill_off_write_drop'}",
+      "detail": "rules={'pop_read', 'write_drop_mask', 'spill_off_write_drop', 'register_entry_classification', 'final_solution_readback', 'forward_read'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_all', 'P_choice_unmasked', 'P_choice', 'P_all_unmasked', 'P_pop', 'P_pop_unmasked', 'threshold_D_peak', 'threshold_D_pop'}; rows=768",
+      "detail": "candidates={'P_all', 'P_all_unmasked', 'P_choice_unmasked', 'P_pop', 'P_choice', 'P_pop_unmasked', 'threshold_D_pop', 'threshold_D_peak'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3925,7 +4033,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_all', 'P_choice_unmasked', 'P_choice', 'P_all_unmasked', 'P_pop', 'P_pop_unmasked'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_all', 'P_all_unmasked', 'P_choice_unmasked', 'P_pop', 'P_choice', 'P_pop_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -4723,11 +4831,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-14T04:56:54.528587+00:00",
+  "generated_at": "2026-06-14T09:15:15.783980+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 787,
+    "n_checks": 805,
     "n_fail": 3,
-    "n_pass": 784
+    "n_pass": 802
   }
 }

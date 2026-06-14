@@ -1,0 +1,131 @@
+{
+  "item_number": "104",
+  "schema_version": "log_item_contract_v1",
+  "status": "KVCACHE_GRAPH_COLOR_ORACLE_SEARCH_FAST_SCREEN_COMPLETE",
+  "name": "KV-cache graph_color oracle-search fast screen",
+  "generated_at": "2026-06-14T00:00:00.000000+00:00",
+  "purpose": "Record the faster KV-cache graph_color mechanism screen requested after the revised full matrix proved too slow. This item adds and uses oracle_search arms where branch and backtrack choices are supplied by the external CSP/oracle, so the run measures restore mechanism and context-cost behavior without model JSON generation or fallback pollution. The execution uses Qwen/Qwen3-4B-Instruct-2507, fp32, batch=1, direct Transformers, no vLLM, with v14/v16 complete n=24 bins and a smaller v18 n=8 harder-bin probe.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["100", "101", "102", "103"],
+    "spec": "specs/kvcache_checkpoint_search_v1.md",
+    "search_script": "analysis/kvcache_graph_color_search.py",
+    "merge_script": "analysis/kvcache_graph_color_merge.py",
+    "status_script": "scripts/kvcache_revised_status.py",
+    "km3_real_prompt_artifact": "results/kvcache_exactness/km3_real_graph_color_prompt_qwen3_fp32.json",
+    "merged_result": "results/kvcache_graph_color/oracle_search_fast_bins/merged_fast_oracle.json",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "dtype": "fp32",
+    "execution": "Direct Transformers batch=1 shards on CUDA_VISIBLE_DEVICES=0,1,2,3; v14/v16 n=24 complete, v18 n=8 probe after v18 n=24 preflight proved slow."
+  },
+  "artifacts": [
+    "results/experiment_items/item_104_kvcache_graph_color_oracle_search_fast_screen.json",
+    "analysis/kvcache_graph_color_search.py",
+    "analysis/kvcache_graph_color_merge.py",
+    "scripts/kvcache_revised_status.py",
+    "results/kvcache_exactness/km3_real_graph_color_prompt_qwen3_fp32.json",
+    "results/kvcache_graph_color/oracle_search_fast_bins/merged_fast_oracle.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/kvcache_graph_color_search.py",
+      "change": "Adds *_oracle_search arms. Branch and backtrack are chosen by the external CSP/oracle; A_cache still feeds and crops the live model cache, while B_textual and C_incontext account for prompt/context tokens without generation."
+    },
+    {
+      "path": "analysis/kvcache_graph_color_merge.py",
+      "change": "Merges shard and checkpoint outputs across difficulty bins and recomputes solve_by_R, decision_quality, fallback_rate, context_vs_depth, A_vs_C_by_depth, tokens, and fork_verdicts."
+    },
+    {
+      "path": "scripts/kvcache_revised_status.py",
+      "change": "Adds a lightweight status helper for revised/fast KV-cache graph_color sweeps without jq or rg."
+    }
+  ],
+  "commands": [
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.kvcache_graph_color_search --output results/kvcache_graph_color/oracle_search_smoke/smoke.json --checkpoint-path results/kvcache_graph_color/oracle_search_smoke/smoke_checkpoint.json --km3-real-prompt results/kvcache_exactness/km3_real_graph_color_prompt_qwen3_fp32.json --model Qwen/Qwen3-4B-Instruct-2507 --seed 42 --scan-limit 500 --n-instances 1 --min-backtracks 4 --node-cap 240 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --difficulty-bin-label smoke_v14_p04 --order-mode degree_desc --r-values 8,16 --arms A_cache_oracle_search,C_incontext_oracle_search,B_textual_oracle_search --call-cap 120 --max-new-tokens 8 --device cuda --dtype fp32 --invalid-branch-mode fail --invalid-backtrack-mode fail",
+      "purpose": "Smoke test the oracle_search fast path before launching the matrix."
+    },
+    {
+      "command": "For bins v14_p04 and v16_p04, run four shards on GPUs 0-3 with --n-instances 24 --scan-limit 5000 --node-cap 400 --r-values 0,8,16,32 --arms A_cache_oracle_search,C_incontext_oracle_search,B_textual_oracle_search --call-cap 480 --max-new-tokens 8 --device cuda --dtype fp32 --invalid-branch-mode fail --invalid-backtrack-mode fail, then merge shard JSONs.",
+      "purpose": "Run complete fast oracle_search mechanism screens for v14/v16 bins."
+    },
+    {
+      "command": "After v18_p04 n=24 preflight selection proved slow, stop only project-owned v18 runners and run v18_p04_n8 with four shards, --n-instances 8 --scan-limit 1500 --node-cap 300 and the same oracle_search arms/R values, then merge with v14/v16 into results/kvcache_graph_color/oracle_search_fast_bins/merged_fast_oracle.json.",
+      "purpose": "Add a small harder-bin probe without continuing the slow full v18 preflight."
+    }
+  ],
+  "decision": {
+    "outcome": "ORACLE_SEARCH_FAST_SCREEN_COMPLETE_SOLVE_GAP_ZERO_TOKEN_COST_POSITIVE",
+    "overall_pass": true,
+    "headline": {
+      "km3_real_prompt_pass": true,
+      "rows": 672,
+      "branch_policy": "oracle_search",
+      "decision_calls": 0,
+      "fallback_non_null_rows": 0,
+      "max_A_minus_C_solve_gap": 0.0,
+      "v14_p04_n": 24,
+      "v16_p04_n": 24,
+      "v18_p04_n8_n": 8,
+      "v14_p04_solve_threshold_R": 16,
+      "v16_p04_solve_threshold_R": 16,
+      "v18_p04_n8_solve_threshold_R": 32,
+      "v14_p04_R16_C_over_A_tokens": 28.142750253861365,
+      "v16_p04_R16_C_over_A_tokens": 34.80751604032997,
+      "v18_p04_n8_R32_C_over_A_tokens": 42.63304218150831,
+      "single_next_move": "Use oracle_search as the fast restore/context-cost mechanism screen. Do not claim A beats C on solve rate; if a full v18 bin is needed, reuse selected instances or preflight once before sharding."
+    },
+    "gate_outcomes": [
+      {"gate": "km3_real_prompt", "outcome": "PASS", "number": "Search arms remain gated on results/kvcache_exactness/km3_real_graph_color_prompt_qwen3_fp32.json with status KVCACHE_REAL_PROMPT_KM3_PASS."},
+      {"gate": "fast_path_smoke", "outcome": "PASS", "number": "oracle_search smoke completed 6 rows with decision_calls=0 and fallback_rate=None."},
+      {"gate": "matrix_completion", "outcome": "PASS", "number": "merged_fast_oracle.json has status KVCACHE_GRAPH_COLOR_SEARCH_COMPLETE and 672 rows."},
+      {"gate": "fallback_pollution", "outcome": "PASS_CLEAN", "number": "All oracle_search summary fallback_rate values are None; no model JSON parse/fallback decisions are counted."},
+      {"gate": "A_vs_C_solve_gap", "outcome": "NO_POSITIVE_GAP", "number": "A_minus_C_solve_gap is 0.0 for all 12 bin/R rows."},
+      {"gate": "context_cost", "outcome": "A_CACHE_TOKEN_EFFICIENT", "number": "C/A mean_total_tokens ratio at the solving threshold is 28.14x for v14 R16, 34.81x for v16 R16, and 42.63x for v18_n8 R32."},
+      {"gate": "runtime_rescope", "outcome": "V18_FULL_PREFLIGHT_TOO_SLOW", "number": "v18 n=24 was stopped during repeated shard preflight; v18 evidence in the final merged item is the complete n=8 probe."}
+    ],
+    "next_step_routing": "Bank Item104 as a clean, fast mechanism/cost screen: A_cache does not show solve-rate advantage over C_incontext under oracle_search, but it avoids append-only context growth by 28x-43x at solving thresholds. For full harder-bin statistics, reuse selected instances or run preflight once before sharding; for internalization, use this as restore/cost evidence rather than model-decision evidence."
+  },
+  "result_tables": {
+    "run_matrix": {
+      "columns": ["difficulty_bin", "num_vertices", "edge_probability", "n", "arms", "R_values", "status"],
+      "rows": [
+        {"difficulty_bin": "v14_p04", "num_vertices": 14, "edge_probability": 0.4, "n": 24, "arms": "A_cache_oracle_search,C_incontext_oracle_search,B_textual_oracle_search", "R_values": "0,8,16,32", "status": "COMPLETE"},
+        {"difficulty_bin": "v16_p04", "num_vertices": 16, "edge_probability": 0.4, "n": 24, "arms": "A_cache_oracle_search,C_incontext_oracle_search,B_textual_oracle_search", "R_values": "0,8,16,32", "status": "COMPLETE"},
+        {"difficulty_bin": "v18_p04_n8", "num_vertices": 18, "edge_probability": 0.4, "n": 8, "arms": "A_cache_oracle_search,C_incontext_oracle_search,B_textual_oracle_search", "R_values": "0,8,16,32", "status": "COMPLETE_PROBE"}
+      ]
+    },
+    "A_vs_C_by_depth": {
+      "columns": ["difficulty_bin", "R", "A_n", "C_n", "A_solve_rate", "C_solve_rate", "A_minus_C_solve_gap", "A_mean_total_tokens", "C_mean_total_tokens", "C_over_A_token_ratio"],
+      "rows": [
+        {"difficulty_bin": "v14_p04", "R": 0, "A_n": 24, "C_n": 24, "A_solve_rate": 0.0, "C_solve_rate": 0.0, "A_minus_C_solve_gap": 0.0, "A_mean_total_tokens": 495.5833333333333, "C_mean_total_tokens": 4591.666666666667, "C_over_A_token_ratio": 9.265175718849841},
+        {"difficulty_bin": "v14_p04", "R": 8, "A_n": 24, "C_n": 24, "A_solve_rate": 0.0, "C_solve_rate": 0.0, "A_minus_C_solve_gap": 0.0, "A_mean_total_tokens": 557.125, "C_mean_total_tokens": 8620.125, "C_over_A_token_ratio": 15.472515144716176},
+        {"difficulty_bin": "v14_p04", "R": 16, "A_n": 24, "C_n": 24, "A_solve_rate": 1.0, "C_solve_rate": 1.0, "A_minus_C_solve_gap": 0.0, "A_mean_total_tokens": 779.625, "C_mean_total_tokens": 21940.791666666668, "C_over_A_token_ratio": 28.142750253861365},
+        {"difficulty_bin": "v14_p04", "R": 32, "A_n": 24, "C_n": 24, "A_solve_rate": 1.0, "C_solve_rate": 1.0, "A_minus_C_solve_gap": 0.0, "A_mean_total_tokens": 779.625, "C_mean_total_tokens": 21940.791666666668, "C_over_A_token_ratio": 28.142750253861365},
+        {"difficulty_bin": "v16_p04", "R": 0, "A_n": 24, "C_n": 24, "A_solve_rate": 0.0, "C_solve_rate": 0.0, "A_minus_C_solve_gap": 0.0, "A_mean_total_tokens": 564.5416666666666, "C_mean_total_tokens": 5540.916666666667, "C_over_A_token_ratio": 9.814894088124586},
+        {"difficulty_bin": "v16_p04", "R": 8, "A_n": 24, "C_n": 24, "A_solve_rate": 0.0, "C_solve_rate": 0.0, "A_minus_C_solve_gap": 0.0, "A_mean_total_tokens": 614.8333333333334, "C_mean_total_tokens": 9450.458333333334, "C_over_A_token_ratio": 15.37076443480618},
+        {"difficulty_bin": "v16_p04", "R": 16, "A_n": 24, "C_n": 24, "A_solve_rate": 1.0, "C_solve_rate": 1.0, "A_minus_C_solve_gap": 0.0, "A_mean_total_tokens": 954.625, "C_mean_total_tokens": 33228.125, "C_over_A_token_ratio": 34.80751604032997},
+        {"difficulty_bin": "v16_p04", "R": 32, "A_n": 24, "C_n": 24, "A_solve_rate": 1.0, "C_solve_rate": 1.0, "A_minus_C_solve_gap": 0.0, "A_mean_total_tokens": 954.625, "C_mean_total_tokens": 33228.125, "C_over_A_token_ratio": 34.80751604032997},
+        {"difficulty_bin": "v18_p04_n8", "R": 0, "A_n": 8, "C_n": 8, "A_solve_rate": 0.0, "C_solve_rate": 0.0, "A_minus_C_solve_gap": 0.0, "A_mean_total_tokens": 617.5, "C_mean_total_tokens": 5241.625, "C_over_A_token_ratio": 8.488461538461538},
+        {"difficulty_bin": "v18_p04_n8", "R": 8, "A_n": 8, "C_n": 8, "A_solve_rate": 0.0, "C_solve_rate": 0.0, "A_minus_C_solve_gap": 0.0, "A_mean_total_tokens": 766.75, "C_mean_total_tokens": 17443.375, "C_over_A_token_ratio": 22.749755461362895},
+        {"difficulty_bin": "v18_p04_n8", "R": 16, "A_n": 8, "C_n": 8, "A_solve_rate": 0.0, "C_solve_rate": 0.0, "A_minus_C_solve_gap": 0.0, "A_mean_total_tokens": 1138.75, "C_mean_total_tokens": 47190.625, "C_over_A_token_ratio": 41.44072447859495},
+        {"difficulty_bin": "v18_p04_n8", "R": 32, "A_n": 8, "C_n": 8, "A_solve_rate": 1.0, "C_solve_rate": 1.0, "A_minus_C_solve_gap": 0.0, "A_mean_total_tokens": 1173.5, "C_mean_total_tokens": 50029.875, "C_over_A_token_ratio": 42.63304218150831}
+      ]
+    },
+    "token_headline_at_solve_threshold": {
+      "columns": ["difficulty_bin", "R", "A_cache_mean_total_tokens", "B_textual_mean_total_tokens", "C_incontext_mean_total_tokens", "C_over_A_token_ratio"],
+      "rows": [
+        {"difficulty_bin": "v14_p04", "R": 16, "A_cache_mean_total_tokens": 779.625, "B_textual_mean_total_tokens": 4056.625, "C_incontext_mean_total_tokens": 21940.791666666668, "C_over_A_token_ratio": 28.142750253861365},
+        {"difficulty_bin": "v16_p04", "R": 16, "A_cache_mean_total_tokens": 954.625, "B_textual_mean_total_tokens": 5150.541666666667, "C_incontext_mean_total_tokens": 33228.125, "C_over_A_token_ratio": 34.80751604032997},
+        {"difficulty_bin": "v18_p04_n8", "R": 32, "A_cache_mean_total_tokens": 1173.5, "B_textual_mean_total_tokens": 6769.75, "C_incontext_mean_total_tokens": 50029.875, "C_over_A_token_ratio": 42.63304218150831}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish that A_cache solves more instances than C_incontext, nor does it measure learned model branch/backtrack decision quality. The branch and backtrack choices are oracle-supplied by design.",
+    "fallback_limit": "The oracle_search arms intentionally bypass model JSON generation. This removes parse/fallback pollution, but it also means decision_calls=0 and fallback_rate=None are mechanism-screen facts, not model competence facts.",
+    "context_metric_limit": "Token accounting compares incremental cache feed/crop for A against refeeding textual/context prompts for B and C. It supports a context-cost claim, not an end-to-end latency claim under every serving stack.",
+    "v18_limit": "The full v18 n=24 run was stopped because repeated shard preflight selection was the bottleneck. The final merged harder-bin evidence is the complete v18_p04_n8 probe.",
+    "next_fix": "If a full v18 or larger harder-bin table is needed, precompute/reuse selected graph_color instances before sharding. Keep model-decision quality separate from restore mechanism evidence."
+  }
+}
