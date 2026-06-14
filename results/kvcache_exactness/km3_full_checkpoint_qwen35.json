@@ -1,0 +1,880 @@
+{
+  "all_argmax_equal": true,
+  "cache_inventory": [
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 0,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 1,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 2,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      },
+      "layer": 3,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 4,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 5,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 6,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      },
+      "layer": 7,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 8,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 9,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 10,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      },
+      "layer": 11,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 12,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 13,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 14,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      },
+      "layer": 15,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 16,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 17,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 18,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      },
+      "layer": 19,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 20,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 21,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 22,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      },
+      "layer": 23,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 24,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 25,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 26,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      },
+      "layer": 27,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 28,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 29,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "LinearAttentionLayer",
+      "conv_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          8192,
+          4
+        ]
+      },
+      "layer": 30,
+      "recurrent_states": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      },
+      "layer": 31,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "bfloat16",
+        "shape": [
+          1,
+          4,
+          40,
+          256
+        ]
+      }
+    }
+  ],
+  "cache_type": "DynamicCache",
+  "depth": 16,
+  "device": "cuda",
+  "dtype": "bf16",
+  "full_cache_seq_len": 40,
+  "generated_at": "2026-06-14T02:58:44.314994+00:00",
+  "max_abs_logit_delta": 0.15625,
+  "model": "Qwen/Qwen3.5-4B",
+  "overall_pass": false,
+  "prompt": "Solve step by step. Variables A B C D E, colors 1 2 3.\nStep:",
+  "prompt_tokens": 24,
+  "provenance": "kvcache_full_checkpoint_gate_v1",
+  "restore_mode": "full_cache_state_deepcopy_at_checkpoint",
+  "schema_version": "kvcache_full_checkpoint_gate_v1",
+  "source": "autonomous_stage_a_run",
+  "status": "KVCACHE_FULL_CHECKPOINT_GATE_FAIL",
+  "tests": [
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 27,
+      "cache_len_before_feed": 26,
+      "checkpoint_generated_tokens": 2,
+      "checkpoint_seq_len": 26,
+      "left_argmax": 20,
+      "max_abs_logit_delta": 0.0,
+      "pass": true,
+      "right_argmax": 20,
+      "same_token_id": 14,
+      "test": "full_checkpoint_resume_same"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 27,
+      "cache_len_before_feed": 26,
+      "checkpoint_generated_tokens": 2,
+      "checkpoint_seq_len": 26,
+      "different_token_id": 15,
+      "fresh_cache_len_after_feed": 27,
+      "left_argmax": 198,
+      "max_abs_logit_delta": 0.125,
+      "pass": false,
+      "right_argmax": 198,
+      "same_token_id": 14,
+      "test": "full_checkpoint_resume_different_equals_fresh"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 29,
+      "cache_len_before_feed": 28,
+      "checkpoint_generated_tokens": 4,
+      "checkpoint_seq_len": 28,
+      "left_argmax": 8046,
+      "max_abs_logit_delta": 0.0,
+      "pass": true,
+      "right_argmax": 8046,
+      "same_token_id": 198,
+      "test": "full_checkpoint_resume_same"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 29,
+      "cache_len_before_feed": 28,
+      "checkpoint_generated_tokens": 4,
+      "checkpoint_seq_len": 28,
+      "different_token_id": 199,
+      "fresh_cache_len_after_feed": 29,
+      "left_argmax": 198,
+      "max_abs_logit_delta": 0.15625,
+      "pass": false,
+      "right_argmax": 198,
+      "same_token_id": 198,
+      "test": "full_checkpoint_resume_different_equals_fresh"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 33,
+      "cache_len_before_feed": 32,
+      "checkpoint_generated_tokens": 8,
+      "checkpoint_seq_len": 32,
+      "left_argmax": 14,
+      "max_abs_logit_delta": 0.0,
+      "pass": true,
+      "right_argmax": 14,
+      "same_token_id": 17,
+      "test": "full_checkpoint_resume_same"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 33,
+      "cache_len_before_feed": 32,
+      "checkpoint_generated_tokens": 8,
+      "checkpoint_seq_len": 32,
+      "different_token_id": 18,
+      "fresh_cache_len_after_feed": 33,
+      "left_argmax": 14,
+      "max_abs_logit_delta": 0.125,
+      "pass": false,
+      "right_argmax": 14,
+      "same_token_id": 17,
+      "test": "full_checkpoint_resume_different_equals_fresh"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 37,
+      "cache_len_before_feed": 36,
+      "checkpoint_generated_tokens": 12,
+      "checkpoint_seq_len": 36,
+      "left_argmax": 25,
+      "max_abs_logit_delta": 0.0,
+      "pass": true,
+      "right_argmax": 25,
+      "same_token_id": 8046,
+      "test": "full_checkpoint_resume_same"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 37,
+      "cache_len_before_feed": 36,
+      "checkpoint_generated_tokens": 12,
+      "checkpoint_seq_len": 36,
+      "different_token_id": 8047,
+      "fresh_cache_len_after_feed": 37,
+      "left_argmax": 314,
+      "max_abs_logit_delta": 0.125,
+      "pass": false,
+      "right_argmax": 314,
+      "same_token_id": 8046,
+      "test": "full_checkpoint_resume_different_equals_fresh"
+    }
+  ],
+  "tol": 0.001
+}

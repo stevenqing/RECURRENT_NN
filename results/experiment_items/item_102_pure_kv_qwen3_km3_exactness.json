@@ -1,0 +1,81 @@
+{
+  "item_number": "102",
+  "schema_version": "log_item_contract_v1",
+  "status": "PURE_KV_QWEN3_KM3_EXACTNESS_PASS_SPEC_TOLERANCE",
+  "name": "Pure-KV Qwen3 KM-3 exactness gate",
+  "generated_at": "2026-06-14T00:00:00.000000+00:00",
+  "purpose": "Follow Item100 by testing the second proposed path: rerun KM-3 on a pure causal-attention KV cache model. Cached Qwen/Qwen3-4B-Instruct-2507 exposes DynamicLayer key/value tensors without recurrent_states or conv_states. The bf16 gate shows numeric drift but stable argmax; fp32 with spec tolerance 1e-3 passes KM-3. This identifies pure-KV Qwen3, not Qwen3.5, as the viable model path for initial KV-cache checkpoint search arms.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_item": "100",
+    "sibling_item": "101",
+    "spec": "specs/kvcache_checkpoint_search_v1.md",
+    "script": "analysis/kvcache_exactness_gate.py",
+    "bf16_result": "results/kvcache_exactness/km3_pure_kv_qwen3_4b_instruct.json",
+    "fp32_strict_result": "results/kvcache_exactness/km3_pure_kv_qwen3_4b_instruct_fp32.json",
+    "fp32_spec_tol_result": "results/kvcache_exactness/km3_pure_kv_qwen3_4b_instruct_fp32_tol1e3.json",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "device_scope": "CUDA_VISIBLE_DEVICES=0"
+  },
+  "artifacts": [
+    "results/experiment_items/item_102_pure_kv_qwen3_km3_exactness.json",
+    "analysis/kvcache_exactness_gate.py",
+    "results/kvcache_exactness/km3_pure_kv_qwen3_4b_instruct.json",
+    "results/kvcache_exactness/km3_pure_kv_qwen3_4b_instruct_fp32.json",
+    "results/kvcache_exactness/km3_pure_kv_qwen3_4b_instruct_fp32_tol1e3.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/kvcache_exactness_gate.py",
+      "change": "Reuses the KM-3 crop gate from Item100 to test a pure key/value DynamicCache path."
+    }
+  ],
+  "commands": [
+    {"command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m analysis.kvcache_exactness_gate --model Qwen/Qwen3-4B-Instruct-2507 --depth 16 --checkpoints 2,4,8,12 --tol 1e-3 --device cuda --dtype bf16 --out results/kvcache_exactness/km3_pure_kv_qwen3_4b_instruct.json", "purpose": "Run pure-KV Qwen3 KM-3 in bf16."},
+    {"command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m analysis.kvcache_exactness_gate --model Qwen/Qwen3-4B-Instruct-2507 --depth 16 --checkpoints 2,4,8,12 --tol 1e-5 --device cuda --dtype fp32 --out results/kvcache_exactness/km3_pure_kv_qwen3_4b_instruct_fp32.json", "purpose": "Run pure-KV Qwen3 KM-3 in fp32 with strict diagnostic tolerance."},
+    {"command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m analysis.kvcache_exactness_gate --model Qwen/Qwen3-4B-Instruct-2507 --depth 16 --checkpoints 2,4,8,12 --tol 1e-3 --device cuda --dtype fp32 --out results/kvcache_exactness/km3_pure_kv_qwen3_4b_instruct_fp32_tol1e3.json", "purpose": "Run pure-KV Qwen3 KM-3 in fp32 with the spec default tolerance."}
+  ],
+  "decision": {
+    "outcome": "PURE_KV_CACHE_TRUNCATION_EXACT_ENOUGH_FOR_SPEC_TOLERANCE",
+    "overall_pass": true,
+    "headline": {
+      "model": "Qwen/Qwen3-4B-Instruct-2507",
+      "cache_type": "DynamicCache",
+      "first_layer_cache_class": "DynamicLayer",
+      "first_layer_has_keys_values_only": true,
+      "bf16_status": "KVCACHE_EXACTNESS_GATE_FAIL",
+      "bf16_max_abs_logit_delta": 0.1875,
+      "fp32_strict_status": "KVCACHE_EXACTNESS_GATE_FAIL",
+      "fp32_strict_tol": 1e-5,
+      "fp32_strict_max_abs_logit_delta": 0.0000553131103515625,
+      "fp32_spec_tol_status": "KVCACHE_EXACTNESS_GATE_PASS",
+      "fp32_spec_tol": 0.001,
+      "fp32_spec_tol_max_abs_logit_delta": 0.0000553131103515625,
+      "all_argmax_equal": true,
+      "single_next_move": "Use Qwen3-4B-Instruct-2507 fp32/spec-tolerance as the initial model for KV-cache checkpoint-search arm A. Keep bf16 as a speed variant only after exactness/argmax stability is explicitly reported."
+    },
+    "gate_outcomes": [
+      {"gate": "pure_kv_cache_inventory", "outcome": "PASS", "number": "Layer0 cache_layer_class=DynamicLayer with keys/values shape [1,8,39,128] and no recurrent/conv states in inventory."},
+      {"gate": "same_token_resume", "outcome": "PASS", "number": "bf16 and fp32 same-token resume max_abs_logit_delta=0.0 at checkpoints 2,4,8,12."},
+      {"gate": "bf16_spec_tol", "outcome": "FAIL_NUMERIC", "number": "bf16 different-token max_abs_logit_delta up to 0.1875; argmax_equal=true."},
+      {"gate": "fp32_strict_tol_1e_5", "outcome": "FAIL_NUMERIC", "number": "fp32 different-token max_abs_logit_delta up to 5.5313e-05; argmax_equal=true but above 1e-5."},
+      {"gate": "fp32_spec_tol_1e_3", "outcome": "PASS", "number": "fp32 different-token max_abs_logit_delta=5.5313e-05 <= 1e-3 and argmax_equal=true for all checkpoints."}
+    ],
+    "next_step_routing": "Proceed to arm A single-agent KV-cache checkpoint search using Qwen3-4B-Instruct-2507 in fp32 for exactness-sensitive runs. Do not use Qwen3.5 for cache search until Item101 failure is resolved."
+  },
+  "result_tables": {
+    "pure_kv_gate_summary": {
+      "columns": ["dtype", "tol", "status", "max_abs_logit_delta", "all_argmax_equal", "interpretation"],
+      "rows": [
+        {"dtype": "bf16", "tol": 0.001, "status": "KVCACHE_EXACTNESS_GATE_FAIL", "max_abs_logit_delta": 0.1875, "all_argmax_equal": true, "interpretation": "numeric drift too large for strict gate"},
+        {"dtype": "fp32", "tol": 0.00001, "status": "KVCACHE_EXACTNESS_GATE_FAIL", "max_abs_logit_delta": 0.0000553131103515625, "all_argmax_equal": true, "interpretation": "strict diagnostic fail, but close to float noise"},
+        {"dtype": "fp32", "tol": 0.001, "status": "KVCACHE_EXACTNESS_GATE_PASS", "max_abs_logit_delta": 0.0000553131103515625, "all_argmax_equal": true, "interpretation": "spec-tolerance pass; viable pure-KV path"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not run KV-cache checkpoint search arms or train backjump LoRA. It only establishes that a pure-KV Qwen3 path passes KM-3 under the spec tolerance in fp32.",
+    "tolerance_limit": "The fp32 strict 1e-5 diagnostic still fails by a small numerical margin, so results must report tolerance and argmax stability explicitly.",
+    "model_scope_limit": "This pass does not transfer to Qwen3.5, which failed Item100 and Item101 due non-pure-KV cache behavior."
+  }
+}

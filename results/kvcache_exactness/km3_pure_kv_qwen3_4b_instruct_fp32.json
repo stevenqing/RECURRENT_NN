@@ -1,0 +1,1011 @@
+{
+  "all_argmax_equal": true,
+  "cache_inventory": [
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 0,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 1,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 2,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 3,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 4,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 5,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 6,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 7,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 8,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 9,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 10,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 11,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 12,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 13,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 14,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 15,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 16,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 17,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 18,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 19,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 20,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 21,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 22,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 23,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 24,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 25,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 26,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 27,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 28,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 29,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 30,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 31,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 32,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 33,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 34,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    },
+    {
+      "cache_layer_class": "DynamicLayer",
+      "keys": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      },
+      "layer": 35,
+      "values": {
+        "device": "cuda:0",
+        "dtype": "float32",
+        "shape": [
+          1,
+          8,
+          39,
+          128
+        ]
+      }
+    }
+  ],
+  "cache_type": "DynamicCache",
+  "crop_paths": [
+    "dynamic_cache_crop"
+  ],
+  "depth": 16,
+  "device": "cuda",
+  "dtype": "fp32",
+  "full_cache_seq_len": 39,
+  "generated_at": "2026-06-14T03:13:32.206434+00:00",
+  "kill_rule": "No KV-cache checkpoint search arm may be read unless status is KVCACHE_EXACTNESS_GATE_PASS.",
+  "max_abs_logit_delta": 5.53131103515625e-05,
+  "model": "Qwen/Qwen3-4B-Instruct-2507",
+  "overall_pass": false,
+  "prompt": "Solve step by step. Variables A B C D E, colors 1 2 3.\nStep:",
+  "prompt_tokens": 23,
+  "provenance": "kvcache_exactness_gate_v1",
+  "schema_version": "kvcache_exactness_gate_v1",
+  "source": "autonomous_stage_a_run",
+  "status": "KVCACHE_EXACTNESS_GATE_FAIL",
+  "tests": [
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 26,
+      "cache_len_before_feed": 25,
+      "checkpoint_generated_tokens": 2,
+      "checkpoint_seq_len": 25,
+      "crop_path": "dynamic_cache_crop",
+      "left_argmax": 362,
+      "max_abs_logit_delta": 0.0,
+      "pass": true,
+      "right_argmax": 362,
+      "same_token_id": 13,
+      "test": "resume_same"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 26,
+      "cache_len_before_feed": 25,
+      "checkpoint_generated_tokens": 2,
+      "checkpoint_seq_len": 25,
+      "crop_path": "dynamic_cache_crop",
+      "different_token_id": 14,
+      "fresh_cache_len_after_feed": 26,
+      "left_argmax": 18,
+      "max_abs_logit_delta": 5.054473876953125e-05,
+      "pass": false,
+      "right_argmax": 18,
+      "same_token_id": 13,
+      "test": "resume_different_equals_fresh"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 28,
+      "cache_len_before_feed": 27,
+      "checkpoint_generated_tokens": 4,
+      "checkpoint_seq_len": 27,
+      "crop_path": "dynamic_cache_crop",
+      "left_argmax": 537,
+      "max_abs_logit_delta": 0.0,
+      "pass": true,
+      "right_argmax": 537,
+      "same_token_id": 374,
+      "test": "resume_same"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 28,
+      "cache_len_before_feed": 27,
+      "checkpoint_generated_tokens": 4,
+      "checkpoint_seq_len": 27,
+      "crop_path": "dynamic_cache_crop",
+      "different_token_id": 375,
+      "fresh_cache_len_after_feed": 28,
+      "left_argmax": 374,
+      "max_abs_logit_delta": 5.435943603515625e-05,
+      "pass": false,
+      "right_argmax": 374,
+      "same_token_id": 374,
+      "test": "resume_different_equals_fresh"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 32,
+      "cache_len_before_feed": 31,
+      "checkpoint_generated_tokens": 8,
+      "checkpoint_seq_len": 31,
+      "crop_path": "dynamic_cache_crop",
+      "left_argmax": 8304,
+      "max_abs_logit_delta": 0.0,
+      "pass": true,
+      "right_argmax": 8304,
+      "same_token_id": 624,
+      "test": "resume_same"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 32,
+      "cache_len_before_feed": 31,
+      "checkpoint_generated_tokens": 8,
+      "checkpoint_seq_len": 31,
+      "crop_path": "dynamic_cache_crop",
+      "different_token_id": 625,
+      "fresh_cache_len_after_feed": 32,
+      "left_argmax": 13,
+      "max_abs_logit_delta": 5.53131103515625e-05,
+      "pass": false,
+      "right_argmax": 13,
+      "same_token_id": 624,
+      "test": "resume_different_equals_fresh"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 36,
+      "cache_len_before_feed": 35,
+      "checkpoint_generated_tokens": 12,
+      "checkpoint_seq_len": 35,
+      "crop_path": "dynamic_cache_crop",
+      "left_argmax": 13,
+      "max_abs_logit_delta": 0.0,
+      "pass": true,
+      "right_argmax": 13,
+      "same_token_id": 17,
+      "test": "resume_same"
+    },
+    {
+      "argmax_equal": true,
+      "cache_len_after_feed": 36,
+      "cache_len_before_feed": 35,
+      "checkpoint_generated_tokens": 12,
+      "checkpoint_seq_len": 35,
+      "crop_path": "dynamic_cache_crop",
+      "different_token_id": 18,
+      "fresh_cache_len_after_feed": 36,
+      "left_argmax": 13,
+      "max_abs_logit_delta": 3.6716461181640625e-05,
+      "pass": false,
+      "right_argmax": 13,
+      "same_token_id": 17,
+      "test": "resume_different_equals_fresh"
+    }
+  ],
+  "tol": 1e-05
+}

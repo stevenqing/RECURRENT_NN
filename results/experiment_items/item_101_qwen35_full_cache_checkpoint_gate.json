@@ -1,0 +1,83 @@
+{
+  "item_number": "101",
+  "schema_version": "log_item_contract_v1",
+  "status": "QWEN35_FULL_CACHE_CHECKPOINT_GATE_FAIL_CLOSED",
+  "name": "Qwen3.5 full cache-state checkpoint gate",
+  "generated_at": "2026-06-14T00:00:00.000000+00:00",
+  "purpose": "Follow Item100 by testing the first proposed fix for Qwen3.5: save and restore the full cache object at checkpoints, including recurrent_states and conv_states, rather than only truncating the sequence cache. This tests whether Qwen3.5 can support exact checkpoint search if the checkpoint is expanded from KV truncation to full cache-state snapshots.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_item": "100",
+    "spec": "specs/kvcache_checkpoint_search_v1.md",
+    "script": "analysis/kvcache_full_checkpoint_gate.py",
+    "bf16_result": "results/kvcache_exactness/km3_full_checkpoint_qwen35.json",
+    "fp32_result": "results/kvcache_exactness/km3_full_checkpoint_qwen35_fp32_tol1e3.json",
+    "model": "Qwen/Qwen3.5-4B",
+    "device_scope": "CUDA_VISIBLE_DEVICES=0"
+  },
+  "artifacts": [
+    "results/experiment_items/item_101_qwen35_full_cache_checkpoint_gate.json",
+    "analysis/kvcache_full_checkpoint_gate.py",
+    "results/kvcache_exactness/km3_full_checkpoint_qwen35.json",
+    "results/kvcache_exactness/km3_full_checkpoint_qwen35_fp32_tol1e3.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/kvcache_full_checkpoint_gate.py",
+      "change": "Adds a full cache-state checkpoint exactness gate that deep-copies checkpoint caches during generation and tests same-token and different-token resumes against incremental/fresh logits."
+    }
+  ],
+  "commands": [
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m analysis.kvcache_full_checkpoint_gate --model Qwen/Qwen3.5-4B --depth 16 --checkpoints 2,4,8,12 --tol 1e-3 --device cuda --dtype bf16 --out results/kvcache_exactness/km3_full_checkpoint_qwen35.json",
+      "purpose": "Run Qwen3.5 full cache-state checkpoint gate in bf16."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m analysis.kvcache_full_checkpoint_gate --model Qwen/Qwen3.5-4B --depth 16 --checkpoints 2,4,8,12 --tol 1e-3 --device cuda --dtype fp32 --out results/kvcache_exactness/km3_full_checkpoint_qwen35_fp32_tol1e3.json",
+      "purpose": "Run Qwen3.5 full cache-state checkpoint gate in fp32 after clearing project-owned vLLM memory on GPUs 0-3."
+    }
+  ],
+  "decision": {
+    "outcome": "FULL_CACHE_SNAPSHOT_RESTORES_LIVE_PATH_BUT_NOT_DIFFERENT_BRANCH_EXACTNESS",
+    "overall_pass": false,
+    "headline": {
+      "model": "Qwen/Qwen3.5-4B",
+      "cache_type": "DynamicCache",
+      "first_layer_cache_class": "LinearAttentionLayer",
+      "restore_mode": "full_cache_state_deepcopy_at_checkpoint",
+      "bf16_status": "KVCACHE_FULL_CHECKPOINT_GATE_FAIL",
+      "bf16_max_abs_logit_delta": 0.15625,
+      "fp32_status": "KVCACHE_FULL_CHECKPOINT_GATE_FAIL",
+      "fp32_max_abs_logit_delta": 0.15625,
+      "same_token_resume": "PASS_0_DELTA_ALL_CHECKPOINTS",
+      "different_token_resume": "FAIL_DELTA_0.125_TO_0.15625_ARGMAX_STABLE",
+      "single_next_move": "Do not run Qwen3.5 cache-checkpoint search yet. The full cache snapshot restores the exact live continuation but still does not match a fresh different-token branch; Qwen3.5 may have branch-dependent recurrence/position/state semantics outside the checkpoint path we can safely control."
+    },
+    "gate_outcomes": [
+      {"gate": "same_token_resume", "outcome": "PASS", "number": "bf16 and fp32 same-token resume max_abs_logit_delta=0.0 at checkpoints 2,4,8,12."},
+      {"gate": "different_token_resume_bf16", "outcome": "FAIL", "number": "bf16 different-token resume max_abs_logit_delta=0.125..0.15625, above tol=0.001, argmax_equal=true."},
+      {"gate": "different_token_resume_fp32", "outcome": "FAIL", "number": "fp32 different-token resume max_abs_logit_delta=0.125..0.15625, above tol=0.001, argmax_equal=true."},
+      {"gate": "arm_readout", "outcome": "KILL_FOR_QWEN35", "number": "Qwen3.5 full-cache checkpoint does not satisfy KM-3 exactness for backtrack-and-try-different-token."}
+    ],
+    "next_step_routing": "Use Item102 pure-KV pass as the viable path for KV-cache checkpoint search. Keep Qwen3.5 scoped out of cache-checkpoint arms unless a deeper model-specific state restore is implemented and passes the different-token gate."
+  },
+  "result_tables": {
+    "qwen35_full_cache_tests": {
+      "columns": ["dtype", "test", "checkpoint_generated_tokens", "pass", "max_abs_logit_delta", "argmax_equal"],
+      "rows": [
+        {"dtype": "bf16", "test": "full_checkpoint_resume_same", "checkpoint_generated_tokens": 2, "pass": true, "max_abs_logit_delta": 0.0, "argmax_equal": true},
+        {"dtype": "bf16", "test": "full_checkpoint_resume_different_equals_fresh", "checkpoint_generated_tokens": 2, "pass": false, "max_abs_logit_delta": 0.125, "argmax_equal": true},
+        {"dtype": "fp32", "test": "full_checkpoint_resume_same", "checkpoint_generated_tokens": 2, "pass": true, "max_abs_logit_delta": 0.0, "argmax_equal": true},
+        {"dtype": "fp32", "test": "full_checkpoint_resume_different_equals_fresh", "checkpoint_generated_tokens": 2, "pass": false, "max_abs_logit_delta": 0.125, "argmax_equal": true},
+        {"dtype": "fp32", "test": "full_checkpoint_resume_different_equals_fresh", "checkpoint_generated_tokens": 4, "pass": false, "max_abs_logit_delta": 0.15625, "argmax_equal": true},
+        {"dtype": "fp32", "test": "full_checkpoint_resume_different_equals_fresh", "checkpoint_generated_tokens": 8, "pass": false, "max_abs_logit_delta": 0.125, "argmax_equal": true},
+        {"dtype": "fp32", "test": "full_checkpoint_resume_different_equals_fresh", "checkpoint_generated_tokens": 12, "pass": false, "max_abs_logit_delta": 0.125, "argmax_equal": true}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish Qwen3.5 KV-cache checkpoint search or backjump LoRA. It tests and rejects the full-cache checkpoint fix under KM-3 exactness.",
+    "same_path_limit": "The live-path same-token continuation is exact, but search needs try-different-token after rollback, which fails strict tolerance.",
+    "argmax_limit": "Argmax remains stable despite logit deltas, but the spec requires exactness before search-arm readout."
+  }
+}
