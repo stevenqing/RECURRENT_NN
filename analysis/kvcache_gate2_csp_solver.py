@@ -6,6 +6,7 @@ import argparse
 from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime, timezone
+import copy
 import json
 from pathlib import Path
 import random
@@ -23,6 +24,7 @@ STATUS_IO_PASS = "KVCACHE_GATE2_IO_PASS"
 STATUS_IO_FAIL = "KVCACHE_GATE2_IO_FAIL"
 STATUS_GATE2_PASS = "KVCACHE_GATE2_SEARCH_PASS"
 STATUS_GATE2_FAIL = "KVCACHE_GATE2_SEARCH_FAIL"
+STATUS_GATE3_COMPLETE = "KVCACHE_GATE3_CALIBRATION_COMPLETE"
 STATUS_ARMS_COMPLETE = "KVCACHE_GATE2_ARMS_COMPLETE"
 STATUS_GATED_OUT = "KVCACHE_GATE2_ARMS_GATED_OUT"
 
@@ -55,9 +57,9 @@ def _make_dataset(task: str, args: argparse.Namespace) -> Any:
     reasoning_gym = _ensure_reasoning_gym(args.reasoning_gym_repo)
     kwargs: dict[str, Any] = {"size": args.scan_limit, "seed": args.seed}
     if task == "futoshiki":
-        kwargs |= {"min_board_size": args.futoshiki_size, "max_board_size": args.futoshiki_size}
+        kwargs |= {"min_board_size": args.futoshiki_size, "max_board_size": args.futoshiki_size, "min_difficulty": args.futoshiki_difficulty, "max_difficulty": args.futoshiki_difficulty}
     elif task == "n_queens":
-        kwargs |= {"n": args.n_queens_n}
+        kwargs |= {"n": args.n_queens_n, "min_remove": args.n_queens_min_remove, "max_remove": args.n_queens_max_remove}
     return reasoning_gym.create_dataset(task, **kwargs)
 
 
@@ -451,6 +453,80 @@ def run_arms(args: argparse.Namespace) -> dict[str, Any]:
     return payload
 
 
+def _profile_args(args: argparse.Namespace, profile: dict[str, Any]) -> argparse.Namespace:
+    cloned = argparse.Namespace(**vars(args))
+    for key, value in profile.items():
+        setattr(cloned, key, value)
+    return cloned
+
+
+def _calibration_profiles(task: str, args: argparse.Namespace) -> list[dict[str, Any]]:
+    if task == "mini_sudoku":
+        return [
+            {"profile": "mini_sudoku_default", "dataset_task": "mini_sudoku"},
+            {"profile": "sudoku_9x9_default", "dataset_task": "sudoku"},
+        ]
+    if task == "sudoku":
+        return [{"profile": "sudoku_9x9_default", "dataset_task": "sudoku"}]
+    if task == "n_queens":
+        rows = []
+        for n in [8, 10, 12]:
+            rows.append({"profile": f"n{n}_remove_max", "dataset_task": "n_queens", "n_queens_n": n, "n_queens_min_remove": max(1, n // 2), "n_queens_max_remove": n})
+        return rows
+    if task == "futoshiki":
+        rows = []
+        for size in [4, 5, 6, 7]:
+            for difficulty in [1, 2, 3]:
+                rows.append({"profile": f"size{size}_difficulty{difficulty}", "dataset_task": "futoshiki", "futoshiki_size": size, "futoshiki_difficulty": difficulty})
+        return rows
+    raise ValueError(task)
+
+
+def run_gate3(args: argparse.Namespace) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    for profile in _calibration_profiles(args.task, args):
+        dataset_task = str(profile["dataset_task"])
+        local_args = _profile_args(args, profile)
+        dataset = _make_dataset(dataset_task, local_args)
+        chrono_rows = []
+        oracle_rows = []
+        for source_index in range(int(args.n_instances)):
+            entry = dataset[source_index]
+            entry.setdefault("metadata", {})["source_index"] = source_index
+            inst = parse_instance(dataset_task, entry)
+            chrono = solve(inst, dataset, branch_policy=branch_first_legal, backjump_policy=backjump_chrono, R=int(args.calibration_R), rng=random.Random(f"chrono:{source_index}"), node_cap=int(args.node_cap))
+            oracle = solve(inst, dataset, branch_policy=branch_first_legal, backjump_policy=backjump_oracle_cbj, R=int(args.calibration_R), rng=random.Random(f"oracle:{source_index}"), node_cap=int(args.node_cap))
+            chrono_rows.append(chrono)
+            oracle_rows.append(oracle)
+        chrono_rate = mean(float(row["solved"]) for row in chrono_rows) if chrono_rows else 0.0
+        oracle_rate = mean(float(row["solved"]) for row in oracle_rows) if oracle_rows else 0.0
+        rows.append({
+            "requested_task": args.task,
+            "dataset_task": dataset_task,
+            "profile": profile["profile"],
+            "R": int(args.calibration_R),
+            "n": len(chrono_rows),
+            "chrono_solve_rate": chrono_rate,
+            "oracle_solve_rate": oracle_rate,
+            "chrono_status_counts": dict(Counter(row["status"] for row in chrono_rows)),
+            "oracle_status_counts": dict(Counter(row["status"] for row in oracle_rows)),
+            "mid_band": float(args.mid_low) <= chrono_rate <= float(args.mid_high),
+            "profile_args": {key: value for key, value in profile.items() if key not in {"profile"}},
+            "source": SOURCE,
+            "provenance": "kvcache_gate3_calibration_row_v0",
+        })
+    mid = [row for row in rows if row["mid_band"] and float(row["oracle_solve_rate"]) >= float(args.min_oracle_rate)]
+    if mid:
+        selected = mid[0]
+        verdict = "GATE3_MIDBAND_FOUND"
+    else:
+        selected = min(rows, key=lambda row: abs(float(row["chrono_solve_rate"]) - ((float(args.mid_low) + float(args.mid_high)) / 2.0))) if rows else None
+        verdict = "GATE3_NO_MIDBAND_NEAREST_RECORDED"
+    payload = {"schema_version": SCHEMA_VERSION, "status": STATUS_GATE3_COMPLETE, "generated_at": _now(), "task": args.task, "verdict": verdict, "selected_profile": selected, "config": {key: (str(value) if isinstance(value, Path) else value) for key, value in vars(args).items()}, "rows": rows, "source": SOURCE, "provenance": "kvcache_gate3_calibration_v0"}
+    _write_json(args.output, payload)
+    return payload
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Verified Gate-2 CSP solver for P1-A.")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -462,7 +538,10 @@ def main() -> None:
         p.add_argument("--scan-limit", type=int, default=200)
         p.add_argument("--n-instances", type=int, default=20)
         p.add_argument("--futoshiki-size", type=int, default=4)
+        p.add_argument("--futoshiki-difficulty", type=int, default=0)
         p.add_argument("--n-queens-n", type=int, default=8)
+        p.add_argument("--n-queens-min-remove", type=int, default=1)
+        p.add_argument("--n-queens-max-remove", type=int, default=7)
         p.add_argument("--output", type=Path, required=True)
 
     io_parser = sub.add_parser("io-gate")
@@ -483,6 +562,14 @@ def main() -> None:
     arms_parser.add_argument("--r-values", default="2,4,8,16")
     arms_parser.add_argument("--node-cap", type=int, default=100000)
 
+    gate3_parser = sub.add_parser("gate3-calibrate")
+    common(gate3_parser)
+    gate3_parser.add_argument("--calibration-R", type=int, default=4)
+    gate3_parser.add_argument("--mid-low", type=float, default=0.3)
+    gate3_parser.add_argument("--mid-high", type=float, default=0.7)
+    gate3_parser.add_argument("--min-oracle-rate", type=float, default=0.99)
+    gate3_parser.add_argument("--node-cap", type=int, default=100000)
+
     args = parser.parse_args()
     if args.command == "io-gate":
         run_io_gate(args)
@@ -490,6 +577,8 @@ def main() -> None:
         run_gate2(args)
     elif args.command == "arms":
         run_arms(args)
+    elif args.command == "gate3-calibrate":
+        run_gate3(args)
 
 
 if __name__ == "__main__":

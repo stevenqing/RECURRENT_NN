@@ -1,0 +1,83 @@
+{
+  "item_number": "115",
+  "schema_version": "log_item_contract_v1",
+  "status": "GATE3_CALIBRATION_NO_MIDBAND_P1B_SEPARABILITY_MIXED",
+  "name": "Gate-3 calibration and P1-B separability run",
+  "generated_at": "2026-06-14T17:32:00+00:00",
+  "purpose": "Continue SPEC Overnight Batch v0 after Item113. First run Gate-3 difficulty calibration for mini_sudoku, n_queens, and futoshiki using the verified Gate-2 solver. No P1-A task lands the required chrono R=4 mid-band, so P1-A cost/reason/couple remain gated. Then run the independent P1-B planted separability graph_color test with symbolic routing after a difficulty preflight selected block_size=12, p_in=0.70. P1-B H1 passes at lowest p_out; H3 is positive but below the fixed threshold.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["111", "113", "114"],
+    "spec": "user SPEC Overnight Batch v0 addenda Item113 Gate-3 and P1-B launch",
+    "gate3_script": "analysis/kvcache_gate2_csp_solver.py",
+    "p1b_script": "analysis/kvcache_separability_p1b.py",
+    "mini_sudoku_gate3": "results/kvcache_overnight_v0/gate3/mini_sudoku_gate3.json",
+    "n_queens_gate3": "results/kvcache_overnight_v0/gate3/n_queens_gate3.json",
+    "futoshiki_gate3": "results/kvcache_overnight_v0/gate3/futoshiki_gate3.json",
+    "p1b_preflight_root": "results/kvcache_overnight_v0/p1b_separability/preflight_*",
+    "p1b_formal": "results/kvcache_overnight_v0/p1b_separability/formal_bs12_pin070.json",
+    "p2b_running": "results/kvcache_overnight_v0/p2b_graph_color/launch_manifest_p2b_graph_color_overnight_v0.jsonl"
+  },
+  "artifacts": [
+    "results/experiment_items/item_115_gate3_and_p1b_separability.json",
+    "analysis/kvcache_gate2_csp_solver.py",
+    "analysis/kvcache_separability_p1b.py",
+    "results/kvcache_overnight_v0/gate3/mini_sudoku_gate3.json",
+    "results/kvcache_overnight_v0/gate3/n_queens_gate3.json",
+    "results/kvcache_overnight_v0/gate3/futoshiki_gate3.json",
+    "results/kvcache_overnight_v0/p1b_separability/formal_bs12_pin070.json"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_gate2_csp_solver.py", "change": "Adds Gate-3 difficulty calibration over verified solver profiles."},
+    {"path": "analysis/kvcache_separability_p1b.py", "change": "Adds planted-SBM P1-B symbolic separability runner with MA-1/MA-2 arms and H1/H3 summaries."}
+  ],
+  "commands": [
+    {"command": "python -m analysis.kvcache_gate2_csp_solver gate3-calibrate for mini_sudoku, n_queens, futoshiki", "purpose": "Find a chrono R=4 mid-band profile before P1-A headline jobs."},
+    {"command": "preflight sweep for P1-B block_size in {8,10,12} and p_in in {0.55,0.70,0.85}", "purpose": "Select planted-SBM difficulty before formal P1-B."},
+    {"command": "python -m analysis.kvcache_separability_p1b --n-instances 64 --block-size 12 --p-in 0.70 --p-out-values 0.02,0.08,0.15 --r-values 4,8", "purpose": "Run formal P1-B separability test."}
+  ],
+  "decision": {
+    "outcome": "P1A_GATE3_BLOCKED_P1B_H1_PASS_H3_FAIL_THRESHOLD",
+    "overall_pass": true,
+    "headline": {
+      "gate3": "No P1-A task found the required chrono R=4 mid-band. mini_sudoku/n_queens remain ceiling; futoshiki hard profiles evict oracle targets and fail oracle-rate guard.",
+      "p1b_H1": "PASS at p_out=0.02,R=4: CBJ solve 0.890625 vs chronological 0.546875, delta +0.34375.",
+      "p1b_H3": "FAIL threshold at p_out=0.02,R=4: team 0.890625 vs monolith-KR 0.828125, delta +0.0625 < 0.10.",
+      "p1b_cost": "CBJ uses far fewer cross-block messages than chronological and broadcast at low p_out; broadcast is NODE_CAP dominated.",
+      "single_next_move": "Keep P1-A gated until a task profile passes Gate-3. Let P2-B finish. Report P1-B as H1 positive and H3 directionally positive but below the preregistered threshold."
+    },
+    "gate_outcomes": [
+      {"gate": "mini_sudoku_Gate3", "outcome": "FAIL_NO_MIDBAND", "number": "mini_sudoku chrono R4 solve=1.0; sudoku9 chrono R4 solve=1.0 but oracle R4 solve=0.85."},
+      {"gate": "n_queens_Gate3", "outcome": "FAIL_NO_MIDBAND", "number": "n=8/10/12 remove-max profiles all chrono R4 solve=1.0."},
+      {"gate": "futoshiki_Gate3", "outcome": "FAIL_NO_VALID_MIDBAND", "number": "chrono remains >=0.95; harder profiles drive oracle R4 below 0.99 via NO_RECOVERY_TARGET."},
+      {"gate": "P1B_H1", "outcome": "PASS", "number": "p_out=0.02,R=4 CBJ 0.890625 - chrono 0.546875 = +0.34375."},
+      {"gate": "P1B_H3", "outcome": "FAIL_THRESHOLD", "number": "p_out=0.02,R=4 team 0.890625 - monolith_KR 0.828125 = +0.0625."}
+    ],
+    "next_step_routing": "Do not launch P1-A cost/reason yet. Continue monitoring P2-B; after P2-B completion, create a completion read. For P1-B, report H1 positive and H3 below-threshold mixed result."
+  },
+  "result_tables": {
+    "gate3_summary": {
+      "columns": ["task", "verdict", "selected_profile", "chrono_R4", "oracle_R4"],
+      "rows": [
+        {"task": "mini_sudoku", "verdict": "GATE3_NO_MIDBAND_NEAREST_RECORDED", "selected_profile": "mini_sudoku_default", "chrono_R4": 1.0, "oracle_R4": 1.0},
+        {"task": "n_queens", "verdict": "GATE3_NO_MIDBAND_NEAREST_RECORDED", "selected_profile": "n8_remove_max", "chrono_R4": 1.0, "oracle_R4": 1.0},
+        {"task": "futoshiki", "verdict": "GATE3_NO_MIDBAND_NEAREST_RECORDED", "selected_profile": "size7_difficulty3", "chrono_R4": 0.95, "oracle_R4": 0.05}
+      ]
+    },
+    "p1b_low_pout_R4": {
+      "columns": ["arm", "solve_rate", "mean_cross_block_messages", "mean_retractions"],
+      "rows": [
+        {"arm": "cbj_cross_block", "solve_rate": 0.890625, "mean_cross_block_messages": 27.71875, "mean_retractions": 141.296875},
+        {"arm": "chronological_cross_block", "solve_rate": 0.546875, "mean_cross_block_messages": 204.75, "mean_retractions": 204.75},
+        {"arm": "broadcast", "solve_rate": 0.046875, "mean_cross_block_messages": 1275.140625, "mean_retractions": 1275.140625},
+        {"arm": "team_cbj", "solve_rate": 0.890625, "mean_cross_block_messages": 27.71875, "mean_retractions": 141.296875},
+        {"arm": "monolith_KR", "solve_rate": 0.828125, "mean_cross_block_messages": 0.0, "mean_retractions": 62.546875}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish P1-A cross-task reason/cost because Gate-3 failed for the current task profiles. It does not establish P1-B H3 at the preregistered threshold; H3 is positive but below +0.10.",
+    "p1b_scope": "The P1-B runner is symbolic and planted-SBM, using official graph_color scoring on generated puzzle entries. It does not use the model route.",
+    "p2b_status": "P2-B graph_color robustness shards remain running separately under item114."
+  }
+}
