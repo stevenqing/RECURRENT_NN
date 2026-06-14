@@ -20,7 +20,7 @@ from analysis.kvcache_exactness_gate import _cache_inventory, _cache_seq_length,
 from analysis.kvcache_graph_color_search import _feed, _write_json
 from experiments.rung1_distributed_graph_coloring import REPO_ROOT, SOURCE
 from experiments.rung1_multiagent_graphcolor import _agent_order, _partition, _partition_stats
-from experiments.rung1_reasoning_gym_bounded_register import _current_domain, _deadend_nogood, _ensure_reasoning_gym, _graph_color_view
+from experiments.rung1_reasoning_gym_bounded_register import _current_domain, _deadend_nogood, _ensure_reasoning_gym, _graph_color_view, _official_answer, _official_score
 
 
 SCHEMA_VERSION = "kvcache_multiagent_cbj_v0"
@@ -427,6 +427,400 @@ def _summarize_probe(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return out
 
 
+def _safe_mean(values: list[float]) -> float | None:
+    return mean(values) if values else None
+
+
+def _blocked_by_color(view: dict[str, Any], owner: dict[int, int], vertex: int, color: int, assignment: dict[int, int], include_cross: bool) -> list[int]:
+    blockers = []
+    for neighbor in view["adjacency"][vertex]:
+        if neighbor not in assignment or int(assignment[neighbor]) != int(color):
+            continue
+        if include_cross or owner[neighbor] == owner[vertex]:
+            blockers.append(int(neighbor))
+    return sorted(blockers)
+
+
+def _estimate_tokens(tokenizer: Any | None, text: str) -> int:
+    if tokenizer is None:
+        return max(1, len(text) // 4)
+    try:
+        return int(len(tokenizer(text, add_special_tokens=False).input_ids))
+    except Exception:
+        return max(1, len(text) // 4)
+
+
+def _event_tokens(tokenizer: Any | None, kind: str, payload: dict[str, Any]) -> int:
+    return _estimate_tokens(tokenizer, kind + "\n" + json.dumps(payload, sort_keys=True, separators=(",", ":")))
+
+
+def _register_window(register: list[dict[str, Any]], r_value: int) -> tuple[int, list[dict[str, Any]]]:
+    start = max(0, len(register) - int(r_value))
+    return start, register[start:]
+
+
+def _valid_targets_from_blockers(registers: dict[int, list[dict[str, Any]]], owner: dict[int, int], blockers: set[int], r_value: int) -> list[dict[str, int]]:
+    rows: list[dict[str, int]] = []
+    for blocker in sorted(blockers):
+        agent = int(owner[int(blocker)])
+        register = registers.get(agent, [])
+        start, window = _register_window(register, int(r_value))
+        abs_index = max((idx for idx, item in enumerate(register) if int(item["vertex"]) == int(blocker)), default=-1)
+        local_idx = abs_index - start
+        if 0 <= local_idx < len(window):
+            item = register[abs_index]
+            rows.append({"agent": agent, "idx": int(local_idx), "var": int(blocker), "step": int(item.get("order_index", -1))})
+    return rows
+
+
+def _latest_trail_vertex(trail: list[dict[str, Any]]) -> int | None:
+    return int(trail[-1]["vertex"]) if trail else None
+
+
+def _target_in_window(registers: dict[int, list[dict[str, Any]]], owner: dict[int, int], target_vertex: int, r_value: int) -> bool:
+    agent = int(owner[int(target_vertex)])
+    register = registers.get(agent, [])
+    start, window = _register_window(register, int(r_value))
+    abs_index = max((idx for idx, item in enumerate(register) if int(item["vertex"]) == int(target_vertex)), default=-1)
+    return 0 <= abs_index - start < len(window)
+
+
+def _model_route_target(model: Any, tokenizer: Any, prompt: str, valid_targets: list[dict[str, int]], oracle_target: dict[str, int] | None, max_new_tokens: int) -> tuple[int | None, dict[str, Any]]:
+    text, input_tokens, output_tokens = _generate_text(model, tokenizer, _chat_prompt(tokenizer, prompt), max_new_tokens)
+    parsed = _parse_agent_idx(text, valid_targets)
+    row = next((item for item in valid_targets if parsed.get("valid") and int(item["agent"]) == int(parsed["agent"]) and int(item["idx"]) == int(parsed["idx"])), None)
+    exact = bool(row and oracle_target and int(row["agent"]) == int(oracle_target["agent"]) and int(row["idx"]) == int(oracle_target["idx"]))
+    return (int(row["var"]) if row else None), {"model_text": text[-512:], "input_tokens": input_tokens, "output_tokens": output_tokens, "parseable": bool(parsed.get("parseable")), "valid": bool(parsed.get("valid")), "exact": exact, "pred_agent": parsed.get("agent"), "pred_idx": parsed.get("idx"), "invalid_reason": parsed.get("invalid_reason")}
+
+
+def _rollback_global_suffix(
+    assignment: dict[int, int],
+    next_idx: dict[int, int],
+    conflict_sets: dict[int, set[int]],
+    trail: list[dict[str, Any]],
+    registers: dict[int, list[dict[str, Any]]],
+    target_vertex: int,
+    deadend_vertex: int,
+    carry_conflict: set[int] | None,
+) -> tuple[int, list[dict[str, Any]]]:
+    target_indices = [idx for idx, item in enumerate(trail) if int(item["vertex"]) == int(target_vertex)]
+    if not target_indices:
+        return -1, []
+    target_index = target_indices[-1]
+    popped = trail[target_index:]
+    popped_vertices = {int(item["vertex"]) for item in popped}
+    for item in popped:
+        assignment.pop(int(item["vertex"]), None)
+    trail[:] = [item for item in trail if int(item["vertex"]) not in popped_vertices]
+    for agent in list(registers):
+        registers[agent] = [item for item in registers[agent] if int(item["vertex"]) not in popped_vertices]
+    for item in popped[1:]:
+        next_idx[int(item["vertex"])] = 0
+        conflict_sets[int(item["vertex"])].clear()
+    next_idx[int(deadend_vertex)] = 0
+    conflict_sets[int(deadend_vertex)].clear()
+    if carry_conflict is not None:
+        conflict_sets[int(target_vertex)].update(int(item) for item in carry_conflict if int(item) != int(target_vertex))
+    return int(popped[0]["order_index"]) if popped else -1, popped
+
+
+def _rollback_broadcast(
+    assignment: dict[int, int],
+    next_idx: dict[int, int],
+    conflict_sets: dict[int, set[int]],
+    trail: list[dict[str, Any]],
+    registers: dict[int, list[dict[str, Any]]],
+    deadend_vertex: int,
+) -> tuple[int, list[dict[str, Any]]]:
+    latest_by_agent = {agent: entries[-1] for agent, entries in registers.items() if entries}
+    if not latest_by_agent:
+        return -1, []
+    target_order = min(int(item["order_index"]) for item in latest_by_agent.values())
+    popped = [item for item in trail if int(item["order_index"]) >= target_order]
+    popped_vertices = {int(item["vertex"]) for item in popped}
+    for item in popped:
+        assignment.pop(int(item["vertex"]), None)
+        next_idx[int(item["vertex"])] = 0
+        conflict_sets[int(item["vertex"])].clear()
+    trail[:] = [item for item in trail if int(item["vertex"]) not in popped_vertices]
+    for agent in list(registers):
+        registers[agent] = [item for item in registers[agent] if int(item["vertex"]) not in popped_vertices]
+    next_idx[int(deadend_vertex)] = 0
+    conflict_sets[int(deadend_vertex)].clear()
+    return target_order, popped
+
+
+def _run_structural_team(dataset: Any, entry: dict[str, Any], bin_label: str, k_value: int, r_value: int, arm: str, args: argparse.Namespace, tokenizer: Any | None = None, model: Any | None = None) -> dict[str, Any]:
+    view = _graph_color_view(entry, args.order_mode)
+    owner = _partition(view, int(k_value), float(args.balance_weight), int(args.seed) + int(entry["metadata"].get("source_index", 0)) + 100 * int(k_value))
+    order = _agent_order(view, owner, args.agent_order)
+    position = {int(vertex): idx for idx, vertex in enumerate(order)}
+    assignment: dict[int, int] = {}
+    next_idx = {int(vertex): 0 for vertex in order}
+    conflict_sets: dict[int, set[int]] = {int(vertex): set() for vertex in order}
+    registers: dict[int, list[dict[str, Any]]] = defaultdict(list)
+    trail: list[dict[str, Any]] = []
+    cursor = 0
+    stats = Counter()
+    per_agent_tokens: Counter[int] = Counter()
+    status = "RUNNING"
+    model_route_samples: list[dict[str, Any]] = []
+
+    while True:
+        if int(stats["steps"]) >= int(args.node_cap):
+            status = "NODE_CAP"
+            break
+        if len(assignment) == len(order):
+            status = "SOLVED"
+            break
+        while cursor < len(order) and int(order[cursor]) in assignment:
+            cursor += 1
+        if cursor >= len(order):
+            remaining = [position[vertex] for vertex in order if int(vertex) not in assignment]
+            if not remaining:
+                status = "SOLVED"
+                break
+            cursor = min(remaining)
+        vertex = int(order[cursor])
+        agent = int(owner[vertex])
+        include_cross = arm != "no_coordination"
+        chosen = None
+        blocked_this_round: set[int] = set()
+        while next_idx[vertex] < len(view["color_options"]):
+            color = int(view["color_options"][next_idx[vertex]])
+            next_idx[vertex] += 1
+            blockers = _blocked_by_color(view, owner, vertex, color, assignment, include_cross)
+            if not blockers:
+                chosen = color
+                break
+            conflict_sets[vertex].update(blockers)
+            blocked_this_round.update(blockers)
+            stats["blocked_color_checks"] += 1
+            stats["cross_block_blocked_color_checks"] += int(any(owner[item] != agent for item in blockers))
+        stats["steps"] += 1
+        if chosen is not None:
+            assignment[vertex] = int(chosen)
+            item = {"vertex": vertex, "color": int(chosen), "agent": agent, "order_index": int(cursor)}
+            trail.append(item)
+            registers[agent].append(item)
+            stats["branch_decisions"] += 1
+            stats["max_trail_len"] = max(int(stats["max_trail_len"]), len(trail))
+            stats[f"max_agent_{agent}_register_len"] = max(int(stats[f"max_agent_{agent}_register_len"]), len(registers[agent]))
+            tokens = _event_tokens(tokenizer, "BRANCH", {"agent": agent, "vertex": vertex, "color": int(chosen), "blocked": sorted(blocked_this_round), "R": int(r_value)})
+            per_agent_tokens[agent] += tokens
+            stats["total_tokens"] += tokens
+            cursor += 1
+            continue
+
+        blockers = {int(item) for item in conflict_sets[vertex] if int(item) in position and position[int(item)] < cursor}
+        if not blockers:
+            status = "EXHAUSTED"
+            break
+        cross_block = any(int(owner[item]) != agent for item in blockers)
+        stats["deadends"] += 1
+        stats["cross_block_deadends"] += int(cross_block)
+        target_vertex: int | None
+        carry_conflict: set[int] | None = None
+        route_meta: dict[str, Any] = {}
+        if arm == "cbj_cross_block":
+            target_vertex = max(blockers, key=lambda item: position[item])
+            carry_conflict = set(blockers)
+        elif arm == "chronological_cross_block":
+            target_vertex = _latest_trail_vertex(trail)
+        elif arm == "broadcast":
+            target_vertex = None
+        elif arm == "model_route_autonomous" and cross_block and model is not None and tokenizer is not None:
+            valid_targets = _valid_targets_from_blockers(registers, owner, blockers, int(r_value))
+            oracle_vertex = max(blockers, key=lambda item: position[item])
+            oracle_target = next((item for item in valid_targets if int(item["var"]) == int(oracle_vertex)), None)
+            checkpoints_by_agent: dict[int, list[dict[str, int]]] = {}
+            for item_agent in sorted(set(owner.values())):
+                start, window = _register_window(registers[int(item_agent)], int(r_value))
+                checkpoints_by_agent[int(item_agent)] = [{"idx": idx, "var": int(row["vertex"]), "color": int(row["color"]), "step": int(row["order_index"])} for idx, row in enumerate(window)]
+            prompt = _cross_prompt(view, owner, agent, vertex, assignment, sorted(blockers), checkpoints_by_agent, valid_targets)
+            target_vertex, route_meta = _model_route_target(model, tokenizer, prompt, valid_targets, oracle_target, int(args.max_new_tokens))
+            stats["model_route_calls"] += 1
+            stats["model_route_parseable"] += int(route_meta.get("parseable") is True)
+            stats["model_route_valid"] += int(route_meta.get("valid") is True)
+            stats["model_route_exact"] += int(route_meta.get("exact") is True)
+            stats["total_tokens"] += int(route_meta.get("input_tokens", 0)) + int(route_meta.get("output_tokens", 0))
+            per_agent_tokens[agent] += int(route_meta.get("input_tokens", 0)) + int(route_meta.get("output_tokens", 0))
+            if len(model_route_samples) < int(args.trace_samples):
+                model_route_samples.append({"vertex": vertex, "blockers": sorted(blockers), "oracle_vertex": int(oracle_vertex), **route_meta})
+            if target_vertex is None:
+                status = "INVALID_MODEL_ROUTE"
+                break
+            carry_conflict = set(blockers)
+        else:
+            target_vertex = max(blockers, key=lambda item: position[item])
+            carry_conflict = set(blockers)
+
+        tokens = _event_tokens(tokenizer, "BACKJUMP", {"arm": arm, "agent": agent, "vertex": vertex, "blockers": sorted(blockers), "target_vertex": target_vertex, "cross_block": cross_block})
+        per_agent_tokens[agent] += tokens
+        stats["total_tokens"] += tokens
+        if arm == "broadcast" and cross_block:
+            new_cursor, popped = _rollback_broadcast(assignment, next_idx, conflict_sets, trail, registers, vertex)
+            if new_cursor < 0:
+                status = "NO_RECOVERY_TARGET"
+                break
+            stats["broadcast_backjumps"] += 1
+            stats["cross_block_messages"] += len(set(owner.values()))
+        else:
+            if target_vertex is None or not _target_in_window(registers, owner, int(target_vertex), int(r_value)):
+                status = "NO_RECOVERY_TARGET"
+                break
+            stats["cross_block_backjumps"] += int(cross_block and int(owner[int(target_vertex)]) != agent)
+            stats["cross_block_messages"] += int(cross_block)
+            new_cursor, popped = _rollback_global_suffix(assignment, next_idx, conflict_sets, trail, registers, int(target_vertex), vertex, carry_conflict if arm in {"cbj_cross_block", "model_route_autonomous"} else None)
+            if new_cursor < 0:
+                status = "NO_RECOVERY_TARGET"
+                break
+        popped_agents = {int(item["agent"]) for item in popped}
+        stats["recoveries"] += 1
+        stats["retractions"] += len(popped)
+        stats["cascade_depth_sum"] += len(popped_agents)
+        stats["cascade_depth_max"] = max(int(stats["cascade_depth_max"]), len(popped_agents))
+        stats["cross_agent_cascade_events"] += int(len(popped_agents) > 1)
+        cursor = max(0, int(new_cursor))
+
+    score = _official_score(dataset, entry, assignment) if len(assignment) == len(order) else 0.0
+    if score < 1.0 and status == "SOLVED":
+        status = "OFFICIAL_SCORE_FAIL"
+    return {
+        "bin": bin_label,
+        "source_index": int(entry["metadata"].get("source_index", -1)),
+        "K": int(k_value),
+        "R": int(r_value),
+        "arm": arm,
+        "status": "SOLVED" if score >= 1.0 else status,
+        "solved": score >= 1.0,
+        "official_score": float(score),
+        "B": len(set(owner.values())),
+        "n_vertices": len(view["vertices"]),
+        "n_edges": len(view["edges"]),
+        "partition": _partition_stats(view, owner),
+        "branch_decisions": int(stats["branch_decisions"]),
+        "deadends": int(stats["deadends"]),
+        "cross_block_deadends": int(stats["cross_block_deadends"]),
+        "cross_block_backjumps": int(stats["cross_block_backjumps"]),
+        "broadcast_backjumps": int(stats["broadcast_backjumps"]),
+        "cross_block_messages": int(stats["cross_block_messages"]),
+        "recoveries": int(stats["recoveries"]),
+        "retractions": int(stats["retractions"]),
+        "mean_cascade_depth": float(stats["cascade_depth_sum"]) / max(1, int(stats["recoveries"])),
+        "max_cascade_depth": int(stats["cascade_depth_max"]),
+        "cross_agent_cascade_events": int(stats["cross_agent_cascade_events"]),
+        "total_tokens": int(stats["total_tokens"]),
+        "per_agent_tokens": {str(agent): int(per_agent_tokens[agent]) for agent in sorted(set(owner.values()))},
+        "model_route_calls": int(stats["model_route_calls"]),
+        "model_route_parseable": int(stats["model_route_parseable"]),
+        "model_route_valid": int(stats["model_route_valid"]),
+        "model_route_exact": int(stats["model_route_exact"]),
+        "model_route_samples": model_route_samples,
+        "answer": _official_answer(assignment) if score >= 1.0 else None,
+        "source": SOURCE,
+        "provenance": "kvcache_multiagent_cbj_structural_team_row_v0",
+    }
+
+
+def _run_structural_monolith(dataset: Any, entry: dict[str, Any], bin_label: str, k_value: int, r_value: int, capacity_arm: str, args: argparse.Namespace, tokenizer: Any | None) -> dict[str, Any]:
+    effective_r = int(r_value) if capacity_arm == "monolith_R" else int(k_value) * int(r_value)
+    row = _run_structural_team(dataset, entry, bin_label, 1, effective_r, "cbj_cross_block", args, tokenizer=tokenizer, model=None)
+    row.update({"K_reference": int(k_value), "R_reference": int(r_value), "capacity_arm": capacity_arm, "effective_R": effective_r, "arm": capacity_arm, "provenance": "kvcache_multiagent_cbj_structural_monolith_row_v0"})
+    return row
+
+
+def _summarize_structural(rows: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+    team_rows = [row for row in rows if row.get("row_kind") == "team"]
+    capacity_rows = [row for row in rows if row.get("row_kind") == "capacity"]
+    ma1_solve: list[dict[str, Any]] = []
+    ma1_cost: list[dict[str, Any]] = []
+    tokens: list[dict[str, Any]] = []
+    for key in sorted({(row["bin"], int(row["K"]), int(row["R"]), row["arm"]) for row in team_rows}):
+        bin_label, k_value, r_value, arm = key
+        subset = [row for row in team_rows if row["bin"] == bin_label and int(row["K"]) == k_value and int(row["R"]) == r_value and row["arm"] == arm]
+        status_counts = dict(Counter(str(row["status"]) for row in subset))
+        ma1_solve.append({"bin": bin_label, "K": k_value, "R": r_value, "arm": arm, "n": len(subset), "solve_rate": mean(float(row["solved"]) for row in subset), "mean_official_score": mean(float(row["official_score"]) for row in subset), "status_counts": status_counts, "source": SOURCE, "provenance": "kvcache_multiagent_cbj_ma1_solve_summary_v0"})
+        ma1_cost.append({"bin": bin_label, "K": k_value, "R": r_value, "arm": arm, "n": len(subset), "mean_cross_block_backjumps": mean(float(row.get("cross_block_backjumps", 0)) for row in subset), "mean_cross_block_messages": mean(float(row.get("cross_block_messages", 0)) for row in subset), "mean_retractions": mean(float(row.get("retractions", 0)) for row in subset), "mean_cascade_depth": mean(float(row.get("mean_cascade_depth", 0.0)) for row in subset), "max_cascade_depth": max(int(row.get("max_cascade_depth", 0)) for row in subset), "mean_cross_agent_cascade_events": mean(float(row.get("cross_agent_cascade_events", 0)) for row in subset), "source": SOURCE, "provenance": "kvcache_multiagent_cbj_ma1_coordination_cost_summary_v0"})
+        tokens.append({"bin": bin_label, "K": k_value, "R": r_value, "arm": arm, "n": len(subset), "mean_total_tokens": mean(float(row.get("total_tokens", 0)) for row in subset), "source": SOURCE, "provenance": "kvcache_multiagent_cbj_token_summary_v0"})
+    ma2_capacity: list[dict[str, Any]] = []
+    for key in sorted({(row["bin"], int(row.get("K_reference", row.get("K", 0))), int(row.get("R_reference", row.get("R", 0))), row["capacity_arm"]) for row in capacity_rows}):
+        bin_label, k_value, r_value, arm = key
+        subset = [row for row in capacity_rows if row["bin"] == bin_label and int(row.get("K_reference", row.get("K", 0))) == k_value and int(row.get("R_reference", row.get("R", 0))) == r_value and row["capacity_arm"] == arm]
+        ma2_capacity.append({"bin": bin_label, "K": k_value, "R": r_value, "capacity_arm": arm, "n": len(subset), "solve_rate": mean(float(row["solved"]) for row in subset), "mean_official_score": mean(float(row["official_score"]) for row in subset), "mean_total_tokens": mean(float(row.get("total_tokens", 0)) for row in subset), "status_counts": dict(Counter(str(row["status"]) for row in subset)), "source": SOURCE, "provenance": "kvcache_multiagent_cbj_ma2_capacity_summary_v0"})
+    model_rows = [row for row in team_rows if row.get("arm") == "model_route_autonomous"]
+    model_route_autonomous: list[dict[str, Any]] = []
+    for key in sorted({(row["bin"], int(row["K"]), int(row["R"])) for row in model_rows}):
+        bin_label, k_value, r_value = key
+        subset = [row for row in model_rows if row["bin"] == bin_label and int(row["K"]) == k_value and int(row["R"]) == r_value]
+        calls = sum(int(row.get("model_route_calls", 0)) for row in subset)
+        model_route_autonomous.append({"bin": bin_label, "K": k_value, "R": r_value, "n": len(subset), "solve_rate": mean(float(row["solved"]) for row in subset), "model_route_calls": calls, "parse_rate": (sum(int(row.get("model_route_parseable", 0)) for row in subset) / calls) if calls else None, "valid_rate": (sum(int(row.get("model_route_valid", 0)) for row in subset) / calls) if calls else None, "exact_rate": (sum(int(row.get("model_route_exact", 0)) for row in subset) / calls) if calls else None, "source": SOURCE, "provenance": "kvcache_multiagent_cbj_model_route_autonomous_summary_v0"})
+    return {"ma1_solve": ma1_solve, "ma1_coordination_cost": ma1_cost, "ma2_capacity": ma2_capacity, "tokens": tokens, "model_route_autonomous": model_route_autonomous}
+
+
+def run_structural(args: argparse.Namespace) -> dict[str, Any]:
+    bins = _parse_bins(args.bins)
+    r_values = _parse_ints(args.r_values)
+    k_values = _parse_ints(args.k_values)
+    arms = [item.strip() for item in args.arms.split(",") if item.strip()]
+    tokenizer = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True) if args.token_accounting == "tokenizer" or args.include_model_route else None
+    if tokenizer is not None and tokenizer.pad_token_id is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    model = None
+    if args.include_model_route:
+        model, tokenizer = _load_model(args)
+        if "model_route_autonomous" not in arms:
+            arms.append("model_route_autonomous")
+    rows: list[dict[str, Any]] = []
+    preflight: list[dict[str, Any]] = []
+    for bin_spec in bins:
+        dataset = _make_dataset(args, bin_spec)
+        selected = 0
+        for source_index in range(int(args.scan_limit)):
+            if int(args.num_shards) > 1 and source_index % int(args.num_shards) != int(args.shard_index):
+                continue
+            entry = dataset[source_index]
+            entry.setdefault("metadata", {})["source_index"] = int(source_index)
+            selected += 1
+            for k_value in k_values:
+                view = _graph_color_view(entry, args.order_mode)
+                owner = _partition(view, int(k_value), float(args.balance_weight), int(args.seed) + int(source_index) + 100 * int(k_value))
+                preflight.append({"bin": bin_spec["label"], "source_index": int(source_index), "K": int(k_value), "partition": _partition_stats(view, owner)})
+                for r_value in r_values:
+                    for arm in arms:
+                        row = _run_structural_team(dataset, entry, str(bin_spec["label"]), int(k_value), int(r_value), arm, args, tokenizer=tokenizer, model=model)
+                        row["row_kind"] = "team"
+                        row["capacity_arm"] = "team_cbj" if arm == "cbj_cross_block" else None
+                        rows.append(row)
+                        print(json.dumps({"bin": row["bin"], "source_index": row["source_index"], "K": row["K"], "R": row["R"], "arm": row["arm"], "status": row["status"], "solved": row["solved"]}), flush=True)
+                    team_row = _run_structural_team(dataset, entry, str(bin_spec["label"]), int(k_value), int(r_value), "cbj_cross_block", args, tokenizer=tokenizer, model=None)
+                    team_row["row_kind"] = "capacity"
+                    team_row["capacity_arm"] = "team_cbj"
+                    team_row["K_reference"] = int(k_value)
+                    team_row["R_reference"] = int(r_value)
+                    rows.append(team_row)
+                    for capacity_arm in ["monolith_R", "monolith_KR"]:
+                        row = _run_structural_monolith(dataset, entry, str(bin_spec["label"]), int(k_value), int(r_value), capacity_arm, args, tokenizer=tokenizer)
+                        row["row_kind"] = "capacity"
+                        rows.append(row)
+            if selected >= int(args.n_instances):
+                break
+    summary = _summarize_structural(rows)
+    payload = {"schema_version": SCHEMA_VERSION, "status": STATUS_COMPLETE if rows else STATUS_PREFLIGHT_FAIL, "generated_at": _now(), "config": {key: (str(value) if isinstance(value, Path) else value) for key, value in vars(args).items()}, "preflight": preflight, "summary": summary, "rows": rows, "source": SOURCE, "provenance": "kvcache_multiagent_cbj_structural_run_v0"}
+    _write_json(args.output, payload)
+    return payload
+
+
+def merge_structural(args: argparse.Namespace) -> dict[str, Any]:
+    inputs = [Path(item) for item in args.inputs]
+    payloads = [_read_json(path) for path in inputs]
+    rows = [row for payload in payloads for row in payload.get("rows", [])]
+    preflight = [row for payload in payloads for row in payload.get("preflight", [])]
+    payload = {"schema_version": SCHEMA_VERSION, "status": STATUS_COMPLETE if rows else STATUS_PREFLIGHT_FAIL, "generated_at": _now(), "config": {"inputs": [str(path) for path in inputs]}, "input_files": [str(path) for path in inputs], "preflight": preflight, "summary": _summarize_structural(rows), "rows": rows, "source": SOURCE, "provenance": "kvcache_multiagent_cbj_structural_merged_v0"}
+    _write_json(args.output, payload)
+    return payload
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="KV-cache multi-agent cross-block CBJ gates/probes.")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -468,6 +862,26 @@ def main() -> None:
     merge_parser.add_argument("--inputs", nargs="+", required=True)
     merge_parser.add_argument("--output", type=Path, default=Path("results/kvcache_multiagent_cbj/probe_merged.json"))
 
+    structural = sub.add_parser("run-structural")
+    add_common(structural)
+    structural.add_argument("--output", type=Path, default=Path("results/kvcache_multiagent_cbj/structural_k2.json"))
+    structural.add_argument("--k-values", default="2")
+    structural.add_argument("--r-values", default="2,4")
+    structural.add_argument("--n-instances", type=int, default=12)
+    structural.add_argument("--node-cap", type=int, default=1000)
+    structural.add_argument("--agent-order", default="round_robin", choices=["degree_owner", "round_robin", "agent_blocks"])
+    structural.add_argument("--arms", default="cbj_cross_block,chronological_cross_block,broadcast,no_coordination")
+    structural.add_argument("--token-accounting", default="tokenizer", choices=["tokenizer", "char_proxy"])
+    structural.add_argument("--include-model-route", action="store_true")
+    structural.add_argument("--max-new-tokens", type=int, default=96)
+    structural.add_argument("--trace-samples", type=int, default=8)
+    structural.add_argument("--num-shards", type=int, default=1)
+    structural.add_argument("--shard-index", type=int, default=0)
+
+    merge_structural_parser = sub.add_parser("merge-structural")
+    merge_structural_parser.add_argument("--inputs", nargs="+", required=True)
+    merge_structural_parser.add_argument("--output", type=Path, default=Path("results/kvcache_multiagent_cbj/structural_merged.json"))
+
     args = parser.parse_args()
     if args.command == "km3-gate":
         km3_gate(args)
@@ -475,6 +889,10 @@ def main() -> None:
         probe(args)
     elif args.command == "merge-probe":
         merge_probe(args)
+    elif args.command == "run-structural":
+        run_structural(args)
+    elif args.command == "merge-structural":
+        merge_structural(args)
 
 
 if __name__ == "__main__":

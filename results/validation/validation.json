@@ -565,6 +565,12 @@
       "tier": "kvcache_ma"
     },
     {
+      "detail": "results/experiment_items/item_111_kvcache_multiagent_structural_k2.json",
+      "name": "item_111_kvcache_multiagent_structural_k2_present",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
       "detail": "analysis/kvcache_multiagent_cbj.py",
       "name": "kvcache_multiagent_cbj_script_present",
       "status": "PASS",
@@ -579,6 +585,18 @@
     {
       "detail": "results/kvcache_multiagent_cbj/k2_probe_shards_v0/merged_k2_probe.json",
       "name": "kvcache_multiagent_cbj_k2_probe_present",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "results/kvcache_multiagent_cbj/structural_k2_symbolic_v0/merged_structural_k2_symbolic.json",
+      "name": "kvcache_multiagent_structural_k2_symbolic_present",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "results/kvcache_multiagent_cbj/model_route_k2_secondary_v0/merged_model_route_k2_secondary.json",
+      "name": "kvcache_multiagent_model_route_k2_secondary_present",
       "status": "PASS",
       "tier": "kvcache_ma"
     },
@@ -643,13 +661,73 @@
       "tier": "kvcache_ma"
     },
     {
+      "detail": "status=KVCACHE_MULTIAGENT_STRUCTURAL_K2_COMPLETE_MIXED",
+      "name": "kvcache_ma_item111_status",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "gates={'MA_1_solve_low_R': 'MIXED', 'MA_1_coordination_cost': 'PASS', 'MA_2_team_vs_monolith_R': 'PASS', 'MA_2_team_vs_monolith_KR': 'MIXED_FAIL_ON_V16_R2', 'model_route_autonomous': 'SECONDARY_GAP'}",
+      "name": "kvcache_ma_item111_ma1_mixed_cost_positive",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "gates={'MA_1_solve_low_R': 'MIXED', 'MA_1_coordination_cost': 'PASS', 'MA_2_team_vs_monolith_R': 'PASS', 'MA_2_team_vs_monolith_KR': 'MIXED_FAIL_ON_V16_R2', 'model_route_autonomous': 'SECONDARY_GAP'}",
+      "name": "kvcache_ma_item111_ma2_mixed_recorded",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "The structural runner uses global suffix rollback after choosing a target checkpoint to keep downstream assignments coherent; it records cascade depth and retractions but is still ",
+      "name": "kvcache_ma_item111_implementation_limit",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "status=KVCACHE_MULTIAGENT_CBJ_COMPLETE; rows=896; ma1=16; ma2=12",
+      "name": "kvcache_ma_structural_k2_complete",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "CBJ messages/retractions lower than chrono and broadcast in all symbolic cells",
+      "name": "kvcache_ma_structural_cbj_cost_lt_chrono_broadcast",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "team_cbj solve_rate > monolith_R in all symbolic capacity cells",
+      "name": "kvcache_ma_structural_team_gt_monolith_r",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "kr_losses=[('v16_p04', 2, 0.75, 0.78125)]",
+      "name": "kvcache_ma_structural_team_not_clean_ge_monolith_kr",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "status=KVCACHE_MULTIAGENT_CBJ_COMPLETE; summary=4",
+      "name": "kvcache_ma_model_route_secondary_complete",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
+      "detail": "summary=[{'K': 2, 'R': 2, 'bin': 'v14_p04', 'exact_rate': 0.3181818181818182, 'model_route_calls': 44, 'n': 16, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_model_route_autonomous_summary_v0', 'solve_rate': 0.9375, 'source': 'autonomous_stage_a_run', 'valid_rate': 0.9772727272727273}, {'K': 2, 'R': 4, 'bin': 'v14_p04', 'exact_rate': 0.3333333333333333, 'model_route_calls': 48, 'n': 16, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_model_route_autonomous_summary_v0', 'solve_rate': 1.0, 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}, {'K': 2, 'R': 2, 'bin': 'v16_p04', 'exact_rate': 0.5076923076923077, 'model_route_calls': 65, 'n': 16, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_model_route_autonomous_summary_v0', 'solve_rate': 0.6875, 'source': 'autonomous_stage_a_run', 'valid_rate': 0.9384615384615385}, {'K': 2, 'R': 4, 'bin': 'v16_p04', 'exact_rate': 0.46825396825396826, 'model_route_calls': 126, 'n': 16, 'parse_rate': 1.0, 'provenance': 'kvcache_multiagent_cbj_model_route_autonomous_summary_v0', 'solve_rate': 0.8125, 'source': 'autonomous_stage_a_run', 'valid_rate': 1.0}]",
+      "name": "kvcache_ma_model_route_secondary_gap",
+      "status": "PASS",
+      "tier": "kvcache_ma"
+    },
+    {
       "detail": "specs/log_item_contract.md",
       "name": "log_item_contract_spec_present",
       "status": "PASS",
       "tier": "contract"
     },
     {
-      "detail": "count=83",
+      "detail": "count=84",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -3643,6 +3721,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_111_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_111_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=111",
+      "name": "log_item_111_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_111_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish a clean MA-1 solve-rate win at all low R, does not establish a clean team-over-monolith-KR capacity win, and does not establish mod",
+      "name": "log_item_111_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=5; routing=Keep symbolic/oracle routing as the headline structural router. Treat model-route autonomous as a secondary gap measurement. Do not claim a clean MA-1 solve win or a clean MA-2 team-over-monolith-KR win from K=2 v14/v16.",
+      "name": "log_item_111_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -4219,13 +4333,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'pop_read', 'spill_off_write_drop', 'write_drop_mask', 'final_solution_readback', 'forward_read', 'register_entry_classification'}",
+      "detail": "rules={'register_entry_classification', 'forward_read', 'pop_read', 'write_drop_mask', 'spill_off_write_drop', 'final_solution_readback'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'threshold_D_peak', 'threshold_D_pop', 'P_pop_unmasked', 'P_all', 'P_all_unmasked', 'P_pop', 'P_choice', 'P_choice_unmasked'}; rows=768",
+      "detail": "candidates={'P_pop', 'P_pop_unmasked', 'threshold_D_peak', 'P_all_unmasked', 'threshold_D_pop', 'P_choice', 'P_all', 'P_choice_unmasked'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -4261,7 +4375,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop_unmasked', 'P_all', 'P_all_unmasked', 'P_pop', 'P_choice', 'P_choice_unmasked'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_pop', 'P_pop_unmasked', 'P_all_unmasked', 'P_choice', 'P_all', 'P_choice_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -5059,11 +5173,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-14T15:50:45.219384+00:00",
+  "generated_at": "2026-06-14T16:14:31.888907+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 843,
+    "n_checks": 862,
     "n_fail": 3,
-    "n_pass": 840
+    "n_pass": 859
   }
 }

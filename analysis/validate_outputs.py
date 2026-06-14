@@ -116,6 +116,7 @@ PATHS = {
     "item_108_kvcache_conflict_analysis_cot_c1": "results/experiment_items/item_108_kvcache_conflict_analysis_cot_c1.json",
     "item_109_kvcache_c2_reasoning_lora": "results/experiment_items/item_109_kvcache_c2_reasoning_lora.json",
     "item_110_kvcache_multiagent_cbj_v0": "results/experiment_items/item_110_kvcache_multiagent_cbj_v0.json",
+    "item_111_kvcache_multiagent_structural_k2": "results/experiment_items/item_111_kvcache_multiagent_structural_k2.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",
@@ -224,6 +225,8 @@ PATHS = {
     "kvcache_multiagent_cbj_script": "analysis/kvcache_multiagent_cbj.py",
     "kvcache_multiagent_cbj_km3_gate": "results/kvcache_multiagent_cbj/km3_gate_k2_v0.json",
     "kvcache_multiagent_cbj_k2_probe": "results/kvcache_multiagent_cbj/k2_probe_shards_v0/merged_k2_probe.json",
+    "kvcache_multiagent_structural_k2_symbolic": "results/kvcache_multiagent_cbj/structural_k2_symbolic_v0/merged_structural_k2_symbolic.json",
+    "kvcache_multiagent_model_route_k2_secondary": "results/kvcache_multiagent_cbj/model_route_k2_secondary_v0/merged_model_route_k2_secondary.json",
     "reasoning_gym_baseline_first_spec_v1": "specs/reasoning_gym_baseline_first_v1.md",
     "externalization_full_execution_manifest": "results/externalization_validation_v0/full_execution_manifest.json",
     "externalization_graph_color_ceiling_llm": "results/externalization_validation_v0/graph_color_ceiling_llm.json",
@@ -595,12 +598,18 @@ def _w3_checks(checks: list[dict[str, Any]]) -> None:
 
 def _kvcache_multiagent_cbj_checks(checks: list[dict[str, Any]]) -> None:
     _exists(checks, "item_110_kvcache_multiagent_cbj_v0", "kvcache_ma")
+    _exists(checks, "item_111_kvcache_multiagent_structural_k2", "kvcache_ma")
     _exists(checks, "kvcache_multiagent_cbj_script", "kvcache_ma")
     _exists(checks, "kvcache_multiagent_cbj_km3_gate", "kvcache_ma")
     _exists(checks, "kvcache_multiagent_cbj_k2_probe", "kvcache_ma")
+    _exists(checks, "kvcache_multiagent_structural_k2_symbolic", "kvcache_ma")
+    _exists(checks, "kvcache_multiagent_model_route_k2_secondary", "kvcache_ma")
     item = _read_json("item_110_kvcache_multiagent_cbj_v0")
+    item111 = _read_json("item_111_kvcache_multiagent_structural_k2")
     gate = _read_json("kvcache_multiagent_cbj_km3_gate")
     probe = _read_json("kvcache_multiagent_cbj_k2_probe")
+    structural = _read_json("kvcache_multiagent_structural_k2_symbolic")
+    model_route = _read_json("kvcache_multiagent_model_route_k2_secondary")
     if item:
         _check(checks, item.get("status") == "KVCACHE_MULTIAGENT_CBJ_V0_COMPLETE_PARTIAL_POSITIVE", "kvcache_ma_item110_status", f"status={item.get('status')}", "kvcache_ma")
         headline = item.get("decision", {}).get("headline", {})
@@ -622,6 +631,51 @@ def _kvcache_multiagent_cbj_checks(checks: list[dict[str, Any]]) -> None:
         _check(checks, beats_chrono, "kvcache_ma_k2_exact_beats_chrono", f"summary={summary}", "kvcache_ma")
         not_closed = bool(summary) and min(float(row.get("exact_rate", 1.0)) for row in summary) < 0.8
         _check(checks, not_closed, "kvcache_ma_k2_not_standalone_router", f"min_exact={min((float(row.get('exact_rate', 1.0)) for row in summary), default=None)}", "kvcache_ma")
+    if item111:
+        _check(checks, item111.get("status") == "KVCACHE_MULTIAGENT_STRUCTURAL_K2_COMPLETE_MIXED", "kvcache_ma_item111_status", f"status={item111.get('status')}", "kvcache_ma")
+        gates = {row.get("gate"): row.get("outcome") for row in item111.get("decision", {}).get("gate_outcomes", [])}
+        _check(checks, gates.get("MA_1_solve_low_R") == "MIXED" and gates.get("MA_1_coordination_cost") == "PASS", "kvcache_ma_item111_ma1_mixed_cost_positive", f"gates={gates}", "kvcache_ma")
+        _check(checks, gates.get("MA_2_team_vs_monolith_R") == "PASS" and gates.get("MA_2_team_vs_monolith_KR") == "MIXED_FAIL_ON_V16_R2", "kvcache_ma_item111_ma2_mixed_recorded", f"gates={gates}", "kvcache_ma")
+        _check(checks, "full per-agent live KV-cache execution" in item111.get("honesty", {}).get("implementation_limit", ""), "kvcache_ma_item111_implementation_limit", item111.get("honesty", {}).get("implementation_limit", "")[:180], "kvcache_ma")
+    if structural:
+        summary = structural.get("summary", {})
+        ma1_solve = summary.get("ma1_solve", [])
+        ma1_cost = summary.get("ma1_coordination_cost", [])
+        ma2 = summary.get("ma2_capacity", [])
+        _check(checks, structural.get("status") == "KVCACHE_MULTIAGENT_CBJ_COMPLETE" and len(structural.get("rows", [])) >= 400 and len(ma1_solve) >= 16 and len(ma2) >= 12, "kvcache_ma_structural_k2_complete", f"status={structural.get('status')}; rows={len(structural.get('rows', []))}; ma1={len(ma1_solve)}; ma2={len(ma2)}", "kvcache_ma")
+        def cost_row(bin_label: str, r_value: int, arm: str) -> dict[str, Any] | None:
+            return next((row for row in ma1_cost if row.get("bin") == bin_label and int(row.get("R", -1)) == r_value and row.get("arm") == arm), None)
+        cost_ok = True
+        for bin_label in {row.get("bin") for row in ma1_cost}:
+            for r_value in {int(row.get("R", -1)) for row in ma1_cost if row.get("bin") == bin_label}:
+                cbj = cost_row(str(bin_label), r_value, "cbj_cross_block")
+                chrono = cost_row(str(bin_label), r_value, "chronological_cross_block")
+                broadcast = cost_row(str(bin_label), r_value, "broadcast")
+                cost_ok = cost_ok and bool(cbj and chrono and broadcast) and float(cbj.get("mean_cross_block_messages", 1e9)) < float(chrono.get("mean_cross_block_messages", -1)) and float(cbj.get("mean_cross_block_messages", 1e9)) < float(broadcast.get("mean_cross_block_messages", -1)) and float(cbj.get("mean_retractions", 1e9)) < float(chrono.get("mean_retractions", -1)) and float(cbj.get("mean_retractions", 1e9)) < float(broadcast.get("mean_retractions", -1))
+        _check(checks, cost_ok, "kvcache_ma_structural_cbj_cost_lt_chrono_broadcast", "CBJ messages/retractions lower than chrono and broadcast in all symbolic cells", "kvcache_ma")
+        def cap_row(bin_label: str, r_value: int, arm: str) -> dict[str, Any] | None:
+            return next((row for row in ma2 if row.get("bin") == bin_label and int(row.get("R", -1)) == r_value and row.get("capacity_arm") == arm), None)
+        team_gt_r = True
+        team_ge_kr = True
+        kr_losses = []
+        for bin_label in {row.get("bin") for row in ma2}:
+            for r_value in {int(row.get("R", -1)) for row in ma2 if row.get("bin") == bin_label}:
+                team = cap_row(str(bin_label), r_value, "team_cbj")
+                mon_r = cap_row(str(bin_label), r_value, "monolith_R")
+                mon_kr = cap_row(str(bin_label), r_value, "monolith_KR")
+                team_gt_r = team_gt_r and bool(team and mon_r) and float(team.get("solve_rate", 0.0)) > float(mon_r.get("solve_rate", 1.0))
+                cell_ge = bool(team and mon_kr) and float(team.get("solve_rate", 0.0)) >= float(mon_kr.get("solve_rate", 1.0))
+                team_ge_kr = team_ge_kr and cell_ge
+                if not cell_ge:
+                    kr_losses.append((bin_label, r_value, team.get("solve_rate") if team else None, mon_kr.get("solve_rate") if mon_kr else None))
+        _check(checks, team_gt_r, "kvcache_ma_structural_team_gt_monolith_r", "team_cbj solve_rate > monolith_R in all symbolic capacity cells", "kvcache_ma")
+        _check(checks, not team_ge_kr and kr_losses == [("v16_p04", 2, 0.75, 0.78125)], "kvcache_ma_structural_team_not_clean_ge_monolith_kr", f"kr_losses={kr_losses}", "kvcache_ma")
+    if model_route:
+        summary = model_route.get("summary", {}).get("model_route_autonomous", [])
+        parse_ok = bool(summary) and all(float(row.get("parse_rate", 0.0)) >= 0.99 for row in summary)
+        exact_gap = bool(summary) and all(float(row.get("exact_rate", 1.0)) < 0.6 for row in summary)
+        _check(checks, model_route.get("status") == "KVCACHE_MULTIAGENT_CBJ_COMPLETE" and len(summary) == 4, "kvcache_ma_model_route_secondary_complete", f"status={model_route.get('status')}; summary={len(summary)}", "kvcache_ma")
+        _check(checks, parse_ok and exact_gap, "kvcache_ma_model_route_secondary_gap", f"summary={summary}", "kvcache_ma")
 
 
 def _item_contract_checks(checks: list[dict[str, Any]]) -> None:

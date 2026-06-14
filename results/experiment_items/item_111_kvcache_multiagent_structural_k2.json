@@ -1,0 +1,128 @@
+{
+  "item_number": "111",
+  "schema_version": "log_item_contract_v1",
+  "status": "KVCACHE_MULTIAGENT_STRUCTURAL_K2_COMPLETE_MIXED",
+  "name": "KV-cache multi-agent structural K2 MA-1 MA-2",
+  "generated_at": "2026-06-14T16:18:00+00:00",
+  "purpose": "Run the post-item110 Multi-Agent Cross-Block CBJ v0 structural batch: K=2, v14/v16 graph_color, per-agent R in {2,4}, symbolic/oracle cross-block CBJ routing for headline MA-1 and MA-2, plus a secondary model-route autonomous arm. This isolates coordination structure from route accuracy, then separately measures the end-to-end gap when the zero-shot model route is used as router.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["102", "108", "110"],
+    "spec": "user SPEC Multi-Agent Cross-Block CBJ v0 addendum, MA-1 and MA-2 run contract",
+    "script": "analysis/kvcache_multiagent_cbj.py",
+    "symbolic_result": "results/kvcache_multiagent_cbj/structural_k2_symbolic_v0/merged_structural_k2_symbolic.json",
+    "model_route_result": "results/kvcache_multiagent_cbj/model_route_k2_secondary_v0/merged_model_route_k2_secondary.json",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "symbolic_execution": "Four source-index shards, K=2, v14/v16, R=2,4, n=32 per bin/cell after merge. Cross-block routing is symbolic/oracle lookup from the shared boundary and conflict set. Branch values are symbolic; token counts are Qwen tokenizer prompt-event proxy counts, not generated-token accounting.",
+    "model_route_execution": "Secondary arm, four GPU shards on devices 0-3, K=2, v14/v16, R=2,4, n=16 per bin/cell after merge. Only the cross-block route is model-generated; branch values remain symbolic. Invalid route parses fail the row rather than falling back to oracle or chronological routing."
+  },
+  "artifacts": [
+    "results/experiment_items/item_111_kvcache_multiagent_structural_k2.json",
+    "analysis/kvcache_multiagent_cbj.py",
+    "results/kvcache_multiagent_cbj/structural_k2_symbolic_v0/merged_structural_k2_symbolic.json",
+    "results/kvcache_multiagent_cbj/model_route_k2_secondary_v0/merged_model_route_k2_secondary.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/kvcache_multiagent_cbj.py",
+      "change": "Adds run-structural and merge-structural commands for symbolic/oracle K-agent coordination arms, MA-2 monolith controls, tokenizer proxy token accounting, and secondary model-route autonomous routing."
+    }
+  ],
+  "commands": [
+    {
+      "command": "Four source-index shards: python -m analysis.kvcache_multiagent_cbj run-structural --bins v14_p04:14:0.4,v16_p04:16:0.4 --scan-limit 400 --n-instances 8 --k-values 2 --r-values 2,4 --node-cap 1200 --agent-order round_robin --arms cbj_cross_block,chronological_cross_block,broadcast,no_coordination --token-accounting tokenizer --device cpu --num-shards 4 --shard-index <0..3>",
+      "purpose": "Run symbolic/oracle MA-1 coordination arms and MA-2 capacity controls."
+    },
+    {
+      "command": "python -m analysis.kvcache_multiagent_cbj merge-structural --inputs structural_k2_symbolic_v0/shard_0.json ... shard_3.json --output results/kvcache_multiagent_cbj/structural_k2_symbolic_v0/merged_structural_k2_symbolic.json",
+      "purpose": "Merge symbolic/oracle structural shards."
+    },
+    {
+      "command": "Four GPU shards: CUDA_VISIBLE_DEVICES=<0..3> python -m analysis.kvcache_multiagent_cbj run-structural --bins v14_p04:14:0.4,v16_p04:16:0.4 --scan-limit 240 --n-instances 4 --k-values 2 --r-values 2,4 --node-cap 800 --agent-order round_robin --arms model_route_autonomous --include-model-route --max-new-tokens 96 --trace-samples 8 --token-accounting tokenizer --dtype fp32 --device cuda --num-shards 4 --shard-index <0..3>",
+      "purpose": "Run the secondary autonomous model-route arm without oracle or chronological fallback."
+    },
+    {
+      "command": "python -m analysis.kvcache_multiagent_cbj merge-structural --inputs model_route_k2_secondary_v0/shard_0.json ... shard_3.json --output results/kvcache_multiagent_cbj/model_route_k2_secondary_v0/merged_model_route_k2_secondary.json",
+      "purpose": "Merge model-route secondary shards."
+    }
+  ],
+  "decision": {
+    "outcome": "MIXED_STRUCTURAL_RESULT_COST_POSITIVE_CAPACITY_MIXED",
+    "overall_pass": true,
+    "headline": {
+      "ma1_solve_read": "mixed: CBJ beats chronological at R=4 on v14 and v16, ties/loses at R=2, so the low-R solve kill does not fully pass.",
+      "ma1_coordination_cost_read": "positive: CBJ uses fewer cross-block messages and retractions than chronological and far fewer than broadcast in all symbolic cells.",
+      "ma2_capacity_read": "mostly positive against monolith-R, mixed against monolith-KR: team beats monolith-R in all cells and matches/beats monolith-KR except v16 R=2 where monolith-KR wins 0.781 vs team 0.750.",
+      "model_route_read": "secondary gap: model-route parses at 1.0, valid is 0.938-1.0, exact route is only 0.318-0.508 and v16 solve lags symbolic routing.",
+      "single_next_move": "Report MA-1 as coordination-cost positive but solve-mixed, and MA-2 as team-over-monolith-R positive but not a clean team-over-monolith-KR win. Next extension should test K=3 and v18 only after deciding whether the v16 R=2 monolith-KR negative is acceptable or needs a different partition/ordering preregistered before rerun."
+    },
+    "gate_outcomes": [
+      {"gate": "MA_1_solve_low_R", "outcome": "MIXED", "number": "Symbolic CBJ vs chrono solve: v14 R2 0.938 vs 0.969, v14 R4 1.000 vs 0.969, v16 R2 0.750 vs 0.906, v16 R4 0.969 vs 0.906."},
+      {"gate": "MA_1_coordination_cost", "outcome": "PASS", "number": "CBJ cross-block messages/retractions are lower than chronological in every symbolic cell; broadcast hits hundreds of messages/retractions and frequent NODE_CAP."},
+      {"gate": "MA_2_team_vs_monolith_R", "outcome": "PASS", "number": "Team(CBJ) beats monolith-R: v14 R2 0.938 vs 0.781, v14 R4 1.000 vs 0.906, v16 R2 0.750 vs 0.656, v16 R4 0.969 vs 0.781."},
+      {"gate": "MA_2_team_vs_monolith_KR", "outcome": "MIXED_FAIL_ON_V16_R2", "number": "Team matches/beats monolith-KR in 3/4 cells, but v16 R2 loses 0.750 vs 0.781."},
+      {"gate": "model_route_autonomous", "outcome": "SECONDARY_GAP", "number": "Parse=1.0, valid=0.938-1.0, exact=0.318-0.508; v16 model-route solve is below symbolic CBJ."}
+    ],
+    "next_step_routing": "Keep symbolic/oracle routing as the headline structural router. Treat model-route autonomous as a secondary gap measurement. Do not claim a clean MA-1 solve win or a clean MA-2 team-over-monolith-KR win from K=2 v14/v16."
+  },
+  "result_tables": {
+    "ma1_solve": {
+      "columns": ["bin", "K", "R", "arm", "n", "solve_rate", "status_counts"],
+      "rows": [
+        {"bin": "v14_p04", "K": 2, "R": 2, "arm": "cbj_cross_block", "n": 32, "solve_rate": 0.9375, "status_counts": {"NO_RECOVERY_TARGET": 2, "SOLVED": 30}},
+        {"bin": "v14_p04", "K": 2, "R": 2, "arm": "chronological_cross_block", "n": 32, "solve_rate": 0.96875, "status_counts": {"EXHAUSTED": 1, "SOLVED": 31}},
+        {"bin": "v14_p04", "K": 2, "R": 2, "arm": "broadcast", "n": 32, "solve_rate": 0.40625, "status_counts": {"NODE_CAP": 19, "SOLVED": 13}},
+        {"bin": "v14_p04", "K": 2, "R": 2, "arm": "no_coordination", "n": 32, "solve_rate": 0.03125, "status_counts": {"OFFICIAL_SCORE_FAIL": 31, "SOLVED": 1}},
+        {"bin": "v14_p04", "K": 2, "R": 4, "arm": "cbj_cross_block", "n": 32, "solve_rate": 1.0, "status_counts": {"SOLVED": 32}},
+        {"bin": "v14_p04", "K": 2, "R": 4, "arm": "chronological_cross_block", "n": 32, "solve_rate": 0.96875, "status_counts": {"EXHAUSTED": 1, "SOLVED": 31}},
+        {"bin": "v16_p04", "K": 2, "R": 2, "arm": "cbj_cross_block", "n": 32, "solve_rate": 0.75, "status_counts": {"NO_RECOVERY_TARGET": 8, "SOLVED": 24}},
+        {"bin": "v16_p04", "K": 2, "R": 2, "arm": "chronological_cross_block", "n": 32, "solve_rate": 0.90625, "status_counts": {"EXHAUSTED": 3, "SOLVED": 29}},
+        {"bin": "v16_p04", "K": 2, "R": 4, "arm": "cbj_cross_block", "n": 32, "solve_rate": 0.96875, "status_counts": {"NO_RECOVERY_TARGET": 1, "SOLVED": 31}},
+        {"bin": "v16_p04", "K": 2, "R": 4, "arm": "chronological_cross_block", "n": 32, "solve_rate": 0.90625, "status_counts": {"EXHAUSTED": 3, "SOLVED": 29}}
+      ]
+    },
+    "ma1_coordination_cost": {
+      "columns": ["bin", "K", "R", "arm", "mean_cross_block_messages", "mean_retractions", "mean_total_tokens"],
+      "rows": [
+        {"bin": "v14_p04", "K": 2, "R": 2, "arm": "cbj_cross_block", "mean_cross_block_messages": 3.9375, "mean_retractions": 5.4375, "mean_total_tokens": 664.5},
+        {"bin": "v14_p04", "K": 2, "R": 2, "arm": "chronological_cross_block", "mean_cross_block_messages": 5.8125, "mean_retractions": 6.6875, "mean_total_tokens": 789.5625},
+        {"bin": "v14_p04", "K": 2, "R": 2, "arm": "broadcast", "mean_cross_block_messages": 472.0625, "mean_retractions": 472.0625, "mean_total_tokens": 22147.375},
+        {"bin": "v16_p04", "K": 2, "R": 4, "arm": "cbj_cross_block", "mean_cross_block_messages": 10.03125, "mean_retractions": 17.75, "mean_total_tokens": 1332.875},
+        {"bin": "v16_p04", "K": 2, "R": 4, "arm": "chronological_cross_block", "mean_cross_block_messages": 21.46875, "mean_retractions": 25.84375, "mean_total_tokens": 2115.40625},
+        {"bin": "v16_p04", "K": 2, "R": 4, "arm": "broadcast", "mean_cross_block_messages": 471.375, "mean_retractions": 471.375, "mean_total_tokens": 22830.0}
+      ]
+    },
+    "ma2_capacity": {
+      "columns": ["bin", "K", "R", "capacity_arm", "n", "solve_rate"],
+      "rows": [
+        {"bin": "v14_p04", "K": 2, "R": 2, "capacity_arm": "team_cbj", "n": 32, "solve_rate": 0.9375},
+        {"bin": "v14_p04", "K": 2, "R": 2, "capacity_arm": "monolith_R", "n": 32, "solve_rate": 0.78125},
+        {"bin": "v14_p04", "K": 2, "R": 2, "capacity_arm": "monolith_KR", "n": 32, "solve_rate": 0.90625},
+        {"bin": "v14_p04", "K": 2, "R": 4, "capacity_arm": "team_cbj", "n": 32, "solve_rate": 1.0},
+        {"bin": "v14_p04", "K": 2, "R": 4, "capacity_arm": "monolith_R", "n": 32, "solve_rate": 0.90625},
+        {"bin": "v14_p04", "K": 2, "R": 4, "capacity_arm": "monolith_KR", "n": 32, "solve_rate": 1.0},
+        {"bin": "v16_p04", "K": 2, "R": 2, "capacity_arm": "team_cbj", "n": 32, "solve_rate": 0.75},
+        {"bin": "v16_p04", "K": 2, "R": 2, "capacity_arm": "monolith_R", "n": 32, "solve_rate": 0.65625},
+        {"bin": "v16_p04", "K": 2, "R": 2, "capacity_arm": "monolith_KR", "n": 32, "solve_rate": 0.78125},
+        {"bin": "v16_p04", "K": 2, "R": 4, "capacity_arm": "team_cbj", "n": 32, "solve_rate": 0.96875},
+        {"bin": "v16_p04", "K": 2, "R": 4, "capacity_arm": "monolith_R", "n": 32, "solve_rate": 0.78125},
+        {"bin": "v16_p04", "K": 2, "R": 4, "capacity_arm": "monolith_KR", "n": 32, "solve_rate": 0.96875}
+      ]
+    },
+    "model_route_autonomous": {
+      "columns": ["bin", "K", "R", "n", "solve_rate", "parse_rate", "valid_rate", "exact_rate"],
+      "rows": [
+        {"bin": "v14_p04", "K": 2, "R": 2, "n": 16, "solve_rate": 0.9375, "parse_rate": 1.0, "valid_rate": 0.9772727272727273, "exact_rate": 0.3181818181818182},
+        {"bin": "v14_p04", "K": 2, "R": 4, "n": 16, "solve_rate": 1.0, "parse_rate": 1.0, "valid_rate": 1.0, "exact_rate": 0.3333333333333333},
+        {"bin": "v16_p04", "K": 2, "R": 2, "n": 16, "solve_rate": 0.6875, "parse_rate": 1.0, "valid_rate": 0.9384615384615385, "exact_rate": 0.5076923076923077},
+        {"bin": "v16_p04", "K": 2, "R": 4, "n": 16, "solve_rate": 0.8125, "parse_rate": 1.0, "valid_rate": 1.0, "exact_rate": 0.46825396825396826}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish a clean MA-1 solve-rate win at all low R, does not establish a clean team-over-monolith-KR capacity win, and does not establish model-route autonomy as a headline router. It establishes a coordination-cost advantage for symbolic CBJ and a mixed capacity result.",
+    "routing_limit": "Headline MA-1/MA-2 use symbolic/oracle route lookup by design, not model reasoning. The model-route arm is secondary and branch values remain symbolic.",
+    "token_limit": "Token counts are Qwen tokenizer prompt-event proxy counts for structural events, not actual generated-token accounting except for model-route route prompts.",
+    "implementation_limit": "The structural runner uses global suffix rollback after choosing a target checkpoint to keep downstream assignments coherent; it records cascade depth and retractions but is still a symbolic isolation harness, not a full per-agent live KV-cache execution arm."
+  }
+}
