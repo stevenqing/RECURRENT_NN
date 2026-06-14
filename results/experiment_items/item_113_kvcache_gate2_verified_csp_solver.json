@@ -1,0 +1,92 @@
+{
+  "item_number": "113",
+  "schema_version": "log_item_contract_v1",
+  "status": "KVCACHE_GATE2_VERIFIED_CSP_SOLVER_COMPLETE_ARMS_PARTIAL",
+  "name": "KV-cache Gate-2 verified per-task CSP solver",
+  "generated_at": "2026-06-14T17:08:00+00:00",
+  "purpose": "Fix Item112's failed generic CSP search harness by adding a verified per-task CSP solver with task-specific parse/render I/O gates and a Gate-2 oracle-CBJ search-correctness gate. mini_sudoku, n_queens, and futoshiki now all pass I/O verification and Gate-2 oracle-CBJ solve >=0.99 using official Reasoning Gym scoring. Verified couple arms were run as the first post-Gate-2 arm read; cost and C1 reason still need to be layered onto the verified solver before P1-A headline reads.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["112"],
+    "spec": "user CODING SPEC Gate-2 Fix, Verified Per-Task CSP Solver for P1-A v0",
+    "script": "analysis/kvcache_gate2_csp_solver.py",
+    "mini_sudoku_io": "results/kvcache_overnight_v0/gate2/mini_sudoku_io.json",
+    "mini_sudoku_gate2": "results/kvcache_overnight_v0/gate2/mini_sudoku_gate2.json",
+    "n_queens_io": "results/kvcache_overnight_v0/gate2/n_queens_io.json",
+    "n_queens_gate2": "results/kvcache_overnight_v0/gate2/n_queens_gate2.json",
+    "futoshiki_io": "results/kvcache_overnight_v0/gate2/futoshiki_io.json",
+    "futoshiki_gate2": "results/kvcache_overnight_v0/gate2/futoshiki_gate2.json",
+    "mini_sudoku_couple": "results/kvcache_overnight_v0/gate2/mini_sudoku_couple_verified.json",
+    "n_queens_couple": "results/kvcache_overnight_v0/gate2/n_queens_couple_verified.json",
+    "futoshiki_couple": "results/kvcache_overnight_v0/gate2/futoshiki_couple_verified.json"
+  },
+  "artifacts": [
+    "results/experiment_items/item_113_kvcache_gate2_verified_csp_solver.json",
+    "analysis/kvcache_gate2_csp_solver.py",
+    "results/kvcache_overnight_v0/gate2/mini_sudoku_io.json",
+    "results/kvcache_overnight_v0/gate2/mini_sudoku_gate2.json",
+    "results/kvcache_overnight_v0/gate2/n_queens_io.json",
+    "results/kvcache_overnight_v0/gate2/n_queens_gate2.json",
+    "results/kvcache_overnight_v0/gate2/futoshiki_io.json",
+    "results/kvcache_overnight_v0/gate2/futoshiki_gate2.json",
+    "results/kvcache_overnight_v0/gate2/mini_sudoku_couple_verified.json",
+    "results/kvcache_overnight_v0/gate2/n_queens_couple_verified.json",
+    "results/kvcache_overnight_v0/gate2/futoshiki_couple_verified.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/kvcache_gate2_csp_solver.py",
+      "change": "Adds task-specific parsers/renderers, I/O gates, verified CBJ solver, Gate-2 oracle-CBJ search gate, and verified couple arms for mini_sudoku, n_queens, and futoshiki."
+    }
+  ],
+  "commands": [
+    {"command": "python -m analysis.kvcache_gate2_csp_solver io-gate/gate2 for mini_sudoku, n_queens, futoshiki, n=20", "purpose": "Verify parse/render I/O and oracle-CBJ Gate-2 search correctness."},
+    {"command": "python -m analysis.kvcache_gate2_csp_solver arms --job couple for mini_sudoku, n_queens, futoshiki, R=2,4,8,16, n=20", "purpose": "Run the first post-Gate-2 verified couple landscape."}
+  ],
+  "decision": {
+    "outcome": "GATE2_FIXED_FOR_P1A_TASKS_ARMS_PARTIAL",
+    "overall_pass": true,
+    "headline": {
+      "mini_sudoku_gate2": "PASS solve_rate=1.0",
+      "n_queens_gate2": "PASS solve_rate=1.0",
+      "futoshiki_gate2": "PASS solve_rate=1.0",
+      "couple_read": "verified couple arms complete; oracle solves all at high R, low-R futoshiki oracle shows bounded-window NO_RECOVERY_TARGET at R=2/4; random is lower across tasks.",
+      "single_next_move": "Layer cost token accounting and C1 reason prompts onto this verified solver before reading P1-A cost/reason. Do not use the old generic CSP harness."
+    },
+    "gate_outcomes": [
+      {"gate": "mini_sudoku_IO", "outcome": "PASS", "number": "roundtrip score=1.0, wrong score=0.0 on n=20."},
+      {"gate": "mini_sudoku_Gate2", "outcome": "PASS", "number": "oracle-CBJ solve_rate=1.0 on n=20."},
+      {"gate": "n_queens_IO", "outcome": "PASS", "number": "roundtrip score=1.0, wrong score=0.0 on n=20; fixed 0-index column givens."},
+      {"gate": "n_queens_Gate2", "outcome": "PASS", "number": "oracle-CBJ solve_rate=1.0 on n=20."},
+      {"gate": "futoshiki_IO", "outcome": "PASS", "number": "roundtrip score=1.0, wrong score=0.0 on n=20."},
+      {"gate": "futoshiki_Gate2", "outcome": "PASS", "number": "oracle-CBJ solve_rate=1.0 on n=20."},
+      {"gate": "reason_and_cost_layer", "outcome": "PENDING", "number": "C1 reason and A-vs-C cost are not yet layered onto the verified solver."
+      }
+    ],
+    "next_step_routing": "Use analysis/kvcache_gate2_csp_solver.py as the P1-A base. Add verified cost and C1 reason hooks there, then relaunch P1-A cost/reason in priority order."
+  },
+  "result_tables": {
+    "gate2_summary": {
+      "columns": ["task", "io_status", "gate2_status", "solve_rate"],
+      "rows": [
+        {"task": "mini_sudoku", "io_status": "KVCACHE_GATE2_IO_PASS", "gate2_status": "KVCACHE_GATE2_SEARCH_PASS", "solve_rate": 1.0},
+        {"task": "n_queens", "io_status": "KVCACHE_GATE2_IO_PASS", "gate2_status": "KVCACHE_GATE2_SEARCH_PASS", "solve_rate": 1.0},
+        {"task": "futoshiki", "io_status": "KVCACHE_GATE2_IO_PASS", "gate2_status": "KVCACHE_GATE2_SEARCH_PASS", "solve_rate": 1.0}
+      ]
+    },
+    "couple_highlights": {
+      "columns": ["task", "R", "oracle_solve", "chrono_solve", "random_solve"],
+      "rows": [
+        {"task": "mini_sudoku", "R": 2, "oracle_solve": 1.0, "chrono_solve": 1.0, "random_solve": 0.75},
+        {"task": "n_queens", "R": 2, "oracle_solve": 1.0, "chrono_solve": 1.0, "random_solve": 0.8},
+        {"task": "futoshiki", "R": 2, "oracle_solve": 0.8, "chrono_solve": 1.0, "random_solve": 0.25},
+        {"task": "futoshiki", "R": 8, "oracle_solve": 1.0, "chrono_solve": 1.0, "random_solve": 0.25}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item fixes Gate-2 search correctness and runs a verified couple landscape. It does not establish P1-A C1 reason generalization or A-vs-C cost ratios yet, because those hooks still need to be layered onto the verified solver.",
+    "n_queens_io_note": "n_queens uses zero-indexed columns internally, so column 0 is a valid given. The I/O gate was fixed to treat 0 as valid for n_queens while preserving nonzero checks for grid CSPs.",
+    "old_harness_status": "The generic CSP harness from item112 remains gated out for P1-A headline reads."
+  }
+}

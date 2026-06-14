@@ -1,0 +1,91 @@
+{
+  "item_number": "112",
+  "schema_version": "log_item_contract_v1",
+  "status": "KVCACHE_OVERNIGHT_BATCH_V0_PARTIAL_GATED_OUT_SEARCH_HARNESS",
+  "name": "KV-cache overnight batch v0 preflight",
+  "generated_at": "2026-06-14T16:50:00+00:00",
+  "purpose": "Start SPEC Overnight Batch v0 by implementing a checkpoint-first overnight runner and running the highest-priority P1-A per-task KM-3 gates for mini_sudoku, n_queens, and futoshiki. The pure-KV fp32 Qwen3 substrate passes all three gates. The generic CSP search harness then fails a mini_sudoku oracle-search smoke, so P1-A cost/reason/couple jobs are fail-closed and not launched to avoid polluting headline reads.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["102", "108", "110", "111"],
+    "spec": "user SPEC Overnight Batch v0",
+    "script": "analysis/kvcache_overnight_batch.py",
+    "manifest": "results/kvcache_overnight_v0/overnight_manifest.json",
+    "harness_smoke": "results/kvcache_overnight_v0/harness_smoke.json",
+    "mini_sudoku_gate": "results/kvcache_overnight_v0/p1a/mini_sudoku/gate.json",
+    "n_queens_gate": "results/kvcache_overnight_v0/p1a/n_queens/gate.json",
+    "futoshiki_gate": "results/kvcache_overnight_v0/p1a/futoshiki/gate.json",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "dtype": "fp32",
+    "execution": "Per-task KM-3 gates ran on GPUs 0-2. The generic CSP search harness was smoke-tested on mini_sudoku, failed to solve even with R=16, and therefore all P1-A search jobs were marked gated_out_search_harness_smoke_fail in the manifest instead of launching overnight shards. No vLLM or external process was touched."
+  },
+  "artifacts": [
+    "results/experiment_items/item_112_kvcache_overnight_batch_v0.json",
+    "analysis/kvcache_overnight_batch.py",
+    "results/kvcache_overnight_v0/overnight_manifest.json",
+    "results/kvcache_overnight_v0/harness_smoke.json",
+    "results/kvcache_overnight_v0/p1a/mini_sudoku/gate.json",
+    "results/kvcache_overnight_v0/p1a/n_queens/gate.json",
+    "results/kvcache_overnight_v0/p1a/futoshiki/gate.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/kvcache_overnight_batch.py",
+      "change": "Adds a checkpoint-first overnight batch runner with per-task KM-3 gates, generic CSP cost/reason/couple job scaffolding, JSONL row checkpoints, merge support, and a manifest writer."
+    }
+  ],
+  "commands": [
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 python -m analysis.kvcache_overnight_batch gate --task mini_sudoku --output results/kvcache_overnight_v0/p1a/mini_sudoku/gate.json --depth 16 --checkpoints 2,4,8,12 --dtype fp32 --device cuda --tol 1e-3",
+      "purpose": "Run mini_sudoku KM-3 gate."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=1 python -m analysis.kvcache_overnight_batch gate --task n_queens --output results/kvcache_overnight_v0/p1a/n_queens/gate.json --depth 16 --checkpoints 2,4,8,12 --dtype fp32 --device cuda --tol 1e-3",
+      "purpose": "Run n_queens KM-3 gate."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=2 python -m analysis.kvcache_overnight_batch gate --task futoshiki --output results/kvcache_overnight_v0/p1a/futoshiki/gate.json --depth 16 --checkpoints 2,4,8,12 --dtype fp32 --device cuda --tol 1e-3 --futoshiki-size 4",
+      "purpose": "Run futoshiki KM-3 gate."
+    },
+    {
+      "command": "python -m analysis.kvcache_overnight_batch run-csp-job mini_sudoku smoke variants for cost/couple, then manifest",
+      "purpose": "Smoke-test the generic CSP search harness and write the fail-closed manifest."
+    }
+  ],
+  "decision": {
+    "outcome": "PARTIAL_PREFLIGHT_ONLY_SEARCH_GATED_OUT",
+    "overall_pass": true,
+    "headline": {
+      "mini_sudoku_km3": "PASS max_abs_logit_delta=6.77e-05",
+      "n_queens_km3": "PASS max_abs_logit_delta=6.77e-05",
+      "futoshiki_km3": "PASS max_abs_logit_delta=6.01e-05",
+      "search_harness": "FAIL_CLOSED: generic mini_sudoku oracle/cost/couple smoke does not solve at R=16, so no P1-A search headline jobs were launched.",
+      "single_next_move": "Replace or repair the generic CSP DFS with task-specific oracle trace/decision-point collectors. Require oracle arm solve_rate=1.0 on mini_sudoku smoke before launching P1-A cost/reason/couple overnight shards."
+    },
+    "gate_outcomes": [
+      {"gate": "mini_sudoku_KM3", "outcome": "PASS", "number": "max_abs_logit_delta=6.77e-05, pure DynamicCache KV inventory."},
+      {"gate": "n_queens_KM3", "outcome": "PASS", "number": "max_abs_logit_delta=6.77e-05, pure DynamicCache KV inventory."},
+      {"gate": "futoshiki_KM3", "outcome": "PASS", "number": "max_abs_logit_delta=6.01e-05, pure DynamicCache KV inventory."},
+      {"gate": "generic_CSP_search_smoke", "outcome": "FAIL_CLOSED", "number": "mini_sudoku smoke has EXHAUSTED/NO_RECOVERY_TARGET even at R=16, so search jobs are gated_out_search_harness_smoke_fail."}
+    ],
+    "next_step_routing": "Do not read P1-A cost/reason/couple from the current generic CSP harness. Fix the oracle trace collector first, then relaunch P1-A in priority order."
+  },
+  "result_tables": {
+    "overnight_manifest_status": {
+      "columns": ["job", "status", "output_path"],
+      "rows": [
+        {"job": "mini_sudoku_gate", "status": "KVCACHE_OVERNIGHT_KM3_PASS", "output_path": "results/kvcache_overnight_v0/p1a/mini_sudoku/gate.json"},
+        {"job": "mini_sudoku_cost", "status": "gated_out_search_harness_smoke_fail", "output_path": "results/kvcache_overnight_v0/p1a/mini_sudoku/cost/merged_mini_sudoku_cost.json"},
+        {"job": "mini_sudoku_reason", "status": "gated_out_search_harness_smoke_fail", "output_path": "results/kvcache_overnight_v0/p1a/mini_sudoku/reason/merged_mini_sudoku_reason.json"},
+        {"job": "mini_sudoku_couple", "status": "gated_out_search_harness_smoke_fail", "output_path": "results/kvcache_overnight_v0/p1a/mini_sudoku/couple/merged_mini_sudoku_couple.json"},
+        {"job": "n_queens_gate", "status": "KVCACHE_OVERNIGHT_KM3_PASS", "output_path": "results/kvcache_overnight_v0/p1a/n_queens/gate.json"},
+        {"job": "futoshiki_gate", "status": "KVCACHE_OVERNIGHT_KM3_PASS", "output_path": "results/kvcache_overnight_v0/p1a/futoshiki/gate.json"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish P1-A cross-task cost, reason, or couple results. It establishes only that the P1-A task prompts pass KM-3 and that the first generic CSP search harness is not safe to use for headline reads.",
+    "fail_closed": "Search jobs were intentionally not launched after the oracle-search smoke failed. The manifest records them as gated_out_search_harness_smoke_fail rather than partial positive evidence.",
+    "raw_artifact_policy": "Large gate and manifest artifacts live under ignored results paths and are referenced by this item and the ledger."
+  }
+}
