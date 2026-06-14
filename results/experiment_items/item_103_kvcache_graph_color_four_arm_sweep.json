@@ -1,0 +1,116 @@
+{
+  "item_number": "103",
+  "schema_version": "log_item_contract_v1",
+  "status": "KVCACHE_GRAPH_COLOR_FOUR_ARM_SWEEP_COMPLETE_NEGATIVE_OR_INCONCLUSIVE",
+  "name": "KV-cache graph_color four-arm n30 sweep",
+  "generated_at": "2026-06-14T00:00:00.000000+00:00",
+  "purpose": "Execute the user's requested post-KM3 graph_color ceiling-bin four-arm sweep using Qwen/Qwen3-4B-Instruct-2507, fp32, batch=1, direct Transformers, no vLLM. The sweep runs A=cache-checkpoint truncation, B=textual M-register, C=append-only in-context, and D=forward-only plus one-shot on n=30 selected graph_color instances with R in {0,2,4,8,16} for A/B/C. It returns solve_by_R, decision_quality, context_vs_depth, tokens, km3_real_prompt, and fork_verdicts. The result does not support the A_vs_C mechanism claim in this implementation: A does not beat C, and decision quality is poor enough that fallback/scaffold behavior likely dominates solved rows.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["100", "101", "102"],
+    "spec": "specs/kvcache_checkpoint_search_v1.md",
+    "real_prompt_gate_script": "analysis/kvcache_real_prompt_gate.py",
+    "search_script": "analysis/kvcache_graph_color_search.py",
+    "km3_real_prompt_artifact": "results/kvcache_exactness/km3_real_graph_color_prompt_qwen3_fp32.json",
+    "merged_result": "results/kvcache_graph_color/sharded_n30/merged_search_arms_n30.json",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "dtype": "fp32",
+    "execution": "4 parallel direct-transformers batch=1 shards on CUDA_VISIBLE_DEVICES=0,1,2,3"
+  },
+  "artifacts": [
+    "results/experiment_items/item_103_kvcache_graph_color_four_arm_sweep.json",
+    "analysis/kvcache_real_prompt_gate.py",
+    "analysis/kvcache_graph_color_search.py",
+    "results/kvcache_exactness/km3_real_graph_color_prompt_qwen3_fp32.json",
+    "results/kvcache_graph_color/sharded_n30/merged_search_arms_n30.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/kvcache_real_prompt_gate.py",
+      "change": "Adds KM-3 exactness testing on actual graph_color branch and backtrack prompts generated from a real selected Reasoning Gym instance."
+    },
+    {
+      "path": "analysis/kvcache_graph_color_search.py",
+      "change": "Adds direct-transformers fp32 graph_color sweep runner for A_cache, B_textual, C_incontext, D_forward, and D_one_shot, including shard support, checkpointing, context-vs-depth, token accounting, and fork verdict aggregation."
+    }
+  ],
+  "commands": [
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m analysis.kvcache_real_prompt_gate --out results/kvcache_exactness/km3_real_graph_color_prompt_qwen3_fp32.json --model Qwen/Qwen3-4B-Instruct-2507 --seed 42 --scan-limit 200 --min-backtracks 4 --node-cap 80 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --order-mode degree_desc --r-value 8 --depth 16 --checkpoints 2,4,8,12 --tol 1e-3 --device cuda --dtype fp32 --chat-template",
+      "purpose": "Run KM-3 exactness gate on real graph_color branch/backtrack prompts before reading search arms."
+    },
+    {
+      "command": "Four parallel shard run: for shard in 0 1 2 3, CUDA_VISIBLE_DEVICES=$shard PYTHONPATH=/tmp/reasoning_benchmarks/reasoning-gym .venv/bin/python -m analysis.kvcache_graph_color_search --output results/kvcache_graph_color/sharded_n30/shard_${shard}.json --checkpoint-path results/kvcache_graph_color/sharded_n30/shard_${shard}_checkpoint.json --km3-real-prompt results/kvcache_exactness/km3_real_graph_color_prompt_qwen3_fp32.json --model Qwen/Qwen3-4B-Instruct-2507 --seed 42 --scan-limit 1000 --n-instances 30 --min-backtracks 4 --node-cap 80 --num-vertices 14 --num-colors 3 --edge-probability 0.4 --order-mode degree_desc --r-values 0,2,4,8,16 --arms A_cache,B_textual,C_incontext,D_forward,D_one_shot --call-cap 80 --max-new-tokens 32 --one-shot-max-tokens 512 --device cuda --dtype fp32 --num-shards 4 --shard-index $shard; merge shard JSONs into merged_search_arms_n30.json",
+      "purpose": "Run n=30 graph_color four-arm sweep in fp32, batch=1, direct Transformers, no vLLM."
+    }
+  ],
+  "decision": {
+    "outcome": "FOUR_ARM_SWEEP_COMPLETE_A_VS_C_NOT_POSITIVE_DECISION_QUALITY_WEAK",
+    "overall_pass": true,
+    "headline": {
+      "km3_real_prompt_pass": true,
+      "km3_real_prompt_max_abs_logit_delta": 0.00012254714965820312,
+      "n_instances": 30,
+      "rows": 510,
+      "A_cache_R16_solve_rate": 0.9666666666666667,
+      "B_textual_R16_solve_rate": 1.0,
+      "C_incontext_R16_solve_rate": 1.0,
+      "D_forward_solve_rate": 0.0,
+      "D_one_shot_solve_rate": 0.0,
+      "A_vs_C_R16_gap": -0.033333333333333326,
+      "A_vs_B_R16_gap": -0.033333333333333326,
+      "C_incontext_R16_mean_total_tokens": 36141.4,
+      "A_cache_R16_mean_total_tokens": 6974.733333333334,
+      "B_textual_R16_mean_total_tokens": 7497.066666666667,
+      "single_next_move": "Do not claim the A_vs_C mechanism gap from this run. Fix the runner/prompt so model branch/backjump decisions are actually parseable and remove oracle fallback for branch values, then rerun the sweep or train backjump-only LoRA."
+    },
+    "gate_outcomes": [
+      {"gate": "km3_real_prompt", "outcome": "PASS", "number": "branch/backtrack real graph_color prompts pass; max_abs_logit_delta=0.00012254714965820312 <= 1e-3."},
+      {"gate": "solve_by_R", "outcome": "COMPLETE", "number": "A/B/C/D rows complete: 510 rows, n=30 per arm/R where required."},
+      {"gate": "A_vs_C", "outcome": "FAIL_NO_POSITIVE_GAP", "number": "A_cache - C_incontext solve gap is 0 at R=0,2,4,8 and -0.0333 at R=16."},
+      {"gate": "A_vs_B", "outcome": "WITHIN_NOISE_OR_BELOW", "number": "A_cache - B_textual solve gap is 0 at R=0,2,4,8 and -0.0333 at R=16."},
+      {"gate": "context_cost", "outcome": "A_TOKEN_EFFICIENT_VS_C_AT_R16", "number": "mean_total_tokens R16: A=6974.73, B=7497.07, C=36141.40."},
+      {"gate": "decision_quality", "outcome": "WEAK", "number": "A_cache branch_accuracy_vs_oracle=0 at all R; A_cache backtrack accuracy only 0.087 at R16; C_incontext branch/backtrack accuracy=0 throughout."},
+      {"gate": "interpretability", "outcome": "CAUTION", "number": "Solved R16 rows likely depend on fallback/scaffold behavior because model JSON decision quality is poor."}
+    ],
+    "next_step_routing": "Before reading this as mechanism evidence, rerun with stricter no-oracle fallback and stronger decision prompting or structured generation. If branch quality remains low, train only backjump/culprit target after fixing branch selection policy or use oracle branch control to isolate backjump-only learning."
+  },
+  "result_tables": {
+    "solve_by_R": {
+      "columns": ["arm", "R", "n", "solve_rate", "mean_official_score", "status_counts"],
+      "rows": [
+        {"arm": "A_cache", "R": 0, "n": 30, "solve_rate": 0.0, "mean_official_score": 0.0, "status_counts": {"FORWARD_DEAD_END": 30}},
+        {"arm": "A_cache", "R": 2, "n": 30, "solve_rate": 0.0, "mean_official_score": 0.0, "status_counts": {"NO_RECOVERY_TARGET": 30}},
+        {"arm": "A_cache", "R": 4, "n": 30, "solve_rate": 0.0, "mean_official_score": 0.0, "status_counts": {"NO_RECOVERY_TARGET": 30}},
+        {"arm": "A_cache", "R": 8, "n": 30, "solve_rate": 0.0, "mean_official_score": 0.0, "status_counts": {"NO_RECOVERY_TARGET": 30}},
+        {"arm": "A_cache", "R": 16, "n": 30, "solve_rate": 0.9666666666666667, "mean_official_score": 0.9666666666666667, "status_counts": {"SOLVED": 29, "CALL_CAP": 1}},
+        {"arm": "B_textual", "R": 16, "n": 30, "solve_rate": 1.0, "mean_official_score": 1.0, "status_counts": {"SOLVED": 30}},
+        {"arm": "C_incontext", "R": 16, "n": 30, "solve_rate": 1.0, "mean_official_score": 1.0, "status_counts": {"SOLVED": 30}},
+        {"arm": "D_forward", "R": 0, "n": 30, "solve_rate": 0.0, "mean_official_score": 0.0, "status_counts": {"FORWARD_DEAD_END": 30}},
+        {"arm": "D_one_shot", "R": 0, "n": 30, "solve_rate": 0.0, "mean_official_score": 0.0, "status_counts": {"SCORE_FAIL": 30}}
+      ]
+    },
+    "fork_verdicts": {
+      "columns": ["fork", "R16_gap", "verdict"],
+      "rows": [
+        {"fork": "A_vs_C", "R16_gap": -0.033333333333333326, "verdict": "NO_POSITIVE_GAP"},
+        {"fork": "A_vs_B", "R16_gap": -0.033333333333333326, "verdict": "WITHIN_NOISE_OR_BELOW"}
+      ]
+    },
+    "token_headline": {
+      "columns": ["arm", "R", "mean_total_tokens"],
+      "rows": [
+        {"arm": "A_cache", "R": 16, "mean_total_tokens": 6974.733333333334},
+        {"arm": "B_textual", "R": 16, "mean_total_tokens": 7497.066666666667},
+        {"arm": "C_incontext", "R": 16, "mean_total_tokens": 36141.4},
+        {"arm": "D_one_shot", "R": 0, "mean_total_tokens": 805.5666666666667}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish the KV-cache checkpoint thesis. It completes the requested n=30 sweep and finds no positive A_vs_C solve gap under the current runner.",
+    "fallback_limit": "The runner falls back to oracle domain[0] for unparsable or invalid branch choices and chronological-like fallback for invalid backtrack choices. Because model decision quality is weak, solved rows are not clean evidence of learned branch/backjump competence.",
+    "context_metric_limit": "The context-vs-depth metric records prompt/cache token counts in the current implementation, but A_cache still accumulates live-path prompts. It shows C is far more token-expensive at R16, but it is not yet a perfect minimal-short-continue implementation.",
+    "next_fix": "Implement no-oracle-fallback branch mode, stronger JSON decision prompting/structured generation, and optionally oracle-branch/backjump-only arms before interpreting A_vs_C as mechanism evidence."
+  }
+}

@@ -565,7 +565,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=75",
+      "detail": "count=76",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -3271,6 +3271,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_103_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_103_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=103",
+      "name": "log_item_103_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_103_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not establish the KV-cache checkpoint thesis. It completes the requested n=30 sweep and finds no positive A_vs_C solve gap under the current runn",
+      "name": "log_item_103_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=7; routing=Before reading this as mechanism evidence, rerun with stricter no-oracle fallback and stronger decision prompting or structured generation. If branch quality remains low, train only backjump/culprit target after fixing branch selection policy or use oracle branch control to isolate backjump-only learning.",
+      "name": "log_item_103_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -3847,13 +3883,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'spill_off_write_drop', 'register_entry_classification', 'forward_read', 'pop_read', 'write_drop_mask', 'final_solution_readback'}",
+      "detail": "rules={'write_drop_mask', 'register_entry_classification', 'pop_read', 'forward_read', 'final_solution_readback', 'spill_off_write_drop'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop', 'P_pop_unmasked', 'threshold_D_peak', 'P_choice', 'P_all', 'threshold_D_pop', 'P_choice_unmasked', 'P_all_unmasked'}; rows=768",
+      "detail": "candidates={'P_all', 'P_choice_unmasked', 'P_choice', 'P_all_unmasked', 'P_pop', 'P_pop_unmasked', 'threshold_D_peak', 'threshold_D_pop'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3877,7 +3913,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rows=64; statuses={'timeout', 'measured'}",
+      "detail": "rows=64; statuses={'measured', 'timeout'}",
       "name": "e1_sudoku_compositional_real_trace_subsample",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -3889,7 +3925,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop', 'P_pop_unmasked', 'P_choice', 'P_all', 'P_choice_unmasked', 'P_all_unmasked'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_all', 'P_choice_unmasked', 'P_choice', 'P_all_unmasked', 'P_pop', 'P_pop_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -4687,11 +4723,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-14T03:17:35.998738+00:00",
+  "generated_at": "2026-06-14T04:56:54.528587+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 781,
+    "n_checks": 787,
     "n_fail": 3,
-    "n_pass": 778
+    "n_pass": 784
   }
 }
