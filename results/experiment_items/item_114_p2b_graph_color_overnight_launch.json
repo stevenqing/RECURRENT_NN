@@ -1,0 +1,64 @@
+{
+  "item_number": "114",
+  "schema_version": "log_item_contract_v1",
+  "status": "P2B_GRAPH_COLOR_OVERNIGHT_LAUNCHED_RUNNING",
+  "name": "P2-B graph_color overnight robustness launch",
+  "generated_at": "2026-06-14T17:15:00+00:00",
+  "purpose": "Launch the SPEC Overnight Batch v0 P2-B graph_color robustness jobs that do not depend on the P1-A CSP Gate-3 calibration. The launch uses the already-validated graph_color KV-cache backjump harness: C1 conflict-analysis, chronological, oracle, and random policies over v14/v16/v18/v20 with R in {2,4,8,16}, plus queued v20/v22 A-cache vs C-incontext oracle-search cost jobs. Jobs run detached with per-shard checkpoints, logs, GPU labels, and a launch manifest.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["108", "112", "113"],
+    "spec": "user SPEC Overnight Batch v0 addendum: launch P2-B graph_color robustness now",
+    "launch_script": "scripts/launch_p2b_graph_color_overnight.sh",
+    "run_id": "p2b_graph_color_overnight_v0",
+    "launch_manifest": "results/kvcache_overnight_v0/p2b_graph_color/launch_manifest_p2b_graph_color_overnight_v0.jsonl",
+    "root": "results/kvcache_overnight_v0/p2b_graph_color",
+    "gpus": [0, 1, 2, 3],
+    "running_at_log_time": true
+  },
+  "artifacts": [
+    "results/experiment_items/item_114_p2b_graph_color_overnight_launch.json",
+    "scripts/launch_p2b_graph_color_overnight.sh",
+    "results/kvcache_overnight_v0/p2b_graph_color/launch_manifest_p2b_graph_color_overnight_v0.jsonl"
+  ],
+  "code_added_used": [
+    {
+      "path": "scripts/launch_p2b_graph_color_overnight.sh",
+      "change": "Adds a detached checkpointed P2-B graph_color overnight launcher with 4-GPU reason/couple shards followed by v20/v22 oracle-search cost shards."
+    }
+  ],
+  "commands": [
+    {"command": "RUN_ID=p2b_graph_color_overnight_v0 nohup scripts/launch_p2b_graph_color_overnight.sh > results/kvcache_overnight_v0/p2b_graph_color/logs/launcher.log 2>&1 &", "purpose": "Launch P2-B graph_color robustness without touching vLLM or other external services."}
+  ],
+  "decision": {
+    "outcome": "LAUNCHED_NOT_READ_YET",
+    "overall_pass": true,
+    "headline": {
+      "reason_couple_grid": "v14/v16/v18/v20, R=2,4,8,16, policies conflict_cot/chrono/oracle/random, conditions isolation/autonomous, n=40 target per bin.",
+      "cost_grid": "v20/v22, A_cache_oracle_search vs C_incontext_oracle_search, R=2,4,8,16, n=24 target per bin after reason/couple phase completes.",
+      "single_next_move": "Monitor shard checkpoints/logs. Do not read P2-B until merged_p2b_reason_couple.json and cost shard outputs complete."
+    },
+    "gate_outcomes": [
+      {"gate": "graph_color_harness", "outcome": "REUSED_VALIDATED", "number": "Uses item108/item111-era graph_color harness; no new CSP Gate-3 dependency."},
+      {"gate": "launch_manifest", "outcome": "PASS", "number": "Manifest records run_id, GPU, shard, output path, checkpoint path, and log path for reason/couple shards."},
+      {"gate": "completion", "outcome": "PENDING", "number": "Jobs were running at item log time; final read requires merged artifacts."}
+    ],
+    "next_step_routing": "Let the detached P2-B launcher finish, then merge/read results and create a completion item."
+  },
+  "result_tables": {
+    "launch_manifest_head": {
+      "columns": ["job", "gpu", "shard_index", "status", "output_path"],
+      "rows": [
+        {"job": "p2b_reason_couple", "gpu": 0, "shard_index": 0, "status": "launched", "output_path": "results/kvcache_overnight_v0/p2b_graph_color/reason_couple_shards/shard_0.json"},
+        {"job": "p2b_reason_couple", "gpu": 1, "shard_index": 1, "status": "launched", "output_path": "results/kvcache_overnight_v0/p2b_graph_color/reason_couple_shards/shard_1.json"},
+        {"job": "p2b_reason_couple", "gpu": 2, "shard_index": 2, "status": "launched", "output_path": "results/kvcache_overnight_v0/p2b_graph_color/reason_couple_shards/shard_2.json"},
+        {"job": "p2b_reason_couple", "gpu": 3, "shard_index": 3, "status": "launched", "output_path": "results/kvcache_overnight_v0/p2b_graph_color/reason_couple_shards/shard_3.json"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This is a launch record only. It does not establish any P2-B robustness result until the detached shards finish and merged artifacts are read.",
+    "process_limit": "No vLLM or external process was killed or restarted. The launcher is detached; progress must be monitored via logs/checkpoints.",
+    "p1a_limit": "P1-A cost/reason remains gated behind Gate-3 calibration and is not covered by this launch."
+  }
+}
