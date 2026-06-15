@@ -1,0 +1,89 @@
+{
+  "item_number": "122",
+  "schema_version": "log_item_contract_v1",
+  "status": "GRAPH_COLOR_SYMBOLIC_MATCHED_BUDGET_PASS_C1_HB2_PENDING",
+  "name": "Graph-color symbolic matched-budget closeout and HB-2 skeleton",
+  "generated_at": "2026-06-15T09:45:00+00:00",
+  "purpose": "Extend the matched-budget primary mechanism-isolation result to graph_color for the symbolic-CBJ/oracle-search targeting variant, using selected v16_p04 graph_color instances, n=64, R=16, A_cache vs C_incontext, and the same solve@budget grid/CI logic. Also add the external no-train BudgetRunner protocol/provenance registry for HB-2 without fabricating any external curves. C1-targeting graph_color A/C curves remain pending because the existing C1 implementation has A-cache rows but no C_incontext counterpart yet.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["121"],
+    "spec": "user CODING SPEC — Next Step, graph_color matched-budget close + external no-train HB-2 (v0)",
+    "graph_color_rows": "results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_n64.json",
+    "graph_color_budget_curve": "results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_budget_curve_n64.json",
+    "curve_builder": "analysis/kvcache_graph_color_budget_curves.py",
+    "external_runner_skeleton": "analysis/kvcache_external_budget_baselines.py",
+    "external_runner_registry": "results/kvcache_matched_budget_v0/external_budget_runner_registry.json",
+    "bin": "v16_p04",
+    "R": 16,
+    "n": 64,
+    "policy": "symbolic_cbj/oracle_search"
+  },
+  "artifacts": [
+    "results/experiment_items/item_122_graph_color_symbolic_budget_and_hb2_skeleton.json",
+    "analysis/kvcache_graph_color_budget_curves.py",
+    "analysis/kvcache_external_budget_baselines.py",
+    "results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_n64.json",
+    "results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_budget_curve_n64.json",
+    "results/kvcache_matched_budget_v0/external_budget_runner_registry.json"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_graph_color_budget_curves.py", "change": "Builds graph_color solve@budget curves, B* selection, Wilson CIs, and A-C gap summaries from A/C graph_color search rows."},
+    {"path": "analysis/kvcache_external_budget_baselines.py", "change": "Defines BudgetRunner protocol and no-train external baseline provenance/status registry."}
+  ],
+  "commands": [
+    {"command": "python -m analysis.kvcache_graph_color_search ... --num-vertices 16 --r-values 16 --arms A_cache_oracle_search,C_incontext_oracle_search --n-instances 64", "purpose": "Run graph_color selected-instance symbolic A/C rows."},
+    {"command": "python -m analysis.kvcache_graph_color_budget_curves --input ...v16_r16_symbolic_n64.json --output ...v16_r16_symbolic_budget_curve_n64.json", "purpose": "Build solve@budget curve and CI summaries."},
+    {"command": "python -m analysis.kvcache_external_budget_baselines --output results/kvcache_matched_budget_v0/external_budget_runner_registry.json", "purpose": "Record BudgetRunner protocol and external baseline provenance/status."}
+  ],
+  "decision": {
+    "outcome": "GRAPH_COLOR_SYMBOLIC_PRIMARY_PASS_FULL_PROMOTION_PENDING_C1_AND_HB2",
+    "overall_pass": true,
+    "headline": {
+      "graph_color_symbolic": "n=64, v16_p04/R16. B*=22901 with C_midband=0.40625. A solve=1.0, C solve=0.40625, gap=0.59375, conservative gap CI [0.4148,0.7054].",
+      "shape": "A dominates C over all five graph_color symbolic grid budgets; promotion_points=4/5, high-budget point has small positive gap but CI touches 0 as C nearly catches up.",
+      "primary_status": "Together with item121 sudoku/futoshiki, symbolic-CBJ mechanism-isolation is positive on 3/3 tasks. Full promotion still waits for graph_color C1-targeting variant and external HB-2 handling.",
+      "single_next_move": "Implement graph_color C1 A/C counterpart or explicitly final-not-run it, then port/run no-train HB-2 baselines through BudgetRunner."
+    },
+    "gate_outcomes": [
+      {"gate": "graph_color_symbolic_HB1", "outcome": "PASS_POSITIVE", "number": "gap=0.59375 at B*=22901, CI [0.4148,0.7054]."},
+      {"gate": "graph_color_symbolic_HB3", "outcome": "PASS_POSITIVE", "number": "A dominates C at 5/5 grid budgets; 4/5 promotion points."},
+      {"gate": "graph_color_C1_targeting", "outcome": "PENDING", "number": "Existing C1 graph_color runner has A-cache/C1 search rows but no C_incontext matched mechanism counterpart yet."},
+      {"gate": "HB2_external", "outcome": "SKELETON_ONLY_NOT_RUN", "number": "BudgetRunner protocol and repo provenance registry written; no external curves claimed."}
+    ],
+    "next_step_routing": "Do not claim targeting-independence or HB-2 yet. The symbolic mechanism-isolation primary is now positive on sudoku, futoshiki, and graph_color; next work is C1 A/C graph_color and external baseline ports."
+  },
+  "result_tables": {
+    "graph_color_midband_gap": {
+      "columns": ["task", "variant", "n", "B_star", "A_solve", "C_solve", "A_minus_C", "gap_ci_low", "gap_ci_high", "promotion_point"],
+      "rows": [
+        {"task": "graph_color", "variant": "symbolic_cbj", "n": 64, "B_star": 22901, "A_solve": 1.0, "C_solve": 0.40625, "A_minus_C": 0.59375, "gap_ci_low": 0.4148280214932397, "gap_ci_high": 0.7054309075028039, "promotion_point": true}
+      ]
+    },
+    "graph_color_grid_gaps": {
+      "columns": ["budget_B", "A_solve", "C_solve", "A_minus_C", "promotion_point"],
+      "rows": [
+        {"budget_B": 5725, "A_solve": 1.0, "C_solve": 0.0, "A_minus_C": 1.0, "promotion_point": true},
+        {"budget_B": 11450, "A_solve": 1.0, "C_solve": 0.0, "A_minus_C": 1.0, "promotion_point": true},
+        {"budget_B": 22901, "A_solve": 1.0, "C_solve": 0.40625, "A_minus_C": 0.59375, "promotion_point": true},
+        {"budget_B": 45802, "A_solve": 1.0, "C_solve": 0.859375, "A_minus_C": 0.140625, "promotion_point": true},
+        {"budget_B": 91604, "A_solve": 1.0, "C_solve": 0.96875, "A_minus_C": 0.03125, "promotion_point": false}
+      ]
+    },
+    "external_budget_runner_registry": {
+      "columns": ["method", "status", "repo", "commit"],
+      "rows": [
+        {"method": "LFS", "status": "LOCATED_READ_PARTIAL_NOT_PORTED", "repo": "NathanHerr/LLM-First-Search", "commit": "3025bdaa3add6f41388c1d5a6d354522489d312e"},
+        {"method": "ToT_RAP_CoTSC", "status": "LOCATED_READ_PARTIAL_NOT_PORTED", "repo": "maitrix-org/llm-reasoners", "commit": "f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2"},
+        {"method": "First_Finish_Search", "status": "LOCATED_NOT_PORTED", "repo": "Aradhye2002/reasoning_exps", "commit": "31e1c84c1525ee2f6469c46e433edb1d9e751cf7"},
+        {"method": "Beyond_the_Frontier", "status": "OFFICIAL_REPO_NOT_FOUND_NOT_RUN", "repo": null, "commit": null}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish graph_color C1-targeting independence or external HB-2 competitiveness. It closes only the graph_color symbolic-CBJ matched-budget primary slice.",
+    "graph_color_scope": "The graph_color run uses selected v16_p04/R16 symbolic/oracle-search targeting because R4 in the A/C harness produced NO_RECOVERY_TARGET for all selected rows; B* is selected from the C_incontext full-trace token threshold curve.",
+    "depth_limit": "Budget curves are thresholded from completed graph_color A/C rows; C depth under budget uses context_rows, while A depth under unsolved budgets is a lower-bound proxy because graph_color A rows store exact full total_tokens but not exact per-event token increments.",
+    "external_limit": "HB-2 baseline ports are not implemented or run; registry/provenance only. No external curve is fabricated."
+  }
+}
