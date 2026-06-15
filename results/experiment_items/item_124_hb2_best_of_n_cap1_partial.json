@@ -1,0 +1,63 @@
+{
+  "item_number": "124",
+  "schema_version": "log_item_contract_v1",
+  "status": "HB2_BEST_OF_N_CAP1_PARTIAL_NOT_FINAL",
+  "name": "HB-2 best-of-n cap1 partial baseline",
+  "generated_at": "2026-06-15T11:05:00+00:00",
+  "purpose": "Start HB-2 external/no-train baseline evaluation by implementing the allowed direct best-of-n parallel sampling BudgetRunner and running a fast B*-only n=64 cap1 lower-bound pilot on sudoku, futoshiki, and graph_color. This validates the shared official scoring/token-billing harness but does not complete HB-2 because cap1 does not exhaust the available B* budgets and LFS/ToT/RAP ports are still pending.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["122", "123"],
+    "spec": "user CODING SPEC — HB-2 External No-Train Matched-Budget Comparison (v0)",
+    "runner": "analysis/kvcache_best_of_n_baseline.py",
+    "launcher": "scripts/launch_hb2_best_of_n_bstar_cap1.sh",
+    "result": "results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_n64_cap1/merged_best_of_n_bstar_n64_cap1.json",
+    "method": "best_of_n_parallel_sampling",
+    "run_scope": "Bstar_only_n64_max_samples_per_budget_1",
+    "budget_anchors": {"sudoku": 28070, "futoshiki": 3206226, "graph_color": 32895}
+  },
+  "artifacts": [
+    "results/experiment_items/item_124_hb2_best_of_n_cap1_partial.json",
+    "analysis/kvcache_best_of_n_baseline.py",
+    "scripts/launch_hb2_best_of_n_bstar_cap1.sh",
+    "results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_n64_cap1/merged_best_of_n_bstar_n64_cap1.json"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_best_of_n_baseline.py", "change": "Implements the best-of-n direct no-train BudgetRunner with shared tokenizer billing, official score_answer scoring, sharding, checkpointing, and merging."},
+    {"path": "scripts/launch_hb2_best_of_n_bstar_cap1.sh", "change": "Runs B*-only n=64 best-of-n cap1 shards across 8 GPUs and merges results."}
+  ],
+  "commands": [
+    {"command": "scripts/launch_hb2_best_of_n_bstar_cap1.sh", "purpose": "Run best-of-n direct baseline at each task's B* with max_samples_per_budget=1 and n=64."}
+  ],
+  "decision": {
+    "outcome": "BEST_OF_N_RUNNER_VALIDATED_BASELINE_LOWER_BOUND_ONLY",
+    "overall_pass": true,
+    "hb2_confirmed": false,
+    "headline": {
+      "best_of_n": "With max_samples_per_budget=1, best-of-n solved 0/64 on sudoku, futoshiki, and graph_color at B*; all rows ended ATTEMPT_CAP, so this is a lower-bound smoke rather than a budget-exhaustive baseline.",
+      "A_vs_cap1": "Existing A_cache lines beat this cap1 baseline on all three tasks, but HB-2 is not confirmed because the located no-train baseline set is not complete and best-of-n was intentionally capped.",
+      "single_next_move": "Run a budget-exhaustive or larger-cap best-of-n curve and then port LFS/ToT/RAP through the same BudgetRunner before reading HB-2."
+    },
+    "gate_outcomes": [
+      {"gate": "best_of_n_runner", "outcome": "PASS_SMOKE", "number": "n=64 per task, official score_answer, shared token counter, sharded/merged artifact present."},
+      {"gate": "best_of_n_cap1_solve", "outcome": "LOWER_BOUND_ZERO", "number": "sudoku=0/64, futoshiki=0/64, graph_color=0/64 at B*."},
+      {"gate": "HB2_read", "outcome": "NOT_READY", "number": "cap1 best-of-n is not budget-exhaustive and LFS/ToT/RAP are not ported/run."}
+    ],
+    "next_step_routing": "Keep HB-2 open. Use this runner for larger best-of-n caps/sweeps; implement LFS and LLM-reasoners ToT/RAP ports with repo provenance before final HB-2 confirm/kill."
+  },
+  "result_tables": {
+    "best_of_n_cap1_bstar": {
+      "columns": ["task", "budget_B", "n", "solve_count", "solve_rate", "solve_ci_low", "solve_ci_high", "mean_tokens_used", "mean_attempts", "status_counts"],
+      "rows": [
+        {"task": "sudoku", "budget_B": 28070, "n": 64, "solve_count": 0, "solve_rate": 0.0, "solve_ci_low": 0.0, "solve_ci_high": 0.05662405979280534, "mean_tokens_used": 306.625, "mean_attempts": 1.0, "status_counts": {"ATTEMPT_CAP": 64}},
+        {"task": "futoshiki", "budget_B": 3206226, "n": 64, "solve_count": 0, "solve_rate": 0.0, "solve_ci_low": 0.0, "solve_ci_high": 0.05662405979280534, "mean_tokens_used": 363.515625, "mean_attempts": 1.0, "status_counts": {"ATTEMPT_CAP": 64}},
+        {"task": "graph_color", "budget_B": 32895, "n": 64, "solve_count": 0, "solve_rate": 0.0, "solve_ci_low": 0.0, "solve_ci_high": 0.05662405979280534, "mean_tokens_used": 532.6875, "mean_attempts": 1.0, "status_counts": {"ATTEMPT_CAP": 64}}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not complete HB-2 and does not establish superiority over the no-train frontier. It only validates the direct best-of-n runner and records a cap1 lower-bound baseline.",
+    "cap_limit": "max_samples_per_budget=1 intentionally leaves most of each B* unused, so the zero solve rates are not a final best-of-n result.",
+    "external_limit": "LFS, ToT, RAP, and First Finish ports are still not run; Beyond-the-Frontier remains final-not-run due to no official repo."
+  }
+}
