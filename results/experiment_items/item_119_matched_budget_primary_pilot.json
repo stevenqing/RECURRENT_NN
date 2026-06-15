@@ -1,0 +1,71 @@
+{
+  "item_number": "119",
+  "schema_version": "log_item_contract_v1",
+  "status": "MATCHED_BUDGET_PRIMARY_PILOT_HB1_PASS_EXTERNAL_NOT_RUN",
+  "name": "Matched-budget A-vs-C primary pilot",
+  "generated_at": "2026-06-15T07:35:00+00:00",
+  "purpose": "Preregister and run the matched-budget solve@B test for the clean PRIMARY causal mechanism: same verified CSP symbolic-CBJ search trace, same tokenizer counter, A_cache retained-prefix billing versus C_incontext accumulated-context billing. This pilot tests whether the Item117 cost advantage converts into solve@budget advantage at B* on sudoku and futoshiki. External SOTA baselines are not run because faithful Qwen3-4B fp32 implementations are not integrated, and no curve is fabricated.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["104", "117", "118"],
+    "spec": "user SPEC — Matched-Budget Head-to-Head, Cache-Truncation Search vs SOTA Search (PREREGISTERED, v0)",
+    "script": "analysis/kvcache_matched_budget.py",
+    "preregistered_kill": "results/kvcache_matched_budget_v0/preregistered_kill.json",
+    "primary_result": "results/kvcache_matched_budget_v0/primary_csp_symbolic_n2_formal.json",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "policy": "symbolic_cbj",
+    "sample_scope": "pilot_n2_per_task"
+  },
+  "artifacts": [
+    "results/experiment_items/item_119_matched_budget_primary_pilot.json",
+    "analysis/kvcache_matched_budget.py",
+    "results/kvcache_matched_budget_v0/preregistered_kill.json",
+    "results/kvcache_matched_budget_v0/primary_csp_symbolic_n2_formal.json"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_matched_budget.py", "change": "Adds preregistration and primary-csp matched-budget curve harness using verified CSP traces and shared A/C token accounting."}
+  ],
+  "commands": [
+    {"command": "python -m analysis.kvcache_matched_budget preregister --output results/kvcache_matched_budget_v0/preregistered_kill.json", "purpose": "Record fixed HB-1/HB-2/HB-3 kills before reading matched-budget curves."},
+    {"command": "python -m analysis.kvcache_matched_budget primary-csp --output results/kvcache_matched_budget_v0/primary_csp_symbolic_n2_formal.json --n-instances 2 --scan-limit 120 --tasks sudoku,futoshiki --policies symbolic_cbj --futoshiki-size 7 --futoshiki-difficulty 3 --node-cap 50000", "purpose": "Run pilot matched-budget A-vs-C curves on native symbolic-CBJ CSP traces."}
+  ],
+  "decision": {
+    "outcome": "HB1_PRIMARY_PILOT_PASS_HB2_NOT_RUN",
+    "overall_pass": true,
+    "headline": {
+      "sudoku": "B*=28070 tokens from C mid-band rule; A solve=1.0, C solve=0.5, gap=0.5 on n=2 symbolic-CBJ traces.",
+      "futoshiki": "B*=3206226 tokens from C mid-band rule; A solve=1.0, C solve=0.5, gap=0.5 on n=2 symbolic-CBJ traces.",
+      "shape": "A solve@B dominates C over all grid budgets and the mid-budget band for both tasks in this pilot.",
+      "single_next_move": "Treat this as a positive causal pilot that cost can convert to solve@budget, then scale n/background and add faithful external baselines before any SOTA claim."
+    },
+    "gate_outcomes": [
+      {"gate": "HB1_sudoku_primary_pilot", "outcome": "PASS", "number": "A-C gap=0.5 at B*=28070, threshold=0.10."},
+      {"gate": "HB1_futoshiki_primary_pilot", "outcome": "PASS", "number": "A-C gap=0.5 at B*=3206226, threshold=0.10."},
+      {"gate": "HB3_shape_pilot", "outcome": "PASS", "number": "A_ge_C over all grid budgets and mid-band for sudoku/futoshiki symbolic-CBJ."},
+      {"gate": "HB2_external_sota", "outcome": "NOT_RUN", "number": "LFS, ReST-MCTS*, Beyond-the-Frontier, To-Backtrack-or-Not not run; faithful local implementations unavailable."}
+    ],
+    "next_step_routing": "Scale the primary pilot to larger n in background and only then decide whether to promote the solve@budget claim. Keep external SOTA positioning as not-run until faithful implementations are integrated."
+  },
+  "result_tables": {
+    "b_star_and_primary_gap": {
+      "columns": ["task", "B_star", "C_midband_solve", "A_solve", "C_solve", "A_minus_C"],
+      "rows": [
+        {"task": "sudoku", "B_star": 28070, "C_midband_solve": 0.5, "A_solve": 1.0, "C_solve": 0.5, "A_minus_C": 0.5},
+        {"task": "futoshiki", "B_star": 3206226, "C_midband_solve": 0.5, "A_solve": 1.0, "C_solve": 0.5, "A_minus_C": 0.5}
+      ]
+    },
+    "full_trace_costs": {
+      "columns": ["task", "n", "A_mean_total_tokens", "C_mean_total_tokens", "C_over_A", "mean_steps"],
+      "rows": [
+        {"task": "sudoku", "n": 2, "A_mean_total_tokens": 3542.5, "C_mean_total_tokens": 289479.5, "C_over_A": 58.454890198773896, "mean_steps": 112.0},
+        {"task": "futoshiki", "n": 2, "A_mean_total_tokens": 31927.0, "C_mean_total_tokens": 20847394.0, "C_over_A": 500.4568106797599, "mean_steps": 989.5}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish full SOTA solve@budget competitiveness or a large-n final curve. It is a primary causal pilot on n=2 per task.",
+    "external_limit": "External baselines were not run; they remain explicitly not-run rather than approximated.",
+    "policy_limit": "The formal run uses native symbolic-CBJ on sudoku/futoshiki. Chronological and graph_color C1 matched-budget live runs are not completed in this item.",
+    "scaling_note": "A broader n run was attempted but full futoshiki traces with growing-context tokenization were too slow for immediate closeout; it should be launched separately with source selection or optimized accounting."
+  }
+}
