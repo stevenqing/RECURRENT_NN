@@ -1,6 +1,6 @@
 # RECURRENT_NN Reproducibility Contract
 
-Last audited: 2026-06-07 at commit `229b61a`.
+Last audited: 2026-06-15 at commit `53769dc`.
 
 This repository is reproducible as a workflow, not as a fully self-contained binary snapshot.
 
@@ -11,6 +11,19 @@ The following are tracked and should exist immediately after checkout:
 - environment/setup instructions in `ENV_SPEC.md`
 - canonical repo note in `CANONICAL_REPO.md`
 - validation and ledger code in `analysis/validate_outputs.py` and `analysis/experiment_log.py`
+- KV-cache matched-budget runners and HB-2 external baseline adapters:
+  - `analysis/kvcache_matched_budget_scaled.py`
+  - `analysis/kvcache_graph_color_budget_curves.py`
+  - `analysis/kvcache_graph_color_c1_budget.py`
+  - `analysis/kvcache_best_of_n_baseline.py`
+  - `analysis/kvcache_lfs_baseline.py`
+  - `analysis/kvcache_tot_rap_baselines.py`
+  - `analysis/kvcache_external_budget_baselines.py`
+- HB-2 launchers:
+  - `scripts/launch_hb2_best_of_n_full_grid.sh`
+  - `scripts/launch_hb2_lfs_full_grid.sh`
+  - `scripts/launch_hb2_tot_rap_full_grid.sh`
+  - `scripts/launch_hb2_external_full_grid.sh`
 - Stage A fill-in entrypoints in `experiments/stage_a_adapter_wiring.py`, `experiments/stage_a_banded_gate_refusal.py`, and `experiments/stage_a_sudoku6_bridge.py`
 - W3 Qwen3.5 metadata probe in `experiments/w3_qwen35_probe.py`
 - specs in `specs/g1_fix_spec.md` and `specs/w3_qwen35_probe_spec.md`
@@ -21,6 +34,7 @@ The following are tracked and should exist immediately after checkout:
 These are not stored in git and must be regenerated or downloaded:
 
 - Python environment under `.venv/`
+- local external repo clones under `external_repos/`; only repo URL/commit provenance is tracked
 - Hugging Face model cache for `Qwen/Qwen3-4B-Instruct-2507`, `Qwen/Qwen3-4B-Thinking-2507`, and `Qwen/Qwen3.5-4B`
 - Stage A reconstructed binaries:
   - `artifacts/stage_a/recurrent_solver_b1a_clean_l2_tied_p96_e300_seed102.pt`
@@ -54,13 +68,105 @@ By default this does not redownload Qwen weights. To redownload/refresh model re
 DOWNLOAD_MODELS=1 bash scripts/reproduce_continuation_state.sh
 ```
 
-Expected current-state validation after refresh is all green:
+Expected current-state validation after refresh currently has the known Stage-A red checks:
 
 ```text
-149 PASS / 0 FAIL / 149 total
+967 PASS / 3 FAIL / 970 total
 ```
 
-The Stage A full autonomous grid remains an evidence gap even though the registered validation checks pass.
+The 3 failures are the long-standing Stage-A autonomous learned-track blockers. Do not reinterpret them as HB-2 regressions.
+
+## Current KV-Cache / HB-2 Reproduction Entrypoints
+
+Use the repo-local Python command pattern:
+
+```bash
+PY="$HOME/.local/bin/uv run --python .venv/bin/python python"
+```
+
+### Primary A-cache vs C-in-context Results
+
+The tracked item records and small merged JSON artifacts document the current primary results. To regenerate the main CSP matched-budget grid, use:
+
+```bash
+scripts/launch_matched_budget_scaled_primary.sh
+```
+
+This reproduces the scaled CSP A-vs-C grid under `results/kvcache_matched_budget_v0/scaled_primary_n64/`.
+
+Graph-color symbolic and C1 budget curves are produced by:
+
+```bash
+$PY -m analysis.kvcache_graph_color_budget_curves \
+  --input results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_n64.json \
+  --output results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_budget_curve_n64.json
+
+$PY -m analysis.kvcache_graph_color_c1_budget merge \
+  --inputs 'results/kvcache_matched_budget_v0/graph_color_part_a/c1_v16_r16_n64_shards/shard_[0-9].json' \
+  --output results/kvcache_matched_budget_v0/graph_color_part_a/c1_v16_r16_n64_shards/merged_c1_v16_r16_n64.json
+```
+
+The graph-color C1 shard generation itself is expensive and uses `analysis.kvcache_graph_color_c1_budget run-shard`; see `results/experiment_items/item_123_graph_color_c1_budget_targeting_independence.json` for the exact recorded scope.
+
+### HB-2 External No-Train Baselines
+
+Current external baseline methods are all repo-grounded and no-train:
+
+- best-of-n parallel sampling: `analysis/kvcache_best_of_n_baseline.py`
+- LFS repo-port: `analysis/kvcache_lfs_baseline.py`
+- ToT/RAP repo-port: `analysis/kvcache_tot_rap_baselines.py`
+
+Official upstream provenance is tracked in:
+
+- `results/kvcache_matched_budget_v0/external_repo_provenance.json`
+- `results/kvcache_matched_budget_v0/external_budget_runner_registry.json`
+
+The current accelerated HB-2 external full-grid launcher uses GPUs 0-3 only, 4 shards, and higher batching for the methods that support it:
+
+```bash
+BASELINES=lfs,tot_rap,best_of_n \
+SHARDS=4 \
+GPUS=4 \
+INSTANCES=64 \
+TASKS=sudoku,futoshiki,graph_color \
+BUDGET_SCALES=0.25,0.5,1,2,4 \
+SAMPLE_BATCH_SIZE=32 \
+VALUE_BATCH_SIZE=8 \
+scripts/launch_hb2_external_full_grid.sh
+```
+
+By default this writes to separate GPU0-3 batched roots:
+
+- `results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64_gpu0_3_batched/`
+- `results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64_gpu0_3_batched/`
+- `results/kvcache_matched_budget_v0/hb2_best_of_n/full_grid_n64_gpu0_3_batched/`
+
+These roots are intentionally separate from the cancelled earlier 8-shard roots. Do not merge rows across `full_grid_n64/` and `full_grid_n64_gpu0_3_batched/`; their shard partitions differ.
+
+Use the individual launchers when reproducing one baseline at a time:
+
+```bash
+scripts/launch_hb2_lfs_full_grid.sh
+scripts/launch_hb2_tot_rap_full_grid.sh
+scripts/launch_hb2_best_of_n_full_grid.sh
+```
+
+All these launchers use checkpoint/resume files. If interrupted, rerun the same command with the same `ROOT`, `SHARDS`, `TASKS`, and `BUDGET_SCALES`.
+
+### Smoke / Adapter Gates
+
+The adapter-only smoke records are tracked and should not be read as final performance:
+
+- `results/experiment_items/item_125_hb2_best_of_n_exhaustive_smoke.json`
+- `results/experiment_items/item_126_hb2_lfs_repo_port_smoke.json`
+- `results/experiment_items/item_127_hb2_tot_rap_repo_port_smoke.json`
+
+The launch/progress records are:
+
+- `results/experiment_items/item_128_hb2_external_full_grid_launch.json`
+- `results/experiment_items/item_129_hb2_gpu03_batched_relaunch.json`
+
+These records establish engineering reproducibility and launch provenance only. HB-2 confirm/kill requires merged full-grid outputs.
 
 ## Bitwise Caveats
 
@@ -69,6 +175,7 @@ Exact byte-for-byte reproduction is not guaranteed for every generated file.
 - `requirements.txt` uses lower bounds, not a lockfile. `ENV_SPEC.md` records the verified package snapshot, but `uv pip install -r requirements.txt` may resolve newer packages in the future.
 - GPU training/reconstruction can be nondeterministic across CUDA/PyTorch versions. The manifest hashes record the local reconstructed artifacts, not a guaranteed future bitwise target.
 - JSON files with `generated_at` timestamps will naturally differ between runs.
+- HB-2 runtime checkpoints/logs under ignored `results/kvcache_matched_budget_v0/**` are not all committed. Only small item records, provenance records, and selected final/smoke JSON artifacts are tracked. Regenerate large grids with the launchers above.
 - Hugging Face cache paths can differ by machine. The model ids and snapshot records are the reproducibility anchors.
 
 ## Honest Claim
@@ -79,10 +186,12 @@ The current claim is:
 - model assets are externally downloadable and records exist;
 - Stage A parent artifacts are regenerable from repo code;
 - continuation validation/ledger can be refreshed from tracked scripts;
-- the scientific status is still red at Stage A G1/L4, not silently passing.
+- KV-cache A/C and HB-2 method code/launch commands are tracked;
+- the scientific status is still red at Stage A G1/L4, and HB-2 external full-grid results remain in progress until merged outputs are present.
 
 The current claim is not:
 
 - a fully self-contained checkout with all binaries committed;
 - a bitwise deterministic artifact bundle;
-- a completed P1/P2/P3 experiment run.
+- a completed P1/P2/P3 experiment run;
+- a completed HB-2 external full-grid read at the time of this audit.
