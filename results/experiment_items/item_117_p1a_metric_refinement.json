@@ -1,0 +1,91 @@
+{
+  "item_number": "117",
+  "schema_version": "log_item_contract_v1",
+  "status": "P1A_METRIC_REFINEMENT_COST_POSITIVE_REASON_NEGATIVE",
+  "name": "P1-A metric-refined cross-task generalization",
+  "generated_at": "2026-06-15T06:05:00+00:00",
+  "purpose": "Run the Item115 metric-refinement addendum for P1-A: decouple exact-CBJ decision quality and A/C cost from solve mid-band Gate-3. Using the verified Gate-2 solver, collect nontrivial backjump decision points, run C1 zero-shot BACKJUMP targeting on futoshiki and 9x9 sudoku, and measure A-vs-C token growth on verified traces. n_queens has zero nontrivial CBJ decision points under the current row-as-variable formulation and is not read for exact-CBJ.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["113", "115"],
+    "spec": "user SPEC Overnight Batch v0 Addendum Item115, P1-A metric refinement",
+    "script": "analysis/kvcache_gate2_csp_solver.py",
+    "futoshiki_decision_preflight": "results/kvcache_overnight_v0/p1a_metric/futoshiki_decision_preflight.json",
+    "sudoku_decision_preflight": "results/kvcache_overnight_v0/p1a_metric/sudoku_decision_preflight.json",
+    "n_queens_decision_preflight": "results/kvcache_overnight_v0/p1a_metric/n_queens_decision_preflight.json",
+    "futoshiki_reason": "results/kvcache_overnight_v0/p1a_metric/futoshiki_reason_metric.json",
+    "sudoku_reason": "results/kvcache_overnight_v0/p1a_metric/sudoku_reason_metric.json",
+    "futoshiki_cost": "results/kvcache_overnight_v0/p1a_metric/futoshiki_cost_metric.json",
+    "sudoku_cost": "results/kvcache_overnight_v0/p1a_metric/sudoku_cost_metric.json",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "reason_dtype": "fp32"
+  },
+  "artifacts": [
+    "results/experiment_items/item_117_p1a_metric_refinement.json",
+    "analysis/kvcache_gate2_csp_solver.py",
+    "results/kvcache_overnight_v0/p1a_metric/futoshiki_decision_preflight.json",
+    "results/kvcache_overnight_v0/p1a_metric/sudoku_decision_preflight.json",
+    "results/kvcache_overnight_v0/p1a_metric/n_queens_decision_preflight.json",
+    "results/kvcache_overnight_v0/p1a_metric/futoshiki_reason_metric.json",
+    "results/kvcache_overnight_v0/p1a_metric/sudoku_reason_metric.json",
+    "results/kvcache_overnight_v0/p1a_metric/futoshiki_cost_metric.json",
+    "results/kvcache_overnight_v0/p1a_metric/sudoku_cost_metric.json"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_gate2_csp_solver.py", "change": "Adds decision-preflight, reason-metric, and cost-metric commands on top of the verified Gate-2 solver."}
+  ],
+  "commands": [
+    {"command": "decision-preflight for futoshiki size7 difficulty3, sudoku 9x9, and n_queens N12 remove-max", "purpose": "Check enough nontrivial CBJ decision points before reason/cost reads."},
+    {"command": "reason-metric for futoshiki and sudoku, max_points=80, nontrivial_only, Qwen3 fp32", "purpose": "Measure zero-shot C1 exact-CBJ decision quality on nontrivial cross-task dead-ends."},
+    {"command": "cost-metric for futoshiki and sudoku", "purpose": "Measure A-vs-C token growth by depth on selected multi-source verified trace prefixes."}
+  ],
+  "decision": {
+    "outcome": "COST_GENERALIZES_REASON_DOES_NOT_IN_FIRST_PROMPT",
+    "overall_pass": true,
+    "headline": {
+      "decision_precondition": "futoshiki and sudoku have enough nontrivial points; n_queens has 3253 decision points but 0 nontrivial, so exact-CBJ is trivial/not readable for n_queens under row-as-variable formulation.",
+      "futoshiki_reason": "parse_rate=1.0, valid_rate=1.0, exact_cbj_rate=0.075 vs chrono_exact_rate=0.0 on 80 nontrivial points.",
+      "sudoku_reason": "parse_rate=1.0, valid_rate=1.0, exact_cbj_rate=0.0125 vs chrono_exact_rate=0.0 on 80 nontrivial points.",
+      "cost": "A-vs-C token growth generalizes strongly on selected multi-source trace prefixes: futoshiki reaches max-depth C/A=478.23x and sudoku reaches max-depth C/A=121.85x.",
+      "single_next_move": "Report cross-task cost generalization as positive, but do not claim C1 exact-CBJ reason generalization from this prompt. Improve task-specific reason prompts or scoring before any positive reason claim."
+    },
+    "gate_outcomes": [
+      {"gate": "futoshiki_decision_precondition", "outcome": "PASS", "number": "56978 points, 10124 nontrivial."},
+      {"gate": "sudoku_decision_precondition", "outcome": "PASS", "number": "4127 points, 274 nontrivial."},
+      {"gate": "n_queens_decision_precondition", "outcome": "FAIL_TRIVIAL", "number": "3253 points, 0 nontrivial."},
+      {"gate": "futoshiki_reason", "outcome": "NEGATIVE_LOW_EXACT", "number": "exact=0.075, parse=1.0, valid=1.0."},
+      {"gate": "sudoku_reason", "outcome": "NEGATIVE_LOW_EXACT", "number": "exact=0.0125, parse=1.0, valid=1.0."},
+      {"gate": "cost", "outcome": "PASS_POSITIVE", "number": "C/A grows steeply with depth for futoshiki and sudoku; final prefix-bounded multi-source rows use 2 futoshiki source traces and 5 sudoku source traces."}
+    ],
+    "next_step_routing": "For P1-A, quote cost generalization but not reason generalization. For reason, inspect wrong predictions and redesign task-specific prompts before rerun."
+  },
+  "result_tables": {
+    "decision_precondition": {
+      "columns": ["task", "points", "nontrivial", "sufficient"],
+      "rows": [
+        {"task": "futoshiki", "points": 56978, "nontrivial": 10124, "sufficient": true},
+        {"task": "sudoku", "points": 4127, "nontrivial": 274, "sufficient": true},
+        {"task": "n_queens", "points": 3253, "nontrivial": 0, "sufficient": false}
+      ]
+    },
+    "reason_metric": {
+      "columns": ["task", "n", "parse_rate", "valid_rate", "exact_cbj_rate", "chrono_exact_rate"],
+      "rows": [
+        {"task": "futoshiki", "n": 80, "parse_rate": 1.0, "valid_rate": 1.0, "exact_cbj_rate": 0.075, "chrono_exact_rate": 0.0},
+        {"task": "sudoku", "n": 80, "parse_rate": 1.0, "valid_rate": 1.0, "exact_cbj_rate": 0.0125, "chrono_exact_rate": 0.0}
+      ]
+    },
+    "cost_metric": {
+      "columns": ["task", "source_instances", "events", "max_depth", "deep_C_over_A", "max_bucket_C_over_A"],
+      "rows": [
+        {"task": "futoshiki", "source_instances": 2, "events": 1690, "max_depth": 28, "deep_C_over_A": 478.2307692307692, "max_bucket_C_over_A": 804.4912280701755},
+        {"task": "sudoku", "source_instances": 5, "events": 2226, "max_depth": 33, "deep_C_over_A": 121.84615384615384, "max_bucket_C_over_A": 933.9032258064516}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish cross-task C1 reason generalization. The model follows format but chooses the wrong target on most nontrivial futoshiki/sudoku points.",
+    "cost_limit": "Cost is tokenizer/context accounting on selected multi-source verified symbolic trace prefixes, not a full live-KV cache replay per task.",
+    "n_queens_limit": "n_queens row-variable formulation yields zero nontrivial chrono-vs-CBJ target differences, so exact-CBJ is not a meaningful metric there without a different formulation."
+  }
+}
