@@ -170,19 +170,26 @@ def _trace_csp(inst: CSPInstance, dataset: Any, tokenizer: Any, policy: str, nod
     )
 
 
-def _bill_trace(trace: TraceResult, tokenizer: Any) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+def _bill_trace(trace: TraceResult, tokenizer: Any, max_c_budget: int | None = None) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     transcript = trace.base_text
     cumulative_a = int(trace.base_tokens)
     cumulative_c = 0
+    c_capped = False
     rows: list[dict[str, Any]] = []
     max_depth_seen = 0
     for step_index, event in enumerate(trace.events, start=1):
         text = _event_text(event)
         a_tokens = len(tokenizer(text, add_special_tokens=False).input_ids)
-        c_tokens = len(tokenizer(transcript + text, add_special_tokens=False).input_ids)
         cumulative_a += a_tokens
-        cumulative_c += c_tokens
-        transcript += text + "\n"
+        c_tokens = None
+        c_cumulative = None
+        if not c_capped:
+            c_tokens = len(tokenizer(transcript + text, add_special_tokens=False).input_ids)
+            cumulative_c += c_tokens
+            c_cumulative = cumulative_c
+            transcript += text + "\n"
+            if max_c_budget is not None and cumulative_c > int(max_c_budget):
+                c_capped = True
         max_depth_seen = max(max_depth_seen, int(event.get("depth", 0)))
         rows.append({
             "step_index": step_index,
@@ -191,11 +198,13 @@ def _bill_trace(trace: TraceResult, tokenizer: Any) -> tuple[list[dict[str, Any]
             "A_tokens_step": a_tokens,
             "C_tokens_step": c_tokens,
             "A_tokens_cumulative": cumulative_a,
-            "C_tokens_cumulative": cumulative_c,
+            "C_tokens_cumulative": c_cumulative,
         })
     return rows, {
         "A_total_tokens": cumulative_a,
-        "C_total_tokens": cumulative_c,
+        "C_total_tokens": None if c_capped else cumulative_c,
+        "C_tokens_observed_until_cap": cumulative_c,
+        "C_capped": c_capped,
         "steps": len(trace.events),
         "max_depth_seen": max_depth_seen,
     }
@@ -203,11 +212,11 @@ def _bill_trace(trace: TraceResult, tokenizer: Any) -> tuple[list[dict[str, Any]
 
 def _budget_eval(trace: TraceResult, billed: list[dict[str, Any]], method: str, budget: int) -> dict[str, Any]:
     key = "A_tokens_cumulative" if method == "A_cache" else "C_tokens_cumulative"
-    processed = [row for row in billed if int(row[key]) <= int(budget)]
-    tokens_used = int(processed[-1][key]) if processed else 0
+    processed = [row for row in billed if row.get(key) is not None and int(row[key]) <= int(budget)]
     depth_reached = max((int(row["depth"]) for row in processed), default=0)
-    full_tokens = int(billed[-1][key]) if billed else (trace.base_tokens if method == "A_cache" else 0)
-    solved = bool(trace.solved and full_tokens <= int(budget))
+    full_tokens = int(billed[-1][key]) if billed and billed[-1].get(key) is not None else (trace.base_tokens if method == "A_cache" and not billed else None)
+    solved = bool(trace.solved and full_tokens is not None and full_tokens <= int(budget))
+    tokens_used = full_tokens if solved else int(budget)
     return {
         "method": method,
         "budget_B": int(budget),
@@ -217,6 +226,26 @@ def _budget_eval(trace: TraceResult, billed: list[dict[str, Any]], method: str, 
         "steps_reached": len(billed) if solved else len(processed),
         "full_trace_tokens": full_tokens,
     }
+
+
+def _wilson(successes: int, n: int, z: float = 1.959963984540054) -> tuple[float | None, float | None]:
+    if n <= 0:
+        return None, None
+    phat = successes / n
+    denom = 1 + z * z / n
+    center = (phat + z * z / (2 * n)) / denom
+    half = z * ((phat * (1 - phat) / n + z * z / (4 * n * n)) ** 0.5) / denom
+    return max(0.0, center - half), min(1.0, center + half)
+
+
+def _gap_ci(a_successes: int, a_n: int, c_successes: int, c_n: int, z: float = 1.959963984540054) -> tuple[float | None, float | None]:
+    if a_n <= 0 or c_n <= 0:
+        return None, None
+    a_rate = a_successes / a_n
+    c_rate = c_successes / c_n
+    se = ((a_rate * (1 - a_rate) / a_n) + (c_rate * (1 - c_rate) / c_n)) ** 0.5
+    gap = a_rate - c_rate
+    return gap - z * se, gap + z * se
 
 
 def _budget_grid(c_totals: list[int], fallback: list[int]) -> list[int]:

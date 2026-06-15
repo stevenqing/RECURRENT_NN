@@ -1,0 +1,79 @@
+{
+  "item_number": "120",
+  "schema_version": "log_item_contract_v1",
+  "status": "SCALED_MATCHED_BUDGET_PROGRESS_POSITIVE_NOT_PROMOTED",
+  "name": "Scaled matched-budget primary progress",
+  "generated_at": "2026-06-15T08:10:00+00:00",
+  "purpose": "Scale the Item119 matched-budget primary causal pilot toward the preregistered promotion curve. Run checkpointed n=64 shard infrastructure for sudoku/futoshiki symbolic-CBJ A_cache vs C_incontext over {0.25,0.5,1,2,4}xB*. The run completed all sudoku traces and a partial futoshiki subset before hitting long-tail futoshiki traces; results are positive but not promotable because futoshiki n<64 and graph_color/external baselines are not complete.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["119"],
+    "spec": "user SPEC Matched-Budget Head-to-Head Addenda: scale primary to promotable curve and repo-based external baselines",
+    "scaled_script": "analysis/kvcache_matched_budget_scaled.py",
+    "legacy_primary_script": "analysis/kvcache_matched_budget.py",
+    "launcher": "scripts/launch_matched_budget_scaled_primary.sh",
+    "external_repo_provenance": "results/kvcache_matched_budget_v0/external_repo_provenance.json",
+    "scaled_checkpoint_progress": "results/kvcache_matched_budget_v0/scaled_primary_n64/merged_checkpoint_progress.json",
+    "budget_anchors": {"sudoku": 28070, "futoshiki": 3206226},
+    "budget_grid": "0.25,0.5,1,2,4 times per-task B*"
+  },
+  "artifacts": [
+    "results/experiment_items/item_120_scaled_matched_budget_progress.json",
+    "analysis/kvcache_matched_budget_scaled.py",
+    "analysis/kvcache_matched_budget.py",
+    "scripts/launch_matched_budget_scaled_primary.sh",
+    "results/kvcache_matched_budget_v0/external_repo_provenance.json",
+    "results/kvcache_matched_budget_v0/scaled_primary_n64/merged_checkpoint_progress.json"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_matched_budget_scaled.py", "change": "Adds shard/checkpoint/merge runner with fixed B* log grid, Wilson CIs, A-C gap CIs, and C-side budget-capped accounting."},
+    {"path": "scripts/launch_matched_budget_scaled_primary.sh", "change": "Launches 8 checkpointed CPU shards and merges completed shard outputs."}
+  ],
+  "commands": [
+    {"command": "scripts/launch_matched_budget_scaled_primary.sh with SHARDS=8", "purpose": "Run n=64 sudoku/futoshiki symbolic-CBJ A-vs-C scaled primary shards."},
+    {"command": "python -m analysis.kvcache_matched_budget_scaled merge --inputs shard_*_checkpoint.json --output merged_checkpoint_progress.json", "purpose": "Merge checkpointed completed traces after stopping long-tail futoshiki shard run."},
+    {"command": "GitHub API / github_repo lookup for LFS, First Finish Search, ReST-MCTS, Beyond-the-Frontier", "purpose": "Record external baseline repo provenance without fabricating curves."}
+  ],
+  "decision": {
+    "outcome": "POSITIVE_PARTIAL_NO_PROMOTION",
+    "overall_pass": true,
+    "promotion_pass": false,
+    "headline": {
+      "sudoku_scaled": "Completed n=64. At B*=28070, A solve=0.890625, C solve=0.109375, gap=0.78125; conservative gap CI [0.5820,0.8920] excludes 0.",
+      "futoshiki_partial": "Completed n=16 of required n>=64. At B*=3206226, A solve=1.0, C solve=0.375, gap=0.625; conservative gap CI [0.1928,0.8152] excludes 0, but n is not promotable.",
+      "shape": "A dominates C on all observed grid points for completed sudoku and partial futoshiki symbolic-CBJ curves.",
+      "single_next_move": "Resume/finish futoshiki shards or add source-level runtime controls that preserve the preregistered sampling frame; add graph_color mechanism curves before promotion."
+    },
+    "gate_outcomes": [
+      {"gate": "scaled_sudoku_n64", "outcome": "PASS_POSITIVE", "number": "n=64, gap=0.78125 at B*=28070, CI excludes 0."},
+      {"gate": "scaled_futoshiki_partial", "outcome": "POSITIVE_BUT_INCOMPLETE", "number": "n=16/64, gap=0.625 at B*=3206226, CI excludes 0 but n requirement unmet."},
+      {"gate": "promotion_rule", "outcome": "NOT_PROMOTED", "number": "Requires gap CI excludes 0 and gap>=0.10 at mid-band on >=2/3 tasks plus graph_color and HB3; graph_color missing and futoshiki n<64."},
+      {"gate": "external_repo_baselines", "outcome": "DISCOVERY_PARTIAL_NOT_RUN", "number": "LFS and First Finish repos located; ReST-MCTS scoped out; Beyond-the-Frontier repo not found; no external curves run."}
+    ],
+    "next_step_routing": "Do not promote solve@budget claim yet. Keep item119 as pilot and item120 as strong partial scaled evidence; finish full futoshiki n=64 and graph_color variants, then rerun promotion rule."
+  },
+  "result_tables": {
+    "midband_gap_progress": {
+      "columns": ["task", "n", "B_star", "A_solve", "C_solve", "A_minus_C", "gap_ci_low", "gap_ci_high", "promotion_point"],
+      "rows": [
+        {"task": "sudoku", "n": 64, "B_star": 28070, "A_solve": 0.890625, "C_solve": 0.109375, "A_minus_C": 0.78125, "gap_ci_low": 0.5820271734620774, "gap_ci_high": 0.891997733111664, "promotion_point": true},
+        {"task": "futoshiki", "n": 16, "B_star": 3206226, "A_solve": 1.0, "C_solve": 0.375, "A_minus_C": 0.625, "gap_ci_low": 0.19280272492059092, "gap_ci_high": 0.8151876744113636, "promotion_point": false}
+      ]
+    },
+    "repo_provenance": {
+      "columns": ["method", "repo", "commit", "status"],
+      "rows": [
+        {"method": "LFS", "repo": "NathanHerr/LLM-First-Search", "commit": "3025bdaa3add6f41388c1d5a6d354522489d312e", "status": "LOCATED_READ_PARTIAL"},
+        {"method": "First Finish Search", "repo": "Aradhye2002/reasoning_exps", "commit": "31e1c84c1525ee2f6469c46e433edb1d9e751cf7", "status": "LOCATED_NOT_PORTED"},
+        {"method": "ReST-MCTS*", "repo": "THUDM/ReST-MCTS", "commit": "2d5f488c3d6e24f99d50a9860e818383b1bb5883", "status": "SCOPED_OUT"},
+        {"method": "Beyond-the-Frontier", "repo": null, "commit": null, "status": "NOT_LOCATED"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish the full promotion rule. It lacks completed futoshiki n>=64, graph_color symbolic/C1 variants, and external baseline curves.",
+    "long_tail": "The n=64 shard run was stopped after no checkpoint progress on several very long futoshiki sources; checkpointed completed traces were merged as progress rather than presented as final.",
+    "external_limit": "External baseline repos were discovered/read only partially. No LFS, First Finish, Beyond-the-Frontier, or best-of-n curve is reported.",
+    "positive_read": "Within completed traces, the A-vs-C solve@budget gap is large and confidence intervals exclude 0, supporting the mechanism direction while still requiring full-scale completion."
+  }
+}
