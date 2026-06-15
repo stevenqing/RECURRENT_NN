@@ -1,0 +1,78 @@
+{
+  "item_number": "130",
+  "schema_version": "log_item_contract_v1",
+  "status": "HB2_X2_DETACHED_FULL_UTIL_LAUNCHED_NO_CONCLUSION",
+  "name": "HB-2 x2 detached full-util launch",
+  "generated_at": "2026-06-15T15:14:00+00:00",
+  "purpose": "Further accelerate the HB-2 external full-grid run by using two shard processes per GPU on GPUs 0-3, adding a detached/nohup launcher so the run survives VS Code terminal lifecycle events, validating the detached path on a low-budget dry run, and launching the formal x2 run. This is a launch/progress item and draws no HB-2 conclusion.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["129"],
+    "detached_launcher": "scripts/launch_hb2_external_full_grid_detached.sh",
+    "formal_master_pid": "1017341",
+    "formal_run_root": "results/kvcache_matched_budget_v0/hb2_external_runs/gpu0_3_x2_batched_formal",
+    "formal_log": "results/kvcache_matched_budget_v0/hb2_external_runs/gpu0_3_x2_batched_formal/master.log",
+    "formal_launch_command": "RUN_ROOT=results/kvcache_matched_budget_v0/hb2_external_runs/gpu0_3_x2_batched_formal BASELINES=lfs,tot_rap,best_of_n SHARDS=8 GPUS=4 INSTANCES=64 TASKS=sudoku,futoshiki,graph_color BUDGET_SCALES=0.25,0.5,1,2,4 SAMPLE_BATCH_SIZE=32 VALUE_BATCH_SIZE=8 scripts/launch_hb2_external_full_grid_detached.sh",
+    "gpu_policy": "Use GPUs 0-3 with two model processes per GPU; leave GPUs 4-7 to the independent UI-S1/PO process.",
+    "output_roots": {
+      "best_of_n": "results/kvcache_matched_budget_v0/hb2_best_of_n/full_grid_n64_gpu0_3_x2_batched",
+      "lfs": "results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64_gpu0_3_x2_batched",
+      "tot_rap": "results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64_gpu0_3_x2_batched"
+    }
+  },
+  "artifacts": [
+    "results/experiment_items/item_130_hb2_x2_detached_full_util_launch.json",
+    "REPRODUCIBILITY.md",
+    "scripts/launch_hb2_best_of_n_full_grid.sh",
+    "scripts/launch_hb2_lfs_full_grid.sh",
+    "scripts/launch_hb2_tot_rap_full_grid.sh",
+    "scripts/launch_hb2_external_full_grid.sh",
+    "scripts/launch_hb2_external_full_grid_detached.sh"
+  ],
+  "code_added_used": [
+    {"path": "scripts/launch_hb2_external_full_grid_detached.sh", "change": "Adds nohup-based detached launcher with pid/log/env files."},
+    {"path": "scripts/launch_hb2_external_full_grid.sh", "change": "Defaults to SHARDS=8 and GPUS=4 for two model processes per GPU on GPU0-3."},
+    {"path": "scripts/launch_hb2_best_of_n_full_grid.sh", "change": "Uses x2 batched output root and 8 default shards over 4 GPUs."},
+    {"path": "scripts/launch_hb2_lfs_full_grid.sh", "change": "Uses x2 batched output root and 8 default shards over 4 GPUs."},
+    {"path": "scripts/launch_hb2_tot_rap_full_grid.sh", "change": "Uses x2 batched output root and 8 default shards over 4 GPUs."}
+  ],
+  "commands": [
+    {"command": "bash -n scripts/launch_hb2_best_of_n_full_grid.sh scripts/launch_hb2_lfs_full_grid.sh scripts/launch_hb2_tot_rap_full_grid.sh scripts/launch_hb2_external_full_grid.sh scripts/launch_hb2_external_full_grid_detached.sh && ~/.local/bin/uv run --python .venv/bin/python python -m py_compile analysis/kvcache_tot_rap_baselines.py analysis/kvcache_lfs_baseline.py analysis/kvcache_best_of_n_baseline.py", "purpose": "Validate launcher syntax and runner imports."},
+    {"command": "RUN_ROOT=results/kvcache_matched_budget_v0/hb2_external_runs/debug_detached_x2 BASELINES=best_of_n,lfs,tot_rap SHARDS=2 GPUS=1 INSTANCES=1 TASKS=sudoku BUDGET_SCALES=0.032 BEST_OF_N_ROOT=results/kvcache_matched_budget_v0/hb2_best_of_n/debug_detached_x2 LFS_ROOT=results/kvcache_matched_budget_v0/hb2_lfs/debug_detached_x2 TOT_RAP_ROOT=results/kvcache_matched_budget_v0/hb2_tot_rap/debug_detached_x2 SAMPLE_BATCH_SIZE=8 VALUE_BATCH_SIZE=4 scripts/launch_hb2_external_full_grid_detached.sh", "purpose": "Validate detached launcher on a low-budget dry run."},
+    {"command": "RUN_ROOT=results/kvcache_matched_budget_v0/hb2_external_runs/gpu0_3_x2_batched_formal BASELINES=lfs,tot_rap,best_of_n SHARDS=8 GPUS=4 INSTANCES=64 TASKS=sudoku,futoshiki,graph_color BUDGET_SCALES=0.25,0.5,1,2,4 SAMPLE_BATCH_SIZE=32 VALUE_BATCH_SIZE=8 scripts/launch_hb2_external_full_grid_detached.sh", "purpose": "Launch formal HB-2 external full-grid run with x2 GPU0-3 utilization."}
+  ],
+  "decision": {
+    "outcome": "X2_GPU03_DETACHED_RUN_RUNNING_HB2_STILL_UNREAD",
+    "overall_pass": true,
+    "hb2_confirmed": false,
+    "headline": {
+      "detached": "Detached dry run completed best-of-n, LFS, and ToT/RAP with merged outputs and no errors.",
+      "utilization": "Formal x2 run shows GPUs 0-3 at about 32GB each and 98-99% utilization during LFS startup.",
+      "isolation": "GPUs 4-7 remain assigned to the independent UI-S1/PO process and are not used by HB-2.",
+      "formal_launch": "Formal x2 run is detached under master pid 1017341 with logs in results/kvcache_matched_budget_v0/hb2_external_runs/gpu0_3_x2_batched_formal/master.log."
+    },
+    "gate_outcomes": [
+      {"gate": "detached_launcher", "outcome": "PASS", "number": "Dry run produced all three merged outputs under debug_detached_x2."},
+      {"gate": "x2_gpu_utilization", "outcome": "PASS", "number": "Formal run mapped 8 LFS python processes across GPUs 0-3 with approximately 98-99% utilization."},
+      {"gate": "separate_roots", "outcome": "PASS", "number": "Formal x2 roots use full_grid_n64_gpu0_3_x2_batched and are separate from cancelled 4-shard/8-shard roots."},
+      {"gate": "HB2_read", "outcome": "NOT_READY", "number": "No merged formal full-grid result exists yet; no scientific conclusion is drawn."}
+    ],
+    "next_step_routing": "Monitor detached pid/log and checkpoint rows. Create HB-2 closeout/read only after formal x2 merged outputs exist."
+  },
+  "result_tables": {
+    "formal_x2_launch": {
+      "columns": ["baseline", "root", "shards", "gpus", "status"],
+      "rows": [
+        {"baseline": "lfs", "root": "results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64_gpu0_3_x2_batched", "shards": 8, "gpus": "0-3", "status": "RUNNING_FIRST"},
+        {"baseline": "tot_rap", "root": "results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64_gpu0_3_x2_batched", "shards": 8, "gpus": "0-3", "status": "QUEUED_AFTER_LFS"},
+        {"baseline": "best_of_n", "root": "results/kvcache_matched_budget_v0/hb2_best_of_n/full_grid_n64_gpu0_3_x2_batched", "shards": 8, "gpus": "0-3", "status": "QUEUED_AFTER_TOT_RAP"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not contain HB-2 results and does not compare solve rates. It records only launch engineering and utilization evidence.",
+    "scope_limit": "Two processes per GPU improves utilization by concurrency, not by changing the LFS control loop. Token accounting and official scoring remain unchanged.",
+    "conclusion_policy": "Do not use debug_detached_x2 or cancelled roots for HB-2 final results; only formal x2 merged outputs are eligible.",
+    "external_process_note": "The independent UI-S1/PO process on GPUs 4-7 is left untouched by the HB-2 launcher."
+  }
+}

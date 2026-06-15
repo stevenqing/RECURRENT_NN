@@ -121,11 +121,11 @@ Official upstream provenance is tracked in:
 - `results/kvcache_matched_budget_v0/external_repo_provenance.json`
 - `results/kvcache_matched_budget_v0/external_budget_runner_registry.json`
 
-The current accelerated HB-2 external full-grid launcher uses GPUs 0-3 only, 4 shards, and higher batching for the methods that support it:
+The current accelerated HB-2 external full-grid launcher uses GPUs 0-3 only, 8 shards (two model processes per GPU), and higher batching for the methods that support it:
 
 ```bash
 BASELINES=lfs,tot_rap,best_of_n \
-SHARDS=4 \
+SHARDS=8 \
 GPUS=4 \
 INSTANCES=64 \
 TASKS=sudoku,futoshiki,graph_color \
@@ -135,13 +135,21 @@ VALUE_BATCH_SIZE=8 \
 scripts/launch_hb2_external_full_grid.sh
 ```
 
+For long runs, prefer the detached wrapper so the run survives VS Code terminal lifecycle events:
+
+```bash
+scripts/launch_hb2_external_full_grid_detached.sh
+```
+
+It writes a master log and pid file under `results/kvcache_matched_budget_v0/hb2_external_runs/`.
+
 By default this writes to separate GPU0-3 batched roots:
 
-- `results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64_gpu0_3_batched/`
-- `results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64_gpu0_3_batched/`
-- `results/kvcache_matched_budget_v0/hb2_best_of_n/full_grid_n64_gpu0_3_batched/`
+- `results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64_gpu0_3_x2_batched/`
+- `results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64_gpu0_3_x2_batched/`
+- `results/kvcache_matched_budget_v0/hb2_best_of_n/full_grid_n64_gpu0_3_x2_batched/`
 
-These roots are intentionally separate from the cancelled earlier 8-shard roots. Do not merge rows across `full_grid_n64/` and `full_grid_n64_gpu0_3_batched/`; their shard partitions differ.
+These roots are intentionally separate from the cancelled earlier roots. Do not merge rows across `full_grid_n64/`, `full_grid_n64_gpu0_3_batched/`, and `full_grid_n64_gpu0_3_x2_batched/`; their shard partitions differ.
 
 Use the individual launchers when reproducing one baseline at a time:
 
