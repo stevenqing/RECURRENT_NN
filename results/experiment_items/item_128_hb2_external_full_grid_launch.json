@@ -1,0 +1,75 @@
+{
+  "item_number": "128",
+  "schema_version": "log_item_contract_v1",
+  "status": "HB2_EXTERNAL_FULL_GRID_LAUNCHED_RUNNING_NO_CONCLUSION",
+  "name": "HB-2 external full-grid launch",
+  "generated_at": "2026-06-15T13:43:00+00:00",
+  "purpose": "Remove the smoke expansion caps from LFS, ToT, and RAP, add sharded budget-exhaustive full-grid launchers, validate launcher semantics on a tiny budget, and start the formal n=64 external no-train baseline grid. This is a launch/progress item only; it records that the full-grid batch is running and does not read HB-2 outcomes.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["125", "126", "127"],
+    "spec": "user CODING SPEC — HB-2 External No-Train Matched-Budget Comparison (consolidated, v1); spec unchanged",
+    "terminal_id": "9e3667fc-064f-4651-b232-81b25a04ffc1",
+    "launch_command": "BASELINES=lfs,tot_rap,best_of_n SHARDS=8 GPUS=8 INSTANCES=64 TASKS=sudoku,futoshiki,graph_color BUDGET_SCALES=0.25,0.5,1,2,4 scripts/launch_hb2_external_full_grid.sh",
+    "run_order": ["lfs", "tot_rap", "best_of_n"],
+    "grid": {"instances": 64, "tasks": ["sudoku", "futoshiki", "graph_color"], "budget_scales": [0.25, 0.5, 1, 2, 4], "anchors": {"sudoku": 28070, "futoshiki": 3206226, "graph_color": 32895}},
+    "output_roots": {
+      "best_of_n": "results/kvcache_matched_budget_v0/hb2_best_of_n/full_grid_n64",
+      "lfs": "results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64",
+      "tot_rap": "results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64"
+    }
+  },
+  "artifacts": [
+    "results/experiment_items/item_128_hb2_external_full_grid_launch.json",
+    "analysis/kvcache_lfs_baseline.py",
+    "analysis/kvcache_tot_rap_baselines.py",
+    "scripts/launch_hb2_best_of_n_full_grid.sh",
+    "scripts/launch_hb2_lfs_full_grid.sh",
+    "scripts/launch_hb2_tot_rap_full_grid.sh",
+    "scripts/launch_hb2_external_full_grid.sh"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_lfs_baseline.py", "change": "max_expansions=0 now means run until budget, goal, or no frontier; added run-shard/merge/budget-scales/resume support."},
+    {"path": "analysis/kvcache_tot_rap_baselines.py", "change": "max_expansions=0, mcts_iters=0, max_depth=0, and rollout_depth=0 remove smoke caps for budget-exhaustive ToT/RAP; added run-shard/merge/budget-scales/resume support."},
+    {"path": "scripts/launch_hb2_external_full_grid.sh", "change": "Sequential master launcher for lfs, tot_rap, and best_of_n with 8-shard resumeable full-grid execution."}
+  ],
+  "commands": [
+    {"command": "~/.local/bin/uv run --python .venv/bin/python python -m py_compile analysis/kvcache_lfs_baseline.py analysis/kvcache_tot_rap_baselines.py", "purpose": "Compile-check the budget-exhaustive runner edits."},
+    {"command": "BASELINES=best_of_n,lfs,tot_rap SHARDS=1 GPUS=1 INSTANCES=1 TASKS=sudoku BUDGET_SCALES=0.032 BEST_OF_N_ROOT=results/kvcache_matched_budget_v0/hb2_best_of_n/debug_launcher_grid LFS_ROOT=results/kvcache_matched_budget_v0/hb2_lfs/debug_launcher_grid TOT_RAP_ROOT=results/kvcache_matched_budget_v0/hb2_tot_rap/debug_launcher_grid scripts/launch_hb2_external_full_grid.sh", "purpose": "Dry-run all launchers on one low-budget sudoku row and verify shard-to-merge outputs."},
+    {"command": "BASELINES=lfs,tot_rap,best_of_n SHARDS=8 GPUS=8 INSTANCES=64 TASKS=sudoku,futoshiki,graph_color BUDGET_SCALES=0.25,0.5,1,2,4 scripts/launch_hb2_external_full_grid.sh", "purpose": "Start the formal HB-2 external n=64 full-grid run."}
+  ],
+  "decision": {
+    "outcome": "FULL_GRID_RUNNING_HB2_STILL_UNREAD",
+    "overall_pass": true,
+    "hb2_confirmed": false,
+    "headline": {
+      "cap_removal": "LFS/ToT/RAP now support zero expansion/iteration/depth smoke caps for budget-exhaustive runs; positive caps remain available only as smoke/safety parameters.",
+      "launcher_dry_run": "best-of-n, LFS, and ToT/RAP launchers completed a one-instance low-budget merge dry run.",
+      "formal_launch": "The formal n=64 full grid is running in terminal 9e3667fc-064f-4651-b232-81b25a04ffc1; LFS started at 2026-06-15T13:40:55Z.",
+      "single_next_move": "Monitor shard checkpoints and merge outputs; create HB-2 closeout only after full-grid merged JSONs exist."
+    },
+    "gate_outcomes": [
+      {"gate": "smoke_cap_removed", "outcome": "PASS", "number": "LFS max_expansions=0; ToT/RAP max_expansions=0, mcts_iters=0, max_depth=0, rollout_depth=0 mean no artificial smoke cap."},
+      {"gate": "budget_exhaustion_semantics", "outcome": "PASS", "number": "Low-budget dry run stopped with BUDGET_EXHAUSTED instead of EXPANSION_CAP when no cap was set."},
+      {"gate": "full_grid_launch", "outcome": "RUNNING", "number": "n=64 x 3 tasks x 5 budget scales launched with 8 shards; ToT/RAP includes both methods."},
+      {"gate": "HB2_read", "outcome": "NOT_READY", "number": "No full-grid merged result is complete yet; zero scientific conclusion is drawn from this item."}
+    ],
+    "next_step_routing": "Wait for full-grid merged outputs, then compute/read solve@budget against A_cache symbolic and A_cache_C1. Do not confirm or kill HB-2 before merged results exist."
+  },
+  "result_tables": {
+    "launch_plan": {
+      "columns": ["baseline", "root", "status"],
+      "rows": [
+        {"baseline": "lfs", "root": "results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64", "status": "RUNNING_FIRST"},
+        {"baseline": "tot_rap", "root": "results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64", "status": "QUEUED_AFTER_LFS"},
+        {"baseline": "best_of_n", "root": "results/kvcache_matched_budget_v0/hb2_best_of_n/full_grid_n64", "status": "QUEUED_AFTER_TOT_RAP"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not contain HB-2 results and does not compare solve rates. It only records cap removal, launcher validation, and the start of the full-grid run.",
+    "scope_limit": "The formal run is still in progress. Any partial shard rows are progress telemetry, not final evidence.",
+    "conclusion_policy": "Only merged full-grid outputs may be used for HB-2 confirm/kill. Until then the conclusion remains zero-read.",
+    "runtime_note": "Futoshiki budgets are large, especially at 2x/4x B*, so the run may be long and should be resumed from checkpoints if interrupted."
+  }
+}

@@ -12,10 +12,12 @@ import argparse
 from collections import Counter
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+import glob
 import heapq
 import json
 from pathlib import Path
 from statistics import mean
+import sys
 from typing import Any
 
 import torch
@@ -78,6 +80,20 @@ def _budget_anchors(text: str) -> dict[str, int]:
         key, value = item.split(":", 1)
         anchors[key.strip()] = int(float(value.strip()))
     return anchors
+
+
+def _budget_grid(anchor: int, scales: str) -> list[int]:
+    return sorted({max(1, int(round(float(scale.strip()) * int(anchor)))) for scale in scales.split(",") if scale.strip()})
+
+
+def _wilson(successes: int, n: int, z: float = 1.959963984540054) -> dict[str, float | None]:
+    if n <= 0:
+        return {"rate": None, "ci_low": None, "ci_high": None}
+    phat = successes / n
+    denom = 1.0 + z * z / n
+    center = (phat + z * z / (2 * n)) / denom
+    half = z * ((phat * (1 - phat) / n + z * z / (4 * n * n)) ** 0.5) / denom
+    return {"rate": phat, "ci_low": max(0.0, center - half), "ci_high": min(1.0, center + half)}
 
 
 def _task_args(task: str, args: argparse.Namespace) -> argparse.Namespace:
@@ -242,7 +258,13 @@ def _run_lfs_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
     parse_fails = 0
     status = "BUDGET_EXHAUSTED"
     best_score = 0.0
-    while expansions < int(args.max_expansions):
+    max_depth_reached = 0
+    expansion_cap = int(args.max_expansions)
+    while True:
+        if expansion_cap > 0 and expansions >= expansion_cap:
+            status = "EXPANSION_CAP"
+            break
+        max_depth_reached = max(max_depth_reached, int(current.depth))
         score = _score_state(task, env, current)
         best_score = max(best_score, score)
         if score >= 0.99:
@@ -290,18 +312,17 @@ def _run_lfs_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
             current = heapq.heappop(frontier).state
         else:
             current = max(local_children, key=lambda item: item[0])[1] if local_children else heapq.heappop(frontier).state
-    else:
-        status = "EXPANSION_CAP"
+        max_depth_reached = max(max_depth_reached, int(current.depth))
     best_score = max(best_score, _score_state(task, env, current))
     return {
-        "method": "LFS_repo_port_smoke",
+        "method": "LFS_repo_port_budget_exhaustive",
         "task": task,
         "source_index": int(source_index),
         "budget_B": int(budget),
         "solved": bool(best_score >= 0.99),
         "official_score": float(best_score),
         "tokens_used": int(tokens_used),
-        "depth_reached": int(current.depth),
+        "depth_reached": int(max_depth_reached),
         "expansions": int(expansions),
         "frontier_size": int(len(frontier)),
         "parse_fails": int(parse_fails),
@@ -316,11 +337,62 @@ def _run_lfs_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
 
 def _summarize(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     summary = []
-    for task, budget in sorted({(row["task"], int(row["budget_B"])) for row in rows}):
-        subset = [row for row in rows if row["task"] == task and int(row["budget_B"]) == budget]
+    for method, task, budget in sorted({(row["method"], row["task"], int(row["budget_B"])) for row in rows}):
+        subset = [row for row in rows if row["method"] == method and row["task"] == task and int(row["budget_B"]) == budget]
         solves = sum(int(row["solved"]) for row in subset)
-        summary.append({"method": "LFS_repo_port_smoke", "task": task, "budget_B": budget, "n": len(subset), "solve_count": solves, "solve_rate": solves / len(subset) if subset else 0.0, "mean_tokens_used": mean(float(row["tokens_used"]) for row in subset), "mean_depth_reached": mean(float(row["depth_reached"]) for row in subset), "mean_expansions": mean(float(row["expansions"]) for row in subset), "status_counts": dict(Counter(row["status"] for row in subset)), "source": SOURCE, "provenance": "kvcache_lfs_budget_summary_v0"})
+        ci = _wilson(solves, len(subset))
+        summary.append({"method": method, "task": task, "budget_B": budget, "n": len(subset), "solve_count": solves, "solve_rate": ci["rate"], "solve_ci_low": ci["ci_low"], "solve_ci_high": ci["ci_high"], "mean_tokens_used": mean(float(row["tokens_used"]) for row in subset), "mean_depth_reached": mean(float(row["depth_reached"]) for row in subset), "mean_expansions": mean(float(row["expansions"]) for row in subset), "status_counts": dict(Counter(row["status"] for row in subset)), "source": SOURCE, "provenance": "kvcache_lfs_budget_summary_v0"})
     return summary
+
+
+def run_shard(args: argparse.Namespace) -> dict[str, Any]:
+    model, tokenizer = _load_model(args)
+    anchors = _budget_anchors(args.budget_anchors)
+    tasks = [item.strip() for item in args.tasks.split(",") if item.strip()]
+    checkpoint_rows = []
+    if args.resume and args.checkpoint_path.exists():
+        checkpoint = json.loads(args.checkpoint_path.read_text(encoding="utf-8"))
+        checkpoint_rows = list(checkpoint.get("rows", []))
+    done = {(row["task"], int(row["source_index"]), int(row["budget_B"])) for row in checkpoint_rows}
+    rows = list(checkpoint_rows)
+    task_counter = 0
+    for task in tasks:
+        dataset = _make_dataset(task, args)
+        budgets = _budget_grid(anchors[task], args.budget_scales)
+        for source_index in range(int(args.n_instances)):
+            entry = dataset[source_index]
+            entry.setdefault("metadata", {})["source_index"] = source_index
+            for budget in budgets:
+                current_index = task_counter
+                task_counter += 1
+                if current_index % int(args.num_shards) != int(args.shard_index):
+                    continue
+                key = (task, int(source_index), int(budget))
+                if key in done:
+                    continue
+                print(json.dumps({"method": "lfs", "task": task, "source_index": source_index, "budget_B": int(budget), "shard": int(args.shard_index)}), flush=True)
+                row = _run_lfs_instance(model, tokenizer, dataset, task, entry, source_index, int(budget), args)
+                row["shard_index"] = int(args.shard_index)
+                row["num_shards"] = int(args.num_shards)
+                rows.append(row)
+                done.add(key)
+                _write_json(args.checkpoint_path, {"rows": rows})
+    payload = {"schema_version": SCHEMA_VERSION, "status": STATUS_COMPLETE, "generated_at": _now(), "config": {key: (str(value) if isinstance(value, Path) else value) for key, value in vars(args).items()}, "rows": rows, "source": SOURCE, "provenance": "kvcache_lfs_baseline_shard_v0"}
+    _write_json(args.output, payload)
+    return payload
+
+
+def merge(args: argparse.Namespace) -> dict[str, Any]:
+    row_by_key: dict[tuple[str, int, int], dict[str, Any]] = {}
+    inputs = sorted(glob.glob(args.inputs))
+    for path in inputs:
+        payload = json.loads(Path(path).read_text(encoding="utf-8"))
+        for row in payload.get("rows", []):
+            row_by_key[(row["task"], int(row["source_index"]), int(row["budget_B"]))] = row
+    rows = [row_by_key[key] for key in sorted(row_by_key)]
+    payload = {"schema_version": SCHEMA_VERSION, "status": STATUS_MERGED, "generated_at": _now(), "input_files": inputs, "summary": _summarize(rows), "rows": rows, "source": SOURCE, "provenance": "kvcache_lfs_baseline_merged_v0"}
+    _write_json(args.output, payload)
+    return payload
 
 
 def run(args: argparse.Namespace) -> dict[str, Any]:
@@ -342,7 +414,33 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def main() -> None:
+    if len(sys.argv) > 1 and sys.argv[1] in {"run-shard", "merge"}:
+        parser = argparse.ArgumentParser(description="Run or merge LFS no-train baseline under matched token budgets.")
+        sub = parser.add_subparsers(dest="command", required=True)
+        run_parser = sub.add_parser("run-shard")
+        _add_common_args(run_parser)
+        run_parser.add_argument("--resume", action="store_true")
+        run_parser.add_argument("--budget-scales", default="0.25,0.5,1,2,4")
+        run_parser.add_argument("--num-shards", type=int, default=1)
+        run_parser.add_argument("--shard-index", type=int, default=0)
+        merge_parser = sub.add_parser("merge")
+        merge_parser.add_argument("--inputs", required=True)
+        merge_parser.add_argument("--output", type=Path, required=True)
+        args = parser.parse_args()
+        if args.command == "run-shard":
+            payload = run_shard(args)
+        else:
+            payload = merge(args)
+        print(json.dumps({"path": str(args.output), "status": payload["status"], "rows": len(payload["rows"])}, sort_keys=True))
+        return
     parser = argparse.ArgumentParser(description="Run LFS repo-port smoke under matched budgets.")
+    _add_common_args(parser)
+    args = parser.parse_args()
+    payload = run(args)
+    print(json.dumps({"path": str(args.output), "status": payload["status"], "rows": len(payload["rows"])}, sort_keys=True))
+
+
+def _add_common_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--checkpoint-path", type=Path, required=True)
     parser.add_argument("--model", default="Qwen/Qwen3-4B-Instruct-2507")
@@ -355,16 +453,13 @@ def main() -> None:
     parser.add_argument("--tasks", default="sudoku,graph_color")
     parser.add_argument("--budget-anchors", default="sudoku:28070,futoshiki:3206226,graph_color:32895")
     parser.add_argument("--max-new-tokens", type=int, default=96)
-    parser.add_argument("--max-expansions", type=int, default=24)
+    parser.add_argument("--max-expansions", type=int, default=0, help="0 means exhaust budget; positive values are smoke/safety caps")
     parser.add_argument("--futoshiki-size", type=int, default=7)
     parser.add_argument("--futoshiki-difficulty", type=int, default=3)
     parser.add_argument("--graph-num-vertices", type=int, default=16)
     parser.add_argument("--graph-num-colors", type=int, default=3)
     parser.add_argument("--graph-edge-probability", type=float, default=0.4)
     parser.add_argument("--graph-difficulty-bin-label", default="v16_p04")
-    args = parser.parse_args()
-    payload = run(args)
-    print(json.dumps({"path": str(args.output), "status": payload["status"], "rows": len(payload["rows"])}, sort_keys=True))
 
 
 if __name__ == "__main__":

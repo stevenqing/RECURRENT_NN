@@ -11,9 +11,11 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 from dataclasses import dataclass, field
+import glob
 from math import log, sqrt
 from pathlib import Path
 from statistics import mean
+import sys
 from typing import Any
 import json
 
@@ -64,6 +66,30 @@ def _budget_anchors(text: str) -> dict[str, int]:
         key, value = item.split(":", 1)
         anchors[key.strip()] = int(float(value.strip()))
     return anchors
+
+
+def _budget_grid(anchor: int, scales: str) -> list[int]:
+    return sorted({max(1, int(round(float(scale.strip()) * int(anchor)))) for scale in scales.split(",") if scale.strip()})
+
+
+def _wilson(successes: int, n: int, z: float = 1.959963984540054) -> dict[str, float | None]:
+    if n <= 0:
+        return {"rate": None, "ci_low": None, "ci_high": None}
+    phat = successes / n
+    denom = 1.0 + z * z / n
+    center = (phat + z * z / (2 * n)) / denom
+    half = z * ((phat * (1 - phat) / n + z * z / (4 * n * n)) ** 0.5) / denom
+    return {"rate": phat, "ci_low": max(0.0, center - half), "ci_high": min(1.0, center + half)}
+
+
+def _task_depth(task: str, env: dict[str, Any]) -> int:
+    if task == "graph_color":
+        return len(env["order"])
+    return len(env["inst"].variables)
+
+
+def _max_depth(args: argparse.Namespace, task: str, env: dict[str, Any]) -> int:
+    return int(args.max_depth) if int(args.max_depth) > 0 else _task_depth(task, env)
 
 
 def _action_prompt(method: str, task: str, env: dict[str, Any], state: Any, legal_actions: list[int], limit: int) -> str:
@@ -153,6 +179,7 @@ def _score_child(model: Any, tokenizer: Any, method: str, task: str, env: dict[s
 
 def _run_tot_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry: dict[str, Any], source_index: int, budget: int, args: argparse.Namespace) -> dict[str, Any]:
     env = _make_env(task, dataset, entry)
+    depth_limit = _max_depth(args, task, env)
     root = BeamNode(state=CSPState(assignment={}, depth=0), reward=0.0)
     frontier = [root]
     tokens_used = 0
@@ -160,11 +187,11 @@ def _run_tot_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
     parse_fails = 0
     best_score = 0.0
     max_depth_reached = 0
-    status = "EXPANSION_CAP"
-    while frontier and expansions < int(args.max_expansions):
+    status = "BUDGET_EXHAUSTED"
+    while frontier:
         next_frontier: list[BeamNode] = []
         for node in frontier[: int(args.beam_size)]:
-            if expansions >= int(args.max_expansions):
+            if int(args.max_expansions) > 0 and expansions >= int(args.max_expansions):
                 status = "EXPANSION_CAP"
                 break
             best_score = max(best_score, _score_state(task, env, node.state))
@@ -173,7 +200,7 @@ def _run_tot_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
                 status = "SOLVED"
                 frontier = []
                 break
-            if node.depth >= int(args.max_depth):
+            if node.depth >= depth_limit:
                 continue
             actions, used, fails, qstatus = _propose_actions(model, tokenizer, "ToT", task, env, node.state, int(budget), tokens_used, args)
             tokens_used += used
@@ -197,7 +224,7 @@ def _run_tot_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
             expansions += 1
             if status == "BUDGET_EXHAUSTED":
                 break
-        if status in {"SOLVED", "BUDGET_EXHAUSTED"}:
+        if status in {"SOLVED", "BUDGET_EXHAUSTED", "EXPANSION_CAP"}:
             break
         if not next_frontier:
             status = "NO_FRONTIER"
@@ -206,7 +233,7 @@ def _run_tot_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
     best_score = max([best_score, *[_score_state(task, env, node.state) for node in frontier]]) if frontier else best_score
     if best_score >= 0.99:
         status = "SOLVED"
-    return _row("ToT_Beam_repo_port_smoke", task, source_index, budget, best_score, tokens_used, max_depth_reached, expansions, parse_fails, status)
+    return _row("ToT_Beam_repo_port_budget_exhaustive", task, source_index, budget, best_score, tokens_used, max_depth_reached, expansions, parse_fails, status)
 
 
 def _uct_child(node: RapNode, w_exp: float) -> RapNode:
@@ -224,23 +251,33 @@ def _backprop(node: RapNode, value: float) -> None:
 
 def _run_rap_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry: dict[str, Any], source_index: int, budget: int, args: argparse.Namespace) -> dict[str, Any]:
     env = _make_env(task, dataset, entry)
+    depth_limit = _max_depth(args, task, env)
     root = RapNode(state=CSPState(assignment={}, depth=0))
     tokens_used = 0
     expansions = 0
     parse_fails = 0
     best_score = 0.0
     max_depth_reached = 0
-    status = "EXPANSION_CAP"
-    for _ in range(int(args.mcts_iters)):
+    status = "BUDGET_EXHAUSTED"
+    iterations = 0
+    while True:
+        if int(args.mcts_iters) > 0 and iterations >= int(args.mcts_iters):
+            status = "MCTS_ITER_CAP"
+            break
+        if int(args.max_expansions) > 0 and expansions >= int(args.max_expansions):
+            status = "EXPANSION_CAP"
+            break
+        tokens_before_iter = tokens_used
+        iterations += 1
         node = root
-        while node.children and node.depth < int(args.max_depth):
+        while node.children and node.depth < depth_limit:
             node = _uct_child(node, float(args.uct_weight))
         best_score = max(best_score, _score_state(task, env, node.state))
         max_depth_reached = max(max_depth_reached, int(node.depth))
         if best_score >= 0.99:
             status = "SOLVED"
             break
-        if node.depth < int(args.max_depth):
+        if node.depth < depth_limit:
             actions, used, fails, qstatus = _propose_actions(model, tokenizer, "RAP", task, env, node.state, int(budget), tokens_used, args)
             tokens_used += used
             parse_fails += fails
@@ -264,13 +301,17 @@ def _run_rap_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
                 break
         if not node.children:
             _backprop(node, 0.0)
+            if int(args.mcts_iters) <= 0 and tokens_used == tokens_before_iter:
+                status = "NO_FRONTIER"
+                break
             continue
         rollout = max(node.children, key=lambda child: child.reward)
         reward_sum = rollout.reward
         rollout_state = rollout.state
         rollout_depth = rollout.depth
-        for _rollout_step in range(int(args.rollout_depth)):
-            if rollout_depth >= int(args.max_depth):
+        rollout_steps = depth_limit if int(args.rollout_depth) <= 0 else int(args.rollout_depth)
+        for _rollout_step in range(rollout_steps):
+            if rollout_depth >= depth_limit:
                 break
             actions, used, fails, qstatus = _propose_actions(model, tokenizer, "RAP", task, env, rollout_state, int(budget), tokens_used, args)
             tokens_used += used
@@ -301,9 +342,12 @@ def _run_rap_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
             break
         if status == "BUDGET_EXHAUSTED":
             break
+        if int(args.mcts_iters) <= 0 and tokens_used == tokens_before_iter:
+            status = "NO_FRONTIER"
+            break
     if best_score >= 0.99:
         status = "SOLVED"
-    return _row("RAP_MCTS_repo_port_smoke", task, source_index, budget, best_score, tokens_used, max_depth_reached, expansions, parse_fails, status)
+    return _row("RAP_MCTS_repo_port_budget_exhaustive", task, source_index, budget, best_score, tokens_used, max_depth_reached, expansions, parse_fails, status)
 
 
 def _row(method: str, task: str, source_index: int, budget: int, best_score: float, tokens_used: int, depth_reached: int, expansions: int, parse_fails: int, status: str) -> dict[str, Any]:
@@ -333,13 +377,16 @@ def _summarize(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for method, task, budget in keys:
         subset = [row for row in rows if row["method"] == method and row["task"] == task and int(row["budget_B"]) == budget]
         solves = sum(int(row["solved"]) for row in subset)
+        ci = _wilson(solves, len(subset))
         summary.append({
             "method": method,
             "task": task,
             "budget_B": budget,
             "n": len(subset),
             "solve_count": solves,
-            "solve_rate": solves / len(subset) if subset else 0.0,
+            "solve_rate": ci["rate"],
+            "solve_ci_low": ci["ci_low"],
+            "solve_ci_high": ci["ci_high"],
             "mean_tokens_used": mean(float(row["tokens_used"]) for row in subset),
             "mean_depth_reached": mean(float(row["depth_reached"]) for row in subset),
             "mean_expansions": mean(float(row["expansions"]) for row in subset),
@@ -348,6 +395,85 @@ def _summarize(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "provenance": "kvcache_tot_rap_budget_summary_v0",
         })
     return summary
+
+
+def run_shard(args: argparse.Namespace) -> dict[str, Any]:
+    model, tokenizer = _load_model(args)
+    anchors = _budget_anchors(args.budget_anchors)
+    rows = []
+    methods = [item.strip() for item in args.methods.split(",") if item.strip()]
+    tasks = [item.strip() for item in args.tasks.split(",") if item.strip()]
+    checkpoint_rows = []
+    if args.resume and args.checkpoint_path.exists():
+        checkpoint = json.loads(args.checkpoint_path.read_text(encoding="utf-8"))
+        checkpoint_rows = list(checkpoint.get("rows", []))
+    done = {(row["method"], row["task"], int(row["source_index"]), int(row["budget_B"])) for row in checkpoint_rows}
+    rows = list(checkpoint_rows)
+    task_counter = 0
+    for task in tasks:
+        dataset = _make_dataset(task, args)
+        budgets = _budget_grid(anchors[task], args.budget_scales)
+        for source_index in range(int(args.n_instances)):
+            entry = dataset[source_index]
+            entry.setdefault("metadata", {})["source_index"] = source_index
+            for budget in budgets:
+                for method in methods:
+                    current_index = task_counter
+                    task_counter += 1
+                    if current_index % int(args.num_shards) != int(args.shard_index):
+                        continue
+                    if method == "tot":
+                        method_name = "ToT_Beam_repo_port_budget_exhaustive"
+                    elif method == "rap":
+                        method_name = "RAP_MCTS_repo_port_budget_exhaustive"
+                    else:
+                        raise ValueError(f"unknown method: {method}")
+                    key = (method_name, task, int(source_index), int(budget))
+                    if key in done:
+                        continue
+                    print(json.dumps({"method": method, "task": task, "source_index": source_index, "budget_B": int(budget), "shard": int(args.shard_index)}), flush=True)
+                    if method == "tot":
+                        row = _run_tot_instance(model, tokenizer, dataset, task, entry, source_index, int(budget), args)
+                    else:
+                        row = _run_rap_instance(model, tokenizer, dataset, task, entry, source_index, int(budget), args)
+                    row["shard_index"] = int(args.shard_index)
+                    row["num_shards"] = int(args.num_shards)
+                    rows.append(row)
+                    done.add(key)
+                    _write_json(args.checkpoint_path, {"rows": rows})
+    payload = {
+        "schema_version": SCHEMA_VERSION,
+        "status": STATUS_COMPLETE,
+        "generated_at": _now(),
+        "config": {key: (str(value) if isinstance(value, Path) else value) for key, value in vars(args).items()},
+        "rows": rows,
+        "source": SOURCE,
+        "provenance": "kvcache_tot_rap_baselines_shard_v0",
+    }
+    _write_json(args.output, payload)
+    return payload
+
+
+def merge(args: argparse.Namespace) -> dict[str, Any]:
+    row_by_key: dict[tuple[str, str, int, int], dict[str, Any]] = {}
+    inputs = sorted(glob.glob(args.inputs))
+    for path in inputs:
+        payload = json.loads(Path(path).read_text(encoding="utf-8"))
+        for row in payload.get("rows", []):
+            row_by_key[(row["method"], row["task"], int(row["source_index"]), int(row["budget_B"]))] = row
+    rows = [row_by_key[key] for key in sorted(row_by_key)]
+    payload = {
+        "schema_version": SCHEMA_VERSION,
+        "status": STATUS_COMPLETE,
+        "generated_at": _now(),
+        "input_files": inputs,
+        "summary": _summarize(rows),
+        "rows": rows,
+        "source": SOURCE,
+        "provenance": "kvcache_tot_rap_baselines_merged_v0",
+    }
+    _write_json(args.output, payload)
+    return payload
 
 
 def run(args: argparse.Namespace) -> dict[str, Any]:
@@ -385,7 +511,30 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def main() -> None:
+    if len(sys.argv) > 1 and sys.argv[1] in {"run-shard", "merge"}:
+        parser = argparse.ArgumentParser(description="Run or merge ToT/RAP no-train baselines under matched token budgets.")
+        sub = parser.add_subparsers(dest="command", required=True)
+        run_parser = sub.add_parser("run-shard")
+        _add_common_args(run_parser)
+        run_parser.add_argument("--resume", action="store_true")
+        run_parser.add_argument("--budget-scales", default="0.25,0.5,1,2,4")
+        run_parser.add_argument("--num-shards", type=int, default=1)
+        run_parser.add_argument("--shard-index", type=int, default=0)
+        merge_parser = sub.add_parser("merge")
+        merge_parser.add_argument("--inputs", required=True)
+        merge_parser.add_argument("--output", type=Path, required=True)
+        args = parser.parse_args()
+        payload = run_shard(args) if args.command == "run-shard" else merge(args)
+        print(json.dumps({"path": str(args.output), "status": payload["status"], "rows": len(payload["rows"])}, sort_keys=True))
+        return
     parser = argparse.ArgumentParser(description="Run ToT/RAP repo-port smokes under matched budgets.")
+    _add_common_args(parser)
+    args = parser.parse_args()
+    payload = run(args)
+    print(json.dumps({"path": str(args.output), "status": payload["status"], "rows": len(payload["rows"])}, sort_keys=True))
+
+
+def _add_common_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--checkpoint-path", type=Path, required=True)
     parser.add_argument("--model", default="Qwen/Qwen3-4B-Instruct-2507")
@@ -399,13 +548,13 @@ def main() -> None:
     parser.add_argument("--methods", default="tot,rap")
     parser.add_argument("--budget-anchors", default="sudoku:28070,futoshiki:3206226,graph_color:32895")
     parser.add_argument("--max-new-tokens", type=int, default=96)
-    parser.add_argument("--max-expansions", type=int, default=4)
-    parser.add_argument("--max-depth", type=int, default=4)
+    parser.add_argument("--max-expansions", type=int, default=0, help="0 means no expansion cap")
+    parser.add_argument("--max-depth", type=int, default=0, help="0 means use task depth")
     parser.add_argument("--n-actions", type=int, default=3)
     parser.add_argument("--beam-size", type=int, default=2)
-    parser.add_argument("--mcts-iters", type=int, default=3)
+    parser.add_argument("--mcts-iters", type=int, default=0, help="0 means run MCTS until budget, goal, or safety cap")
     parser.add_argument("--uct-weight", type=float, default=1.0)
-    parser.add_argument("--rollout-depth", type=int, default=1)
+    parser.add_argument("--rollout-depth", type=int, default=0, help="0 means simulate until depth limit")
     parser.add_argument("--rollout-branching", type=int, default=1)
     parser.add_argument("--futoshiki-size", type=int, default=7)
     parser.add_argument("--futoshiki-difficulty", type=int, default=3)
@@ -413,9 +562,6 @@ def main() -> None:
     parser.add_argument("--graph-num-colors", type=int, default=3)
     parser.add_argument("--graph-edge-probability", type=float, default=0.4)
     parser.add_argument("--graph-difficulty-bin-label", default="v16_p04")
-    args = parser.parse_args()
-    payload = run(args)
-    print(json.dumps({"path": str(args.output), "status": payload["status"], "rows": len(payload["rows"])}, sort_keys=True))
 
 
 if __name__ == "__main__":
