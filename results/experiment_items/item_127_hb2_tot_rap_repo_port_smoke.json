@@ -1,0 +1,70 @@
+{
+  "item_number": "127",
+  "schema_version": "log_item_contract_v1",
+  "status": "HB2_TOT_RAP_REPO_PORT_SMOKE_NOT_FINAL",
+  "name": "HB-2 ToT/RAP repo-port smoke",
+  "generated_at": "2026-06-15T13:08:00+00:00",
+  "purpose": "Port the llm-reasoners ToT and RAP control patterns onto the shared HB-2 budget/scoring substrate and run a minimal sudoku+graph_color smoke. ToT is represented as action proposal plus state evaluation under beam search; RAP is represented as MCTS select/expand/rollout/backprop with LLM action/value calls. This validates repo-grounded runners but is not a final HB-2 comparison.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["122", "126"],
+    "spec": "user CODING SPEC — HB-2 External No-Train Matched-Budget Comparison (consolidated, v1)",
+    "runner": "analysis/kvcache_tot_rap_baselines.py",
+    "result": "results/kvcache_matched_budget_v0/hb2_tot_rap/item127_tot_rap_smoke_sudoku_graph_n1.json",
+    "method": "ToT_Beam_and_RAP_MCTS_repo_port_smoke",
+    "official_repo": "maitrix-org/llm-reasoners",
+    "official_repo_url": "https://github.com/maitrix-org/llm-reasoners",
+    "official_repo_commit": "f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2",
+    "upstream_patterns": ["examples/ToT/blocksworld/tot_inference.py", "examples/ToT/game24/search_config.py", "examples/RAP/blocksworld/rap_inference.py", "reasoners/algorithm/mcts.py"],
+    "run_scope": "Bstar_only_smoke_n1_sudoku_graph_color_max_expansions_2"
+  },
+  "artifacts": [
+    "results/experiment_items/item_127_hb2_tot_rap_repo_port_smoke.json",
+    "analysis/kvcache_tot_rap_baselines.py",
+    "results/kvcache_matched_budget_v0/hb2_tot_rap/item127_tot_rap_smoke_sudoku_graph_n1.json"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_tot_rap_baselines.py", "change": "Adds ToT beam and RAP MCTS smoke adapters over the common CSP/graph_color environment with shared token billing and official scoring."}
+  ],
+  "commands": [
+    {"command": "~/.local/bin/uv run --python .venv/bin/python python -m py_compile analysis/kvcache_tot_rap_baselines.py", "purpose": "Compile-check the ToT/RAP baseline runner."},
+    {"command": "CUDA_VISIBLE_DEVICES=0 ~/.local/bin/uv run --python .venv/bin/python python -m analysis.kvcache_tot_rap_baselines --output results/kvcache_matched_budget_v0/hb2_tot_rap/item127_tot_rap_smoke_sudoku_graph_n1.json --checkpoint-path results/kvcache_matched_budget_v0/hb2_tot_rap/item127_tot_rap_smoke_sudoku_graph_n1_checkpoint.json --tasks sudoku,graph_color --methods tot,rap --n-instances 1 --scan-limit 20 --budget-anchors sudoku:28070,graph_color:32895 --max-expansions 2 --mcts-iters 2 --max-depth 3 --n-actions 2 --beam-size 2 --rollout-depth 1 --rollout-branching 1 --max-new-tokens 96 --dtype fp32 --device cuda", "purpose": "Run B*-only ToT/RAP smoke on one sudoku and one graph_color instance."}
+  ],
+  "decision": {
+    "outcome": "TOT_RAP_RUNNER_PORT_SMOKE_VALIDATED_HB2_STILL_OPEN",
+    "overall_pass": true,
+    "hb2_confirmed": false,
+    "headline": {
+      "tot_sudoku": "n=1 smoke at B*=28070 ran 2 expansions, used 1116 tokens, reached depth 2, solve=0/1, parse_fails=0, status=EXPANSION_CAP.",
+      "rap_sudoku": "n=1 smoke at B*=28070 ran 2 expansions, used 1883 tokens, reached depth 3, solve=0/1, parse_fails=0, status=EXPANSION_CAP.",
+      "tot_graph_color": "n=1 smoke at B*=32895 ran 2 expansions, used 1098 tokens, reached depth 2, solve=0/1, parse_fails=2, status=EXPANSION_CAP.",
+      "rap_graph_color": "n=1 smoke at B*=32895 ran 2 expansions, used 1840 tokens, reached depth 3, solve=0/1, parse_fails=0, status=EXPANSION_CAP.",
+      "single_next_move": "Decide whether to scale external smokes first or add optional First Finish before final HB-2 table assembly."
+    },
+    "gate_outcomes": [
+      {"gate": "repo_grounded_tot_rap_port", "outcome": "PASS", "number": "Runner records maitrix-org/llm-reasoners commit f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2 and maps ToT/RAP search patterns from upstream examples."},
+      {"gate": "shared_budget_counter", "outcome": "PASS", "number": "All proposal/evaluation/rollout calls bill input plus generated tokens and stop before exceeding budget_B."},
+      {"gate": "official_scoring", "outcome": "PASS", "number": "Rows use the same official CSP/graph_color scoring substrate as LFS and best-of-n."},
+      {"gate": "HB2_read", "outcome": "NOT_READY", "number": "n=1 expansion-capped smoke only; futoshiki, budget grids, and final external-baseline comparison are not complete."}
+    ],
+    "next_step_routing": "Keep HB-2 open. Scale best-of-n/LFS/ToT/RAP or add optional First Finish before claiming final no-train matched-budget conclusions."
+  },
+  "result_tables": {
+    "tot_rap_repo_port_smoke": {
+      "columns": ["method", "task", "budget_B", "n", "solve_count", "solve_rate", "mean_tokens_used", "mean_depth_reached", "mean_expansions", "status_counts"],
+      "rows": [
+        {"method": "RAP_MCTS_repo_port_smoke", "task": "graph_color", "budget_B": 32895, "n": 1, "solve_count": 0, "solve_rate": 0.0, "mean_tokens_used": 1840.0, "mean_depth_reached": 3.0, "mean_expansions": 2.0, "status_counts": {"EXPANSION_CAP": 1}},
+        {"method": "RAP_MCTS_repo_port_smoke", "task": "sudoku", "budget_B": 28070, "n": 1, "solve_count": 0, "solve_rate": 0.0, "mean_tokens_used": 1883.0, "mean_depth_reached": 3.0, "mean_expansions": 2.0, "status_counts": {"EXPANSION_CAP": 1}},
+        {"method": "ToT_Beam_repo_port_smoke", "task": "graph_color", "budget_B": 32895, "n": 1, "solve_count": 0, "solve_rate": 0.0, "mean_tokens_used": 1098.0, "mean_depth_reached": 2.0, "mean_expansions": 2.0, "status_counts": {"EXPANSION_CAP": 1}},
+        {"method": "ToT_Beam_repo_port_smoke", "task": "sudoku", "budget_B": 28070, "n": 1, "solve_count": 0, "solve_rate": 0.0, "mean_tokens_used": 1116.0, "mean_depth_reached": 2.0, "mean_expansions": 2.0, "status_counts": {"EXPANSION_CAP": 1}}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not complete HB-2 and does not show ToT/RAP competitiveness. It only validates repo-grounded ToT/RAP adapters on the shared budget/scoring substrate.",
+    "scope_limit": "n=1, B*-only, sudoku+graph_color only, max_expansions=2, max_depth=3, and no futoshiki. These are smoke rows, not curves.",
+    "implementation_limit": "The upstream llm-reasoners algorithms are adapted to this repo's CSP/graph_color substrate rather than vendored directly. ToT preserves propose/evaluate plus beam-style search; RAP preserves MCTS selection/expansion/rollout/backprop over LLM action/value calls.",
+    "parse_note": "ToT graph_color used fallback for two unparsable proposal/value responses; this is recorded as parse_fails=2 and should be improved before large runs.",
+    "external_limit": "Optional First Finish is still not ported/run. Beyond-the-Frontier remains final-not-run because no official repo was found."
+  }
+}

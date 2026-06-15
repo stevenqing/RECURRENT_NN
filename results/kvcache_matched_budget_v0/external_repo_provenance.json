@@ -34,8 +34,8 @@
       "repo": "maitrix-org/llm-reasoners",
       "url": "https://github.com/maitrix-org/llm-reasoners",
       "commit": "f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2",
-      "status": "LOCATED_READ_PARTIAL",
-      "notes": "README lists Reasoning-via-Planning/MCTS, Tree-of-Thoughts BFS/DFS, Chain-of-Thoughts, and other no-train inference-time search examples. Port not yet integrated."
+      "status": "REPO_PORT_SMOKE_IMPLEMENTED_NOT_FINAL",
+      "notes": "README lists Reasoning-via-Planning/MCTS, Tree-of-Thoughts BFS/DFS, Chain-of-Thoughts, and other no-train inference-time search examples. ToT/RAP adapters integrated as analysis/kvcache_tot_rap_baselines.py and smoke-run on sudoku+graph_color n=1; full HB-2 curves pending."
     },
     {
       "method": "Beyond-the-Frontier / Stochastic Backtracking",

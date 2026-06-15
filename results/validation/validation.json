@@ -727,7 +727,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=99",
+      "detail": "count=100",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -4297,6 +4297,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_127_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_127_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=127",
+      "name": "log_item_127_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_127_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not complete HB-2 and does not show ToT/RAP competitiveness. It only validates repo-grounded ToT/RAP adapters on the shared budget/scoring substr",
+      "name": "log_item_127_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=Keep HB-2 open. Scale best-of-n/LFS/ToT/RAP or add optional First Finish before claiming final no-train matched-budget conclusions.",
+      "name": "log_item_127_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -4873,13 +4909,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'pop_read', 'final_solution_readback', 'forward_read', 'write_drop_mask', 'register_entry_classification', 'spill_off_write_drop'}",
+      "detail": "rules={'write_drop_mask', 'pop_read', 'final_solution_readback', 'forward_read', 'register_entry_classification', 'spill_off_write_drop'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_all_unmasked', 'P_choice', 'P_all', 'P_choice_unmasked', 'P_pop_unmasked', 'threshold_D_pop', 'threshold_D_peak', 'P_pop'}; rows=768",
+      "detail": "candidates={'P_all_unmasked', 'P_choice', 'P_pop_unmasked', 'threshold_D_pop', 'threshold_D_peak', 'P_all', 'P_pop', 'P_choice_unmasked'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -4903,7 +4939,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rows=64; statuses={'timeout', 'measured'}",
+      "detail": "rows=64; statuses={'measured', 'timeout'}",
       "name": "e1_sudoku_compositional_real_trace_subsample",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -4915,7 +4951,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_all_unmasked', 'P_choice', 'P_all', 'P_choice_unmasked', 'P_pop_unmasked', 'P_pop'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_all_unmasked', 'P_choice', 'P_pop_unmasked', 'P_all', 'P_pop', 'P_choice_unmasked'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -5713,11 +5749,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-15T12:55:31.303908+00:00",
+  "generated_at": "2026-06-15T13:07:08.191637+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 952,
+    "n_checks": 958,
     "n_fail": 3,
-    "n_pass": 949
+    "n_pass": 955
   }
 }

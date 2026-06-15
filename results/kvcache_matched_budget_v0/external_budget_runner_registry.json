@@ -31,9 +31,9 @@
       "commit": "f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2",
       "method": "ToT_RAP_CoTSC",
       "no_train": true,
-      "notes": "LLM-reasoners README lists ToT, RAP/MCTS, CoT, and related no-train inference-time search examples. Port pending.",
+      "notes": "LLM-reasoners README lists ToT, RAP/MCTS, CoT, and related no-train inference-time search examples. ToT/RAP smoke adapters implemented in analysis/kvcache_tot_rap_baselines.py and run on sudoku+graph_color n=1; full HB-2 curves pending.",
       "repo": "maitrix-org/llm-reasoners",
-      "status": "LOCATED_READ_PARTIAL_NOT_PORTED",
+      "status": "REPO_PORT_SMOKE_IMPLEMENTED_NOT_FINAL",
       "url": "https://github.com/maitrix-org/llm-reasoners"
     },
     {
@@ -65,7 +65,7 @@
     }
   ],
   "budget_runner_protocol": "run(instance, budget_B) -> {solved, tokens_used, depth_reached}",
-  "generated_at": "2026-06-15T12:53:04.000585+00:00",
+  "generated_at": "2026-06-15T13:07:07.001309+00:00",
   "provenance": "kvcache_external_budget_baseline_registry_v0",
   "schema_version": "kvcache_external_budget_baselines_v0",
   "shared_accounting": "All model-generated/exploration/evaluation tokens are billed by the same tokenizer counter; symbolic verifier calls are compute-free but model policy/verifier-prompt tokens are not free.",

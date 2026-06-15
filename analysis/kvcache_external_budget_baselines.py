@@ -83,9 +83,9 @@ BASELINE_REGISTRY = [
         repo="maitrix-org/llm-reasoners",
         url="https://github.com/maitrix-org/llm-reasoners",
         commit="f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2",
-        status="LOCATED_READ_PARTIAL_NOT_PORTED",
+        status="REPO_PORT_SMOKE_IMPLEMENTED_NOT_FINAL",
         no_train=True,
-        notes="LLM-reasoners README lists ToT, RAP/MCTS, CoT, and related no-train inference-time search examples. Port pending.",
+        notes="LLM-reasoners README lists ToT, RAP/MCTS, CoT, and related no-train inference-time search examples. ToT/RAP smoke adapters implemented in analysis/kvcache_tot_rap_baselines.py and run on sudoku+graph_color n=1; full HB-2 curves pending.",
     ),
     BaselineProvenance(
         method="First_Finish_Search",

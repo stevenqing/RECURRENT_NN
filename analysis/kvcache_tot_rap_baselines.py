@@ -1,0 +1,422 @@
+"""ToT/RAP no-train baseline smokes under the shared matched-budget counter.
+
+Port basis: maitrix-org/llm-reasoners, commit
+f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2. The upstream examples expose ToT as a
+WorldModel + SearchConfig + Beam/DFS search and RAP as WorldModel + SearchConfig
++ MCTS. This adapter maps those control patterns onto the local CSP environment.
+"""
+
+from __future__ import annotations
+
+import argparse
+from collections import Counter
+from dataclasses import dataclass, field
+from math import log, sqrt
+from pathlib import Path
+from statistics import mean
+from typing import Any
+import json
+
+from analysis.kvcache_graph_color_search import _write_json
+from analysis.kvcache_lfs_baseline import CSPState, _legal_actions, _load_model, _make_dataset, _make_env, _now, _query_json, _score_state, _state_text, _transition
+from experiments.rung1_distributed_graph_coloring import SOURCE
+
+
+SCHEMA_VERSION = "kvcache_tot_rap_baselines_v0"
+STATUS_COMPLETE = "KVCACHE_TOT_RAP_BASELINES_COMPLETE"
+LLM_REASONERS_REPO = "maitrix-org/llm-reasoners"
+LLM_REASONERS_URL = "https://github.com/maitrix-org/llm-reasoners"
+LLM_REASONERS_COMMIT = "f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2"
+
+
+@dataclass
+class BeamNode:
+    state: Any
+    reward: float
+    action: int | None = None
+    depth: int = 0
+
+
+@dataclass
+class RapNode:
+    state: Any
+    parent: "RapNode | None" = None
+    action: int | None = None
+    reward: float = 0.0
+    children: list["RapNode"] = field(default_factory=list)
+    visits: int = 0
+    value_sum: float = 0.0
+
+    @property
+    def depth(self) -> int:
+        return 0 if self.parent is None else self.parent.depth + 1
+
+    @property
+    def q(self) -> float:
+        return self.value_sum / self.visits if self.visits else self.reward
+
+
+def _budget_anchors(text: str) -> dict[str, int]:
+    anchors = {}
+    for item in text.split(","):
+        if not item.strip():
+            continue
+        key, value = item.split(":", 1)
+        anchors[key.strip()] = int(float(value.strip()))
+    return anchors
+
+
+def _action_prompt(method: str, task: str, env: dict[str, Any], state: Any, legal_actions: list[int], limit: int) -> str:
+    return "\n".join([
+        f"{method} action proposal for a CSP search state.",
+        "Choose promising next actions only from the legal action list.",
+        "Return exactly one JSON object {\"actions\": [integers]} with no prose.",
+        "Task: " + task,
+        "State: " + _state_text(task, env, state),
+        "Legal actions: " + json.dumps([int(item) for item in legal_actions]),
+        f"Maximum actions: {int(limit)}",
+    ])
+
+
+def _value_prompt(method: str, task: str, env: dict[str, Any], state: Any, action: int, child_state: Any) -> str:
+    return "\n".join([
+        f"{method} state evaluation for CSP search.",
+        "Score the child state from 0.0 to 1.0 by how promising it is for reaching a valid complete solution.",
+        "Return exactly one JSON object {\"score\": number} with no prose.",
+        "Task: " + task,
+        "Parent state: " + _state_text(task, env, state),
+        f"Action: {int(action)}",
+        "Child state: " + _state_text(task, env, child_state),
+    ])
+
+
+def _parse_action_list(parsed: Any, legal_actions: list[int], limit: int) -> list[int]:
+    raw = None
+    if isinstance(parsed, dict):
+        raw = parsed.get("actions", parsed.get("action", parsed.get("values")))
+    elif isinstance(parsed, list):
+        raw = parsed
+    if isinstance(raw, (str, int, float)):
+        raw = [raw]
+    actions = []
+    legal = {int(item) for item in legal_actions}
+    if isinstance(raw, list):
+        for item in raw:
+            try:
+                action = int(item)
+            except Exception:
+                continue
+            if action in legal and action not in actions:
+                actions.append(action)
+            if len(actions) >= int(limit):
+                break
+    return actions
+
+
+def _parse_score(parsed: Any) -> float | None:
+    if not isinstance(parsed, dict):
+        return None
+    for key in ["score", "value", "reward"]:
+        if key not in parsed:
+            continue
+        try:
+            return max(0.0, min(1.0, float(parsed[key])))
+        except Exception:
+            return None
+    return None
+
+
+def _propose_actions(model: Any, tokenizer: Any, method: str, task: str, env: dict[str, Any], state: Any, budget: int, tokens_used: int, args: argparse.Namespace) -> tuple[list[int], int, int, str]:
+    _, legal_actions = _legal_actions(task, env, state)
+    if not legal_actions:
+        return [], 0, 0, "NO_LEGAL_ACTIONS"
+    parsed, used, qstatus = _query_json(model, tokenizer, _action_prompt(method, task, env, state, legal_actions, int(args.n_actions)), budget, tokens_used, int(args.max_new_tokens))
+    if qstatus == "BUDGET_EXHAUSTED":
+        return [], used, 0, qstatus
+    actions = _parse_action_list(parsed, legal_actions, int(args.n_actions))
+    parse_fails = 0
+    if not actions:
+        parse_fails = 1
+        actions = [int(item) for item in legal_actions[: int(args.n_actions)]]
+    return actions, used, parse_fails, qstatus
+
+
+def _score_child(model: Any, tokenizer: Any, method: str, task: str, env: dict[str, Any], state: Any, action: int, child_state: Any, budget: int, tokens_used: int, args: argparse.Namespace) -> tuple[float, int, int, str]:
+    parsed, used, qstatus = _query_json(model, tokenizer, _value_prompt(method, task, env, state, int(action), child_state), budget, tokens_used, int(args.max_new_tokens))
+    if qstatus == "BUDGET_EXHAUSTED":
+        return 0.0, used, 0, qstatus
+    score = _parse_score(parsed)
+    if score is None:
+        return 0.0, used, 1, qstatus
+    return score, used, 0, qstatus
+
+
+def _run_tot_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry: dict[str, Any], source_index: int, budget: int, args: argparse.Namespace) -> dict[str, Any]:
+    env = _make_env(task, dataset, entry)
+    root = BeamNode(state=CSPState(assignment={}, depth=0), reward=0.0)
+    frontier = [root]
+    tokens_used = 0
+    expansions = 0
+    parse_fails = 0
+    best_score = 0.0
+    max_depth_reached = 0
+    status = "EXPANSION_CAP"
+    while frontier and expansions < int(args.max_expansions):
+        next_frontier: list[BeamNode] = []
+        for node in frontier[: int(args.beam_size)]:
+            if expansions >= int(args.max_expansions):
+                status = "EXPANSION_CAP"
+                break
+            best_score = max(best_score, _score_state(task, env, node.state))
+            max_depth_reached = max(max_depth_reached, int(node.depth))
+            if best_score >= 0.99:
+                status = "SOLVED"
+                frontier = []
+                break
+            if node.depth >= int(args.max_depth):
+                continue
+            actions, used, fails, qstatus = _propose_actions(model, tokenizer, "ToT", task, env, node.state, int(budget), tokens_used, args)
+            tokens_used += used
+            parse_fails += fails
+            if qstatus == "BUDGET_EXHAUSTED":
+                status = "BUDGET_EXHAUSTED"
+                frontier = []
+                break
+            for action in actions:
+                child_state = _transition(node.state, int(action))
+                reward, used, fails, qstatus = _score_child(model, tokenizer, "ToT", task, env, node.state, int(action), child_state, int(budget), tokens_used, args)
+                tokens_used += used
+                parse_fails += fails
+                if qstatus == "BUDGET_EXHAUSTED":
+                    status = "BUDGET_EXHAUSTED"
+                    break
+                child = BeamNode(state=child_state, reward=float(reward), action=int(action), depth=node.depth + 1)
+                best_score = max(best_score, _score_state(task, env, child_state))
+                max_depth_reached = max(max_depth_reached, int(child.depth))
+                next_frontier.append(child)
+            expansions += 1
+            if status == "BUDGET_EXHAUSTED":
+                break
+        if status in {"SOLVED", "BUDGET_EXHAUSTED"}:
+            break
+        if not next_frontier:
+            status = "NO_FRONTIER"
+            break
+        frontier = sorted(next_frontier, key=lambda item: item.reward, reverse=True)[: int(args.beam_size)]
+    best_score = max([best_score, *[_score_state(task, env, node.state) for node in frontier]]) if frontier else best_score
+    if best_score >= 0.99:
+        status = "SOLVED"
+    return _row("ToT_Beam_repo_port_smoke", task, source_index, budget, best_score, tokens_used, max_depth_reached, expansions, parse_fails, status)
+
+
+def _uct_child(node: RapNode, w_exp: float) -> RapNode:
+    parent_visits = max(1, node.visits)
+    return max(node.children, key=lambda child: child.q + float(w_exp) * sqrt(log(parent_visits + 1.0) / max(1, child.visits)))
+
+
+def _backprop(node: RapNode, value: float) -> None:
+    current: RapNode | None = node
+    while current is not None:
+        current.visits += 1
+        current.value_sum += float(value)
+        current = current.parent
+
+
+def _run_rap_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry: dict[str, Any], source_index: int, budget: int, args: argparse.Namespace) -> dict[str, Any]:
+    env = _make_env(task, dataset, entry)
+    root = RapNode(state=CSPState(assignment={}, depth=0))
+    tokens_used = 0
+    expansions = 0
+    parse_fails = 0
+    best_score = 0.0
+    max_depth_reached = 0
+    status = "EXPANSION_CAP"
+    for _ in range(int(args.mcts_iters)):
+        node = root
+        while node.children and node.depth < int(args.max_depth):
+            node = _uct_child(node, float(args.uct_weight))
+        best_score = max(best_score, _score_state(task, env, node.state))
+        max_depth_reached = max(max_depth_reached, int(node.depth))
+        if best_score >= 0.99:
+            status = "SOLVED"
+            break
+        if node.depth < int(args.max_depth):
+            actions, used, fails, qstatus = _propose_actions(model, tokenizer, "RAP", task, env, node.state, int(budget), tokens_used, args)
+            tokens_used += used
+            parse_fails += fails
+            if qstatus == "BUDGET_EXHAUSTED":
+                status = "BUDGET_EXHAUSTED"
+                break
+            for action in actions:
+                child_state = _transition(node.state, int(action))
+                reward, used, fails, qstatus = _score_child(model, tokenizer, "RAP", task, env, node.state, int(action), child_state, int(budget), tokens_used, args)
+                tokens_used += used
+                parse_fails += fails
+                if qstatus == "BUDGET_EXHAUSTED":
+                    status = "BUDGET_EXHAUSTED"
+                    break
+                child = RapNode(state=child_state, parent=node, action=int(action), reward=float(reward))
+                node.children.append(child)
+                best_score = max(best_score, _score_state(task, env, child_state))
+                max_depth_reached = max(max_depth_reached, int(child.depth))
+            expansions += 1
+            if status == "BUDGET_EXHAUSTED":
+                break
+        if not node.children:
+            _backprop(node, 0.0)
+            continue
+        rollout = max(node.children, key=lambda child: child.reward)
+        reward_sum = rollout.reward
+        rollout_state = rollout.state
+        rollout_depth = rollout.depth
+        for _rollout_step in range(int(args.rollout_depth)):
+            if rollout_depth >= int(args.max_depth):
+                break
+            actions, used, fails, qstatus = _propose_actions(model, tokenizer, "RAP", task, env, rollout_state, int(budget), tokens_used, args)
+            tokens_used += used
+            parse_fails += fails
+            if qstatus == "BUDGET_EXHAUSTED" or not actions:
+                status = "BUDGET_EXHAUSTED" if qstatus == "BUDGET_EXHAUSTED" else status
+                break
+            scored = []
+            for action in actions[: max(1, int(args.rollout_branching))]:
+                child_state = _transition(rollout_state, int(action))
+                reward, used, fails, qstatus = _score_child(model, tokenizer, "RAP", task, env, rollout_state, int(action), child_state, int(budget), tokens_used, args)
+                tokens_used += used
+                parse_fails += fails
+                if qstatus == "BUDGET_EXHAUSTED":
+                    status = "BUDGET_EXHAUSTED"
+                    break
+                scored.append((float(reward), child_state))
+            if status == "BUDGET_EXHAUSTED" or not scored:
+                break
+            reward, rollout_state = max(scored, key=lambda item: item[0])
+            reward_sum += reward
+            rollout_depth += 1
+            max_depth_reached = max(max_depth_reached, int(rollout_depth))
+            best_score = max(best_score, _score_state(task, env, rollout_state))
+        _backprop(rollout, reward_sum)
+        if best_score >= 0.99:
+            status = "SOLVED"
+            break
+        if status == "BUDGET_EXHAUSTED":
+            break
+    if best_score >= 0.99:
+        status = "SOLVED"
+    return _row("RAP_MCTS_repo_port_smoke", task, source_index, budget, best_score, tokens_used, max_depth_reached, expansions, parse_fails, status)
+
+
+def _row(method: str, task: str, source_index: int, budget: int, best_score: float, tokens_used: int, depth_reached: int, expansions: int, parse_fails: int, status: str) -> dict[str, Any]:
+    return {
+        "method": method,
+        "task": task,
+        "source_index": int(source_index),
+        "budget_B": int(budget),
+        "solved": bool(best_score >= 0.99),
+        "official_score": float(best_score),
+        "tokens_used": int(tokens_used),
+        "depth_reached": int(depth_reached),
+        "expansions": int(expansions),
+        "parse_fails": int(parse_fails),
+        "status": "SOLVED" if best_score >= 0.99 else status,
+        "repo": LLM_REASONERS_REPO,
+        "repo_url": LLM_REASONERS_URL,
+        "repo_commit": LLM_REASONERS_COMMIT,
+        "source": SOURCE,
+        "provenance": "kvcache_tot_rap_budget_run_v0",
+    }
+
+
+def _summarize(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    summary = []
+    keys = sorted({(row["method"], row["task"], int(row["budget_B"])) for row in rows})
+    for method, task, budget in keys:
+        subset = [row for row in rows if row["method"] == method and row["task"] == task and int(row["budget_B"]) == budget]
+        solves = sum(int(row["solved"]) for row in subset)
+        summary.append({
+            "method": method,
+            "task": task,
+            "budget_B": budget,
+            "n": len(subset),
+            "solve_count": solves,
+            "solve_rate": solves / len(subset) if subset else 0.0,
+            "mean_tokens_used": mean(float(row["tokens_used"]) for row in subset),
+            "mean_depth_reached": mean(float(row["depth_reached"]) for row in subset),
+            "mean_expansions": mean(float(row["expansions"]) for row in subset),
+            "status_counts": dict(Counter(row["status"] for row in subset)),
+            "source": SOURCE,
+            "provenance": "kvcache_tot_rap_budget_summary_v0",
+        })
+    return summary
+
+
+def run(args: argparse.Namespace) -> dict[str, Any]:
+    model, tokenizer = _load_model(args)
+    anchors = _budget_anchors(args.budget_anchors)
+    rows = []
+    methods = [item.strip() for item in args.methods.split(",") if item.strip()]
+    for task in [item.strip() for item in args.tasks.split(",") if item.strip()]:
+        dataset = _make_dataset(task, args)
+        budget = int(anchors[task])
+        for source_index in range(int(args.n_instances)):
+            entry = dataset[source_index]
+            entry.setdefault("metadata", {})["source_index"] = source_index
+            for method in methods:
+                print(json.dumps({"method": method, "task": task, "source_index": source_index, "budget_B": budget}), flush=True)
+                if method == "tot":
+                    rows.append(_run_tot_instance(model, tokenizer, dataset, task, entry, source_index, budget, args))
+                elif method == "rap":
+                    rows.append(_run_rap_instance(model, tokenizer, dataset, task, entry, source_index, budget, args))
+                else:
+                    raise ValueError(f"unknown method: {method}")
+                _write_json(args.checkpoint_path, {"rows": rows})
+    payload = {
+        "schema_version": SCHEMA_VERSION,
+        "status": STATUS_COMPLETE,
+        "generated_at": _now(),
+        "config": {key: (str(value) if isinstance(value, Path) else value) for key, value in vars(args).items()},
+        "summary": _summarize(rows),
+        "rows": rows,
+        "source": SOURCE,
+        "provenance": "kvcache_tot_rap_baselines_v0",
+    }
+    _write_json(args.output, payload)
+    return payload
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Run ToT/RAP repo-port smokes under matched budgets.")
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--checkpoint-path", type=Path, required=True)
+    parser.add_argument("--model", default="Qwen/Qwen3-4B-Instruct-2507")
+    parser.add_argument("--device", default="cuda")
+    parser.add_argument("--dtype", choices=["fp32", "bf16", "fp16"], default="fp32")
+    parser.add_argument("--reasoning-gym-repo", default=None)
+    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--scan-limit", type=int, default=120)
+    parser.add_argument("--n-instances", type=int, default=1)
+    parser.add_argument("--tasks", default="sudoku,graph_color")
+    parser.add_argument("--methods", default="tot,rap")
+    parser.add_argument("--budget-anchors", default="sudoku:28070,futoshiki:3206226,graph_color:32895")
+    parser.add_argument("--max-new-tokens", type=int, default=96)
+    parser.add_argument("--max-expansions", type=int, default=4)
+    parser.add_argument("--max-depth", type=int, default=4)
+    parser.add_argument("--n-actions", type=int, default=3)
+    parser.add_argument("--beam-size", type=int, default=2)
+    parser.add_argument("--mcts-iters", type=int, default=3)
+    parser.add_argument("--uct-weight", type=float, default=1.0)
+    parser.add_argument("--rollout-depth", type=int, default=1)
+    parser.add_argument("--rollout-branching", type=int, default=1)
+    parser.add_argument("--futoshiki-size", type=int, default=7)
+    parser.add_argument("--futoshiki-difficulty", type=int, default=3)
+    parser.add_argument("--graph-num-vertices", type=int, default=16)
+    parser.add_argument("--graph-num-colors", type=int, default=3)
+    parser.add_argument("--graph-edge-probability", type=float, default=0.4)
+    parser.add_argument("--graph-difficulty-bin-label", default="v16_p04")
+    args = parser.parse_args()
+    payload = run(args)
+    print(json.dumps({"path": str(args.output), "status": payload["status"], "rows": len(payload["rows"])}, sort_keys=True))
+
+
+if __name__ == "__main__":
+    main()
