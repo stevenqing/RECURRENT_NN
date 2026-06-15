@@ -27,5 +27,5 @@ done
 
 wait
 $PY -m analysis.kvcache_matched_budget_scaled merge \
-  --inputs "$ROOT/shards/shard_*.json" \
+  --inputs "$ROOT/shards/shard_[0-9].json" \
   --output "$ROOT/merged_scaled_primary_n64.json"

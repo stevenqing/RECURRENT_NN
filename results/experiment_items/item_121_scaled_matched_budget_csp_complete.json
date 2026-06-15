@@ -1,0 +1,76 @@
+{
+  "item_number": "121",
+  "schema_version": "log_item_contract_v1",
+  "status": "SCALED_MATCHED_BUDGET_CSP_COMPLETE_POSITIVE_GRAPH_COLOR_PENDING",
+  "name": "Scaled matched-budget CSP primary complete",
+  "generated_at": "2026-06-15T08:45:00+00:00",
+  "purpose": "Complete the scaled primary matched-budget A_cache vs C_incontext mechanism-isolation curve for sudoku and futoshiki using symbolic-CBJ targeting, n=64 per task, fixed per-task B* anchors, Wilson CIs, and conservative A-C gap CIs. This supersedes item120's partial checkpoint progress for CSP tasks. Graph_color variants and external baselines remain pending, so this does not yet promote the full three-task/SOTA claim.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["119", "120"],
+    "supersedes_partial": "120",
+    "spec": "user SPEC Matched-Budget Head-to-Head Addenda: scaled primary n>=64 per task, Wilson CI, fixed B* grid",
+    "scaled_script": "analysis/kvcache_matched_budget_scaled.py",
+    "launcher": "scripts/launch_matched_budget_scaled_primary.sh",
+    "scaled_result": "results/kvcache_matched_budget_v0/scaled_primary_n64/merged_scaled_primary_n64.json",
+    "external_repo_provenance": "results/kvcache_matched_budget_v0/external_repo_provenance.json",
+    "budget_anchors": {"sudoku": 28070, "futoshiki": 3206226},
+    "budget_grid": "0.25,0.5,1,2,4 times per-task B*",
+    "n_per_task": 64
+  },
+  "artifacts": [
+    "results/experiment_items/item_121_scaled_matched_budget_csp_complete.json",
+    "analysis/kvcache_matched_budget_scaled.py",
+    "scripts/launch_matched_budget_scaled_primary.sh",
+    "results/kvcache_matched_budget_v0/scaled_primary_n64/merged_scaled_primary_n64.json",
+    "results/kvcache_matched_budget_v0/external_repo_provenance.json"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_matched_budget_scaled.py", "change": "Fixes merge de-duplication, prevents checkpoint/final shard double-counting, and stops C-side growing-context re-tokenization after all C budgets are exhausted."},
+    {"path": "scripts/launch_matched_budget_scaled_primary.sh", "change": "Merges only final shard JSON files rather than checkpoint JSON files."}
+  ],
+  "commands": [
+    {"command": "ROOT=results/kvcache_matched_budget_v0/scaled_primary_n64 SHARDS=8 scripts/launch_matched_budget_scaled_primary.sh", "purpose": "Resume and complete the n=64 sudoku/futoshiki symbolic-CBJ scaled primary shards."},
+    {"command": "python -m analysis.kvcache_matched_budget_scaled merge --inputs '.../shards/shard_[0-9].json' --output .../merged_scaled_primary_n64.json", "purpose": "Re-merge final shard files only after fixing the double-counting glob."}
+  ],
+  "decision": {
+    "outcome": "CSP_PRIMARY_SCALED_PASS_FULL_PROMOTION_PENDING_GRAPH_COLOR",
+    "overall_pass": true,
+    "promotion_pass": false,
+    "headline": {
+      "sudoku": "n=64. At B*=28070, A solve=0.890625, C solve=0.109375, gap=0.78125; conservative gap CI [0.5820,0.8920] excludes 0.",
+      "futoshiki": "n=64. At B*=3206226, A solve=1.0, C solve=0.296875, gap=0.703125; conservative gap CI [0.5257,0.8009] excludes 0.",
+      "shape": "A dominates C on all five grid budgets for both CSP tasks; every grid point has gap>=0.484 and conservative gap CI above 0.",
+      "single_next_move": "Run graph_color symbolic-CBJ and C1 reasoning matched-budget variants, then evaluate full three-task promotion rule; keep external baselines as repo-provenance/not-run until ports are implemented."
+    },
+    "gate_outcomes": [
+      {"gate": "scaled_sudoku_n64", "outcome": "PASS_POSITIVE", "number": "gap=0.78125 at B*=28070, CI [0.5820,0.8920]."},
+      {"gate": "scaled_futoshiki_n64", "outcome": "PASS_POSITIVE", "number": "gap=0.703125 at B*=3206226, CI [0.5257,0.8009]."},
+      {"gate": "HB3_CSP_shape", "outcome": "PASS_POSITIVE", "number": "A dominates C at 5/5 grid budgets for both sudoku and futoshiki."},
+      {"gate": "full_promotion_rule", "outcome": "PENDING_GRAPH_COLOR", "number": "CSP tasks satisfy numeric promotion condition, but graph_color variants and external baselines are not complete."}
+    ],
+    "next_step_routing": "Treat solve@budget conversion as strongly supported on CSP mechanism-isolation. Do not claim full spec promotion until graph_color symbolic/C1 matched-budget curves are added and external baselines are either run or explicitly final-not-run."
+  },
+  "result_tables": {
+    "midband_gap_n64": {
+      "columns": ["task", "n", "B_star", "A_solve", "C_solve", "A_minus_C", "gap_ci_low", "gap_ci_high", "promotion_point"],
+      "rows": [
+        {"task": "sudoku", "n": 64, "B_star": 28070, "A_solve": 0.890625, "C_solve": 0.109375, "A_minus_C": 0.78125, "gap_ci_low": 0.5820271734620774, "gap_ci_high": 0.891997733111664, "promotion_point": true},
+        {"task": "futoshiki", "n": 64, "B_star": 3206226, "A_solve": 1.0, "C_solve": 0.296875, "A_minus_C": 0.703125, "gap_ci_low": 0.5256739291717654, "gap_ci_high": 0.8009484867446021, "promotion_point": true}
+      ]
+    },
+    "grid_gap_ranges": {
+      "columns": ["task", "n_budgets", "min_gap", "max_gap", "promotion_points", "A_dominates_grid"],
+      "rows": [
+        {"task": "sudoku", "n_budgets": 5, "min_gap": 0.53125, "max_gap": 0.8125, "promotion_points": 5, "A_dominates_grid": true},
+        {"task": "futoshiki", "n_budgets": 5, "min_gap": 0.484375, "max_gap": 0.828125, "promotion_points": 5, "A_dominates_grid": true}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish the full three-task promotion rule or SOTA competitiveness because graph_color symbolic/C1 variants and external baseline curves are still pending.",
+    "merge_fix": "An initial broad glob double-counted final and checkpoint shard JSON files; the merge was fixed to deduplicate by task/source/policy/method/budget and final artifact was regenerated with n=64 per task.",
+    "external_limit": "External repos have only been located/read for provenance; no LFS, First Finish, Beyond-the-Frontier, ToT/RAP, or best-of-n curve is reported here.",
+    "positive_read": "For the completed CSP mechanism-isolation tasks, exact cache-truncation converts the cost advantage into a large solve@budget advantage under the same symbolic-CBJ policy and shared token counter."
+  }
+}

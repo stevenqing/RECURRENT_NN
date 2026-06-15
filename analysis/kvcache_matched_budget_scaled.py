@@ -127,6 +127,7 @@ def _stream_trace(
     base_tokens = len(tokenizer(base_text, add_special_tokens=False).input_ids)
     a_cumulative = int(base_tokens)
     c_cumulative = 0
+    c_budget_closed = False
     event_rows: list[dict[str, Any]] = []
     budget_rows: list[dict[str, Any]] = []
     budget_done = {("A_cache", budget): False for budget in budgets} | {("C_incontext", budget): False for budget in budgets}
@@ -181,10 +182,13 @@ def _stream_trace(
             index = target
         event_text = _event_text(event)
         a_step = len(tokenizer(event_text, add_special_tokens=False).input_ids)
-        c_step = len(tokenizer(transcript + event_text, add_special_tokens=False).input_ids)
+        c_step = None
         a_cumulative += a_step
-        c_cumulative += c_step
-        transcript += event_text + "\n"
+        if not c_budget_closed:
+            c_step = len(tokenizer(transcript + event_text, add_special_tokens=False).input_ids)
+            c_cumulative += int(c_step)
+            transcript += event_text + "\n"
+            c_budget_closed = all(budget_done[("C_incontext", budget)] or c_cumulative > int(budget) for budget in budgets)
         max_depth = max(max_depth, int(event.get("depth", 0)))
         event_rows.append({"step_index": len(event_rows) + 1, "kind": event["kind"], "depth": int(event.get("depth", 0)), "A_tokens_cumulative": a_cumulative, "C_tokens_cumulative": c_cumulative, "A_tokens_step": a_step, "C_tokens_step": c_step})
         record_budget_rows()
@@ -275,16 +279,22 @@ def _summarize(rows: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[d
 
 def merge(args: argparse.Namespace) -> dict[str, Any]:
     inputs = sorted(glob.glob(args.inputs))
-    trace_rows = []
-    budget_rows = []
-    event_samples = []
+    trace_by_key: dict[tuple[str, int, str], dict[str, Any]] = {}
+    budget_by_key: dict[tuple[str, int, str, str, int], dict[str, Any]] = {}
+    event_by_key: dict[tuple[str, int, str, int], dict[str, Any]] = {}
     for path in inputs:
         payload = _read_json(Path(path))
-        trace_rows.extend(payload.get("trace_rows", []))
-        budget_rows.extend(payload.get("budget_rows", []))
-        event_samples.extend(payload.get("event_samples", []))
+        for row in payload.get("trace_rows", []):
+            trace_by_key[(str(row["task"]), int(row["source_index"]), str(row["policy"]))] = row
+        for row in payload.get("budget_rows", []):
+            budget_by_key[(str(row["task"]), int(row["source_index"]), str(row["policy"]), str(row["method"]), int(row["budget_B"]))] = row
+        for row in payload.get("event_samples", []):
+            event_by_key[(str(row["task"]), int(row["source_index"]), str(row["policy"]), int(row["step_index"]))] = row
+    trace_rows = [trace_by_key[key] for key in sorted(trace_by_key)]
+    budget_rows = [budget_by_key[key] for key in sorted(budget_by_key)]
+    event_samples = [event_by_key[key] for key in sorted(event_by_key)]
     curve, gaps, shape = _summarize(budget_rows)
-    payload = {"schema_version": SCHEMA_VERSION, "status": STATUS_MERGED, "generated_at": _now(), "input_files": inputs, "curve_summary": curve, "gap_summary": gaps, "shape_summary": shape, "trace_rows": trace_rows, "budget_rows": budget_rows, "event_samples": event_samples, "source": SOURCE, "provenance": "kvcache_matched_budget_scaled_merged_v0"}
+    payload = {"schema_version": SCHEMA_VERSION, "status": STATUS_MERGED, "generated_at": _now(), "input_files": inputs, "n_input_trace_rows_raw": sum(len((_read_json(Path(path)) or {}).get("trace_rows", [])) for path in inputs), "curve_summary": curve, "gap_summary": gaps, "shape_summary": shape, "trace_rows": trace_rows, "budget_rows": budget_rows, "event_samples": event_samples, "source": SOURCE, "provenance": "kvcache_matched_budget_scaled_merged_v0"}
     _write_json(args.output, payload)
     return payload
 
