@@ -123,6 +123,30 @@ def _sample_once(model: Any, tokenizer: Any, prompt: str, max_new_tokens: int, t
     return text, int(ids.shape[1]), int(generated.shape[1])
 
 
+@torch.no_grad()
+def _sample_batch(model: Any, tokenizer: Any, prompt: str, batch_size: int, max_new_tokens: int, temperature: float, top_p: float) -> list[tuple[str, int, int]]:
+    if batch_size <= 1:
+        return [_sample_once(model, tokenizer, prompt, max_new_tokens, temperature, top_p)]
+    ids = tokenizer(prompt, return_tensors="pt", add_special_tokens=False).input_ids.to(model.device)
+    batch_ids = ids.repeat(int(batch_size), 1)
+    output = model.generate(
+        batch_ids,
+        do_sample=True,
+        temperature=float(temperature),
+        top_p=float(top_p),
+        max_new_tokens=int(max_new_tokens),
+        pad_token_id=tokenizer.pad_token_id,
+        eos_token_id=tokenizer.eos_token_id,
+        use_cache=True,
+    )
+    generated = output[:, batch_ids.shape[1]:]
+    rows = []
+    for index in range(generated.shape[0]):
+        text = tokenizer.decode(generated[index], skip_special_tokens=True).strip()
+        rows.append((text, int(ids.shape[1]), int(generated.shape[1])))
+    return rows
+
+
 def _wilson(successes: int, n: int, z: float = 1.959963984540054) -> dict[str, float | None]:
     if n <= 0:
         return {"rate": None, "ci_low": None, "ci_high": None}
@@ -141,30 +165,42 @@ def _run_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry: di
     best_text = ""
     attempts = 0
     status = "BUDGET_EXHAUSTED"
-    while attempts < int(args.max_samples_per_budget):
+    sample_cap = int(args.max_samples_per_budget)
+    while sample_cap <= 0 or attempts < sample_cap:
         remaining = int(budget) - int(tokens_used)
         if remaining <= prompt_tokens + 1:
             status = "BUDGET_EXHAUSTED"
             break
         max_new = min(int(args.max_new_tokens), max(1, remaining - prompt_tokens))
-        text, input_tokens, output_tokens = _sample_once(model, tokenizer, prompt, max_new, float(args.temperature), float(args.top_p))
-        used = int(input_tokens) + int(output_tokens)
-        if tokens_used + used > int(budget):
+        remaining_attempt_cap = (sample_cap - attempts) if sample_cap > 0 else int(args.sample_batch_size)
+        budget_batch_cap = max(1, remaining // max(1, prompt_tokens + max_new))
+        batch_size = max(1, min(int(args.sample_batch_size), int(remaining_attempt_cap), int(budget_batch_cap)))
+        sampled = _sample_batch(model, tokenizer, prompt, batch_size, max_new, float(args.temperature), float(args.top_p))
+        made_progress = False
+        for text, input_tokens, output_tokens in sampled:
+            used = int(input_tokens) + int(output_tokens)
+            if tokens_used + used > int(budget):
+                status = "BUDGET_EXHAUSTED"
+                break
+            tokens_used += used
+            attempts += 1
+            made_progress = True
+            try:
+                score = float(dataset.score_answer(text, entry))
+            except Exception:
+                score = 0.0
+            if score > best_score:
+                best_score = score
+                best_text = text
+            if score >= 0.99:
+                status = "SOLVED"
+                break
+        if status == "SOLVED":
+            break
+        if not made_progress:
             status = "BUDGET_EXHAUSTED"
             break
-        tokens_used += used
-        attempts += 1
-        try:
-            score = float(dataset.score_answer(text, entry))
-        except Exception:
-            score = 0.0
-        if score > best_score:
-            best_score = score
-            best_text = text
-        if score >= 0.99:
-            status = "SOLVED"
-            break
-    if attempts >= int(args.max_samples_per_budget) and status != "SOLVED" and tokens_used < int(budget):
+    if sample_cap > 0 and attempts >= sample_cap and status != "SOLVED" and tokens_used < int(budget):
         status = "ATTEMPT_CAP"
     return {
         "method": "best_of_n_parallel_sampling",
@@ -291,7 +327,8 @@ def main() -> None:
     run.add_argument("--tasks", default="sudoku,futoshiki,graph_color")
     run.add_argument("--budget-anchors", default="sudoku:28070,futoshiki:3206226,graph_color:32895")
     run.add_argument("--budget-scales", default="0.25,0.5,1,2,4")
-    run.add_argument("--max-samples-per-budget", type=int, default=8)
+    run.add_argument("--max-samples-per-budget", type=int, default=0, help="0 means exhaust budget; positive values are safety/pilot caps")
+    run.add_argument("--sample-batch-size", type=int, default=8)
     run.add_argument("--max-new-tokens", type=int, default=512)
     run.add_argument("--temperature", type=float, default=0.8)
     run.add_argument("--top-p", type=float, default=0.95)

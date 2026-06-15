@@ -1,0 +1,66 @@
+{
+  "item_number": "125",
+  "schema_version": "log_item_contract_v1",
+  "status": "HB2_BEST_OF_N_EXHAUSTIVE_SMOKE_NOT_FINAL",
+  "name": "HB-2 best-of-n exhaustive smoke",
+  "generated_at": "2026-06-15T11:35:00+00:00",
+  "purpose": "Fix Item124's best-of-n cap1 limitation by making the best-of-n runner budget-exhaustive by default, adding batched sampling for practicality, and running a small B*-only exhaustive smoke on sudoku and graph_color. This validates true budget exhaustion semantics: sampling continues until the next attempt would exceed budget_B, not until a fixed attempt cap. It is still not a final HB-2 curve because n=4 and futoshiki/LFS/ToT/RAP are not completed.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["124"],
+    "supersedes_cap_semantics_of": "124",
+    "spec": "user CODING SPEC — HB-2 External No-Train Matched-Budget Comparison (consolidated, v1)",
+    "runner": "analysis/kvcache_best_of_n_baseline.py",
+    "launcher": "scripts/launch_hb2_best_of_n_bstar_exhaust_smoke.sh",
+    "result": "results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_exhaust_smoke/merged_best_of_n_bstar_exhaust_smoke.json",
+    "method": "best_of_n_parallel_sampling",
+    "run_scope": "Bstar_only_exhaustive_smoke_n4_sudoku_graph_color",
+    "sample_cap": "none; max_samples_per_budget=0 means exhaust budget"
+  },
+  "artifacts": [
+    "results/experiment_items/item_125_hb2_best_of_n_exhaustive_smoke.json",
+    "analysis/kvcache_best_of_n_baseline.py",
+    "scripts/launch_hb2_best_of_n_bstar_exhaust_smoke.sh",
+    "results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_exhaust_smoke/merged_best_of_n_bstar_exhaust_smoke.json"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_best_of_n_baseline.py", "change": "Changes best-of-n default to budget-exhaustive mode when max_samples_per_budget=0 and adds batched sampling via sample_batch_size."},
+    {"path": "scripts/launch_hb2_best_of_n_bstar_exhaust_smoke.sh", "change": "Runs a small B*-only exhaustive smoke with no sample cap and batched sampling."}
+  ],
+  "commands": [
+    {"command": "ROOT=results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_exhaust_smoke TASKS=sudoku,graph_color INSTANCES=4 SHARDS=2 scripts/launch_hb2_best_of_n_bstar_exhaust_smoke.sh", "purpose": "Run budget-exhaustive best-of-n smoke on sudoku and graph_color."}
+  ],
+  "decision": {
+    "outcome": "RUNNER_EXHAUSTIVE_SEMANTICS_VALIDATED_HB2_STILL_OPEN",
+    "overall_pass": true,
+    "hb2_confirmed": false,
+    "headline": {
+      "sudoku": "n=4 smoke at B*=28070 exhausted budget with mean_attempts=90.5 and solve=0/4; best official partial scores were around 0.48-0.54.",
+      "graph_color": "n=4 smoke at B*=32895 exhausted budget with mean_attempts=61.75 and solve=0/4.",
+      "semantics": "Rows ended BUDGET_EXHAUSTED, not ATTEMPT_CAP, confirming the runner now samples until budget exhaustion.",
+      "single_next_move": "Scale best-of-n exhaustive B* / grid to n=64, then port/run LFS and ToT/RAP before final HB-2 read."
+    },
+    "gate_outcomes": [
+      {"gate": "budget_exhaustion_semantics", "outcome": "PASS", "number": "max_samples_per_budget=0 produced BUDGET_EXHAUSTED rows with ~90 sudoku attempts and ~62 graph_color attempts at B*."},
+      {"gate": "best_of_n_smoke_sudoku", "outcome": "LOWER_BOUND_ZERO", "number": "0/4 solved at B*=28070."},
+      {"gate": "best_of_n_smoke_graph_color", "outcome": "LOWER_BOUND_ZERO", "number": "0/4 solved at B*=32895."},
+      {"gate": "HB2_read", "outcome": "NOT_READY", "number": "n=4 smoke only; futoshiki not run; LFS/ToT/RAP not ported/run."}
+    ],
+    "next_step_routing": "Use the fixed runner for n=64 best-of-n sweeps. Keep HB-2 open until best-of-n, LFS, ToT, and RAP are run or final-not-run with provenance."
+  },
+  "result_tables": {
+    "best_of_n_exhaustive_smoke": {
+      "columns": ["task", "budget_B", "n", "solve_count", "solve_rate", "mean_tokens_used", "mean_attempts", "status_counts"],
+      "rows": [
+        {"task": "sudoku", "budget_B": 28070, "n": 4, "solve_count": 0, "solve_rate": 0.0, "mean_tokens_used": 28012.0, "mean_attempts": 90.5, "status_counts": {"BUDGET_EXHAUSTED": 4}},
+        {"task": "graph_color", "budget_B": 32895, "n": 4, "solve_count": 0, "solve_rate": 0.0, "mean_tokens_used": 32618.0, "mean_attempts": 61.75, "status_counts": {"BUDGET_EXHAUSTED": 4}}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not complete HB-2 and does not compare against the full no-train frontier. It is only a budget-exhaustive smoke for the direct best-of-n runner.",
+    "scope_limit": "n=4 and only sudoku/graph_color at B*. Futoshiki is omitted from this smoke because B*=3.2M implies thousands of direct samples per instance.",
+    "cap_note": "Item124 cap1 was a useful harness smoke but used ATTEMPT_CAP; this item fixes the runner semantics so future best-of-n results can exhaust budget.",
+    "external_limit": "LFS, ToT, RAP, and First Finish are still not ported/run."
+  }
+}
