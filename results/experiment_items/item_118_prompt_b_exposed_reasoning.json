@@ -1,0 +1,74 @@
+{
+  "item_number": "118",
+  "schema_version": "log_item_contract_v1",
+  "status": "PROMPT_B_EXPOSED_REASONING_B1_FAIL_SCOPE_A_KILL",
+  "name": "Prompt B conflict-structure-exposed CSP reasoning",
+  "generated_at": "2026-06-15T07:05:00+00:00",
+  "purpose": "Run the preregistered Prompt B test after Item117: expose sudoku/futoshiki peer and inequality structure in the style of the working graph_color C1 prompt, without exposing conflict_by_value, conflict set, oracle target, or precomputed culprit. Compare exact-CBJ against random_exact=1/num_open and apply the fixed B-1 kill.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["117"],
+    "spec": "user SPEC — B, Conflict-Structure-Exposed Reasoning Prompt for sudoku/futoshiki (PREREGISTERED, v0)",
+    "script": "analysis/kvcache_gate2_csp_solver.py",
+    "preregistered_kill": "results/kvcache_overnight_v0/prompt_b_exposed/preregistered_kill.json",
+    "futoshiki_result": "results/kvcache_overnight_v0/prompt_b_exposed/futoshiki_reason_exposed_metric.json",
+    "sudoku_result": "results/kvcache_overnight_v0/prompt_b_exposed/sudoku_reason_exposed_metric.json",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "reason_dtype": "fp32",
+    "acceleration": "two GPUs in parallel; batch_size=4; regex early-stop batched greedy decoding; max_new_tokens=512 ceiling"
+  },
+  "artifacts": [
+    "results/experiment_items/item_118_prompt_b_exposed_reasoning.json",
+    "analysis/kvcache_gate2_csp_solver.py",
+    "results/kvcache_overnight_v0/prompt_b_exposed/preregistered_kill.json",
+    "results/kvcache_overnight_v0/prompt_b_exposed/futoshiki_reason_exposed_metric.json",
+    "results/kvcache_overnight_v0/prompt_b_exposed/sudoku_reason_exposed_metric.json"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_gate2_csp_solver.py", "change": "Adds reason-exposed-metric with peer/inequality-exposed prompts, random_exact baseline, B-1 kill summary, visibility audit, and batched early-stop greedy generation for faster background runs."}
+  ],
+  "commands": [
+    {"command": "reason-exposed-metric futoshiki size7 difficulty3 max_points=80 batch_size=4 max_new_tokens=512 fp32 cuda", "purpose": "Run Prompt B on futoshiki nontrivial Item117-style decision points."},
+    {"command": "reason-exposed-metric sudoku max_points=80 batch_size=4 max_new_tokens=512 fp32 cuda", "purpose": "Run Prompt B on sudoku nontrivial Item117-style decision points."}
+  ],
+  "decision": {
+    "outcome": "B1_FAIL_SCOPE_A_KILL",
+    "overall_pass": true,
+    "b1_pass": false,
+    "headline": {
+      "futoshiki": "exact_cbj_rate=0.025 versus random_exact_rate=0.07195, exact/random=0.347, parse_rate=0.9875 on n=80.",
+      "sudoku": "exact_cbj_rate=0.0375 versus random_exact_rate=0.07081, exact/random=0.530, parse_rate=1.0 on n=80.",
+      "kill": "B-1 fails on both tasks: exact is below random and far below the required exact>=0.25 and exact/random>=2.0; the preregistered scope-A kill fires.",
+      "single_next_move": "Finalize conflict-analysis reasoning as graph_color/simple-conflict scoped; report cross-task CSP result as cost generalization, not reason generalization."
+    },
+    "gate_outcomes": [
+      {"gate": "format_guard_futoshiki", "outcome": "PASS_READABLE", "number": "parse_rate=0.9875, valid_rate=0.9875."},
+      {"gate": "format_guard_sudoku", "outcome": "PASS_READABLE", "number": "parse_rate=1.0, valid_rate=1.0."},
+      {"gate": "b1_futoshiki", "outcome": "FAIL_SCOPE_A_KILL", "number": "exact=0.025, random=0.07194565880978925, exact/random=0.3474844822269998."},
+      {"gate": "b1_sudoku", "outcome": "FAIL_SCOPE_A_KILL", "number": "exact=0.0375, random=0.07081414473684211, exact/random=0.5295552200673557."}
+    ],
+    "next_step_routing": "Do not spend further trunk effort on CSP conflict-analysis prompt variants. Keep the cost generalization and graph_color/multi-agent CBJ results; scope C1 reasoning to graph_color/simple-conflict settings unless a future model or training path changes the premise."
+  },
+  "result_tables": {
+    "prompt_b_reason_metric": {
+      "columns": ["task", "n", "parse_rate", "valid_rate", "exact_cbj_rate", "random_exact_rate", "exact_over_random", "b1_pass", "kill_read"],
+      "rows": [
+        {"task": "futoshiki", "n": 80, "parse_rate": 0.9875, "valid_rate": 0.9875, "exact_cbj_rate": 0.025, "random_exact_rate": 0.07194565880978925, "exact_over_random": 0.3474844822269998, "b1_pass": false, "kill_read": "B1_FAIL_CAPABILITY_LIMIT_SCOPE_A"},
+        {"task": "sudoku", "n": 80, "parse_rate": 1.0, "valid_rate": 1.0, "exact_cbj_rate": 0.0375, "random_exact_rate": 0.07081414473684211, "exact_over_random": 0.5295552200673557, "b1_pass": false, "kill_read": "B1_FAIL_CAPABILITY_LIMIT_SCOPE_A"}
+      ]
+    },
+    "visibility_audit": {
+      "columns": ["task", "oracle_visible_live_rate", "deepest_visible_live_exact_rate", "mean_num_open", "mean_input_tokens", "mean_output_tokens"],
+      "rows": [
+        {"task": "futoshiki", "oracle_visible_live_rate": 0.425, "deepest_visible_live_exact_rate": 0.425, "mean_num_open": 16.8875, "mean_input_tokens": 892.975, "mean_output_tokens": 148.3125},
+        {"task": "sudoku", "oracle_visible_live_rate": 0.125, "deepest_visible_live_exact_rate": 0.125, "mean_num_open": 15.925, "mean_input_tokens": 954.2625, "mean_output_tokens": 147.9}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "Prompt B does not rescue CSP conflict-analysis reasoning. Even with exposed peer/inequality data and readable output, exact-CBJ remains below the random legal-index baseline on both tasks.",
+    "format_guard": "One format-fix was applied before the official run because the first exposed prompt produced long prose without BACKJUMP; final official runs are readable with parse_rate 0.9875/1.0.",
+    "visibility_limit": "The no-oracle/no-conflict-set prompt exposes current peer and inequality data, but the oracle target is visible from that local data for only 42.5% of futoshiki rows and 12.5% of sudoku rows; many nontrivial labels require downstream tried-value conflict state that the preregistered fair prompt intentionally did not expose.",
+    "scope": "The fixed kill therefore supports the honest scope-A read: current 4B zero-shot conflict-analysis reasoning does not generalize to these complex CSP nontrivial backjump decisions under fair no-culprit exposure."
+  }
+}

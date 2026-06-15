@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-15T06:16:16.042234+00:00
+Generated at: 2026-06-15T07:05:34.647588+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -113,6 +113,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 115 | Gate-3 calibration and P1-B separability run | GATE3_CALIBRATION_NO_MIDBAND_P1B_SEPARABILITY_MIXED | Do not launch P1-A cost/reason yet. Continue monitoring P2-B; after P2-B completion, create a completion read. For P1-B, report H1 positive and H3 below-threshold mixed result. |
 | 116 | P2-B graph_color robustness completion | P2B_GRAPH_COLOR_ROBUSTNESS_COMPLETE_COST_V22_GATED_OUT | Commit this completion. Future work should add verified P1-A cost/reason hooks and optional v22 cost only with a validated source selector. |
 | 117 | P1-A metric-refined cross-task generalization | P1A_METRIC_REFINEMENT_COST_POSITIVE_REASON_NEGATIVE | For P1-A, quote cost generalization but not reason generalization. For reason, inspect wrong predictions and redesign task-specific prompts before rerun. |
+| 118 | Prompt B conflict-structure-exposed CSP reasoning | PROMPT_B_EXPOSED_REASONING_B1_FAIL_SCOPE_A_KILL | Do not spend further trunk effort on CSP conflict-analysis prompt variants. Keep the cost generalization and graph_color/multi-agent CBJ results; scope C1 reasoning to graph_color/simple-conflict settings unless a future model or training path changes the premise. |
 
 ## Item Details
 
@@ -169,7 +170,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - The validator now reports missing legacy artifacts individually.
   - Current validation is registry-style and does not collapse missing history into one opaque required-files failure.
 - Artifact refs:
-  - analysis/validate_outputs.py (yes, 175310 bytes)
+  - analysis/validate_outputs.py (yes, 175786 bytes)
   - results/validation/validation.json (yes, 263653 bytes)
   - results/validation/validation.md (yes, 197368 bytes)
 #### Referenced Result Summaries
@@ -330,9 +331,9 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - Current validation is all-green; Stage A full autonomous proof remains a separate evidence question, not a validation failure.
 - Artifact refs:
   - CANONICAL_REPO.md (yes, 532 bytes)
-  - analysis/validate_outputs.py (yes, 175310 bytes)
+  - analysis/validate_outputs.py (yes, 175786 bytes)
   - results/validation/validation.json (yes, 263653 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84705598 bytes)
+  - results/experiment_log/experiment_log.json (yes, 84706486 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -456,8 +457,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/continuation_state/post_027.json (yes, 1453 bytes)
   - results/validation/validation.json (yes, 263653 bytes)
   - results/validation/validation.md (yes, 197368 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84705598 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1064812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 84706486 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1064938 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -827,7 +828,7 @@ No rows recorded.
   - honesty=This corrective item does not train the learned recurrent operator, does not produce autonomous Stage A cells, and does not redo W3 on cached GDN recurrent state. It deliberately turns the registry red until those objects exist.
 - Artifact refs:
   - results/experiment_items/item_033_validation_object_binding.json (yes, 7073 bytes)
-  - analysis/validate_outputs.py (yes, 175310 bytes)
+  - analysis/validate_outputs.py (yes, 175786 bytes)
   - experiments/stage_a_sudoku6_bridge.py (yes, 10922 bytes)
   - experiments/w3_qwen35_probe.py (yes, 47675 bytes)
   - results/stage_a_sudoku6_bridge/results.json (yes, 4890 bytes)
@@ -1260,8 +1261,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 263653 bytes)
   - results/validation/validation.md (yes, 197368 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84705598 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1064812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 84706486 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1064938 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1389,8 +1390,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 263653 bytes)
   - results/validation/validation.md (yes, 197368 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84705598 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1064812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 84706486 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1064938 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1477,8 +1478,8 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84705598 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1064812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 84706486 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1064938 bytes)
   - results/validation/validation.json (yes, 263653 bytes)
   - results/validation/validation.md (yes, 197368 bytes)
 #### Referenced Result Summaries
@@ -1542,15 +1543,15 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (yes, 11255 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (yes, 11389 bytes)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (yes, 11218 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84705598 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1064812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 84706486 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1064938 bytes)
   - results/validation/validation.json (yes, 263653 bytes)
   - results/validation/validation.md (yes, 197368 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-15T06:15:56.666790+00:00 |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-15T07:05:30.570215+00:00 |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | GATES_UNREACHED | G1=0.03906; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
 | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | GATES_UNREACHED | G1=0.01562; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
@@ -1644,8 +1645,8 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (yes, 40421 bytes)
   - results/sudoku_engine_gpu/equivalence_1000.json (yes, 167 bytes)
   - results/trm_operator_logging_smoke/progress.jsonl (yes, 968 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84705598 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1064812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 84706486 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1064938 bytes)
   - results/validation/validation.json (yes, 263653 bytes)
   - results/validation/validation.md (yes, 197368 bytes)
 #### Referenced Result Summaries
@@ -1724,8 +1725,8 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (yes, 322 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84705598 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1064812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 84706486 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1064938 bytes)
   - results/validation/validation.json (yes, 263653 bytes)
   - results/validation/validation.md (yes, 197368 bytes)
 #### Referenced Result Summaries
@@ -1770,8 +1771,8 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84705598 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1064812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 84706486 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1064938 bytes)
   - results/validation/validation.json (yes, 263653 bytes)
   - results/validation/validation.md (yes, 197368 bytes)
 #### Referenced Result Summaries
@@ -1827,8 +1828,8 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (yes, 974 bytes)
   - results/trm_operator_compile_smoke/acceptance.json (yes, 10396 bytes)
   - results/trm_operator_compile_smoke/progress.jsonl (yes, 486 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84705598 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1064812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 84706486 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1064938 bytes)
   - results/validation/validation.json (yes, 263653 bytes)
   - results/validation/validation.md (yes, 197368 bytes)
 #### Referenced Result Summaries
@@ -1895,8 +1896,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (yes, 102640503 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (yes, 102514311 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (yes, 102594183 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84705598 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1064812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 84706486 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1064938 bytes)
   - results/validation/validation.json (yes, 263653 bytes)
   - results/validation/validation.md (yes, 197368 bytes)
 #### Referenced Result Summaries
@@ -1955,8 +1956,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 42721 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (yes, 80203 bytes)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (yes, 55287865 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84705598 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1064812 bytes)
+  - results/experiment_log/experiment_log.json (yes, 84706486 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1064938 bytes)
   - results/validation/validation.json (yes, 263653 bytes)
   - results/validation/validation.md (yes, 197368 bytes)
 #### Referenced Result Summaries
@@ -4688,8 +4689,8 @@ Truncated to 24 of 28 rows.
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json (yes, 3515 bytes)
   - results/rung1_separator_fallibility_rungs/results.json (yes, 79925 bytes)
   - results/experiment_items/item_060_rung1_separator_fallibility_rungs.json (yes, 191278 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1064812 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84705598 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1064938 bytes)
+  - results/experiment_log/experiment_log.json (yes, 84706486 bytes)
   - results/rung1_separator_fallibility_rungs/item062_execution.json (yes, 2265658 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json (yes, 3606 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2.log (yes, 9044 bytes)
@@ -8286,7 +8287,7 @@ Truncated to 24 of 378 rows.
   - honesty=This item fixes Gate-2 search correctness and runs a verified couple landscape. It does not establish P1-A C1 reason generalization or A-vs-C cost ratios yet, because those hooks still need to be layered onto the verified solver.
 - Artifact refs:
   - results/experiment_items/item_113_kvcache_gate2_verified_csp_solver.json (yes, 6536 bytes)
-  - analysis/kvcache_gate2_csp_solver.py (yes, 45098 bytes)
+  - analysis/kvcache_gate2_csp_solver.py (yes, 62663 bytes)
   - results/kvcache_overnight_v0/gate2/mini_sudoku_io.json (yes, 6969 bytes)
   - results/kvcache_overnight_v0/gate2/mini_sudoku_gate2.json (yes, 14150 bytes)
   - results/kvcache_overnight_v0/gate2/n_queens_io.json (yes, 6951 bytes)
@@ -8370,7 +8371,7 @@ Truncated to 24 of 378 rows.
   - honesty=This item does not establish P1-A cross-task reason/cost because Gate-3 failed for the current task profiles. It does not establish P1-B H3 at the preregistered threshold; H3 is positive but below +0.10.
 - Artifact refs:
   - results/experiment_items/item_115_gate3_and_p1b_separability.json (yes, 6695 bytes)
-  - analysis/kvcache_gate2_csp_solver.py (yes, 45098 bytes)
+  - analysis/kvcache_gate2_csp_solver.py (yes, 62663 bytes)
   - analysis/kvcache_separability_p1b.py (yes, 15886 bytes)
   - results/kvcache_overnight_v0/gate3/mini_sudoku_gate3.json (yes, 2455 bytes)
   - results/kvcache_overnight_v0/gate3/n_queens_gate3.json (yes, 3274 bytes)
@@ -8478,7 +8479,7 @@ Truncated to 24 of 378 rows.
   - honesty=This item does not establish cross-task C1 reason generalization. The model follows format but chooses the wrong target on most nontrivial futoshiki/sudoku points.
 - Artifact refs:
   - results/experiment_items/item_117_p1a_metric_refinement.json (yes, 7060 bytes)
-  - analysis/kvcache_gate2_csp_solver.py (yes, 45098 bytes)
+  - analysis/kvcache_gate2_csp_solver.py (yes, 62663 bytes)
   - results/kvcache_overnight_v0/p1a_metric/futoshiki_decision_preflight.json (yes, 9010 bytes)
   - results/kvcache_overnight_v0/p1a_metric/sudoku_decision_preflight.json (yes, 6270 bytes)
   - results/kvcache_overnight_v0/p1a_metric/n_queens_decision_preflight.json (yes, 8927 bytes)
@@ -8523,6 +8524,48 @@ Truncated to 24 of 378 rows.
 | sudoku | 5 | 2226 | 33 | 121.8 | 933.9 |
 
 - Next action: For P1-A, quote cost generalization but not reason generalization. For reason, inspect wrong predictions and redesign task-specific prompts before rerun.
+
+### Item 118 - Prompt B conflict-structure-exposed CSP reasoning
+
+- Status: PROMPT_B_EXPOSED_REASONING_B1_FAIL_SCOPE_A_KILL
+- Key result: Do not spend further trunk effort on CSP conflict-analysis prompt variants. Keep the cost generalization and graph_color/multi-agent CBJ results; scope C1 reasoning to graph_color/simple-conflict settings unless a future model or training path changes the premise.
+- Purpose: Run the preregistered Prompt B test after Item117: expose sudoku/futoshiki peer and inequality structure in the style of the working graph_color C1 prompt, without exposing conflict_by_value, conflict set, oracle target, or precomputed culprit. Compare exact-CBJ against random_exact=1/num_open and apply the fixed B-1 kill.
+- Details:
+  - purpose=Run the preregistered Prompt B test after Item117: expose sudoku/futoshiki peer and inequality structure in the style of the working graph_color C1 prompt, without exposing conflict_by_value, conflict set, oracle target, or precomputed culprit. Compare exact-CBJ against random_exact=1/num_open and apply the fixed B-1 kill.
+  - commands=2
+  - result_tables=['prompt_b_reason_metric', 'visibility_audit']
+  - honesty=Prompt B does not rescue CSP conflict-analysis reasoning. Even with exposed peer/inequality data and readable output, exact-CBJ remains below the random legal-index baseline on both tasks.
+- Artifact refs:
+  - results/experiment_items/item_118_prompt_b_exposed_reasoning.json (yes, 6385 bytes)
+  - analysis/kvcache_gate2_csp_solver.py (yes, 62663 bytes)
+  - results/kvcache_overnight_v0/prompt_b_exposed/preregistered_kill.json (yes, 1230 bytes)
+  - results/kvcache_overnight_v0/prompt_b_exposed/futoshiki_reason_exposed_metric.json (yes, 118924 bytes)
+  - results/kvcache_overnight_v0/prompt_b_exposed/sudoku_reason_exposed_metric.json (yes, 128184 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/kvcache_overnight_v0/prompt_b_exposed/preregistered_kill.json | KVCACHE_PROMPT_B_EXPOSED_PREREGISTERED | schema_version=kvcache_prompt_b_exposed_prereg_v0; name=Prompt B conflict-structure-exposed reasoning kill; source=autonomous_stage_a_run; provenance=kvcache_prompt_b_exposed_prereg_v0; parent_item=117; model=Qwen/Qwen3-4B-Instruct-2507 |  |
+| results/kvcache_overnight_v0/prompt_b_exposed/futoshiki_reason_exposed_metric.json | KVCACHE_PROMPT_B_EXPOSED_REASON_METRIC_COMPLETE | job=reason_exposed_metric; provenance=kvcache_prompt_b_exposed_reason_metric_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; summary=27 keys: b1_pass, b1_scope_a_kill, batch_size, chrono_exact_rate, deepest_visible_all_exact_rate, deepest_visible_liv...; task=futoshiki |  |
+| results/kvcache_overnight_v0/prompt_b_exposed/sudoku_reason_exposed_metric.json | KVCACHE_PROMPT_B_EXPOSED_REASON_METRIC_COMPLETE | job=reason_exposed_metric; provenance=kvcache_prompt_b_exposed_reason_metric_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; summary=27 keys: b1_pass, b1_scope_a_kill, batch_size, chrono_exact_rate, deepest_visible_all_exact_rate, deepest_visible_liv...; task=sudoku |  |
+
+#### Contract Result Tables
+
+##### prompt_b_reason_metric
+
+| task | n | parse_rate | valid_rate | exact_cbj_rate | random_exact_rate | exact_over_random | b1_pass | kill_read |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| futoshiki | 80 | 0.9875 | 0.9875 | 0.025 | 0.07195 | 0.3475 | False | B1_FAIL_CAPABILITY_LIMIT_SCOPE_A |
+| sudoku | 80 | 1 | 1 | 0.0375 | 0.07081 | 0.5296 | False | B1_FAIL_CAPABILITY_LIMIT_SCOPE_A |
+
+##### visibility_audit
+
+| task | oracle_visible_live_rate | deepest_visible_live_exact_rate | mean_num_open | mean_input_tokens | mean_output_tokens |
+| --- | --- | --- | --- | --- | --- |
+| futoshiki | 0.425 | 0.425 | 16.89 | 893 | 148.3 |
+| sudoku | 0.125 | 0.125 | 15.93 | 954.3 | 147.9 |
+
+- Next action: Do not spend further trunk effort on CSP conflict-analysis prompt variants. Keep the cost generalization and graph_color/multi-agent CBJ results; scope C1 reasoning to graph_color/simple-conflict settings unless a future model or training path changes the premise.
 
 
 ## Canonical Repo Decision
@@ -8662,6 +8705,7 @@ Truncated to 24 of 378 rows.
 | item_115_gate3_and_p1b_separability | results/experiment_items/item_115_gate3_and_p1b_separability.json | yes |
 | item_116_p2b_graph_color_robustness_complete | results/experiment_items/item_116_p2b_graph_color_robustness_complete.json | yes |
 | item_117_p1a_metric_refinement | results/experiment_items/item_117_p1a_metric_refinement.json | yes |
+| item_118_prompt_b_exposed_reasoning | results/experiment_items/item_118_prompt_b_exposed_reasoning.json | yes |
 | log_item_contract_spec | specs/log_item_contract.md | yes |
 | rung1_phase1_spec_v01 | specs/rung1_phase1_spec_v01.md | yes |
 | model_readiness | results/model_readiness/readiness.json | yes |
@@ -8844,6 +8888,9 @@ Truncated to 24 of 378 rows.
 | p1a_metric_sudoku_reason | results/kvcache_overnight_v0/p1a_metric/sudoku_reason_metric.json | yes |
 | p1a_metric_futoshiki_cost | results/kvcache_overnight_v0/p1a_metric/futoshiki_cost_metric.json | yes |
 | p1a_metric_sudoku_cost | results/kvcache_overnight_v0/p1a_metric/sudoku_cost_metric.json | yes |
+| prompt_b_exposed_preregistered_kill | results/kvcache_overnight_v0/prompt_b_exposed/preregistered_kill.json | yes |
+| prompt_b_exposed_futoshiki_reason | results/kvcache_overnight_v0/prompt_b_exposed/futoshiki_reason_exposed_metric.json | yes |
+| prompt_b_exposed_sudoku_reason | results/kvcache_overnight_v0/prompt_b_exposed/sudoku_reason_exposed_metric.json | yes |
 | reasoning_gym_baseline_first_spec_v1 | specs/reasoning_gym_baseline_first_v1.md | yes |
 | externalization_full_execution_manifest | results/externalization_validation_v0/full_execution_manifest.json | yes |
 | externalization_graph_color_ceiling_llm | results/externalization_validation_v0/graph_color_ceiling_llm.json | yes |

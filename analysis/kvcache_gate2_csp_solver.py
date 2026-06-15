@@ -31,6 +31,7 @@ STATUS_GATE3_COMPLETE = "KVCACHE_GATE3_CALIBRATION_COMPLETE"
 STATUS_ARMS_COMPLETE = "KVCACHE_GATE2_ARMS_COMPLETE"
 STATUS_DECISION_COMPLETE = "KVCACHE_P1A_DECISION_METRIC_COMPLETE"
 STATUS_COST_COMPLETE = "KVCACHE_P1A_COST_METRIC_COMPLETE"
+STATUS_EXPOSED_REASON_COMPLETE = "KVCACHE_PROMPT_B_EXPOSED_REASON_METRIC_COMPLETE"
 STATUS_GATED_OUT = "KVCACHE_GATE2_ARMS_GATED_OUT"
 
 
@@ -86,16 +87,21 @@ def _load_model(args: argparse.Namespace) -> tuple[Any, Any]:
     return model, tokenizer
 
 
-@torch.no_grad()
-def _generate_backjump(model: Any, tokenizer: Any, prompt: str, max_new_tokens: int) -> tuple[str, int, int]:
+def _generation_prompt(tokenizer: Any, prompt: str) -> str:
     if hasattr(tokenizer, "apply_chat_template"):
         try:
-            prompt = tokenizer.apply_chat_template([
-                {"role": "system", "content": "You are a terse CSP conflict-analysis backjump targeter. Follow the output format exactly."},
+            return tokenizer.apply_chat_template([
+                {"role": "system", "content": "You are a terse CSP conflict-analysis backjump targeter. Output compact lines only. Always include a final BACKJUMP: <idx> line."},
                 {"role": "user", "content": prompt},
             ], tokenize=False, add_generation_prompt=True)
         except Exception:
-            pass
+            return prompt
+    return prompt
+
+
+@torch.no_grad()
+def _generate_backjump(model: Any, tokenizer: Any, prompt: str, max_new_tokens: int) -> tuple[str, int, int]:
+    prompt = _generation_prompt(tokenizer, prompt)
     ids = tokenizer(prompt, return_tensors="pt", add_special_tokens=False).input_ids.to(model.device)
     out = model(input_ids=ids, use_cache=True)
     cache = out.past_key_values
@@ -117,8 +123,59 @@ def _generate_backjump(model: Any, tokenizer: Any, prompt: str, max_new_tokens: 
     return text.strip(), int(ids.shape[1]), len(generated)
 
 
+@torch.no_grad()
+def _generate_backjump_batch(model: Any, tokenizer: Any, prompts: list[str], max_new_tokens: int) -> list[tuple[str, int, int]]:
+    if not prompts:
+        return []
+    formatted = [_generation_prompt(tokenizer, prompt) for prompt in prompts]
+    old_padding_side = getattr(tokenizer, "padding_side", "right")
+    tokenizer.padding_side = "left"
+    try:
+        batch = tokenizer(formatted, return_tensors="pt", padding=True, add_special_tokens=False)
+    finally:
+        tokenizer.padding_side = old_padding_side
+    input_ids = batch.input_ids.to(model.device)
+    attention_mask = batch.attention_mask.to(model.device)
+    pad_id = tokenizer.pad_token_id if tokenizer.pad_token_id is not None else tokenizer.eos_token_id
+    eos_id = tokenizer.eos_token_id
+    eos_ids = {token for token in [eos_id, pad_id] if token is not None}
+    out = model(input_ids=input_ids, attention_mask=attention_mask, use_cache=True)
+    cache = out.past_key_values
+    logits = out.logits[:, -1, :]
+    generated_by_row: list[list[int]] = [[] for _ in prompts]
+    finished = [False for _ in prompts]
+    for _ in range(int(max_new_tokens)):
+        token = logits.argmax(dim=-1, keepdim=True)
+        for row_index, is_finished in enumerate(finished):
+            if is_finished and pad_id is not None:
+                token[row_index, 0] = int(pad_id)
+        for row_index, is_finished in enumerate(finished):
+            if is_finished:
+                continue
+            token_id = int(token[row_index, 0].item())
+            if token_id in eos_ids:
+                finished[row_index] = True
+                continue
+            generated_by_row[row_index].append(token_id)
+            text = tokenizer.decode(generated_by_row[row_index], skip_special_tokens=True)
+            if re.search(r"BACKJUMP\s*[:=]\s*[+-]?\d+", text, flags=re.IGNORECASE):
+                finished[row_index] = True
+        if all(finished):
+            break
+        attention_mask = torch.cat([attention_mask, torch.ones((attention_mask.shape[0], 1), dtype=attention_mask.dtype, device=attention_mask.device)], dim=1)
+        out = model(input_ids=token, attention_mask=attention_mask, past_key_values=cache, use_cache=True)
+        cache = out.past_key_values
+        logits = out.logits[:, -1, :]
+    results: list[tuple[str, int, int]] = []
+    for row_index, output_ids in enumerate(generated_by_row):
+        text = tokenizer.decode(output_ids, skip_special_tokens=True).strip()
+        input_tokens = int(batch.attention_mask[row_index].sum().item())
+        results.append((text, input_tokens, len(output_ids)))
+    return results
+
+
 def _parse_backjump_line(text: str, valid_indices: set[int]) -> dict[str, Any]:
-    matches = list(re.finditer(r"BACKJUMP\s*:\s*([+-]?\d+)", text, flags=re.IGNORECASE))
+    matches = list(re.finditer(r"BACKJUMP\s*[:=]\s*([+-]?\d+)", text, flags=re.IGNORECASE))
     if not matches:
         return {"parseable": False, "valid": False, "idx": None, "invalid_reason": "parse_fail"}
     idx = int(matches[-1].group(1))
@@ -448,6 +505,9 @@ def collect_decision_points(inst: CSPInstance, dataset: Any, node_cap: int = 100
             "backtracks_before": int(backtracks),
             "dead_index": int(index),
             "dead_var": inst.variables[index],
+            "candidate_values": [int(value) for value in inst.domains[inst.variables[index]]],
+            "tried_values": sorted(int(value) for value in tried[index]),
+            "live_candidate_values": [int(value) for value in inst.domains[inst.variables[index]] if int(value) not in tried[index]],
             "conflict": sorted(conflict),
             "conflict_vars": [inst.variables[i] for i in sorted(conflict)],
             "conflict_by_value": {str(value): blockers for value, blockers in sorted(cbv.items())},
@@ -497,6 +557,117 @@ def _decision_prompt(inst: CSPInstance, point: dict[str, Any]) -> str:
         "Choose the deepest checkpoint among variables that block candidate values.",
         "End with exactly one line: BACKJUMP: <idx>",
     ])
+
+
+def _visible_values(inst: CSPInstance, point: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    values: dict[str, dict[str, Any]] = {}
+    for key, value in point.get("assignment", {}).items():
+        idx = int(key)
+        values[inst.variables[idx]] = {"value": int(value), "step": idx, "open_idx": idx, "kind": "checkpoint"}
+    for var, value in inst.givens.items():
+        values[var] = {"value": int(value), "step": "given", "open_idx": None, "kind": "given"}
+    return values
+
+
+def _cell_label(var: str) -> str:
+    row, col = _parse_cell(var)
+    return f"({row},{col})"
+
+
+def _value_line(var: str, values: dict[str, dict[str, Any]]) -> str:
+    visible = values.get(var)
+    if not visible:
+        return f"{_cell_label(var)}=empty"
+    if visible["kind"] == "given":
+        return f"{_cell_label(var)}={int(visible['value'])} @given"
+    return f"{_cell_label(var)}={int(visible['value'])} @step{int(visible['step'])}"
+
+
+def _checkpoint_lines(point: dict[str, Any]) -> list[str]:
+    return [f"  {row['idx']}: {row['var']} = {row['value']} @ step{row['step']}" for row in point["open_checkpoints"]]
+
+
+def _sudoku_peer_lines(inst: CSPInstance, point: dict[str, Any]) -> list[str]:
+    values = _visible_values(inst, point)
+    row, col = _parse_cell(point["dead_var"])
+    box_rows, box_cols = _box_shape(inst.size)
+    box_r0 = (row // box_rows) * box_rows
+    box_c0 = (col // box_cols) * box_cols
+    row_peers = [_cell(row, other_col) for other_col in range(inst.size) if other_col != col]
+    col_peers = [_cell(other_row, col) for other_row in range(inst.size) if other_row != row]
+    box_peers = [
+        _cell(other_row, other_col)
+        for other_row in range(box_r0, box_r0 + box_rows)
+        for other_col in range(box_c0, box_c0 + box_cols)
+        if not (other_row == row and other_col == col)
+    ]
+    return [
+        "row peers: " + ", ".join(_value_line(var, values) for var in row_peers),
+        "column peers: " + ", ".join(_value_line(var, values) for var in col_peers),
+        "box peers: " + ", ".join(_value_line(var, values) for var in box_peers),
+    ]
+
+
+def _futoshiki_peer_lines(inst: CSPInstance, point: dict[str, Any]) -> list[str]:
+    values = _visible_values(inst, point)
+    row, col = _parse_cell(point["dead_var"])
+    row_peers = [_cell(row, other_col) for other_col in range(inst.size) if other_col != col]
+    col_peers = [_cell(other_row, col) for other_row in range(inst.size) if other_row != row]
+    inequality_rows = []
+    for op, other in inst.inequalities.get(point["dead_var"], []):
+        inequality_rows.append(f"X {op} {_value_line(other, values)}")
+    return [
+        "row peers: " + ", ".join(_value_line(var, values) for var in row_peers),
+        "column peers: " + ", ".join(_value_line(var, values) for var in col_peers),
+        "inequality neighbors: " + ("; ".join(inequality_rows) if inequality_rows else "none"),
+    ]
+
+
+def _exposed_decision_prompt(inst: CSPInstance, point: dict[str, Any]) -> str:
+    if inst.task not in {"sudoku", "futoshiki"}:
+        raise ValueError(f"exposed prompt unsupported for {inst.task}")
+    row, col = _parse_cell(point["dead_var"])
+    peer_lines = _sudoku_peer_lines(inst, point) if inst.task == "sudoku" else _futoshiki_peer_lines(inst, point)
+    task_rule = (
+        "A digit is blocked when an assigned row, column, or box peer already has that digit."
+        if inst.task == "sudoku"
+        else "A value is blocked when an assigned row/column peer has the same value or an assigned inequality neighbor would make an inequality false."
+    )
+    return "\n".join([
+        f"{inst.task} conflict-analysis backjump targeting.",
+        "MANDATORY OUTPUT: no markdown, no prose paragraphs, no bullets. Use exactly the compact schema below and finish with BACKJUMP.",
+        "Use only the visible state below. Do not assume a hidden oracle conflict set.",
+        f"Dead end cell X = {_cell_label(point['dead_var'])} has no legal value.",
+        "X's candidate values: " + json.dumps([int(value) for value in point["candidate_values"]], separators=(",", ":")),
+        "Already tried values in this search state: " + json.dumps([int(value) for value in point.get("tried_values", [])], separators=(",", ":")),
+        "Live candidate values not yet tried: " + json.dumps([int(value) for value in point.get("live_candidate_values", point["candidate_values"])], separators=(",", ":")),
+        "Already tried values are unavailable because they failed earlier; their downstream culprit is not shown.",
+        f"X row={row}, col={col}.",
+        *peer_lines,
+        "Given cells can block values but are not valid backjump targets.",
+        "Open checkpoints you may backjump to (index: variable = value @ step):",
+        *(_checkpoint_lines(point) or ["  <none>"]),
+        "Valid target indices: " + json.dumps([int(row["idx"]) for row in point["open_checkpoints"]], separators=(",", ":")),
+        "Use this compact format only; do not write prose paragraphs:",
+        "CANDIDATE_CHECKS:",
+        "  value=<v> status=tried|blocked|open blockers=<valid target indices or []>",
+        "After the candidate lines, write DEEPEST_VISIBLE=<idx or none>.",
+        "Then end with exactly one final line BACKJUMP: <idx> using one valid target index.",
+        "If uncertain, still choose one valid target index after BACKJUMP; never output none, null, a cell coordinate, or explanatory text after BACKJUMP.",
+        "Reason step by step in the compact candidate lines: for each candidate value, say whether it is already tried or visibly blocked by assigned peers, whether all live candidates are blocked, and among visible blocking open checkpoints which has the largest step.",
+        task_rule,
+        "Hard constraint: the final BACKJUMP value must be one valid target index, not a row, column, value, or given cell.",
+        "If the visible data has no blocker for some unavailable value, still output the best valid BACKJUMP line after the compact checks; do not omit BACKJUMP.",
+    ])
+
+
+def _visible_blockers_from_current_state(inst: CSPInstance, point: dict[str, Any], live_only: bool) -> set[int]:
+    assignment = {int(key): int(value) for key, value in point.get("assignment", {}).items()}
+    values = point.get("live_candidate_values", point["candidate_values"]) if live_only else point["candidate_values"]
+    blockers: set[int] = set()
+    for value in values:
+        blockers.update(_decision_blockers(inst, int(point["dead_index"]), int(value), assignment))
+    return blockers
 
 
 def _event_text(event: dict[str, Any]) -> str:
@@ -752,6 +923,109 @@ def run_reason_metric(args: argparse.Namespace) -> dict[str, Any]:
     return payload
 
 
+def run_reason_exposed_metric(args: argparse.Namespace) -> dict[str, Any]:
+    model, tokenizer = _load_model(args)
+    _, triples = _iter_points(args)
+    rows = []
+    batch_size = max(1, int(getattr(args, "batch_size", 1)))
+    for batch_start in range(0, len(triples), batch_size):
+        batch_triples = triples[batch_start: batch_start + batch_size]
+        prompts = [_exposed_decision_prompt(inst, point) for inst, point, _collected in batch_triples]
+        generated_rows = _generate_backjump_batch(model, tokenizer, prompts, int(args.max_new_tokens)) if batch_size > 1 else [_generate_backjump(model, tokenizer, prompts[0], int(args.max_new_tokens))]
+        for (inst, point, _collected), (text, input_tokens, output_tokens) in zip(batch_triples, generated_rows):
+            valid = {int(row["idx"]) for row in point["open_checkpoints"]}
+            parsed = _parse_backjump_line(text, valid)
+            exact = bool(parsed["valid"] and int(parsed["idx"]) == int(point["oracle_target"]))
+            num_open = len(point["open_checkpoints"])
+            random_exact = 1.0 / num_open if num_open else None
+            visible_live_blockers = _visible_blockers_from_current_state(inst, point, live_only=True)
+            visible_all_blockers = _visible_blockers_from_current_state(inst, point, live_only=False)
+            deepest_visible_live = max(visible_live_blockers) if visible_live_blockers else None
+            deepest_visible_all = max(visible_all_blockers) if visible_all_blockers else None
+            rows.append({
+                "task": args.task,
+                "prompt_style": "conflict_structure_exposed_v0",
+                "source_index": int(point["source_index"]),
+                "point_id": point["point_id"],
+                "dead_var": point["dead_var"],
+                "candidate_values": [int(value) for value in point["candidate_values"]],
+                "tried_values": [int(value) for value in point.get("tried_values", [])],
+                "live_candidate_values": [int(value) for value in point.get("live_candidate_values", point["candidate_values"])],
+                "num_open": num_open,
+                "random_exact": random_exact,
+                "oracle_target": int(point["oracle_target"]),
+                "oracle_visible_live": int(point["oracle_target"]) in visible_live_blockers,
+                "oracle_visible_all_candidates": int(point["oracle_target"]) in visible_all_blockers,
+                "deepest_visible_live": deepest_visible_live,
+                "deepest_visible_all_candidates": deepest_visible_all,
+                "deepest_visible_live_exact": bool(deepest_visible_live is not None and int(deepest_visible_live) == int(point["oracle_target"])),
+                "deepest_visible_all_exact": bool(deepest_visible_all is not None and int(deepest_visible_all) == int(point["oracle_target"])),
+                "chrono_target": int(point["chrono_target"]),
+                "chrono_exact": bool(point["chrono_exact"]),
+                "nontrivial": bool(point["nontrivial"]),
+                "parseable": bool(parsed["parseable"]),
+                "valid": bool(parsed["valid"]),
+                "pred_idx": parsed["idx"],
+                "exact": exact,
+                "input_tokens": input_tokens,
+                "output_tokens": output_tokens,
+                "raw_text_tail": text[-500:],
+                "source": SOURCE,
+                "provenance": "kvcache_prompt_b_exposed_reason_metric_row_v0",
+            })
+            print(json.dumps({"point_id": point["point_id"], "exact": exact, "random_exact": random_exact, "parseable": parsed["parseable"], "valid": parsed["valid"]}), flush=True)
+    n = len(rows)
+    exact_rate = (sum(int(row["exact"]) for row in rows) / n) if n else None
+    random_rate = mean([float(row["random_exact"]) for row in rows if row["random_exact"] is not None]) if rows else None
+    ratio = (exact_rate / random_rate) if exact_rate is not None and random_rate else None
+    parse_rate = (sum(int(row["parseable"]) for row in rows) / n) if n else None
+    valid_rate = (sum(int(row["valid"]) for row in rows) / n) if n else None
+    b1_pass = bool(exact_rate is not None and random_rate is not None and exact_rate >= 0.25 and exact_rate >= 2.0 * random_rate)
+    b1_scope_a_kill = bool(exact_rate is not None and ratio is not None and (exact_rate < 0.25 or ratio <= 1.5))
+    parse_format_ok = bool(parse_rate is not None and parse_rate >= 0.95)
+    if b1_pass:
+        kill_read = "B1_PASS_PROMPT_LAYOUT_ARTIFACT"
+    elif parse_format_ok and b1_scope_a_kill:
+        kill_read = "B1_FAIL_CAPABILITY_LIMIT_SCOPE_A"
+    else:
+        kill_read = "B1_INDETERMINATE_FORMAT_OR_MARGIN"
+    local_rows = [row for row in rows if not row["tried_values"]]
+    local_exact = (sum(int(row["exact"]) for row in local_rows) / len(local_rows)) if local_rows else None
+    local_random = mean([float(row["random_exact"]) for row in local_rows if row["random_exact"] is not None]) if local_rows else None
+    summary = {
+        "task": args.task,
+        "prompt_style": "conflict_structure_exposed_v0",
+        "n": n,
+        "nontrivial_only": bool(args.nontrivial_only),
+        "parse_rate": parse_rate,
+        "valid_rate": valid_rate,
+        "exact_cbj_rate": exact_rate,
+        "random_exact_rate": random_rate,
+        "exact_over_random": ratio,
+        "chrono_exact_rate": (sum(int(row["chrono_exact"]) for row in rows) / n) if n else None,
+        "mean_num_open": mean([int(row["num_open"]) for row in rows]) if rows else None,
+        "mean_input_tokens": mean([row["input_tokens"] for row in rows]) if rows else None,
+        "mean_output_tokens": mean([row["output_tokens"] for row in rows]) if rows else None,
+        "batch_size": batch_size,
+        "oracle_visible_live_rate": (sum(int(row["oracle_visible_live"]) for row in rows) / n) if n else None,
+        "oracle_visible_all_candidates_rate": (sum(int(row["oracle_visible_all_candidates"]) for row in rows) / n) if n else None,
+        "deepest_visible_live_exact_rate": (sum(int(row["deepest_visible_live_exact"]) for row in rows) / n) if n else None,
+        "deepest_visible_all_exact_rate": (sum(int(row["deepest_visible_all_exact"]) for row in rows) / n) if n else None,
+        "n_no_tried_values": len(local_rows),
+        "no_tried_exact_cbj_rate": local_exact,
+        "no_tried_random_exact_rate": local_random,
+        "b1_pass": b1_pass,
+        "b1_scope_a_kill": b1_scope_a_kill,
+        "kill_read": kill_read,
+        "preregistered_threshold": "B-1 requires exact/random >= 2.0 and exact >= 0.25 on both futoshiki and sudoku; if exact/random <= 1.5 or exact < 0.25, scope A capability-limit kill fires.",
+        "source": SOURCE,
+        "provenance": "kvcache_prompt_b_exposed_reason_metric_summary_v0",
+    }
+    payload = {"schema_version": SCHEMA_VERSION, "status": STATUS_EXPOSED_REASON_COMPLETE, "generated_at": _now(), "task": args.task, "job": "reason_exposed_metric", "summary": summary, "config": {key: (str(value) if isinstance(value, Path) else value) for key, value in vars(args).items()}, "rows": rows, "source": SOURCE, "provenance": "kvcache_prompt_b_exposed_reason_metric_v0"}
+    _write_json(args.output, payload)
+    return payload
+
+
 def run_cost_metric(args: argparse.Namespace) -> dict[str, Any]:
     tokenizer = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
     _, triples = _iter_points(args)
@@ -854,6 +1128,14 @@ def main() -> None:
     reason_parser.add_argument("--max-new-tokens", type=int, default=128)
     reason_parser.add_argument("--nontrivial-only", action="store_true")
 
+    reason_exposed_parser = sub.add_parser("reason-exposed-metric")
+    common(reason_exposed_parser)
+    reason_exposed_parser.add_argument("--node-cap", type=int, default=100000)
+    reason_exposed_parser.add_argument("--max-points", type=int, default=80)
+    reason_exposed_parser.add_argument("--max-new-tokens", type=int, default=192)
+    reason_exposed_parser.add_argument("--batch-size", type=int, default=1)
+    reason_exposed_parser.add_argument("--nontrivial-only", action="store_true")
+
     cost_parser = sub.add_parser("cost-metric")
     common(cost_parser)
     cost_parser.add_argument("--node-cap", type=int, default=100000)
@@ -873,6 +1155,8 @@ def main() -> None:
         run_decision_preflight(args)
     elif args.command == "reason-metric":
         run_reason_metric(args)
+    elif args.command == "reason-exposed-metric":
+        run_reason_exposed_metric(args)
     elif args.command == "cost-metric":
         run_cost_metric(args)
 

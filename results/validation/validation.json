@@ -727,7 +727,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=90",
+      "detail": "count=91",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -3973,6 +3973,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_118_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_118_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=118",
+      "name": "log_item_118_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_118_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "Prompt B does not rescue CSP conflict-analysis reasoning. Even with exposed peer/inequality data and readable output, exact-CBJ remains below the random legal-i",
+      "name": "log_item_118_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=Do not spend further trunk effort on CSP conflict-analysis prompt variants. Keep the cost generalization and graph_color/multi-agent CBJ results; scope C1 reasoning to graph_color/simple-conflict settings unless a future model or training path changes the premise.",
+      "name": "log_item_118_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -4549,13 +4585,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'spill_off_write_drop', 'pop_read', 'final_solution_readback', 'forward_read', 'write_drop_mask', 'register_entry_classification'}",
+      "detail": "rules={'forward_read', 'pop_read', 'spill_off_write_drop', 'final_solution_readback', 'write_drop_mask', 'register_entry_classification'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'threshold_D_pop', 'P_choice', 'P_all_unmasked', 'threshold_D_peak', 'P_pop_unmasked', 'P_choice_unmasked', 'P_all', 'P_pop'}; rows=768",
+      "detail": "candidates={'P_choice', 'P_choice_unmasked', 'threshold_D_peak', 'P_pop', 'P_all_unmasked', 'P_pop_unmasked', 'P_all', 'threshold_D_pop'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -4591,7 +4627,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_choice', 'P_all_unmasked', 'P_pop_unmasked', 'P_choice_unmasked', 'P_all', 'P_pop'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_choice', 'P_choice_unmasked', 'P_pop', 'P_all_unmasked', 'P_pop_unmasked', 'P_all'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -5389,11 +5425,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-15T06:16:36.318629+00:00",
+  "generated_at": "2026-06-15T07:05:54.169608+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 898,
+    "n_checks": 904,
     "n_fail": 3,
-    "n_pass": 895
+    "n_pass": 901
   }
 }
