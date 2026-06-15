@@ -1,0 +1,75 @@
+{
+  "item_number": "123",
+  "schema_version": "log_item_contract_v1",
+  "status": "GRAPH_COLOR_C1_MATCHED_BUDGET_PASS_TARGETING_INDEPENDENCE",
+  "name": "Graph-color C1 matched-budget targeting independence",
+  "generated_at": "2026-06-15T10:10:00+00:00",
+  "purpose": "Complete Part A's second graph_color targeting variant: run graph_color matched-budget A_cache vs C_incontext under the same C1 zero-shot conflict-analysis targeting policy, n=64, v16_p04/R16. This tests whether the cache-truncation solve@budget advantage holds with reasoned targeting, not only symbolic/oracle-search targeting.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["121", "122"],
+    "spec": "user CODING SPEC — Next Step, graph_color matched-budget close + external no-train HB-2 (v0), Part A C1-targeting variant",
+    "script": "analysis/kvcache_graph_color_c1_budget.py",
+    "launcher": "scripts/launch_graph_color_c1_budget.sh",
+    "c1_result": "results/kvcache_matched_budget_v0/graph_color_part_a/c1_v16_r16_n64_shards/merged_c1_v16_r16_n64.json",
+    "bin": "v16_p04",
+    "R": 16,
+    "n": 64,
+    "policy": "conflict_cot / C1 zero-shot conflict-analysis"
+  },
+  "artifacts": [
+    "results/experiment_items/item_123_graph_color_c1_budget_targeting_independence.json",
+    "analysis/kvcache_graph_color_c1_budget.py",
+    "scripts/launch_graph_color_c1_budget.sh",
+    "results/kvcache_matched_budget_v0/graph_color_part_a/c1_v16_r16_n64_shards/merged_c1_v16_r16_n64.json"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_graph_color_c1_budget.py", "change": "Runs graph_color C1 conflict-reasoning search once and bills the identical trace as A_cache and C_incontext for matched-budget curves."},
+    {"path": "scripts/launch_graph_color_c1_budget.sh", "change": "Launches the C1 graph_color matched-budget run across 8 GPU shards and merges shard outputs."}
+  ],
+  "commands": [
+    {"command": "ROOT=results/kvcache_matched_budget_v0/graph_color_part_a/c1_v16_r16_n64_shards SHARDS=8 scripts/launch_graph_color_c1_budget.sh", "purpose": "Run graph_color C1 matched-budget n=64 shards and merge."}
+  ],
+  "decision": {
+    "outcome": "C1_TARGETING_VARIANT_PASS",
+    "overall_pass": true,
+    "promotion_support": true,
+    "headline": {
+      "graph_color_c1": "n=64, v16_p04/R16. B*=32895 with C_midband=0.515625. A solve=0.96875, C solve=0.515625, gap=0.453125, conservative gap CI [0.2594,0.5956].",
+      "shape": "A dominates C over all five C1 graph_color grid budgets; 4/5 grid points are promotion-positive, with the highest-budget point positive but CI touching 0 as C nearly catches up.",
+      "targeting_independence": "Together with item122 symbolic graph_color and item121 CSP symbolic curves, the cache-truncation mechanism advantage holds for both symbolic targeting and graph_color C1 reasoned targeting.",
+      "single_next_move": "Proceed to HB-2 no-train external baselines through BudgetRunner; do not fabricate Beyond-the-Frontier without an official repo."
+    },
+    "gate_outcomes": [
+      {"gate": "graph_color_C1_HB1", "outcome": "PASS_POSITIVE", "number": "gap=0.453125 at B*=32895, CI [0.2594,0.5956]."},
+      {"gate": "graph_color_C1_HB3", "outcome": "PASS_POSITIVE", "number": "A dominates C at 5/5 grid budgets; 4/5 promotion points."},
+      {"gate": "C1_format_quality", "outcome": "PASS", "number": "mean parseable_rate=0.9975 in completed traces; all 64 traces solved full-search."},
+      {"gate": "targeting_independence", "outcome": "PASS_PRIMARY", "number": "graph_color symbolic and C1 variants both positive under matched A/C mechanism."}
+    ],
+    "next_step_routing": "Primary mechanism-isolation is now positive on sudoku, futoshiki, graph_color symbolic, and graph_color C1. Next remaining work is HB-2 external no-train baseline curves."
+  },
+  "result_tables": {
+    "c1_midband_gap_n64": {
+      "columns": ["task", "variant", "n", "B_star", "A_solve", "C_solve", "A_minus_C", "gap_ci_low", "gap_ci_high", "promotion_point"],
+      "rows": [
+        {"task": "graph_color", "variant": "c1_conflict_reasoning", "n": 64, "B_star": 32895, "A_solve": 0.96875, "C_solve": 0.515625, "A_minus_C": 0.453125, "gap_ci_low": 0.25936259894474323, "gap_ci_high": 0.5955718468680269, "promotion_point": true}
+      ]
+    },
+    "c1_grid_gaps": {
+      "columns": ["budget_B", "A_solve", "C_solve", "A_minus_C", "promotion_point"],
+      "rows": [
+        {"budget_B": 8224, "A_solve": 0.71875, "C_solve": 0.0, "A_minus_C": 0.71875, "promotion_point": true},
+        {"budget_B": 16448, "A_solve": 0.875, "C_solve": 0.03125, "A_minus_C": 0.84375, "promotion_point": true},
+        {"budget_B": 32895, "A_solve": 0.96875, "C_solve": 0.515625, "A_minus_C": 0.453125, "promotion_point": true},
+        {"budget_B": 65790, "A_solve": 1.0, "C_solve": 0.75, "A_minus_C": 0.25, "promotion_point": true},
+        {"budget_B": 131580, "A_solve": 1.0, "C_solve": 0.921875, "A_minus_C": 0.078125, "promotion_point": false}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not run HB-2 external baselines. It closes Part A targeting-independence only.",
+    "method_note": "The C1 policy trace is generated once per instance and billed as both A_cache and C_incontext to isolate reversal mechanism from targeting decisions.",
+    "billing_note": "C_incontext billing includes the growing transcript plus C1 prompt/output tokens; A_cache billing uses retained-prefix/cache-step token accounting. Both arms share the same decisions and official scoring.",
+    "external_limit": "No external BudgetRunner baselines are evaluated here."
+  }
+}
