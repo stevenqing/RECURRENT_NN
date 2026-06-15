@@ -1,0 +1,65 @@
+{
+  "item_number": "126",
+  "schema_version": "log_item_contract_v1",
+  "status": "HB2_LFS_REPO_PORT_SMOKE_NOT_FINAL",
+  "name": "HB-2 LFS repo-port smoke",
+  "generated_at": "2026-06-15T12:55:00+00:00",
+  "purpose": "Port the official LLM-First-Search control loop onto the shared HB-2 budget/scoring substrate and run a minimal sudoku+graph_color smoke. This establishes a repo-grounded LFS runner with LLM child-value evaluation, LLM explore decisions, one token counter, and official Reasoning Gym scoring, but it is not a final HB-2 comparison.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["122", "125"],
+    "spec": "user CODING SPEC — HB-2 External No-Train Matched-Budget Comparison (consolidated, v1)",
+    "runner": "analysis/kvcache_lfs_baseline.py",
+    "result": "results/kvcache_matched_budget_v0/hb2_lfs/item126_lfs_smoke_sudoku_graph_n1.json",
+    "method": "LFS_repo_port_smoke",
+    "official_repo": "NathanHerr/LLM-First-Search",
+    "official_repo_url": "https://github.com/NathanHerr/LLM-First-Search",
+    "official_repo_commit": "3025bdaa3add6f41388c1d5a6d354522489d312e",
+    "run_scope": "Bstar_only_smoke_n1_sudoku_graph_color_max_expansions_4"
+  },
+  "artifacts": [
+    "results/experiment_items/item_126_hb2_lfs_repo_port_smoke.json",
+    "analysis/kvcache_lfs_baseline.py",
+    "results/kvcache_matched_budget_v0/hb2_lfs/item126_lfs_smoke_sudoku_graph_n1.json"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_lfs_baseline.py", "change": "Adds a BudgetRunner-style LFS adapter using frontier nodes, LLM child-value evaluation, LLM explore/continue decisions, shared token billing, and official dataset.score_answer scoring."}
+  ],
+  "commands": [
+    {"command": "~/.local/bin/uv run --python .venv/bin/python python -m py_compile analysis/kvcache_lfs_baseline.py", "purpose": "Compile-check the LFS baseline runner."},
+    {"command": "CUDA_VISIBLE_DEVICES=0 ~/.local/bin/uv run --python .venv/bin/python python -m analysis.kvcache_lfs_baseline --output results/kvcache_matched_budget_v0/hb2_lfs/item126_lfs_smoke_sudoku_graph_n1.json --checkpoint-path results/kvcache_matched_budget_v0/hb2_lfs/item126_lfs_smoke_sudoku_graph_n1_checkpoint.json --tasks sudoku,graph_color --n-instances 1 --scan-limit 20 --budget-anchors sudoku:28070,graph_color:32895 --max-expansions 4 --max-new-tokens 96 --dtype fp32 --device cuda", "purpose": "Run B*-only LFS smoke on one sudoku and one graph_color instance."}
+  ],
+  "decision": {
+    "outcome": "LFS_RUNNER_PORT_SMOKE_VALIDATED_HB2_STILL_OPEN",
+    "overall_pass": true,
+    "hb2_confirmed": false,
+    "headline": {
+      "sudoku": "n=1 smoke at B*=28070 ran 4 expansions, used 1293 tokens, reached depth 2, solve=0/1, status=EXPANSION_CAP.",
+      "graph_color": "n=1 smoke at B*=32895 ran 4 expansions, used 1261 tokens, reached depth 2, solve=0/1, status=EXPANSION_CAP.",
+      "parser": "Robust JSON-object scanning reduced state-echo parse failures; each row retained parse_fails=1 for honesty.",
+      "single_next_move": "Inspect llm-reasoners ToT/RAP examples and port the same BudgetRunner interface before scaling any external baseline."
+    },
+    "gate_outcomes": [
+      {"gate": "repo_grounded_lfs_port", "outcome": "PASS", "number": "Runner records NathanHerr/LLM-First-Search commit 3025bdaa3add6f41388c1d5a6d354522489d312e."},
+      {"gate": "shared_budget_counter", "outcome": "PASS", "number": "Each LLM child-value/explore query bills input plus generated tokens and stops before exceeding budget_B."},
+      {"gate": "official_scoring", "outcome": "PASS", "number": "Sudoku uses dataset.score_answer(render_answer(...)); graph_color uses official bounded-register score adapter."},
+      {"gate": "HB2_read", "outcome": "NOT_READY", "number": "n=1 expansion-capped smoke only; futoshiki, full grids, ToT, RAP, and First Finish are not complete."}
+    ],
+    "next_step_routing": "Port ToT and RAP from maitrix-org/llm-reasoners into the same shared budget/scoring substrate, then decide external baseline scaling order."
+  },
+  "result_tables": {
+    "lfs_repo_port_smoke": {
+      "columns": ["task", "budget_B", "n", "solve_count", "solve_rate", "mean_tokens_used", "mean_depth_reached", "mean_expansions", "status_counts"],
+      "rows": [
+        {"task": "graph_color", "budget_B": 32895, "n": 1, "solve_count": 0, "solve_rate": 0.0, "mean_tokens_used": 1261.0, "mean_depth_reached": 2.0, "mean_expansions": 4.0, "status_counts": {"EXPANSION_CAP": 1}},
+        {"task": "sudoku", "budget_B": 28070, "n": 1, "solve_count": 0, "solve_rate": 0.0, "mean_tokens_used": 1293.0, "mean_depth_reached": 2.0, "mean_expansions": 4.0, "status_counts": {"EXPANSION_CAP": 1}}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not complete HB-2 and does not show LFS competitiveness. It only validates that a repo-grounded LFS adapter compiles, runs, bills tokens, and reaches official scoring paths on two tasks.",
+    "scope_limit": "n=1, B*-only, sudoku+graph_color only, and max_expansions=4. Futoshiki and budget curves are omitted.",
+    "implementation_limit": "The original LFS task-specific prompts and datasets are adapted to this repo's CSP/graph_color substrate; the adapter preserves the PathNode/frontier, child-value, and explore-decision control pattern but is not a vendored execution of the upstream code.",
+    "external_limit": "ToT, RAP, and optional First Finish are still not ported/run. Beyond-the-Frontier remains final-not-run because no official repo was found."
+  }
+}

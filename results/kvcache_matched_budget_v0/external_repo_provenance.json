@@ -1,0 +1,58 @@
+{
+  "schema_version": "kvcache_matched_budget_external_repo_provenance_v0",
+  "status": "EXTERNAL_REPO_DISCOVERY_PARTIAL",
+  "generated_at": "2026-06-15T08:00:00+00:00",
+  "source": "autonomous_stage_a_run",
+  "provenance": "kvcache_matched_budget_external_repo_provenance_v0",
+  "repos": [
+    {
+      "method": "LFS",
+      "repo": "NathanHerr/LLM-First-Search",
+      "url": "https://github.com/NathanHerr/LLM-First-Search",
+      "commit": "3025bdaa3add6f41388c1d5a6d354522489d312e",
+      "status": "REPO_PORT_SMOKE_IMPLEMENTED_NOT_FINAL",
+      "notes": "Official candidate located by GitHub search. Code exposes llm_first_search.py, token budget max_token_usage, frontier_nodes, explore/value/action queries. Port integrated as analysis/kvcache_lfs_baseline.py and smoke-run on sudoku+graph_color n=1; full HB-2 curves pending."
+    },
+    {
+      "method": "ReST-MCTS*",
+      "repo": "THUDM/ReST-MCTS",
+      "url": "https://github.com/THUDM/ReST-MCTS",
+      "commit": "2d5f488c3d6e24f99d50a9860e818383b1bb5883",
+      "status": "SCOPED_OUT_OF_MATCHED_BUDGET_TABLE",
+      "notes": "Per addendum, representative trained-PRM tree search; related work only unless training/value-model boundary is reopened."
+    },
+    {
+      "method": "First Finish Search",
+      "repo": "Aradhye2002/reasoning_exps",
+      "url": "https://github.com/Aradhye2002/reasoning_exps",
+      "commit": "31e1c84c1525ee2f6469c46e433edb1d9e751cf7",
+      "status": "LOCATED_NOT_PORTED",
+      "notes": "Official implementation located. Port not yet integrated."
+    },
+    {
+      "method": "ToT/RAP/CoT-SC no-train anchors",
+      "repo": "maitrix-org/llm-reasoners",
+      "url": "https://github.com/maitrix-org/llm-reasoners",
+      "commit": "f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2",
+      "status": "LOCATED_READ_PARTIAL",
+      "notes": "README lists Reasoning-via-Planning/MCTS, Tree-of-Thoughts BFS/DFS, Chain-of-Thoughts, and other no-train inference-time search examples. Port not yet integrated."
+    },
+    {
+      "method": "Beyond-the-Frontier / Stochastic Backtracking",
+      "repo": null,
+      "url": null,
+      "commit": null,
+      "status": "NOT_LOCATED_BY_GITHUB_API_YET",
+      "notes": "Initial GitHub repository searches did not locate an official codebase; no curve is fabricated."
+    },
+    {
+      "method": "Best-of-n parallel sampling",
+      "repo": null,
+      "url": null,
+      "commit": null,
+      "status": "BUDGET_EXHAUSTIVE_SMOKE_IMPLEMENTED_NOT_FINAL",
+      "notes": "Addendum-approved cheap no-train baseline; implemented directly with shared token counter in analysis/kvcache_best_of_n_baseline.py. n=4 B*-only budget-exhaustive smoke completed; full HB-2 curves pending."
+    }
+  ],
+  "honesty": "This is repo discovery/provenance only, not a baseline result table. No external curve is claimed until a faithful port is implemented and run."
+}

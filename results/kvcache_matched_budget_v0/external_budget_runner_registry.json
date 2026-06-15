@@ -1,0 +1,74 @@
+{
+  "baselines": [
+    {
+      "commit": null,
+      "method": "C_incontext_internal_anchor",
+      "no_train": true,
+      "notes": "Internal C arm uses the same symbolic/C1 policy as A but accumulates in-context trajectory tokens.",
+      "repo": null,
+      "status": "IMPLEMENTED_INTERNAL_ANCHOR",
+      "url": null
+    },
+    {
+      "commit": "3025bdaa3add6f41388c1d5a6d354522489d312e",
+      "method": "LFS",
+      "no_train": true,
+      "notes": "Official candidate repo. Implements LLM-First Search with explore/value/action queries and max_token_usage accounting. Ported as analysis/kvcache_lfs_baseline.py and smoke-run on sudoku+graph_color n=1; full HB-2 curves pending.",
+      "repo": "NathanHerr/LLM-First-Search",
+      "status": "REPO_PORT_SMOKE_IMPLEMENTED_NOT_FINAL",
+      "url": "https://github.com/NathanHerr/LLM-First-Search"
+    },
+    {
+      "commit": null,
+      "method": "best_of_n_parallel_sampling",
+      "no_train": true,
+      "notes": "No external repo required. analysis/kvcache_best_of_n_baseline.py samples complete solutions, bills generated tokens, and now exhausts budget when max_samples_per_budget=0. n=4 B*-only smoke completed; full HB-2 curves pending.",
+      "repo": null,
+      "status": "BUDGET_EXHAUSTIVE_SMOKE_IMPLEMENTED_NOT_FINAL",
+      "url": null
+    },
+    {
+      "commit": "f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2",
+      "method": "ToT_RAP_CoTSC",
+      "no_train": true,
+      "notes": "LLM-reasoners README lists ToT, RAP/MCTS, CoT, and related no-train inference-time search examples. Port pending.",
+      "repo": "maitrix-org/llm-reasoners",
+      "status": "LOCATED_READ_PARTIAL_NOT_PORTED",
+      "url": "https://github.com/maitrix-org/llm-reasoners"
+    },
+    {
+      "commit": "31e1c84c1525ee2f6469c46e433edb1d9e751cf7",
+      "method": "First_Finish_Search",
+      "no_train": true,
+      "notes": "Official implementation located. Optional baseline, port pending.",
+      "repo": "Aradhye2002/reasoning_exps",
+      "status": "LOCATED_NOT_PORTED",
+      "url": "https://github.com/Aradhye2002/reasoning_exps"
+    },
+    {
+      "commit": "2d5f488c3d6e24f99d50a9860e818383b1bb5883",
+      "method": "ReST_MCTS_star",
+      "no_train": false,
+      "notes": "Requires trained process reward/value model; scoped out of no-train matched-budget table per addendum.",
+      "repo": "THUDM/ReST-MCTS",
+      "status": "SCOPED_OUT_RELATED_WORK_ONLY",
+      "url": "https://github.com/THUDM/ReST-MCTS"
+    },
+    {
+      "commit": null,
+      "method": "Beyond_the_Frontier",
+      "no_train": false,
+      "notes": "GitHub/API/subagent search did not locate official repo. No curve is fabricated; reimpl requires explicit authorization.",
+      "repo": null,
+      "status": "OFFICIAL_REPO_NOT_FOUND_NOT_RUN",
+      "url": null
+    }
+  ],
+  "budget_runner_protocol": "run(instance, budget_B) -> {solved, tokens_used, depth_reached}",
+  "generated_at": "2026-06-15T12:53:04.000585+00:00",
+  "provenance": "kvcache_external_budget_baseline_registry_v0",
+  "schema_version": "kvcache_external_budget_baselines_v0",
+  "shared_accounting": "All model-generated/exploration/evaluation tokens are billed by the same tokenizer counter; symbolic verifier calls are compute-free but model policy/verifier-prompt tokens are not free.",
+  "source": "autonomous_stage_a_run",
+  "status": "KVCACHE_EXTERNAL_BUDGET_BASELINE_REGISTRY_COMPLETE"
+}

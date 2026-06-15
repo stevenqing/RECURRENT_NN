@@ -1,0 +1,102 @@
+{
+  "config": {
+    "budget_anchors": "sudoku:28070,graph_color:32895",
+    "checkpoint_path": "results/kvcache_matched_budget_v0/hb2_lfs/item126_lfs_smoke_sudoku_graph_n1_checkpoint.json",
+    "device": "cuda",
+    "dtype": "fp32",
+    "futoshiki_difficulty": 3,
+    "futoshiki_size": 7,
+    "graph_difficulty_bin_label": "v16_p04",
+    "graph_edge_probability": 0.4,
+    "graph_num_colors": 3,
+    "graph_num_vertices": 16,
+    "max_expansions": 4,
+    "max_new_tokens": 96,
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "n_instances": 1,
+    "output": "results/kvcache_matched_budget_v0/hb2_lfs/item126_lfs_smoke_sudoku_graph_n1.json",
+    "reasoning_gym_repo": null,
+    "scan_limit": 20,
+    "seed": 42,
+    "tasks": "sudoku,graph_color"
+  },
+  "generated_at": "2026-06-15T12:50:19.006413+00:00",
+  "provenance": "kvcache_lfs_baseline_v0",
+  "rows": [
+    {
+      "budget_B": 28070,
+      "depth_reached": 2,
+      "expansions": 4,
+      "frontier_size": 3,
+      "method": "LFS_repo_port_smoke",
+      "official_score": 0.0,
+      "parse_fails": 1,
+      "provenance": "kvcache_lfs_budget_run_v0",
+      "repo": "NathanHerr/LLM-First-Search",
+      "repo_commit": "3025bdaa3add6f41388c1d5a6d354522489d312e",
+      "repo_url": "https://github.com/NathanHerr/LLM-First-Search",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "EXPANSION_CAP",
+      "task": "sudoku",
+      "tokens_used": 1293
+    },
+    {
+      "budget_B": 32895,
+      "depth_reached": 2,
+      "expansions": 4,
+      "frontier_size": 5,
+      "method": "LFS_repo_port_smoke",
+      "official_score": 0.0,
+      "parse_fails": 1,
+      "provenance": "kvcache_lfs_budget_run_v0",
+      "repo": "NathanHerr/LLM-First-Search",
+      "repo_commit": "3025bdaa3add6f41388c1d5a6d354522489d312e",
+      "repo_url": "https://github.com/NathanHerr/LLM-First-Search",
+      "solved": false,
+      "source": "autonomous_stage_a_run",
+      "source_index": 0,
+      "status": "EXPANSION_CAP",
+      "task": "graph_color",
+      "tokens_used": 1261
+    }
+  ],
+  "schema_version": "kvcache_lfs_baseline_v0",
+  "source": "autonomous_stage_a_run",
+  "status": "KVCACHE_LFS_BASELINE_COMPLETE",
+  "summary": [
+    {
+      "budget_B": 32895,
+      "mean_depth_reached": 2.0,
+      "mean_expansions": 4.0,
+      "mean_tokens_used": 1261.0,
+      "method": "LFS_repo_port_smoke",
+      "n": 1,
+      "provenance": "kvcache_lfs_budget_summary_v0",
+      "solve_count": 0,
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "EXPANSION_CAP": 1
+      },
+      "task": "graph_color"
+    },
+    {
+      "budget_B": 28070,
+      "mean_depth_reached": 2.0,
+      "mean_expansions": 4.0,
+      "mean_tokens_used": 1293.0,
+      "method": "LFS_repo_port_smoke",
+      "n": 1,
+      "provenance": "kvcache_lfs_budget_summary_v0",
+      "solve_count": 0,
+      "solve_rate": 0.0,
+      "source": "autonomous_stage_a_run",
+      "status_counts": {
+        "EXPANSION_CAP": 1
+      },
+      "task": "sudoku"
+    }
+  ]
+}

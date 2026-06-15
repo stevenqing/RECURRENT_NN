@@ -102,3 +102,4 @@ figures/
 *.safetensors
 artifacts/stage_a/*.jsonl
 artifacts/stage_a/*.pt
+external_repos/
