@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 import re
+import signal
 from statistics import mean
 from typing import Any
 
@@ -111,7 +112,20 @@ def _select_entries(dataset: Any, args: argparse.Namespace) -> tuple[list[dict[s
     for index in range(args.scan_limit):
         entry = dataset[index]
         entry.setdefault("metadata", {})["source_index"] = index
-        trace = _clean_trace(entry, args.order_mode, args.node_cap, dataset)
+        if int(getattr(args, "preflight_timeout_seconds", 0)) > 0:
+            def _timeout(_signum: int, _frame: Any) -> None:
+                raise TimeoutError("preflight_timeout")
+            old_handler = signal.signal(signal.SIGALRM, _timeout)
+            signal.alarm(int(args.preflight_timeout_seconds))
+            try:
+                trace = _clean_trace(entry, args.order_mode, args.node_cap, dataset)
+            except TimeoutError:
+                trace = {"status": "PREFLIGHT_TIMEOUT", "solved": False, "official_score": 0.0, "steps": args.node_cap, "total_retractions": 0, "max_register_len": 0}
+            finally:
+                signal.alarm(0)
+                signal.signal(signal.SIGALRM, old_handler)
+        else:
+            trace = _clean_trace(entry, args.order_mode, args.node_cap, dataset)
         row = {"source_index": index, "selected": bool(trace.get("solved") and int(trace.get("total_retractions", 0)) >= args.min_backtracks), **trace}
         preflight.append(row)
         if row["selected"]:
@@ -595,6 +609,7 @@ def main() -> None:
     parser.add_argument("--n-instances", type=int, default=30)
     parser.add_argument("--min-backtracks", type=int, default=4)
     parser.add_argument("--node-cap", type=int, default=80)
+    parser.add_argument("--preflight-timeout-seconds", type=int, default=0)
     parser.add_argument("--num-vertices", type=int, default=14)
     parser.add_argument("--num-colors", type=int, default=3)
     parser.add_argument("--edge-probability", type=float, default=0.4)

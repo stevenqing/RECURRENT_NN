@@ -1,0 +1,89 @@
+{
+  "item_number": "116",
+  "schema_version": "log_item_contract_v1",
+  "status": "P2B_GRAPH_COLOR_ROBUSTNESS_COMPLETE_COST_V22_GATED_OUT",
+  "name": "P2-B graph_color robustness completion",
+  "generated_at": "2026-06-15T05:45:00+00:00",
+  "purpose": "Close SPEC Overnight Batch v0 P2-B graph_color robustness. The C1 reason/couple grid completed across v14/v16/v18/v20, R in {2,4,8,16}, conditions isolation/autonomous, and policies conflict_cot/chrono/oracle/random, n=40 per bin. The deeper v20 A_cache vs C_incontext oracle-search cost probe completed using fixed source indices reused from the v20 reason/couple selected slice. The attempted v22 fixed-index cost probe hung without checkpoint rows after model load and was stopped fail-closed; v22 cost is not read.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["108", "114", "115"],
+    "spec": "user SPEC Overnight Batch v0 P2-B graph_color robustness",
+    "reason_couple_result": "results/kvcache_overnight_v0/p2b_graph_color/merged_p2b_reason_couple.json",
+    "completion_summary": "results/kvcache_overnight_v0/p2b_graph_color_completion.json",
+    "fixed_cost_runner": "analysis/kvcache_graph_color_cost_from_sources.py",
+    "fixed_cost_launcher": "scripts/launch_p2b_cost_fixed_sources.sh",
+    "v20_cost_shards": "results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_*.json",
+    "selection_note": "v20 cost uses fixed source indices reused from completed v20 reason/couple selected source indices; v22 cost was attempted as an unfiltered fixed-index probe and gated out after hanging."
+  },
+  "artifacts": [
+    "results/experiment_items/item_116_p2b_graph_color_robustness_complete.json",
+    "analysis/kvcache_graph_color_search.py",
+    "analysis/kvcache_graph_color_cost_from_sources.py",
+    "scripts/launch_p2b_cost_fixed_sources.sh",
+    "results/kvcache_overnight_v0/p2b_graph_color/merged_p2b_reason_couple.json",
+    "results/kvcache_overnight_v0/p2b_graph_color_completion.json",
+    "results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_0.json",
+    "results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_1.json",
+    "results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_2.json",
+    "results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_3.json"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_graph_color_search.py", "change": "Adds optional per-instance preflight timeout guard for graph_color selection."},
+    {"path": "analysis/kvcache_graph_color_cost_from_sources.py", "change": "Adds fixed-source graph_color A-vs-C oracle-search cost runner that bypasses slow preflight by reusing source indices."},
+    {"path": "scripts/launch_p2b_cost_fixed_sources.sh", "change": "Launches fixed-source v20/v22 cost shards with checkpoint/log/manifest paths."}
+  ],
+  "commands": [
+    {"command": "scripts/launch_p2b_graph_color_overnight.sh", "purpose": "Run C1 reason/couple grid, then initial preflight cost attempt."},
+    {"command": "scripts/launch_p2b_cost_fixed_sources.sh", "purpose": "Replace hung cost preflight with fixed-source v20 cost and attempted v22 fixed-index probe."},
+    {"command": "manual fail-closed stop of v22 fixed-index cost after ~1.5h with no checkpoint rows", "purpose": "Prevent non-headline v22 unfiltered probe from wasting GPU time."}
+  ],
+  "decision": {
+    "outcome": "P2B_REASON_COUPLE_COMPLETE_V20_COST_COMPLETE_V22_COST_GATED_OUT",
+    "overall_pass": true,
+    "headline": {
+      "reason_couple_rows": 5120,
+      "reason_read": "C1 conflict_cot continues to beat chronological at R=4 on all bins, with parse mostly 1.0, but remains far below oracle; at R=8 it improves or ties chrono on most isolation cells and still trails oracle.",
+      "v20_cost_read": "C_over_A token ratio grows strongly with R on fixed v20 selected sources: R2=2.27x, R4=4.43x, R8=11.42x, R16=40.75x.",
+      "v20_cost_selection": "Fixed-source reuse of v20 reason/couple selected source indices, first 24 of 40; readable as aligned v20 cost probe, not a new independently preflighted cost slice.",
+      "v22_cost_read": "GATED_OUT_HUNG_UNFILTERED_FIXED_SOURCE_PROBE; do not read v22 cost.",
+      "single_next_move": "Use P2-B reason/couple and v20 cost as the completed robustness read. Do not quote v22 cost. For future v22 cost, implement a dedicated preselected source-index file with a proven timeout-safe selector or lower node-cap smoke first."
+    },
+    "gate_outcomes": [
+      {"gate": "P2B_reason_couple", "outcome": "PASS_COMPLETE", "number": "5120 rows, 128 summary cells across v14/v16/v18/v20, R=2/4/8/16, isolation/autonomous."},
+      {"gate": "P2B_v20_cost", "outcome": "PASS_COMPLETE_FIXED_SOURCE", "number": "384 rows; A/C n=48 per R; C_over_A grows from 2.27x at R2 to 40.75x at R16."},
+      {"gate": "P2B_v22_cost", "outcome": "FAIL_CLOSED", "number": "unfiltered fixed-index v22 probe loaded model but wrote no checkpoint rows after ~1.5h; stopped and not read."}
+    ],
+    "next_step_routing": "Commit this completion. Future work should add verified P1-A cost/reason hooks and optional v22 cost only with a validated source selector."
+  },
+  "result_tables": {
+    "p2b_reason_isolation_R4_R8": {
+      "columns": ["bin", "R", "policy", "solve_rate", "exact_cbj", "parse_rate", "valid_parse_rate"],
+      "rows": [
+        {"bin": "v14_p04", "R": 4, "policy": "chrono", "solve_rate": 0.2, "exact_cbj": 0.22641509433962265, "parse_rate": null, "valid_parse_rate": null},
+        {"bin": "v14_p04", "R": 4, "policy": "conflict_cot", "solve_rate": 0.275, "exact_cbj": 0.3310344827586207, "parse_rate": 1.0, "valid_parse_rate": 1.0},
+        {"bin": "v14_p04", "R": 4, "policy": "oracle", "solve_rate": 0.6, "exact_cbj": 1.0, "parse_rate": null, "valid_parse_rate": null},
+        {"bin": "v16_p04", "R": 4, "policy": "chrono", "solve_rate": 0.3, "exact_cbj": 0.2801556420233463, "parse_rate": null, "valid_parse_rate": null},
+        {"bin": "v16_p04", "R": 4, "policy": "conflict_cot", "solve_rate": 0.4, "exact_cbj": 0.4051724137931034, "parse_rate": 1.0, "valid_parse_rate": 0.9956896551724138},
+        {"bin": "v18_p04", "R": 4, "policy": "chrono", "solve_rate": 0.175, "exact_cbj": 0.3018867924528302, "parse_rate": null, "valid_parse_rate": null},
+        {"bin": "v18_p04", "R": 4, "policy": "conflict_cot", "solve_rate": 0.2, "exact_cbj": 0.410958904109589, "parse_rate": 1.0, "valid_parse_rate": 1.0},
+        {"bin": "v20_p04", "R": 4, "policy": "chrono", "solve_rate": 0.1, "exact_cbj": 0.26595744680851063, "parse_rate": null, "valid_parse_rate": null},
+        {"bin": "v20_p04", "R": 4, "policy": "conflict_cot", "solve_rate": 0.125, "exact_cbj": 0.34951456310679613, "parse_rate": 1.0, "valid_parse_rate": 1.0}
+      ]
+    },
+    "v20_cost_fixed_source": {
+      "columns": ["R", "A_n", "C_n", "A_tokens", "C_tokens", "C_over_A", "A_status", "C_status"],
+      "rows": [
+        {"R": 2, "A_n": 48, "C_n": 48, "A_tokens": 587.7916666666666, "C_tokens": 1336.125, "C_over_A": 2.273126816474091, "A_status": {"NO_RECOVERY_TARGET": 48}, "C_status": {"NO_RECOVERY_TARGET": 48}},
+        {"R": 4, "A_n": 48, "C_n": 48, "A_tokens": 626.0, "C_tokens": 2773.0833333333335, "C_over_A": 4.429845580404686, "A_status": {"NO_RECOVERY_TARGET": 48}, "C_status": {"NO_RECOVERY_TARGET": 48}},
+        {"R": 8, "A_n": 48, "C_n": 48, "A_tokens": 725.75, "C_tokens": 8289.958333333334, "C_over_A": 11.42260879549891, "A_status": {"NO_RECOVERY_TARGET": 48}, "C_status": {"NO_RECOVERY_TARGET": 48}},
+        {"R": 16, "A_n": 48, "C_n": 48, "A_tokens": 1132.75, "C_tokens": 46155.75, "C_over_A": 40.746634297064666, "A_status": {"NO_RECOVERY_TARGET": 46, "CALL_CAP": 2}, "C_status": {"NO_RECOVERY_TARGET": 46, "CALL_CAP": 2}}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not establish v22 cost. v22 was an unfiltered fixed-index probe and was stopped fail-closed with no checkpoint rows.",
+    "cost_selection_limit": "v20 cost uses fixed source indices reused from v20 reason/couple selected instances, not an independent cost preflight-selected slice.",
+    "solve_limit": "The v20 cost probe has zero solve for A and C because the reused selected instances still hit NO_RECOVERY_TARGET/CALL_CAP under oracle-search cost arms; the readable result is context/token growth, not solve superiority."
+  }
+}
