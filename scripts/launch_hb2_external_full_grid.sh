@@ -2,8 +2,8 @@
 set -euo pipefail
 
 BASELINES="${BASELINES:-best_of_n,lfs,tot_rap}"
-SHARDS="${SHARDS:-8}"
-GPUS="${GPUS:-8}"
+SHARDS="${SHARDS:-4}"
+GPUS="${GPUS:-4}"
 INSTANCES="${INSTANCES:-64}"
 TASKS="${TASKS:-sudoku,futoshiki,graph_color}"
 BUDGET_SCALES="${BUDGET_SCALES:-0.25,0.5,1,2,4}"
@@ -13,17 +13,17 @@ run_baseline() {
   local baseline="$1"
   case "$baseline" in
     best_of_n)
-      ROOT="${BEST_OF_N_ROOT:-results/kvcache_matched_budget_v0/hb2_best_of_n/full_grid_n64}" \
+      ROOT="${BEST_OF_N_ROOT:-results/kvcache_matched_budget_v0/hb2_best_of_n/full_grid_n64_gpu0_3_batched}" \
       SHARDS="$SHARDS" GPUS="$GPUS" INSTANCES="$INSTANCES" TASKS="$TASKS" BUDGET_SCALES="$BUDGET_SCALES" PY="$PY" \
         scripts/launch_hb2_best_of_n_full_grid.sh
       ;;
     lfs)
-      ROOT="${LFS_ROOT:-results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64}" \
+      ROOT="${LFS_ROOT:-results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64_gpu0_3_batched}" \
       SHARDS="$SHARDS" GPUS="$GPUS" INSTANCES="$INSTANCES" TASKS="$TASKS" BUDGET_SCALES="$BUDGET_SCALES" PY="$PY" \
         scripts/launch_hb2_lfs_full_grid.sh
       ;;
     tot_rap)
-      ROOT="${TOT_RAP_ROOT:-results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64}" \
+      ROOT="${TOT_RAP_ROOT:-results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64_gpu0_3_batched}" \
       SHARDS="$SHARDS" GPUS="$GPUS" INSTANCES="$INSTANCES" TASKS="$TASKS" BUDGET_SCALES="$BUDGET_SCALES" PY="$PY" \
         scripts/launch_hb2_tot_rap_full_grid.sh
       ;;

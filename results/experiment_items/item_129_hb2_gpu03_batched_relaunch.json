@@ -1,0 +1,75 @@
+{
+  "item_number": "129",
+  "schema_version": "log_item_contract_v1",
+  "status": "HB2_GPU03_BATCHED_RELAUNCH_RUNNING_NO_CONCLUSION",
+  "name": "HB-2 GPU0-3 batched relaunch",
+  "generated_at": "2026-06-15T14:30:00+00:00",
+  "purpose": "Cancel the prior 8-GPU low-batch HB-2 external run, implement a higher-batch GPU0-3 configuration, validate a low-budget dry run, and relaunch the formal external full grid on GPUs 0-3 only. This is an engineering/launch item and draws no HB-2 conclusion.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["128"],
+    "cancelled_terminal_id": "9e3667fc-064f-4651-b232-81b25a04ffc1",
+    "new_terminal_id": "7d2ff9a6-e1ce-4f63-823d-38b0a74ee6b9",
+    "new_launch_command": "BASELINES=lfs,tot_rap,best_of_n SHARDS=4 GPUS=4 INSTANCES=64 TASKS=sudoku,futoshiki,graph_color BUDGET_SCALES=0.25,0.5,1,2,4 SAMPLE_BATCH_SIZE=32 VALUE_BATCH_SIZE=8 scripts/launch_hb2_external_full_grid.sh",
+    "gpu_policy": "Use GPUs 0-3 only; leave GPUs 4-7 idle/available.",
+    "new_roots": {
+      "best_of_n": "results/kvcache_matched_budget_v0/hb2_best_of_n/full_grid_n64_gpu0_3_batched",
+      "lfs": "results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64_gpu0_3_batched",
+      "tot_rap": "results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64_gpu0_3_batched"
+    }
+  },
+  "artifacts": [
+    "results/experiment_items/item_129_hb2_gpu03_batched_relaunch.json",
+    "analysis/kvcache_tot_rap_baselines.py",
+    "scripts/launch_hb2_best_of_n_full_grid.sh",
+    "scripts/launch_hb2_lfs_full_grid.sh",
+    "scripts/launch_hb2_tot_rap_full_grid.sh",
+    "scripts/launch_hb2_external_full_grid.sh"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_tot_rap_baselines.py", "change": "Adds batched child value scoring via value_batch_size for ToT/RAP while preserving per-prompt token accounting."},
+    {"path": "scripts/launch_hb2_external_full_grid.sh", "change": "Defaults to SHARDS=4, GPUS=4 and GPU0-3 batched output roots."},
+    {"path": "scripts/launch_hb2_best_of_n_full_grid.sh", "change": "Defaults to GPU0-3 roots and SAMPLE_BATCH_SIZE=32."},
+    {"path": "scripts/launch_hb2_tot_rap_full_grid.sh", "change": "Defaults to GPU0-3 roots and VALUE_BATCH_SIZE=8."}
+  ],
+  "commands": [
+    {"command": "kill terminal 9e3667fc-064f-4651-b232-81b25a04ffc1", "purpose": "Cancel the previous 8-GPU low-batch external full-grid run at user request."},
+    {"command": "bash -n scripts/launch_hb2_best_of_n_full_grid.sh scripts/launch_hb2_lfs_full_grid.sh scripts/launch_hb2_tot_rap_full_grid.sh scripts/launch_hb2_external_full_grid.sh && ~/.local/bin/uv run --python .venv/bin/python python -m py_compile analysis/kvcache_tot_rap_baselines.py analysis/kvcache_lfs_baseline.py", "purpose": "Validate launcher syntax and Python runner compilation after batching edits."},
+    {"command": "CUDA_VISIBLE_DEVICES=0 BASELINES=best_of_n,lfs,tot_rap SHARDS=1 GPUS=1 INSTANCES=1 TASKS=sudoku BUDGET_SCALES=0.032 BEST_OF_N_ROOT=results/kvcache_matched_budget_v0/hb2_best_of_n/debug_gpu0_batched LFS_ROOT=results/kvcache_matched_budget_v0/hb2_lfs/debug_gpu0_batched TOT_RAP_ROOT=results/kvcache_matched_budget_v0/hb2_tot_rap/debug_gpu0_batched SAMPLE_BATCH_SIZE=16 VALUE_BATCH_SIZE=4 scripts/launch_hb2_external_full_grid.sh", "purpose": "Dry-run the accelerated configuration on GPU0 with one low-budget sudoku row."},
+    {"command": "BASELINES=lfs,tot_rap,best_of_n SHARDS=4 GPUS=4 INSTANCES=64 TASKS=sudoku,futoshiki,graph_color BUDGET_SCALES=0.25,0.5,1,2,4 SAMPLE_BATCH_SIZE=32 VALUE_BATCH_SIZE=8 scripts/launch_hb2_external_full_grid.sh", "purpose": "Relaunch the formal external full grid using GPUs 0-3 only and higher batching."}
+  ],
+  "decision": {
+    "outcome": "ACCELERATED_GPU03_RUN_RUNNING_HB2_STILL_UNREAD",
+    "overall_pass": true,
+    "hb2_confirmed": false,
+    "headline": {
+      "cancel": "Previous 8-GPU run was cancelled cleanly; GPUs returned to zero utilization before relaunch.",
+      "batching": "ToT/RAP child value scoring now batches value prompts; best-of-n launcher default sample batch increased to 32.",
+      "gpu_policy": "New formal run uses GPUs 0-3 only. GPU4-7 were confirmed idle after relaunch.",
+      "formal_launch": "New full-grid run is active in terminal 7d2ff9a6-e1ce-4f63-823d-38b0a74ee6b9 and started LFS at 2026-06-15T14:26:47Z."
+    },
+    "gate_outcomes": [
+      {"gate": "old_run_cancelled", "outcome": "PASS", "number": "No residual HB-2 external processes and all GPUs showed 0 memory/utilization after cancellation."},
+      {"gate": "accelerated_dry_run", "outcome": "PASS", "number": "best-of-n, LFS, ToT, and RAP completed a GPU0 low-budget shard-to-merge dry run."},
+      {"gate": "gpu03_only", "outcome": "PASS", "number": "New LFS shard wrappers report CUDA_VISIBLE_DEVICES=0,1,2,3; GPUs 4-7 report 0 memory/utilization."},
+      {"gate": "HB2_read", "outcome": "NOT_READY", "number": "No merged full-grid result exists yet; this item is launch/progress only."}
+    ],
+    "next_step_routing": "Monitor the GPU0-3 batched run until merged outputs exist, then create an HB-2 closeout/read item. Do not use cancelled partial 8-GPU checkpoints for conclusions."
+  },
+  "result_tables": {
+    "batched_launch_plan": {
+      "columns": ["baseline", "root", "batching", "status"],
+      "rows": [
+        {"baseline": "lfs", "root": "results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64_gpu0_3_batched", "batching": "algorithm still mostly sequential; 4 shards on GPU0-3", "status": "RUNNING_FIRST"},
+        {"baseline": "tot_rap", "root": "results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64_gpu0_3_batched", "batching": "VALUE_BATCH_SIZE=8 for child value scoring", "status": "QUEUED_AFTER_LFS"},
+        {"baseline": "best_of_n", "root": "results/kvcache_matched_budget_v0/hb2_best_of_n/full_grid_n64_gpu0_3_batched", "batching": "SAMPLE_BATCH_SIZE=32", "status": "QUEUED_AFTER_TOT_RAP"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not contain HB-2 results and does not compare solve rates. It only records cancellation, batching implementation, dry-run validation, and relaunch.",
+    "scope_limit": "LFS remains largely sequential inside each shard because its official control loop follows one current path plus frontier decisions; ToT/RAP and best-of-n receive the main batching changes.",
+    "conclusion_policy": "Cancelled 8-GPU partial checkpoints are runtime telemetry only and must not be merged into final HB-2 results.",
+    "runtime_note": "New accelerated roots are separate from the cancelled full_grid_n64 roots to avoid shard-partition contamination."
+  }
+}

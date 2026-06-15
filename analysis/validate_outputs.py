@@ -134,6 +134,7 @@ PATHS = {
     "item_126_hb2_lfs_repo_port_smoke": "results/experiment_items/item_126_hb2_lfs_repo_port_smoke.json",
     "item_127_hb2_tot_rap_repo_port_smoke": "results/experiment_items/item_127_hb2_tot_rap_repo_port_smoke.json",
     "item_128_hb2_external_full_grid_launch": "results/experiment_items/item_128_hb2_external_full_grid_launch.json",
+    "item_129_hb2_gpu03_batched_relaunch": "results/experiment_items/item_129_hb2_gpu03_batched_relaunch.json",
     "closeout_047_status": "results/closeout_047/status_corrections.json",
     "closeout_047_headline_figure": "results/closeout_047/headline_figure/headline_figure_certification.json",
     "closeout_047_track_b_split": "results/closeout_047/track_b_mask_commit/track_b_mask_commit_split_diagnostic.json",

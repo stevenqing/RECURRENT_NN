@@ -115,6 +115,7 @@ ARTIFACT_INDEX = {
     "item_126_hb2_lfs_repo_port_smoke": "results/experiment_items/item_126_hb2_lfs_repo_port_smoke.json",
     "item_127_hb2_tot_rap_repo_port_smoke": "results/experiment_items/item_127_hb2_tot_rap_repo_port_smoke.json",
     "item_128_hb2_external_full_grid_launch": "results/experiment_items/item_128_hb2_external_full_grid_launch.json",
+    "item_129_hb2_gpu03_batched_relaunch": "results/experiment_items/item_129_hb2_gpu03_batched_relaunch.json",
     "log_item_contract_spec": "specs/log_item_contract.md",
     "rung1_phase1_spec_v01": "specs/rung1_phase1_spec_v01.md",
     "model_readiness": "results/model_readiness/readiness.json",

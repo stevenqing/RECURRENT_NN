@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${ROOT:-results/kvcache_matched_budget_v0/hb2_best_of_n/full_grid_n64}"
-SHARDS="${SHARDS:-8}"
-GPUS="${GPUS:-8}"
+ROOT="${ROOT:-results/kvcache_matched_budget_v0/hb2_best_of_n/full_grid_n64_gpu0_3_batched}"
+SHARDS="${SHARDS:-4}"
+GPUS="${GPUS:-4}"
 PY="${PY:-$HOME/.local/bin/uv run --python .venv/bin/python python}"
 TASKS="${TASKS:-sudoku,futoshiki,graph_color}"
 INSTANCES="${INSTANCES:-64}"
 BUDGET_SCALES="${BUDGET_SCALES:-0.25,0.5,1,2,4}"
+SAMPLE_BATCH_SIZE="${SAMPLE_BATCH_SIZE:-32}"
 mkdir -p "$ROOT/shards"
 
 for shard in $(seq 0 $((SHARDS - 1))); do
@@ -22,7 +23,7 @@ for shard in $(seq 0 $((SHARDS - 1))); do
     --budget-anchors sudoku:28070,futoshiki:3206226,graph_color:32895 \
     --budget-scales "$BUDGET_SCALES" \
     --max-samples-per-budget 0 \
-    --sample-batch-size 8 \
+    --sample-batch-size "$SAMPLE_BATCH_SIZE" \
     --max-new-tokens 256 \
     --temperature 0.8 \
     --top-p 0.95 \

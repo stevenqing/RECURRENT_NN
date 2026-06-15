@@ -19,8 +19,10 @@ import sys
 from typing import Any
 import json
 
+import torch
+
 from analysis.kvcache_graph_color_search import _write_json
-from analysis.kvcache_lfs_baseline import CSPState, _legal_actions, _load_model, _make_dataset, _make_env, _now, _query_json, _score_state, _state_text, _transition
+from analysis.kvcache_lfs_baseline import CSPState, _extract_json, _legal_actions, _load_model, _make_dataset, _make_env, _now, _query_json, _score_state, _state_text, _transition
 from experiments.rung1_distributed_graph_coloring import SOURCE
 
 
@@ -177,6 +179,88 @@ def _score_child(model: Any, tokenizer: Any, method: str, task: str, env: dict[s
     return score, used, 0, qstatus
 
 
+@torch.no_grad()
+def _generate_json_batch(model: Any, tokenizer: Any, prompts: list[str], max_new_tokens: int) -> list[tuple[str, int, int]]:
+    if not prompts:
+        return []
+    previous_padding_side = getattr(tokenizer, "padding_side", "right")
+    tokenizer.padding_side = "left"
+    try:
+        encoded = tokenizer(prompts, return_tensors="pt", padding=True, add_special_tokens=False)
+        input_lengths = encoded.attention_mask.sum(dim=1).tolist()
+        encoded = {key: value.to(model.device) for key, value in encoded.items()}
+        output = model.generate(
+            **encoded,
+            do_sample=False,
+            max_new_tokens=int(max_new_tokens),
+            pad_token_id=tokenizer.pad_token_id,
+            eos_token_id=tokenizer.eos_token_id,
+            use_cache=True,
+        )
+        generated = output[:, encoded["input_ids"].shape[1]:]
+        generated_tokens = int(generated.shape[1])
+        rows = []
+        for index in range(generated.shape[0]):
+            text = tokenizer.decode(generated[index], skip_special_tokens=True).strip()
+            rows.append((text, int(input_lengths[index]), generated_tokens))
+        return rows
+    finally:
+        tokenizer.padding_side = previous_padding_side
+
+
+def _query_json_batch(model: Any, tokenizer: Any, prompts: list[str], budget: int, tokens_used: int, max_new_tokens: int) -> list[tuple[Any | None, int, str]]:
+    if not prompts:
+        return []
+    prompt_lengths = [len(tokenizer(prompt, add_special_tokens=False).input_ids) for prompt in prompts]
+    selected_count = 0
+    planned_tokens = int(tokens_used)
+    batch_max_new = None
+    for input_tokens in prompt_lengths:
+        remaining = int(budget) - planned_tokens
+        if remaining <= input_tokens + 1:
+            break
+        candidate_max_new = min(int(max_new_tokens), max(1, remaining - input_tokens))
+        if batch_max_new is None:
+            batch_max_new = candidate_max_new
+        if planned_tokens + input_tokens + int(batch_max_new) > int(budget):
+            break
+        selected_count += 1
+        planned_tokens += input_tokens + int(batch_max_new)
+    if selected_count <= 0 or batch_max_new is None:
+        return [(None, 0, "BUDGET_EXHAUSTED") for _ in prompts]
+    generated = _generate_json_batch(model, tokenizer, prompts[:selected_count], int(batch_max_new))
+    results: list[tuple[Any | None, int, str]] = []
+    for text, input_tokens, output_tokens in generated:
+        used = int(input_tokens) + int(output_tokens)
+        try:
+            results.append((_extract_json(text), used, "OK"))
+        except Exception:
+            results.append((None, used, "PARSE_FAIL"))
+    results.extend((None, 0, "BUDGET_EXHAUSTED") for _ in prompts[selected_count:])
+    return results
+
+
+def _score_children_batch(model: Any, tokenizer: Any, method: str, task: str, env: dict[str, Any], state: Any, children: list[tuple[int, CSPState]], budget: int, tokens_used: int, args: argparse.Namespace) -> tuple[list[tuple[int, CSPState, float]], int, int, str]:
+    scored: list[tuple[int, CSPState, float]] = []
+    total_used = 0
+    parse_fails = 0
+    value_batch_size = max(1, int(args.value_batch_size))
+    for start in range(0, len(children), value_batch_size):
+        chunk = children[start:start + value_batch_size]
+        prompts = [_value_prompt(method, task, env, state, int(action), child_state) for action, child_state in chunk]
+        results = _query_json_batch(model, tokenizer, prompts, int(budget), int(tokens_used) + int(total_used), int(args.max_new_tokens))
+        for (parsed, used, qstatus), (action, child_state) in zip(results, chunk):
+            if qstatus == "BUDGET_EXHAUSTED":
+                return scored, total_used, parse_fails, "BUDGET_EXHAUSTED"
+            total_used += int(used)
+            score = _parse_score(parsed)
+            if score is None:
+                parse_fails += 1
+                score = 0.0
+            scored.append((int(action), child_state, float(score)))
+    return scored, total_used, parse_fails, "OK"
+
+
 def _run_tot_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry: dict[str, Any], source_index: int, budget: int, args: argparse.Namespace) -> dict[str, Any]:
     env = _make_env(task, dataset, entry)
     depth_limit = _max_depth(args, task, env)
@@ -209,14 +293,13 @@ def _run_tot_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
                 status = "BUDGET_EXHAUSTED"
                 frontier = []
                 break
-            for action in actions:
-                child_state = _transition(node.state, int(action))
-                reward, used, fails, qstatus = _score_child(model, tokenizer, "ToT", task, env, node.state, int(action), child_state, int(budget), tokens_used, args)
-                tokens_used += used
-                parse_fails += fails
-                if qstatus == "BUDGET_EXHAUSTED":
-                    status = "BUDGET_EXHAUSTED"
-                    break
+            children = [(int(action), _transition(node.state, int(action))) for action in actions]
+            scored_children, used, fails, qstatus = _score_children_batch(model, tokenizer, "ToT", task, env, node.state, children, int(budget), tokens_used, args)
+            tokens_used += used
+            parse_fails += fails
+            if qstatus == "BUDGET_EXHAUSTED":
+                status = "BUDGET_EXHAUSTED"
+            for action, child_state, reward in scored_children:
                 child = BeamNode(state=child_state, reward=float(reward), action=int(action), depth=node.depth + 1)
                 best_score = max(best_score, _score_state(task, env, child_state))
                 max_depth_reached = max(max_depth_reached, int(child.depth))
@@ -284,14 +367,13 @@ def _run_rap_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
             if qstatus == "BUDGET_EXHAUSTED":
                 status = "BUDGET_EXHAUSTED"
                 break
-            for action in actions:
-                child_state = _transition(node.state, int(action))
-                reward, used, fails, qstatus = _score_child(model, tokenizer, "RAP", task, env, node.state, int(action), child_state, int(budget), tokens_used, args)
-                tokens_used += used
-                parse_fails += fails
-                if qstatus == "BUDGET_EXHAUSTED":
-                    status = "BUDGET_EXHAUSTED"
-                    break
+            children = [(int(action), _transition(node.state, int(action))) for action in actions]
+            scored_children, used, fails, qstatus = _score_children_batch(model, tokenizer, "RAP", task, env, node.state, children, int(budget), tokens_used, args)
+            tokens_used += used
+            parse_fails += fails
+            if qstatus == "BUDGET_EXHAUSTED":
+                status = "BUDGET_EXHAUSTED"
+            for action, child_state, reward in scored_children:
                 child = RapNode(state=child_state, parent=node, action=int(action), reward=float(reward))
                 node.children.append(child)
                 best_score = max(best_score, _score_state(task, env, child_state))
@@ -319,16 +401,13 @@ def _run_rap_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
             if qstatus == "BUDGET_EXHAUSTED" or not actions:
                 status = "BUDGET_EXHAUSTED" if qstatus == "BUDGET_EXHAUSTED" else status
                 break
-            scored = []
-            for action in actions[: max(1, int(args.rollout_branching))]:
-                child_state = _transition(rollout_state, int(action))
-                reward, used, fails, qstatus = _score_child(model, tokenizer, "RAP", task, env, rollout_state, int(action), child_state, int(budget), tokens_used, args)
-                tokens_used += used
-                parse_fails += fails
-                if qstatus == "BUDGET_EXHAUSTED":
-                    status = "BUDGET_EXHAUSTED"
-                    break
-                scored.append((float(reward), child_state))
+            rollout_children = [(int(action), _transition(rollout_state, int(action))) for action in actions[: max(1, int(args.rollout_branching))]]
+            scored_children, used, fails, qstatus = _score_children_batch(model, tokenizer, "RAP", task, env, rollout_state, rollout_children, int(budget), tokens_used, args)
+            tokens_used += used
+            parse_fails += fails
+            if qstatus == "BUDGET_EXHAUSTED":
+                status = "BUDGET_EXHAUSTED"
+            scored = [(reward, child_state) for _, child_state, reward in scored_children]
             if status == "BUDGET_EXHAUSTED" or not scored:
                 break
             reward, rollout_state = max(scored, key=lambda item: item[0])
@@ -552,6 +631,7 @@ def _add_common_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--max-depth", type=int, default=0, help="0 means use task depth")
     parser.add_argument("--n-actions", type=int, default=3)
     parser.add_argument("--beam-size", type=int, default=2)
+    parser.add_argument("--value-batch-size", type=int, default=8)
     parser.add_argument("--mcts-iters", type=int, default=0, help="0 means run MCTS until budget, goal, or safety cap")
     parser.add_argument("--uct-weight", type=float, default=1.0)
     parser.add_argument("--rollout-depth", type=int, default=0, help="0 means simulate until depth limit")
