@@ -1,0 +1,79 @@
+{
+  "item_number": "133",
+  "schema_version": "log_item_contract_v1",
+  "status": "HB2_LFS_VLLM_MULTISERVER_LAUNCHED_NO_CONCLUSION",
+  "name": "HB-2 LFS vLLM multi-server launch",
+  "generated_at": "2026-06-16T06:58:00+00:00",
+  "purpose": "Switch LFS acceleration from direct Transformers to a vLLM OpenAI-compatible backend on GPUs 0-3, using one vLLM server per GPU and high-concurrency multi-state LFS clients. This records launch/provenance only and draws no HB-2 conclusion.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["132"],
+    "server_launcher": "scripts/launch_hb2_vllm_servers_gpu0_3.sh",
+    "lfs_launcher": "scripts/launch_hb2_lfs_multistate_vllm_multi_server.sh",
+    "detached_lfs_launcher": "scripts/launch_hb2_lfs_multistate_vllm_multi_server_detached.sh",
+    "server_root": "results/kvcache_matched_budget_v0/hb2_vllm_servers/gpu0_3_qwen3_4b_formal",
+    "formal_lfs_root": "results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64_vllm_gpu0_3_multiserver",
+    "formal_run_root": "results/kvcache_matched_budget_v0/hb2_external_runs/lfs_vllm_multiserver_formal",
+    "formal_master_pid": "1337498",
+    "base_urls": ["http://127.0.0.1:8010/v1", "http://127.0.0.1:8011/v1", "http://127.0.0.1:8012/v1", "http://127.0.0.1:8013/v1"],
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "client_config": {"shards": 4, "active_rows": 512, "state_batch_size": 256, "request_workers": 256},
+    "server_config": {"gpu_memory_utilization": 0.80, "max_model_len": 4096}
+  },
+  "artifacts": [
+    "results/experiment_items/item_133_hb2_lfs_vllm_multiserver_launch.json",
+    "analysis/kvcache_lfs_multistate_baseline.py",
+    "scripts/launch_hb2_vllm_server.sh",
+    "scripts/launch_hb2_vllm_servers_gpu0_3.sh",
+    "scripts/launch_hb2_lfs_multistate_vllm_full_grid.sh",
+    "scripts/launch_hb2_lfs_multistate_vllm_multi_server.sh",
+    "scripts/launch_hb2_lfs_multistate_vllm_multi_server_detached.sh"
+  ],
+  "code_added_used": [
+    {"path": "scripts/launch_hb2_vllm_servers_gpu0_3.sh", "change": "Launches one vLLM OpenAI-compatible server per GPU on GPUs 0-3."},
+    {"path": "scripts/launch_hb2_lfs_multistate_vllm_multi_server.sh", "change": "Runs multi-state LFS shards against multiple vLLM base URLs with high request-worker concurrency."},
+    {"path": "scripts/launch_hb2_lfs_multistate_vllm_multi_server_detached.sh", "change": "Detached/nohup wrapper for the vLLM multi-server LFS run."},
+    {"path": "analysis/kvcache_lfs_multistate_baseline.py", "change": "Fixes NO_FRONTIER handling when current state has no legal actions but frontier remains, and records vLLM backend metadata correctly."}
+  ],
+  "commands": [
+    {"command": "ROOT=results/kvcache_matched_budget_v0/hb2_vllm_servers/gpu0_3_qwen3_4b_formal GPUS=0,1,2,3 BASE_PORT=8010 GPU_MEMORY_UTILIZATION=0.80 MAX_MODEL_LEN=4096 scripts/launch_hb2_vllm_servers_gpu0_3.sh", "purpose": "Launch one vLLM server per GPU on GPUs 0-3."},
+    {"command": "ROOT=results/kvcache_matched_budget_v0/hb2_lfs/debug_vllm_multistate_bstar_n4_fixed TASKS=sudoku,graph_color INSTANCES=4 BUDGET_SCALES=1 ACTIVE_ROWS=8 STATE_BATCH_SIZE=8 REQUEST_WORKERS=8 scripts/launch_hb2_lfs_multistate_vllm_full_grid.sh", "purpose": "Validate fixed vLLM B*-only n=4 sanity pilot."},
+    {"command": "RUN_ROOT=results/kvcache_matched_budget_v0/hb2_external_runs/lfs_vllm_multiserver_formal ROOT=results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64_vllm_gpu0_3_multiserver TASKS=sudoku,futoshiki,graph_color INSTANCES=64 BUDGET_SCALES=0.25,0.5,1,2,4 ACTIVE_ROWS=512 STATE_BATCH_SIZE=256 REQUEST_WORKERS=256 SHARDS=4 scripts/launch_hb2_lfs_multistate_vllm_multi_server_detached.sh", "purpose": "Launch formal LFS vLLM multi-server full-grid run."}
+  ],
+  "decision": {
+    "outcome": "VLLM_MULTISERVER_LFS_RUNNING_HB2_STILL_UNREAD",
+    "overall_pass": true,
+    "hb2_confirmed": false,
+    "headline": {
+      "sanity_pilot": "Fixed vLLM B*-only n=4 sanity pilot produced normal budget-exhausted/solved rows: sudoku 2/4 solved, graph_color 1/4 solved.",
+      "launch": "Formal LFS vLLM multi-server run launched under master pid 1337498.",
+      "utilization": "At launch, vLLM EngineCore processes on GPUs 0-3 showed about 99-100% utilization.",
+      "separation": "This backend writes to full_grid_n64_vllm_gpu0_3_multiserver and must not be merged with direct-Transformers roots."
+    },
+    "gate_outcomes": [
+      {"gate": "vllm_servers_ready", "outcome": "PASS", "number": "Ports 8010-8013 responded to /v1/models before launch."},
+      {"gate": "sanity_pilot", "outcome": "PASS", "number": "B*-only n=4 sudoku+graph_color ran to normal statuses after NO_FRONTIER fix."},
+      {"gate": "full_grid_launch", "outcome": "RUNNING", "number": "Formal LFS vLLM multi-server full grid started with 4 shards and high request concurrency."},
+      {"gate": "HB2_read", "outcome": "NOT_READY", "number": "No formal vLLM merged full-grid output exists yet."}
+    ],
+    "next_step_routing": "Monitor vLLM LFS checkpoints and merged output. If stable and fast, decide whether to run ToT/RAP vLLM backend separately or use LFS vLLM as an interim external baseline read."
+  },
+  "result_tables": {
+    "vllm_multiserver_launch": {
+      "columns": ["component", "root_or_url", "status"],
+      "rows": [
+        {"component": "vllm_gpu0", "root_or_url": "http://127.0.0.1:8010/v1", "status": "READY_AT_LAUNCH"},
+        {"component": "vllm_gpu1", "root_or_url": "http://127.0.0.1:8011/v1", "status": "READY_AT_LAUNCH"},
+        {"component": "vllm_gpu2", "root_or_url": "http://127.0.0.1:8012/v1", "status": "READY_AT_LAUNCH"},
+        {"component": "vllm_gpu3", "root_or_url": "http://127.0.0.1:8013/v1", "status": "READY_AT_LAUNCH"},
+        {"component": "lfs_multistate_vllm", "root_or_url": "results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64_vllm_gpu0_3_multiserver", "status": "RUNNING"}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not contain HB-2 result curves and does not compare solve rates. It only records vLLM multi-server launch and sanity evidence.",
+    "backend_limit": "vLLM continuous batching is a separate external-baseline backend and can change outputs relative to direct Transformers. It must be reported separately.",
+    "conclusion_policy": "Only merged formal vLLM outputs from full_grid_n64_vllm_gpu0_3_multiserver are eligible for a vLLM-backend read; debug sanity pilots are not final evidence.",
+    "runtime_note": "The previous direct-Transformers LFS x2 run was stopped after 328 checkpoint rows; those rows are retained as telemetry only."
+  }
+}

@@ -727,7 +727,7 @@
       "tier": "contract"
     },
     {
-      "detail": "count=105",
+      "detail": "count=106",
       "name": "log_item_artifacts_present",
       "status": "PASS",
       "tier": "contract"
@@ -4513,6 +4513,42 @@
       "tier": "contract"
     },
     {
+      "detail": "missing=[]",
+      "name": "log_item_133_required_fields",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "schema=log_item_contract_v1",
+      "name": "log_item_133_schema_version",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "item_number=133",
+      "name": "log_item_133_number_continues_from_028",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "missing=[]; archived_or_absent_ok=[]",
+      "name": "log_item_133_artifacts_exist",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "This item does not contain HB-2 result curves and does not compare solve rates. It only records vLLM multi-server launch and sanity evidence.",
+      "name": "log_item_133_honesty_does_not_establish",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
+      "detail": "gates=4; routing=Monitor vLLM LFS checkpoints and merged output. If stable and fast, decide whether to run ToT/RAP vLLM backend separately or use LFS vLLM as an interim external baseline read.",
+      "name": "log_item_133_decision_numbers_and_routing",
+      "status": "PASS",
+      "tier": "contract"
+    },
+    {
       "detail": "results/experiment_items/item_028_p0_housekeeping.json",
       "name": "item_028_p0_housekeeping_present",
       "status": "PASS",
@@ -5089,13 +5125,13 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "rules={'forward_read', 'register_entry_classification', 'pop_read', 'final_solution_readback', 'write_drop_mask', 'spill_off_write_drop'}",
+      "detail": "rules={'final_solution_readback', 'spill_off_write_drop', 'write_drop_mask', 'forward_read', 'register_entry_classification', 'pop_read'}",
       "name": "e1_compositional_read_rules_recorded",
       "status": "PASS",
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'threshold_D_peak', 'P_pop', 'P_choice', 'P_choice_unmasked', 'threshold_D_pop', 'P_pop_unmasked', 'P_all_unmasked', 'P_all'}; rows=768",
+      "detail": "candidates={'P_all', 'P_pop', 'P_choice_unmasked', 'P_pop_unmasked', 'P_all_unmasked', 'P_choice', 'threshold_D_pop', 'threshold_D_peak'}; rows=768",
       "name": "e1_compositional_candidates_present",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -5131,7 +5167,7 @@
       "tier": "post_review_e1"
     },
     {
-      "detail": "candidates={'P_pop', 'P_choice', 'P_choice_unmasked', 'P_pop_unmasked', 'P_all_unmasked', 'P_all'}; d128_bound_recorded=True; rows=144",
+      "detail": "candidates={'P_all', 'P_pop', 'P_choice_unmasked', 'P_pop_unmasked', 'P_all_unmasked', 'P_choice'}; d128_bound_recorded=True; rows=144",
       "name": "e1_sudoku_compositional_no_proxy_d128_measured",
       "status": "PASS",
       "tier": "post_review_e1"
@@ -5929,11 +5965,11 @@
       "tier": "legacy"
     }
   ],
-  "generated_at": "2026-06-16T06:30:03.673208+00:00",
+  "generated_at": "2026-06-16T07:19:45.992572+00:00",
   "passed": false,
   "summary": {
-    "n_checks": 988,
+    "n_checks": 994,
     "n_fail": 3,
-    "n_pass": 985
+    "n_pass": 991
   }
 }

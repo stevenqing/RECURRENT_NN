@@ -9,6 +9,8 @@ MODEL="${MODEL:-Qwen/Qwen3-4B-Instruct-2507}"
 DTYPE="${DTYPE:-float32}"
 MAX_MODEL_LEN="${MAX_MODEL_LEN:-4096}"
 GPU_MEMORY_UTILIZATION="${GPU_MEMORY_UTILIZATION:-0.35}"
+MAX_NUM_SEQS="${MAX_NUM_SEQS:-}"
+MAX_NUM_BATCHED_TOKENS="${MAX_NUM_BATCHED_TOKENS:-}"
 VLLM_PY="${VLLM_PY:-.venv-vllm/bin/python}"
 mkdir -p "$RUN_ROOT"
 LOG="$RUN_ROOT/server.log"
@@ -31,8 +33,18 @@ MODEL=$MODEL
 DTYPE=$DTYPE
 MAX_MODEL_LEN=$MAX_MODEL_LEN
 GPU_MEMORY_UTILIZATION=$GPU_MEMORY_UTILIZATION
+MAX_NUM_SEQS=$MAX_NUM_SEQS
+MAX_NUM_BATCHED_TOKENS=$MAX_NUM_BATCHED_TOKENS
 VLLM_PY=$VLLM_PY
 EOF
+
+extra_args=()
+if [[ -n "$MAX_NUM_SEQS" ]]; then
+  extra_args+=(--max-num-seqs "$MAX_NUM_SEQS")
+fi
+if [[ -n "$MAX_NUM_BATCHED_TOKENS" ]]; then
+  extra_args+=(--max-num-batched-tokens "$MAX_NUM_BATCHED_TOKENS")
+fi
 
 nohup env CUDA_VISIBLE_DEVICES="$GPU" "$VLLM_PY" -m vllm.entrypoints.openai.api_server \
   --host "$HOST" \
@@ -42,6 +54,7 @@ nohup env CUDA_VISIBLE_DEVICES="$GPU" "$VLLM_PY" -m vllm.entrypoints.openai.api_
   --dtype "$DTYPE" \
   --max-model-len "$MAX_MODEL_LEN" \
   --gpu-memory-utilization "$GPU_MEMORY_UTILIZATION" \
+  "${extra_args[@]}" \
   --trust-remote-code \
   --disable-uvicorn-access-log > "$LOG" 2>&1 &
 

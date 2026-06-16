@@ -1,6 +1,6 @@
 # RECURRENT_NN Reproducibility Contract
 
-Last audited: 2026-06-15 at commit `53769dc`.
+Last audited: 2026-06-16 at commit `d509790`.
 
 This repository is reproducible as a workflow, not as a fully self-contained binary snapshot.
 
@@ -25,6 +25,10 @@ The following are tracked and should exist immediately after checkout:
   - `scripts/launch_hb2_tot_rap_full_grid.sh`
   - `scripts/launch_hb2_external_full_grid.sh`
   - `scripts/launch_hb2_vllm_server.sh`
+  - `scripts/launch_hb2_vllm_servers_gpu0_3.sh`
+  - `scripts/launch_hb2_lfs_multistate_vllm_full_grid.sh`
+  - `scripts/launch_hb2_lfs_multistate_vllm_multi_server.sh`
+  - `scripts/launch_hb2_lfs_multistate_vllm_multi_server_detached.sh`
 - Stage A fill-in entrypoints in `experiments/stage_a_adapter_wiring.py`, `experiments/stage_a_banded_gate_refusal.py`, and `experiments/stage_a_sudoku6_bridge.py`
 - W3 Qwen3.5 metadata probe in `experiments/w3_qwen35_probe.py`
 - specs in `specs/g1_fix_spec.md` and `specs/w3_qwen35_probe_spec.md`
@@ -194,6 +198,34 @@ $PY -m analysis.kvcache_lfs_multistate_baseline run-shard \
 ```
 
 As of item 132, the micro smoke measured 9.698s wall-clock for vLLM multi-state LFS versus 28.451s for Transformers multi-state and 79.943s for single-state LFS. Treat this as backend feasibility only, not a final HB-2 result.
+
+For the fastest LFS vLLM backend run on GPUs 0-3, launch one vLLM server per GPU:
+
+```bash
+ROOT=results/kvcache_matched_budget_v0/hb2_vllm_servers/gpu0_3_qwen3_4b_formal \
+GPUS=0,1,2,3 \
+BASE_PORT=8010 \
+GPU_MEMORY_UTILIZATION=0.80 \
+MAX_MODEL_LEN=4096 \
+scripts/launch_hb2_vllm_servers_gpu0_3.sh
+```
+
+Then launch LFS against those servers:
+
+```bash
+RUN_ROOT=results/kvcache_matched_budget_v0/hb2_external_runs/lfs_vllm_multiserver_formal \
+ROOT=results/kvcache_matched_budget_v0/hb2_lfs/full_grid_n64_vllm_gpu0_3_multiserver \
+TASKS=sudoku,futoshiki,graph_color \
+INSTANCES=64 \
+BUDGET_SCALES=0.25,0.5,1,2,4 \
+ACTIVE_ROWS=512 \
+STATE_BATCH_SIZE=256 \
+REQUEST_WORKERS=256 \
+SHARDS=4 \
+scripts/launch_hb2_lfs_multistate_vllm_multi_server_detached.sh
+```
+
+Keep this backend separate from direct-Transformers roots.
 
 ### Smoke / Adapter Gates
 

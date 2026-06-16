@@ -274,7 +274,8 @@ def run_shard(args: argparse.Namespace) -> dict[str, Any]:
             _var, actions = _legal_actions(row.task, row.env, row.current)
             row.last_local_children = []
             if not actions:
-                row.status = "NO_FRONTIER"
+                if not row.frontier:
+                    row.status = "NO_FRONTIER"
                 continue
             prompt = _eval_prompt(row.task, row.env, row.current, actions)
             eval_items.append((index, prompt, row.budget_B, row.tokens_used))
@@ -368,7 +369,7 @@ def _summarize(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         ci = _wilson(successes, len(subset))
         summary.append({
             "method": method,
-            "backend": BACKEND,
+            "backend": subset[0].get("backend", BACKEND) if subset else BACKEND,
             "task": task,
             "budget_B": budget,
             "n": len(subset),
