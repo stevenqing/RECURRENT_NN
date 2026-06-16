@@ -119,3 +119,25 @@ For fastest low-risk progress:
 3. Validate on `sudoku,graph_color`, `INSTANCES=4`, `BUDGET_SCALES=1`.
 4. Only if row-level accounting and outputs look sane, launch a B*-only n=64 interim read.
 5. Consider vLLM only after a free GPU window is available, because starting vLLM now would collide with active workloads.
+
+## 2026-06-16 vLLM Micro-Smoke Update
+
+An OpenAI-compatible vLLM backend was added to `analysis/kvcache_lfs_multistate_baseline.py` and a conservative vLLM server launcher was added at `scripts/launch_hb2_vllm_server.sh`.
+
+Server smoke:
+
+```bash
+RUN_ROOT=results/kvcache_matched_budget_v0/hb2_vllm_servers/qwen3_4b_gpu4_port8012 \
+GPU=4 PORT=8012 GPU_MEMORY_UTILIZATION=0.35 MAX_MODEL_LEN=4096 \
+scripts/launch_hb2_vllm_server.sh
+```
+
+Micro speed smoke on sudoku n=4, budget scale 0.032:
+
+| runner | backend | wall seconds | speedup vs single |
+| --- | --- | ---: | ---: |
+| single-state LFS | transformers_single | 79.943 | 1.0x |
+| multi-state LFS | transformers_batched | 28.451 | 2.8x |
+| multi-state LFS | vllm_openai_compatible | 9.698 | 8.2x |
+
+The vLLM rows stayed within per-row `budget_B=898` using local-tokenizer input/output token debits. This remains a backend speed smoke only. It is not HB-2 solve-rate evidence and must not be merged with direct-Transformers LFS rows without an explicit backend decision.

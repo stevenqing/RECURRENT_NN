@@ -1,0 +1,72 @@
+{
+  "item_number": "132",
+  "schema_version": "log_item_contract_v1",
+  "status": "HB2_LFS_VLLM_BACKEND_SPEED_SMOKE_COMPLETE_NOT_FINAL",
+  "name": "HB-2 LFS vLLM backend speed smoke",
+  "generated_at": "2026-06-16T06:31:00+00:00",
+  "purpose": "Add an OpenAI-compatible vLLM backend to the independent multi-state LFS runner, launch a small vLLM server on GPU4, verify endpoint readiness, and measure the same n=4 sudoku micro speed smoke against single-state and Transformers multi-state baselines. This is a backend speed smoke only, not an HB-2 result read.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["131"],
+    "runner": "analysis/kvcache_lfs_multistate_baseline.py",
+    "server_launcher": "scripts/launch_hb2_vllm_server.sh",
+    "server_pid": "1315806",
+    "base_url": "http://127.0.0.1:8012/v1",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "gpu": "4",
+    "server_run_root": "results/kvcache_matched_budget_v0/hb2_vllm_servers/qwen3_4b_gpu4_port8012",
+    "vllm_version": "0.22.1",
+    "scope": "sudoku n=4 budget_scale=0.032 micro smoke"
+  },
+  "artifacts": [
+    "results/experiment_items/item_132_hb2_lfs_vllm_backend_speed_smoke.json",
+    "analysis/kvcache_lfs_multistate_baseline.py",
+    "scripts/launch_hb2_vllm_server.sh",
+    "specs/hb2_external_acceleration_v1.md",
+    "REPRODUCIBILITY.md"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_lfs_multistate_baseline.py", "change": "Adds --backend vllm, OpenAI-compatible /chat/completions calls using urllib, concurrent request workers, and local-tokenizer per-row token accounting."},
+    {"path": "scripts/launch_hb2_vllm_server.sh", "change": "Adds detached vLLM server launcher with pid/log/env files and conservative GPU memory utilization defaults."}
+  ],
+  "commands": [
+    {"command": "RUN_ROOT=results/kvcache_matched_budget_v0/hb2_vllm_servers/qwen3_4b_gpu4_port8012 GPU=4 PORT=8012 GPU_MEMORY_UTILIZATION=0.35 MAX_MODEL_LEN=4096 scripts/launch_hb2_vllm_server.sh", "purpose": "Launch vLLM server for external-baseline speed smoke."},
+    {"command": "GET http://127.0.0.1:8012/v1/models and POST /chat/completions", "purpose": "Verify vLLM OpenAI-compatible endpoint readiness and JSON response."},
+    {"command": "python -m analysis.kvcache_lfs_multistate_baseline run-shard --backend vllm --openai-base-url http://127.0.0.1:8012/v1 --tasks sudoku --n-instances 4 --budget-scales 0.032 --state-batch-size 4 --request-workers 4", "purpose": "Run vLLM-backed multi-state LFS micro speed smoke."}
+  ],
+  "decision": {
+    "outcome": "VLLM_BACKEND_PROMISING_KEEP_SEPARATE_BACKEND",
+    "overall_pass": true,
+    "hb2_confirmed": false,
+    "headline": {
+      "endpoint": "vLLM server on GPU4 responded to /models and returned a parseable JSON chat response.",
+      "speed": "Micro smoke wall-clock: single-state 79.943s, Transformers multi-state 28.451s, vLLM multi-state 9.698s. vLLM is about 8.2x faster than single-state and about 2.9x faster than Transformers multi-state on this micro setup.",
+      "runner_elapsed": "Runner-internal elapsed_seconds for vLLM was 4.532s; shell wall-clock 9.698s includes process startup/client overhead.",
+      "accounting": "vLLM rows stayed within budget_B=898 using local-tokenizer per-row debits: 319, 809, 821, and 839 tokens.",
+      "formal_run": "Formal x2 detached HB-2 run was left untouched and continued on GPUs 0-3."
+    },
+    "gate_outcomes": [
+      {"gate": "vllm_endpoint", "outcome": "PASS", "number": "GET /models and POST /chat/completions succeeded on http://127.0.0.1:8012/v1."},
+      {"gate": "speed_smoke", "outcome": "PASS", "number": "9.698s wall-clock vs 79.943s single-state and 28.451s Transformers multi-state."},
+      {"gate": "budget_accounting", "outcome": "PASS", "number": "No vLLM row exceeded budget_B=898; accounting uses local tokenizer input/output counts."},
+      {"gate": "HB2_read", "outcome": "NOT_READY", "number": "This is a micro speed smoke only, not a full-grid result."}
+    ],
+    "next_step_routing": "Run a B*-only n=4 sudoku+graph_color vLLM sanity pilot before any n=64 interim. Keep vLLM backend results separate from direct-Transformers LFS results."
+  },
+  "result_tables": {
+    "speed_smoke": {
+      "columns": ["runner", "backend", "rows", "wall_seconds", "runner_elapsed_seconds", "speedup_vs_single", "statuses"],
+      "rows": [
+        {"runner": "single_state_lfs", "backend": "transformers_single", "rows": 4, "wall_seconds": 79.943, "runner_elapsed_seconds": null, "speedup_vs_single": 1.0, "statuses": {"BUDGET_EXHAUSTED": 4}},
+        {"runner": "multi_state_lfs", "backend": "transformers_batched", "rows": 4, "wall_seconds": 28.451, "runner_elapsed_seconds": 23.178, "speedup_vs_single": 2.810, "statuses": {"BUDGET_EXHAUSTED": 2, "NO_FRONTIER": 2}},
+        {"runner": "multi_state_lfs", "backend": "vllm_openai_compatible", "rows": 4, "wall_seconds": 9.698, "runner_elapsed_seconds": 4.532, "speedup_vs_single": 8.243, "statuses": {"BUDGET_EXHAUSTED": 3, "NO_FRONTIER": 1}}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not provide HB-2 solve-rate evidence and does not replace the active formal run. It only validates vLLM backend feasibility and micro throughput.",
+    "scope_limit": "n=4, sudoku only, 0.032x B*, and one vLLM server on GPU4. Larger budgets, graph_color, and futoshiki are untested for this backend.",
+    "backend_limit": "vLLM continuous batching can change low-level deterministic outputs relative to direct Transformers. Results must be reported as backend=vllm_openai_compatible and not merged into direct-Transformers LFS rows without an explicit backend change decision.",
+    "external_process_note": "The vLLM server uses GPU4 with conservative memory utilization and does not touch the formal HB-2 GPU0-3 run."
+  }
+}

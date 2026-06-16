@@ -24,6 +24,7 @@ The following are tracked and should exist immediately after checkout:
   - `scripts/launch_hb2_lfs_full_grid.sh`
   - `scripts/launch_hb2_tot_rap_full_grid.sh`
   - `scripts/launch_hb2_external_full_grid.sh`
+  - `scripts/launch_hb2_vllm_server.sh`
 - Stage A fill-in entrypoints in `experiments/stage_a_adapter_wiring.py`, `experiments/stage_a_banded_gate_refusal.py`, and `experiments/stage_a_sudoku6_bridge.py`
 - W3 Qwen3.5 metadata probe in `experiments/w3_qwen35_probe.py`
 - specs in `specs/g1_fix_spec.md` and `specs/w3_qwen35_probe_spec.md`
@@ -160,6 +161,39 @@ scripts/launch_hb2_best_of_n_full_grid.sh
 ```
 
 All these launchers use checkpoint/resume files. If interrupted, rerun the same command with the same `ROOT`, `SHARDS`, `TASKS`, and `BUDGET_SCALES`.
+
+### Optional vLLM External Backend Smoke
+
+The vLLM backend is for external no-train baselines only. It is not used for exact KV-cache A/C mechanism runs.
+
+Start a small OpenAI-compatible vLLM server with:
+
+```bash
+RUN_ROOT=results/kvcache_matched_budget_v0/hb2_vllm_servers/qwen3_4b_gpu4_port8012 \
+GPU=4 \
+PORT=8012 \
+GPU_MEMORY_UTILIZATION=0.35 \
+MAX_MODEL_LEN=4096 \
+scripts/launch_hb2_vllm_server.sh
+```
+
+Then run the multi-state LFS vLLM backend smoke with:
+
+```bash
+$PY -m analysis.kvcache_lfs_multistate_baseline run-shard \
+  --output results/kvcache_matched_budget_v0/hb2_lfs/speed_micro_vllm/result.json \
+  --checkpoint-path results/kvcache_matched_budget_v0/hb2_lfs/speed_micro_vllm/checkpoint.json \
+  --tasks sudoku \
+  --n-instances 4 \
+  --budget-anchors sudoku:28070 \
+  --budget-scales 0.032 \
+  --backend vllm \
+  --openai-base-url http://127.0.0.1:8012/v1 \
+  --openai-model Qwen/Qwen3-4B-Instruct-2507 \
+  --request-workers 4
+```
+
+As of item 132, the micro smoke measured 9.698s wall-clock for vLLM multi-state LFS versus 28.451s for Transformers multi-state and 79.943s for single-state LFS. Treat this as backend feasibility only, not a final HB-2 result.
 
 ### Smoke / Adapter Gates
 

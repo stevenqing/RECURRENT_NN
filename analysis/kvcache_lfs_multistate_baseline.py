@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter, deque
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 import glob
@@ -18,8 +19,10 @@ from pathlib import Path
 from statistics import mean
 import time
 from typing import Any
+from urllib.request import Request, urlopen
 
 import torch
+from transformers import AutoTokenizer
 
 from analysis.kvcache_graph_color_search import _write_json
 from analysis.kvcache_lfs_baseline import (
@@ -107,7 +110,29 @@ def _generate_batch(model: Any, tokenizer: Any, prompts: list[str], max_new_toke
         tokenizer.padding_side = old_padding_side
 
 
-def _query_rows_batch(model: Any, tokenizer: Any, items: list[tuple[int, str, int, int]], max_new_tokens: int, batch_size: int) -> list[tuple[int, Any | None, int, str]]:
+def _post_chat_completion(base_url: str, model_name: str, prompt: str, max_tokens: int, timeout_seconds: float) -> str:
+    payload = {
+        "model": model_name,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0,
+        "max_tokens": int(max_tokens),
+    }
+    request = Request(base_url.rstrip("/") + "/chat/completions", data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"}, method="POST")
+    with urlopen(request, timeout=float(timeout_seconds)) as response:
+        decoded = json.loads(response.read().decode("utf-8"))
+    return str(decoded.get("choices", [{}])[0].get("message", {}).get("content", "")).strip()
+
+
+def _generate_vllm_batch(args: argparse.Namespace, prompts: list[str], max_new_tokens: int) -> list[str]:
+    outputs = [""] * len(prompts)
+    with ThreadPoolExecutor(max_workers=max(1, int(args.request_workers))) as pool:
+        futures = {pool.submit(_post_chat_completion, args.openai_base_url, args.openai_model, prompt, int(max_new_tokens), float(args.request_timeout)): index for index, prompt in enumerate(prompts)}
+        for future in as_completed(futures):
+            outputs[futures[future]] = future.result()
+    return outputs
+
+
+def _query_rows_batch(model: Any, tokenizer: Any, args: argparse.Namespace, items: list[tuple[int, str, int, int]], max_new_tokens: int, batch_size: int) -> list[tuple[int, Any | None, int, str]]:
     """Generate JSON for rows.
 
     Each item is ``(index, prompt, budget_B, tokens_used)``. Returned used tokens
@@ -134,7 +159,14 @@ def _query_rows_batch(model: Any, tokenizer: Any, items: list[tuple[int, str, in
         if not chunk:
             continue
         assert batch_max_new is not None
-        generated = _generate_batch(model, tokenizer, [item[1] for item in chunk], int(batch_max_new))
+        prompts = [item[1] for item in chunk]
+        if args.backend == "transformers":
+            generated = _generate_batch(model, tokenizer, prompts, int(batch_max_new))
+        elif args.backend == "vllm":
+            texts = _generate_vllm_batch(args, prompts, int(batch_max_new))
+            generated = [(text, item[4], len(tokenizer(text, add_special_tokens=False).input_ids)) for item, text in zip(chunk, texts)]
+        else:
+            raise ValueError(f"unknown backend: {args.backend}")
         for (index, _prompt, budget_B, tokens_used, _input_tokens), (text, in_tok, out_tok) in zip(chunk, generated):
             used = int(in_tok) + int(out_tok)
             if int(tokens_used) + used > int(budget_B):
@@ -148,13 +180,13 @@ def _query_rows_batch(model: Any, tokenizer: Any, items: list[tuple[int, str, in
     return outputs
 
 
-def _finish_row(row: LFSRowState) -> dict[str, Any]:
+def _finish_row(row: LFSRowState, backend: str) -> dict[str, Any]:
     row.best_score = max(row.best_score, _score_state(row.task, row.env, row.current))
     if row.best_score >= 0.99:
         row.status = "SOLVED"
     return {
         "method": METHOD,
-        "backend": BACKEND,
+        "backend": backend,
         "task": row.task,
         "source_index": int(row.source_index),
         "budget_B": int(row.budget_B),
@@ -196,7 +228,17 @@ def _init_pending(args: argparse.Namespace) -> deque[tuple[str, int, int, dict[s
 
 def run_shard(args: argparse.Namespace) -> dict[str, Any]:
     started = time.perf_counter()
-    model, tokenizer = _load_model(args)
+    if args.backend == "transformers":
+        model, tokenizer = _load_model(args)
+        backend_label = BACKEND
+    elif args.backend == "vllm":
+        model = None
+        tokenizer = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
+        if tokenizer.pad_token_id is None:
+            tokenizer.pad_token = tokenizer.eos_token
+        backend_label = "vllm_openai_compatible"
+    else:
+        raise ValueError(f"unknown backend: {args.backend}")
     pending = _init_pending(args)
     checkpoint_rows = []
     if args.resume and args.checkpoint_path.exists():
@@ -236,7 +278,7 @@ def run_shard(args: argparse.Namespace) -> dict[str, Any]:
                 continue
             prompt = _eval_prompt(row.task, row.env, row.current, actions)
             eval_items.append((index, prompt, row.budget_B, row.tokens_used))
-        for index, parsed, used, status in _query_rows_batch(model, tokenizer, eval_items, int(args.max_new_tokens), int(args.state_batch_size)):
+        for index, parsed, used, status in _query_rows_batch(model, tokenizer, args, eval_items, int(args.max_new_tokens), int(args.state_batch_size)):
             row = active[index]
             if status == "BUDGET_EXHAUSTED":
                 row.status = "BUDGET_EXHAUSTED"
@@ -270,7 +312,7 @@ def run_shard(args: argparse.Namespace) -> dict[str, Any]:
                 continue
             prompt = _explore_prompt(row.task, row.env, row.current, len(row.frontier))
             explore_items.append((index, prompt, row.budget_B, row.tokens_used))
-        for index, parsed, used, status in _query_rows_batch(model, tokenizer, explore_items, int(args.max_new_tokens), int(args.state_batch_size)):
+        for index, parsed, used, status in _query_rows_batch(model, tokenizer, args, explore_items, int(args.max_new_tokens), int(args.state_batch_size)):
             row = active[index]
             if status == "BUDGET_EXHAUSTED":
                 row.status = "BUDGET_EXHAUSTED"
@@ -290,7 +332,7 @@ def run_shard(args: argparse.Namespace) -> dict[str, Any]:
         still_active: list[LFSRowState] = []
         for row in active:
             if row.complete:
-                rows.append(_finish_row(row))
+                rows.append(_finish_row(row, backend_label))
                 completed_since_flush += 1
                 print(json.dumps({"method": METHOD, "task": row.task, "source_index": row.source_index, "budget_B": row.budget_B, "status": row.status, "tokens_used": row.tokens_used}), flush=True)
             else:
@@ -308,6 +350,9 @@ def run_shard(args: argparse.Namespace) -> dict[str, Any]:
         "elapsed_seconds": time.perf_counter() - started,
         "config": {key: (str(value) if isinstance(value, Path) else value) for key, value in vars(args).items()},
         "rows": rows,
+        "backend": backend_label,
+        "openai_base_url": args.openai_base_url if args.backend == "vllm" else None,
+        "openai_model": args.openai_model if args.backend == "vllm" else None,
         "source": SOURCE,
         "provenance": "kvcache_lfs_multistate_baseline_shard_v0",
     }
@@ -384,6 +429,11 @@ def main() -> None:
     run.add_argument("--max-expansions", type=int, default=0)
     run.add_argument("--active-rows", type=int, default=8)
     run.add_argument("--state-batch-size", type=int, default=8)
+    run.add_argument("--backend", choices=["transformers", "vllm"], default="transformers")
+    run.add_argument("--openai-base-url", default="http://127.0.0.1:8012/v1")
+    run.add_argument("--openai-model", default="Qwen/Qwen3-4B-Instruct-2507")
+    run.add_argument("--request-workers", type=int, default=8)
+    run.add_argument("--request-timeout", type=float, default=3600.0)
     run.add_argument("--checkpoint-every", type=int, default=1)
     run.add_argument("--num-shards", type=int, default=1)
     run.add_argument("--shard-index", type=int, default=0)
