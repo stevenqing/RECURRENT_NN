@@ -1,0 +1,64 @@
+{
+  "item_number": "131",
+  "schema_version": "log_item_contract_v1",
+  "status": "HB2_LFS_MULTISTATE_SPEED_SMOKE_COMPLETE_NOT_FINAL",
+  "name": "HB-2 LFS multi-state speed smoke",
+  "generated_at": "2026-06-16T06:20:00+00:00",
+  "purpose": "Implement an independent multi-state batched LFS runner and measure a small speed smoke against the existing single-state LFS runner. This validates the batching direction without replacing the active formal HB-2 run or changing final-result eligibility.",
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": ["130"],
+    "runner": "analysis/kvcache_lfs_multistate_baseline.py",
+    "single_result": "results/kvcache_matched_budget_v0/hb2_lfs/speed_micro_single/result.json",
+    "multistate_result": "results/kvcache_matched_budget_v0/hb2_lfs/speed_micro_multistate/result.json",
+    "gpu": "CUDA_VISIBLE_DEVICES=6",
+    "scope": "sudoku n=4 budget_scale=0.032 micro smoke",
+    "backend": "transformers_batched"
+  },
+  "artifacts": [
+    "results/experiment_items/item_131_hb2_lfs_multistate_speed_smoke.json",
+    "analysis/kvcache_lfs_multistate_baseline.py",
+    "specs/hb2_external_acceleration_v1.md"
+  ],
+  "code_added_used": [
+    {"path": "analysis/kvcache_lfs_multistate_baseline.py", "change": "Adds independent multi-state batched LFS runner with per-row token budgets, active row scheduler, batched eval/explore generation, checkpoint/merge support, and backend provenance."}
+  ],
+  "commands": [
+    {"command": "~/.local/bin/uv run --python .venv/bin/python python -m py_compile analysis/kvcache_lfs_multistate_baseline.py", "purpose": "Compile-check the new runner."},
+    {"command": "CUDA_VISIBLE_DEVICES=6 ... python -m analysis.kvcache_lfs_baseline run-shard --tasks sudoku --n-instances 4 --budget-scales 0.032 ...", "purpose": "Run single-state LFS micro speed baseline."},
+    {"command": "CUDA_VISIBLE_DEVICES=6 ... python -m analysis.kvcache_lfs_multistate_baseline run-shard --tasks sudoku --n-instances 4 --budget-scales 0.032 --active-rows 4 --state-batch-size 4 ...", "purpose": "Run multi-state batched LFS micro speed smoke."}
+  ],
+  "decision": {
+    "outcome": "MULTISTATE_BATCHING_PROMISING_KEEP_SEPARATE_BACKEND",
+    "overall_pass": true,
+    "hb2_confirmed": false,
+    "headline": {
+      "speed": "Micro smoke wall-clock: single-state 79.943s vs multi-state 28.451s, about 2.8x faster on n=4 sudoku at 0.032x B*.",
+      "accounting": "All multi-state rows stayed within budget_B=898 using per-row input+generated token debits.",
+      "semantic_caveat": "Statuses are not byte-identical: multi-state produced two NO_FRONTIER rows where single-state rows budget-exhausted. Treat as a separate backend variant, not a drop-in merge with existing LFS rows.",
+      "formal_run": "The formal x2 detached HB-2 run was left untouched and continued on GPUs 0-3."
+    },
+    "gate_outcomes": [
+      {"gate": "compile", "outcome": "PASS", "number": "analysis/kvcache_lfs_multistate_baseline.py compiles."},
+      {"gate": "speed_smoke", "outcome": "PASS", "number": "28.451s vs 79.943s on the micro smoke, approximately 2.8x faster."},
+      {"gate": "budget_accounting", "outcome": "PASS", "number": "No row exceeded budget_B=898; tokens_used were 521, 892, 898, and 788."},
+      {"gate": "HB2_read", "outcome": "NOT_READY", "number": "This is a micro speed smoke only, not a full-grid result."}
+    ],
+    "next_step_routing": "Run a B*-only n=4 sudoku+graph_color equivalence/sanity pilot before considering B*-only n=64 interim with the multi-state backend."
+  },
+  "result_tables": {
+    "speed_smoke": {
+      "columns": ["runner", "rows", "elapsed_seconds", "speedup_vs_single", "statuses"],
+      "rows": [
+        {"runner": "single_state_lfs", "rows": 4, "elapsed_seconds": 79.943, "speedup_vs_single": 1.0, "statuses": {"BUDGET_EXHAUSTED": 4}},
+        {"runner": "multi_state_lfs", "rows": 4, "elapsed_seconds": 28.451, "speedup_vs_single": 2.810, "statuses": {"BUDGET_EXHAUSTED": 2, "NO_FRONTIER": 2}}
+      ]
+    }
+  },
+  "honesty": {
+    "does_not_establish": "This item does not provide HB-2 solve-rate evidence and does not replace the active LFS formal run. It only validates a speed-oriented backend direction.",
+    "scope_limit": "n=4, sudoku only, 0.032x B*, and one GPU smoke. Larger budgets and graph_color/futoshiki are untested for this backend.",
+    "backend_limit": "Batch generation can change low-level deterministic outputs because of padding/batching. Results must be reported as LFS_repo_port_multistate_batch, not merged into LFS_repo_port_budget_exhaustive without an explicit backend change decision.",
+    "runtime_note": "The speed smoke used GPU6, which was the least-utilized GPU at launch time; it was not part of the active HB-2 GPU0-3 formal run."
+  }
+}
