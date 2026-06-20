@@ -1,0 +1,222 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "166",
+  "name": "GPU0-3 automated reconstructed reproduction campaign",
+  "status": "GPU0_3_REPRO_AUTOMATION_GRAPH_COLOR_COMPLETE",
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "purpose": "Record the GPU0-3 reproduction orchestrator and the first automated reconstructed campaign continuation. The script runs stages sequentially with artifact-based skip/resume, confines model stages to GPU0-3, and separates faithful reruns from reconstructed reruns when original recovered item commands are absent.",
+  "artifacts": [
+    "results/experiment_items/item_166_gpu0_3_reconstructed_repro_audit.json",
+    "scripts/reproduce_gpu0_3_campaign.sh",
+    "results/reproduction_gpu0_3_20260620/reproduction_status.md",
+    "results/reproduction_gpu0_3_20260620/reproduction_manifest.json",
+    "results/reproduction_gpu0_3_20260620/gpu0_3_preflight.csv",
+    "results/reproduction_gpu0_3_20260620/exactness_gates/item101_qwen35_full_checkpoint_bf16.json",
+    "results/reproduction_gpu0_3_20260620/exactness_gates/item101_qwen35_full_checkpoint_fp32_tol1e3.json",
+    "results/reproduction_gpu0_3_20260620/graph_color_c1_budget_n64/merged_c1_v16_r16_n64.json",
+    "results/reproduction_gpu0_3_20260620/graph_color_symbolic_n64/v16_r16_symbolic_n64.json",
+    "results/reproduction_gpu0_3_20260620/graph_color_symbolic_n64/v16_r16_symbolic_budget_curve_n64.json",
+    "results/reproduction_gpu0_3_20260620/external_budget_runner_registry.json",
+    "results/experiment_log/experiment_log.md",
+    "results/experiment_log/experiment_log.json"
+  ],
+  "commands": [
+    {
+      "command": "bash -n scripts/reproduce_gpu0_3_campaign.sh && DRY_RUN=1 STAGES=decision_probe,graph_color_symbolic,graph_color_c1 scripts/reproduce_gpu0_3_campaign.sh",
+      "purpose": "Validate orchestrator syntax, dry-run behavior, and GPU0-3 shard mapping without launching heavy work."
+    },
+    {
+      "command": "ROOT=results/reproduction_gpu0_3_20260620/graph_color_c1_budget_n64 SHARDS=4 scripts/launch_graph_color_c1_budget.sh",
+      "purpose": "Complete the reconstructed Item123 graph_color C1 matched-budget n64 rerun on GPU0-3."
+    },
+    {
+      "command": "STAGES=env,gpu_check,manifest,item101_full_checkpoint,graph_color_symbolic,external_registry,experiment_log scripts/reproduce_gpu0_3_campaign.sh",
+      "purpose": "Run the remaining automated campaign stages sequentially with skip/resume: environment check, GPU preflight, manifest, Item101, graph_color symbolic, external registry, and experiment-log regeneration."
+    }
+  ],
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": [
+      "101",
+      "122",
+      "123",
+      "164",
+      "165"
+    ],
+    "run_root": "results/reproduction_gpu0_3_20260620",
+    "gpu_scope": "GPU0-3 only; no running external process was killed or preempted.",
+    "automation_script": "scripts/reproduce_gpu0_3_campaign.sh",
+    "policy": "Run faithful local-command stages when commands exist; otherwise run tracked-runner reconstructed stages and record them as new item evidence."
+  },
+  "decision": {
+    "overall_pass": true,
+    "outcome": "AUTOMATED_CORE_REPRODUCTION_CONTINUATION_COMPLETE",
+    "headline": "A resumable GPU0-3 reproduction campaign script now automates the core faithful/reconstructed chain. It completed Item101, graph_color C1, graph_color symbolic A/C, external registry, manifest, and log regeneration; long HB-2 full grids remain opt-in.",
+    "gate_outcomes": [
+      {
+        "gate": "orchestrator",
+        "outcome": "PASS",
+        "number": "scripts/reproduce_gpu0_3_campaign.sh is executable, bash -n clean, dry-run clean, and uses artifact status checks plus checkpoint/resume. The shell helper was corrected from bash -lc to bash -c to preserve repo cwd."
+      },
+      {
+        "gate": "item101_qwen35_full_checkpoint",
+        "outcome": "MIXED_VERSION_SENSITIVE",
+        "number": "bf16 reproduces fail: max_delta=0.15625, same-token pass, different-token fail. fp32 now passes tol=1e-3 in this environment: max_delta=3.4332e-05, same-token and different-token pass."
+      },
+      {
+        "gate": "graph_color_c1_reconstructed",
+        "outcome": "PASS",
+        "number": "n=64, B*=32895, A=0.96875, C=0.515625, A-C=0.453125, conservative gap CI [0.2594,0.5956], promotion=true."
+      },
+      {
+        "gate": "graph_color_symbolic_reconstructed",
+        "outcome": "PASS",
+        "number": "n=64, B*=22901, A=1.0, C=0.40625, A-C=0.59375, conservative gap CI [0.4148,0.7054], promotion=true."
+      },
+      {
+        "gate": "external_registry",
+        "outcome": "PASS_REGISTRY_ONLY",
+        "number": "BudgetRunner registry regenerated under the reproduction root; HB-2 full external curves are not run by default."
+      },
+      {
+        "gate": "full_ledger_faithful_replay",
+        "outcome": "PARTIAL_BLOCKED_BY_MISSING_COMMANDS",
+        "number": "The manifest keeps 134-148 cluster-missing and many 142-162 summary-only records separate from automated reconstructed reruns."
+      }
+    ],
+    "next_step_routing": "Use scripts/reproduce_gpu0_3_campaign.sh as the default continuation entrypoint. Set RUN_EXTERNAL_FULL=1 to run HB-2 LFS/ToT/RAP/best-of-n full grids sequentially on GPU0-3, or set STAGES to target a specific remaining reconstructed suite."
+  },
+  "result_tables": {
+    "automated_stage_status": {
+      "columns": [
+        "stage",
+        "artifact",
+        "status"
+      ],
+      "rows": [
+        {
+          "stage": "manifest",
+          "artifact": "results/reproduction_gpu0_3_20260620/reproduction_manifest.json",
+          "status": "GPU0_3_REPRODUCTION_MANIFEST_COMPLETE"
+        },
+        {
+          "stage": "item101_full_checkpoint_bf16",
+          "artifact": "results/reproduction_gpu0_3_20260620/exactness_gates/item101_qwen35_full_checkpoint_bf16.json",
+          "status": "KVCACHE_FULL_CHECKPOINT_GATE_FAIL"
+        },
+        {
+          "stage": "item101_full_checkpoint_fp32",
+          "artifact": "results/reproduction_gpu0_3_20260620/exactness_gates/item101_qwen35_full_checkpoint_fp32_tol1e3.json",
+          "status": "KVCACHE_FULL_CHECKPOINT_GATE_PASS"
+        },
+        {
+          "stage": "graph_color_c1",
+          "artifact": "results/reproduction_gpu0_3_20260620/graph_color_c1_budget_n64/merged_c1_v16_r16_n64.json",
+          "status": "KVCACHE_GRAPH_COLOR_C1_BUDGET_COMPLETE"
+        },
+        {
+          "stage": "graph_color_symbolic",
+          "artifact": "results/reproduction_gpu0_3_20260620/graph_color_symbolic_n64/v16_r16_symbolic_budget_curve_n64.json",
+          "status": "KVCACHE_GRAPH_COLOR_BUDGET_CURVES_COMPLETE"
+        },
+        {
+          "stage": "external_registry",
+          "artifact": "results/reproduction_gpu0_3_20260620/external_budget_runner_registry.json",
+          "status": "KVCACHE_EXTERNAL_BUDGET_BASELINE_REGISTRY_COMPLETE"
+        }
+      ]
+    },
+    "item101_full_checkpoint": {
+      "columns": [
+        "dtype",
+        "status",
+        "overall_pass",
+        "max_abs_logit_delta",
+        "same_token_all_pass",
+        "different_token_all_pass"
+      ],
+      "rows": [
+        {
+          "dtype": "bf16",
+          "status": "KVCACHE_FULL_CHECKPOINT_GATE_FAIL",
+          "overall_pass": false,
+          "max_abs_logit_delta": 0.15625,
+          "same_token_all_pass": true,
+          "different_token_all_pass": false
+        },
+        {
+          "dtype": "fp32",
+          "status": "KVCACHE_FULL_CHECKPOINT_GATE_PASS",
+          "overall_pass": true,
+          "max_abs_logit_delta": 0.000034332275390625,
+          "same_token_all_pass": true,
+          "different_token_all_pass": true
+        }
+      ]
+    },
+    "graph_color_reconstructed_gaps": {
+      "columns": [
+        "variant",
+        "n",
+        "B_star",
+        "A_solve",
+        "C_solve",
+        "A_minus_C",
+        "gap_ci_low",
+        "gap_ci_high",
+        "promotion_point"
+      ],
+      "rows": [
+        {
+          "variant": "c1_conflict_reasoning",
+          "n": 64,
+          "B_star": 32895,
+          "A_solve": 0.96875,
+          "C_solve": 0.515625,
+          "A_minus_C": 0.453125,
+          "gap_ci_low": 0.25936259894474323,
+          "gap_ci_high": 0.5955718468680269,
+          "promotion_point": true
+        },
+        {
+          "variant": "symbolic_cbj",
+          "n": 64,
+          "B_star": 22901,
+          "A_solve": 1.0,
+          "C_solve": 0.40625,
+          "A_minus_C": 0.59375,
+          "gap_ci_low": 0.4148280214932397,
+          "gap_ci_high": 0.7054309075028039,
+          "promotion_point": true
+        }
+      ]
+    },
+    "manifest_class_summary": {
+      "columns": [
+        "class",
+        "items"
+      ],
+      "rows": [
+        {
+          "class": "campaign_core_or_reconstructed",
+          "items": "100,101,102,105,122,123,155,162,163,164,165,166"
+        },
+        {
+          "class": "executable_local_not_in_default_campaign",
+          "items": "103-133 excluding campaign-core entries"
+        },
+        {
+          "class": "summary_only_or_cluster_missing",
+          "items": "134-161 excluding campaign-core entries"
+        }
+      ]
+    }
+  },
+  "honesty": {
+    "scope": "This item records the automated core continuation, not completion of every historical item in the ledger.",
+    "faithful_vs_reconstructed": "A faithful rerun reuses original executable commands. A reconstructed rerun is rebuilt from tracked runners/specs because original commands are absent or only summary-only recovered.",
+    "item101_caveat": "Item101 fp32 behavior is environment-sensitive in this rerun: current fp32 passes tolerance while the historical item recorded fp32 fail. bf16 still reproduces the fail-closed signal.",
+    "external_limit": "HB-2 external full grids are available through RUN_EXTERNAL_FULL=1 but were intentionally not launched by default in this automated continuation.",
+    "artifact_scope": "Large reproduction outputs are kept under results/reproduction_gpu0_3_20260620 and summarized through this item JSON."
+  }
+}

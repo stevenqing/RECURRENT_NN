@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-20T08:13:34.481678+00:00
+Generated at: 2026-06-20T09:11:03.628397+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -161,6 +161,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 163 | C1.2 real Mamba reproduction on GPUs 0-3 | C1_2_GPU0_3_REPRODUCTION_LOCKED | Use Item163 as the GPU0-3 reproduction confirmation for the Item162 C1.2 flip lock. Part 5 and Part 6 may resume only when explicitly requested. |
 | 164 | GPU0-3 reproduction batch 1 exactness and decision probes | GPU0_3_REPRO_BATCH1_EXACTNESS_DECISION_C1_2_COMPLETE | Continue reproduction by either pulling authoritative cluster JSON/scripts for recovered summary-only items, or explicitly preregistering reconstructed rerun commands for each suite component before running them on GPU0-3. |
 | 165 | GPU0-3 reproduction batch 2 A_cache versus C_incontext primary | GPU0_3_REPRO_BATCH2_AC_PRIMARY_COMPLETE | Continue reproduction with graph_color A/C exact-B* and then external baselines, or pull authoritative cluster commands for recovered summary-only items before rerunning them. |
+| 166 | GPU0-3 automated reconstructed reproduction campaign | GPU0_3_REPRO_AUTOMATION_GRAPH_COLOR_COMPLETE | Use scripts/reproduce_gpu0_3_campaign.sh as the default continuation entrypoint. Set RUN_EXTERNAL_FULL=1 to run HB-2 LFS/ToT/RAP/best-of-n full grids sequentially on GPU0-3, or set STAGES to target a specific remaining reconstructed suite. |
 
 ## Item Details
 
@@ -380,7 +381,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - CANONICAL_REPO.md (yes, 532 bytes)
   - analysis/validate_outputs.py (yes, 180370 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -504,8 +505,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/continuation_state/post_027.json (yes, 1453 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1171665 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -1311,8 +1312,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1171665 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1440,8 +1441,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1171665 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1528,8 +1529,8 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1171665 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1593,8 +1594,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (missing)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (missing)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (missing)
-  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1171665 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1698,8 +1699,8 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (missing)
   - results/sudoku_engine_gpu/equivalence_1000.json (missing)
   - results/trm_operator_logging_smoke/progress.jsonl (missing)
-  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1171665 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1782,8 +1783,8 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (missing)
-  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1171665 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1828,8 +1829,8 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1171665 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1885,8 +1886,8 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (missing)
   - results/trm_operator_compile_smoke/acceptance.json (missing)
   - results/trm_operator_compile_smoke/progress.jsonl (missing)
-  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1171665 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1955,8 +1956,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (missing)
-  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1171665 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -2027,8 +2028,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (missing)
-  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1171665 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -4766,8 +4767,8 @@ Truncated to 24 of 28 rows.
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json (yes, 3515 bytes)
   - results/rung1_separator_fallibility_rungs/results.json (yes, 79925 bytes)
   - results/experiment_items/item_060_rung1_separator_fallibility_rungs.json (yes, 191278 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1171665 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
   - results/rung1_separator_fallibility_rungs/item062_execution.json (yes, 2265658 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json (yes, 3606 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2.log (yes, 9044 bytes)
@@ -10131,7 +10132,7 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_165_gpu0_3_ac_primary_reproduction.json (yes, 5394 bytes)
   - results/reproduction_gpu0_3_20260620/ac_primary_scaled_n64/merged_scaled_primary_n64.json (yes, 792886 bytes)
-  - results/reproduction_gpu0_3_20260620/reproduction_status.md (yes, 2411 bytes)
+  - results/reproduction_gpu0_3_20260620/reproduction_status.md (yes, 6367 bytes)
   - scripts/launch_matched_budget_scaled_primary.sh (yes, 1032 bytes)
   - analysis/kvcache_matched_budget_scaled.py (yes, 19025 bytes)
 #### Referenced Result Summaries
@@ -10159,6 +10160,80 @@ Truncated to 24 of 378 rows.
 | futoshiki | symbolic_cbj | 3206226 | 1 | 0.2969 | 0.7031 |
 
 - Next action: Continue reproduction with graph_color A/C exact-B* and then external baselines, or pull authoritative cluster commands for recovered summary-only items before rerunning them.
+
+### Item 166 - GPU0-3 automated reconstructed reproduction campaign
+
+- Status: GPU0_3_REPRO_AUTOMATION_GRAPH_COLOR_COMPLETE
+- Key result: Use scripts/reproduce_gpu0_3_campaign.sh as the default continuation entrypoint. Set RUN_EXTERNAL_FULL=1 to run HB-2 LFS/ToT/RAP/best-of-n full grids sequentially on GPU0-3, or set STAGES to target a specific remaining reconstructed suite.
+- Purpose: Record the GPU0-3 reproduction orchestrator and the first automated reconstructed campaign continuation. The script runs stages sequentially with artifact-based skip/resume, confines model stages to GPU0-3, and separates faithful reruns from reconstructed reruns when original recovered item commands are absent.
+- Details:
+  - purpose=Record the GPU0-3 reproduction orchestrator and the first automated reconstructed campaign continuation. The script runs stages sequentially with artifact-based skip/resume, confines model stages to GPU0-3, and separates faithful reruns from reconstructed reruns when original recovered item commands are absent.
+  - commands=3
+  - result_tables=['automated_stage_status', 'item101_full_checkpoint', 'graph_color_reconstructed_gaps', 'manifest_class_summary']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_166_gpu0_3_reconstructed_repro_audit.json (yes, 10088 bytes)
+  - scripts/reproduce_gpu0_3_campaign.sh (yes, 14732 bytes)
+  - results/reproduction_gpu0_3_20260620/reproduction_status.md (yes, 6367 bytes)
+  - results/reproduction_gpu0_3_20260620/reproduction_manifest.json (yes, 18730 bytes)
+  - results/reproduction_gpu0_3_20260620/gpu0_3_preflight.csv (yes, 172 bytes)
+  - results/reproduction_gpu0_3_20260620/exactness_gates/item101_qwen35_full_checkpoint_bf16.json (yes, 17279 bytes)
+  - results/reproduction_gpu0_3_20260620/exactness_gates/item101_qwen35_full_checkpoint_fp32_tol1e3.json (yes, 17281 bytes)
+  - results/reproduction_gpu0_3_20260620/graph_color_c1_budget_n64/merged_c1_v16_r16_n64.json (yes, 490560 bytes)
+  - results/reproduction_gpu0_3_20260620/graph_color_symbolic_n64/v16_r16_symbolic_n64.json (yes, 979342 bytes)
+  - results/reproduction_gpu0_3_20260620/graph_color_symbolic_n64/v16_r16_symbolic_budget_curve_n64.json (yes, 304290 bytes)
+  - results/reproduction_gpu0_3_20260620/external_budget_runner_registry.json (yes, 3527 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1171665 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85109915 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/reproduction_gpu0_3_20260620/reproduction_manifest.json | GPU0_3_REPRODUCTION_MANIFEST_COMPLETE | gpu_scope=0,1,2,3; policy=Default campaign automates faithful executable gates and reconstructed core floor-paper reruns. Summary-only or clust...; run_root=results/reproduction_gpu0_3_20260620; schema_version=gpu0_3_reproduction_manifest_v0 |  |
+| results/reproduction_gpu0_3_20260620/exactness_gates/item101_qwen35_full_checkpoint_bf16.json | KVCACHE_FULL_CHECKPOINT_GATE_FAIL | device=cuda; all_argmax_equal=True; cache_type=DynamicCache; depth=16; dtype=bf16; full_cache_seq_len=40 |  |
+| results/reproduction_gpu0_3_20260620/exactness_gates/item101_qwen35_full_checkpoint_fp32_tol1e3.json | KVCACHE_FULL_CHECKPOINT_GATE_PASS | device=cuda; all_argmax_equal=True; cache_type=DynamicCache; depth=16; dtype=fp32; full_cache_seq_len=40 |  |
+| results/reproduction_gpu0_3_20260620/graph_color_c1_budget_n64/merged_c1_v16_r16_n64.json | KVCACHE_GRAPH_COLOR_C1_BUDGET_COMPLETE | provenance=kvcache_graph_color_c1_budget_merged_v0; schema_version=kvcache_graph_color_c1_budget_v0; source=autonomous_stage_a_run |  |
+| results/reproduction_gpu0_3_20260620/graph_color_symbolic_n64/v16_r16_symbolic_n64.json | KVCACHE_GRAPH_COLOR_SEARCH_COMPLETE | n_rows=128; provenance=kvcache_graph_color_merged_bins_v1; schema_version=kvcache_graph_color_merged_bins_v1; source=autonomous_stage_a_run |  |
+| results/reproduction_gpu0_3_20260620/graph_color_symbolic_n64/v16_r16_symbolic_budget_curve_n64.json | KVCACHE_GRAPH_COLOR_BUDGET_CURVES_COMPLETE | input=results/reproduction_gpu0_3_20260620/graph_color_symbolic_n64/v16_r16_symbolic_n64.json; policy=oracle_search; provenance=kvcache_graph_color_budget_curves_v0; schema_version=kvcache_graph_color_budget_curves_v0; source=autonomous_stage_a_run; variant=symbolic_cbj |  |
+| results/reproduction_gpu0_3_20260620/external_budget_runner_registry.json | KVCACHE_EXTERNAL_BUDGET_BASELINE_REGISTRY_COMPLETE | budget_runner_protocol=run(instance, budget_B) -> {solved, tokens_used, depth_reached}; provenance=kvcache_external_budget_baseline_registry_v0; schema_version=kvcache_external_budget_baselines_v0; shared_accounting=All model-generated/exploration/evaluation tokens are billed by the same tokenizer counter; symbolic verifier calls a...; source=autonomous_stage_a_run |  |
+| results/experiment_log/experiment_log.json | recorded |  |  |
+
+#### Contract Result Tables
+
+##### automated_stage_status
+
+| stage | artifact | status |
+| --- | --- | --- |
+| manifest | results/reproduction_gpu0_3_20260620/reproduction_manifest.json | GPU0_3_REPRODUCTION_MANIFEST_COMPLETE |
+| item101_full_checkpoint_bf16 | results/reproduction_gpu0_3_20260620/exactness_gates/item101_qwen35_full_checkpoint_bf16.json | KVCACHE_FULL_CHECKPOINT_GATE_FAIL |
+| item101_full_checkpoint_fp32 | results/reproduction_gpu0_3_20260620/exactness_gates/item101_qwen35_full_checkpoint_fp32_tol1e3.json | KVCACHE_FULL_CHECKPOINT_GATE_PASS |
+| graph_color_c1 | results/reproduction_gpu0_3_20260620/graph_color_c1_budget_n64/merged_c1_v16_r16_n64.json | KVCACHE_GRAPH_COLOR_C1_BUDGET_COMPLETE |
+| graph_color_symbolic | results/reproduction_gpu0_3_20260620/graph_color_symbolic_n64/v16_r16_symbolic_budget_curve_n64.json | KVCACHE_GRAPH_COLOR_BUDGET_CURVES_COMPLETE |
+| external_registry | results/reproduction_gpu0_3_20260620/external_budget_runner_registry.json | KVCACHE_EXTERNAL_BUDGET_BASELINE_REGISTRY_COMPLETE |
+
+##### item101_full_checkpoint
+
+| dtype | status | overall_pass | max_abs_logit_delta | same_token_all_pass | different_token_all_pass |
+| --- | --- | --- | --- | --- | --- |
+| bf16 | KVCACHE_FULL_CHECKPOINT_GATE_FAIL | False | 0.1562 | True | False |
+| fp32 | KVCACHE_FULL_CHECKPOINT_GATE_PASS | True | 3.433e-05 | True | True |
+
+##### graph_color_reconstructed_gaps
+
+| variant | n | B_star | A_solve | C_solve | A_minus_C | gap_ci_low | gap_ci_high | promotion_point |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| c1_conflict_reasoning | 64 | 32895 | 0.9688 | 0.5156 | 0.4531 | 0.2594 | 0.5956 | True |
+| symbolic_cbj | 64 | 22901 | 1 | 0.4062 | 0.5938 | 0.4148 | 0.7054 | True |
+
+##### manifest_class_summary
+
+| class | items |
+| --- | --- |
+| campaign_core_or_reconstructed | 100,101,102,105,122,123,155,162,163,164,165,166 |
+| executable_local_not_in_default_campaign | 103-133 excluding campaign-core entries |
+| summary_only_or_cluster_missing | 134-161 excluding campaign-core entries |
+
+- Next action: Use scripts/reproduce_gpu0_3_campaign.sh as the default continuation entrypoint. Set RUN_EXTERNAL_FULL=1 to run HB-2 LFS/ToT/RAP/best-of-n full grids sequentially on GPU0-3, or set STAGES to target a specific remaining reconstructed suite.
 
 
 ## Canonical Repo Decision
