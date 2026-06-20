@@ -35,6 +35,7 @@ The current GPU0-3 campaign uses two labels:
 | 122 | graph_color symbolic A/C budget curve | `results/reproduction_gpu0_3_20260620/graph_color_symbolic_n64/` | reproduced n=64: B*=22901, A=1.0, C=0.40625, gap=0.59375 |
 | 123 | graph_color C1 A/C budget curve | `results/reproduction_gpu0_3_20260620/graph_color_c1_budget_n64/` | reproduced n=64: B*=32895, A=0.96875, C=0.515625, gap=0.453125 |
 | 166 | automated GPU0-3 reproduction campaign | `scripts/reproduce_gpu0_3_campaign.sh` | orchestrator added; manifest, graph_color symbolic/C1, Item101, registry, and log regeneration completed |
+| 167 | ToT/RAP corrected reproduction push snapshot | `results/reproduction_gpu0_3_20260620/hb2_tot_rap/` | strict smoke passed; full-grid running, snapshot 39/1920 rows, bad_zero_budget=0, code pushed at `bb64972` |
 
 ## Running / Next
 
@@ -42,6 +43,14 @@ The current GPU0-3 campaign uses two labels:
 | --- | --- | --- |
 | HB-2 external LFS/ToT/RAP/best-of-n | `results/reproduction_gpu0_3_20260620/hb2_*` when enabled | executable launchers exist; run with `RUN_EXTERNAL_FULL=1 scripts/reproduce_gpu0_3_campaign.sh` |
 | non-default historical executable items | per-item roots | Items 103-133 outside campaign core remain schedulable by cost/relevance |
+
+## Current Running Jobs
+
+| target | root | command | snapshot |
+| --- | --- | --- | --- |
+| ToT/RAP full-grid n64 | `results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_gpu0_3/` | `RUN_EXTERNAL_FULL=1 HB2_BASELINES=tot_rap STAGES=hb2_external_full EXTERNAL_SHARDS=8 GPUS=4 HB2_INSTANCES=64 HB2_TASKS=sudoku,futoshiki,graph_color HB2_BUDGET_SCALES=0.25,0.5,1,2,4 scripts/reproduce_gpu0_3_campaign.sh` | running on GPU0-3; snapshot at Item167: 39/1920 rows, statuses `NO_FRONTIER=30; SOLVED=2; BUDGET_EXHAUSTED=7`, `bad_zero_budget=0` |
+
+The ToT/RAP run is deliberately separated from LFS and best-of-n so any baseline-specific issue remains easy to isolate. Valid `BUDGET_EXHAUSTED` rows may occur after real search work; the quarantined bug is the zero-work premature exhaustion path.
 
 ## Automation
 

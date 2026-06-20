@@ -1,0 +1,153 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "167",
+  "name": "ToT/RAP GPU0-3 corrected reproduction push snapshot",
+  "status": "TOT_RAP_GPU0_3_CORRECTED_REPRO_RUNNING_PUSH_SNAPSHOT",
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "purpose": "Record the current GitHub-pushed ToT/RAP reproduction state after fixing the adapter status propagation bug, adding a strict smoke guard, and launching the corrected full-grid reproduction on GPU0-3. This item is a running snapshot, not a completed full-grid result.",
+  "artifacts": [
+    "results/experiment_items/item_167_tot_rap_gpu0_3_repro_push_snapshot.json",
+    "analysis/kvcache_tot_rap_baselines.py",
+    "scripts/reproduce_gpu0_3_campaign.sh",
+    "results/reproduction_gpu0_3_20260620/hb2_tot_rap/corrected_smoke_strict/validation.json",
+    "results/reproduction_gpu0_3_20260620/hb2_tot_rap/corrected_smoke_strict/smoke.json",
+    "results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_gpu0_3/shards/checkpoint_*.json",
+    "results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_gpu0_3/shards/result_*.log",
+    "results/reproduction_gpu0_3_20260620/reproduction_status.md",
+    "results/experiment_log/experiment_log.md",
+    "results/experiment_log/experiment_log.json"
+  ],
+  "commands": [
+    {
+      "command": "$HOME/.local/bin/uv run --python .venv/bin/python python -m py_compile analysis.kvcache_tot_rap_baselines.py && bash -n scripts/reproduce_gpu0_3_campaign.sh && git diff --check",
+      "purpose": "Validate the ToT/RAP adapter fix and reproduction campaign script before push."
+    },
+    {
+      "command": "STAGES=tot_rap_corrected_smoke scripts/reproduce_gpu0_3_campaign.sh",
+      "purpose": "Run the strict ToT/RAP smoke guard that rejects the previous premature BUDGET_EXHAUSTED bug and its status-propagation variant."
+    },
+    {
+      "command": "RUN_EXTERNAL_FULL=1 HB2_BASELINES=tot_rap STAGES=hb2_external_full EXTERNAL_SHARDS=8 GPUS=4 HB2_INSTANCES=64 HB2_TASKS=sudoku,futoshiki,graph_color HB2_BUDGET_SCALES=0.25,0.5,1,2,4 scripts/reproduce_gpu0_3_campaign.sh",
+      "purpose": "Launch the corrected ToT/RAP full-grid reproduction on GPU0-3."
+    },
+    {
+      "command": "git commit -m \"Guard corrected ToT RAP reproduction\" && git push origin main",
+      "purpose": "Push the corrected adapter and strict smoke guard to GitHub at commit bb64972."
+    }
+  ],
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": [
+      "150",
+      "152",
+      "166"
+    ],
+    "pushed_commit": "bb64972 Guard corrected ToT RAP reproduction",
+    "run_root": "results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_gpu0_3",
+    "gpu_scope": "GPU0-3 only; eight logical shards, two model processes per GPU; no external process was killed or preempted.",
+    "repo_basis": "maitrix-org/llm-reasoners commit f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2 via local repo-port adapter."
+  },
+  "decision": {
+    "overall_pass": true,
+    "outcome": "CORRECTED_TOT_RAP_REPRODUCTION_RUNNING",
+    "headline": "The ToT/RAP adapter no longer propagates an initial BUDGET_EXHAUSTED status. Strict smoke passes with real nonzero search work, and the full-grid reproduction is running on GPU0-3 with zero old-bug rows observed in the current snapshot.",
+    "gate_outcomes": [
+      {
+        "gate": "adapter_status_fix",
+        "outcome": "PASS_PUSHED",
+        "number": "Initial status changed from BUDGET_EXHAUSTED to RUNNING; untriggered terminal state falls to NO_FRONTIER. Commit bb64972 pushed to origin/main."
+      },
+      {
+        "gate": "strict_smoke_guard",
+        "outcome": "PASS",
+        "number": "ToT smoke: NO_FRONTIER, tokens=5688, depth=4, expansions=11. RAP smoke: MCTS_ITER_CAP, tokens=6618, depth=4, expansions=8. unexpected_budget_exhausted_rows=0."
+      },
+      {
+        "gate": "full_grid_launch",
+        "outcome": "RUNNING",
+        "number": "Current snapshot: 39/1920 rows complete (2.031%); statuses NO_FRONTIER=30, SOLVED=2, BUDGET_EXHAUSTED=7; bad_zero_budget=0."
+      },
+      {
+        "gate": "old_tot_rap_bug_regression",
+        "outcome": "NOT_OBSERVED",
+        "number": "No row has BUDGET_EXHAUSTED with tokens_used=0, depth_reached=0, and expansions=0."
+      }
+    ],
+    "next_step_routing": "Let the running ToT/RAP full-grid finish and merge. After completion, record a final result item, regenerate the ledger, and then continue with LFS or best-of-n external baselines."
+  },
+  "result_tables": {
+    "strict_smoke_rows": {
+      "columns": [
+        "method",
+        "task",
+        "status",
+        "tokens_used",
+        "depth_reached",
+        "expansions",
+        "official_score"
+      ],
+      "rows": [
+        {
+          "method": "ToT_Beam_repo_port_budget_exhaustive",
+          "task": "sudoku",
+          "status": "NO_FRONTIER",
+          "tokens_used": 5688,
+          "depth_reached": 4,
+          "expansions": 11,
+          "official_score": 0.0
+        },
+        {
+          "method": "RAP_MCTS_repo_port_budget_exhaustive",
+          "task": "sudoku",
+          "status": "MCTS_ITER_CAP",
+          "tokens_used": 6618,
+          "depth_reached": 4,
+          "expansions": 8,
+          "official_score": 0.0
+        }
+      ]
+    },
+    "full_grid_progress_snapshot": {
+      "columns": [
+        "metric",
+        "value"
+      ],
+      "rows": [
+        {
+          "metric": "completed_rows",
+          "value": 39
+        },
+        {
+          "metric": "expected_rows",
+          "value": 1920
+        },
+        {
+          "metric": "percent_complete",
+          "value": 2.031
+        },
+        {
+          "metric": "statuses",
+          "value": "NO_FRONTIER=30; SOLVED=2; BUDGET_EXHAUSTED=7"
+        },
+        {
+          "metric": "methods",
+          "value": "RAP_MCTS_repo_port_budget_exhaustive=27; ToT_Beam_repo_port_budget_exhaustive=12"
+        },
+        {
+          "metric": "tasks_seen",
+          "value": "sudoku=39"
+        },
+        {
+          "metric": "bad_zero_budget_rows",
+          "value": 0
+        }
+      ]
+    }
+  },
+  "honesty": {
+    "scope": "This item is a push snapshot while the full-grid run is still in progress. It does not claim completed ToT/RAP full-grid results.",
+    "why_snapshot": "The user asked to push the current reproduction state to GitHub before waiting for the long full-grid to finish.",
+    "artifact_scope": "Large checkpoint/log artifacts remain under the ignored reproduction root and are summarized by this tracked item record.",
+    "tot_rap_caveat": "BUDGET_EXHAUSTED can still occur after real search work and is valid; the quarantined bug is only the zero-work premature BUDGET_EXHAUSTED path."
+  }
+}
