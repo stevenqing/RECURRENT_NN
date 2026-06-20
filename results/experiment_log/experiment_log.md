@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-20T07:19:54.160256+00:00
+Generated at: 2026-06-20T07:54:31.214658+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -159,6 +159,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 161 | C1.2 architecture restore characterization verdict | C1_2_ARCHITECTURE_RESTORE_CHARACTERIZATION_VERDICT_COMPLETE | C1.2 has verdict; keep Part5/Part6 deferred until explicitly resumed. |
 | 162 | C1.2 flip verification on real pretrained bounded-state checkpoint | C1_2_FLIP_VERIFICATION_LOCKED | Constructive C1.2 headline stands; if rerun ever downgrades, revise Section 4. |
 | 163 | C1.2 real Mamba reproduction on GPUs 0-3 | C1_2_GPU0_3_REPRODUCTION_LOCKED | Use Item163 as the GPU0-3 reproduction confirmation for the Item162 C1.2 flip lock. Part 5 and Part 6 may resume only when explicitly requested. |
+| 164 | GPU0-3 reproduction batch 1 exactness and decision probes | GPU0_3_REPRO_BATCH1_EXACTNESS_DECISION_C1_2_COMPLETE | Continue reproduction by either pulling authoritative cluster JSON/scripts for recovered summary-only items, or explicitly preregistering reconstructed rerun commands for each suite component before running them on GPU0-3. |
 
 ## Item Details
 
@@ -378,7 +379,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - CANONICAL_REPO.md (yes, 532 bytes)
   - analysis/validate_outputs.py (yes, 180370 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -502,8 +503,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/continuation_state/post_027.json (yes, 1453 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -1309,8 +1310,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1438,8 +1439,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1526,8 +1527,8 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1591,8 +1592,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (missing)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (missing)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (missing)
-  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1696,8 +1697,8 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (missing)
   - results/sudoku_engine_gpu/equivalence_1000.json (missing)
   - results/trm_operator_logging_smoke/progress.jsonl (missing)
-  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1780,8 +1781,8 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (missing)
-  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1826,8 +1827,8 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1883,8 +1884,8 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (missing)
   - results/trm_operator_compile_smoke/acceptance.json (missing)
   - results/trm_operator_compile_smoke/progress.jsonl (missing)
-  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1953,8 +1954,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (missing)
-  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -2025,8 +2026,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (missing)
-  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -4764,8 +4765,8 @@ Truncated to 24 of 28 rows.
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json (yes, 3515 bytes)
   - results/rung1_separator_fallibility_rungs/results.json (yes, 79925 bytes)
   - results/experiment_items/item_060_rung1_separator_fallibility_rungs.json (yes, 191278 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
   - results/rung1_separator_fallibility_rungs/item062_execution.json (yes, 2265658 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json (yes, 3606 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2.log (yes, 9044 bytes)
@@ -10035,6 +10036,86 @@ Truncated to 24 of 378 rows.
 | 128 | 179.6 | 0.007812 | 0 | 1 | True |
 
 - Next action: Use Item163 as the GPU0-3 reproduction confirmation for the Item162 C1.2 flip lock. Part 5 and Part 6 may resume only when explicitly requested.
+
+### Item 164 - GPU0-3 reproduction batch 1 exactness and decision probes
+
+- Status: GPU0_3_REPRO_BATCH1_EXACTNESS_DECISION_C1_2_COMPLETE
+- Key result: Continue reproduction by either pulling authoritative cluster JSON/scripts for recovered summary-only items, or explicitly preregistering reconstructed rerun commands for each suite component before running them on GPU0-3.
+- Purpose: Start reproducing the paper ledger experiments on GPUs 0-3. This first batch reruns all currently executable core mechanism commands in the local checkout: Item100 Qwen3.5 fail-closed KM-3, Item102 pure-KV Qwen3 exactness, Item105 clean-vs-polluted decision probe, and Item163 C1.2 real Mamba GPU0-3 reproduction. It also records which later recovered items cannot be faithfully rerun from this checkout because their recovered JSONs contain only raw-log summaries, not executable commands.
+- Details:
+  - purpose=Start reproducing the paper ledger experiments on GPUs 0-3. This first batch reruns all currently executable core mechanism commands in the local checkout: Item100 Qwen3.5 fail-closed KM-3, Item102 pure-KV Qwen3 exactness, Item105 clean-vs-polluted decision probe, and Item163 C1.2 real Mamba GPU0-3 reproduction. It also records which later recovered items cannot be faithfully rerun from this checkout because their recovered JSONs contain only raw-log summaries, not executable commands.
+  - commands=6
+  - result_tables=['exactness_reproduction', 'item105_reproduction', 'c1_2_gpu0_3_reproduction', 'remaining_reproduction_blockers']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_164_gpu0_3_reproduction_batch1.json (yes, 10461 bytes)
+  - results/reproduction_gpu0_3_20260620/exactness_gates/item100_qwen35_bf16.json (yes, 17582 bytes)
+  - results/reproduction_gpu0_3_20260620/exactness_gates/item102_qwen3_bf16.json (yes, 18863 bytes)
+  - results/reproduction_gpu0_3_20260620/exactness_gates/item102_qwen3_fp32_strict.json (yes, 18858 bytes)
+  - results/reproduction_gpu0_3_20260620/exactness_gates/item102_qwen3_fp32_tol1e3.json (yes, 18853 bytes)
+  - results/reproduction_gpu0_3_20260620/item105_decision_probe/points_collect.json (yes, 6727 bytes)
+  - results/reproduction_gpu0_3_20260620/item105_decision_probe/merged_decision_probe.json (yes, 923343 bytes)
+  - results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu0_real_mamba_depth_sweep.json (yes, 13732 bytes)
+  - results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu1_real_mamba_depth_sweep.json (yes, 13732 bytes)
+  - results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu2_real_mamba_depth_sweep.json (yes, 13732 bytes)
+  - results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu3_real_mamba_depth_sweep.json (yes, 13732 bytes)
+  - analysis/c1_2_reproduce_mamba.py (yes, 8589 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/reproduction_gpu0_3_20260620/exactness_gates/item100_qwen35_bf16.json | KVCACHE_EXACTNESS_GATE_FAIL | device=cuda; all_argmax_equal=False; cache_type=DynamicCache; depth=16; dtype=bf16; full_cache_seq_len=40 |  |
+| results/reproduction_gpu0_3_20260620/exactness_gates/item102_qwen3_bf16.json | KVCACHE_EXACTNESS_GATE_FAIL | device=cuda; all_argmax_equal=True; cache_type=DynamicCache; depth=16; dtype=bf16; full_cache_seq_len=39 |  |
+| results/reproduction_gpu0_3_20260620/exactness_gates/item102_qwen3_fp32_strict.json | KVCACHE_EXACTNESS_GATE_FAIL | device=cuda; all_argmax_equal=True; cache_type=DynamicCache; depth=16; dtype=fp32; full_cache_seq_len=39 |  |
+| results/reproduction_gpu0_3_20260620/exactness_gates/item102_qwen3_fp32_tol1e3.json | KVCACHE_EXACTNESS_GATE_PASS | device=cuda; all_argmax_equal=True; cache_type=DynamicCache; depth=16; dtype=fp32; full_cache_seq_len=39 |  |
+| results/reproduction_gpu0_3_20260620/item105_decision_probe/points_collect.json | KVCACHE_DECISION_PROBE_POINTS_COMPLETE | provenance=kvcache_decision_probe_v0; schema_version=kvcache_decision_probe_v0; source=autonomous_stage_a_run |  |
+| results/reproduction_gpu0_3_20260620/item105_decision_probe/merged_decision_probe.json | KVCACHE_DECISION_PROBE_COMPLETE | input_payloads=4; provenance=kvcache_decision_probe_merged_v0; schema_version=kvcache_decision_probe_merged_v0; source=autonomous_stage_a_run; source_schema_version=kvcache_decision_probe_v0 |  |
+| results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu0_real_mamba_depth_sweep.json | C1_2_GPU03_REPRO_LOCKED | c1_2_verdict=TRADE-OFF-FLIPS; checkpoint_generated_tokens=16; cuda_visible_devices=0; generated_prefix= We use the same model as in [@wang2018learning] and [@wang2018; gpu_logical_device=cuda:0; kill_verdict=LOCKED |  |
+| results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu1_real_mamba_depth_sweep.json | C1_2_GPU03_REPRO_LOCKED | c1_2_verdict=TRADE-OFF-FLIPS; checkpoint_generated_tokens=16; cuda_visible_devices=1; generated_prefix= We use the same model as in [@wang2018learning] and [@wang2018; gpu_logical_device=cuda:0; kill_verdict=LOCKED |  |
+| results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu2_real_mamba_depth_sweep.json | C1_2_GPU03_REPRO_LOCKED | c1_2_verdict=TRADE-OFF-FLIPS; checkpoint_generated_tokens=16; cuda_visible_devices=2; generated_prefix= We use the same model as in [@wang2018learning] and [@wang2018; gpu_logical_device=cuda:0; kill_verdict=LOCKED |  |
+| results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu3_real_mamba_depth_sweep.json | C1_2_GPU03_REPRO_LOCKED | c1_2_verdict=TRADE-OFF-FLIPS; checkpoint_generated_tokens=16; cuda_visible_devices=3; generated_prefix= We use the same model as in [@wang2018learning] and [@wang2018; gpu_logical_device=cuda:0; kill_verdict=LOCKED |  |
+
+#### Contract Result Tables
+
+##### exactness_reproduction
+
+| item | artifact | status | overall_pass | max_abs_logit_delta | all_argmax_equal |
+| --- | --- | --- | --- | --- | --- |
+| 100 | item100_qwen35_bf16.json | KVCACHE_EXACTNESS_GATE_FAIL | False | 6.75 | False |
+| 102 | item102_qwen3_bf16.json | KVCACHE_EXACTNESS_GATE_FAIL | False | 0.1875 | True |
+| 102 | item102_qwen3_fp32_strict.json | KVCACHE_EXACTNESS_GATE_FAIL | False | 5.531e-05 | True |
+| 102 | item102_qwen3_fp32_tol1e3.json | KVCACHE_EXACTNESS_GATE_PASS | True | 5.531e-05 | True |
+
+##### item105_reproduction
+
+| metric | value |
+| --- | --- |
+| rows | 1080 |
+| DP_1_accuracy_falls_with_N | False |
+| DP_2_backtrack_falls_faster_than_branch | False |
+| branch_accuracy_N0 | 0.9444 |
+| branch_accuracy_N32 | 0.9111 |
+| backtrack_accuracy_N0 | 0.1556 |
+| backtrack_accuracy_N32 | 0.2444 |
+
+##### c1_2_gpu0_3_reproduction
+
+| gpu | status | verdict |
+| --- | --- | --- |
+| 0 | C1_2_GPU03_REPRO_LOCKED | TRADE-OFF-FLIPS |
+| 1 | C1_2_GPU03_REPRO_LOCKED | TRADE-OFF-FLIPS |
+| 2 | C1_2_GPU03_REPRO_LOCKED | TRADE-OFF-FLIPS |
+| 3 | C1_2_GPU03_REPRO_LOCKED | TRADE-OFF-FLIPS |
+
+##### remaining_reproduction_blockers
+
+| items | blocker | required_next_step |
+| --- | --- | --- |
+| 134-141,148 | authoritative item JSONs absent locally | pull from cluster results/experiment_items |
+| 142-162 raw recovered summaries | most recovered item JSONs contain summary tables but no executable commands | pull authoritative cluster item JSONs/scripts or preregister reconstructed rerun commands |
+| Part5,Part6 | pending ablations, not historical reruns | run only after explicit request |
+
+- Next action: Continue reproduction by either pulling authoritative cluster JSON/scripts for recovered summary-only items, or explicitly preregistering reconstructed rerun commands for each suite component before running them on GPU0-3.
 
 
 ## Canonical Repo Decision

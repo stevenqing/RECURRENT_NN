@@ -1,0 +1,233 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "164",
+  "name": "GPU0-3 reproduction batch 1 exactness and decision probes",
+  "status": "GPU0_3_REPRO_BATCH1_EXACTNESS_DECISION_C1_2_COMPLETE",
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "purpose": "Start reproducing the paper ledger experiments on GPUs 0-3. This first batch reruns all currently executable core mechanism commands in the local checkout: Item100 Qwen3.5 fail-closed KM-3, Item102 pure-KV Qwen3 exactness, Item105 clean-vs-polluted decision probe, and Item163 C1.2 real Mamba GPU0-3 reproduction. It also records which later recovered items cannot be faithfully rerun from this checkout because their recovered JSONs contain only raw-log summaries, not executable commands.",
+  "artifacts": [
+    "results/experiment_items/item_164_gpu0_3_reproduction_batch1.json",
+    "results/reproduction_gpu0_3_20260620/exactness_gates/item100_qwen35_bf16.json",
+    "results/reproduction_gpu0_3_20260620/exactness_gates/item102_qwen3_bf16.json",
+    "results/reproduction_gpu0_3_20260620/exactness_gates/item102_qwen3_fp32_strict.json",
+    "results/reproduction_gpu0_3_20260620/exactness_gates/item102_qwen3_fp32_tol1e3.json",
+    "results/reproduction_gpu0_3_20260620/item105_decision_probe/points_collect.json",
+    "results/reproduction_gpu0_3_20260620/item105_decision_probe/merged_decision_probe.json",
+    "results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu0_real_mamba_depth_sweep.json",
+    "results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu1_real_mamba_depth_sweep.json",
+    "results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu2_real_mamba_depth_sweep.json",
+    "results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu3_real_mamba_depth_sweep.json",
+    "analysis/c1_2_reproduce_mamba.py"
+  ],
+  "commands": [
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m analysis.kvcache_exactness_gate --model Qwen/Qwen3-4B-Instruct-2507 --depth 16 --checkpoints 2,4,8,12 --tol 1e-3 --device cuda --dtype bf16 --out results/reproduction_gpu0_3_20260620/exactness_gates/item102_qwen3_bf16.json",
+      "purpose": "Reproduce Item102 bf16 numeric-fail exactness gate."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m analysis.kvcache_exactness_gate --model Qwen/Qwen3-4B-Instruct-2507 --depth 16 --checkpoints 2,4,8,12 --tol 1e-5 --device cuda --dtype fp32 --out results/reproduction_gpu0_3_20260620/exactness_gates/item102_qwen3_fp32_strict.json",
+      "purpose": "Reproduce Item102 fp32 strict diagnostic fail."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m analysis.kvcache_exactness_gate --model Qwen/Qwen3-4B-Instruct-2507 --depth 16 --checkpoints 2,4,8,12 --tol 1e-3 --device cuda --dtype fp32 --out results/reproduction_gpu0_3_20260620/exactness_gates/item102_qwen3_fp32_tol1e3.json",
+      "purpose": "Reproduce Item102 fp32 spec-tolerance pass."
+    },
+    {
+      "command": "CUDA_VISIBLE_DEVICES=1 .venv/bin/python -m analysis.kvcache_exactness_gate --model Qwen/Qwen3.5-4B --depth 16 --checkpoints 2,4,8,12 --tol 1e-3 --device cuda --dtype bf16 --out results/reproduction_gpu0_3_20260620/exactness_gates/item100_qwen35_bf16.json",
+      "purpose": "Reproduce Item100 Qwen3.5 fail-closed KM-3 exactness gate."
+    },
+    {
+      "command": ".venv/bin/python -m analysis.kvcache_decision_probe ... collect-only; CUDA_VISIBLE_DEVICES=0,1,2,3 .venv/bin/python -m analysis.kvcache_decision_probe ... --num-shards 4; .venv/bin/python -m analysis.kvcache_decision_probe_merge ...",
+      "purpose": "Reproduce Item105 collect-once plus four GPU0-3 decision-probe shards and merge 1080 rows."
+    },
+    {
+      "command": "for gpu in 0 1 2 3; do CUDA_VISIBLE_DEVICES=$gpu .venv/bin/python -m analysis.c1_2_reproduce_mamba --device cuda:0 --cuda-visible-devices $gpu --output results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu${gpu}_real_mamba_depth_sweep.json; done",
+      "purpose": "Reproduce Item162 real Mamba C1.2 flip verification independently on GPUs 0-3."
+    }
+  ],
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": [
+      "100",
+      "102",
+      "105",
+      "163"
+    ],
+    "run_root": "results/reproduction_gpu0_3_20260620",
+    "gpu_scope": "GPU0-3 only; no running process was killed or preempted.",
+    "dependency_note": ".venv was recreated locally with uv because this checkout did not include it."
+  },
+  "decision": {
+    "overall_pass": true,
+    "outcome": "REPRO_BATCH1_COMPLETE",
+    "headline": "GPU0-3 reproduced the executable core mechanism gates: Qwen3.5 fail-closed, Qwen3 pure-KV fp32 spec-tolerance pass, Item105 decision-probe negative, and C1.2 real Mamba flip lock.",
+    "gate_outcomes": [
+      {
+        "gate": "item100_qwen35_fail_closed",
+        "outcome": "PASS",
+        "number": "KVCACHE_EXACTNESS_GATE_FAIL; overall_pass=false; max_abs_logit_delta=6.75; all_argmax_equal=false."
+      },
+      {
+        "gate": "item102_qwen3_pure_kv",
+        "outcome": "PASS",
+        "number": "bf16 fail max_delta=0.1875; fp32 strict fail max_delta=5.5313e-05; fp32 tol=1e-3 pass max_delta=5.5313e-05."
+      },
+      {
+        "gate": "item105_decision_probe",
+        "outcome": "PASS",
+        "number": "Merged 1080 rows; DP_1=false, DP_2=false, branch N0=0.9444, branch N32=0.9111, backtrack N0=0.1556, backtrack N32=0.2444."
+      },
+      {
+        "gate": "item163_c1_2_gpu0_3",
+        "outcome": "PASS",
+        "number": "4/4 GPUs report C1_2_GPU03_REPRO_LOCKED; M2 exact at depths 1,8,32,128; M1 fails."
+      },
+      {
+        "gate": "full_ledger_replay",
+        "outcome": "PARTIAL_BLOCKED_BY_RECOVERED_SUMMARIES",
+        "number": "Items 142-162 except 163 are recovered raw summaries with no executable commands in this checkout; faithful rerun requires cluster item JSONs/scripts or reconstructed launch manifests."
+      }
+    ],
+    "next_step_routing": "Continue reproduction by either pulling authoritative cluster JSON/scripts for recovered summary-only items, or explicitly preregistering reconstructed rerun commands for each suite component before running them on GPU0-3."
+  },
+  "result_tables": {
+    "exactness_reproduction": {
+      "columns": [
+        "item",
+        "artifact",
+        "status",
+        "overall_pass",
+        "max_abs_logit_delta",
+        "all_argmax_equal"
+      ],
+      "rows": [
+        {
+          "item": 100,
+          "artifact": "item100_qwen35_bf16.json",
+          "status": "KVCACHE_EXACTNESS_GATE_FAIL",
+          "overall_pass": false,
+          "max_abs_logit_delta": 6.75,
+          "all_argmax_equal": false
+        },
+        {
+          "item": 102,
+          "artifact": "item102_qwen3_bf16.json",
+          "status": "KVCACHE_EXACTNESS_GATE_FAIL",
+          "overall_pass": false,
+          "max_abs_logit_delta": 0.1875,
+          "all_argmax_equal": true
+        },
+        {
+          "item": 102,
+          "artifact": "item102_qwen3_fp32_strict.json",
+          "status": "KVCACHE_EXACTNESS_GATE_FAIL",
+          "overall_pass": false,
+          "max_abs_logit_delta": 0.0000553131103515625,
+          "all_argmax_equal": true
+        },
+        {
+          "item": 102,
+          "artifact": "item102_qwen3_fp32_tol1e3.json",
+          "status": "KVCACHE_EXACTNESS_GATE_PASS",
+          "overall_pass": true,
+          "max_abs_logit_delta": 0.0000553131103515625,
+          "all_argmax_equal": true
+        }
+      ]
+    },
+    "item105_reproduction": {
+      "columns": [
+        "metric",
+        "value"
+      ],
+      "rows": [
+        {
+          "metric": "rows",
+          "value": 1080
+        },
+        {
+          "metric": "DP_1_accuracy_falls_with_N",
+          "value": false
+        },
+        {
+          "metric": "DP_2_backtrack_falls_faster_than_branch",
+          "value": false
+        },
+        {
+          "metric": "branch_accuracy_N0",
+          "value": 0.9444444444444444
+        },
+        {
+          "metric": "branch_accuracy_N32",
+          "value": 0.9111111111111111
+        },
+        {
+          "metric": "backtrack_accuracy_N0",
+          "value": 0.15555555555555556
+        },
+        {
+          "metric": "backtrack_accuracy_N32",
+          "value": 0.24444444444444444
+        }
+      ]
+    },
+    "c1_2_gpu0_3_reproduction": {
+      "columns": [
+        "gpu",
+        "status",
+        "verdict"
+      ],
+      "rows": [
+        {
+          "gpu": 0,
+          "status": "C1_2_GPU03_REPRO_LOCKED",
+          "verdict": "TRADE-OFF-FLIPS"
+        },
+        {
+          "gpu": 1,
+          "status": "C1_2_GPU03_REPRO_LOCKED",
+          "verdict": "TRADE-OFF-FLIPS"
+        },
+        {
+          "gpu": 2,
+          "status": "C1_2_GPU03_REPRO_LOCKED",
+          "verdict": "TRADE-OFF-FLIPS"
+        },
+        {
+          "gpu": 3,
+          "status": "C1_2_GPU03_REPRO_LOCKED",
+          "verdict": "TRADE-OFF-FLIPS"
+        }
+      ]
+    },
+    "remaining_reproduction_blockers": {
+      "columns": [
+        "items",
+        "blocker",
+        "required_next_step"
+      ],
+      "rows": [
+        {
+          "items": "134-141,148",
+          "blocker": "authoritative item JSONs absent locally",
+          "required_next_step": "pull from cluster results/experiment_items"
+        },
+        {
+          "items": "142-162 raw recovered summaries",
+          "blocker": "most recovered item JSONs contain summary tables but no executable commands",
+          "required_next_step": "pull authoritative cluster item JSONs/scripts or preregister reconstructed rerun commands"
+        },
+        {
+          "items": "Part5,Part6",
+          "blocker": "pending ablations, not historical reruns",
+          "required_next_step": "run only after explicit request"
+        }
+      ]
+    }
+  },
+  "honesty": {
+    "scope": "This is the first executable reproduction batch, not a complete rerun of every historical ledger item.",
+    "why_not_all": "Many recovered items are summary-only placeholders or raw-log reconstructions without executable commands in this checkout. Rerunning them faithfully requires the original cluster item JSONs/scripts or a new preregistered reconstruction per item.",
+    "artifact_scope": "Large reproduction outputs are under results/ and may be ignored by git; this item records their paths and summaries."
+  }
+}
