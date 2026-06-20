@@ -271,7 +271,7 @@ def _run_tot_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
     parse_fails = 0
     best_score = 0.0
     max_depth_reached = 0
-    status = "BUDGET_EXHAUSTED"
+    status = "RUNNING"
     while frontier:
         next_frontier: list[BeamNode] = []
         for node in frontier[: int(args.beam_size)]:
@@ -314,6 +314,8 @@ def _run_tot_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
             break
         frontier = sorted(next_frontier, key=lambda item: item.reward, reverse=True)[: int(args.beam_size)]
     best_score = max([best_score, *[_score_state(task, env, node.state) for node in frontier]]) if frontier else best_score
+    if status == "RUNNING":
+        status = "NO_FRONTIER"
     if best_score >= 0.99:
         status = "SOLVED"
     return _row("ToT_Beam_repo_port_budget_exhaustive", task, source_index, budget, best_score, tokens_used, max_depth_reached, expansions, parse_fails, status)
@@ -341,7 +343,7 @@ def _run_rap_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
     parse_fails = 0
     best_score = 0.0
     max_depth_reached = 0
-    status = "BUDGET_EXHAUSTED"
+    status = "RUNNING"
     iterations = 0
     while True:
         if int(args.mcts_iters) > 0 and iterations >= int(args.mcts_iters):
@@ -424,6 +426,8 @@ def _run_rap_instance(model: Any, tokenizer: Any, dataset: Any, task: str, entry
         if int(args.mcts_iters) <= 0 and tokens_used == tokens_before_iter:
             status = "NO_FRONTIER"
             break
+    if status == "RUNNING":
+        status = "NO_FRONTIER"
     if best_score >= 0.99:
         status = "SOLVED"
     return _row("RAP_MCTS_repo_port_budget_exhaustive", task, source_index, budget, best_score, tokens_used, max_depth_reached, expansions, parse_fails, status)

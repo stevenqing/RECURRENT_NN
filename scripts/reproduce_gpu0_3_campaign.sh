@@ -24,8 +24,9 @@ HB2_BASELINES="${HB2_BASELINES:-lfs,tot_rap,best_of_n}"
 HB2_TASKS="${HB2_TASKS:-sudoku,futoshiki,graph_color}"
 HB2_BUDGET_SCALES="${HB2_BUDGET_SCALES:-0.25,0.5,1,2,4}"
 HB2_INSTANCES="${HB2_INSTANCES:-64}"
+TOT_RAP_SMOKE_ROOT="${TOT_RAP_SMOKE_ROOT:-$RUN_ROOT/hb2_tot_rap/corrected_smoke_strict}"
 
-DEFAULT_STAGES="env,gpu_check,manifest,exactness,item101_full_checkpoint,decision_probe,c1_2_mamba,ac_primary,graph_color_c1,graph_color_symbolic,external_registry,hb2_external_full,experiment_log"
+DEFAULT_STAGES="env,gpu_check,manifest,exactness,item101_full_checkpoint,decision_probe,c1_2_mamba,ac_primary,graph_color_c1,graph_color_symbolic,tot_rap_corrected_smoke,external_registry,hb2_external_full,experiment_log"
 STAGES="${STAGES:-$DEFAULT_STAGES}"
 STATE_DIR="$RUN_ROOT/campaign_state"
 
@@ -267,11 +268,75 @@ stage_external_registry() {
   run_shell "$PY -m analysis.kvcache_external_budget_baselines --output '$out'"
 }
 
+stage_tot_rap_corrected_smoke() {
+  local root="$TOT_RAP_SMOKE_ROOT"
+  mkdir -p "$root"
+  if json_status_ok "$root/validation.json" TOT_RAP_CORRECTED_SMOKE_STRICT_PASS; then
+    log "SKIP tot_rap_corrected_smoke: $root/validation.json complete"
+    return 0
+  fi
+  run_shell "CUDA_VISIBLE_DEVICES=0 $PY -m analysis.kvcache_tot_rap_baselines run-shard --output '$root/smoke.json' --checkpoint-path '$root/smoke_checkpoint.json' --resume --n-instances 1 --scan-limit 20 --tasks sudoku --methods tot,rap --budget-anchors sudoku:28070 --budget-scales 1 --max-expansions 16 --mcts-iters 8 --max-depth 4 --n-actions 4 --beam-size 4 --value-batch-size 4 --rollout-depth 1 --rollout-branching 1 --max-new-tokens 96 --num-shards 1 --shard-index 0 --dtype fp32 --device cuda > '$root/smoke.log' 2>&1"
+  run_shell "$PY - <<'PY'
+import json
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+root = Path('$root')
+payload = json.loads((root / 'smoke.json').read_text(encoding='utf-8'))
+rows = list(payload.get('rows', []))
+methods = sorted({row.get('method') for row in rows})
+bad_premature = [
+    row for row in rows
+    if row.get('status') == 'BUDGET_EXHAUSTED'
+    and int(row.get('tokens_used', 0)) == 0
+    and int(row.get('depth_reached', 0)) == 0
+    and int(row.get('expansions', 0)) == 0
+]
+unexpected_budget_exhausted = [row for row in rows if row.get('status') == 'BUDGET_EXHAUSTED']
+expanded_rows = [
+    row for row in rows
+    if int(row.get('tokens_used', 0)) > 0
+    and (int(row.get('depth_reached', 0)) > 0 or int(row.get('expansions', 0)) > 0)
+]
+expected_methods = {'ToT_Beam_repo_port_budget_exhaustive', 'RAP_MCTS_repo_port_budget_exhaustive'}
+ok = payload.get('status') == 'KVCACHE_TOT_RAP_BASELINES_COMPLETE' and expected_methods.issubset(set(methods)) and len(rows) >= 2 and not bad_premature and not unexpected_budget_exhausted and len(expanded_rows) >= 2
+validation = {
+    'schema_version': 'tot_rap_corrected_smoke_validation_v0',
+    'status': 'TOT_RAP_CORRECTED_SMOKE_STRICT_PASS' if ok else 'TOT_RAP_CORRECTED_SMOKE_STRICT_FAIL',
+    'generated_at': datetime.now(timezone.utc).isoformat(),
+    'smoke_output': str(root / 'smoke.json'),
+    'rows': len(rows),
+    'methods': methods,
+    'bad_premature_budget_exhausted_rows': len(bad_premature),
+    'unexpected_budget_exhausted_rows': len(unexpected_budget_exhausted),
+    'expanded_rows': len(expanded_rows),
+    'acceptance_rule': 'Reject the old ToT/RAP bug pattern and its status-propagation variant: this capped smoke must do real search work and stop by cap/no-frontier/solve, not BUDGET_EXHAUSTED.',
+    'row_summaries': [
+        {
+            'method': row.get('method'),
+            'task': row.get('task'),
+            'status': row.get('status'),
+            'tokens_used': row.get('tokens_used'),
+            'depth_reached': row.get('depth_reached'),
+            'expansions': row.get('expansions'),
+            'official_score': row.get('official_score'),
+        }
+        for row in rows
+    ],
+}
+(root / 'validation.json').write_text(json.dumps(validation, indent=2, sort_keys=True) + '\n', encoding='utf-8')
+print(json.dumps({'path': str(root / 'validation.json'), 'status': validation['status']}))
+sys.exit(0 if ok else 3)
+PY"
+}
+
 stage_hb2_external_full() {
   if [[ "$RUN_EXTERNAL_FULL" != "1" ]]; then
     log "SKIP hb2_external_full: set RUN_EXTERNAL_FULL=1 to run long HB-2 baselines"
     return 0
   fi
+  stage_tot_rap_corrected_smoke
   run_shell "BASELINES='$HB2_BASELINES' SHARDS='$EXTERNAL_SHARDS' GPUS='$GPUS' INSTANCES='$HB2_INSTANCES' TASKS='$HB2_TASKS' BUDGET_SCALES='$HB2_BUDGET_SCALES' BEST_OF_N_ROOT='$RUN_ROOT/hb2_best_of_n/full_grid_n64_gpu0_3' LFS_ROOT='$RUN_ROOT/hb2_lfs/full_grid_n64_gpu0_3' TOT_RAP_ROOT='$RUN_ROOT/hb2_tot_rap/full_grid_n64_gpu0_3' PY='$PY' scripts/launch_hb2_external_full_grid.sh"
 }
 
@@ -293,6 +358,7 @@ run_stage() {
     ac_primary) stage_ac_primary ;;
     graph_color_c1) stage_graph_color_c1 ;;
     graph_color_symbolic) stage_graph_color_symbolic ;;
+    tot_rap_corrected_smoke) stage_tot_rap_corrected_smoke ;;
     external_registry) stage_external_registry ;;
     hb2_external_full) stage_hb2_external_full ;;
     experiment_log) stage_experiment_log ;;
