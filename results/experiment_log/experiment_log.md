@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-20T07:54:31.214658+00:00
+Generated at: 2026-06-20T08:13:34.481678+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -160,6 +160,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 162 | C1.2 flip verification on real pretrained bounded-state checkpoint | C1_2_FLIP_VERIFICATION_LOCKED | Constructive C1.2 headline stands; if rerun ever downgrades, revise Section 4. |
 | 163 | C1.2 real Mamba reproduction on GPUs 0-3 | C1_2_GPU0_3_REPRODUCTION_LOCKED | Use Item163 as the GPU0-3 reproduction confirmation for the Item162 C1.2 flip lock. Part 5 and Part 6 may resume only when explicitly requested. |
 | 164 | GPU0-3 reproduction batch 1 exactness and decision probes | GPU0_3_REPRO_BATCH1_EXACTNESS_DECISION_C1_2_COMPLETE | Continue reproduction by either pulling authoritative cluster JSON/scripts for recovered summary-only items, or explicitly preregistering reconstructed rerun commands for each suite component before running them on GPU0-3. |
+| 165 | GPU0-3 reproduction batch 2 A_cache versus C_incontext primary | GPU0_3_REPRO_BATCH2_AC_PRIMARY_COMPLETE | Continue reproduction with graph_color A/C exact-B* and then external baselines, or pull authoritative cluster commands for recovered summary-only items before rerunning them. |
 
 ## Item Details
 
@@ -379,7 +380,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - CANONICAL_REPO.md (yes, 532 bytes)
   - analysis/validate_outputs.py (yes, 180370 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -503,8 +504,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/continuation_state/post_027.json (yes, 1453 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -1310,8 +1311,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1439,8 +1440,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1527,8 +1528,8 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1592,8 +1593,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (missing)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (missing)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (missing)
-  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1697,8 +1698,8 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (missing)
   - results/sudoku_engine_gpu/equivalence_1000.json (missing)
   - results/trm_operator_logging_smoke/progress.jsonl (missing)
-  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1781,8 +1782,8 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (missing)
-  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1827,8 +1828,8 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1884,8 +1885,8 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (missing)
   - results/trm_operator_compile_smoke/acceptance.json (missing)
   - results/trm_operator_compile_smoke/progress.jsonl (missing)
-  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1954,8 +1955,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (missing)
-  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -2026,8 +2027,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (missing)
-  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -4765,8 +4766,8 @@ Truncated to 24 of 28 rows.
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json (yes, 3515 bytes)
   - results/rung1_separator_fallibility_rungs/results.json (yes, 79925 bytes)
   - results/experiment_items/item_060_rung1_separator_fallibility_rungs.json (yes, 191278 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1157078 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85048682 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1165220 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85085411 bytes)
   - results/rung1_separator_fallibility_rungs/item062_execution.json (yes, 2265658 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json (yes, 3606 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2.log (yes, 9044 bytes)
@@ -10116,6 +10117,48 @@ Truncated to 24 of 378 rows.
 | Part5,Part6 | pending ablations, not historical reruns | run only after explicit request |
 
 - Next action: Continue reproduction by either pulling authoritative cluster JSON/scripts for recovered summary-only items, or explicitly preregistering reconstructed rerun commands for each suite component before running them on GPU0-3.
+
+### Item 165 - GPU0-3 reproduction batch 2 A_cache versus C_incontext primary
+
+- Status: GPU0_3_REPRO_BATCH2_AC_PRIMARY_COMPLETE
+- Key result: Continue reproduction with graph_color A/C exact-B* and then external baselines, or pull authoritative cluster commands for recovered summary-only items before rerunning them.
+- Purpose: Continue reproducing the single-agent floor-paper ledger on GPU0-3 by rerunning the primary matched-budget A_cache versus C_incontext curves for sudoku and futoshiki. This reproduces the C1.6 / Item155 A/C core mechanism gap for the two CSP tasks covered by launch_matched_budget_scaled_primary.sh.
+- Details:
+  - purpose=Continue reproducing the single-agent floor-paper ledger on GPU0-3 by rerunning the primary matched-budget A_cache versus C_incontext curves for sudoku and futoshiki. This reproduces the C1.6 / Item155 A/C core mechanism gap for the two CSP tasks covered by launch_matched_budget_scaled_primary.sh.
+  - commands=2
+  - result_tables=['ac_primary_reference_budget', 'ac_primary_gap_summary']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_165_gpu0_3_ac_primary_reproduction.json (yes, 5394 bytes)
+  - results/reproduction_gpu0_3_20260620/ac_primary_scaled_n64/merged_scaled_primary_n64.json (yes, 792886 bytes)
+  - results/reproduction_gpu0_3_20260620/reproduction_status.md (yes, 2411 bytes)
+  - scripts/launch_matched_budget_scaled_primary.sh (yes, 1032 bytes)
+  - analysis/kvcache_matched_budget_scaled.py (yes, 19025 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/reproduction_gpu0_3_20260620/ac_primary_scaled_n64/merged_scaled_primary_n64.json | KVCACHE_MATCHED_BUDGET_SCALED_MERGED | n_input_trace_rows_raw=128; provenance=kvcache_matched_budget_scaled_merged_v0; schema_version=kvcache_matched_budget_scaled_v0; source=autonomous_stage_a_run |  |
+
+#### Contract Result Tables
+
+##### ac_primary_reference_budget
+
+| task | policy | method | budget_B | n | solve_count | solve_rate | status_counts |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| sudoku | symbolic_cbj | A_cache | 28070 | 64 | 57 | 0.8906 | SOLVED=57; BUDGET_EXHAUSTED=7 |
+| sudoku | symbolic_cbj | C_incontext | 28070 | 64 | 7 | 0.1094 | SOLVED=7; BUDGET_EXHAUSTED=57 |
+| futoshiki | symbolic_cbj | A_cache | 3206226 | 64 | 64 | 1 | SOLVED=64 |
+| futoshiki | symbolic_cbj | C_incontext | 3206226 | 64 | 19 | 0.2969 | SOLVED=19; BUDGET_EXHAUSTED=45 |
+
+##### ac_primary_gap_summary
+
+| task | policy | budget_B | A_solve_rate | C_solve_rate | A_minus_C |
+| --- | --- | --- | --- | --- | --- |
+| sudoku | symbolic_cbj | 28070 | 0.8906 | 0.1094 | 0.7812 |
+| futoshiki | symbolic_cbj | 3206226 | 1 | 0.2969 | 0.7031 |
+
+- Next action: Continue reproduction with graph_color A/C exact-B* and then external baselines, or pull authoritative cluster commands for recovered summary-only items before rerunning them.
 
 
 ## Canonical Repo Decision

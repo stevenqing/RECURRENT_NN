@@ -1,0 +1,147 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "165",
+  "name": "GPU0-3 reproduction batch 2 A_cache versus C_incontext primary",
+  "status": "GPU0_3_REPRO_BATCH2_AC_PRIMARY_COMPLETE",
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "purpose": "Continue reproducing the single-agent floor-paper ledger on GPU0-3 by rerunning the primary matched-budget A_cache versus C_incontext curves for sudoku and futoshiki. This reproduces the C1.6 / Item155 A/C core mechanism gap for the two CSP tasks covered by launch_matched_budget_scaled_primary.sh.",
+  "artifacts": [
+    "results/experiment_items/item_165_gpu0_3_ac_primary_reproduction.json",
+    "results/reproduction_gpu0_3_20260620/ac_primary_scaled_n64/merged_scaled_primary_n64.json",
+    "results/reproduction_gpu0_3_20260620/reproduction_status.md",
+    "scripts/launch_matched_budget_scaled_primary.sh",
+    "analysis/kvcache_matched_budget_scaled.py"
+  ],
+  "commands": [
+    {
+      "command": "ROOT=results/reproduction_gpu0_3_20260620/ac_primary_scaled_n64 SHARDS=8 PY=\"$HOME/.local/bin/uv run --python .venv/bin/python python\" scripts/launch_matched_budget_scaled_primary.sh",
+      "purpose": "Run eight deterministic/token-accounting A/C shards for sudoku and futoshiki and merge the primary scaled matched-budget curve."
+    },
+    {
+      "command": "python summary over results/reproduction_gpu0_3_20260620/ac_primary_scaled_n64/merged_scaled_primary_n64.json",
+      "purpose": "Print reference-budget solve rates and A-C gaps."
+    }
+  ],
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": [
+      "155",
+      "164"
+    ],
+    "run_root": "results/reproduction_gpu0_3_20260620/ac_primary_scaled_n64",
+    "gpu_scope": "GPU0-3 reproduction campaign; this particular deterministic matched-budget runner uses tokenizer/accounting and does not require a model forward GPU allocation.",
+    "tasks": [
+      "sudoku",
+      "futoshiki"
+    ],
+    "policy": "symbolic_cbj",
+    "budget_scales": "0.25,0.5,1,2,4"
+  },
+  "decision": {
+    "overall_pass": true,
+    "outcome": "AC_PRIMARY_REPRODUCED",
+    "headline": "Primary A_cache versus C_incontext matched-budget gaps reproduce: sudoku A=0.890625 vs C=0.109375, futoshiki A=1.0 vs C=0.296875.",
+    "gate_outcomes": [
+      {
+        "gate": "sudoku_reference_budget",
+        "outcome": "PASS",
+        "number": "B*=28070: A_cache 57/64=0.890625, C_incontext 7/64=0.109375, A-C=0.78125."
+      },
+      {
+        "gate": "futoshiki_reference_budget",
+        "outcome": "PASS",
+        "number": "B*=3206226: A_cache 64/64=1.0, C_incontext 19/64=0.296875, A-C=0.703125."
+      }
+    ],
+    "next_step_routing": "Continue reproduction with graph_color A/C exact-B* and then external baselines, or pull authoritative cluster commands for recovered summary-only items before rerunning them."
+  },
+  "result_tables": {
+    "ac_primary_reference_budget": {
+      "columns": [
+        "task",
+        "policy",
+        "method",
+        "budget_B",
+        "n",
+        "solve_count",
+        "solve_rate",
+        "status_counts"
+      ],
+      "rows": [
+        {
+          "task": "sudoku",
+          "policy": "symbolic_cbj",
+          "method": "A_cache",
+          "budget_B": 28070,
+          "n": 64,
+          "solve_count": 57,
+          "solve_rate": 0.890625,
+          "status_counts": "SOLVED=57; BUDGET_EXHAUSTED=7"
+        },
+        {
+          "task": "sudoku",
+          "policy": "symbolic_cbj",
+          "method": "C_incontext",
+          "budget_B": 28070,
+          "n": 64,
+          "solve_count": 7,
+          "solve_rate": 0.109375,
+          "status_counts": "SOLVED=7; BUDGET_EXHAUSTED=57"
+        },
+        {
+          "task": "futoshiki",
+          "policy": "symbolic_cbj",
+          "method": "A_cache",
+          "budget_B": 3206226,
+          "n": 64,
+          "solve_count": 64,
+          "solve_rate": 1.0,
+          "status_counts": "SOLVED=64"
+        },
+        {
+          "task": "futoshiki",
+          "policy": "symbolic_cbj",
+          "method": "C_incontext",
+          "budget_B": 3206226,
+          "n": 64,
+          "solve_count": 19,
+          "solve_rate": 0.296875,
+          "status_counts": "SOLVED=19; BUDGET_EXHAUSTED=45"
+        }
+      ]
+    },
+    "ac_primary_gap_summary": {
+      "columns": [
+        "task",
+        "policy",
+        "budget_B",
+        "A_solve_rate",
+        "C_solve_rate",
+        "A_minus_C"
+      ],
+      "rows": [
+        {
+          "task": "sudoku",
+          "policy": "symbolic_cbj",
+          "budget_B": 28070,
+          "A_solve_rate": 0.890625,
+          "C_solve_rate": 0.109375,
+          "A_minus_C": 0.78125
+        },
+        {
+          "task": "futoshiki",
+          "policy": "symbolic_cbj",
+          "budget_B": 3206226,
+          "A_solve_rate": 1.0,
+          "C_solve_rate": 0.296875,
+          "A_minus_C": 0.703125
+        }
+      ]
+    }
+  },
+  "honesty": {
+    "scope": "This reproduces sudoku/futoshiki primary A/C matched-budget curves only. It does not reproduce graph_color A/C or external baselines.",
+    "gpu_scope": "The campaign is constrained to GPU0-3, but this runner is deterministic/token-accounting and does not need GPU model inference.",
+    "artifact_scope": "Large merged result lives under results/reproduction_gpu0_3_20260620 and may be ignored by git; this item records its path and summary."
+  }
+}
