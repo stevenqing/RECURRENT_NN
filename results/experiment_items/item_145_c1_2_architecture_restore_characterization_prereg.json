@@ -1,0 +1,89 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_145_c1_2_architecture_restore_characterization_prereg.json",
+    "specs/c1_2_architecture_restore_characterization_v0.md",
+    "specs/reversible_test_time_compute_itemized_plan_v1.md",
+    "results/experiment_items/item_100_kvcache_checkpoint_km3_exactness.json",
+    "results/experiment_items/item_102_pure_kv_qwen3_km3_exactness.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Preregister C1.2 architecture restore characterization with fixed verdicts, architecture panel, and D1/D2/D3 diagnosis before execution.",
+    "next_step_routing": "Create execution manifest and run KM-3-compatible M1/M2 panel.",
+    "outcome": "C1_2_ARCHITECTURE_RESTORE_CHARACTERIZATION_PREREGISTERED_V0",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "does_not_establish": "Preregistration only; no empirical restore rows."
+  },
+  "item_number": "145",
+  "name": "C1.2 architecture characterization of exact restore preregistration",
+  "provenance": {
+    "parent_items": [
+      "100",
+      "102"
+    ],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Preregister C1.2 architecture restore characterization with fixed verdicts, architecture panel, and D1/D2/D3 diagnosis before execution.",
+  "result_tables": {
+    "diagnosis_matrix": {
+      "columns": [
+        "diagnosis",
+        "comparison",
+        "interpretation_if_gap_closes"
+      ],
+      "rows": [
+        {
+          "comparison": "bf16 vs fp32",
+          "diagnosis": "D1_precision",
+          "interpretation_if_gap_closes": "numeric or precision-scoped, not structural"
+        },
+        {
+          "comparison": "chunked/parallel vs recurrent sequential forward",
+          "diagnosis": "D2_path",
+          "interpretation_if_gap_closes": "path or implementation-scoped, not structural"
+        },
+        {
+          "comparison": "snapshot inventory vs all model/cache resident state",
+          "diagnosis": "D3_completeness",
+          "interpretation_if_gap_closes": "incomplete capture, fixable"
+        }
+      ]
+    },
+    "fixed_verdicts": {
+      "columns": [
+        "outcome",
+        "criterion",
+        "headline"
+      ],
+      "rows": [
+        {
+          "criterion": "M2 full snapshot still decision-changing on at least two bounded-state architectures",
+          "headline": "efficient bounded-state architectures cannot support exact reversible restore",
+          "outcome": "TRADE-OFF-HOLDS"
+        },
+        {
+          "criterion": "M2 fp32 recurrent audited-complete snapshot is bit-exact on bounded-state panel",
+          "headline": "bounded-state supports cheap exact restore via fixed-size state snapshots; truncation alone fails",
+          "outcome": "TRADE-OFF-FLIPS"
+        },
+        {
+          "criterion": "some architectures pass and some fail under M2",
+          "headline": "report the boundary by state structure",
+          "outcome": "MIXED"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "C1_2_ARCHITECTURE_RESTORE_CHARACTERIZATION_PREREGISTERED_V0"
+}

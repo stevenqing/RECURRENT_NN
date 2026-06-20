@@ -1,0 +1,68 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_159_official_benchmark_pilot_puzzle24_countdown.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Run RG official-scorer puzzle24/countdown with LFS, corrected ToT/RAP, and best-of-n under matched budgets.",
+    "next_step_routing": "Use as completed native-like arithmetic external baseline pilot; A/C arm is Item160.",
+    "outcome": "OFFICIAL_BENCHMARK_PILOT_PUZZLE24_COUNTDOWN_COMPLETE",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "recovery_scope": "Recovered from pasted raw item-log block; selected/truncated tables preserved here, authoritative complete tables live in referenced result artifacts when available."
+  },
+  "item_number": "159",
+  "name": "Official benchmark pilot on puzzle24 and countdown",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Run RG official-scorer puzzle24/countdown with LFS, corrected ToT/RAP, and best-of-n under matched budgets.",
+  "result_tables": {
+    "overall_external_baselines": {
+      "columns": [
+        "method",
+        "n",
+        "solved",
+        "solve_rate"
+      ],
+      "rows": [
+        {
+          "method": "RAP_MCTS_repo_port_budget_exhaustive",
+          "n": 128,
+          "solve_rate": 0.25,
+          "solved": 32
+        },
+        {
+          "method": "ToT_Beam_repo_port_budget_exhaustive",
+          "n": 128,
+          "solve_rate": 0.1797,
+          "solved": 23
+        },
+        {
+          "method": "best_of_n_parallel_sampling",
+          "n": 128,
+          "solve_rate": 0.07812,
+          "solved": 10
+        },
+        {
+          "method": "LFS_repo_port_multistate_batch",
+          "n": 128,
+          "solve_rate": 0.03906,
+          "solved": 5
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "OFFICIAL_BENCHMARK_PILOT_PUZZLE24_COUNTDOWN_COMPLETE"
+}

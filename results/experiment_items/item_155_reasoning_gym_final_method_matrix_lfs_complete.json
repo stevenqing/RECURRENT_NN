@@ -1,0 +1,106 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_155_reasoning_gym_final_method_matrix_lfs_complete.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Close Reasoning Gym matched-budget method matrix after LFS completed and merged.",
+    "next_step_routing": "Use as final Reasoning Gym matched-budget method-matrix read; quote graph_color caveat.",
+    "outcome": "REASONING_GYM_METHOD_MATRIX_FINAL_LFS_COMPLETE",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "recovery_scope": "Recovered from pasted raw item-log block; selected/truncated tables preserved here, authoritative complete tables live in referenced result artifacts when available."
+  },
+  "item_number": "155",
+  "name": "Reasoning Gym final method matrix with LFS complete",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Close Reasoning Gym matched-budget method matrix after LFS completed and merged.",
+  "result_tables": {
+    "method_completion": {
+      "columns": [
+        "method",
+        "rows",
+        "expected_rows",
+        "completion"
+      ],
+      "rows": [
+        {
+          "completion": "complete",
+          "expected_rows": 960,
+          "method": "A_cache",
+          "rows": 960
+        },
+        {
+          "completion": "complete",
+          "expected_rows": 960,
+          "method": "C_incontext",
+          "rows": 960
+        },
+        {
+          "completion": "complete",
+          "expected_rows": 960,
+          "method": "LFS",
+          "rows": 960
+        },
+        {
+          "completion": "complete",
+          "expected_rows": 960,
+          "method": "ToT",
+          "rows": 960
+        },
+        {
+          "completion": "complete",
+          "expected_rows": 960,
+          "method": "RAP",
+          "rows": 960
+        }
+      ]
+    },
+    "reference_budget_method_matrix_selected": {
+      "columns": [
+        "task",
+        "budget_B",
+        "method",
+        "n",
+        "solve_rate"
+      ],
+      "rows": [
+        {
+          "budget_B": 28070,
+          "method": "A_cache",
+          "n": 64,
+          "solve_rate": 0.8906,
+          "task": "sudoku"
+        },
+        {
+          "budget_B": 3206226,
+          "method": "A_cache",
+          "n": 64,
+          "solve_rate": 1.0,
+          "task": "futoshiki"
+        },
+        {
+          "budget_B": 22673,
+          "method": "A_cache",
+          "n": 64,
+          "solve_rate": 1.0,
+          "task": "graph_color"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "REASONING_GYM_METHOD_MATRIX_FINAL_LFS_COMPLETE"
+}

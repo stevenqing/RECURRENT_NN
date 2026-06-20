@@ -1,0 +1,66 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_158_floor_paper_priority_suite_complete.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Close priority floor-paper suite Parts 1,2,3,4,7; Parts5/6 pending.",
+    "next_step_routing": "Use as priority-suite read; next run Part5 then Part6.",
+    "outcome": "FLOOR_PAPER_SUITE_PRIORITY_PARTS_1_2_3_4_7_COMPLETE",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "recovery_scope": "Recovered from pasted raw item-log block; selected/truncated tables preserved here, authoritative complete tables live in referenced result artifacts when available."
+  },
+  "item_number": "158",
+  "name": "Floor paper priority suite complete",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Close priority floor-paper suite Parts 1,2,3,4,7; Parts5/6 pending.",
+  "result_tables": {
+    "part3_best_of_n_floor": {
+      "columns": [
+        "task",
+        "budget_B",
+        "n",
+        "solve_rate",
+        "status_counts"
+      ],
+      "rows": [
+        {
+          "budget_B": 28070,
+          "n": 64,
+          "solve_rate": 0,
+          "status_counts": "BUDGET_EXHAUSTED=64",
+          "task": "sudoku"
+        },
+        {
+          "budget_B": 3206226,
+          "n": 64,
+          "solve_rate": 0,
+          "status_counts": "BUDGET_EXHAUSTED=64",
+          "task": "futoshiki"
+        },
+        {
+          "budget_B": 32895,
+          "n": 64,
+          "solve_rate": 0,
+          "status_counts": "BUDGET_EXHAUSTED=64",
+          "task": "graph_color"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "FLOOR_PAPER_SUITE_PRIORITY_PARTS_1_2_3_4_7_COMPLETE"
+}

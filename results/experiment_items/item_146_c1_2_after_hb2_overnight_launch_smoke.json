@@ -1,0 +1,88 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_146_c1_2_after_hb2_overnight_launch_smoke.json",
+    "analysis/c1_2_architecture_restore_characterization.py",
+    "scripts/launch_item145_after_hb2_overnight.sh",
+    "results/c1_2_architecture_restore_characterization/item145_overnight_v0/smoke_internal_tiny.json",
+    "results/c1_2_architecture_restore_characterization/item145_overnight_v0/launch_manifest.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Queue Item145 C1.2 architecture restore characterization after HB-2 and validate runner mechanics with CPU tiny smoke.",
+    "next_step_routing": "Let watcher continue; formal C1.2 panel not yet a verdict in this item.",
+    "outcome": "C1_2_AFTER_HB2_OVERNIGHT_WATCHER_LAUNCHED_SMOKE_PASS",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "does_not_establish": "Launch/smoke only; no C1.2 headline verdict."
+  },
+  "item_number": "146",
+  "name": "C1.2 after-HB2 overnight launch and runner smoke",
+  "provenance": {
+    "parent_items": [
+      "145"
+    ],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Queue Item145 C1.2 architecture restore characterization after HB-2 and validate runner mechanics with CPU tiny smoke.",
+  "result_tables": {
+    "hb2_progress_at_launch": {
+      "columns": [
+        "baseline",
+        "shard_rows",
+        "status"
+      ],
+      "rows": [
+        {
+          "baseline": "best_of_n",
+          "shard_rows": "81/240,82/240,81/240,80/240",
+          "status": "INCOMPLETE_RUNNING"
+        },
+        {
+          "baseline": "lfs",
+          "shard_rows": "235/240,230/240,233/240,236/240",
+          "status": "INCOMPLETE_STALLED_OR_WAITING"
+        },
+        {
+          "baseline": "tot_rap",
+          "shard_rows": "480/480,480/480,480/480,480/480",
+          "status": "COMPLETE"
+        }
+      ]
+    },
+    "smoke_summary": {
+      "columns": [
+        "artifact",
+        "rows",
+        "pass_rows",
+        "methods",
+        "paths",
+        "decision_agreement",
+        "max_abs_logit_delta",
+        "max_abs_final_hidden_delta"
+      ],
+      "rows": [
+        {
+          "artifact": "results/c1_2_architecture_restore_characterization/item145_overnight_v0/smoke_internal_tiny.json",
+          "decision_agreement": 1,
+          "max_abs_final_hidden_delta": 4.768e-07,
+          "max_abs_logit_delta": 5.96e-08,
+          "methods": "m1_truncation,m2_full_state_snapshot",
+          "pass_rows": 8,
+          "paths": "prefix,sequential",
+          "rows": 8
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "C1_2_AFTER_HB2_OVERNIGHT_WATCHER_LAUNCHED_SMOKE_PASS"
+}

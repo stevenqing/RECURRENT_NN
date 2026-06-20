@@ -1,0 +1,48 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_135_missing_cluster_pull_required.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Item 135 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.",
+    "next_step_routing": "Pull results/experiment_items/item_135_*.json from the cluster; do not infer or cite this placeholder as evidence.",
+    "outcome": "ITEM_135_MISSING_CLUSTER_PULL_REQUIRED",
+    "overall_pass": false
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "does_not_establish": "Placeholder only. No empirical result, command, or table is reconstructed for this item."
+  },
+  "item_number": "135",
+  "name": "Item 135 missing cluster pull required",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Item 135 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.",
+  "result_tables": {
+    "missing_recovery": {
+      "columns": [
+        "item",
+        "status",
+        "required_action"
+      ],
+      "rows": [
+        {
+          "item": 135,
+          "required_action": "pull authoritative JSON from cluster",
+          "status": "not recovered locally"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "ITEM_135_MISSING_CLUSTER_PULL_REQUIRED"
+}

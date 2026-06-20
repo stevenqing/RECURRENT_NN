@@ -1,0 +1,172 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "163",
+  "name": "C1.2 real Mamba reproduction on GPUs 0-3",
+  "status": "C1_2_GPU0_3_REPRODUCTION_LOCKED",
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "purpose": "Reproduce the Item162 real pretrained Mamba C1.2 flip verification independently on GPUs 0, 1, 2, and 3 after restoring the item log after 132. Each GPU runs the same state-spaces/mamba-130m-hf M1/M2 checkpoint-restore depth sweep.",
+  "artifacts": [
+    "results/experiment_items/item_163_c1_2_gpu0_3_reproduction.json",
+    "analysis/c1_2_reproduce_mamba.py",
+    "results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu0_real_mamba_depth_sweep.json",
+    "results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu1_real_mamba_depth_sweep.json",
+    "results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu2_real_mamba_depth_sweep.json",
+    "results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu3_real_mamba_depth_sweep.json",
+    "results/experiment_items/item_162_c1_2_flip_verification_real_checkpoint.json"
+  ],
+  "code_added_used": [
+    {
+      "path": "analysis/c1_2_reproduce_mamba.py",
+      "change": "Standalone reproduction runner for the Item162 real pretrained Mamba checkpoint restore test. It deep-copies the Transformers DynamicCache plus current logits for M2, uses a truncation/reset cache baseline for M1, and records a state tensor audit."
+    }
+  ],
+  "commands": [
+    {
+      "command": "uv venv .venv --python python && uv pip install --python .venv/bin/python 'torch>=2.1.0' 'transformers>=4.40.0' huggingface_hub safetensors",
+      "purpose": "Create a local ignored reproduction environment because the old checkout did not include .venv and the system Python lacked transformers."
+    },
+    {
+      "command": "for gpu in 0 1 2 3; do CUDA_VISIBLE_DEVICES=$gpu .venv/bin/python -m analysis.c1_2_reproduce_mamba --device cuda:0 --cuda-visible-devices $gpu --output results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu${gpu}_real_mamba_depth_sweep.json & done; wait",
+      "purpose": "Run four independent real Mamba checkpoint restore reproductions on GPUs 0-3 without killing or preempting any process."
+    },
+    {
+      "command": "python aggregation over results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu*_real_mamba_depth_sweep.json",
+      "purpose": "Print and verify the per-GPU reproduction summaries."
+    }
+  ],
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": [
+      "162"
+    ],
+    "run_root": "results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620",
+    "gpus": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "model_id": "state-spaces/mamba-130m-hf",
+    "model_parameter_count": 129135360,
+    "gpu_policy": "free capacity only; no running process was killed or preempted",
+    "dependency_note": ".venv is local/ignored and is not part of the committed artifacts."
+  },
+  "decision": {
+    "overall_pass": true,
+    "outcome": "LOCKED",
+    "headline": "GPU0-3 independently reproduce Item162: M2 exact full-state snapshot, M1 truncation fails, C1.2 flip remains locked.",
+    "gate_outcomes": [
+      {
+        "gate": "gpu0_3_reproduction",
+        "outcome": "PASS",
+        "number": "4/4 GPUs report C1_2_GPU03_REPRO_LOCKED and TRADE-OFF-FLIPS."
+      },
+      {
+        "gate": "m2_depth_sweep",
+        "outcome": "PASS",
+        "number": "On every GPU, M2 has resume_divergence_max=0.0 and decision_agreement=1.0 for depths 1,8,32,128."
+      },
+      {
+        "gate": "m1_negative_control",
+        "outcome": "PASS",
+        "number": "On every GPU, M1 has nonzero divergence and decision_agreement below 1.0 across the depth sweep."
+      }
+    ],
+    "next_step_routing": "Use Item163 as the GPU0-3 reproduction confirmation for the Item162 C1.2 flip lock. Part 5 and Part 6 may resume only when explicitly requested."
+  },
+  "result_tables": {
+    "gpu_reproduction_summary": {
+      "columns": [
+        "gpu",
+        "status",
+        "kill_verdict",
+        "c1_2_verdict",
+        "model_params",
+        "captured_tensors"
+      ],
+      "rows": [
+        {
+          "gpu": 0,
+          "status": "C1_2_GPU03_REPRO_LOCKED",
+          "kill_verdict": "LOCKED",
+          "c1_2_verdict": "TRADE-OFF-FLIPS",
+          "model_params": 129135360,
+          "captured_tensors": 49
+        },
+        {
+          "gpu": 1,
+          "status": "C1_2_GPU03_REPRO_LOCKED",
+          "kill_verdict": "LOCKED",
+          "c1_2_verdict": "TRADE-OFF-FLIPS",
+          "model_params": 129135360,
+          "captured_tensors": 49
+        },
+        {
+          "gpu": 2,
+          "status": "C1_2_GPU03_REPRO_LOCKED",
+          "kill_verdict": "LOCKED",
+          "c1_2_verdict": "TRADE-OFF-FLIPS",
+          "model_params": 129135360,
+          "captured_tensors": 49
+        },
+        {
+          "gpu": 3,
+          "status": "C1_2_GPU03_REPRO_LOCKED",
+          "kill_verdict": "LOCKED",
+          "c1_2_verdict": "TRADE-OFF-FLIPS",
+          "model_params": 129135360,
+          "captured_tensors": 49
+        }
+      ]
+    },
+    "depth_sweep_all_gpus": {
+      "columns": [
+        "depth",
+        "m1_resume_divergence_max",
+        "m1_decision_agreement",
+        "m2_resume_divergence_max",
+        "m2_decision_agreement",
+        "m2_bit_exact"
+      ],
+      "rows": [
+        {
+          "depth": 1,
+          "m1_resume_divergence_max": 111.3553466796875,
+          "m1_decision_agreement": 0.0,
+          "m2_resume_divergence_max": 0.0,
+          "m2_decision_agreement": 1.0,
+          "m2_bit_exact": true
+        },
+        {
+          "depth": 8,
+          "m1_resume_divergence_max": 179.5863037109375,
+          "m1_decision_agreement": 0.0,
+          "m2_resume_divergence_max": 0.0,
+          "m2_decision_agreement": 1.0,
+          "m2_bit_exact": true
+        },
+        {
+          "depth": 32,
+          "m1_resume_divergence_max": 179.5863037109375,
+          "m1_decision_agreement": 0.0,
+          "m2_resume_divergence_max": 0.0,
+          "m2_decision_agreement": 1.0,
+          "m2_bit_exact": true
+        },
+        {
+          "depth": 128,
+          "m1_resume_divergence_max": 179.5863037109375,
+          "m1_decision_agreement": 0.0078125,
+          "m2_resume_divergence_max": 0.0,
+          "m2_decision_agreement": 1.0,
+          "m2_bit_exact": true
+        }
+      ]
+    }
+  },
+  "honesty": {
+    "reproduction_scope": "This item reproduces Item162 on GPUs 0-3 using the same real pretrained Mamba checkpoint and depth sweep. It does not add a new architecture family.",
+    "artifact_scope": "Large per-GPU JSON outputs are under results/ and may be ignored by git; the item records their local paths and summaries.",
+    "environment_scope": "A local .venv was created because this checkout lacked one; it is intentionally not committed."
+  }
+}

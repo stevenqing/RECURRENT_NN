@@ -1,0 +1,73 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_144_capability_cliff_final_verdict.json",
+    "results/kvcache_capability_cliff/formal_v0/merged_capability_cliff_verdict.json",
+    "results/experiment_items/item_142_capability_cliff_formal_partial_vllm.json",
+    "results/experiment_items/item_143_capability_cliff_sudoku_formal_vllm.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Close capability-cliff probe: observed degradation is better read as length/context effects and low base decision quality, not restore-necessity capability cliff.",
+    "next_step_routing": "Report reversible TTC restore as context-reduction/efficiency mechanism under current evidence.",
+    "outcome": "CAPABILITY_CLIFF_FINAL_VERDICT_LENGTH_CONFOUND_NO_CAPABILITY_CLIFF",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "does_not_establish": "Rejects capability necessity under preregistered controls; does not prove restore is capability-necessary."
+  },
+  "item_number": "144",
+  "name": "Capability-cliff final merged verdict",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Close capability-cliff probe: observed degradation is better read as length/context effects and low base decision quality, not restore-necessity capability cliff.",
+  "result_tables": {
+    "final_verdict_by_task": {
+      "columns": [
+        "task",
+        "levels",
+        "deep_gap",
+        "gap_spearman",
+        "max_neutral_gap",
+        "outcome"
+      ],
+      "rows": [
+        {
+          "deep_gap": 0.1389,
+          "gap_spearman": 0.1429,
+          "levels": "500,1000,2000,4000,8000,16000,32000",
+          "max_neutral_gap": 0.2969,
+          "outcome": "LENGTH_CONFOUND",
+          "task": "graph_color"
+        },
+        {
+          "deep_gap": 0.1368,
+          "gap_spearman": -0.6307,
+          "levels": "500,1000,2000,4000,8000,16000,32000",
+          "max_neutral_gap": 0.375,
+          "outcome": "LENGTH_CONFOUND",
+          "task": "deep_graph_color"
+        },
+        {
+          "deep_gap": 0.03125,
+          "gap_spearman": 0.8944,
+          "levels": "500,1000,2000,4000",
+          "max_neutral_gap": 0.04688,
+          "outcome": "NO_CLIFF_EFFICIENCY_LOW_BASE",
+          "task": "sudoku"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "CAPABILITY_CLIFF_FINAL_VERDICT_LENGTH_CONFOUND_NO_CAPABILITY_CLIFF"
+}

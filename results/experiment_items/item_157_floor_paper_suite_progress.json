@@ -1,0 +1,74 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_157_floor_paper_suite_progress.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Record progress on floor-paper suite while best-of-n floor baseline still running.",
+    "next_step_routing": "Let Part3 finish, regenerate Part7, write final suite item; Parts5/6 pending.",
+    "outcome": "FLOOR_PAPER_SUITE_PARTS_1_2_4_7_DONE_PART3_RUNNING",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "recovery_scope": "Recovered from pasted raw item-log block; selected/truncated tables preserved here, authoritative complete tables live in referenced result artifacts when available."
+  },
+  "item_number": "157",
+  "name": "Floor paper completion suite progress",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Record progress on floor-paper suite while best-of-n floor baseline still running.",
+  "result_tables": {
+    "part2_exact_graph_color": {
+      "columns": [
+        "method",
+        "budget_B",
+        "n",
+        "solve_rate"
+      ],
+      "rows": [
+        {
+          "budget_B": 22673,
+          "method": "A_cache",
+          "n": 64,
+          "solve_rate": 1.0
+        },
+        {
+          "budget_B": 22673,
+          "method": "C_incontext",
+          "n": 64,
+          "solve_rate": 0.4062
+        },
+        {
+          "budget_B": 22673,
+          "method": "LFS",
+          "n": 64,
+          "solve_rate": 0.125
+        },
+        {
+          "budget_B": 22673,
+          "method": "ToT",
+          "n": 64,
+          "solve_rate": 0.4688
+        },
+        {
+          "budget_B": 22673,
+          "method": "RAP",
+          "n": 64,
+          "solve_rate": 0.6094
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "FLOOR_PAPER_SUITE_PARTS_1_2_4_7_DONE_PART3_RUNNING"
+}

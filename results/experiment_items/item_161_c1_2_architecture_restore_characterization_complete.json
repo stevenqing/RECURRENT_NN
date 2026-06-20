@@ -1,0 +1,73 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_161_c1_2_architecture_restore_characterization_complete.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Execute Item145 C1.2 architecture restore characterization; reconstructed panel verdict TRADE-OFF-FLIPS.",
+    "next_step_routing": "C1.2 has verdict; keep Part5/Part6 deferred until explicitly resumed.",
+    "outcome": "C1_2_ARCHITECTURE_RESTORE_CHARACTERIZATION_VERDICT_COMPLETE",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "recovery_scope": "Recovered from pasted raw item-log block; selected/truncated tables preserved here, authoritative complete tables live in referenced result artifacts when available."
+  },
+  "item_number": "161",
+  "name": "C1.2 architecture restore characterization verdict",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Execute Item145 C1.2 architecture restore characterization; reconstructed panel verdict TRADE-OFF-FLIPS.",
+  "result_tables": {
+    "architecture_restore_rows_selected": {
+      "columns": [
+        "architecture",
+        "method",
+        "resume_divergence_max",
+        "decision_agreement",
+        "bit_exact"
+      ],
+      "rows": [
+        {
+          "architecture": "pure_attention_control",
+          "bit_exact": true,
+          "decision_agreement": 1,
+          "method": "m1_truncation",
+          "resume_divergence_max": 0
+        },
+        {
+          "architecture": "gated_deltanet_local_equivalent",
+          "bit_exact": false,
+          "decision_agreement": 0.3021,
+          "method": "m1_truncation",
+          "resume_divergence_max": 9.734
+        },
+        {
+          "architecture": "gated_deltanet_local_equivalent",
+          "bit_exact": true,
+          "decision_agreement": 1,
+          "method": "m2_full_state_snapshot",
+          "resume_divergence_max": 0
+        },
+        {
+          "architecture": "hybrid_attention_gated_state",
+          "bit_exact": true,
+          "decision_agreement": 1,
+          "method": "m2_full_state_snapshot",
+          "resume_divergence_max": 0
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "C1_2_ARCHITECTURE_RESTORE_CHARACTERIZATION_VERDICT_COMPLETE"
+}

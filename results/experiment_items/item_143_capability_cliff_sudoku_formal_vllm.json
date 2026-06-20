@@ -1,0 +1,89 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_143_capability_cliff_sudoku_formal_vllm.json",
+    "results/kvcache_capability_cliff/formal_sudoku_v0/points.json",
+    "results/kvcache_capability_cliff/formal_sudoku_v0/collect.json",
+    "results/kvcache_capability_cliff/formal_sudoku_v0/launch_manifest_vllm_sudoku_0_3.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Record completed sudoku second-structure capability-cliff sweep through 4000 tokens across clean/polluted/neutral-filler.",
+    "next_step_routing": "Merge with Item142 partial read; run missing graph/deep-graph polluted 4000+ and long-context levels.",
+    "outcome": "CAPABILITY_CLIFF_SUDOKU_FORMAL_VLLM_500_4000_COMPLETE_NO_CLIFF_SIGNAL_LOW_BASE",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "does_not_establish": "Does not close full capability-cliff verdict; sudoku-only to 4k, low base accuracy."
+  },
+  "item_number": "143",
+  "name": "Capability-cliff sudoku formal vLLM sweep on GPUs 0-3",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Record completed sudoku second-structure capability-cliff sweep through 4000 tokens across clean/polluted/neutral-filler.",
+  "result_tables": {
+    "coverage_summary": {
+      "columns": [
+        "task",
+        "structure",
+        "levels",
+        "conditions",
+        "rows",
+        "complete_to_4k"
+      ],
+      "rows": [
+        {
+          "complete_to_4k": true,
+          "conditions": "clean,polluted,neutral_filler",
+          "levels": "500,1000,2000,4000",
+          "rows": 768,
+          "structure": "empty45",
+          "task": "sudoku"
+        }
+      ]
+    },
+    "selected_sudoku_rates": {
+      "columns": [
+        "target_tokens",
+        "condition",
+        "n",
+        "correct_move_rate",
+        "dead_reentry_rate"
+      ],
+      "rows": [
+        {
+          "condition": "clean",
+          "correct_move_rate": 0.03125,
+          "dead_reentry_rate": 0.1562,
+          "n": 64,
+          "target_tokens": 500
+        },
+        {
+          "condition": "polluted",
+          "correct_move_rate": 0.0,
+          "dead_reentry_rate": 0.07812,
+          "n": 64,
+          "target_tokens": 4000
+        },
+        {
+          "condition": "neutral_filler",
+          "correct_move_rate": 0.07812,
+          "dead_reentry_rate": 0.125,
+          "n": 64,
+          "target_tokens": 4000
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "CAPABILITY_CLIFF_SUDOKU_FORMAL_VLLM_500_4000_COMPLETE_NO_CLIFF_SIGNAL_LOW_BASE"
+}

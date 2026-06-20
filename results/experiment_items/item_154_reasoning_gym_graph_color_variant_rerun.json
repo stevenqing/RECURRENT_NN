@@ -1,0 +1,66 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_154_reasoning_gym_graph_color_variant_rerun.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Supersede graph_color portion of Item153; v14 complete, v18/v20 blocked/quarantined.",
+    "next_step_routing": "Quote v14 only; rerun v18/v20 with safer plan.",
+    "outcome": "REASONING_GYM_GRAPH_COLOR_VARIANT_RERUN_V14_COMPLETE_V18_V20_BLOCKED",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "recovery_scope": "Recovered from pasted raw item-log block; selected/truncated tables preserved here, authoritative complete tables live in referenced result artifacts when available."
+  },
+  "item_number": "154",
+  "name": "Reasoning Gym graph_color variant rerun after GPU4-7 vLLM shutdown",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Supersede graph_color portion of Item153; v14 complete, v18/v20 blocked/quarantined.",
+  "result_tables": {
+    "graph_color_variant_rerun_status": {
+      "columns": [
+        "variant",
+        "status",
+        "quotable",
+        "n_curve",
+        "B_star"
+      ],
+      "rows": [
+        {
+          "B_star": 15793,
+          "n_curve": 32,
+          "quotable": true,
+          "status": "COMPLETE",
+          "variant": "v14_p04"
+        },
+        {
+          "B_star": 1,
+          "n_curve": 16,
+          "quotable": false,
+          "status": "QUARANTINED_PARTIAL_OOM",
+          "variant": "v18_p04"
+        },
+        {
+          "B_star": null,
+          "n_curve": 0,
+          "quotable": false,
+          "status": "STOPPED_PREFLIGHT_NO_ARTIFACTS",
+          "variant": "v20_p04"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "REASONING_GYM_GRAPH_COLOR_VARIANT_RERUN_V14_COMPLETE_V18_V20_BLOCKED"
+}

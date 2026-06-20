@@ -1,0 +1,59 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_160_ac_arithmetic_puzzle24_countdown.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Run matched-budget A-vs-C arithmetic trace on same RG puzzle24/countdown tasks.",
+    "next_step_routing": "Use as complete puzzle24/countdown comparison including A/C and external baselines.",
+    "outcome": "AC_ARITHMETIC_PUZZLE24_COUNTDOWN_COMPLETE",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "recovery_scope": "Recovered from pasted raw item-log block; selected/truncated tables preserved here, authoritative complete tables live in referenced result artifacts when available."
+  },
+  "item_number": "160",
+  "name": "A_cache and C_incontext arithmetic arm on puzzle24 and countdown",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Run matched-budget A-vs-C arithmetic trace on same RG puzzle24/countdown tasks.",
+  "result_tables": {
+    "ac_gap_summary": {
+      "columns": [
+        "task",
+        "budget_B",
+        "A_solve_rate",
+        "C_solve_rate",
+        "A_minus_C"
+      ],
+      "rows": [
+        {
+          "A_minus_C": 0.2344,
+          "A_solve_rate": 0.5312,
+          "C_solve_rate": 0.2969,
+          "budget_B": 8000,
+          "task": "puzzle24"
+        },
+        {
+          "A_minus_C": 0.1406,
+          "A_solve_rate": 0.2344,
+          "C_solve_rate": 0.09375,
+          "budget_B": 16000,
+          "task": "countdown"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "AC_ARITHMETIC_PUZZLE24_COUNTDOWN_COMPLETE"
+}

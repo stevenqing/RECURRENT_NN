@@ -1,0 +1,64 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_147_hb2_lfs_tot_rap_vllm_results_update.json",
+    "results/kvcache_matched_budget_v0/hb2_status/item147_lfs_tot_rap_vllm_update.json",
+    "results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_multiserver/merged_tot_rap_vllm_full_grid_n64.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Record current HB-2 vLLM external-baseline read: ToT/RAP complete; LFS 959/960 near-complete and stale merge not final.",
+    "next_step_routing": "Monitor LFS shard2 and best-of-n; final closeout when all merged.",
+    "outcome": "HB2_TOT_RAP_VLLM_COMPLETE_LFS_PARTIAL_UPDATE",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "does_not_establish": "Does not close HB-2; LFS and best-of-n unfinished."
+  },
+  "item_number": "147",
+  "name": "HB-2 vLLM LFS and ToT/RAP results update",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Record current HB-2 vLLM external-baseline read: ToT/RAP complete; LFS 959/960 near-complete and stale merge not final.",
+  "result_tables": {
+    "coverage": {
+      "columns": [
+        "baseline",
+        "row_state",
+        "merged_state",
+        "verdict_use"
+      ],
+      "rows": [
+        {
+          "baseline": "ToT/RAP",
+          "merged_state": "fresh complete merged result",
+          "row_state": "1920/1920",
+          "verdict_use": "eligible complete vLLM backend result"
+        },
+        {
+          "baseline": "LFS",
+          "merged_state": "stale rows=0 merged file",
+          "row_state": "959/960",
+          "verdict_use": "partial near-complete telemetry only"
+        },
+        {
+          "baseline": "best-of-n",
+          "merged_state": "missing",
+          "row_state": "382/960",
+          "verdict_use": "not read as result"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "HB2_TOT_RAP_VLLM_COMPLETE_LFS_PARTIAL_UPDATE"
+}

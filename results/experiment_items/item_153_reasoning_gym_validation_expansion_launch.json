@@ -1,0 +1,58 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_153_reasoning_gym_validation_expansion_launch.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Add mini_sudoku/harder sudoku A/C curves and attempt graph_color variants; sudoku variants complete, graph_color blocked.",
+    "next_step_routing": "Rerun graph_color variants after freeing GPU/vLLM or with safer plan.",
+    "outcome": "REASONING_GYM_VALIDATION_EXPANSION_SUDOKU_COMPLETE_GRAPH_COLOR_BLOCKED",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "recovery_scope": "Recovered from pasted raw item-log block; selected/truncated tables preserved here, authoritative complete tables live in referenced result artifacts when available."
+  },
+  "item_number": "153",
+  "name": "Reasoning Gym environment validation expansion",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Add mini_sudoku/harder sudoku A/C curves and attempt graph_color variants; sudoku variants complete, graph_color blocked.",
+  "result_tables": {
+    "graph_color_variant_status": {
+      "columns": [
+        "variant",
+        "status",
+        "reason"
+      ],
+      "rows": [
+        {
+          "reason": "CUDA OOM under GPU4-7 vLLM memory occupancy",
+          "status": "FAILED",
+          "variant": "v14_p04"
+        },
+        {
+          "reason": "same launch batch after v14 OOM",
+          "status": "FAILED_OR_SUPERSEDED",
+          "variant": "v18_p04"
+        },
+        {
+          "reason": "preflight/resource blocked",
+          "status": "STOPPED_PRECHECKPOINT",
+          "variant": "v20_p04"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "REASONING_GYM_VALIDATION_EXPANSION_SUDOKU_COMPLETE_GRAPH_COLOR_BLOCKED"
+}

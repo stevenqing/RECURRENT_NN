@@ -1,0 +1,73 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_156_sudoku_empty_variants_validation.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Run A_cache/C_incontext across sudoku empty-cell bands 25-35,35-45,45-55,55-60.",
+    "next_step_routing": "Use as environment-robustness evidence; external baselines optional later.",
+    "outcome": "SUDOKU_EMPTY_VARIANTS_A_C_COMPLETE",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "recovery_scope": "Recovered from pasted raw item-log block; selected/truncated tables preserved here, authoritative complete tables live in referenced result artifacts when available."
+  },
+  "item_number": "156",
+  "name": "Sudoku empty-range variant validation",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Run A_cache/C_incontext across sudoku empty-cell bands 25-35,35-45,45-55,55-60.",
+  "result_tables": {
+    "sudoku_variant_reference_budget": {
+      "columns": [
+        "variant",
+        "budget_B",
+        "method",
+        "n",
+        "solve_rate"
+      ],
+      "rows": [
+        {
+          "budget_B": 28070,
+          "method": "A_cache",
+          "n": 64,
+          "solve_rate": 1.0,
+          "variant": "empty25_35"
+        },
+        {
+          "budget_B": 28070,
+          "method": "A_cache",
+          "n": 64,
+          "solve_rate": 0.9531,
+          "variant": "empty35_45"
+        },
+        {
+          "budget_B": 28070,
+          "method": "A_cache",
+          "n": 64,
+          "solve_rate": 0.4688,
+          "variant": "empty45_55"
+        },
+        {
+          "budget_B": 28070,
+          "method": "A_cache",
+          "n": 64,
+          "solve_rate": 0.03125,
+          "variant": "empty55_60"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "SUDOKU_EMPTY_VARIANTS_A_C_COMPLETE"
+}

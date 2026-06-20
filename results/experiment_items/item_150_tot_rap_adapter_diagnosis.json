@@ -1,0 +1,68 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_150_tot_rap_adapter_diagnosis.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Diagnose premature BUDGET_EXHAUSTED bug in ToT/RAP adapter and quarantine old zero curves.",
+    "next_step_routing": "Rerun corrected ToT/RAP full grid.",
+    "outcome": "TOT_RAP_ADAPTER_PREMATURE_BUDGET_EXHAUSTION_DIAGNOSED_FIX_SMOKE_PASS_PARTIAL",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "recovery_scope": "Recovered from pasted raw item-log block; selected/truncated tables preserved here, authoritative complete tables live in referenced result artifacts when available."
+  },
+  "item_number": "150",
+  "name": "ToT/RAP adapter diagnosis against official repo semantics",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Diagnose premature BUDGET_EXHAUSTED bug in ToT/RAP adapter and quarantine old zero curves.",
+  "result_tables": {
+    "fix_smoke_rows": {
+      "columns": [
+        "method",
+        "task",
+        "source_index",
+        "status",
+        "tokens_used",
+        "depth_reached",
+        "expansions",
+        "official_score"
+      ],
+      "rows": [
+        {
+          "depth_reached": 4,
+          "expansions": 15,
+          "method": "ToT",
+          "official_score": 0,
+          "source_index": 0,
+          "status": "NO_FRONTIER",
+          "task": "sudoku",
+          "tokens_used": 3225
+        },
+        {
+          "depth_reached": 4,
+          "expansions": 8,
+          "method": "RAP",
+          "official_score": 0,
+          "source_index": 0,
+          "status": "MCTS_ITER_CAP",
+          "task": "sudoku",
+          "tokens_used": 3040
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "TOT_RAP_ADAPTER_PREMATURE_BUDGET_EXHAUSTION_DIAGNOSED_FIX_SMOKE_PASS_PARTIAL"
+}

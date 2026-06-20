@@ -1,0 +1,58 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_151_tot_rap_corrected_gpu4_7_launch.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Delete/quarantine old ToT/RAP root and relaunch corrected baselines on GPU4-7 vLLM servers.",
+    "next_step_routing": "Monitor corrected ToT/RAP checkpoints until merged.",
+    "outcome": "TOT_RAP_CORRECTED_GPU4_7_RERUN_LAUNCHED_RUNNING",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "recovery_scope": "Recovered from pasted raw item-log block; selected/truncated tables preserved here, authoritative complete tables live in referenced result artifacts when available."
+  },
+  "item_number": "151",
+  "name": "Corrected ToT/RAP rerun on GPU4-7",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Delete/quarantine old ToT/RAP root and relaunch corrected baselines on GPU4-7 vLLM servers.",
+  "result_tables": {
+    "launch_checkpoint_state": {
+      "columns": [
+        "path",
+        "rows"
+      ],
+      "rows": [
+        {
+          "path": "checkpoint_0.json",
+          "rows": 3
+        },
+        {
+          "path": "checkpoint_1.json",
+          "rows": 5
+        },
+        {
+          "path": "checkpoint_2.json",
+          "rows": 3
+        },
+        {
+          "path": "checkpoint_3.json",
+          "rows": 6
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "TOT_RAP_CORRECTED_GPU4_7_RERUN_LAUNCHED_RUNNING"
+}

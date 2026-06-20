@@ -1,0 +1,100 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_162_c1_2_flip_verification_real_checkpoint.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Verify C1.2 flip on real pretrained state-spaces/mamba-130m-hf with audited-complete DynamicCache snapshot and depth sweep.",
+    "next_step_routing": "Constructive C1.2 headline stands; if rerun ever downgrades, revise Section 4.",
+    "outcome": "C1_2_FLIP_VERIFICATION_LOCKED",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "recovery_scope": "Recovered from pasted raw item-log block; selected/truncated tables preserved here, authoritative complete tables live in referenced result artifacts when available."
+  },
+  "item_number": "162",
+  "name": "C1.2 flip verification on real pretrained bounded-state checkpoint",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Verify C1.2 flip on real pretrained state-spaces/mamba-130m-hf with audited-complete DynamicCache snapshot and depth sweep.",
+  "result_tables": {
+    "depth_sweep": {
+      "columns": [
+        "depth",
+        "m1_resume_divergence_max",
+        "m1_decision_agreement",
+        "m2_resume_divergence_max",
+        "m2_decision_agreement",
+        "m2_bit_exact"
+      ],
+      "rows": [
+        {
+          "depth": 1,
+          "m1_decision_agreement": 0,
+          "m1_resume_divergence_max": 111.4,
+          "m2_bit_exact": true,
+          "m2_decision_agreement": 1,
+          "m2_resume_divergence_max": 0
+        },
+        {
+          "depth": 8,
+          "m1_decision_agreement": 0,
+          "m1_resume_divergence_max": 179.6,
+          "m2_bit_exact": true,
+          "m2_decision_agreement": 1,
+          "m2_resume_divergence_max": 0
+        },
+        {
+          "depth": 32,
+          "m1_decision_agreement": 0,
+          "m1_resume_divergence_max": 179.6,
+          "m2_bit_exact": true,
+          "m2_decision_agreement": 1,
+          "m2_resume_divergence_max": 0
+        },
+        {
+          "depth": 128,
+          "m1_decision_agreement": 0.007812,
+          "m1_resume_divergence_max": 179.6,
+          "m2_bit_exact": true,
+          "m2_decision_agreement": 1,
+          "m2_resume_divergence_max": 0
+        }
+      ]
+    },
+    "real_model_faithfulness": {
+      "columns": [
+        "architecture",
+        "model_id",
+        "model_class",
+        "parameter_count",
+        "library",
+        "forward_path",
+        "real_pretrained_checkpoint"
+      ],
+      "rows": [
+        {
+          "architecture": "real_pretrained_mamba",
+          "forward_path": "recurrent_sequential_fallback",
+          "library": "transformers==5.12.1",
+          "model_class": "MambaForCausalLM",
+          "model_id": "state-spaces/mamba-130m-hf",
+          "parameter_count": 129135360,
+          "real_pretrained_checkpoint": true
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "C1_2_FLIP_VERIFICATION_LOCKED"
+}

@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-16T07:19:48.061298+00:00
+Generated at: 2026-06-20T07:19:54.160256+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -129,6 +129,36 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 131 | HB-2 LFS multi-state speed smoke | HB2_LFS_MULTISTATE_SPEED_SMOKE_COMPLETE_NOT_FINAL | Run a B*-only n=4 sudoku+graph_color equivalence/sanity pilot before considering B*-only n=64 interim with the multi-state backend. |
 | 132 | HB-2 LFS vLLM backend speed smoke | HB2_LFS_VLLM_BACKEND_SPEED_SMOKE_COMPLETE_NOT_FINAL | Run a B*-only n=4 sudoku+graph_color vLLM sanity pilot before any n=64 interim. Keep vLLM backend results separate from direct-Transformers LFS results. |
 | 133 | HB-2 LFS vLLM multi-server launch | HB2_LFS_VLLM_MULTISERVER_LAUNCHED_NO_CONCLUSION | Monitor vLLM LFS checkpoints and merged output. If stable and fast, decide whether to run ToT/RAP vLLM backend separately or use LFS vLLM as an interim external baseline read. |
+| 134 | Item 134 missing cluster pull required | ITEM_134_MISSING_CLUSTER_PULL_REQUIRED | Pull results/experiment_items/item_134_*.json from the cluster; do not infer or cite this placeholder as evidence. |
+| 135 | Item 135 missing cluster pull required | ITEM_135_MISSING_CLUSTER_PULL_REQUIRED | Pull results/experiment_items/item_135_*.json from the cluster; do not infer or cite this placeholder as evidence. |
+| 136 | Item 136 missing cluster pull required | ITEM_136_MISSING_CLUSTER_PULL_REQUIRED | Pull results/experiment_items/item_136_*.json from the cluster; do not infer or cite this placeholder as evidence. |
+| 137 | Item 137 missing cluster pull required | ITEM_137_MISSING_CLUSTER_PULL_REQUIRED | Pull results/experiment_items/item_137_*.json from the cluster; do not infer or cite this placeholder as evidence. |
+| 138 | Item 138 missing cluster pull required | ITEM_138_MISSING_CLUSTER_PULL_REQUIRED | Pull results/experiment_items/item_138_*.json from the cluster; do not infer or cite this placeholder as evidence. |
+| 139 | Item 139 missing cluster pull required | ITEM_139_MISSING_CLUSTER_PULL_REQUIRED | Pull results/experiment_items/item_139_*.json from the cluster; do not infer or cite this placeholder as evidence. |
+| 140 | Item 140 missing cluster pull required | ITEM_140_MISSING_CLUSTER_PULL_REQUIRED | Pull results/experiment_items/item_140_*.json from the cluster; do not infer or cite this placeholder as evidence. |
+| 141 | Item 141 missing cluster pull required | ITEM_141_MISSING_CLUSTER_PULL_REQUIRED | Pull results/experiment_items/item_141_*.json from the cluster; do not infer or cite this placeholder as evidence. |
+| 142 | Capability-cliff formal partial vLLM sweep on GPUs 0-3 | CAPABILITY_CLIFF_FORMAL_PARTIAL_VLLM_SHORT_COMPLETE_4K_FILTERED_COMPLETE_NO_VERDICT | Run complete deep-end polluted 4000+ coverage with long-context backend; do not issue verdict from Item142 alone. |
+| 143 | Capability-cliff sudoku formal vLLM sweep on GPUs 0-3 | CAPABILITY_CLIFF_SUDOKU_FORMAL_VLLM_500_4000_COMPLETE_NO_CLIFF_SIGNAL_LOW_BASE | Merge with Item142 partial read; run missing graph/deep-graph polluted 4000+ and long-context levels. |
+| 144 | Capability-cliff final merged verdict | CAPABILITY_CLIFF_FINAL_VERDICT_LENGTH_CONFOUND_NO_CAPABILITY_CLIFF | Report reversible TTC restore as context-reduction/efficiency mechanism under current evidence. |
+| 145 | C1.2 architecture characterization of exact restore preregistration | C1_2_ARCHITECTURE_RESTORE_CHARACTERIZATION_PREREGISTERED_V0 | Create execution manifest and run KM-3-compatible M1/M2 panel. |
+| 146 | C1.2 after-HB2 overnight launch and runner smoke | C1_2_AFTER_HB2_OVERNIGHT_WATCHER_LAUNCHED_SMOKE_PASS | Let watcher continue; formal C1.2 panel not yet a verdict in this item. |
+| 147 | HB-2 vLLM LFS and ToT/RAP results update | HB2_TOT_RAP_VLLM_COMPLETE_LFS_PARTIAL_UPDATE | Monitor LFS shard2 and best-of-n; final closeout when all merged. |
+| 148 | Item 148 missing cluster pull required | ITEM_148_MISSING_CLUSTER_PULL_REQUIRED | Pull results/experiment_items/item_148_*.json from the cluster; do not infer or cite this placeholder as evidence. |
+| 149 | Reasoning Gym method matrix interim comparison | REASONING_GYM_METHOD_MATRIX_INTERIM_COMPARE_LFS_PARTIAL_TOT_RAP_QUARANTINED | Wait for LFS merged output and corrected ToT/RAP rerun. |
+| 150 | ToT/RAP adapter diagnosis against official repo semantics | TOT_RAP_ADAPTER_PREMATURE_BUDGET_EXHAUSTION_DIAGNOSED_FIX_SMOKE_PASS_PARTIAL | Rerun corrected ToT/RAP full grid. |
+| 151 | Corrected ToT/RAP rerun on GPU4-7 | TOT_RAP_CORRECTED_GPU4_7_RERUN_LAUNCHED_RUNNING | Monitor corrected ToT/RAP checkpoints until merged. |
+| 152 | Reasoning Gym corrected ToT/RAP comparison | REASONING_GYM_CORRECTED_TOT_RAP_COMPARE_LFS_PARTIAL | Wait for LFS merged output; preserve graph_color nearest-vs-exact caveat. |
+| 153 | Reasoning Gym environment validation expansion | REASONING_GYM_VALIDATION_EXPANSION_SUDOKU_COMPLETE_GRAPH_COLOR_BLOCKED | Rerun graph_color variants after freeing GPU/vLLM or with safer plan. |
+| 154 | Reasoning Gym graph_color variant rerun after GPU4-7 vLLM shutdown | REASONING_GYM_GRAPH_COLOR_VARIANT_RERUN_V14_COMPLETE_V18_V20_BLOCKED | Quote v14 only; rerun v18/v20 with safer plan. |
+| 155 | Reasoning Gym final method matrix with LFS complete | REASONING_GYM_METHOD_MATRIX_FINAL_LFS_COMPLETE | Use as final Reasoning Gym matched-budget method-matrix read; quote graph_color caveat. |
+| 156 | Sudoku empty-range variant validation | SUDOKU_EMPTY_VARIANTS_A_C_COMPLETE | Use as environment-robustness evidence; external baselines optional later. |
+| 157 | Floor paper completion suite progress | FLOOR_PAPER_SUITE_PARTS_1_2_4_7_DONE_PART3_RUNNING | Let Part3 finish, regenerate Part7, write final suite item; Parts5/6 pending. |
+| 158 | Floor paper priority suite complete | FLOOR_PAPER_SUITE_PRIORITY_PARTS_1_2_3_4_7_COMPLETE | Use as priority-suite read; next run Part5 then Part6. |
+| 159 | Official benchmark pilot on puzzle24 and countdown | OFFICIAL_BENCHMARK_PILOT_PUZZLE24_COUNTDOWN_COMPLETE | Use as completed native-like arithmetic external baseline pilot; A/C arm is Item160. |
+| 160 | A_cache and C_incontext arithmetic arm on puzzle24 and countdown | AC_ARITHMETIC_PUZZLE24_COUNTDOWN_COMPLETE | Use as complete puzzle24/countdown comparison including A/C and external baselines. |
+| 161 | C1.2 architecture restore characterization verdict | C1_2_ARCHITECTURE_RESTORE_CHARACTERIZATION_VERDICT_COMPLETE | C1.2 has verdict; keep Part5/Part6 deferred until explicitly resumed. |
+| 162 | C1.2 flip verification on real pretrained bounded-state checkpoint | C1_2_FLIP_VERIFICATION_LOCKED | Constructive C1.2 headline stands; if rerun ever downgrades, revise Section 4. |
+| 163 | C1.2 real Mamba reproduction on GPUs 0-3 | C1_2_GPU0_3_REPRODUCTION_LOCKED | Use Item163 as the GPU0-3 reproduction confirmation for the Item162 C1.2 flip lock. Part 5 and Part 6 may resume only when explicitly requested. |
 
 ## Item Details
 
@@ -348,7 +378,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - CANONICAL_REPO.md (yes, 532 bytes)
   - analysis/validate_outputs.py (yes, 180370 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84937471 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -472,8 +502,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/continuation_state/post_027.json (yes, 1453 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84937471 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1117562 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -906,12 +936,12 @@ No rows recorded.
   - honesty=The T2 smoke checkpoint, the formal single-GPU checkpoint, and the accelerated 8-GPU checkpoint do not meet G1>=0.95 and do not produce autonomous Stage A cells. W3 now measures the right cached object for round-trip, survival, native-rule gap, and a small W3.2 propagation delta, but the W3.2 verdict remains NOT_ACCEPTED.
 - Artifact refs:
   - results/experiment_items/item_034_t2_t3_cached_state_and_learned_preflight.json (yes, 11335 bytes)
-  - results/recurrent_operator_smoke/acceptance.json (yes, 2433 bytes)
-  - results/recurrent_operator_smoke/learned_recurrent_operator_seed102.pt (yes, 306853 bytes)
+  - results/recurrent_operator_smoke/acceptance.json (missing)
+  - results/recurrent_operator_smoke/learned_recurrent_operator_seed102.pt (missing)
   - artifacts/stage_a/manifest.json (yes, 3486 bytes)
-  - artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt (yes, 526881 bytes)
-  - artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl (yes, 7810663 bytes)
-  - results/stage_a_backtrack_learned_smoke/preflight.json (yes, 14772 bytes)
+  - artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt (missing)
+  - artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl (missing)
+  - results/stage_a_backtrack_learned_smoke/preflight.json (missing)
   - results/w3_qwen35_probe/results.json (yes, 96087 bytes)
   - results/w3_qwen35_probe/verdicts.json (yes, 674 bytes)
   - results/recurrent_operator/acceptance.json (yes, 3194 bytes)
@@ -920,9 +950,12 @@ No rows recorded.
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/recurrent_operator_smoke/acceptance.json | G1_NOT_MET | G1=0.004505; device=cpu; G2=0; checkpoint=results/recurrent_operator_smoke/learned_recurrent_operator_seed102.pt; operator_type=learned_recurrent; seed=102 |  |
+| results/recurrent_operator_smoke/acceptance.json | missing |  |  |
+| results/recurrent_operator_smoke/learned_recurrent_operator_seed102.pt | missing |  |  |
 | artifacts/stage_a/manifest.json | READY | device=cuda:2; artifact_policy=reconstructed_in_repo_not_inherited; n_requested_instances=1024; n_solved_tasks=1024; output_dir=artifacts/stage_a; task_source=tasks.sudoku.generator_4x4 + tasks.oracle.DPLLOracle |  |
-| results/stage_a_backtrack_learned_smoke/preflight.json | READY | total_cells=36 |  |
+| artifacts/stage_a/item142_factored_cell_digit_decoder_depth8_D128.pt | missing |  |  |
+| artifacts/stage_a/internalize_teacher_train1024_maxconf_b128_solved.trace.jsonl | missing |  |  |
+| results/stage_a_backtrack_learned_smoke/preflight.json | missing |  |  |
 | results/w3_qwen35_probe/results.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... | capacity_estimates:6r/6c; capacity_at_real_gdn_dims:8r/13c; decay_survival:5r/5c; model_card:34r/3c; native_rule_gap:3r/7c; propagation_per_task_delta:5r/7c |
 | results/w3_qwen35_probe/verdicts.json | cached_gdn_state_measured_with_propagation_delta | model_id=Qwen/Qwen3.5-4B; measured_object=cached_gdn_recurrent_state; verdicts=W3.0_checkpoint_pin=PASS; W3.1_cached_state_round_trip=MEASURED_CACHED_GDN_RECURRENT_STATE; W3.1_capacity_at_real_gdn... |  |
 | results/recurrent_operator/acceptance.json | G1_NOT_MET | G1=0.0306; device=cuda:0; G2=0.0302; checkpoint=results/recurrent_operator/learned_recurrent_operator_seed102.pt; operator_type=learned_recurrent; seed=102 |  |
@@ -1276,8 +1309,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84937471 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1117562 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1405,8 +1438,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84937471 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1117562 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1493,8 +1526,8 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84937471 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1117562 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1551,25 +1584,28 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_040_track_b_trm_full_3x8gpu_negative.json (yes, 20522 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - analysis/monitor_track_b_trm.py (yes, 10550 bytes)
-  - results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json (yes, 9895 bytes)
-  - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json (yes, 26636 bytes)
-  - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json (yes, 26586 bytes)
-  - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json (yes, 26366 bytes)
-  - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (yes, 11255 bytes)
-  - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (yes, 11389 bytes)
-  - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (yes, 11218 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84937471 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1117562 bytes)
+  - results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json (missing)
+  - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json (missing)
+  - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json (missing)
+  - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json (missing)
+  - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (missing)
+  - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (missing)
+  - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (missing)
+  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | recorded | complete=3; failed=0; n_jobs=3; run_root=results/track_b_trm_3x8gpu_20260608T042649Z; running=0; updated_at=2026-06-16T07:19:23.910406+00:00 |  |
-| results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | GATES_UNREACHED | G1=0.03906; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
-| results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/trm_operator_seed137.pt; operator_type=learned_recurrent |  |
-| results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | GATES_UNREACHED | G1=0.01562; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/trm_operator_seed256.pt; operator_type=learned_recurrent |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | missing |  |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | missing |  |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | missing |  |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | missing |  |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl | missing |  |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl | missing |  |  |
+| results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl | missing |  |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/validation/validation.json | False | summary=n_checks=994; n_fail=3; n_pass=991 |  |
 
@@ -1654,22 +1690,26 @@ Truncated to 24 of 27 rows.
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - analysis/test_sudoku_engine_gpu.py (yes, 4258 bytes)
-  - results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json (yes, 7912 bytes)
-  - results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_key_averages.txt (yes, 16690 bytes)
-  - results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_eval_key_averages.txt (yes, 15108 bytes)
-  - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (yes, 40421 bytes)
-  - results/sudoku_engine_gpu/equivalence_1000.json (yes, 167 bytes)
-  - results/trm_operator_logging_smoke/progress.jsonl (yes, 968 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84937471 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1117562 bytes)
+  - results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json (missing)
+  - results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_key_averages.txt (missing)
+  - results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_eval_key_averages.txt (missing)
+  - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (missing)
+  - results/sudoku_engine_gpu/equivalence_1000.json (missing)
+  - results/trm_operator_logging_smoke/progress.jsonl (missing)
+  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json | recorded | no_optimization_claim=True; profiled_object=experiments.train_trm_operator current Track B per-cell-token trainer; purpose=P0 profile gate before GPU efficiency optimization; semantics mirror current Track B trainer.; started_at=2026-06-08T10:02:52.744806+00:00 |  |
-| results/sudoku_engine_gpu/equivalence_1000.json | True | device=cuda:0; n_boards=1000; n_mismatches=0; name=sudoku_engine_gpu_equivalence; seed=20260608 |  |
+| results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json | missing |  |  |
+| results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_key_averages.txt | missing |  |  |
+| results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_eval_key_averages.txt | missing |  |  |
+| results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl | missing |  |  |
+| results/sudoku_engine_gpu/equivalence_1000.json | missing |  |  |
+| results/trm_operator_logging_smoke/progress.jsonl | missing |  |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/validation/validation.json | False | summary=n_checks=994; n_fail=3; n_pass=991 |  |
 
@@ -1739,16 +1779,16 @@ Truncated to 24 of 27 rows.
   - register/batched_ops.py (yes, 2393 bytes)
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
-  - results/batched_ops/equivalence_100.json (yes, 322 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84937471 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1117562 bytes)
+  - results/batched_ops/equivalence_100.json (missing)
+  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/batched_ops/equivalence_100.json | True | device=cuda:0; n_episodes_generated=100; n_episodes_requested=100; n_mismatches=0; name=register_batched_ops_equivalence; seed=20260608 |  |
+| results/batched_ops/equivalence_100.json | missing |  |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/validation/validation.json | False | summary=n_checks=994; n_fail=3; n_pass=991 |  |
 
@@ -1786,8 +1826,8 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84937471 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1117562 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1839,20 +1879,22 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_044_trainer_prelaunch_gates.json (yes, 7823 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/trm_operator_prelaunch_smoke/acceptance.json (yes, 12066 bytes)
-  - results/trm_operator_prelaunch_smoke/progress.jsonl (yes, 974 bytes)
-  - results/trm_operator_compile_smoke/acceptance.json (yes, 10396 bytes)
-  - results/trm_operator_compile_smoke/progress.jsonl (yes, 486 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84937471 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1117562 bytes)
+  - results/trm_operator_prelaunch_smoke/acceptance.json (missing)
+  - results/trm_operator_prelaunch_smoke/progress.jsonl (missing)
+  - results/trm_operator_compile_smoke/acceptance.json (missing)
+  - results/trm_operator_compile_smoke/progress.jsonl (missing)
+  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/trm_operator_prelaunch_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_prelaunch_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
-| results/trm_operator_compile_smoke/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/trm_operator_compile_smoke/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
+| results/trm_operator_prelaunch_smoke/acceptance.json | missing |  |  |
+| results/trm_operator_prelaunch_smoke/progress.jsonl | missing |  |  |
+| results/trm_operator_compile_smoke/acceptance.json | missing |  |  |
+| results/trm_operator_compile_smoke/progress.jsonl | missing |  |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/validation/validation.json | False | summary=n_checks=994; n_fail=3; n_pass=991 |  |
 
@@ -1898,28 +1940,40 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_045_track_b_ddp_sharded_retry_launch.json (yes, 9802 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - experiments/train_recurrent_operator.py (yes, 40896 bytes)
-  - results/ddp_shard_smoke_track_b_20260608/acceptance.json (yes, 13437 bytes)
-  - results/ddp_shard_smoke_track_b_20260608/progress.jsonl (yes, 1166 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt (yes, 689 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log (yes, 626557 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 42721 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank0.pt (yes, 102497751 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank1.pt (yes, 102753255 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank2.pt (yes, 102465687 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank3.pt (yes, 102732839 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank4.pt (yes, 102890311 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (yes, 102640503 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (yes, 102514311 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (yes, 102594183 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84937471 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1117562 bytes)
+  - results/ddp_shard_smoke_track_b_20260608/acceptance.json (missing)
+  - results/ddp_shard_smoke_track_b_20260608/progress.jsonl (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank0.pt (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank1.pt (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank2.pt (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank3.pt (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank4.pt (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (missing)
+  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/ddp_shard_smoke_track_b_20260608/acceptance.json | G1_NOT_MET | G1=0; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/ddp_shard_smoke_track_b_20260608/trm_operator_seed778.pt; operator_type=learned_recurrent |  |
+| results/ddp_shard_smoke_track_b_20260608/acceptance.json | missing |  |  |
+| results/ddp_shard_smoke_track_b_20260608/progress.jsonl | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank0.pt | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank1.pt | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank2.pt | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank3.pt | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank4.pt | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt | missing |  |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/validation/validation.json | False | summary=n_checks=994; n_fail=3; n_pass=991 |  |
 
@@ -1966,20 +2020,24 @@ Truncated to 24 of 27 rows.
   - honesty=This item does not establish learned Track B success, Stage A autonomous learned evidence, or Qwen integration. It establishes a completed negative seed102 DDP sharded-cache supervised-imitation run.
 - Artifact refs:
   - results/experiment_items/item_046_track_b_ddp_sharded_seed102_final.json (yes, 8184 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt (yes, 689 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log (yes, 626557 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (yes, 42721 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (yes, 80203 bytes)
-  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (yes, 55287865 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84937471 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1117562 bytes)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (missing)
+  - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (missing)
+  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json | GATES_UNREACHED | G1=0.0332; device=cuda:0; G2=0; architecture_class=trm_per_cell_tokens; checkpoint=results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt; operator_type=learned_recurrent |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/launch_command.txt | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/logs/seed102_ddp8.log | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json | missing |  |  |
+| results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt | missing |  |  |
 | results/experiment_log/experiment_log.json | recorded |  |  |
 | results/validation/validation.json | False | summary=n_checks=994; n_fail=3; n_pass=991 |  |
 
@@ -2037,26 +2095,28 @@ Truncated to 24 of 27 rows.
   - honesty=This preregistration alone establishes no observed separation; the observed tables must be written later under the same item/run root. If a required engine or audit is absent, the run must fail closed.
 - Artifact refs:
   - results/experiment_items/item_047_deep_band_track_a_headline_overnight.json (yes, 13111 bytes)
-  - results/overnight_047_headline_preregistered (yes, 4096 bytes)
-  - results/overnight_047_headline_preregistered/line1_headline/line1_headline.json (yes, 110709 bytes)
-  - results/overnight_047_headline_preregistered/line2_track_b_diagnostic/track_b_forced_diagnostic.json (yes, 10401 bytes)
-  - results/overnight_047_headline_preregistered/line3_qwen_d1_decode/qwen35_cache_push_pop_decode.json (yes, 45009 bytes)
-  - results/overnight_047_headline_preregistered/line4_d3/d3_histograms_frontier.json (yes, 2272 bytes)
-  - results/overnight_047_headline_preregistered/monitor_progress.jsonl (yes, 45044 bytes)
-  - results/overnight_047_headline_preregistered/checkpoints/monitor_latest.json (yes, 16297 bytes)
-  - results/overnight_047_headline_preregistered/line1_headline/checkpoints/mining_latest.json (yes, 507 bytes)
-  - results/overnight_047_headline_preregistered/line4_d3/checkpoints/mining_latest.json (yes, 495 bytes)
+  - results/overnight_047_headline_preregistered (missing)
+  - results/overnight_047_headline_preregistered/line1_headline/line1_headline.json (missing)
+  - results/overnight_047_headline_preregistered/line2_track_b_diagnostic/track_b_forced_diagnostic.json (missing)
+  - results/overnight_047_headline_preregistered/line3_qwen_d1_decode/qwen35_cache_push_pop_decode.json (missing)
+  - results/overnight_047_headline_preregistered/line4_d3/d3_histograms_frontier.json (missing)
+  - results/overnight_047_headline_preregistered/monitor_progress.jsonl (missing)
+  - results/overnight_047_headline_preregistered/checkpoints/monitor_latest.json (missing)
+  - results/overnight_047_headline_preregistered/line1_headline/checkpoints/mining_latest.json (missing)
+  - results/overnight_047_headline_preregistered/line4_d3/checkpoints/mining_latest.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/overnight_047_headline_preregistered/line1_headline/line1_headline.json | HEADLINE_TABLE_READY_WITH_AUDIT_RED | binning_axis=reverts_needed=scalar_reference_total_backtracks; fail_closed=False; forward_only_asserted=True; pool_ref=results/overnight_047_headline_preregistered/line1_headline/reverts_needed_pool.json | headline_separation:168r/16c; module1_overlay:6r/5c |
-| results/overnight_047_headline_preregistered/line2_track_b_diagnostic/track_b_forced_diagnostic.json | CLOSE_AS_TARGET_METRIC_OR_OPERATOR_LEARNABILITY_FINDING_NO_DAGGER_RL | device=cuda:0; checkpoint=results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt; fail_closed=False | target_metric_trace_examples:10r/7c; train_vs_eval_forced_pr:2r/7c |
-| results/overnight_047_headline_preregistered/line3_qwen_d1_decode/qwen35_cache_push_pop_decode.json | GRADE2_IN_STATE_NOT_ESTABLISHED | device=cuda:0; model_id=Qwen/Qwen3.5-4B; fail_closed=False; target_layer=0 | decode_accuracy:72r/10c |
-| results/overnight_047_headline_preregistered/line4_d3/d3_histograms_frontier.json | D3_HISTOGRAMS_AND_FRONTIER_AUDIT_READY | fail_closed=False; pool_ref=results/overnight_047_headline_preregistered/line4_d3/reverts_needed_pool.json |  |
-| results/overnight_047_headline_preregistered/checkpoints/monitor_latest.json | ALL_LINES_EXITED | iteration=15; run_root=results/overnight_047_headline_preregistered |  |
-| results/overnight_047_headline_preregistered/line1_headline/checkpoints/mining_latest.json | COUNT_ONLY_PROGRESS_CHECKPOINT | chunk_index=32; limitation=Current process started before internal selected-instance checkpoint support; this checkpoint preserves progress coun...; line=line1_headline; source=line1_headline/mining_progress.jsonl |  |
-| results/overnight_047_headline_preregistered/line4_d3/checkpoints/mining_latest.json | COUNT_ONLY_PROGRESS_CHECKPOINT | chunk_index=32; limitation=Current process started before internal selected-instance checkpoint support; this checkpoint preserves progress coun...; line=line4_d3; source=line4_d3/mining_progress.jsonl |  |
+| results/overnight_047_headline_preregistered | missing |  |  |
+| results/overnight_047_headline_preregistered/line1_headline/line1_headline.json | missing |  |  |
+| results/overnight_047_headline_preregistered/line2_track_b_diagnostic/track_b_forced_diagnostic.json | missing |  |  |
+| results/overnight_047_headline_preregistered/line3_qwen_d1_decode/qwen35_cache_push_pop_decode.json | missing |  |  |
+| results/overnight_047_headline_preregistered/line4_d3/d3_histograms_frontier.json | missing |  |  |
+| results/overnight_047_headline_preregistered/monitor_progress.jsonl | missing |  |  |
+| results/overnight_047_headline_preregistered/checkpoints/monitor_latest.json | missing |  |  |
+| results/overnight_047_headline_preregistered/line1_headline/checkpoints/mining_latest.json | missing |  |  |
+| results/overnight_047_headline_preregistered/line4_d3/checkpoints/mining_latest.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -2331,7 +2391,7 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_050_post_review_e1_cross_task_generalization.json (yes, 35637292 bytes)
   - results/post_review_e1_cross_task_generalization/results.json (yes, 57774749 bytes)
-  - results/post_review_e1_cross_task_generalization/sudoku_d128_bound_single_module1_curve.json (yes, 76411 bytes)
+  - results/post_review_e1_cross_task_generalization/sudoku_d128_bound_single_module1_curve.json (missing)
   - results/post_review_e1_cross_task_generalization/panels/graph_coloring_figure4_scalar_panels.png (yes, 105545 bytes)
   - results/post_review_e1_cross_task_generalization/panels/sat_3sat_figure4_scalar_panels.png (yes, 104108 bytes)
 #### Referenced Result Summaries
@@ -2339,7 +2399,7 @@ Truncated to 24 of 27 rows.
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/post_review_e1_cross_task_generalization/results.json | E1_SCALAR_FIGURE4_DEVIATION_RECORDED | figure4_status=E1_SCALAR_FIGURE4_DEVIATION_RECORDED |  |
-| results/post_review_e1_cross_task_generalization/sudoku_d128_bound_single_module1_curve.json | recorded | device=cuda:0; threshold=0.95; trials=4096; batch_size=8192; summary=9 keys: variant, replacement, D, K_var, K_val, capacity_joint_095, capacity_var_095, capacity_val_095; source=autonomous_stage_a_run |  |
+| results/post_review_e1_cross_task_generalization/sudoku_d128_bound_single_module1_curve.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -4704,8 +4764,8 @@ Truncated to 24 of 28 rows.
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json (yes, 3515 bytes)
   - results/rung1_separator_fallibility_rungs/results.json (yes, 79925 bytes)
   - results/experiment_items/item_060_rung1_separator_fallibility_rungs.json (yes, 191278 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1117562 bytes)
-  - results/experiment_log/experiment_log.json (yes, 84937471 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1152215 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85027148 bytes)
   - results/rung1_separator_fallibility_rungs/item062_execution.json (yes, 2265658 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json (yes, 3606 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2.log (yes, 9044 bytes)
@@ -7987,24 +8047,28 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_107_kvcache_chronological_solve_parta.json (yes, 9728 bytes)
   - analysis/kvcache_backjump_lora.py (yes, 98073 bytes)
-  - results/kvcache_backjump_lora/partA_chrono_solve_v0/merged_partA_chrono_solve.json (yes, 2378523 bytes)
-  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_0.json (yes, 584928 bytes)
-  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_1.json (yes, 592714 bytes)
-  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_2.json (yes, 588661 bytes)
-  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_3.json (yes, 604131 bytes)
-  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_0_checkpoint.json (yes, 527534 bytes)
-  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_1_checkpoint.json (yes, 535855 bytes)
-  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_2_checkpoint.json (yes, 531110 bytes)
-  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_3_checkpoint.json (yes, 547516 bytes)
+  - results/kvcache_backjump_lora/partA_chrono_solve_v0/merged_partA_chrono_solve.json (missing)
+  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_0.json (missing)
+  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_1.json (missing)
+  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_2.json (missing)
+  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_3.json (missing)
+  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_0_checkpoint.json (missing)
+  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_1_checkpoint.json (missing)
+  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_2_checkpoint.json (missing)
+  - results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_3_checkpoint.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_backjump_lora/partA_chrono_solve_v0/merged_partA_chrono_solve.json | KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE | planned_tasks_all_shards=0; provenance=kvcache_backjump_lora_search_eval_merged_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=96 items |  |
-| results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_0.json | KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE | planned_tasks_all_shards=2880; provenance=kvcache_backjump_lora_search_eval_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=24 items |  |
-| results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_1.json | KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE | planned_tasks_all_shards=2880; provenance=kvcache_backjump_lora_search_eval_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=24 items |  |
-| results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_2.json | KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE | planned_tasks_all_shards=2880; provenance=kvcache_backjump_lora_search_eval_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=24 items |  |
-| results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_3.json | KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE | planned_tasks_all_shards=2880; provenance=kvcache_backjump_lora_search_eval_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=24 items |  |
+| results/kvcache_backjump_lora/partA_chrono_solve_v0/merged_partA_chrono_solve.json | missing |  |  |
+| results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_0.json | missing |  |  |
+| results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_1.json | missing |  |  |
+| results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_2.json | missing |  |  |
+| results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_3.json | missing |  |  |
+| results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_0_checkpoint.json | missing |  |  |
+| results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_1_checkpoint.json | missing |  |  |
+| results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_2_checkpoint.json | missing |  |  |
+| results/kvcache_backjump_lora/partA_chrono_solve_v0/shard_3_checkpoint.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8040,27 +8104,32 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_108_kvcache_conflict_analysis_cot_c1.json (yes, 10170 bytes)
   - analysis/kvcache_backjump_lora.py (yes, 98073 bytes)
-  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/merged_c1_conflict_cot_full_r4.json (yes, 310457 bytes)
-  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_0.json (yes, 79818 bytes)
-  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_1.json (yes, 78123 bytes)
-  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_2.json (yes, 83370 bytes)
-  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_3.json (yes, 84244 bytes)
-  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_0_checkpoint.json (yes, 68755 bytes)
-  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_1_checkpoint.json (yes, 67088 bytes)
-  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_2_checkpoint.json (yes, 72388 bytes)
-  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_3_checkpoint.json (yes, 73033 bytes)
-  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/driver.background.log (yes, 176 bytes)
-  - results/kvcache_backjump_lora/c1_conflict_cot_probe_v0/merged_c1_conflict_cot_probe.json (yes, 297688 bytes)
+  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/merged_c1_conflict_cot_full_r4.json (missing)
+  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_0.json (missing)
+  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_1.json (missing)
+  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_2.json (missing)
+  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_3.json (missing)
+  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_0_checkpoint.json (missing)
+  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_1_checkpoint.json (missing)
+  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_2_checkpoint.json (missing)
+  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_3_checkpoint.json (missing)
+  - results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/driver.background.log (missing)
+  - results/kvcache_backjump_lora/c1_conflict_cot_probe_v0/merged_c1_conflict_cot_probe.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/merged_c1_conflict_cot_full_r4.json | KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE | planned_tasks_all_shards=0; provenance=kvcache_backjump_lora_search_eval_merged_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=6 items |  |
-| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_0.json | KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE | planned_tasks_all_shards=180; provenance=kvcache_backjump_lora_search_eval_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=3 items |  |
-| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_1.json | KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE | planned_tasks_all_shards=180; provenance=kvcache_backjump_lora_search_eval_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=3 items |  |
-| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_2.json | KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE | planned_tasks_all_shards=180; provenance=kvcache_backjump_lora_search_eval_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=3 items |  |
-| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_3.json | KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE | planned_tasks_all_shards=180; provenance=kvcache_backjump_lora_search_eval_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=3 items |  |
-| results/kvcache_backjump_lora/c1_conflict_cot_probe_v0/merged_c1_conflict_cot_probe.json | KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE | planned_tasks_all_shards=0; provenance=kvcache_backjump_lora_search_eval_merged_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=24 items |  |
+| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/merged_c1_conflict_cot_full_r4.json | missing |  |  |
+| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_0.json | missing |  |  |
+| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_1.json | missing |  |  |
+| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_2.json | missing |  |  |
+| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_3.json | missing |  |  |
+| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_0_checkpoint.json | missing |  |  |
+| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_1_checkpoint.json | missing |  |  |
+| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_2_checkpoint.json | missing |  |  |
+| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/shard_3_checkpoint.json | missing |  |  |
+| results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/driver.background.log | missing |  |  |
+| results/kvcache_backjump_lora/c1_conflict_cot_probe_v0/merged_c1_conflict_cot_probe.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8090,22 +8159,26 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_109_kvcache_c2_reasoning_lora.json (yes, 10575 bytes)
   - analysis/kvcache_backjump_lora.py (yes, 98073 bytes)
-  - results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/manifest.json (yes, 4343 bytes)
-  - results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/train.jsonl (yes, 3961395 bytes)
-  - results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/val.jsonl (yes, 1245684 bytes)
-  - results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/ood_eval.jsonl (yes, 1339041 bytes)
-  - results/kvcache_backjump_lora/c2_reasoning_train_repaired_v0/train.json (yes, 1985 bytes)
-  - results/kvcache_backjump_lora/adapter_c2_reasoning_repaired_v0 (yes, 4096 bytes)
-  - results/kvcache_backjump_lora/km3_c2_reasoning_repaired_v0.json (yes, 18250 bytes)
-  - results/kvcache_backjump_lora/c2_reasoning_repaired_eval_v0/merged_c2_reasoning_repaired_eval.json (yes, 1069370 bytes)
+  - results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/manifest.json (missing)
+  - results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/train.jsonl (missing)
+  - results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/val.jsonl (missing)
+  - results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/ood_eval.jsonl (missing)
+  - results/kvcache_backjump_lora/c2_reasoning_train_repaired_v0/train.json (missing)
+  - results/kvcache_backjump_lora/adapter_c2_reasoning_repaired_v0 (missing)
+  - results/kvcache_backjump_lora/km3_c2_reasoning_repaired_v0.json (missing)
+  - results/kvcache_backjump_lora/c2_reasoning_repaired_eval_v0/merged_c2_reasoning_repaired_eval.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/manifest.json | KVCACHE_BACKJUMP_LORA_DATA_COMPLETE | all_examples=results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/all_examples.jsonl; provenance=kvcache_c2_reasoning_data_repaired_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=11 keys: by_R_target_source, by_bin_R_split, by_bin_split, by_target_source, format_repair_count, model_exact_rate, m... |  |
-| results/kvcache_backjump_lora/c2_reasoning_train_repaired_v0/train.json | KVCACHE_BACKJUMP_LORA_TRAIN_COMPLETE | adapter_path=results/kvcache_backjump_lora/adapter_c2_reasoning_repaired_v0; global_steps=147; n_train=783; n_val=251; provenance=kvcache_backjump_lora_train_v0; schema_version=kvcache_backjump_lora_v0 |  |
-| results/kvcache_backjump_lora/km3_c2_reasoning_repaired_v0.json | KVCACHE_BACKJUMP_LORA_KM3_PASS | cache_type=DynamicCache; depth=16; example_id=v14_p04_0006_autonomous_R2_de0000; full_cache_seq_len=515; max_abs_logit_delta=7.534e-05; overall_pass=True |  |
-| results/kvcache_backjump_lora/c2_reasoning_repaired_eval_v0/merged_c2_reasoning_repaired_eval.json | KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE | planned_tasks_all_shards=0; provenance=kvcache_backjump_lora_search_eval_merged_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=18 items |  |
+| results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/manifest.json | missing |  |  |
+| results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/train.jsonl | missing |  |  |
+| results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/val.jsonl | missing |  |  |
+| results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/ood_eval.jsonl | missing |  |  |
+| results/kvcache_backjump_lora/c2_reasoning_train_repaired_v0/train.json | missing |  |  |
+| results/kvcache_backjump_lora/adapter_c2_reasoning_repaired_v0 | missing |  |  |
+| results/kvcache_backjump_lora/km3_c2_reasoning_repaired_v0.json | missing |  |  |
+| results/kvcache_backjump_lora/c2_reasoning_repaired_eval_v0/merged_c2_reasoning_repaired_eval.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8135,24 +8208,24 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_110_kvcache_multiagent_cbj_v0.json (yes, 8299 bytes)
   - analysis/kvcache_multiagent_cbj.py (yes, 53814 bytes)
-  - results/kvcache_multiagent_cbj/km3_gate_k2_v0.json (yes, 19204 bytes)
-  - results/kvcache_multiagent_cbj/probe_k2_smoke_v0.json (yes, 49821 bytes)
-  - results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_0.json (yes, 52767 bytes)
-  - results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_1.json (yes, 231529 bytes)
-  - results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_2.json (yes, 200629 bytes)
-  - results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_3.json (yes, 149456 bytes)
-  - results/kvcache_multiagent_cbj/k2_probe_shards_v0/merged_k2_probe.json (yes, 624917 bytes)
+  - results/kvcache_multiagent_cbj/km3_gate_k2_v0.json (missing)
+  - results/kvcache_multiagent_cbj/probe_k2_smoke_v0.json (missing)
+  - results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_0.json (missing)
+  - results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_1.json (missing)
+  - results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_2.json (missing)
+  - results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_3.json (missing)
+  - results/kvcache_multiagent_cbj/k2_probe_shards_v0/merged_k2_probe.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_multiagent_cbj/km3_gate_k2_v0.json | KVCACHE_MULTIAGENT_CBJ_KM3_PASS | cache_type=DynamicCache; depth=16; full_cache_seq_len=570; max_abs_logit_delta=7.248e-05; overall_pass=True; prompt_tokens=554 |  |
-| results/kvcache_multiagent_cbj/probe_k2_smoke_v0.json | KVCACHE_MULTIAGENT_CBJ_COMPLETE | provenance=kvcache_multiagent_cbj_cross_probe_v0; schema_version=kvcache_multiagent_cbj_v0; source=autonomous_stage_a_run; summary=2 items |  |
-| results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_0.json | KVCACHE_MULTIAGENT_CBJ_COMPLETE | provenance=kvcache_multiagent_cbj_cross_probe_v0; schema_version=kvcache_multiagent_cbj_v0; source=autonomous_stage_a_run; summary=6 items |  |
-| results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_1.json | KVCACHE_MULTIAGENT_CBJ_COMPLETE | provenance=kvcache_multiagent_cbj_cross_probe_v0; schema_version=kvcache_multiagent_cbj_v0; source=autonomous_stage_a_run; summary=6 items |  |
-| results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_2.json | KVCACHE_MULTIAGENT_CBJ_COMPLETE | provenance=kvcache_multiagent_cbj_cross_probe_v0; schema_version=kvcache_multiagent_cbj_v0; source=autonomous_stage_a_run; summary=6 items |  |
-| results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_3.json | KVCACHE_MULTIAGENT_CBJ_COMPLETE | provenance=kvcache_multiagent_cbj_cross_probe_v0; schema_version=kvcache_multiagent_cbj_v0; source=autonomous_stage_a_run; summary=6 items |  |
-| results/kvcache_multiagent_cbj/k2_probe_shards_v0/merged_k2_probe.json | KVCACHE_MULTIAGENT_CBJ_COMPLETE | provenance=kvcache_multiagent_cbj_cross_probe_merged_v0; schema_version=kvcache_multiagent_cbj_v0; source=autonomous_stage_a_run; summary=6 items |  |
+| results/kvcache_multiagent_cbj/km3_gate_k2_v0.json | missing |  |  |
+| results/kvcache_multiagent_cbj/probe_k2_smoke_v0.json | missing |  |  |
+| results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_0.json | missing |  |  |
+| results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_1.json | missing |  |  |
+| results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_2.json | missing |  |  |
+| results/kvcache_multiagent_cbj/k2_probe_shards_v0/shard_3.json | missing |  |  |
+| results/kvcache_multiagent_cbj/k2_probe_shards_v0/merged_k2_probe.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8182,14 +8255,14 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_111_kvcache_multiagent_structural_k2.json (yes, 12638 bytes)
   - analysis/kvcache_multiagent_cbj.py (yes, 53814 bytes)
-  - results/kvcache_multiagent_cbj/structural_k2_symbolic_v0/merged_structural_k2_symbolic.json (yes, 1334179 bytes)
-  - results/kvcache_multiagent_cbj/model_route_k2_secondary_v0/merged_model_route_k2_secondary.json (yes, 487687 bytes)
+  - results/kvcache_multiagent_cbj/structural_k2_symbolic_v0/merged_structural_k2_symbolic.json (missing)
+  - results/kvcache_multiagent_cbj/model_route_k2_secondary_v0/merged_model_route_k2_secondary.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_multiagent_cbj/structural_k2_symbolic_v0/merged_structural_k2_symbolic.json | KVCACHE_MULTIAGENT_CBJ_COMPLETE | provenance=kvcache_multiagent_cbj_structural_merged_v0; schema_version=kvcache_multiagent_cbj_v0; source=autonomous_stage_a_run; summary=5 keys: ma1_coordination_cost, ma1_solve, ma2_capacity, model_route_autonomous, tokens |  |
-| results/kvcache_multiagent_cbj/model_route_k2_secondary_v0/merged_model_route_k2_secondary.json | KVCACHE_MULTIAGENT_CBJ_COMPLETE | provenance=kvcache_multiagent_cbj_structural_merged_v0; schema_version=kvcache_multiagent_cbj_v0; source=autonomous_stage_a_run; summary=5 keys: ma1_coordination_cost, ma1_solve, ma2_capacity, model_route_autonomous, tokens |  |
+| results/kvcache_multiagent_cbj/structural_k2_symbolic_v0/merged_structural_k2_symbolic.json | missing |  |  |
+| results/kvcache_multiagent_cbj/model_route_k2_secondary_v0/merged_model_route_k2_secondary.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8260,20 +8333,20 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_112_kvcache_overnight_batch_v0.json (yes, 6831 bytes)
   - analysis/kvcache_overnight_batch.py (yes, 37701 bytes)
-  - results/kvcache_overnight_v0/overnight_manifest.json (yes, 7314 bytes)
-  - results/kvcache_overnight_v0/harness_smoke.json (yes, 1270 bytes)
-  - results/kvcache_overnight_v0/p1a/mini_sudoku/gate.json (yes, 18939 bytes)
-  - results/kvcache_overnight_v0/p1a/n_queens/gate.json (yes, 18941 bytes)
-  - results/kvcache_overnight_v0/p1a/futoshiki/gate.json (yes, 18935 bytes)
+  - results/kvcache_overnight_v0/overnight_manifest.json (missing)
+  - results/kvcache_overnight_v0/harness_smoke.json (missing)
+  - results/kvcache_overnight_v0/p1a/mini_sudoku/gate.json (missing)
+  - results/kvcache_overnight_v0/p1a/n_queens/gate.json (missing)
+  - results/kvcache_overnight_v0/p1a/futoshiki/gate.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_overnight_v0/overnight_manifest.json | KVCACHE_OVERNIGHT_JOB_PARTIAL | provenance=kvcache_overnight_manifest_v0; root=results/kvcache_overnight_v0; run_id=overnight_v0; schema_version=kvcache_overnight_batch_v0; source=autonomous_stage_a_run |  |
-| results/kvcache_overnight_v0/harness_smoke.json | KVCACHE_OVERNIGHT_SEARCH_HARNESS_SMOKE_FAIL | schema_version=kvcache_overnight_batch_v0; scope=P1-A generic CSP search harness; summary=Per-task KM-3 gates pass, but the first generic mini_sudoku search/cost/couple smoke fails to solve even at R=16 due ...; next_fix=Replace the generic DFS with a verified task-specific oracle trace/decision-point collector, or prove the generic CSP...; source=autonomous_stage_a_run; provenance=kvcache_overnight_harness_smoke_v0 |  |
-| results/kvcache_overnight_v0/p1a/mini_sudoku/gate.json | KVCACHE_OVERNIGHT_KM3_PASS | cache_type=DynamicCache; depth=16; full_cache_seq_len=171; max_abs_logit_delta=6.771e-05; overall_pass=True; prompt_tokens=155 |  |
-| results/kvcache_overnight_v0/p1a/n_queens/gate.json | KVCACHE_OVERNIGHT_KM3_PASS | cache_type=DynamicCache; depth=16; full_cache_seq_len=247; max_abs_logit_delta=6.771e-05; overall_pass=True; prompt_tokens=231 |  |
-| results/kvcache_overnight_v0/p1a/futoshiki/gate.json | KVCACHE_OVERNIGHT_KM3_PASS | cache_type=DynamicCache; depth=16; full_cache_seq_len=173; max_abs_logit_delta=6.008e-05; overall_pass=True; prompt_tokens=157 |  |
+| results/kvcache_overnight_v0/overnight_manifest.json | missing |  |  |
+| results/kvcache_overnight_v0/harness_smoke.json | missing |  |  |
+| results/kvcache_overnight_v0/p1a/mini_sudoku/gate.json | missing |  |  |
+| results/kvcache_overnight_v0/p1a/n_queens/gate.json | missing |  |  |
+| results/kvcache_overnight_v0/p1a/futoshiki/gate.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8303,28 +8376,28 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_113_kvcache_gate2_verified_csp_solver.json (yes, 6536 bytes)
   - analysis/kvcache_gate2_csp_solver.py (yes, 62663 bytes)
-  - results/kvcache_overnight_v0/gate2/mini_sudoku_io.json (yes, 6969 bytes)
-  - results/kvcache_overnight_v0/gate2/mini_sudoku_gate2.json (yes, 14150 bytes)
-  - results/kvcache_overnight_v0/gate2/n_queens_io.json (yes, 6951 bytes)
-  - results/kvcache_overnight_v0/gate2/n_queens_gate2.json (yes, 19026 bytes)
-  - results/kvcache_overnight_v0/gate2/futoshiki_io.json (yes, 6974 bytes)
-  - results/kvcache_overnight_v0/gate2/futoshiki_gate2.json (yes, 29722 bytes)
-  - results/kvcache_overnight_v0/gate2/mini_sudoku_couple_verified.json (yes, 169403 bytes)
-  - results/kvcache_overnight_v0/gate2/n_queens_couple_verified.json (yes, 211444 bytes)
-  - results/kvcache_overnight_v0/gate2/futoshiki_couple_verified.json (yes, 329546 bytes)
+  - results/kvcache_overnight_v0/gate2/mini_sudoku_io.json (missing)
+  - results/kvcache_overnight_v0/gate2/mini_sudoku_gate2.json (missing)
+  - results/kvcache_overnight_v0/gate2/n_queens_io.json (missing)
+  - results/kvcache_overnight_v0/gate2/n_queens_gate2.json (missing)
+  - results/kvcache_overnight_v0/gate2/futoshiki_io.json (missing)
+  - results/kvcache_overnight_v0/gate2/futoshiki_gate2.json (missing)
+  - results/kvcache_overnight_v0/gate2/mini_sudoku_couple_verified.json (missing)
+  - results/kvcache_overnight_v0/gate2/n_queens_couple_verified.json (missing)
+  - results/kvcache_overnight_v0/gate2/futoshiki_couple_verified.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_overnight_v0/gate2/mini_sudoku_io.json | KVCACHE_GATE2_IO_PASS | provenance=kvcache_gate2_io_gate_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; task=mini_sudoku |  |
-| results/kvcache_overnight_v0/gate2/mini_sudoku_gate2.json | KVCACHE_GATE2_SEARCH_PASS | min_solve_rate=0.99; provenance=kvcache_gate2_search_gate_v0; schema_version=kvcache_gate2_csp_solver_v0; solve_rate=1; source=autonomous_stage_a_run; task=mini_sudoku |  |
-| results/kvcache_overnight_v0/gate2/n_queens_io.json | KVCACHE_GATE2_IO_PASS | provenance=kvcache_gate2_io_gate_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; task=n_queens |  |
-| results/kvcache_overnight_v0/gate2/n_queens_gate2.json | KVCACHE_GATE2_SEARCH_PASS | min_solve_rate=0.99; provenance=kvcache_gate2_search_gate_v0; schema_version=kvcache_gate2_csp_solver_v0; solve_rate=1; source=autonomous_stage_a_run; task=n_queens |  |
-| results/kvcache_overnight_v0/gate2/futoshiki_io.json | KVCACHE_GATE2_IO_PASS | provenance=kvcache_gate2_io_gate_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; task=futoshiki |  |
-| results/kvcache_overnight_v0/gate2/futoshiki_gate2.json | KVCACHE_GATE2_SEARCH_PASS | min_solve_rate=0.99; provenance=kvcache_gate2_search_gate_v0; schema_version=kvcache_gate2_csp_solver_v0; solve_rate=1; source=autonomous_stage_a_run; task=futoshiki |  |
-| results/kvcache_overnight_v0/gate2/mini_sudoku_couple_verified.json | KVCACHE_GATE2_ARMS_COMPLETE | job=couple; provenance=kvcache_gate2_arms_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; summary=12 items; task=mini_sudoku |  |
-| results/kvcache_overnight_v0/gate2/n_queens_couple_verified.json | KVCACHE_GATE2_ARMS_COMPLETE | job=couple; provenance=kvcache_gate2_arms_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; summary=12 items; task=n_queens |  |
-| results/kvcache_overnight_v0/gate2/futoshiki_couple_verified.json | KVCACHE_GATE2_ARMS_COMPLETE | job=couple; provenance=kvcache_gate2_arms_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; summary=12 items; task=futoshiki |  |
+| results/kvcache_overnight_v0/gate2/mini_sudoku_io.json | missing |  |  |
+| results/kvcache_overnight_v0/gate2/mini_sudoku_gate2.json | missing |  |  |
+| results/kvcache_overnight_v0/gate2/n_queens_io.json | missing |  |  |
+| results/kvcache_overnight_v0/gate2/n_queens_gate2.json | missing |  |  |
+| results/kvcache_overnight_v0/gate2/futoshiki_io.json | missing |  |  |
+| results/kvcache_overnight_v0/gate2/futoshiki_gate2.json | missing |  |  |
+| results/kvcache_overnight_v0/gate2/mini_sudoku_couple_verified.json | missing |  |  |
+| results/kvcache_overnight_v0/gate2/n_queens_couple_verified.json | missing |  |  |
+| results/kvcache_overnight_v0/gate2/futoshiki_couple_verified.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8360,7 +8433,13 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_114_p2b_graph_color_overnight_launch.json (yes, 4621 bytes)
   - scripts/launch_p2b_graph_color_overnight.sh (yes, 3884 bytes)
-  - results/kvcache_overnight_v0/p2b_graph_color/launch_manifest_p2b_graph_color_overnight_v0.jsonl (yes, 3666 bytes)
+  - results/kvcache_overnight_v0/p2b_graph_color/launch_manifest_p2b_graph_color_overnight_v0.jsonl (missing)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/kvcache_overnight_v0/p2b_graph_color/launch_manifest_p2b_graph_color_overnight_v0.jsonl | missing |  |  |
+
 #### Contract Result Tables
 
 ##### launch_manifest_head
@@ -8388,18 +8467,18 @@ Truncated to 24 of 378 rows.
   - results/experiment_items/item_115_gate3_and_p1b_separability.json (yes, 6695 bytes)
   - analysis/kvcache_gate2_csp_solver.py (yes, 62663 bytes)
   - analysis/kvcache_separability_p1b.py (yes, 15886 bytes)
-  - results/kvcache_overnight_v0/gate3/mini_sudoku_gate3.json (yes, 2455 bytes)
-  - results/kvcache_overnight_v0/gate3/n_queens_gate3.json (yes, 3274 bytes)
-  - results/kvcache_overnight_v0/gate3/futoshiki_gate3.json (yes, 8989 bytes)
-  - results/kvcache_overnight_v0/p1b_separability/formal_bs12_pin070.json (yes, 1445165 bytes)
+  - results/kvcache_overnight_v0/gate3/mini_sudoku_gate3.json (missing)
+  - results/kvcache_overnight_v0/gate3/n_queens_gate3.json (missing)
+  - results/kvcache_overnight_v0/gate3/futoshiki_gate3.json (missing)
+  - results/kvcache_overnight_v0/p1b_separability/formal_bs12_pin070.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_overnight_v0/gate3/mini_sudoku_gate3.json | KVCACHE_GATE3_CALIBRATION_COMPLETE | provenance=kvcache_gate3_calibration_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; task=mini_sudoku |  |
-| results/kvcache_overnight_v0/gate3/n_queens_gate3.json | KVCACHE_GATE3_CALIBRATION_COMPLETE | provenance=kvcache_gate3_calibration_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; task=n_queens |  |
-| results/kvcache_overnight_v0/gate3/futoshiki_gate3.json | KVCACHE_GATE3_CALIBRATION_COMPLETE | provenance=kvcache_gate3_calibration_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; task=futoshiki |  |
-| results/kvcache_overnight_v0/p1b_separability/formal_bs12_pin070.json | KVCACHE_SEPARABILITY_P1B_COMPLETE | provenance=kvcache_separability_p1b_v0; schema_version=kvcache_separability_p1b_v0; source=autonomous_stage_a_run; summary=42 items |  |
+| results/kvcache_overnight_v0/gate3/mini_sudoku_gate3.json | missing |  |  |
+| results/kvcache_overnight_v0/gate3/n_queens_gate3.json | missing |  |  |
+| results/kvcache_overnight_v0/gate3/futoshiki_gate3.json | missing |  |  |
+| results/kvcache_overnight_v0/p1b_separability/formal_bs12_pin070.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8438,22 +8517,22 @@ Truncated to 24 of 378 rows.
   - analysis/kvcache_graph_color_search.py (yes, 42310 bytes)
   - analysis/kvcache_graph_color_cost_from_sources.py (yes, 6350 bytes)
   - scripts/launch_p2b_cost_fixed_sources.sh (yes, 2327 bytes)
-  - results/kvcache_overnight_v0/p2b_graph_color/merged_p2b_reason_couple.json (yes, 7652033 bytes)
-  - results/kvcache_overnight_v0/p2b_graph_color_completion.json (yes, 18040 bytes)
-  - results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_0.json (yes, 99512 bytes)
-  - results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_1.json (yes, 116178 bytes)
-  - results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_2.json (yes, 175838 bytes)
-  - results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_3.json (yes, 403223 bytes)
+  - results/kvcache_overnight_v0/p2b_graph_color/merged_p2b_reason_couple.json (missing)
+  - results/kvcache_overnight_v0/p2b_graph_color_completion.json (missing)
+  - results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_0.json (missing)
+  - results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_1.json (missing)
+  - results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_2.json (missing)
+  - results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_3.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_overnight_v0/p2b_graph_color/merged_p2b_reason_couple.json | KVCACHE_BACKJUMP_LORA_EVAL_COMPLETE | planned_tasks_all_shards=5120; provenance=kvcache_backjump_lora_search_eval_merged_v0; schema_version=kvcache_backjump_lora_v0; source=autonomous_stage_a_run; summary=128 items |  |
-| results/kvcache_overnight_v0/p2b_graph_color_completion.json | P2B_GRAPH_COLOR_ROBUSTNESS_COMPLETE_COST_V22_GATED_OUT | provenance=kvcache_overnight_p2b_completion_v0; reason_couple_path=results/kvcache_overnight_v0/p2b_graph_color/merged_p2b_reason_couple.json; reason_couple_rows=5120; reason_couple_summary_rows=128; schema_version=kvcache_overnight_p2b_completion_v0; source=autonomous_stage_a_run |  |
-| results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_0.json | KVCACHE_GRAPH_COLOR_COST_FROM_SOURCES_COMPLETE | planned_tasks_all_shards=192; provenance=kvcache_graph_color_cost_from_sources_v0; schema_version=kvcache_graph_color_cost_from_sources_v0; source=autonomous_stage_a_run |  |
-| results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_1.json | KVCACHE_GRAPH_COLOR_COST_FROM_SOURCES_COMPLETE | planned_tasks_all_shards=192; provenance=kvcache_graph_color_cost_from_sources_v0; schema_version=kvcache_graph_color_cost_from_sources_v0; source=autonomous_stage_a_run |  |
-| results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_2.json | KVCACHE_GRAPH_COLOR_COST_FROM_SOURCES_COMPLETE | planned_tasks_all_shards=192; provenance=kvcache_graph_color_cost_from_sources_v0; schema_version=kvcache_graph_color_cost_from_sources_v0; source=autonomous_stage_a_run |  |
-| results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_3.json | KVCACHE_GRAPH_COLOR_COST_FROM_SOURCES_COMPLETE | planned_tasks_all_shards=192; provenance=kvcache_graph_color_cost_from_sources_v0; schema_version=kvcache_graph_color_cost_from_sources_v0; source=autonomous_stage_a_run |  |
+| results/kvcache_overnight_v0/p2b_graph_color/merged_p2b_reason_couple.json | missing |  |  |
+| results/kvcache_overnight_v0/p2b_graph_color_completion.json | missing |  |  |
+| results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_0.json | missing |  |  |
+| results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_1.json | missing |  |  |
+| results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_2.json | missing |  |  |
+| results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_3.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8495,24 +8574,24 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_117_p1a_metric_refinement.json (yes, 7060 bytes)
   - analysis/kvcache_gate2_csp_solver.py (yes, 62663 bytes)
-  - results/kvcache_overnight_v0/p1a_metric/futoshiki_decision_preflight.json (yes, 9010 bytes)
-  - results/kvcache_overnight_v0/p1a_metric/sudoku_decision_preflight.json (yes, 6270 bytes)
-  - results/kvcache_overnight_v0/p1a_metric/n_queens_decision_preflight.json (yes, 8927 bytes)
-  - results/kvcache_overnight_v0/p1a_metric/futoshiki_reason_metric.json (yes, 41733 bytes)
-  - results/kvcache_overnight_v0/p1a_metric/sudoku_reason_metric.json (yes, 41495 bytes)
-  - results/kvcache_overnight_v0/p1a_metric/futoshiki_cost_metric.json (yes, 492925 bytes)
-  - results/kvcache_overnight_v0/p1a_metric/sudoku_cost_metric.json (yes, 641746 bytes)
+  - results/kvcache_overnight_v0/p1a_metric/futoshiki_decision_preflight.json (missing)
+  - results/kvcache_overnight_v0/p1a_metric/sudoku_decision_preflight.json (missing)
+  - results/kvcache_overnight_v0/p1a_metric/n_queens_decision_preflight.json (missing)
+  - results/kvcache_overnight_v0/p1a_metric/futoshiki_reason_metric.json (missing)
+  - results/kvcache_overnight_v0/p1a_metric/sudoku_reason_metric.json (missing)
+  - results/kvcache_overnight_v0/p1a_metric/futoshiki_cost_metric.json (missing)
+  - results/kvcache_overnight_v0/p1a_metric/sudoku_cost_metric.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_overnight_v0/p1a_metric/futoshiki_decision_preflight.json | KVCACHE_P1A_DECISION_METRIC_COMPLETE | job=decision_preflight; provenance=kvcache_p1a_decision_preflight_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; sufficient_nontrivial=True; task=futoshiki |  |
-| results/kvcache_overnight_v0/p1a_metric/sudoku_decision_preflight.json | KVCACHE_P1A_DECISION_METRIC_COMPLETE | job=decision_preflight; provenance=kvcache_p1a_decision_preflight_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; sufficient_nontrivial=True; task=sudoku |  |
-| results/kvcache_overnight_v0/p1a_metric/n_queens_decision_preflight.json | KVCACHE_P1A_DECISION_METRIC_COMPLETE | job=decision_preflight; provenance=kvcache_p1a_decision_preflight_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; sufficient_nontrivial=False; task=n_queens |  |
-| results/kvcache_overnight_v0/p1a_metric/futoshiki_reason_metric.json | KVCACHE_P1A_DECISION_METRIC_COMPLETE | job=reason_metric; provenance=kvcache_p1a_reason_metric_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; summary=11 keys: chrono_exact_rate, exact_cbj_rate, mean_input_tokens, mean_output_tokens, n, nontrivial_only, parse_rate, pr...; task=futoshiki |  |
-| results/kvcache_overnight_v0/p1a_metric/sudoku_reason_metric.json | KVCACHE_P1A_DECISION_METRIC_COMPLETE | job=reason_metric; provenance=kvcache_p1a_reason_metric_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; summary=11 keys: chrono_exact_rate, exact_cbj_rate, mean_input_tokens, mean_output_tokens, n, nontrivial_only, parse_rate, pr...; task=sudoku |  |
-| results/kvcache_overnight_v0/p1a_metric/futoshiki_cost_metric.json | KVCACHE_P1A_COST_METRIC_COMPLETE | job=cost_metric; n_source_instances=2; provenance=kvcache_p1a_cost_metric_v0; schema_version=kvcache_gate2_csp_solver_v0; selected_points=80; source=autonomous_stage_a_run |  |
-| results/kvcache_overnight_v0/p1a_metric/sudoku_cost_metric.json | KVCACHE_P1A_COST_METRIC_COMPLETE | job=cost_metric; n_source_instances=5; provenance=kvcache_p1a_cost_metric_v0; schema_version=kvcache_gate2_csp_solver_v0; selected_points=80; source=autonomous_stage_a_run |  |
+| results/kvcache_overnight_v0/p1a_metric/futoshiki_decision_preflight.json | missing |  |  |
+| results/kvcache_overnight_v0/p1a_metric/sudoku_decision_preflight.json | missing |  |  |
+| results/kvcache_overnight_v0/p1a_metric/n_queens_decision_preflight.json | missing |  |  |
+| results/kvcache_overnight_v0/p1a_metric/futoshiki_reason_metric.json | missing |  |  |
+| results/kvcache_overnight_v0/p1a_metric/sudoku_reason_metric.json | missing |  |  |
+| results/kvcache_overnight_v0/p1a_metric/futoshiki_cost_metric.json | missing |  |  |
+| results/kvcache_overnight_v0/p1a_metric/sudoku_cost_metric.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8553,16 +8632,16 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_118_prompt_b_exposed_reasoning.json (yes, 6385 bytes)
   - analysis/kvcache_gate2_csp_solver.py (yes, 62663 bytes)
-  - results/kvcache_overnight_v0/prompt_b_exposed/preregistered_kill.json (yes, 1230 bytes)
-  - results/kvcache_overnight_v0/prompt_b_exposed/futoshiki_reason_exposed_metric.json (yes, 118924 bytes)
-  - results/kvcache_overnight_v0/prompt_b_exposed/sudoku_reason_exposed_metric.json (yes, 128184 bytes)
+  - results/kvcache_overnight_v0/prompt_b_exposed/preregistered_kill.json (missing)
+  - results/kvcache_overnight_v0/prompt_b_exposed/futoshiki_reason_exposed_metric.json (missing)
+  - results/kvcache_overnight_v0/prompt_b_exposed/sudoku_reason_exposed_metric.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_overnight_v0/prompt_b_exposed/preregistered_kill.json | KVCACHE_PROMPT_B_EXPOSED_PREREGISTERED | schema_version=kvcache_prompt_b_exposed_prereg_v0; name=Prompt B conflict-structure-exposed reasoning kill; source=autonomous_stage_a_run; provenance=kvcache_prompt_b_exposed_prereg_v0; parent_item=117; model=Qwen/Qwen3-4B-Instruct-2507 |  |
-| results/kvcache_overnight_v0/prompt_b_exposed/futoshiki_reason_exposed_metric.json | KVCACHE_PROMPT_B_EXPOSED_REASON_METRIC_COMPLETE | job=reason_exposed_metric; provenance=kvcache_prompt_b_exposed_reason_metric_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; summary=27 keys: b1_pass, b1_scope_a_kill, batch_size, chrono_exact_rate, deepest_visible_all_exact_rate, deepest_visible_liv...; task=futoshiki |  |
-| results/kvcache_overnight_v0/prompt_b_exposed/sudoku_reason_exposed_metric.json | KVCACHE_PROMPT_B_EXPOSED_REASON_METRIC_COMPLETE | job=reason_exposed_metric; provenance=kvcache_prompt_b_exposed_reason_metric_v0; schema_version=kvcache_gate2_csp_solver_v0; source=autonomous_stage_a_run; summary=27 keys: b1_pass, b1_scope_a_kill, batch_size, chrono_exact_rate, deepest_visible_all_exact_rate, deepest_visible_liv...; task=sudoku |  |
+| results/kvcache_overnight_v0/prompt_b_exposed/preregistered_kill.json | missing |  |  |
+| results/kvcache_overnight_v0/prompt_b_exposed/futoshiki_reason_exposed_metric.json | missing |  |  |
+| results/kvcache_overnight_v0/prompt_b_exposed/sudoku_reason_exposed_metric.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8595,14 +8674,14 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_119_matched_budget_primary_pilot.json (yes, 5541 bytes)
   - analysis/kvcache_matched_budget.py (yes, 23786 bytes)
-  - results/kvcache_matched_budget_v0/preregistered_kill.json (yes, 1108 bytes)
-  - results/kvcache_matched_budget_v0/primary_csp_symbolic_n2_formal.json (yes, 70416 bytes)
+  - results/kvcache_matched_budget_v0/preregistered_kill.json (missing)
+  - results/kvcache_matched_budget_v0/primary_csp_symbolic_n2_formal.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_matched_budget_v0/preregistered_kill.json | KVCACHE_MATCHED_BUDGET_PREREGISTERED | accounting=A counts retained prefix once plus event tokens; C counts growing in-context prompt tokens per event, matching Item11...; hb1_primary=A_cache minus C_incontext solve >= 0.10 at B* on deep-search tasks under matched symbolic-CBJ policy; hb2_secondary=external baselines are not claimed unless faithful upstream/reimplementation is integrated and billed by same token c...; hb3_shape=A solve@B dominates C over mid-budget band; headline_metric=solve@budget curve over budget grid; B* selected by first C-baseline mid-band [0.4,0.6] solve rate per task; name=Matched-budget cache-truncation vs in-context search preregistration |  |
-| results/kvcache_matched_budget_v0/primary_csp_symbolic_n2_formal.json | KVCACHE_MATCHED_BUDGET_COMPLETE | hb1_pass=True; hb1_read=PASS; job=primary_csp_matched_budget; provenance=kvcache_matched_budget_primary_csp_v0; schema_version=kvcache_matched_budget_v0; source=autonomous_stage_a_run |  |
+| results/kvcache_matched_budget_v0/preregistered_kill.json | missing |  |  |
+| results/kvcache_matched_budget_v0/primary_csp_symbolic_n2_formal.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8638,13 +8717,13 @@ Truncated to 24 of 378 rows.
   - analysis/kvcache_matched_budget.py (yes, 23786 bytes)
   - scripts/launch_matched_budget_scaled_primary.sh (yes, 1032 bytes)
   - results/kvcache_matched_budget_v0/external_repo_provenance.json (yes, 3005 bytes)
-  - results/kvcache_matched_budget_v0/scaled_primary_n64/merged_checkpoint_progress.json (yes, 499948 bytes)
+  - results/kvcache_matched_budget_v0/scaled_primary_n64/merged_checkpoint_progress.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
 | results/kvcache_matched_budget_v0/external_repo_provenance.json | EXTERNAL_REPO_DISCOVERY_PARTIAL | schema_version=kvcache_matched_budget_external_repo_provenance_v0; source=autonomous_stage_a_run; provenance=kvcache_matched_budget_external_repo_provenance_v0 |  |
-| results/kvcache_matched_budget_v0/scaled_primary_n64/merged_checkpoint_progress.json | KVCACHE_MATCHED_BUDGET_SCALED_MERGED | provenance=kvcache_matched_budget_scaled_merged_v0; schema_version=kvcache_matched_budget_scaled_v0; source=autonomous_stage_a_run |  |
+| results/kvcache_matched_budget_v0/scaled_primary_n64/merged_checkpoint_progress.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8680,13 +8759,13 @@ Truncated to 24 of 378 rows.
   - results/experiment_items/item_121_scaled_matched_budget_csp_complete.json (yes, 6290 bytes)
   - analysis/kvcache_matched_budget_scaled.py (yes, 19025 bytes)
   - scripts/launch_matched_budget_scaled_primary.sh (yes, 1032 bytes)
-  - results/kvcache_matched_budget_v0/scaled_primary_n64/merged_scaled_primary_n64.json (yes, 792863 bytes)
+  - results/kvcache_matched_budget_v0/scaled_primary_n64/merged_scaled_primary_n64.json (missing)
   - results/kvcache_matched_budget_v0/external_repo_provenance.json (yes, 3005 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_matched_budget_v0/scaled_primary_n64/merged_scaled_primary_n64.json | KVCACHE_MATCHED_BUDGET_SCALED_MERGED | n_input_trace_rows_raw=128; provenance=kvcache_matched_budget_scaled_merged_v0; schema_version=kvcache_matched_budget_scaled_v0; source=autonomous_stage_a_run |  |
+| results/kvcache_matched_budget_v0/scaled_primary_n64/merged_scaled_primary_n64.json | missing |  |  |
 | results/kvcache_matched_budget_v0/external_repo_provenance.json | EXTERNAL_REPO_DISCOVERY_PARTIAL | schema_version=kvcache_matched_budget_external_repo_provenance_v0; source=autonomous_stage_a_run; provenance=kvcache_matched_budget_external_repo_provenance_v0 |  |
 
 #### Contract Result Tables
@@ -8721,15 +8800,15 @@ Truncated to 24 of 378 rows.
   - results/experiment_items/item_122_graph_color_symbolic_budget_and_hb2_skeleton.json (yes, 7757 bytes)
   - analysis/kvcache_graph_color_budget_curves.py (yes, 9100 bytes)
   - analysis/kvcache_external_budget_baselines.py (yes, 5486 bytes)
-  - results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_n64.json (yes, 979442 bytes)
-  - results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_budget_curve_n64.json (yes, 304281 bytes)
+  - results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_n64.json (missing)
+  - results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_budget_curve_n64.json (missing)
   - results/kvcache_matched_budget_v0/external_budget_runner_registry.json (yes, 3527 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_n64.json | KVCACHE_GRAPH_COLOR_SEARCH_COMPLETE | provenance=kvcache_graph_color_search_v2; schema_version=kvcache_graph_color_search_v2; source=autonomous_stage_a_run |  |
-| results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_budget_curve_n64.json | KVCACHE_GRAPH_COLOR_BUDGET_CURVES_COMPLETE | input=results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_n64.json; policy=oracle_search; provenance=kvcache_graph_color_budget_curves_v0; schema_version=kvcache_graph_color_budget_curves_v0; source=autonomous_stage_a_run; variant=symbolic_cbj |  |
+| results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_n64.json | missing |  |  |
+| results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_budget_curve_n64.json | missing |  |  |
 | results/kvcache_matched_budget_v0/external_budget_runner_registry.json | KVCACHE_EXTERNAL_BUDGET_BASELINE_REGISTRY_COMPLETE | budget_runner_protocol=run(instance, budget_B) -> {solved, tokens_used, depth_reached}; provenance=kvcache_external_budget_baseline_registry_v0; schema_version=kvcache_external_budget_baselines_v0; shared_accounting=All model-generated/exploration/evaluation tokens are billed by the same tokenizer counter; symbolic verifier calls a...; source=autonomous_stage_a_run |  |
 
 #### Contract Result Tables
@@ -8775,12 +8854,12 @@ Truncated to 24 of 378 rows.
   - results/experiment_items/item_123_graph_color_c1_budget_targeting_independence.json (yes, 5634 bytes)
   - analysis/kvcache_graph_color_c1_budget.py (yes, 20040 bytes)
   - scripts/launch_graph_color_c1_budget.sh (yes, 1105 bytes)
-  - results/kvcache_matched_budget_v0/graph_color_part_a/c1_v16_r16_n64_shards/merged_c1_v16_r16_n64.json (yes, 491016 bytes)
+  - results/kvcache_matched_budget_v0/graph_color_part_a/c1_v16_r16_n64_shards/merged_c1_v16_r16_n64.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_matched_budget_v0/graph_color_part_a/c1_v16_r16_n64_shards/merged_c1_v16_r16_n64.json | KVCACHE_GRAPH_COLOR_C1_BUDGET_COMPLETE | provenance=kvcache_graph_color_c1_budget_merged_v0; schema_version=kvcache_graph_color_c1_budget_v0; source=autonomous_stage_a_run |  |
+| results/kvcache_matched_budget_v0/graph_color_part_a/c1_v16_r16_n64_shards/merged_c1_v16_r16_n64.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8816,12 +8895,12 @@ Truncated to 24 of 378 rows.
   - results/experiment_items/item_124_hb2_best_of_n_cap1_partial.json (yes, 5075 bytes)
   - analysis/kvcache_best_of_n_baseline.py (yes, 15197 bytes)
   - scripts/launch_hb2_best_of_n_bstar_cap1.sh (yes, 1278 bytes)
-  - results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_n64_cap1/merged_best_of_n_bstar_n64_cap1.json (yes, 108847 bytes)
+  - results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_n64_cap1/merged_best_of_n_bstar_n64_cap1.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_n64_cap1/merged_best_of_n_bstar_n64_cap1.json | KVCACHE_BEST_OF_N_BASELINE_MERGED | provenance=kvcache_best_of_n_baseline_merged_v0; schema_version=kvcache_best_of_n_baseline_v0; source=autonomous_stage_a_run; summary=3 items |  |
+| results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_n64_cap1/merged_best_of_n_bstar_n64_cap1.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -8849,12 +8928,12 @@ Truncated to 24 of 378 rows.
   - results/experiment_items/item_125_hb2_best_of_n_exhaustive_smoke.json (yes, 5004 bytes)
   - analysis/kvcache_best_of_n_baseline.py (yes, 15197 bytes)
   - scripts/launch_hb2_best_of_n_bstar_exhaust_smoke.sh (yes, 1371 bytes)
-  - results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_exhaust_smoke/merged_best_of_n_bstar_exhaust_smoke.json (yes, 5873 bytes)
+  - results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_exhaust_smoke/merged_best_of_n_bstar_exhaust_smoke.json (missing)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
 | --- | --- | --- | --- |
-| results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_exhaust_smoke/merged_best_of_n_bstar_exhaust_smoke.json | KVCACHE_BEST_OF_N_BASELINE_MERGED | provenance=kvcache_best_of_n_baseline_merged_v0; schema_version=kvcache_best_of_n_baseline_v0; source=autonomous_stage_a_run; summary=2 items |  |
+| results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_exhaust_smoke/merged_best_of_n_bstar_exhaust_smoke.json | missing |  |  |
 
 #### Contract Result Tables
 
@@ -9105,6 +9184,858 @@ Truncated to 24 of 378 rows.
 
 - Next action: Monitor vLLM LFS checkpoints and merged output. If stable and fast, decide whether to run ToT/RAP vLLM backend separately or use LFS vLLM as an interim external baseline read.
 
+### Item 134 - Item 134 missing cluster pull required
+
+- Status: ITEM_134_MISSING_CLUSTER_PULL_REQUIRED
+- Key result: Pull results/experiment_items/item_134_*.json from the cluster; do not infer or cite this placeholder as evidence.
+- Purpose: Item 134 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+- Details:
+  - purpose=Item 134 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+  - commands=1
+  - result_tables=['missing_recovery']
+  - honesty=Placeholder only. No empirical result, command, or table is reconstructed for this item.
+- Artifact refs:
+  - results/experiment_items/item_134_missing_cluster_pull_required.json (yes, 1670 bytes)
+#### Contract Result Tables
+
+##### missing_recovery
+
+| item | status | required_action |
+| --- | --- | --- |
+| 134 | not recovered locally | pull authoritative JSON from cluster |
+
+- Next action: Pull results/experiment_items/item_134_*.json from the cluster; do not infer or cite this placeholder as evidence.
+
+### Item 135 - Item 135 missing cluster pull required
+
+- Status: ITEM_135_MISSING_CLUSTER_PULL_REQUIRED
+- Key result: Pull results/experiment_items/item_135_*.json from the cluster; do not infer or cite this placeholder as evidence.
+- Purpose: Item 135 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+- Details:
+  - purpose=Item 135 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+  - commands=1
+  - result_tables=['missing_recovery']
+  - honesty=Placeholder only. No empirical result, command, or table is reconstructed for this item.
+- Artifact refs:
+  - results/experiment_items/item_135_missing_cluster_pull_required.json (yes, 1670 bytes)
+#### Contract Result Tables
+
+##### missing_recovery
+
+| item | status | required_action |
+| --- | --- | --- |
+| 135 | not recovered locally | pull authoritative JSON from cluster |
+
+- Next action: Pull results/experiment_items/item_135_*.json from the cluster; do not infer or cite this placeholder as evidence.
+
+### Item 136 - Item 136 missing cluster pull required
+
+- Status: ITEM_136_MISSING_CLUSTER_PULL_REQUIRED
+- Key result: Pull results/experiment_items/item_136_*.json from the cluster; do not infer or cite this placeholder as evidence.
+- Purpose: Item 136 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+- Details:
+  - purpose=Item 136 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+  - commands=1
+  - result_tables=['missing_recovery']
+  - honesty=Placeholder only. No empirical result, command, or table is reconstructed for this item.
+- Artifact refs:
+  - results/experiment_items/item_136_missing_cluster_pull_required.json (yes, 1670 bytes)
+#### Contract Result Tables
+
+##### missing_recovery
+
+| item | status | required_action |
+| --- | --- | --- |
+| 136 | not recovered locally | pull authoritative JSON from cluster |
+
+- Next action: Pull results/experiment_items/item_136_*.json from the cluster; do not infer or cite this placeholder as evidence.
+
+### Item 137 - Item 137 missing cluster pull required
+
+- Status: ITEM_137_MISSING_CLUSTER_PULL_REQUIRED
+- Key result: Pull results/experiment_items/item_137_*.json from the cluster; do not infer or cite this placeholder as evidence.
+- Purpose: Item 137 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+- Details:
+  - purpose=Item 137 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+  - commands=1
+  - result_tables=['missing_recovery']
+  - honesty=Placeholder only. No empirical result, command, or table is reconstructed for this item.
+- Artifact refs:
+  - results/experiment_items/item_137_missing_cluster_pull_required.json (yes, 1670 bytes)
+#### Contract Result Tables
+
+##### missing_recovery
+
+| item | status | required_action |
+| --- | --- | --- |
+| 137 | not recovered locally | pull authoritative JSON from cluster |
+
+- Next action: Pull results/experiment_items/item_137_*.json from the cluster; do not infer or cite this placeholder as evidence.
+
+### Item 138 - Item 138 missing cluster pull required
+
+- Status: ITEM_138_MISSING_CLUSTER_PULL_REQUIRED
+- Key result: Pull results/experiment_items/item_138_*.json from the cluster; do not infer or cite this placeholder as evidence.
+- Purpose: Item 138 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+- Details:
+  - purpose=Item 138 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+  - commands=1
+  - result_tables=['missing_recovery']
+  - honesty=Placeholder only. No empirical result, command, or table is reconstructed for this item.
+- Artifact refs:
+  - results/experiment_items/item_138_missing_cluster_pull_required.json (yes, 1670 bytes)
+#### Contract Result Tables
+
+##### missing_recovery
+
+| item | status | required_action |
+| --- | --- | --- |
+| 138 | not recovered locally | pull authoritative JSON from cluster |
+
+- Next action: Pull results/experiment_items/item_138_*.json from the cluster; do not infer or cite this placeholder as evidence.
+
+### Item 139 - Item 139 missing cluster pull required
+
+- Status: ITEM_139_MISSING_CLUSTER_PULL_REQUIRED
+- Key result: Pull results/experiment_items/item_139_*.json from the cluster; do not infer or cite this placeholder as evidence.
+- Purpose: Item 139 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+- Details:
+  - purpose=Item 139 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+  - commands=1
+  - result_tables=['missing_recovery']
+  - honesty=Placeholder only. No empirical result, command, or table is reconstructed for this item.
+- Artifact refs:
+  - results/experiment_items/item_139_missing_cluster_pull_required.json (yes, 1670 bytes)
+#### Contract Result Tables
+
+##### missing_recovery
+
+| item | status | required_action |
+| --- | --- | --- |
+| 139 | not recovered locally | pull authoritative JSON from cluster |
+
+- Next action: Pull results/experiment_items/item_139_*.json from the cluster; do not infer or cite this placeholder as evidence.
+
+### Item 140 - Item 140 missing cluster pull required
+
+- Status: ITEM_140_MISSING_CLUSTER_PULL_REQUIRED
+- Key result: Pull results/experiment_items/item_140_*.json from the cluster; do not infer or cite this placeholder as evidence.
+- Purpose: Item 140 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+- Details:
+  - purpose=Item 140 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+  - commands=1
+  - result_tables=['missing_recovery']
+  - honesty=Placeholder only. No empirical result, command, or table is reconstructed for this item.
+- Artifact refs:
+  - results/experiment_items/item_140_missing_cluster_pull_required.json (yes, 1670 bytes)
+#### Contract Result Tables
+
+##### missing_recovery
+
+| item | status | required_action |
+| --- | --- | --- |
+| 140 | not recovered locally | pull authoritative JSON from cluster |
+
+- Next action: Pull results/experiment_items/item_140_*.json from the cluster; do not infer or cite this placeholder as evidence.
+
+### Item 141 - Item 141 missing cluster pull required
+
+- Status: ITEM_141_MISSING_CLUSTER_PULL_REQUIRED
+- Key result: Pull results/experiment_items/item_141_*.json from the cluster; do not infer or cite this placeholder as evidence.
+- Purpose: Item 141 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+- Details:
+  - purpose=Item 141 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+  - commands=1
+  - result_tables=['missing_recovery']
+  - honesty=Placeholder only. No empirical result, command, or table is reconstructed for this item.
+- Artifact refs:
+  - results/experiment_items/item_141_missing_cluster_pull_required.json (yes, 1670 bytes)
+#### Contract Result Tables
+
+##### missing_recovery
+
+| item | status | required_action |
+| --- | --- | --- |
+| 141 | not recovered locally | pull authoritative JSON from cluster |
+
+- Next action: Pull results/experiment_items/item_141_*.json from the cluster; do not infer or cite this placeholder as evidence.
+
+### Item 142 - Capability-cliff formal partial vLLM sweep on GPUs 0-3
+
+- Status: CAPABILITY_CLIFF_FORMAL_PARTIAL_VLLM_SHORT_COMPLETE_4K_FILTERED_COMPLETE_NO_VERDICT
+- Key result: Run complete deep-end polluted 4000+ coverage with long-context backend; do not issue verdict from Item142 alone.
+- Purpose: Collect completed formal capability-cliff vLLM shard outputs for short graph/deep-graph and filtered 4k controls; no preregistered verdict because polluted 4k+ and long-context coverage are incomplete.
+- Details:
+  - purpose=Collect completed formal capability-cliff vLLM shard outputs for short graph/deep-graph and filtered 4k controls; no preregistered verdict because polluted 4k+ and long-context coverage are incomplete.
+  - commands=1
+  - result_tables=['coverage_summary', 'headline_rates_by_segment_condition']
+  - honesty=Does not establish CLIFF, NO_CLIFF, or LENGTH_CONFOUND; partial short-context read only.
+- Artifact refs:
+  - results/experiment_items/item_142_capability_cliff_formal_partial_vllm.json (yes, 3737 bytes)
+  - results/kvcache_capability_cliff/formal_v0/points.json (missing)
+  - results/kvcache_capability_cliff/formal_v0/collect.json (missing)
+  - results/kvcache_capability_cliff/formal_v0/launch_manifest_vllm_short_0_3.json (missing)
+  - results/kvcache_capability_cliff/formal_v0/launch_manifest_vllm_4k_filtered_0_3.json (missing)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/kvcache_capability_cliff/formal_v0/points.json | missing |  |  |
+| results/kvcache_capability_cliff/formal_v0/collect.json | missing |  |  |
+| results/kvcache_capability_cliff/formal_v0/launch_manifest_vllm_short_0_3.json | missing |  |  |
+| results/kvcache_capability_cliff/formal_v0/launch_manifest_vllm_4k_filtered_0_3.json | missing |  |  |
+
+#### Contract Result Tables
+
+##### coverage_summary
+
+| segment | levels | rows | conditions | complete_for_verdict |
+| --- | --- | --- | --- | --- |
+| short_vllm | 500,1000,2000 | 1710 | clean,polluted,neutral_filler | False |
+| filtered_4k_vllm | 4000 | 384 | clean,neutral_filler | False |
+
+##### headline_rates_by_segment_condition
+
+| segment | condition | rows | correct_move_rate | dead_reentry_rate |
+| --- | --- | --- | --- | --- |
+| short_vllm | clean | 576 | 0.2188 | 0.6354 |
+| short_vllm | polluted | 558 | 0.06631 | 0.8262 |
+| short_vllm | neutral_filler | 576 | 0.3906 | 0.3125 |
+| filtered_4k_vllm | clean | 192 | 0.2188 | 0.6354 |
+| filtered_4k_vllm | neutral_filler | 192 | 0.3542 | 0.401 |
+
+- Next action: Run complete deep-end polluted 4000+ coverage with long-context backend; do not issue verdict from Item142 alone.
+
+### Item 143 - Capability-cliff sudoku formal vLLM sweep on GPUs 0-3
+
+- Status: CAPABILITY_CLIFF_SUDOKU_FORMAL_VLLM_500_4000_COMPLETE_NO_CLIFF_SIGNAL_LOW_BASE
+- Key result: Merge with Item142 partial read; run missing graph/deep-graph polluted 4000+ and long-context levels.
+- Purpose: Record completed sudoku second-structure capability-cliff sweep through 4000 tokens across clean/polluted/neutral-filler.
+- Details:
+  - purpose=Record completed sudoku second-structure capability-cliff sweep through 4000 tokens across clean/polluted/neutral-filler.
+  - commands=1
+  - result_tables=['coverage_summary', 'selected_sudoku_rates']
+  - honesty=Does not close full capability-cliff verdict; sudoku-only to 4k, low base accuracy.
+- Artifact refs:
+  - results/experiment_items/item_143_capability_cliff_sudoku_formal_vllm.json (yes, 2885 bytes)
+  - results/kvcache_capability_cliff/formal_sudoku_v0/points.json (missing)
+  - results/kvcache_capability_cliff/formal_sudoku_v0/collect.json (missing)
+  - results/kvcache_capability_cliff/formal_sudoku_v0/launch_manifest_vllm_sudoku_0_3.json (missing)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/kvcache_capability_cliff/formal_sudoku_v0/points.json | missing |  |  |
+| results/kvcache_capability_cliff/formal_sudoku_v0/collect.json | missing |  |  |
+| results/kvcache_capability_cliff/formal_sudoku_v0/launch_manifest_vllm_sudoku_0_3.json | missing |  |  |
+
+#### Contract Result Tables
+
+##### coverage_summary
+
+| task | structure | levels | conditions | rows | complete_to_4k |
+| --- | --- | --- | --- | --- | --- |
+| sudoku | empty45 | 500,1000,2000,4000 | clean,polluted,neutral_filler | 768 | True |
+
+##### selected_sudoku_rates
+
+| target_tokens | condition | n | correct_move_rate | dead_reentry_rate |
+| --- | --- | --- | --- | --- |
+| 500 | clean | 64 | 0.03125 | 0.1562 |
+| 4000 | polluted | 64 | 0 | 0.07812 |
+| 4000 | neutral_filler | 64 | 0.07812 | 0.125 |
+
+- Next action: Merge with Item142 partial read; run missing graph/deep-graph polluted 4000+ and long-context levels.
+
+### Item 144 - Capability-cliff final merged verdict
+
+- Status: CAPABILITY_CLIFF_FINAL_VERDICT_LENGTH_CONFOUND_NO_CAPABILITY_CLIFF
+- Key result: Report reversible TTC restore as context-reduction/efficiency mechanism under current evidence.
+- Purpose: Close capability-cliff probe: observed degradation is better read as length/context effects and low base decision quality, not restore-necessity capability cliff.
+- Details:
+  - purpose=Close capability-cliff probe: observed degradation is better read as length/context effects and low base decision quality, not restore-necessity capability cliff.
+  - commands=1
+  - result_tables=['final_verdict_by_task']
+  - honesty=Rejects capability necessity under preregistered controls; does not prove restore is capability-necessary.
+- Artifact refs:
+  - results/experiment_items/item_144_capability_cliff_final_verdict.json (yes, 2726 bytes)
+  - results/kvcache_capability_cliff/formal_v0/merged_capability_cliff_verdict.json (missing)
+  - results/experiment_items/item_142_capability_cliff_formal_partial_vllm.json (yes, 3737 bytes)
+  - results/experiment_items/item_143_capability_cliff_sudoku_formal_vllm.json (yes, 2885 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/kvcache_capability_cliff/formal_v0/merged_capability_cliff_verdict.json | missing |  |  |
+| results/experiment_items/item_142_capability_cliff_formal_partial_vllm.json | CAPABILITY_CLIFF_FORMAL_PARTIAL_VLLM_SHORT_COMPLETE_4K_FILTERED_COMPLETE_NO_V... | item_number=142; name=Capability-cliff formal partial vLLM sweep on GPUs 0-3; purpose=Collect completed formal capability-cliff vLLM shard outputs for short graph/deep-graph and filtered 4k controls; no ...; schema_version=log_item_contract_v1 | coverage_summary:2r/5c; headline_rates_by_segment_condition:5r/5c |
+| results/experiment_items/item_143_capability_cliff_sudoku_formal_vllm.json | CAPABILITY_CLIFF_SUDOKU_FORMAL_VLLM_500_4000_COMPLETE_NO_CLIFF_SIGNAL_LOW_BASE | item_number=143; name=Capability-cliff sudoku formal vLLM sweep on GPUs 0-3; purpose=Record completed sudoku second-structure capability-cliff sweep through 4000 tokens across clean/polluted/neutral-fil...; schema_version=log_item_contract_v1 | coverage_summary:1r/6c; selected_sudoku_rates:3r/5c |
+
+#### Contract Result Tables
+
+##### final_verdict_by_task
+
+| task | levels | deep_gap | gap_spearman | max_neutral_gap | outcome |
+| --- | --- | --- | --- | --- | --- |
+| graph_color | 500,1000,2000,4000,8000,16000,32000 | 0.1389 | 0.1429 | 0.2969 | LENGTH_CONFOUND |
+| deep_graph_color | 500,1000,2000,4000,8000,16000,32000 | 0.1368 | -0.6307 | 0.375 | LENGTH_CONFOUND |
+| sudoku | 500,1000,2000,4000 | 0.03125 | 0.8944 | 0.04688 | NO_CLIFF_EFFICIENCY_LOW_BASE |
+
+- Next action: Report reversible TTC restore as context-reduction/efficiency mechanism under current evidence.
+
+### Item 145 - C1.2 architecture characterization of exact restore preregistration
+
+- Status: C1_2_ARCHITECTURE_RESTORE_CHARACTERIZATION_PREREGISTERED_V0
+- Key result: Create execution manifest and run KM-3-compatible M1/M2 panel.
+- Purpose: Preregister C1.2 architecture restore characterization with fixed verdicts, architecture panel, and D1/D2/D3 diagnosis before execution.
+- Details:
+  - purpose=Preregister C1.2 architecture restore characterization with fixed verdicts, architecture panel, and D1/D2/D3 diagnosis before execution.
+  - commands=1
+  - result_tables=['diagnosis_matrix', 'fixed_verdicts']
+  - honesty=Preregistration only; no empirical restore rows.
+- Artifact refs:
+  - results/experiment_items/item_145_c1_2_architecture_restore_characterization_prereg.json (yes, 3385 bytes)
+  - specs/c1_2_architecture_restore_characterization_v0.md (missing)
+  - specs/reversible_test_time_compute_itemized_plan_v1.md (missing)
+  - results/experiment_items/item_100_kvcache_checkpoint_km3_exactness.json (yes, 7712 bytes)
+  - results/experiment_items/item_102_pure_kv_qwen3_km3_exactness.json (yes, 6298 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| specs/c1_2_architecture_restore_characterization_v0.md | missing |  |  |
+| specs/reversible_test_time_compute_itemized_plan_v1.md | missing |  |  |
+| results/experiment_items/item_100_kvcache_checkpoint_km3_exactness.json | KVCACHE_CHECKPOINT_KM3_EXACTNESS_FAIL_CLOSED | item_number=100; schema_version=log_item_contract_v1; name=KV-cache checkpoint search KM-3 exactness gate; purpose=Start the KV-cache checkpoint-search redesign by running the KM-3 exactness gate before any search arm is interpreted... | km3_tests:8r/8c; cache_inventory_head:1r/4c |
+| results/experiment_items/item_102_pure_kv_qwen3_km3_exactness.json | PURE_KV_QWEN3_KM3_EXACTNESS_PASS_SPEC_TOLERANCE | item_number=102; schema_version=log_item_contract_v1; name=Pure-KV Qwen3 KM-3 exactness gate; purpose=Follow Item100 by testing the second proposed path: rerun KM-3 on a pure causal-attention KV cache model. Cached Qwen... | pure_kv_gate_summary:3r/6c |
+
+#### Contract Result Tables
+
+##### diagnosis_matrix
+
+| diagnosis | comparison | interpretation_if_gap_closes |
+| --- | --- | --- |
+| D1_precision | bf16 vs fp32 | numeric or precision-scoped, not structural |
+| D2_path | chunked/parallel vs recurrent sequential forward | path or implementation-scoped, not structural |
+| D3_completeness | snapshot inventory vs all model/cache resident state | incomplete capture, fixable |
+
+##### fixed_verdicts
+
+| outcome | criterion | headline |
+| --- | --- | --- |
+| TRADE-OFF-HOLDS | M2 full snapshot still decision-changing on at least two bounded-state architectures | efficient bounded-state architectures cannot support exact reversible restore |
+| TRADE-OFF-FLIPS | M2 fp32 recurrent audited-complete snapshot is bit-exact on bounded-state panel | bounded-state supports cheap exact restore via fixed-size state snapshots; truncation alone fails |
+| MIXED | some architectures pass and some fail under M2 | report the boundary by state structure |
+
+- Next action: Create execution manifest and run KM-3-compatible M1/M2 panel.
+
+### Item 146 - C1.2 after-HB2 overnight launch and runner smoke
+
+- Status: C1_2_AFTER_HB2_OVERNIGHT_WATCHER_LAUNCHED_SMOKE_PASS
+- Key result: Let watcher continue; formal C1.2 panel not yet a verdict in this item.
+- Purpose: Queue Item145 C1.2 architecture restore characterization after HB-2 and validate runner mechanics with CPU tiny smoke.
+- Details:
+  - purpose=Queue Item145 C1.2 architecture restore characterization after HB-2 and validate runner mechanics with CPU tiny smoke.
+  - commands=1
+  - result_tables=['hb2_progress_at_launch', 'smoke_summary']
+  - honesty=Launch/smoke only; no C1.2 headline verdict.
+- Artifact refs:
+  - results/experiment_items/item_146_c1_2_after_hb2_overnight_launch_smoke.json (yes, 2954 bytes)
+  - analysis/c1_2_architecture_restore_characterization.py (missing)
+  - scripts/launch_item145_after_hb2_overnight.sh (missing)
+  - results/c1_2_architecture_restore_characterization/item145_overnight_v0/smoke_internal_tiny.json (missing)
+  - results/c1_2_architecture_restore_characterization/item145_overnight_v0/launch_manifest.json (missing)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| analysis/c1_2_architecture_restore_characterization.py | missing |  |  |
+| scripts/launch_item145_after_hb2_overnight.sh | missing |  |  |
+| results/c1_2_architecture_restore_characterization/item145_overnight_v0/smoke_internal_tiny.json | missing |  |  |
+| results/c1_2_architecture_restore_characterization/item145_overnight_v0/launch_manifest.json | missing |  |  |
+
+#### Contract Result Tables
+
+##### hb2_progress_at_launch
+
+| baseline | shard_rows | status |
+| --- | --- | --- |
+| best_of_n | 81/240,82/240,81/240,80/240 | INCOMPLETE_RUNNING |
+| lfs | 235/240,230/240,233/240,236/240 | INCOMPLETE_STALLED_OR_WAITING |
+| tot_rap | 480/480,480/480,480/480,480/480 | COMPLETE |
+
+##### smoke_summary
+
+| artifact | rows | pass_rows | methods | paths | decision_agreement | max_abs_logit_delta | max_abs_final_hidden_delta |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| results/c1_2_architecture_restore_characterization/item145_overnight_v0/smoke_internal_tiny.json | 8 | 8 | m1_truncation,m2_full_state_snapshot | prefix,sequential | 1 | 5.96e-08 | 4.768e-07 |
+
+- Next action: Let watcher continue; formal C1.2 panel not yet a verdict in this item.
+
+### Item 147 - HB-2 vLLM LFS and ToT/RAP results update
+
+- Status: HB2_TOT_RAP_VLLM_COMPLETE_LFS_PARTIAL_UPDATE
+- Key result: Monitor LFS shard2 and best-of-n; final closeout when all merged.
+- Purpose: Record current HB-2 vLLM external-baseline read: ToT/RAP complete; LFS 959/960 near-complete and stale merge not final.
+- Details:
+  - purpose=Record current HB-2 vLLM external-baseline read: ToT/RAP complete; LFS 959/960 near-complete and stale merge not final.
+  - commands=1
+  - result_tables=['coverage']
+  - honesty=Does not close HB-2; LFS and best-of-n unfinished.
+- Artifact refs:
+  - results/experiment_items/item_147_hb2_lfs_tot_rap_vllm_results_update.json (yes, 2267 bytes)
+  - results/kvcache_matched_budget_v0/hb2_status/item147_lfs_tot_rap_vllm_update.json (missing)
+  - results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_multiserver/merged_tot_rap_vllm_full_grid_n64.json (missing)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/kvcache_matched_budget_v0/hb2_status/item147_lfs_tot_rap_vllm_update.json | missing |  |  |
+| results/kvcache_matched_budget_v0/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_multiserver/merged_tot_rap_vllm_full_grid_n64.json | missing |  |  |
+
+#### Contract Result Tables
+
+##### coverage
+
+| baseline | row_state | merged_state | verdict_use |
+| --- | --- | --- | --- |
+| ToT/RAP | 1920/1920 | fresh complete merged result | eligible complete vLLM backend result |
+| LFS | 959/960 | stale rows=0 merged file | partial near-complete telemetry only |
+| best-of-n | 382/960 | missing | not read as result |
+
+- Next action: Monitor LFS shard2 and best-of-n; final closeout when all merged.
+
+### Item 148 - Item 148 missing cluster pull required
+
+- Status: ITEM_148_MISSING_CLUSTER_PULL_REQUIRED
+- Key result: Pull results/experiment_items/item_148_*.json from the cluster; do not infer or cite this placeholder as evidence.
+- Purpose: Item 148 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+- Details:
+  - purpose=Item 148 was not recovered as a full block in the conversation and must be pulled from cluster results/experiment_items/.
+  - commands=1
+  - result_tables=['missing_recovery']
+  - honesty=Placeholder only. No empirical result, command, or table is reconstructed for this item.
+- Artifact refs:
+  - results/experiment_items/item_148_missing_cluster_pull_required.json (yes, 1670 bytes)
+#### Contract Result Tables
+
+##### missing_recovery
+
+| item | status | required_action |
+| --- | --- | --- |
+| 148 | not recovered locally | pull authoritative JSON from cluster |
+
+- Next action: Pull results/experiment_items/item_148_*.json from the cluster; do not infer or cite this placeholder as evidence.
+
+### Item 149 - Reasoning Gym method matrix interim comparison
+
+- Status: REASONING_GYM_METHOD_MATRIX_INTERIM_COMPARE_LFS_PARTIAL_TOT_RAP_QUARANTINED
+- Key result: Wait for LFS merged output and corrected ToT/RAP rerun.
+- Purpose: Compare A_cache, C_incontext, LFS, ToT, RAP; LFS partial and ToT/RAP pre-fix quarantined.
+- Details:
+  - purpose=Compare A_cache, C_incontext, LFS, ToT, RAP; LFS partial and ToT/RAP pre-fix quarantined.
+  - commands=1
+  - result_tables=['method_completion']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_149_reasoning_gym_method_matrix_interim_compare.json (yes, 2304 bytes)
+#### Contract Result Tables
+
+##### method_completion
+
+| method | rows | expected_rows | completion |
+| --- | --- | --- | --- |
+| A_cache | 960 | 960 | complete |
+| C_incontext | 960 | 960 | complete |
+| LFS | 659 | 960 | partial |
+| ToT | 960 | 960 | complete_quarantined |
+| RAP | 960 | 960 | complete_quarantined |
+
+- Next action: Wait for LFS merged output and corrected ToT/RAP rerun.
+
+### Item 150 - ToT/RAP adapter diagnosis against official repo semantics
+
+- Status: TOT_RAP_ADAPTER_PREMATURE_BUDGET_EXHAUSTION_DIAGNOSED_FIX_SMOKE_PASS_PARTIAL
+- Key result: Rerun corrected ToT/RAP full grid.
+- Purpose: Diagnose premature BUDGET_EXHAUSTED bug in ToT/RAP adapter and quarantine old zero curves.
+- Details:
+  - purpose=Diagnose premature BUDGET_EXHAUSTED bug in ToT/RAP adapter and quarantine old zero curves.
+  - commands=1
+  - result_tables=['fix_smoke_rows']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_150_tot_rap_adapter_diagnosis.json (yes, 2162 bytes)
+#### Contract Result Tables
+
+##### fix_smoke_rows
+
+| method | task | source_index | status | tokens_used | depth_reached | expansions | official_score |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ToT | sudoku | 0 | NO_FRONTIER | 3225 | 4 | 15 | 0 |
+| RAP | sudoku | 0 | MCTS_ITER_CAP | 3040 | 4 | 8 | 0 |
+
+- Next action: Rerun corrected ToT/RAP full grid.
+
+### Item 151 - Corrected ToT/RAP rerun on GPU4-7
+
+- Status: TOT_RAP_CORRECTED_GPU4_7_RERUN_LAUNCHED_RUNNING
+- Key result: Monitor corrected ToT/RAP checkpoints until merged.
+- Purpose: Delete/quarantine old ToT/RAP root and relaunch corrected baselines on GPU4-7 vLLM servers.
+- Details:
+  - purpose=Delete/quarantine old ToT/RAP root and relaunch corrected baselines on GPU4-7 vLLM servers.
+  - commands=1
+  - result_tables=['launch_checkpoint_state']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_151_tot_rap_corrected_gpu4_7_launch.json (yes, 1775 bytes)
+#### Contract Result Tables
+
+##### launch_checkpoint_state
+
+| path | rows |
+| --- | --- |
+| checkpoint_0.json | 3 |
+| checkpoint_1.json | 5 |
+| checkpoint_2.json | 3 |
+| checkpoint_3.json | 6 |
+
+- Next action: Monitor corrected ToT/RAP checkpoints until merged.
+
+### Item 152 - Reasoning Gym corrected ToT/RAP comparison
+
+- Status: REASONING_GYM_CORRECTED_TOT_RAP_COMPARE_LFS_PARTIAL
+- Key result: Wait for LFS merged output; preserve graph_color nearest-vs-exact caveat.
+- Purpose: Read corrected ToT/RAP full-grid results and compare against A/C/current LFS.
+- Details:
+  - purpose=Read corrected ToT/RAP full-grid results and compare against A/C/current LFS.
+  - commands=1
+  - result_tables=['method_completion']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_152_reasoning_gym_corrected_tot_rap_compare.json (yes, 2238 bytes)
+#### Contract Result Tables
+
+##### method_completion
+
+| method | rows | expected_rows | completion |
+| --- | --- | --- | --- |
+| A_cache | 960 | 960 | complete |
+| C_incontext | 960 | 960 | complete |
+| LFS | 791 | 960 | partial |
+| ToT | 960 | 960 | complete_corrected |
+| RAP | 960 | 960 | complete_corrected |
+
+- Next action: Wait for LFS merged output; preserve graph_color nearest-vs-exact caveat.
+
+### Item 153 - Reasoning Gym environment validation expansion
+
+- Status: REASONING_GYM_VALIDATION_EXPANSION_SUDOKU_COMPLETE_GRAPH_COLOR_BLOCKED
+- Key result: Rerun graph_color variants after freeing GPU/vLLM or with safer plan.
+- Purpose: Add mini_sudoku/harder sudoku A/C curves and attempt graph_color variants; sudoku variants complete, graph_color blocked.
+- Details:
+  - purpose=Add mini_sudoku/harder sudoku A/C curves and attempt graph_color variants; sudoku variants complete, graph_color blocked.
+  - commands=1
+  - result_tables=['graph_color_variant_status']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_153_reasoning_gym_validation_expansion_launch.json (yes, 2075 bytes)
+#### Contract Result Tables
+
+##### graph_color_variant_status
+
+| variant | status | reason |
+| --- | --- | --- |
+| v14_p04 | FAILED | CUDA OOM under GPU4-7 vLLM memory occupancy |
+| v18_p04 | FAILED_OR_SUPERSEDED | same launch batch after v14 OOM |
+| v20_p04 | STOPPED_PRECHECKPOINT | preflight/resource blocked |
+
+- Next action: Rerun graph_color variants after freeing GPU/vLLM or with safer plan.
+
+### Item 154 - Reasoning Gym graph_color variant rerun after GPU4-7 vLLM shutdown
+
+- Status: REASONING_GYM_GRAPH_COLOR_VARIANT_RERUN_V14_COMPLETE_V18_V20_BLOCKED
+- Key result: Quote v14 only; rerun v18/v20 with safer plan.
+- Purpose: Supersede graph_color portion of Item153; v14 complete, v18/v20 blocked/quarantined.
+- Details:
+  - purpose=Supersede graph_color portion of Item153; v14 complete, v18/v20 blocked/quarantined.
+  - commands=1
+  - result_tables=['graph_color_variant_rerun_status']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_154_reasoning_gym_graph_color_variant_rerun.json (yes, 2115 bytes)
+#### Contract Result Tables
+
+##### graph_color_variant_rerun_status
+
+| variant | status | quotable | n_curve | B_star |
+| --- | --- | --- | --- | --- |
+| v14_p04 | COMPLETE | True | 32 | 15793 |
+| v18_p04 | QUARANTINED_PARTIAL_OOM | False | 16 | 1 |
+| v20_p04 | STOPPED_PREFLIGHT_NO_ARTIFACTS | False | 0 | None |
+
+- Next action: Quote v14 only; rerun v18/v20 with safer plan.
+
+### Item 155 - Reasoning Gym final method matrix with LFS complete
+
+- Status: REASONING_GYM_METHOD_MATRIX_FINAL_LFS_COMPLETE
+- Key result: Use as final Reasoning Gym matched-budget method-matrix read; quote graph_color caveat.
+- Purpose: Close Reasoning Gym matched-budget method matrix after LFS completed and merged.
+- Details:
+  - purpose=Close Reasoning Gym matched-budget method matrix after LFS completed and merged.
+  - commands=1
+  - result_tables=['method_completion', 'reference_budget_method_matrix_selected']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_155_reasoning_gym_final_method_matrix_lfs_complete.json (yes, 2921 bytes)
+#### Contract Result Tables
+
+##### method_completion
+
+| method | rows | expected_rows | completion |
+| --- | --- | --- | --- |
+| A_cache | 960 | 960 | complete |
+| C_incontext | 960 | 960 | complete |
+| LFS | 960 | 960 | complete |
+| ToT | 960 | 960 | complete |
+| RAP | 960 | 960 | complete |
+
+##### reference_budget_method_matrix_selected
+
+| task | budget_B | method | n | solve_rate |
+| --- | --- | --- | --- | --- |
+| sudoku | 28070 | A_cache | 64 | 0.8906 |
+| futoshiki | 3206226 | A_cache | 64 | 1 |
+| graph_color | 22673 | A_cache | 64 | 1 |
+
+- Next action: Use as final Reasoning Gym matched-budget method-matrix read; quote graph_color caveat.
+
+### Item 156 - Sudoku empty-range variant validation
+
+- Status: SUDOKU_EMPTY_VARIANTS_A_C_COMPLETE
+- Key result: Use as environment-robustness evidence; external baselines optional later.
+- Purpose: Run A_cache/C_incontext across sudoku empty-cell bands 25-35,35-45,45-55,55-60.
+- Details:
+  - purpose=Run A_cache/C_incontext across sudoku empty-cell bands 25-35,35-45,45-55,55-60.
+  - commands=1
+  - result_tables=['sudoku_variant_reference_budget']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_156_sudoku_empty_variants_validation.json (yes, 2163 bytes)
+#### Contract Result Tables
+
+##### sudoku_variant_reference_budget
+
+| variant | budget_B | method | n | solve_rate |
+| --- | --- | --- | --- | --- |
+| empty25_35 | 28070 | A_cache | 64 | 1 |
+| empty35_45 | 28070 | A_cache | 64 | 0.9531 |
+| empty45_55 | 28070 | A_cache | 64 | 0.4688 |
+| empty55_60 | 28070 | A_cache | 64 | 0.03125 |
+
+- Next action: Use as environment-robustness evidence; external baselines optional later.
+
+### Item 157 - Floor paper completion suite progress
+
+- Status: FLOOR_PAPER_SUITE_PARTS_1_2_4_7_DONE_PART3_RUNNING
+- Key result: Let Part3 finish, regenerate Part7, write final suite item; Parts5/6 pending.
+- Purpose: Record progress on floor-paper suite while best-of-n floor baseline still running.
+- Details:
+  - purpose=Record progress on floor-paper suite while best-of-n floor baseline still running.
+  - commands=1
+  - result_tables=['part2_exact_graph_color']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_157_floor_paper_suite_progress.json (yes, 2152 bytes)
+#### Contract Result Tables
+
+##### part2_exact_graph_color
+
+| method | budget_B | n | solve_rate |
+| --- | --- | --- | --- |
+| A_cache | 22673 | 64 | 1 |
+| C_incontext | 22673 | 64 | 0.4062 |
+| LFS | 22673 | 64 | 0.125 |
+| ToT | 22673 | 64 | 0.4688 |
+| RAP | 22673 | 64 | 0.6094 |
+
+- Next action: Let Part3 finish, regenerate Part7, write final suite item; Parts5/6 pending.
+
+### Item 158 - Floor paper priority suite complete
+
+- Status: FLOOR_PAPER_SUITE_PRIORITY_PARTS_1_2_3_4_7_COMPLETE
+- Key result: Use as priority-suite read; next run Part5 then Part6.
+- Purpose: Close priority floor-paper suite Parts 1,2,3,4,7; Parts5/6 pending.
+- Details:
+  - purpose=Close priority floor-paper suite Parts 1,2,3,4,7; Parts5/6 pending.
+  - commands=1
+  - result_tables=['part3_best_of_n_floor']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_158_floor_paper_priority_suite_complete.json (yes, 2015 bytes)
+#### Contract Result Tables
+
+##### part3_best_of_n_floor
+
+| task | budget_B | n | solve_rate | status_counts |
+| --- | --- | --- | --- | --- |
+| sudoku | 28070 | 64 | 0 | BUDGET_EXHAUSTED=64 |
+| futoshiki | 3206226 | 64 | 0 | BUDGET_EXHAUSTED=64 |
+| graph_color | 32895 | 64 | 0 | BUDGET_EXHAUSTED=64 |
+
+- Next action: Use as priority-suite read; next run Part5 then Part6.
+
+### Item 159 - Official benchmark pilot on puzzle24 and countdown
+
+- Status: OFFICIAL_BENCHMARK_PILOT_PUZZLE24_COUNTDOWN_COMPLETE
+- Key result: Use as completed native-like arithmetic external baseline pilot; A/C arm is Item160.
+- Purpose: Run RG official-scorer puzzle24/countdown with LFS, corrected ToT/RAP, and best-of-n under matched budgets.
+- Details:
+  - purpose=Run RG official-scorer puzzle24/countdown with LFS, corrected ToT/RAP, and best-of-n under matched budgets.
+  - commands=1
+  - result_tables=['overall_external_baselines']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_159_official_benchmark_pilot_puzzle24_countdown.json (yes, 2209 bytes)
+#### Contract Result Tables
+
+##### overall_external_baselines
+
+| method | n | solved | solve_rate |
+| --- | --- | --- | --- |
+| RAP_MCTS_repo_port_budget_exhaustive | 128 | 32 | 0.25 |
+| ToT_Beam_repo_port_budget_exhaustive | 128 | 23 | 0.1797 |
+| best_of_n_parallel_sampling | 128 | 10 | 0.07812 |
+| LFS_repo_port_multistate_batch | 128 | 5 | 0.03906 |
+
+- Next action: Use as completed native-like arithmetic external baseline pilot; A/C arm is Item160.
+
+### Item 160 - A_cache and C_incontext arithmetic arm on puzzle24 and countdown
+
+- Status: AC_ARITHMETIC_PUZZLE24_COUNTDOWN_COMPLETE
+- Key result: Use as complete puzzle24/countdown comparison including A/C and external baselines.
+- Purpose: Run matched-budget A-vs-C arithmetic trace on same RG puzzle24/countdown tasks.
+- Details:
+  - purpose=Run matched-budget A-vs-C arithmetic trace on same RG puzzle24/countdown tasks.
+  - commands=1
+  - result_tables=['ac_gap_summary']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_160_ac_arithmetic_puzzle24_countdown.json (yes, 1904 bytes)
+#### Contract Result Tables
+
+##### ac_gap_summary
+
+| task | budget_B | A_solve_rate | C_solve_rate | A_minus_C |
+| --- | --- | --- | --- | --- |
+| puzzle24 | 8000 | 0.5312 | 0.2969 | 0.2344 |
+| countdown | 16000 | 0.2344 | 0.09375 | 0.1406 |
+
+- Next action: Use as complete puzzle24/countdown comparison including A/C and external baselines.
+
+### Item 161 - C1.2 architecture restore characterization verdict
+
+- Status: C1_2_ARCHITECTURE_RESTORE_CHARACTERIZATION_VERDICT_COMPLETE
+- Key result: C1.2 has verdict; keep Part5/Part6 deferred until explicitly resumed.
+- Purpose: Execute Item145 C1.2 architecture restore characterization; reconstructed panel verdict TRADE-OFF-FLIPS.
+- Details:
+  - purpose=Execute Item145 C1.2 architecture restore characterization; reconstructed panel verdict TRADE-OFF-FLIPS.
+  - commands=1
+  - result_tables=['architecture_restore_rows_selected']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_161_c1_2_architecture_restore_characterization_complete.json (yes, 2561 bytes)
+#### Contract Result Tables
+
+##### architecture_restore_rows_selected
+
+| architecture | method | resume_divergence_max | decision_agreement | bit_exact |
+| --- | --- | --- | --- | --- |
+| pure_attention_control | m1_truncation | 0 | 1 | True |
+| gated_deltanet_local_equivalent | m1_truncation | 9.734 | 0.3021 | False |
+| gated_deltanet_local_equivalent | m2_full_state_snapshot | 0 | 1 | True |
+| hybrid_attention_gated_state | m2_full_state_snapshot | 0 | 1 | True |
+
+- Next action: C1.2 has verdict; keep Part5/Part6 deferred until explicitly resumed.
+
+### Item 162 - C1.2 flip verification on real pretrained bounded-state checkpoint
+
+- Status: C1_2_FLIP_VERIFICATION_LOCKED
+- Key result: Constructive C1.2 headline stands; if rerun ever downgrades, revise Section 4.
+- Purpose: Verify C1.2 flip on real pretrained state-spaces/mamba-130m-hf with audited-complete DynamicCache snapshot and depth sweep.
+- Details:
+  - purpose=Verify C1.2 flip on real pretrained state-spaces/mamba-130m-hf with audited-complete DynamicCache snapshot and depth sweep.
+  - commands=1
+  - result_tables=['depth_sweep', 'real_model_faithfulness']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_162_c1_2_flip_verification_real_checkpoint.json (yes, 3262 bytes)
+#### Contract Result Tables
+
+##### depth_sweep
+
+| depth | m1_resume_divergence_max | m1_decision_agreement | m2_resume_divergence_max | m2_decision_agreement | m2_bit_exact |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 111.4 | 0 | 0 | 1 | True |
+| 8 | 179.6 | 0 | 0 | 1 | True |
+| 32 | 179.6 | 0 | 0 | 1 | True |
+| 128 | 179.6 | 0.007812 | 0 | 1 | True |
+
+##### real_model_faithfulness
+
+| architecture | model_id | model_class | parameter_count | library | forward_path | real_pretrained_checkpoint |
+| --- | --- | --- | --- | --- | --- | --- |
+| real_pretrained_mamba | state-spaces/mamba-130m-hf | MambaForCausalLM | 129135360 | transformers==5.12.1 | recurrent_sequential_fallback | True |
+
+- Next action: Constructive C1.2 headline stands; if rerun ever downgrades, revise Section 4.
+
+### Item 163 - C1.2 real Mamba reproduction on GPUs 0-3
+
+- Status: C1_2_GPU0_3_REPRODUCTION_LOCKED
+- Key result: Use Item163 as the GPU0-3 reproduction confirmation for the Item162 C1.2 flip lock. Part 5 and Part 6 may resume only when explicitly requested.
+- Purpose: Reproduce the Item162 real pretrained Mamba C1.2 flip verification independently on GPUs 0, 1, 2, and 3 after restoring the item log after 132. Each GPU runs the same state-spaces/mamba-130m-hf M1/M2 checkpoint-restore depth sweep.
+- Details:
+  - purpose=Reproduce the Item162 real pretrained Mamba C1.2 flip verification independently on GPUs 0, 1, 2, and 3 after restoring the item log after 132. Each GPU runs the same state-spaces/mamba-130m-hf M1/M2 checkpoint-restore depth sweep.
+  - commands=3
+  - result_tables=['gpu_reproduction_summary', 'depth_sweep_all_gpus']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_163_c1_2_gpu0_3_reproduction.json (yes, 7027 bytes)
+  - analysis/c1_2_reproduce_mamba.py (yes, 8589 bytes)
+  - results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu0_real_mamba_depth_sweep.json (yes, 13732 bytes)
+  - results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu1_real_mamba_depth_sweep.json (yes, 13732 bytes)
+  - results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu2_real_mamba_depth_sweep.json (yes, 13732 bytes)
+  - results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu3_real_mamba_depth_sweep.json (yes, 13732 bytes)
+  - results/experiment_items/item_162_c1_2_flip_verification_real_checkpoint.json (yes, 3262 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu0_real_mamba_depth_sweep.json | C1_2_GPU03_REPRO_LOCKED | c1_2_verdict=TRADE-OFF-FLIPS; checkpoint_generated_tokens=16; cuda_visible_devices=0; generated_prefix= We use the same model as in [@wang2018learning] and [@wang2018; gpu_logical_device=cuda:0; kill_verdict=LOCKED |  |
+| results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu1_real_mamba_depth_sweep.json | C1_2_GPU03_REPRO_LOCKED | c1_2_verdict=TRADE-OFF-FLIPS; checkpoint_generated_tokens=16; cuda_visible_devices=1; generated_prefix= We use the same model as in [@wang2018learning] and [@wang2018; gpu_logical_device=cuda:0; kill_verdict=LOCKED |  |
+| results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu2_real_mamba_depth_sweep.json | C1_2_GPU03_REPRO_LOCKED | c1_2_verdict=TRADE-OFF-FLIPS; checkpoint_generated_tokens=16; cuda_visible_devices=2; generated_prefix= We use the same model as in [@wang2018learning] and [@wang2018; gpu_logical_device=cuda:0; kill_verdict=LOCKED |  |
+| results/c1_2_architecture_restore_characterization/item162_repro_gpu0_3_20260620/gpu3_real_mamba_depth_sweep.json | C1_2_GPU03_REPRO_LOCKED | c1_2_verdict=TRADE-OFF-FLIPS; checkpoint_generated_tokens=16; cuda_visible_devices=3; generated_prefix= We use the same model as in [@wang2018learning] and [@wang2018; gpu_logical_device=cuda:0; kill_verdict=LOCKED |  |
+| results/experiment_items/item_162_c1_2_flip_verification_real_checkpoint.json | C1_2_FLIP_VERIFICATION_LOCKED | item_number=162; name=C1.2 flip verification on real pretrained bounded-state checkpoint; purpose=Verify C1.2 flip on real pretrained state-spaces/mamba-130m-hf with audited-complete DynamicCache snapshot and depth ...; schema_version=log_item_contract_v1 | depth_sweep:4r/6c; real_model_faithfulness:1r/7c |
+
+#### Contract Result Tables
+
+##### gpu_reproduction_summary
+
+| gpu | status | kill_verdict | c1_2_verdict | model_params | captured_tensors |
+| --- | --- | --- | --- | --- | --- |
+| 0 | C1_2_GPU03_REPRO_LOCKED | LOCKED | TRADE-OFF-FLIPS | 129135360 | 49 |
+| 1 | C1_2_GPU03_REPRO_LOCKED | LOCKED | TRADE-OFF-FLIPS | 129135360 | 49 |
+| 2 | C1_2_GPU03_REPRO_LOCKED | LOCKED | TRADE-OFF-FLIPS | 129135360 | 49 |
+| 3 | C1_2_GPU03_REPRO_LOCKED | LOCKED | TRADE-OFF-FLIPS | 129135360 | 49 |
+
+##### depth_sweep_all_gpus
+
+| depth | m1_resume_divergence_max | m1_decision_agreement | m2_resume_divergence_max | m2_decision_agreement | m2_bit_exact |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 111.4 | 0 | 0 | 1 | True |
+| 8 | 179.6 | 0 | 0 | 1 | True |
+| 32 | 179.6 | 0 | 0 | 1 | True |
+| 128 | 179.6 | 0.007812 | 0 | 1 | True |
+
+- Next action: Use Item163 as the GPU0-3 reproduction confirmation for the Item162 C1.2 flip lock. Part 5 and Part 6 may resume only when explicitly requested.
+
 
 ## Canonical Repo Decision
 
@@ -9291,20 +10222,20 @@ Truncated to 24 of 378 rows.
 | t2_recurrent_operator_8gpu_acceptance | results/recurrent_operator_8gpu/acceptance.json | yes |
 | track_b_trm_operator_trainer | experiments/train_trm_operator.py | yes |
 | track_b_trm_operator_smoke_acceptance | results/trm_operator_smoke/acceptance.json | yes |
-| track_b_trm_full_3x8gpu_monitor | results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | yes |
-| track_b_trm_full_seed102_acceptance | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | yes |
-| track_b_trm_full_seed137_acceptance | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | yes |
-| track_b_trm_full_seed256_acceptance | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | yes |
-| track_b_p0_profile_report | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json | yes |
-| track_b_p0_profiler_key_averages | results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_key_averages.txt | yes |
-| track_b_p0_gpu_util_samples | results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl | yes |
+| track_b_trm_full_3x8gpu_monitor | results/track_b_trm_3x8gpu_20260608T042649Z/monitor_summary.json | missing |
+| track_b_trm_full_seed102_acceptance | results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/acceptance.json | missing |
+| track_b_trm_full_seed137_acceptance | results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/acceptance.json | missing |
+| track_b_trm_full_seed256_acceptance | results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/acceptance.json | missing |
+| track_b_p0_profile_report | results/profile_gate/track_b_current_20260608T_p0_single/profile_report.json | missing |
+| track_b_p0_profiler_key_averages | results/profile_gate/track_b_current_20260608T_p0_single/torch_profiler_key_averages.txt | missing |
+| track_b_p0_gpu_util_samples | results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl | missing |
 | sudoku_engine_gpu | sudoku_engine_gpu.py | yes |
-| sudoku_engine_gpu_equivalence | results/sudoku_engine_gpu/equivalence_1000.json | yes |
+| sudoku_engine_gpu_equivalence | results/sudoku_engine_gpu/equivalence_1000.json | missing |
 | register_batched_ops | register/batched_ops.py | yes |
-| register_batched_ops_equivalence | results/batched_ops/equivalence_100.json | yes |
+| register_batched_ops_equivalence | results/batched_ops/equivalence_100.json | missing |
 | track_b_retry_plan | specs/track_b_retry_plan.md | yes |
-| track_b_prelaunch_smoke_acceptance | results/trm_operator_prelaunch_smoke/acceptance.json | yes |
-| track_b_compile_smoke_acceptance | results/trm_operator_compile_smoke/acceptance.json | yes |
+| track_b_prelaunch_smoke_acceptance | results/trm_operator_prelaunch_smoke/acceptance.json | missing |
+| track_b_compile_smoke_acceptance | results/trm_operator_compile_smoke/acceptance.json | missing |
 | track_b_value_head_retrain_acceptance | results/track_b_value_head_retrain_20260609/acceptance.json | yes |
 | post_review_e1_cross_task_generalization | results/post_review_e1_cross_task_generalization/results.json | yes |
 | rung1_distributed_graph_coloring | results/rung1_distributed_graph_coloring/results.json | yes |
@@ -9400,62 +10331,62 @@ Truncated to 24 of 378 rows.
 | kvcache_backjump_lora_km3 | results/kvcache_backjump_lora/km3_lora_v0.json | yes |
 | kvcache_backjump_lora_eval_decisions | results/kvcache_backjump_lora/eval_decisions_v0.json | yes |
 | kvcache_backjump_lora_summary | results/kvcache_backjump_lora/summary_v0.json | yes |
-| kvcache_backjump_lora_parta_chrono_solve | results/kvcache_backjump_lora/partA_chrono_solve_v0/merged_partA_chrono_solve.json | yes |
-| kvcache_conflict_analysis_cot_c1_full_r4 | results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/merged_c1_conflict_cot_full_r4.json | yes |
-| kvcache_c2_reasoning_data_manifest | results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/manifest.json | yes |
-| kvcache_c2_reasoning_train | results/kvcache_backjump_lora/c2_reasoning_train_repaired_v0/train.json | yes |
-| kvcache_c2_reasoning_km3 | results/kvcache_backjump_lora/km3_c2_reasoning_repaired_v0.json | yes |
-| kvcache_c2_reasoning_eval | results/kvcache_backjump_lora/c2_reasoning_repaired_eval_v0/merged_c2_reasoning_repaired_eval.json | yes |
+| kvcache_backjump_lora_parta_chrono_solve | results/kvcache_backjump_lora/partA_chrono_solve_v0/merged_partA_chrono_solve.json | missing |
+| kvcache_conflict_analysis_cot_c1_full_r4 | results/kvcache_backjump_lora/c1_conflict_cot_full_r4_v0/merged_c1_conflict_cot_full_r4.json | missing |
+| kvcache_c2_reasoning_data_manifest | results/kvcache_backjump_lora/c2_reasoning_data_n30_repaired_v0/manifest.json | missing |
+| kvcache_c2_reasoning_train | results/kvcache_backjump_lora/c2_reasoning_train_repaired_v0/train.json | missing |
+| kvcache_c2_reasoning_km3 | results/kvcache_backjump_lora/km3_c2_reasoning_repaired_v0.json | missing |
+| kvcache_c2_reasoning_eval | results/kvcache_backjump_lora/c2_reasoning_repaired_eval_v0/merged_c2_reasoning_repaired_eval.json | missing |
 | kvcache_multiagent_cbj_script | analysis/kvcache_multiagent_cbj.py | yes |
-| kvcache_multiagent_cbj_km3_gate | results/kvcache_multiagent_cbj/km3_gate_k2_v0.json | yes |
-| kvcache_multiagent_cbj_k2_probe | results/kvcache_multiagent_cbj/k2_probe_shards_v0/merged_k2_probe.json | yes |
-| kvcache_multiagent_structural_k2_symbolic | results/kvcache_multiagent_cbj/structural_k2_symbolic_v0/merged_structural_k2_symbolic.json | yes |
-| kvcache_multiagent_model_route_k2_secondary | results/kvcache_multiagent_cbj/model_route_k2_secondary_v0/merged_model_route_k2_secondary.json | yes |
+| kvcache_multiagent_cbj_km3_gate | results/kvcache_multiagent_cbj/km3_gate_k2_v0.json | missing |
+| kvcache_multiagent_cbj_k2_probe | results/kvcache_multiagent_cbj/k2_probe_shards_v0/merged_k2_probe.json | missing |
+| kvcache_multiagent_structural_k2_symbolic | results/kvcache_multiagent_cbj/structural_k2_symbolic_v0/merged_structural_k2_symbolic.json | missing |
+| kvcache_multiagent_model_route_k2_secondary | results/kvcache_multiagent_cbj/model_route_k2_secondary_v0/merged_model_route_k2_secondary.json | missing |
 | kvcache_overnight_batch_script | analysis/kvcache_overnight_batch.py | yes |
-| kvcache_overnight_manifest | results/kvcache_overnight_v0/overnight_manifest.json | yes |
-| kvcache_overnight_harness_smoke | results/kvcache_overnight_v0/harness_smoke.json | yes |
-| kvcache_overnight_mini_sudoku_gate | results/kvcache_overnight_v0/p1a/mini_sudoku/gate.json | yes |
-| kvcache_overnight_n_queens_gate | results/kvcache_overnight_v0/p1a/n_queens/gate.json | yes |
-| kvcache_overnight_futoshiki_gate | results/kvcache_overnight_v0/p1a/futoshiki/gate.json | yes |
+| kvcache_overnight_manifest | results/kvcache_overnight_v0/overnight_manifest.json | missing |
+| kvcache_overnight_harness_smoke | results/kvcache_overnight_v0/harness_smoke.json | missing |
+| kvcache_overnight_mini_sudoku_gate | results/kvcache_overnight_v0/p1a/mini_sudoku/gate.json | missing |
+| kvcache_overnight_n_queens_gate | results/kvcache_overnight_v0/p1a/n_queens/gate.json | missing |
+| kvcache_overnight_futoshiki_gate | results/kvcache_overnight_v0/p1a/futoshiki/gate.json | missing |
 | kvcache_gate2_csp_solver_script | analysis/kvcache_gate2_csp_solver.py | yes |
-| kvcache_gate2_mini_sudoku_io | results/kvcache_overnight_v0/gate2/mini_sudoku_io.json | yes |
-| kvcache_gate2_mini_sudoku | results/kvcache_overnight_v0/gate2/mini_sudoku_gate2.json | yes |
-| kvcache_gate2_n_queens_io | results/kvcache_overnight_v0/gate2/n_queens_io.json | yes |
-| kvcache_gate2_n_queens | results/kvcache_overnight_v0/gate2/n_queens_gate2.json | yes |
-| kvcache_gate2_futoshiki_io | results/kvcache_overnight_v0/gate2/futoshiki_io.json | yes |
-| kvcache_gate2_futoshiki | results/kvcache_overnight_v0/gate2/futoshiki_gate2.json | yes |
-| kvcache_gate2_mini_sudoku_couple | results/kvcache_overnight_v0/gate2/mini_sudoku_couple_verified.json | yes |
-| kvcache_gate2_n_queens_couple | results/kvcache_overnight_v0/gate2/n_queens_couple_verified.json | yes |
-| kvcache_gate2_futoshiki_couple | results/kvcache_overnight_v0/gate2/futoshiki_couple_verified.json | yes |
+| kvcache_gate2_mini_sudoku_io | results/kvcache_overnight_v0/gate2/mini_sudoku_io.json | missing |
+| kvcache_gate2_mini_sudoku | results/kvcache_overnight_v0/gate2/mini_sudoku_gate2.json | missing |
+| kvcache_gate2_n_queens_io | results/kvcache_overnight_v0/gate2/n_queens_io.json | missing |
+| kvcache_gate2_n_queens | results/kvcache_overnight_v0/gate2/n_queens_gate2.json | missing |
+| kvcache_gate2_futoshiki_io | results/kvcache_overnight_v0/gate2/futoshiki_io.json | missing |
+| kvcache_gate2_futoshiki | results/kvcache_overnight_v0/gate2/futoshiki_gate2.json | missing |
+| kvcache_gate2_mini_sudoku_couple | results/kvcache_overnight_v0/gate2/mini_sudoku_couple_verified.json | missing |
+| kvcache_gate2_n_queens_couple | results/kvcache_overnight_v0/gate2/n_queens_couple_verified.json | missing |
+| kvcache_gate2_futoshiki_couple | results/kvcache_overnight_v0/gate2/futoshiki_couple_verified.json | missing |
 | p2b_graph_color_overnight_launch_script | scripts/launch_p2b_graph_color_overnight.sh | yes |
-| p2b_graph_color_overnight_launch_manifest | results/kvcache_overnight_v0/p2b_graph_color/launch_manifest_p2b_graph_color_overnight_v0.jsonl | yes |
-| kvcache_gate3_mini_sudoku | results/kvcache_overnight_v0/gate3/mini_sudoku_gate3.json | yes |
-| kvcache_gate3_n_queens | results/kvcache_overnight_v0/gate3/n_queens_gate3.json | yes |
-| kvcache_gate3_futoshiki | results/kvcache_overnight_v0/gate3/futoshiki_gate3.json | yes |
+| p2b_graph_color_overnight_launch_manifest | results/kvcache_overnight_v0/p2b_graph_color/launch_manifest_p2b_graph_color_overnight_v0.jsonl | missing |
+| kvcache_gate3_mini_sudoku | results/kvcache_overnight_v0/gate3/mini_sudoku_gate3.json | missing |
+| kvcache_gate3_n_queens | results/kvcache_overnight_v0/gate3/n_queens_gate3.json | missing |
+| kvcache_gate3_futoshiki | results/kvcache_overnight_v0/gate3/futoshiki_gate3.json | missing |
 | p1b_separability_script | analysis/kvcache_separability_p1b.py | yes |
-| p1b_separability_formal | results/kvcache_overnight_v0/p1b_separability/formal_bs12_pin070.json | yes |
-| p2b_graph_color_completion | results/kvcache_overnight_v0/p2b_graph_color_completion.json | yes |
+| p1b_separability_formal | results/kvcache_overnight_v0/p1b_separability/formal_bs12_pin070.json | missing |
+| p2b_graph_color_completion | results/kvcache_overnight_v0/p2b_graph_color_completion.json | missing |
 | p2b_graph_color_cost_from_sources_script | analysis/kvcache_graph_color_cost_from_sources.py | yes |
 | p2b_graph_color_cost_fixed_launcher | scripts/launch_p2b_cost_fixed_sources.sh | yes |
-| p2b_graph_color_v20_cost_shard0 | results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_0.json | yes |
-| p1a_metric_futoshiki_reason | results/kvcache_overnight_v0/p1a_metric/futoshiki_reason_metric.json | yes |
-| p1a_metric_sudoku_reason | results/kvcache_overnight_v0/p1a_metric/sudoku_reason_metric.json | yes |
-| p1a_metric_futoshiki_cost | results/kvcache_overnight_v0/p1a_metric/futoshiki_cost_metric.json | yes |
-| p1a_metric_sudoku_cost | results/kvcache_overnight_v0/p1a_metric/sudoku_cost_metric.json | yes |
-| prompt_b_exposed_preregistered_kill | results/kvcache_overnight_v0/prompt_b_exposed/preregistered_kill.json | yes |
-| prompt_b_exposed_futoshiki_reason | results/kvcache_overnight_v0/prompt_b_exposed/futoshiki_reason_exposed_metric.json | yes |
-| prompt_b_exposed_sudoku_reason | results/kvcache_overnight_v0/prompt_b_exposed/sudoku_reason_exposed_metric.json | yes |
-| matched_budget_preregistered_kill | results/kvcache_matched_budget_v0/preregistered_kill.json | yes |
-| matched_budget_primary_csp_symbolic_n2 | results/kvcache_matched_budget_v0/primary_csp_symbolic_n2_formal.json | yes |
-| matched_budget_scaled_primary_progress | results/kvcache_matched_budget_v0/scaled_primary_n64/merged_checkpoint_progress.json | yes |
-| matched_budget_scaled_primary_n64 | results/kvcache_matched_budget_v0/scaled_primary_n64/merged_scaled_primary_n64.json | yes |
+| p2b_graph_color_v20_cost_shard0 | results/kvcache_overnight_v0/p2b_graph_color_cost_fixed/cost_shards/v20_p04_shard_0.json | missing |
+| p1a_metric_futoshiki_reason | results/kvcache_overnight_v0/p1a_metric/futoshiki_reason_metric.json | missing |
+| p1a_metric_sudoku_reason | results/kvcache_overnight_v0/p1a_metric/sudoku_reason_metric.json | missing |
+| p1a_metric_futoshiki_cost | results/kvcache_overnight_v0/p1a_metric/futoshiki_cost_metric.json | missing |
+| p1a_metric_sudoku_cost | results/kvcache_overnight_v0/p1a_metric/sudoku_cost_metric.json | missing |
+| prompt_b_exposed_preregistered_kill | results/kvcache_overnight_v0/prompt_b_exposed/preregistered_kill.json | missing |
+| prompt_b_exposed_futoshiki_reason | results/kvcache_overnight_v0/prompt_b_exposed/futoshiki_reason_exposed_metric.json | missing |
+| prompt_b_exposed_sudoku_reason | results/kvcache_overnight_v0/prompt_b_exposed/sudoku_reason_exposed_metric.json | missing |
+| matched_budget_preregistered_kill | results/kvcache_matched_budget_v0/preregistered_kill.json | missing |
+| matched_budget_primary_csp_symbolic_n2 | results/kvcache_matched_budget_v0/primary_csp_symbolic_n2_formal.json | missing |
+| matched_budget_scaled_primary_progress | results/kvcache_matched_budget_v0/scaled_primary_n64/merged_checkpoint_progress.json | missing |
+| matched_budget_scaled_primary_n64 | results/kvcache_matched_budget_v0/scaled_primary_n64/merged_scaled_primary_n64.json | missing |
 | matched_budget_external_repo_provenance | results/kvcache_matched_budget_v0/external_repo_provenance.json | yes |
-| matched_budget_graph_color_symbolic_rows | results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_n64.json | yes |
-| matched_budget_graph_color_symbolic_curve | results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_budget_curve_n64.json | yes |
-| matched_budget_graph_color_c1_curve | results/kvcache_matched_budget_v0/graph_color_part_a/c1_v16_r16_n64_shards/merged_c1_v16_r16_n64.json | yes |
+| matched_budget_graph_color_symbolic_rows | results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_n64.json | missing |
+| matched_budget_graph_color_symbolic_curve | results/kvcache_matched_budget_v0/graph_color_part_a/v16_r16_symbolic_budget_curve_n64.json | missing |
+| matched_budget_graph_color_c1_curve | results/kvcache_matched_budget_v0/graph_color_part_a/c1_v16_r16_n64_shards/merged_c1_v16_r16_n64.json | missing |
 | matched_budget_external_runner_registry | results/kvcache_matched_budget_v0/external_budget_runner_registry.json | yes |
-| hb2_best_of_n_bstar_cap1 | results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_n64_cap1/merged_best_of_n_bstar_n64_cap1.json | yes |
-| hb2_best_of_n_exhaustive_smoke | results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_exhaust_smoke/merged_best_of_n_bstar_exhaust_smoke.json | yes |
+| hb2_best_of_n_bstar_cap1 | results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_n64_cap1/merged_best_of_n_bstar_n64_cap1.json | missing |
+| hb2_best_of_n_exhaustive_smoke | results/kvcache_matched_budget_v0/hb2_best_of_n/bstar_exhaust_smoke/merged_best_of_n_bstar_exhaust_smoke.json | missing |
 | hb2_lfs_repo_port_smoke | results/kvcache_matched_budget_v0/hb2_lfs/item126_lfs_smoke_sudoku_graph_n1.json | yes |
 | hb2_tot_rap_repo_port_smoke | results/kvcache_matched_budget_v0/hb2_tot_rap/item127_tot_rap_smoke_sudoku_graph_n1.json | yes |
 | hb2_external_full_grid_launcher | scripts/launch_hb2_external_full_grid.sh | yes |

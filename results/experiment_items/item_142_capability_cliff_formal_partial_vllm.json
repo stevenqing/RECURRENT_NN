@@ -1,0 +1,109 @@
+{
+  "artifacts": [
+    "results/experiment_items/item_142_capability_cliff_formal_partial_vllm.json",
+    "results/kvcache_capability_cliff/formal_v0/points.json",
+    "results/kvcache_capability_cliff/formal_v0/collect.json",
+    "results/kvcache_capability_cliff/formal_v0/launch_manifest_vllm_short_0_3.json",
+    "results/kvcache_capability_cliff/formal_v0/launch_manifest_vllm_4k_filtered_0_3.json"
+  ],
+  "commands": [
+    {
+      "command": "RECOVERED_FROM_RAW_CONVERSATION_BLOCK",
+      "purpose": "Reconstruct item contract from pasted raw item log after 132."
+    }
+  ],
+  "decision": {
+    "gate_outcomes": [],
+    "headline": "Collect completed formal capability-cliff vLLM shard outputs for short graph/deep-graph and filtered 4k controls; no preregistered verdict because polluted 4k+ and long-context coverage are incomplete.",
+    "next_step_routing": "Run complete deep-end polluted 4000+ coverage with long-context backend; do not issue verdict from Item142 alone.",
+    "outcome": "CAPABILITY_CLIFF_FORMAL_PARTIAL_VLLM_SHORT_COMPLETE_4K_FILTERED_COMPLETE_NO_VERDICT",
+    "overall_pass": true
+  },
+  "generated_at": "2026-06-20T00:00:00+00:00",
+  "honesty": {
+    "does_not_establish": "Does not establish CLIFF, NO_CLIFF, or LENGTH_CONFOUND; partial short-context read only."
+  },
+  "item_number": "142",
+  "name": "Capability-cliff formal partial vLLM sweep on GPUs 0-3",
+  "provenance": {
+    "parent_items": [],
+    "recovered_at": "2026-06-20T00:00:00+00:00",
+    "source": "raw_item_log_after_132_recovered_from_conversation"
+  },
+  "purpose": "Collect completed formal capability-cliff vLLM shard outputs for short graph/deep-graph and filtered 4k controls; no preregistered verdict because polluted 4k+ and long-context coverage are incomplete.",
+  "result_tables": {
+    "coverage_summary": {
+      "columns": [
+        "segment",
+        "levels",
+        "rows",
+        "conditions",
+        "complete_for_verdict"
+      ],
+      "rows": [
+        {
+          "complete_for_verdict": false,
+          "conditions": "clean,polluted,neutral_filler",
+          "levels": "500,1000,2000",
+          "rows": 1710,
+          "segment": "short_vllm"
+        },
+        {
+          "complete_for_verdict": false,
+          "conditions": "clean,neutral_filler",
+          "levels": "4000",
+          "rows": 384,
+          "segment": "filtered_4k_vllm"
+        }
+      ]
+    },
+    "headline_rates_by_segment_condition": {
+      "columns": [
+        "segment",
+        "condition",
+        "rows",
+        "correct_move_rate",
+        "dead_reentry_rate"
+      ],
+      "rows": [
+        {
+          "condition": "clean",
+          "correct_move_rate": 0.2188,
+          "dead_reentry_rate": 0.6354,
+          "rows": 576,
+          "segment": "short_vllm"
+        },
+        {
+          "condition": "polluted",
+          "correct_move_rate": 0.06631,
+          "dead_reentry_rate": 0.8262,
+          "rows": 558,
+          "segment": "short_vllm"
+        },
+        {
+          "condition": "neutral_filler",
+          "correct_move_rate": 0.3906,
+          "dead_reentry_rate": 0.3125,
+          "rows": 576,
+          "segment": "short_vllm"
+        },
+        {
+          "condition": "clean",
+          "correct_move_rate": 0.2188,
+          "dead_reentry_rate": 0.6354,
+          "rows": 192,
+          "segment": "filtered_4k_vllm"
+        },
+        {
+          "condition": "neutral_filler",
+          "correct_move_rate": 0.3542,
+          "dead_reentry_rate": 0.401,
+          "rows": 192,
+          "segment": "filtered_4k_vllm"
+        }
+      ]
+    }
+  },
+  "schema_version": "log_item_contract_v1",
+  "status": "CAPABILITY_CLIFF_FORMAL_PARTIAL_VLLM_SHORT_COMPLETE_4K_FILTERED_COMPLETE_NO_VERDICT"
+}
