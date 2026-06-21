@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 import glob
 from math import log, sqrt
@@ -18,8 +19,10 @@ from statistics import mean
 import sys
 from typing import Any
 import json
+from urllib.request import Request, urlopen
 
 import torch
+from transformers import AutoTokenizer
 
 from analysis.kvcache_graph_color_search import _write_json
 from analysis.kvcache_lfs_baseline import CSPState, _extract_json, _legal_actions, _load_model, _make_dataset, _make_env, _now, _query_json, _score_state, _state_text, _transition
@@ -31,6 +34,15 @@ STATUS_COMPLETE = "KVCACHE_TOT_RAP_BASELINES_COMPLETE"
 LLM_REASONERS_REPO = "maitrix-org/llm-reasoners"
 LLM_REASONERS_URL = "https://github.com/maitrix-org/llm-reasoners"
 LLM_REASONERS_COMMIT = "f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2"
+
+
+def _load_backend(args: argparse.Namespace) -> tuple[Any, Any]:
+    if getattr(args, "backend", "transformers") == "vllm":
+        tokenizer = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
+        if tokenizer.pad_token_id is None:
+            tokenizer.pad_token = tokenizer.eos_token
+        return None, tokenizer
+    return _load_model(args)
 
 
 @dataclass
@@ -158,7 +170,7 @@ def _propose_actions(model: Any, tokenizer: Any, method: str, task: str, env: di
     _, legal_actions = _legal_actions(task, env, state)
     if not legal_actions:
         return [], 0, 0, "NO_LEGAL_ACTIONS"
-    parsed, used, qstatus = _query_json(model, tokenizer, _action_prompt(method, task, env, state, legal_actions, int(args.n_actions)), budget, tokens_used, int(args.max_new_tokens))
+    parsed, used, qstatus = _query_json_backend(model, tokenizer, args, _action_prompt(method, task, env, state, legal_actions, int(args.n_actions)), budget, tokens_used, int(args.max_new_tokens))
     if qstatus == "BUDGET_EXHAUSTED":
         return [], used, 0, qstatus
     actions = _parse_action_list(parsed, legal_actions, int(args.n_actions))
@@ -170,13 +182,69 @@ def _propose_actions(model: Any, tokenizer: Any, method: str, task: str, env: di
 
 
 def _score_child(model: Any, tokenizer: Any, method: str, task: str, env: dict[str, Any], state: Any, action: int, child_state: Any, budget: int, tokens_used: int, args: argparse.Namespace) -> tuple[float, int, int, str]:
-    parsed, used, qstatus = _query_json(model, tokenizer, _value_prompt(method, task, env, state, int(action), child_state), budget, tokens_used, int(args.max_new_tokens))
+    parsed, used, qstatus = _query_json_backend(model, tokenizer, args, _value_prompt(method, task, env, state, int(action), child_state), budget, tokens_used, int(args.max_new_tokens))
     if qstatus == "BUDGET_EXHAUSTED":
         return 0.0, used, 0, qstatus
     score = _parse_score(parsed)
     if score is None:
         return 0.0, used, 1, qstatus
     return score, used, 0, qstatus
+
+
+def _post_chat_completion(base_url: str, model_name: str, prompt: str, max_tokens: int, timeout_seconds: float) -> str:
+    payload = {
+        "model": model_name,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0,
+        "max_tokens": int(max_tokens),
+    }
+    request = Request(
+        base_url.rstrip("/") + "/chat/completions",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    with urlopen(request, timeout=float(timeout_seconds)) as response:
+        decoded = json.loads(response.read().decode("utf-8"))
+    return str(decoded.get("choices", [{}])[0].get("message", {}).get("content", "")).strip()
+
+
+def _generate_vllm_batch(args: argparse.Namespace, prompts: list[str], max_new_tokens: int) -> list[str]:
+    outputs = [""] * len(prompts)
+    with ThreadPoolExecutor(max_workers=max(1, int(args.request_workers))) as pool:
+        futures = {
+            pool.submit(
+                _post_chat_completion,
+                args.openai_base_url,
+                args.openai_model,
+                prompt,
+                int(max_new_tokens),
+                float(args.request_timeout),
+            ): index
+            for index, prompt in enumerate(prompts)
+        }
+        for future in as_completed(futures):
+            outputs[futures[future]] = future.result()
+    return outputs
+
+
+def _query_json_backend(model: Any, tokenizer: Any, args: argparse.Namespace, prompt: str, budget: int, tokens_used: int, max_new_tokens: int) -> tuple[Any | None, int, str]:
+    if getattr(args, "backend", "transformers") != "vllm":
+        return _query_json(model, tokenizer, prompt, budget, tokens_used, max_new_tokens)
+    input_tokens = len(tokenizer(prompt, add_special_tokens=False).input_ids)
+    remaining = int(budget) - int(tokens_used)
+    if remaining <= input_tokens + 1:
+        return None, 0, "BUDGET_EXHAUSTED"
+    row_max_new = min(int(max_new_tokens), max(1, remaining - input_tokens))
+    text = _post_chat_completion(args.openai_base_url, args.openai_model, prompt, int(row_max_new), float(args.request_timeout))
+    output_tokens = len(tokenizer(text, add_special_tokens=False).input_ids)
+    used = int(input_tokens) + int(output_tokens)
+    if int(tokens_used) + used > int(budget):
+        return None, 0, "BUDGET_EXHAUSTED"
+    try:
+        return _extract_json(text), used, "OK"
+    except Exception:
+        return None, used, "PARSE_FAIL"
 
 
 @torch.no_grad()
@@ -240,6 +308,41 @@ def _query_json_batch(model: Any, tokenizer: Any, prompts: list[str], budget: in
     return results
 
 
+def _query_json_batch_backend(model: Any, tokenizer: Any, args: argparse.Namespace, prompts: list[str], budget: int, tokens_used: int, max_new_tokens: int) -> list[tuple[Any | None, int, str]]:
+    if getattr(args, "backend", "transformers") != "vllm":
+        return _query_json_batch(model, tokenizer, prompts, budget, tokens_used, max_new_tokens)
+    if not prompts:
+        return []
+    prompt_lengths = [len(tokenizer(prompt, add_special_tokens=False).input_ids) for prompt in prompts]
+    selected_count = 0
+    planned_tokens = int(tokens_used)
+    batch_max_new = None
+    for input_tokens in prompt_lengths:
+        remaining = int(budget) - planned_tokens
+        if remaining <= input_tokens + 1:
+            break
+        candidate_max_new = min(int(max_new_tokens), max(1, remaining - input_tokens))
+        if batch_max_new is None:
+            batch_max_new = candidate_max_new
+        if planned_tokens + input_tokens + int(batch_max_new) > int(budget):
+            break
+        selected_count += 1
+        planned_tokens += input_tokens + int(batch_max_new)
+    if selected_count <= 0 or batch_max_new is None:
+        return [(None, 0, "BUDGET_EXHAUSTED") for _ in prompts]
+    texts = _generate_vllm_batch(args, prompts[:selected_count], int(batch_max_new))
+    results: list[tuple[Any | None, int, str]] = []
+    for text, input_tokens in zip(texts, prompt_lengths[:selected_count]):
+        output_tokens = len(tokenizer(text, add_special_tokens=False).input_ids)
+        used = int(input_tokens) + int(output_tokens)
+        try:
+            results.append((_extract_json(text), used, "OK"))
+        except Exception:
+            results.append((None, used, "PARSE_FAIL"))
+    results.extend((None, 0, "BUDGET_EXHAUSTED") for _ in prompts[selected_count:])
+    return results
+
+
 def _score_children_batch(model: Any, tokenizer: Any, method: str, task: str, env: dict[str, Any], state: Any, children: list[tuple[int, CSPState]], budget: int, tokens_used: int, args: argparse.Namespace) -> tuple[list[tuple[int, CSPState, float]], int, int, str]:
     scored: list[tuple[int, CSPState, float]] = []
     total_used = 0
@@ -248,7 +351,7 @@ def _score_children_batch(model: Any, tokenizer: Any, method: str, task: str, en
     for start in range(0, len(children), value_batch_size):
         chunk = children[start:start + value_batch_size]
         prompts = [_value_prompt(method, task, env, state, int(action), child_state) for action, child_state in chunk]
-        results = _query_json_batch(model, tokenizer, prompts, int(budget), int(tokens_used) + int(total_used), int(args.max_new_tokens))
+        results = _query_json_batch_backend(model, tokenizer, args, prompts, int(budget), int(tokens_used) + int(total_used), int(args.max_new_tokens))
         for (parsed, used, qstatus), (action, child_state) in zip(results, chunk):
             if qstatus == "BUDGET_EXHAUSTED":
                 return scored, total_used, parse_fails, "BUDGET_EXHAUSTED"
@@ -463,6 +566,7 @@ def _summarize(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         ci = _wilson(solves, len(subset))
         summary.append({
             "method": method,
+            "backend": subset[0].get("backend", "transformers_direct") if subset else "transformers_direct",
             "task": task,
             "budget_B": budget,
             "n": len(subset),
@@ -481,7 +585,8 @@ def _summarize(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def run_shard(args: argparse.Namespace) -> dict[str, Any]:
-    model, tokenizer = _load_model(args)
+    model, tokenizer = _load_backend(args)
+    backend_label = "vllm_openai_compatible" if args.backend == "vllm" else "transformers_direct"
     anchors = _budget_anchors(args.budget_anchors)
     rows = []
     methods = [item.strip() for item in args.methods.split(",") if item.strip()]
@@ -519,6 +624,7 @@ def run_shard(args: argparse.Namespace) -> dict[str, Any]:
                         row = _run_tot_instance(model, tokenizer, dataset, task, entry, source_index, int(budget), args)
                     else:
                         row = _run_rap_instance(model, tokenizer, dataset, task, entry, source_index, int(budget), args)
+                    row["backend"] = backend_label
                     row["shard_index"] = int(args.shard_index)
                     row["num_shards"] = int(args.num_shards)
                     rows.append(row)
@@ -530,6 +636,9 @@ def run_shard(args: argparse.Namespace) -> dict[str, Any]:
         "generated_at": _now(),
         "config": {key: (str(value) if isinstance(value, Path) else value) for key, value in vars(args).items()},
         "rows": rows,
+        "backend": backend_label,
+        "openai_base_url": args.openai_base_url if args.backend == "vllm" else None,
+        "openai_model": args.openai_model if args.backend == "vllm" else None,
         "source": SOURCE,
         "provenance": "kvcache_tot_rap_baselines_shard_v0",
     }
@@ -560,7 +669,8 @@ def merge(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def run(args: argparse.Namespace) -> dict[str, Any]:
-    model, tokenizer = _load_model(args)
+    model, tokenizer = _load_backend(args)
+    backend_label = "vllm_openai_compatible" if args.backend == "vllm" else "transformers_direct"
     anchors = _budget_anchors(args.budget_anchors)
     rows = []
     methods = [item.strip() for item in args.methods.split(",") if item.strip()]
@@ -573,11 +683,13 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             for method in methods:
                 print(json.dumps({"method": method, "task": task, "source_index": source_index, "budget_B": budget}), flush=True)
                 if method == "tot":
-                    rows.append(_run_tot_instance(model, tokenizer, dataset, task, entry, source_index, budget, args))
+                    row = _run_tot_instance(model, tokenizer, dataset, task, entry, source_index, budget, args)
                 elif method == "rap":
-                    rows.append(_run_rap_instance(model, tokenizer, dataset, task, entry, source_index, budget, args))
+                    row = _run_rap_instance(model, tokenizer, dataset, task, entry, source_index, budget, args)
                 else:
                     raise ValueError(f"unknown method: {method}")
+                row["backend"] = backend_label
+                rows.append(row)
                 _write_json(args.checkpoint_path, {"rows": rows})
     payload = {
         "schema_version": SCHEMA_VERSION,
@@ -586,6 +698,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "config": {key: (str(value) if isinstance(value, Path) else value) for key, value in vars(args).items()},
         "summary": _summarize(rows),
         "rows": rows,
+        "backend": backend_label,
+        "openai_base_url": args.openai_base_url if args.backend == "vllm" else None,
+        "openai_model": args.openai_model if args.backend == "vllm" else None,
         "source": SOURCE,
         "provenance": "kvcache_tot_rap_baselines_v0",
     }
@@ -623,6 +738,11 @@ def _add_common_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--model", default="Qwen/Qwen3-4B-Instruct-2507")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--dtype", choices=["fp32", "bf16", "fp16"], default="fp32")
+    parser.add_argument("--backend", choices=["transformers", "vllm"], default="transformers")
+    parser.add_argument("--openai-base-url", default="http://127.0.0.1:8012/v1")
+    parser.add_argument("--openai-model", default="Qwen/Qwen3-4B-Instruct-2507")
+    parser.add_argument("--request-workers", type=int, default=8)
+    parser.add_argument("--request-timeout", type=float, default=3600.0)
     parser.add_argument("--reasoning-gym-repo", default=None)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--scan-limit", type=int, default=120)

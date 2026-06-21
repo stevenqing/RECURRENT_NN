@@ -1,0 +1,138 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "168",
+  "name": "ToT/RAP vLLM backend restore",
+  "status": "TOT_RAP_VLLM_BACKEND_RESTORED_NOT_LAUNCHED",
+  "generated_at": "2026-06-21T00:00:00+00:00",
+  "purpose": "Restore the ToT/RAP OpenAI-compatible vLLM backend and multi-server launchers that had existed in prior session history but were absent from the current checkout. This enables future ToT/RAP acceleration through repo-owned vLLM servers without changing the search logic, official scoring, or token budget accounting.",
+  "artifacts": [
+    "results/experiment_items/item_168_tot_rap_vllm_backend_restore.json",
+    "analysis/kvcache_tot_rap_baselines.py",
+    "scripts/launch_hb2_tot_rap_vllm_multi_server.sh",
+    "scripts/launch_hb2_tot_rap_vllm_multi_server_detached.sh",
+    "results/reproduction_gpu0_3_20260620/reproduction_status.md",
+    "results/experiment_log/experiment_log.md",
+    "results/experiment_log/experiment_log.json"
+  ],
+  "commands": [
+    {
+      "command": "grep transcript/history for prior ToT/RAP vLLM implementation and compare current checkout",
+      "purpose": "Confirm the user memory was correct: prior history contained a ToT/RAP vLLM backend and multi-server launcher, but current checkout lacked them."
+    },
+    {
+      "command": "bash -n scripts/launch_hb2_tot_rap_vllm_multi_server.sh && bash -n scripts/launch_hb2_tot_rap_vllm_multi_server_detached.sh",
+      "purpose": "Validate restored launcher shell syntax."
+    },
+    {
+      "command": "$HOME/.local/bin/uv run --python .venv/bin/python python -m py_compile analysis/kvcache_tot_rap_baselines.py && python -m analysis.kvcache_tot_rap_baselines run-shard --help | grep -- --backend",
+      "purpose": "Validate restored ToT/RAP backend code and CLI exposure."
+    },
+    {
+      "command": "local fake OpenAI-compatible HTTP server smoke for _query_json_backend and _query_json_batch_backend",
+      "purpose": "Exercise the vLLM request/parse/token-accounting paths without consuming GPU or requiring a live vLLM server."
+    }
+  ],
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": [
+      "132",
+      "147",
+      "167"
+    ],
+    "history_source": "conversation transcript contained the prior ToT/RAP vLLM backend/launcher implementation from the Reasoning Gym fast method run phase.",
+    "repo_basis": "maitrix-org/llm-reasoners commit f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2 via local repo-port adapter.",
+    "direct_run_status_at_restore": "Direct Transformers ToT/RAP reproduction was still running under results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_gpu0_3 and was not interrupted. Snapshot: 774/1920 rows, bad_zero_budget=0."
+  },
+  "decision": {
+    "overall_pass": true,
+    "outcome": "VLLM_BACKEND_READY_FOR_FUTURE_TOT_RAP_ACCELERATION",
+    "headline": "ToT/RAP now has a restored backend switch for transformers versus vllm, OpenAI-compatible request support, request-worker batching for vLLM calls, and multi-server launchers that shard work over existing vLLM endpoints. The current direct full-grid run is left untouched.",
+    "gate_outcomes": [
+      {
+        "gate": "history_recovery",
+        "outcome": "PASS",
+        "number": "Prior conversation history confirmed ToT/RAP vLLM backend and launchers had been implemented before but were absent in this checkout."
+      },
+      {
+        "gate": "cli_surface",
+        "outcome": "PASS",
+        "number": "run-shard exposes --backend {transformers,vllm}, --openai-base-url, --openai-model, --request-workers, and --request-timeout."
+      },
+      {
+        "gate": "smoke_test",
+        "outcome": "PASS",
+        "number": "Local fake OpenAI-compatible server returned JSON that _query_json_backend and _query_json_batch_backend parsed successfully with nonzero token accounting."
+      },
+      {
+        "gate": "current_reproduction_safety",
+        "outcome": "PASS_NOT_LAUNCHED",
+        "number": "No vLLM ToT/RAP full-grid was launched in this item because the direct GPU0-3 reproduction is currently running; changing roots/backends mid-run would mix evidence."
+      }
+    ],
+    "next_step_routing": "After the current direct ToT/RAP run either completes or is explicitly retired, start a separate vLLM root with scripts/launch_hb2_tot_rap_vllm_multi_server_detached.sh against repo-owned vLLM servers, then record it as a distinct backend comparison item."
+  },
+  "result_tables": {
+    "restored_controls": {
+      "columns": [
+        "control",
+        "meaning"
+      ],
+      "rows": [
+        {
+          "control": "--backend transformers",
+          "meaning": "Original direct Transformers generation path; default for existing reproduction roots."
+        },
+        {
+          "control": "--backend vllm",
+          "meaning": "OpenAI-compatible vLLM request path with local tokenizer-based token accounting."
+        },
+        {
+          "control": "--request-workers",
+          "meaning": "Threaded HTTP concurrency for vLLM action/value request batches."
+        },
+        {
+          "control": "OPENAI_BASE_URLS",
+          "meaning": "Comma-separated vLLM server URLs assigned to shards by launch_hb2_tot_rap_vllm_multi_server.sh."
+        }
+      ]
+    },
+    "current_direct_run_snapshot": {
+      "columns": [
+        "metric",
+        "value"
+      ],
+      "rows": [
+        {
+          "metric": "completed_rows",
+          "value": 774
+        },
+        {
+          "metric": "expected_rows",
+          "value": 1920
+        },
+        {
+          "metric": "percent_complete",
+          "value": 40.31
+        },
+        {
+          "metric": "tasks_seen",
+          "value": "sudoku=640; futoshiki=134"
+        },
+        {
+          "metric": "statuses",
+          "value": "NO_FRONTIER=487; SOLVED=50; BUDGET_EXHAUSTED=237"
+        },
+        {
+          "metric": "bad_zero_budget_rows",
+          "value": 0
+        }
+      ]
+    }
+  },
+  "honesty": {
+    "scope": "This item restores code and launchers only; it does not claim a completed ToT/RAP vLLM full-grid result.",
+    "backend_isolation": "Direct Transformers and vLLM rows must not be merged into the same result root because backend behavior and throughput are different.",
+    "not_launched_reason": "The current direct ToT/RAP reproduction is actively running. Starting a vLLM replacement without explicitly retiring it would create ambiguous evidence and compete for GPUs.",
+    "token_accounting": "The vLLM backend charges input and output tokens using the same local tokenizer counter used by the direct backend."
+  }
+}
