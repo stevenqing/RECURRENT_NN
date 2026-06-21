@@ -1,8 +1,10 @@
 # Full Reproduction Guide
 
-Last updated: 2026-06-21 at commit `403fa4e`.
+Last updated: 2026-06-21.
 
 This guide is the paper-facing reproduction entrypoint for the current RECURRENT_NN results. It covers the GPU0-3 reproduction campaign, A_cache/C_incontext mechanism runs, ToT/RAP vLLM external baseline, and the ledger update procedure.
+
+The follow-up model-size sweep for other text-only Qwen3 checkpoints is documented in [QWEN3_MODEL_SIZE_SWEEP.md](QWEN3_MODEL_SIZE_SWEEP.md).
 
 ## Scope
 

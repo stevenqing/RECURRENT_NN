@@ -1,0 +1,160 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "170",
+  "name": "Qwen3 model-size sweep preflight and tokenizer A/C smoke",
+  "status": "QWEN3_MODEL_SIZE_SWEEP_PREFLIGHT_COMPLETE",
+  "generated_at": "2026-06-21T08:30:00+00:00",
+  "purpose": "Start the same-protocol model-size robustness extension for text-only Qwen3 checkpoints while keeping model-size artifacts isolated from the Qwen3-4B-Instruct-2507 Item169 root. This item records verified candidate model IDs, the new sweep runner, and tokenizer-only A_cache versus C_incontext smoke rows for the first three target sizes.",
+  "artifacts": [
+    "results/experiment_items/item_170_qwen3_model_size_sweep_preflight.json",
+    "QWEN3_MODEL_SIZE_SWEEP.md",
+    "scripts/reproduce_qwen3_model_size_sweep_gpu0_3.sh",
+    "results/reproduction_gpu0_3_20260620/qwen3_model_size_sweep/manifest.json",
+    "results/reproduction_gpu0_3_20260620/qwen3_model_size_sweep/summary.json",
+    "results/reproduction_gpu0_3_20260620/qwen3_model_size_sweep/status.md",
+    "results/reproduction_gpu0_3_20260620/qwen3_model_size_sweep/ac_smoke/qwen3_0_6b.json",
+    "results/reproduction_gpu0_3_20260620/qwen3_model_size_sweep/ac_smoke/qwen3_1_7b.json",
+    "results/reproduction_gpu0_3_20260620/qwen3_model_size_sweep/ac_smoke/qwen3_8b.json",
+    "README.md",
+    "REPRODUCTION_FULL.md",
+    "results/reproduction_gpu0_3_20260620/reproduction_status.md",
+    "results/experiment_log/experiment_log.md",
+    "results/experiment_log/experiment_log.json"
+  ],
+  "commands": [
+    {
+      "command": "python - <<'PY' ... huggingface_hub.model_info(...) for Qwen/Qwen3-0.6B, Qwen/Qwen3-1.7B, Qwen/Qwen3-4B, Qwen/Qwen3-8B, Qwen/Qwen3-14B, Qwen/Qwen3-32B, and inaccessible Instruct probes",
+      "purpose": "Verify accessible text-only Qwen3 model-size candidates before scheduling weights or vLLM servers."
+    },
+    {
+      "command": "STAGES=manifest,ac_smoke,summary MODELS=Qwen/Qwen3-0.6B,Qwen/Qwen3-1.7B,Qwen/Qwen3-8B scripts/reproduce_qwen3_model_size_sweep_gpu0_3.sh",
+      "purpose": "Run the safe model-size preflight: Hugging Face manifest plus tokenizer-level A_cache versus C_incontext smoke on sudoku/futoshiki, without loading model weights onto GPU."
+    },
+    {
+      "command": "STAGES=manifest,summary MODELS=Qwen/Qwen3-0.6B,Qwen/Qwen3-1.7B,Qwen/Qwen3-8B scripts/reproduce_qwen3_model_size_sweep_gpu0_3.sh",
+      "purpose": "Regenerate the manifest after fixing a missing manifest rows.append(row) bug in the new runner."
+    }
+  ],
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": [
+      "165",
+      "168",
+      "169"
+    ],
+    "run_root": "results/reproduction_gpu0_3_20260620/qwen3_model_size_sweep",
+    "gpu_scope": "GPU0-3 reserved for reproduction, but not used by this preflight because external CUDA processes were active on all GPUs during setup.",
+    "models_smoked": [
+      "Qwen/Qwen3-0.6B",
+      "Qwen/Qwen3-1.7B",
+      "Qwen/Qwen3-8B"
+    ],
+    "candidate_models_verified": [
+      "Qwen/Qwen3-0.6B",
+      "Qwen/Qwen3-1.7B",
+      "Qwen/Qwen3-4B",
+      "Qwen/Qwen3-8B",
+      "Qwen/Qwen3-14B",
+      "Qwen/Qwen3-32B"
+    ],
+    "excluded_models": [
+      "Qwen/Qwen3-VL-8B-Instruct is vision-language and excluded from the text-only Reasoning Gym sweep unless explicitly requested.",
+      "Qwen/Qwen3-0.6B-Instruct, Qwen/Qwen3-1.7B-Instruct, Qwen/Qwen3-8B-Instruct, and Qwen/Qwen3-14B-Instruct were not accessible under those exact IDs in this session."
+    ],
+    "resource_guard": "Observed external CUDA PID 2114 across GPU0-7 and UI-S1 jobs on GPU4-7; no external process was killed or preempted. GPU exactness/vLLM runs are pending until GPU0-3 are clear enough."
+  },
+  "decision": {
+    "overall_pass": true,
+    "outcome": "MODEL_SIZE_SWEEP_PREFLIGHT_READY",
+    "headline": "The Qwen3 model-size sweep is now scripted, documented, and preflighted for 0.6B, 1.7B, and 8B tokenizer-level A/C budget rows. GPU KM-3 exactness and vLLM ToT/RAP/LFS runs are the next gates, not yet claimed here.",
+    "gate_outcomes": [
+      {
+        "gate": "candidate_model_availability",
+        "outcome": "PASS",
+        "number": "Qwen/Qwen3-0.6B, 1.7B, and 8B all available with 1, 2, and 5 safetensor shards respectively."
+      },
+      {
+        "gate": "tokenizer_ac_smoke",
+        "outcome": "PASS",
+        "number": "Each of 0.6B, 1.7B, and 8B completed 16 trace rows and 32 budget rows."
+      },
+      {
+        "gate": "exactness_gate",
+        "outcome": "PENDING",
+        "number": "No model-size KM-3 exactness result is claimed in this item."
+      },
+      {
+        "gate": "vllm_external_baselines",
+        "outcome": "PENDING",
+        "number": "No model-size ToT/RAP/LFS vLLM result is claimed in this item."
+      }
+    ],
+    "next_step_routing": "When GPU0-3 are clear, run STAGES=exactness first for 0.6B/1.7B/8B. If exactness passes under the chosen dtype/tolerance, launch one vLLM model at a time and run tot_rap_vllm_smoke plus lfs_vllm_smoke before full detached grids."
+  },
+  "result_tables": {
+    "candidate_manifest": {
+      "columns": [
+        "model",
+        "available",
+        "sha_prefix",
+        "safetensors_count"
+      ],
+      "rows": [
+        {
+          "model": "Qwen/Qwen3-0.6B",
+          "available": true,
+          "sha_prefix": "c1899de2",
+          "safetensors_count": 1
+        },
+        {
+          "model": "Qwen/Qwen3-1.7B",
+          "available": true,
+          "sha_prefix": "70d244cc",
+          "safetensors_count": 2
+        },
+        {
+          "model": "Qwen/Qwen3-8B",
+          "available": true,
+          "sha_prefix": "b968826d",
+          "safetensors_count": 5
+        }
+      ]
+    },
+    "ac_tokenizer_smoke": {
+      "columns": [
+        "model",
+        "status",
+        "trace_rows",
+        "budget_rows",
+        "A_cache_solved_budget_rows",
+        "C_incontext_solved_budget_rows"
+      ],
+      "rows": [
+        {
+          "model": "Qwen/Qwen3-0.6B",
+          "status": "KVCACHE_MATCHED_BUDGET_SCALED_SHARD_COMPLETE",
+          "trace_rows": 16,
+          "budget_rows": 32,
+          "A_cache_solved_budget_rows": 16,
+          "C_incontext_solved_budget_rows": 4
+        },
+        {
+          "model": "Qwen/Qwen3-1.7B",
+          "status": "KVCACHE_MATCHED_BUDGET_SCALED_SHARD_COMPLETE",
+          "trace_rows": 16,
+          "budget_rows": 32,
+          "A_cache_solved_budget_rows": 16,
+          "C_incontext_solved_budget_rows": 4
+        },
+        {
+          "model": "Qwen/Qwen3-8B",
+          "status": "KVCACHE_MATCHED_BUDGET_SCALED_SHARD_COMPLETE",
+          "trace_rows": 16,
+          "budget_rows": 32,
+          "A_cache_solved_budget_rows": 16,
+          "C_incontext_solved_budget_rows": 4
+        }
+      ]
+    }
+  }
+}

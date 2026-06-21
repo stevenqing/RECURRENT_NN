@@ -38,12 +38,14 @@ The current GPU0-3 campaign uses two labels:
 | 167 | ToT/RAP corrected reproduction push snapshot | `results/reproduction_gpu0_3_20260620/hb2_tot_rap/` | strict smoke passed; full-grid running, snapshot 39/1920 rows, bad_zero_budget=0, code pushed at `bb64972` |
 | 168 | ToT/RAP vLLM backend restore | `analysis/kvcache_tot_rap_baselines.py` and `scripts/launch_hb2_tot_rap_vllm_multi_server*.sh` | backend/launchers restored and smoke-tested with fake OpenAI server; not launched while direct full-grid is running |
 | 169 | ToT/RAP vLLM full-grid n64 | `results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16/` | completed 1920/1920 rows; backend=vllm_openai_compatible; solved=397; bad_zero_budget=0 |
+| 170 | Qwen3 model-size sweep preflight | `results/reproduction_gpu0_3_20260620/qwen3_model_size_sweep/` | runner and documentation added; manifest plus tokenizer-only A/C smoke complete for 0.6B, 1.7B, and 8B; GPU exactness/vLLM stages gated on GPU0-3 availability |
 
 ## Running / Next
 
 | target | planned root | note |
 | --- | --- | --- |
 | HB-2 external LFS/ToT/RAP/best-of-n | `results/reproduction_gpu0_3_20260620/hb2_*` when enabled | executable launchers exist; run with `RUN_EXTERNAL_FULL=1 scripts/reproduce_gpu0_3_campaign.sh` |
+| Qwen3 model-size robustness | `results/reproduction_gpu0_3_20260620/qwen3_model_size_sweep/` | run `scripts/reproduce_qwen3_model_size_sweep_gpu0_3.sh`; promote full vLLM grids one model at a time after exactness and smoke gates |
 | non-default historical executable items | per-item roots | Items 103-133 outside campaign core remain schedulable by cost/relevance |
 
 ## Current Running Jobs

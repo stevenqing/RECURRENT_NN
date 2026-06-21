@@ -2,7 +2,7 @@
 
 This repository tracks a research program around reversible test-time compute, bounded state, KV-cache restore, and external no-train search baselines for frozen LLMs. The original Stage D scaffold is still present, but the current paper-facing ledger also includes KV-cache exactness gates, A_cache versus C_incontext matched-budget experiments, C1.2 state-restore checks, and HB-2 external baselines.
 
-For the current end-to-end reproduction entrypoint, use [REPRODUCTION_FULL.md](REPRODUCTION_FULL.md). The shorter workflow contract is [REPRODUCIBILITY.md](REPRODUCIBILITY.md), and the canonical item ledger is [results/experiment_log/experiment_log.md](results/experiment_log/experiment_log.md).
+For the current end-to-end reproduction entrypoint, use [REPRODUCTION_FULL.md](REPRODUCTION_FULL.md). The Qwen3 model-size follow-up is [QWEN3_MODEL_SIZE_SWEEP.md](QWEN3_MODEL_SIZE_SWEEP.md). The shorter workflow contract is [REPRODUCIBILITY.md](REPRODUCIBILITY.md), and the canonical item ledger is [results/experiment_log/experiment_log.md](results/experiment_log/experiment_log.md).
 
 ## Core Claim
 
@@ -54,6 +54,8 @@ bad_zero_budget = 0
 ```
 
 See [REPRODUCTION_FULL.md](REPRODUCTION_FULL.md) for exact commands, vLLM setup, A/C reproduction commands, gate checks, cleanup, ledger update procedure, and caveats.
+
+For same-protocol experiments on other Qwen3 text-only sizes, start with [QWEN3_MODEL_SIZE_SWEEP.md](QWEN3_MODEL_SIZE_SWEEP.md). It keeps model-size roots isolated and gates A_cache claims on per-model KM-3 exactness.
 
 ## Legacy Stage D Run Order
 
