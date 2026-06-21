@@ -1,6 +1,6 @@
 # RECURRENT_NN Experiment Log
 
-Generated at: 2026-06-21T04:04:04.153021+00:00
+Generated at: 2026-06-21T07:37:47.284310+00:00
 
 Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row is an experiment item or runbook item; status summaries and artifact indices are derived context below the item ledger.
 
@@ -164,6 +164,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
 | 166 | GPU0-3 automated reconstructed reproduction campaign | GPU0_3_REPRO_AUTOMATION_GRAPH_COLOR_COMPLETE | Use scripts/reproduce_gpu0_3_campaign.sh as the default continuation entrypoint. Set RUN_EXTERNAL_FULL=1 to run HB-2 LFS/ToT/RAP/best-of-n full grids sequentially on GPU0-3, or set STAGES to target a specific remaining reconstructed suite. |
 | 167 | ToT/RAP GPU0-3 corrected reproduction push snapshot | TOT_RAP_GPU0_3_CORRECTED_REPRO_RUNNING_PUSH_SNAPSHOT | Let the running ToT/RAP full-grid finish and merge. After completion, record a final result item, regenerate the ledger, and then continue with LFS or best-of-n external baselines. |
 | 168 | ToT/RAP vLLM backend restore | TOT_RAP_VLLM_BACKEND_RESTORED_NOT_LAUNCHED | After the current direct ToT/RAP run either completes or is explicitly retired, start a separate vLLM root with scripts/launch_hb2_tot_rap_vllm_multi_server_detached.sh against repo-owned vLLM servers, then record it as a distinct backend comparison item. |
+| 169 | ToT/RAP vLLM GPU0-3 full-grid reproduction complete | TOT_RAP_VLLM_GPU0_3_FULL_GRID_COMPLETE | Record/push this item, then stop repo-owned vLLM servers unless another vLLM baseline is immediately scheduled. Continue with LFS/best-of-n finalization as separate items. |
 
 ## Item Details
 
@@ -383,7 +384,7 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - CANONICAL_REPO.md (yes, 532 bytes)
   - analysis/validate_outputs.py (yes, 180370 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -507,8 +508,8 @@ Scope: item-first continuation log for `/home/aiscuser/RECURRENT_NN`. Each row i
   - results/continuation_state/post_027.json (yes, 1453 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
   - specs/log_item_contract.md (yes, 3662 bytes)
   - results/stage_a_adapter_wiring/results.json (yes, 2413 bytes)
   - results/stage_a_banded_gate_refusal/results.json (yes, 3431 bytes)
@@ -1314,8 +1315,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1443,8 +1444,8 @@ Truncated to 24 of 27 rows.
   - results/stage_a_symbolic/oracle_statelessness_ci.json (yes, 1240 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -1531,8 +1532,8 @@ Truncated to 24 of 27 rows.
   - results/experiment_items/item_039_track_b_trm_operator_smoke.json (yes, 8879 bytes)
   - experiments/train_trm_operator.py (yes, 61184 bytes)
   - results/trm_operator_smoke/acceptance.json (yes, 11922 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1596,8 +1597,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed102_8gpu/progress.jsonl (missing)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed137_8gpu/progress.jsonl (missing)
   - results/track_b_trm_3x8gpu_20260608T042649Z/seed256_8gpu/progress.jsonl (missing)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1701,8 +1702,8 @@ Truncated to 24 of 27 rows.
   - results/profile_gate/track_b_current_20260608T_p0_single/gpu_util_samples.jsonl (missing)
   - results/sudoku_engine_gpu/equivalence_1000.json (missing)
   - results/trm_operator_logging_smoke/progress.jsonl (missing)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1785,8 +1786,8 @@ Truncated to 24 of 27 rows.
   - analysis/test_batched_ops.py (yes, 4250 bytes)
   - sudoku_engine_gpu.py (yes, 7042 bytes)
   - results/batched_ops/equivalence_100.json (missing)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1831,8 +1832,8 @@ Truncated to 24 of 27 rows.
 - Artifact refs:
   - results/experiment_items/item_043_track_b_retry_plan.json (yes, 6361 bytes)
   - specs/track_b_retry_plan.md (yes, 4005 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1888,8 +1889,8 @@ Truncated to 24 of 27 rows.
   - results/trm_operator_prelaunch_smoke/progress.jsonl (missing)
   - results/trm_operator_compile_smoke/acceptance.json (missing)
   - results/trm_operator_compile_smoke/progress.jsonl (missing)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -1958,8 +1959,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank5.pt (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank6.pt (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/dataset_cache/track_b_trm_seed102_train4096_eval512_l4128_world8_rank7.pt (missing)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -2030,8 +2031,8 @@ Truncated to 24 of 27 rows.
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/progress.jsonl (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/acceptance.json (missing)
   - results/track_b_trm_retry_seed102_ddp8_sharded_20260608T114308Z/seed102_ddp8/trm_operator_seed102.pt (missing)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
   - results/validation/validation.json (yes, 283300 bytes)
   - results/validation/validation.md (yes, 209911 bytes)
 #### Referenced Result Summaries
@@ -4769,8 +4770,8 @@ Truncated to 24 of 28 rows.
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot.json (yes, 3515 bytes)
   - results/rung1_separator_fallibility_rungs/results.json (yes, 79925 bytes)
   - results/experiment_items/item_060_rung1_separator_fallibility_rungs.json (yes, 191278 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
   - results/rung1_separator_fallibility_rungs/item062_execution.json (yes, 2265658 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2/p1c_truncation_pilot.json (yes, 3606 bytes)
   - results/rung1_separator_fallibility_rungs/p1c_truncation_pilot_v2.log (yes, 9044 bytes)
@@ -10134,7 +10135,7 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_165_gpu0_3_ac_primary_reproduction.json (yes, 5394 bytes)
   - results/reproduction_gpu0_3_20260620/ac_primary_scaled_n64/merged_scaled_primary_n64.json (yes, 792886 bytes)
-  - results/reproduction_gpu0_3_20260620/reproduction_status.md (yes, 7879 bytes)
+  - results/reproduction_gpu0_3_20260620/reproduction_status.md (yes, 8384 bytes)
   - scripts/launch_matched_budget_scaled_primary.sh (yes, 1032 bytes)
   - analysis/kvcache_matched_budget_scaled.py (yes, 19025 bytes)
 #### Referenced Result Summaries
@@ -10176,7 +10177,7 @@ Truncated to 24 of 378 rows.
 - Artifact refs:
   - results/experiment_items/item_166_gpu0_3_reconstructed_repro_audit.json (yes, 10088 bytes)
   - scripts/reproduce_gpu0_3_campaign.sh (yes, 18185 bytes)
-  - results/reproduction_gpu0_3_20260620/reproduction_status.md (yes, 7879 bytes)
+  - results/reproduction_gpu0_3_20260620/reproduction_status.md (yes, 8384 bytes)
   - results/reproduction_gpu0_3_20260620/reproduction_manifest.json (yes, 18730 bytes)
   - results/reproduction_gpu0_3_20260620/gpu0_3_preflight.csv (yes, 172 bytes)
   - results/reproduction_gpu0_3_20260620/exactness_gates/item101_qwen35_full_checkpoint_bf16.json (yes, 17279 bytes)
@@ -10185,8 +10186,8 @@ Truncated to 24 of 378 rows.
   - results/reproduction_gpu0_3_20260620/graph_color_symbolic_n64/v16_r16_symbolic_n64.json (yes, 979342 bytes)
   - results/reproduction_gpu0_3_20260620/graph_color_symbolic_n64/v16_r16_symbolic_budget_curve_n64.json (yes, 304290 bytes)
   - results/reproduction_gpu0_3_20260620/external_budget_runner_registry.json (yes, 3527 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -10255,9 +10256,9 @@ Truncated to 24 of 378 rows.
   - results/reproduction_gpu0_3_20260620/hb2_tot_rap/corrected_smoke_strict/smoke.json (yes, 2601 bytes)
   - results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_gpu0_3/shards/checkpoint_*.json (missing)
   - results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_gpu0_3/shards/result_*.log (missing)
-  - results/reproduction_gpu0_3_20260620/reproduction_status.md (yes, 7879 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
+  - results/reproduction_gpu0_3_20260620/reproduction_status.md (yes, 8384 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -10306,9 +10307,9 @@ Truncated to 24 of 378 rows.
   - analysis/kvcache_tot_rap_baselines.py (yes, 36276 bytes)
   - scripts/launch_hb2_tot_rap_vllm_multi_server.sh (yes, 2405 bytes)
   - scripts/launch_hb2_tot_rap_vllm_multi_server_detached.sh (yes, 2232 bytes)
-  - results/reproduction_gpu0_3_20260620/reproduction_status.md (yes, 7879 bytes)
-  - results/experiment_log/experiment_log.md (yes, 1180257 bytes)
-  - results/experiment_log/experiment_log.json (yes, 85147103 bytes)
+  - results/reproduction_gpu0_3_20260620/reproduction_status.md (yes, 8384 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
 #### Referenced Result Summaries
 
 | artifact | status | key values | tables |
@@ -10338,6 +10339,74 @@ Truncated to 24 of 378 rows.
 | bad_zero_budget_rows | 0 |
 
 - Next action: After the current direct ToT/RAP run either completes or is explicitly retired, start a separate vLLM root with scripts/launch_hb2_tot_rap_vllm_multi_server_detached.sh against repo-owned vLLM servers, then record it as a distinct backend comparison item.
+
+### Item 169 - ToT/RAP vLLM GPU0-3 full-grid reproduction complete
+
+- Status: TOT_RAP_VLLM_GPU0_3_FULL_GRID_COMPLETE
+- Key result: Record/push this item, then stop repo-owned vLLM servers unless another vLLM baseline is immediately scheduled. Continue with LFS/best-of-n finalization as separate items.
+- Purpose: Record the completed corrected ToT/RAP full-grid reproduction using the restored vLLM OpenAI-compatible backend on GPU0-3. This supersedes the running snapshots for the vLLM backend path and keeps the direct-Transformers root separate from the vLLM evidence.
+- Details:
+  - purpose=Record the completed corrected ToT/RAP full-grid reproduction using the restored vLLM OpenAI-compatible backend on GPU0-3. This supersedes the running snapshots for the vLLM backend path and keeps the direct-Transformers root separate from the vLLM evidence.
+  - commands=4
+  - result_tables=['overall_counts', 'reference_budget_summary', 'max_solve_by_task_method']
+  - honesty=None
+- Artifact refs:
+  - results/experiment_items/item_169_tot_rap_vllm_full_grid_complete.json (yes, 10676 bytes)
+  - results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16/merged_tot_rap_vllm_full_grid_n64.json (yes, 1346468 bytes)
+  - results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16/shards/checkpoint_*.json (missing)
+  - results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16/shards/result_*.log (missing)
+  - results/reproduction_gpu0_3_20260620/hb2_vllm_servers/gpu0_3_qwen3_4b_tot_rap_vllm/ (yes, 4096 bytes)
+  - analysis/kvcache_tot_rap_baselines.py (yes, 36276 bytes)
+  - scripts/launch_hb2_tot_rap_vllm_multi_server.sh (yes, 2405 bytes)
+  - scripts/launch_hb2_tot_rap_vllm_multi_server_detached.sh (yes, 2232 bytes)
+  - results/reproduction_gpu0_3_20260620/reproduction_status.md (yes, 8384 bytes)
+  - results/experiment_log/experiment_log.md (yes, 1183514 bytes)
+  - results/experiment_log/experiment_log.json (yes, 85161894 bytes)
+#### Referenced Result Summaries
+
+| artifact | status | key values | tables |
+| --- | --- | --- | --- |
+| results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16/merged_tot_rap_vllm_full_grid_n64.json | KVCACHE_TOT_RAP_BASELINES_COMPLETE | provenance=kvcache_tot_rap_baselines_merged_v0; schema_version=kvcache_tot_rap_baselines_v0; source=autonomous_stage_a_run; summary=30 items |  |
+| results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16/shards/checkpoint_*.json | missing |  |  |
+| results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16/shards/result_*.log | missing |  |  |
+| results/experiment_log/experiment_log.json | recorded |  |  |
+
+#### Contract Result Tables
+
+##### overall_counts
+
+| metric | value |
+| --- | --- |
+| rows | 1920 |
+| summary_rows | 30 |
+| methods | ToT_Beam_repo_port_budget_exhaustive=960; RAP_MCTS_repo_port_budget_exhaustive=960 |
+| tasks | sudoku=640; futoshiki=640; graph_color=640 |
+| statuses | NO_FRONTIER=1268; SOLVED=397; BUDGET_EXHAUSTED=255 |
+| bad_zero_budget_rows | 0 |
+
+##### reference_budget_summary
+
+| task | method | budget_B | n | solve_count | solve_rate | mean_tokens_used | mean_depth_reached | mean_expansions | status_counts |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| sudoku | ToT_Beam_repo_port_budget_exhaustive | 28070 | 64 | 12 | 0.1875 | 1.722e+04 | 18.77 | 38.14 | BUDGET_EXHAUSTED=14; NO_FRONTIER=38; SOLVED=12 |
+| sudoku | RAP_MCTS_repo_port_budget_exhaustive | 28070 | 64 | 1 | 0.01562 | 1.041e+04 | 8.562 | 6.453 | BUDGET_EXHAUSTED=11; NO_FRONTIER=52; SOLVED=1 |
+| futoshiki | ToT_Beam_repo_port_budget_exhaustive | 3206226 | 64 | 2 | 0.03125 | 2.067e+04 | 13.45 | 44.16 | NO_FRONTIER=62; SOLVED=2 |
+| futoshiki | RAP_MCTS_repo_port_budget_exhaustive | 3206226 | 64 | 0 | 0 | 1.953e+04 | 8.781 | 10.48 | NO_FRONTIER=64 |
+| graph_color | ToT_Beam_repo_port_budget_exhaustive | 32895 | 64 | 42 | 0.6562 | 1.237e+04 | 13.2 | 38.47 | NO_FRONTIER=22; SOLVED=42 |
+| graph_color | RAP_MCTS_repo_port_budget_exhaustive | 32895 | 64 | 37 | 0.5781 | 7590 | 12.75 | 4.203 | NO_FRONTIER=27; SOLVED=37 |
+
+##### max_solve_by_task_method
+
+| task | method | max_solve_rate | budget_B_at_max |
+| --- | --- | --- | --- |
+| sudoku | ToT_Beam_repo_port_budget_exhaustive | 0.2656 | 56140 or 112280 |
+| sudoku | RAP_MCTS_repo_port_budget_exhaustive | 0.03125 | 56140 or 112280 |
+| futoshiki | ToT_Beam_repo_port_budget_exhaustive | 0.03125 | all grid budgets |
+| futoshiki | RAP_MCTS_repo_port_budget_exhaustive | 0 | all grid budgets |
+| graph_color | ToT_Beam_repo_port_budget_exhaustive | 0.6719 | 65790 |
+| graph_color | RAP_MCTS_repo_port_budget_exhaustive | 0.5781 | 32895,65790,131580 |
+
+- Next action: Record/push this item, then stop repo-owned vLLM servers unless another vLLM baseline is immediately scheduled. Continue with LFS/best-of-n finalization as separate items.
 
 
 ## Canonical Repo Decision

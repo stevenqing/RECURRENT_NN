@@ -37,6 +37,7 @@ The current GPU0-3 campaign uses two labels:
 | 166 | automated GPU0-3 reproduction campaign | `scripts/reproduce_gpu0_3_campaign.sh` | orchestrator added; manifest, graph_color symbolic/C1, Item101, registry, and log regeneration completed |
 | 167 | ToT/RAP corrected reproduction push snapshot | `results/reproduction_gpu0_3_20260620/hb2_tot_rap/` | strict smoke passed; full-grid running, snapshot 39/1920 rows, bad_zero_budget=0, code pushed at `bb64972` |
 | 168 | ToT/RAP vLLM backend restore | `analysis/kvcache_tot_rap_baselines.py` and `scripts/launch_hb2_tot_rap_vllm_multi_server*.sh` | backend/launchers restored and smoke-tested with fake OpenAI server; not launched while direct full-grid is running |
+| 169 | ToT/RAP vLLM full-grid n64 | `results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16/` | completed 1920/1920 rows; backend=vllm_openai_compatible; solved=397; bad_zero_budget=0 |
 
 ## Running / Next
 
@@ -50,10 +51,11 @@ The current GPU0-3 campaign uses two labels:
 | target | root | command | snapshot |
 | --- | --- | --- | --- |
 | ToT/RAP full-grid n64 | `results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_gpu0_3/` | `RUN_EXTERNAL_FULL=1 HB2_BASELINES=tot_rap STAGES=hb2_external_full EXTERNAL_SHARDS=8 GPUS=4 HB2_INSTANCES=64 HB2_TASKS=sudoku,futoshiki,graph_color HB2_BUDGET_SCALES=0.25,0.5,1,2,4 scripts/reproduce_gpu0_3_campaign.sh` | running on GPU0-3; snapshot at Item167: 39/1920 rows, statuses `NO_FRONTIER=30; SOLVED=2; BUDGET_EXHAUSTED=7`, `bad_zero_budget=0` |
+| ToT/RAP vLLM full-grid n64 | `results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16/` | `SHARDS=16 scripts/launch_hb2_tot_rap_vllm_multi_server_detached.sh` against ports 8010-8013 | completed and merged: 1920 rows, `NO_FRONTIER=1268; SOLVED=397; BUDGET_EXHAUSTED=255`, `bad_zero_budget=0` |
 
 The ToT/RAP run is deliberately separated from LFS and best-of-n so any baseline-specific issue remains easy to isolate. Valid `BUDGET_EXHAUSTED` rows may occur after real search work; the quarantined bug is the zero-work premature exhaustion path.
 
-ToT/RAP vLLM support is now restored for a separate future backend root. Do not mix direct Transformers checkpoints with vLLM checkpoints; launch vLLM only under a distinct root after the current direct run is complete or explicitly retired.
+ToT/RAP vLLM support is now restored and completed under a distinct backend root. Do not mix direct Transformers checkpoints with vLLM checkpoints; the old direct root is preserved as partial evidence only.
 
 ## Automation
 

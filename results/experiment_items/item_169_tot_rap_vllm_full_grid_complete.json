@@ -1,0 +1,260 @@
+{
+  "schema_version": "log_item_contract_v1",
+  "item_number": "169",
+  "name": "ToT/RAP vLLM GPU0-3 full-grid reproduction complete",
+  "status": "TOT_RAP_VLLM_GPU0_3_FULL_GRID_COMPLETE",
+  "generated_at": "2026-06-21T00:00:00+00:00",
+  "purpose": "Record the completed corrected ToT/RAP full-grid reproduction using the restored vLLM OpenAI-compatible backend on GPU0-3. This supersedes the running snapshots for the vLLM backend path and keeps the direct-Transformers root separate from the vLLM evidence.",
+  "artifacts": [
+    "results/experiment_items/item_169_tot_rap_vllm_full_grid_complete.json",
+    "results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16/merged_tot_rap_vllm_full_grid_n64.json",
+    "results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16/shards/checkpoint_*.json",
+    "results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16/shards/result_*.log",
+    "results/reproduction_gpu0_3_20260620/hb2_vllm_servers/gpu0_3_qwen3_4b_tot_rap_vllm/",
+    "analysis/kvcache_tot_rap_baselines.py",
+    "scripts/launch_hb2_tot_rap_vllm_multi_server.sh",
+    "scripts/launch_hb2_tot_rap_vllm_multi_server_detached.sh",
+    "results/reproduction_gpu0_3_20260620/reproduction_status.md",
+    "results/experiment_log/experiment_log.md",
+    "results/experiment_log/experiment_log.json"
+  ],
+  "commands": [
+    {
+      "command": "kill -TERM/-KILL only repo-owned direct ToT/RAP full_grid_n64_gpu0_3 clients after snapshotting checkpoints",
+      "purpose": "Retire the slow direct-Transformers run before launching the vLLM backend root, without deleting its checkpoint evidence."
+    },
+    {
+      "command": "ROOT=results/reproduction_gpu0_3_20260620/hb2_vllm_servers/gpu0_3_qwen3_4b_tot_rap_vllm GPUS=0,1,2,3 BASE_PORT=8010 GPU_MEMORY_UTILIZATION=0.70 MAX_MODEL_LEN=4096 DTYPE=float32 MAX_NUM_SEQS=256 MAX_NUM_BATCHED_TOKENS=65536 scripts/launch_hb2_vllm_servers_gpu0_3.sh",
+      "purpose": "Launch repo-owned vLLM OpenAI-compatible servers on GPU0-3."
+    },
+    {
+      "command": "python -m analysis.kvcache_tot_rap_baselines run-shard ... --backend vllm --openai-base-url http://127.0.0.1:8010/v1 --n-instances 1 --tasks sudoku --methods tot,rap",
+      "purpose": "Run the real vLLM smoke that produced nonzero ToT/RAP search rows before full-grid launch."
+    },
+    {
+      "command": "RUN_ROOT=results/reproduction_gpu0_3_20260620/runs/tot_rap_vllm_gpu0_3_shards16 ROOT=results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16 TASKS=sudoku,futoshiki,graph_color METHODS=tot,rap INSTANCES=64 BUDGET_SCALES=0.25,0.5,1,2,4 VALUE_BATCH_SIZE=32 REQUEST_WORKERS=128 SHARDS=16 OPENAI_BASE_URLS=http://127.0.0.1:8010/v1,http://127.0.0.1:8011/v1,http://127.0.0.1:8012/v1,http://127.0.0.1:8013/v1 scripts/launch_hb2_tot_rap_vllm_multi_server_detached.sh",
+      "purpose": "Run the completed 16-shard ToT/RAP vLLM full grid."
+    }
+  ],
+  "provenance": {
+    "source": "autonomous_stage_a_run",
+    "parent_items": [
+      "167",
+      "168"
+    ],
+    "run_root": "results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16",
+    "vllm_server_root": "results/reproduction_gpu0_3_20260620/hb2_vllm_servers/gpu0_3_qwen3_4b_tot_rap_vllm",
+    "gpu_scope": "GPU0-3 only; repo-owned vLLM servers on ports 8010-8013; direct-Transformers clients were stopped after snapshot and not merged with vLLM rows.",
+    "backend": "vllm_openai_compatible",
+    "repo_basis": "maitrix-org/llm-reasoners commit f94e5ac2cb9788c3d7d7dbf2173884ed4088e4b2 via local repo-port adapter.",
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "accounting": "Local tokenizer charges input and output tokens for vLLM responses using the same budget semantics as the direct backend."
+  },
+  "decision": {
+    "overall_pass": true,
+    "outcome": "CORRECTED_TOT_RAP_VLLM_FULL_GRID_COMPLETE",
+    "headline": "Corrected ToT/RAP completed the full 1920-row Reasoning Gym grid on GPU0-3 via vLLM. All rows record backend=vllm_openai_compatible; no old zero-work BUDGET_EXHAUSTED rows were observed.",
+    "gate_outcomes": [
+      {
+        "gate": "row_completion",
+        "outcome": "PASS",
+        "number": "1920/1920 rows merged; 30 summary rows."
+      },
+      {
+        "gate": "backend_provenance",
+        "outcome": "PASS",
+        "number": "All 1920 rows have backend=vllm_openai_compatible."
+      },
+      {
+        "gate": "old_tot_rap_bug_regression",
+        "outcome": "PASS_NOT_OBSERVED",
+        "number": "bad_zero_budget=0: no BUDGET_EXHAUSTED row has tokens_used=0, depth_reached=0, and expansions=0."
+      },
+      {
+        "gate": "overall_solve_rows",
+        "outcome": "RECORDED",
+        "number": "397 solved rows overall; statuses NO_FRONTIER=1268, SOLVED=397, BUDGET_EXHAUSTED=255."
+      },
+      {
+        "gate": "backend_isolation",
+        "outcome": "PASS",
+        "number": "The direct-Transformers root is preserved but not merged with the vLLM root."
+      }
+    ],
+    "next_step_routing": "Record/push this item, then stop repo-owned vLLM servers unless another vLLM baseline is immediately scheduled. Continue with LFS/best-of-n finalization as separate items."
+  },
+  "result_tables": {
+    "overall_counts": {
+      "columns": [
+        "metric",
+        "value"
+      ],
+      "rows": [
+        {
+          "metric": "rows",
+          "value": 1920
+        },
+        {
+          "metric": "summary_rows",
+          "value": 30
+        },
+        {
+          "metric": "methods",
+          "value": "ToT_Beam_repo_port_budget_exhaustive=960; RAP_MCTS_repo_port_budget_exhaustive=960"
+        },
+        {
+          "metric": "tasks",
+          "value": "sudoku=640; futoshiki=640; graph_color=640"
+        },
+        {
+          "metric": "statuses",
+          "value": "NO_FRONTIER=1268; SOLVED=397; BUDGET_EXHAUSTED=255"
+        },
+        {
+          "metric": "bad_zero_budget_rows",
+          "value": 0
+        }
+      ]
+    },
+    "reference_budget_summary": {
+      "columns": [
+        "task",
+        "method",
+        "budget_B",
+        "n",
+        "solve_count",
+        "solve_rate",
+        "mean_tokens_used",
+        "mean_depth_reached",
+        "mean_expansions",
+        "status_counts"
+      ],
+      "rows": [
+        {
+          "task": "sudoku",
+          "method": "ToT_Beam_repo_port_budget_exhaustive",
+          "budget_B": 28070,
+          "n": 64,
+          "solve_count": 12,
+          "solve_rate": 0.1875,
+          "mean_tokens_used": 17215.015625,
+          "mean_depth_reached": 18.765625,
+          "mean_expansions": 38.140625,
+          "status_counts": "BUDGET_EXHAUSTED=14; NO_FRONTIER=38; SOLVED=12"
+        },
+        {
+          "task": "sudoku",
+          "method": "RAP_MCTS_repo_port_budget_exhaustive",
+          "budget_B": 28070,
+          "n": 64,
+          "solve_count": 1,
+          "solve_rate": 0.015625,
+          "mean_tokens_used": 10410.34375,
+          "mean_depth_reached": 8.5625,
+          "mean_expansions": 6.453125,
+          "status_counts": "BUDGET_EXHAUSTED=11; NO_FRONTIER=52; SOLVED=1"
+        },
+        {
+          "task": "futoshiki",
+          "method": "ToT_Beam_repo_port_budget_exhaustive",
+          "budget_B": 3206226,
+          "n": 64,
+          "solve_count": 2,
+          "solve_rate": 0.03125,
+          "mean_tokens_used": 20671.25,
+          "mean_depth_reached": 13.453125,
+          "mean_expansions": 44.15625,
+          "status_counts": "NO_FRONTIER=62; SOLVED=2"
+        },
+        {
+          "task": "futoshiki",
+          "method": "RAP_MCTS_repo_port_budget_exhaustive",
+          "budget_B": 3206226,
+          "n": 64,
+          "solve_count": 0,
+          "solve_rate": 0.0,
+          "mean_tokens_used": 19531.96875,
+          "mean_depth_reached": 8.78125,
+          "mean_expansions": 10.484375,
+          "status_counts": "NO_FRONTIER=64"
+        },
+        {
+          "task": "graph_color",
+          "method": "ToT_Beam_repo_port_budget_exhaustive",
+          "budget_B": 32895,
+          "n": 64,
+          "solve_count": 42,
+          "solve_rate": 0.65625,
+          "mean_tokens_used": 12373.703125,
+          "mean_depth_reached": 13.203125,
+          "mean_expansions": 38.46875,
+          "status_counts": "NO_FRONTIER=22; SOLVED=42"
+        },
+        {
+          "task": "graph_color",
+          "method": "RAP_MCTS_repo_port_budget_exhaustive",
+          "budget_B": 32895,
+          "n": 64,
+          "solve_count": 37,
+          "solve_rate": 0.578125,
+          "mean_tokens_used": 7590.0625,
+          "mean_depth_reached": 12.75,
+          "mean_expansions": 4.203125,
+          "status_counts": "NO_FRONTIER=27; SOLVED=37"
+        }
+      ]
+    },
+    "max_solve_by_task_method": {
+      "columns": [
+        "task",
+        "method",
+        "max_solve_rate",
+        "budget_B_at_max"
+      ],
+      "rows": [
+        {
+          "task": "sudoku",
+          "method": "ToT_Beam_repo_port_budget_exhaustive",
+          "max_solve_rate": 0.265625,
+          "budget_B_at_max": "56140 or 112280"
+        },
+        {
+          "task": "sudoku",
+          "method": "RAP_MCTS_repo_port_budget_exhaustive",
+          "max_solve_rate": 0.03125,
+          "budget_B_at_max": "56140 or 112280"
+        },
+        {
+          "task": "futoshiki",
+          "method": "ToT_Beam_repo_port_budget_exhaustive",
+          "max_solve_rate": 0.03125,
+          "budget_B_at_max": "all grid budgets"
+        },
+        {
+          "task": "futoshiki",
+          "method": "RAP_MCTS_repo_port_budget_exhaustive",
+          "max_solve_rate": 0.0,
+          "budget_B_at_max": "all grid budgets"
+        },
+        {
+          "task": "graph_color",
+          "method": "ToT_Beam_repo_port_budget_exhaustive",
+          "max_solve_rate": 0.671875,
+          "budget_B_at_max": 65790
+        },
+        {
+          "task": "graph_color",
+          "method": "RAP_MCTS_repo_port_budget_exhaustive",
+          "max_solve_rate": 0.578125,
+          "budget_B_at_max": "32895,65790,131580"
+        }
+      ]
+    }
+  },
+  "honesty": {
+    "scope": "This item reports the completed ToT/RAP vLLM backend root only. It does not report LFS or best-of-n completion.",
+    "direct_vs_vllm": "The older direct-Transformers root was stopped at 791/1920 rows and is not merged with this result.",
+    "backend_note": "vLLM affects backend throughput and response behavior; it is recorded as a distinct backend result, not silently substituted into direct-Transformers evidence.",
+    "artifact_scope": "The merged JSON is under the ignored reproduction root; this tracked item preserves the summary and path."
+  }
+}
