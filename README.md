@@ -1,6 +1,8 @@
-# Stage D LLM Instantiation (Qwen3-4B)
+# RECURRENT_NN
 
-This folder implements the Stage D scaffold from the addendum: a frozen Qwen3-4B-Instruct operator wrapped by a controller, verifier, and bounded reversible register, with Qwen3-4B-Thinking as the token-CoT baseline. The repo-local execution plan is [PLAN.md](PLAN.md).
+This repository tracks a research program around reversible test-time compute, bounded state, KV-cache restore, and external no-train search baselines for frozen LLMs. The original Stage D scaffold is still present, but the current paper-facing ledger also includes KV-cache exactness gates, A_cache versus C_incontext matched-budget experiments, C1.2 state-restore checks, and HB-2 external baselines.
+
+For the current end-to-end reproduction entrypoint, use [REPRODUCTION_FULL.md](REPRODUCTION_FULL.md). The shorter workflow contract is [REPRODUCIBILITY.md](REPRODUCIBILITY.md), and the canonical item ledger is [results/experiment_log/experiment_log.md](results/experiment_log/experiment_log.md).
 
 ## Core Claim
 
@@ -23,10 +25,42 @@ d*_dyn ~= D / (2 ln K)
 - `disciplines.md`: D.9 checklist.
 - `PLAN.md`: D.0-D.9 execution plan generated from the addendum.
 
-## Run Order
+## Current Reproduction Entry
+
+The recommended GPU0-3 reproduction path is:
 
 ```bash
-cd /home/aiscuser/stage_d_llm
+cd /home/aiscuser/RECURRENT_NN
+~/.local/bin/uv venv .venv --python 3.10
+~/.local/bin/uv pip install --python .venv/bin/python -r requirements.txt huggingface_hub accelerate peft
+scripts/reproduce_gpu0_3_campaign.sh
+```
+
+The current completed ToT/RAP vLLM full-grid reproduction is recorded as Item169:
+
+```text
+results/reproduction_gpu0_3_20260620/hb2_tot_rap/full_grid_n64_vllm_gpu0_3_shards16/merged_tot_rap_vllm_full_grid_n64.json
+```
+
+Summary:
+
+```text
+rows = 1920 / 1920
+backend = vllm_openai_compatible
+tasks = sudoku 640, futoshiki 640, graph_color 640
+methods = ToT 960, RAP 960
+statuses = NO_FRONTIER 1268, SOLVED 397, BUDGET_EXHAUSTED 255
+bad_zero_budget = 0
+```
+
+See [REPRODUCTION_FULL.md](REPRODUCTION_FULL.md) for exact commands, vLLM setup, A/C reproduction commands, gate checks, cleanup, ledger update procedure, and caveats.
+
+## Legacy Stage D Run Order
+
+The original Stage D scaffold run order is retained for historical context. It is not the current full-paper reproduction path.
+
+```bash
+cd /home/aiscuser/RECURRENT_NN
 ~/.local/bin/uv venv .venv --python 3.10
 ~/.local/bin/uv pip install --python .venv/bin/python -r requirements.txt huggingface_hub accelerate
 python -m analysis.preregistration
