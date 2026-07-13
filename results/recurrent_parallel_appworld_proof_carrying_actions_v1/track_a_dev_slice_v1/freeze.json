@@ -1,0 +1,35 @@
+{
+  "checks": {
+    "contract_frozen": true,
+    "counts": true,
+    "example_ids": true,
+    "max_instances": true,
+    "row_value_free": true,
+    "scope": true,
+    "source_ledger_pass": true,
+    "unique_instance_ids": true
+  },
+  "contract_sha256": "44324de17b9db1c023eac908cfb65ea3c484346c1652d07146425cc33dba1638",
+  "counts": {
+    "derived_path_binding": 10,
+    "literal_intent_binding": 10,
+    "ordered_role_binding": 10,
+    "prior_effect_binding": 10
+  },
+  "dev_slice_manifest_sha256": "f8aeb771733a24e704d96c021ad6d43a1035282562551328c742dc8805d3ad30",
+  "example_ids": {
+    "derived_path_binding": "0102e82d8497e0999342",
+    "literal_intent_binding": "01ca5949827114b14bb5",
+    "ordered_role_binding": "020155d9fe91086024c3",
+    "prior_effect_binding": "09a4f1b2a3e3e95be5d7"
+  },
+  "external_process_actions": false,
+  "instances": 40,
+  "model_gpu_docker_used": false,
+  "protected_content_exported": false,
+  "schema": "ebw_track_a_dev_slice_freeze_v1",
+  "sealed_variations_opened": false,
+  "source_ledger_result_sha256": "5e7da975057a2765dc9ac7d70be9fbcd72ca7b3e56330f7ceb98e277cf4c85ab",
+  "source_ledger_sha256": "60c8fc92c3e3a5afd60f4e89f11d04ce467e32dc2988a1cf4b8be91d6d81f092",
+  "status": "RPD_EBW_TRACK_A_DEV_SLICE_READY"
+}

@@ -1,0 +1,45 @@
+{
+  "schema": "recurrent_parallel_appworld_broad_state_transition_like_song_verifier_contract_v1",
+  "status": "FROZEN_BEFORE_STATE_TRANSITION_LIKE_SONG_VERIFIER_OUTCOMES",
+  "frozen_date": "2026-07-13",
+  "phase": "OPENED_BROAD_SCHEMA_STATE_TRANSITION_LIKE_SONG_VERIFIER",
+  "value_bound_preflight": "results/recurrent_parallel_appworld_broad_value_bound_witness_preflight_v1/preflight.json",
+  "instance_manifest": "results/recurrent_parallel_appworld_broad_value_bound_witness_preflight_v1/instance_manifest.json",
+  "generated_root": "external_repos/appworld_generated_broad_schema_v1",
+  "parent_ordered_entity": "results/recurrent_parallel_appworld_broad_state_transition_ordered_entity_verifier_v1/results.json",
+  "expected_statuses": {
+    "value_bound_preflight": "RPD_APPWORLD_BROAD_VALUE_BOUND_WITNESS_PREFLIGHT_READY",
+    "parent_ordered_entity": "RPD_APPWORLD_BROAD_STATE_TRANSITION_ORDERED_ENTITY_VERIFIER_UNSAFE"
+  },
+  "target_schema": "post.spotify.like_song.song_id",
+  "target_proof_family": "state_transition_membership_proof",
+  "expected_instances": 155,
+  "verifier_rules": {
+    "queue_rule": "if spotify.show_song_queue appears before the target write, candidate must equal the write_ordinal-th song_id from the most recent prior queue response",
+    "search_rule": "otherwise candidate must equal the write_ordinal-th unique song_id from prior spotify.search_songs responses",
+    "missing_sequence_item": "fail closed with no valid witness"
+  },
+  "adversarial_candidate_policy": "first unequal song_id from the selected sequence, otherwise deterministic integer mutation",
+  "decision_labels": [
+    "commit_live",
+    "ambiguous_both_valid",
+    "abstain_no_valid",
+    "unsafe_unique_wrong"
+  ],
+  "safety_gate": {
+    "unsafe_unique_wrong_required": 0
+  },
+  "fresh_confirmation_sealed": true,
+  "protected_content_export": false,
+  "argument_values_export": false,
+  "response_values_export": false,
+  "value_hashes_export": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "headline_eligible": false,
+  "verdicts": {
+    "safe": "RPD_APPWORLD_BROAD_STATE_TRANSITION_LIKE_SONG_VERIFIER_SAFE",
+    "unsafe": "RPD_APPWORLD_BROAD_STATE_TRANSITION_LIKE_SONG_VERIFIER_UNSAFE",
+    "protocol_fail": "RPD_APPWORLD_BROAD_STATE_TRANSITION_LIKE_SONG_VERIFIER_PROTOCOL_FAIL"
+  }
+}

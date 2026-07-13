@@ -1,0 +1,275 @@
+{
+  "action_correctness_claim": false,
+  "adversarial_sources": {
+    "pre_read_text_scalar": 124
+  },
+  "argument_values_exported": false,
+  "contract_sha256": "160d258711f175a7bafca104d75be154c669c5ddb66ed3240bb2f8299e241b4e",
+  "decision_counts": {
+    "abstain_no_valid": 78,
+    "commit_live": 46
+  },
+  "external_process_actions": false,
+  "fresh_confirmation_sealed": true,
+  "headline_eligible": false,
+  "instruction_text_exported": false,
+  "model_gpu_docker_used": false,
+  "protected_content_exported": false,
+  "protocol_checks": {
+    "contract_frozen": true,
+    "decision_labels": true,
+    "instance_manifest_binding": true,
+    "parent_negative_preserved": true,
+    "preflight_ready": true,
+    "row_count": true,
+    "schema_counts": true,
+    "scope": true,
+    "target_instance_count": true,
+    "trace_execution": true
+  },
+  "response_values_exported": false,
+  "rows_sha256": "306d93e75dafbc270c1fc247718fcb5dd16bef729c95dec1bd2e6543ba5dbfb8",
+  "safety_checks": {
+    "no_unsafe_unique_wrong": true
+  },
+  "schema": "appworld_broad_literal_text_derivation_verifier_v1",
+  "schema_decision_counts": {
+    "patch.simple_note.update_note.content": {
+      "abstain_no_valid": 2
+    },
+    "post.file_system.create_file.content": {
+      "abstain_no_valid": 67
+    },
+    "post.phone.send_text_message.message": {
+      "abstain_no_valid": 2,
+      "commit_live": 6
+    },
+    "post.spotify.create_playlist.title": {
+      "commit_live": 4
+    },
+    "post.venmo.create_payment_request.description": {
+      "commit_live": 13
+    },
+    "post.venmo.create_transaction.description": {
+      "abstain_no_valid": 7,
+      "commit_live": 2
+    },
+    "post.venmo.create_transaction_comment.comment": {
+      "commit_live": 21
+    }
+  },
+  "status": "RPD_APPWORLD_BROAD_LITERAL_TEXT_DERIVATION_VERIFIER_SAFE",
+  "target_instances": 124,
+  "task_summaries": [
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 36,
+      "quoted_literal_count": 1,
+      "target_instances": 2,
+      "task_id": "0d8a4ee_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 36,
+      "quoted_literal_count": 1,
+      "target_instances": 2,
+      "task_id": "0d8a4ee_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 31,
+      "quoted_literal_count": 1,
+      "target_instances": 3,
+      "task_id": "22cc237_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 32,
+      "quoted_literal_count": 1,
+      "target_instances": 4,
+      "task_id": "22cc237_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 10,
+      "quoted_literal_count": 0,
+      "target_instances": 1,
+      "task_id": "29caf6f_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 10,
+      "quoted_literal_count": 0,
+      "target_instances": 1,
+      "task_id": "29caf6f_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 10,
+      "quoted_literal_count": 0,
+      "target_instances": 3,
+      "task_id": "37a8675_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 9,
+      "quoted_literal_count": 0,
+      "target_instances": 2,
+      "task_id": "37a8675_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 21,
+      "quoted_literal_count": 1,
+      "target_instances": 3,
+      "task_id": "3c13f5a_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 21,
+      "quoted_literal_count": 1,
+      "target_instances": 3,
+      "task_id": "3c13f5a_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 18,
+      "quoted_literal_count": 2,
+      "target_instances": 2,
+      "task_id": "530b157_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 18,
+      "quoted_literal_count": 2,
+      "target_instances": 2,
+      "task_id": "530b157_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 8,
+      "quoted_literal_count": 0,
+      "target_instances": 1,
+      "task_id": "60d0b5b_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 8,
+      "quoted_literal_count": 0,
+      "target_instances": 1,
+      "task_id": "60d0b5b_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 210,
+      "quoted_literal_count": 4,
+      "target_instances": 1,
+      "task_id": "6104387_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 206,
+      "quoted_literal_count": 4,
+      "target_instances": 1,
+      "task_id": "6104387_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 46,
+      "quoted_literal_count": 1,
+      "target_instances": 1,
+      "task_id": "6171bbc_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 81,
+      "quoted_literal_count": 1,
+      "target_instances": 1,
+      "task_id": "6171bbc_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 79,
+      "quoted_literal_count": 3,
+      "target_instances": 32,
+      "task_id": "6c2c621_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 81,
+      "quoted_literal_count": 3,
+      "target_instances": 33,
+      "task_id": "6c2c621_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 111,
+      "quoted_literal_count": 1,
+      "target_instances": 8,
+      "task_id": "afc0fce_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 111,
+      "quoted_literal_count": 1,
+      "target_instances": 13,
+      "task_id": "afc0fce_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 7,
+      "quoted_literal_count": 1,
+      "target_instances": 1,
+      "task_id": "cf6abd2_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 7,
+      "quoted_literal_count": 1,
+      "target_instances": 1,
+      "task_id": "cf6abd2_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 40,
+      "quoted_literal_count": 1,
+      "target_instances": 1,
+      "task_id": "e3d6c94_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 43,
+      "quoted_literal_count": 1,
+      "target_instances": 1,
+      "task_id": "e3d6c94_2"
+    }
+  ],
+  "trace_failures": 0,
+  "value_hashes_exported": false
+}

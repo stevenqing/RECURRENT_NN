@@ -1,0 +1,72 @@
+{
+  "action_correctness_claim": false,
+  "adversarial_sources": {
+    "selected_sequence_song": 155
+  },
+  "argument_values_exported": false,
+  "contract_sha256": "c2907b9106a154e8426206c683f5415165c8e1b8428551d735635a9dbbbd7319",
+  "decision_counts": {
+    "abstain_no_valid": 6,
+    "commit_live": 149
+  },
+  "external_process_actions": false,
+  "fresh_confirmation_sealed": true,
+  "headline_eligible": false,
+  "model_gpu_docker_used": false,
+  "protected_content_exported": false,
+  "protocol_checks": {
+    "contract_frozen": true,
+    "decision_labels": true,
+    "instance_manifest_binding": true,
+    "parent_ordered_recorded": true,
+    "preflight_ready": true,
+    "row_count": true,
+    "scope": true,
+    "target_instance_count": true,
+    "trace_execution": true
+  },
+  "response_values_exported": false,
+  "rows_sha256": "48b56753743dd294579a1fb33bb54304a2cedc518bc07bf7c76d411b0f49325d",
+  "safety_checks": {
+    "no_unsafe_unique_wrong": true
+  },
+  "schema": "appworld_broad_state_transition_like_song_verifier_v1",
+  "sequence_sources": {
+    "queue": 12,
+    "search": 143
+  },
+  "status": "RPD_APPWORLD_BROAD_STATE_TRANSITION_LIKE_SONG_VERIFIER_SAFE",
+  "target_instances": 155,
+  "task_summaries": [
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 163,
+      "target_instances": 61,
+      "task_id": "57c3486_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 195,
+      "target_instances": 82,
+      "task_id": "57c3486_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 12,
+      "target_instances": 6,
+      "task_id": "ccb4494_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 12,
+      "target_instances": 6,
+      "task_id": "ccb4494_2"
+    }
+  ],
+  "trace_failures": 0,
+  "value_hashes_exported": false
+}

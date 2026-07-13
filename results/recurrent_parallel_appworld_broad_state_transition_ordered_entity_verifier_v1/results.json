@@ -1,0 +1,457 @@
+{
+  "action_correctness_claim": false,
+  "adversarial_sources": {
+    "same_field_sequence_entity": 516,
+    "type_mutation": 61
+  },
+  "argument_values_exported": false,
+  "contract_sha256": "199e2259c0a7f2a4e9e0c9abc923be0bde95c03b953449b4c4a204da4ef232d7",
+  "decision_counts": {
+    "abstain_no_valid": 292,
+    "commit_live": 257,
+    "unsafe_unique_wrong": 28
+  },
+  "external_process_actions": false,
+  "fresh_confirmation_sealed": true,
+  "headline_eligible": false,
+  "model_gpu_docker_used": false,
+  "protected_content_exported": false,
+  "protocol_checks": {
+    "contract_frozen": true,
+    "created_playlist_preserved": true,
+    "decision_labels": true,
+    "instance_manifest_binding": true,
+    "parent_negative_preserved": true,
+    "preflight_ready": true,
+    "row_count": true,
+    "schema_counts": true,
+    "scope": true,
+    "target_instance_count": true,
+    "trace_execution": true
+  },
+  "response_values_exported": false,
+  "rows_sha256": "857a3df69f4c1529c88c2c84adebd138351e012978a945ac7f0466f81a0f6bb1",
+  "safety_checks": {
+    "no_unsafe_unique_wrong": false
+  },
+  "schema": "appworld_broad_state_transition_ordered_entity_verifier_v1",
+  "schema_decision_counts": {
+    "delete.phone.delete_text_message.text_message_id": {
+      "commit_live": 18
+    },
+    "delete.phone.delete_voice_message.voice_message_id": {
+      "commit_live": 22
+    },
+    "delete.spotify.remove_album_from_library.album_id": {
+      "abstain_no_valid": 6,
+      "unsafe_unique_wrong": 2
+    },
+    "delete.spotify.remove_song_from_library.song_id": {
+      "abstain_no_valid": 27,
+      "commit_live": 2,
+      "unsafe_unique_wrong": 3
+    },
+    "delete.spotify.remove_song_from_playlist.playlist_id": {
+      "abstain_no_valid": 24,
+      "commit_live": 2,
+      "unsafe_unique_wrong": 2
+    },
+    "delete.spotify.remove_song_from_playlist.song_id": {
+      "abstain_no_valid": 26,
+      "unsafe_unique_wrong": 2
+    },
+    "delete.spotify.unfollow_artist.artist_id": {
+      "abstain_no_valid": 4,
+      "commit_live": 1
+    },
+    "patch.phone.update_alarm.alarm_id": {
+      "abstain_no_valid": 4,
+      "commit_live": 2,
+      "unsafe_unique_wrong": 1
+    },
+    "patch.simple_note.update_note.note_id": {
+      "commit_live": 2
+    },
+    "patch.spotify.update_song_review.review_id": {
+      "abstain_no_valid": 5
+    },
+    "post.spotify.add_song_to_playlist.song_id": {
+      "abstain_no_valid": 13,
+      "commit_live": 3,
+      "unsafe_unique_wrong": 2
+    },
+    "post.spotify.add_to_queue.song_id": {
+      "commit_live": 3
+    },
+    "post.spotify.download_song.song_id": {
+      "abstain_no_valid": 23,
+      "unsafe_unique_wrong": 2
+    },
+    "post.spotify.follow_artist.artist_id": {
+      "abstain_no_valid": 64,
+      "commit_live": 3,
+      "unsafe_unique_wrong": 1
+    },
+    "post.spotify.like_song.song_id": {
+      "abstain_no_valid": 16,
+      "commit_live": 137,
+      "unsafe_unique_wrong": 2
+    },
+    "post.spotify.play_music.playlist_id": {
+      "unsafe_unique_wrong": 2
+    },
+    "post.spotify.play_music.song_id": {
+      "unsafe_unique_wrong": 2
+    },
+    "post.spotify.review_song.song_id": {
+      "abstain_no_valid": 27,
+      "commit_live": 2,
+      "unsafe_unique_wrong": 2
+    },
+    "post.venmo.approve_payment_request.payment_request_id": {
+      "abstain_no_valid": 8,
+      "unsafe_unique_wrong": 1
+    },
+    "post.venmo.deny_payment_request.payment_request_id": {
+      "abstain_no_valid": 18,
+      "unsafe_unique_wrong": 1
+    },
+    "post.venmo.like_transaction.transaction_id": {
+      "abstain_no_valid": 6,
+      "commit_live": 60,
+      "unsafe_unique_wrong": 1
+    },
+    "post.venmo.remind_payment_request.payment_request_id": {
+      "abstain_no_valid": 21,
+      "unsafe_unique_wrong": 2
+    }
+  },
+  "status": "RPD_APPWORLD_BROAD_STATE_TRANSITION_ORDERED_ENTITY_VERIFIER_UNSAFE",
+  "target_instances": 577,
+  "task_summaries": [
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 16,
+      "target_instances": 2,
+      "task_id": "07b42fd_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 15,
+      "target_instances": 1,
+      "task_id": "07b42fd_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 65,
+      "target_instances": 11,
+      "task_id": "229360a_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 73,
+      "target_instances": 19,
+      "task_id": "229360a_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 30,
+      "target_instances": 5,
+      "task_id": "2a163ab_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 29,
+      "target_instances": 4,
+      "task_id": "2a163ab_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 20,
+      "target_instances": 4,
+      "task_id": "302c169_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 18,
+      "target_instances": 3,
+      "task_id": "302c169_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 8,
+      "target_instances": 2,
+      "task_id": "396c5a2_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 7,
+      "target_instances": 1,
+      "task_id": "396c5a2_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 40,
+      "target_instances": 16,
+      "task_id": "3ab5b8b_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 33,
+      "target_instances": 9,
+      "task_id": "3ab5b8b_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 32,
+      "target_instances": 7,
+      "task_id": "4fab96f_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 41,
+      "target_instances": 16,
+      "task_id": "4fab96f_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 163,
+      "target_instances": 61,
+      "task_id": "57c3486_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 195,
+      "target_instances": 82,
+      "task_id": "57c3486_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 46,
+      "target_instances": 5,
+      "task_id": "6171bbc_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 81,
+      "target_instances": 6,
+      "task_id": "6171bbc_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 321,
+      "target_instances": 27,
+      "task_id": "692c77d_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 123,
+      "target_instances": 9,
+      "task_id": "692c77d_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 44,
+      "target_instances": 9,
+      "task_id": "6ea6792_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 54,
+      "target_instances": 19,
+      "task_id": "6ea6792_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 40,
+      "target_instances": 16,
+      "task_id": "771d8fc_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 48,
+      "target_instances": 24,
+      "task_id": "771d8fc_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 37,
+      "target_instances": 13,
+      "task_id": "aa8502b_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 29,
+      "target_instances": 5,
+      "task_id": "aa8502b_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 111,
+      "target_instances": 8,
+      "task_id": "afc0fce_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 111,
+      "target_instances": 13,
+      "task_id": "afc0fce_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 123,
+      "target_instances": 1,
+      "task_id": "b0a8eae_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 63,
+      "target_instances": 1,
+      "task_id": "b0a8eae_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 76,
+      "target_instances": 5,
+      "task_id": "b7a9ee9_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 86,
+      "target_instances": 5,
+      "task_id": "b7a9ee9_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 22,
+      "target_instances": 1,
+      "task_id": "c901732_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 23,
+      "target_instances": 1,
+      "task_id": "c901732_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 12,
+      "target_instances": 6,
+      "task_id": "ccb4494_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 12,
+      "target_instances": 6,
+      "task_id": "ccb4494_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 119,
+      "target_instances": 37,
+      "task_id": "ce359b5_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 90,
+      "target_instances": 29,
+      "task_id": "ce359b5_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 7,
+      "target_instances": 1,
+      "task_id": "cf6abd2_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 7,
+      "target_instances": 1,
+      "task_id": "cf6abd2_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 63,
+      "target_instances": 19,
+      "task_id": "d4e9306_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 73,
+      "target_instances": 23,
+      "task_id": "d4e9306_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 71,
+      "target_instances": 26,
+      "task_id": "df61dc5_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 106,
+      "target_instances": 11,
+      "task_id": "df61dc5_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 40,
+      "target_instances": 2,
+      "task_id": "e3d6c94_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 43,
+      "target_instances": 5,
+      "task_id": "e3d6c94_2"
+    }
+  ],
+  "trace_failures": 0,
+  "value_hashes_exported": false
+}

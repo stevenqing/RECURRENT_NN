@@ -1,0 +1,68 @@
+{
+  "schema": "recurrent_parallel_proof_carrying_actions_research_spec_v1",
+  "status": "FROZEN_AFTER_OPENED_BROAD_DETERMINISTIC_BASELINES_BEFORE_MODEL_WITNESS_SYNTHESIS",
+  "frozen_date": "2026-07-13",
+  "title": "Proof-Carrying Actions: Recurrent Commit Protocols for Parallel Tool-Using Agents",
+  "central_claim": "Stateful tool-use agents should serialize writes only when exactly one candidate action carries a deterministic, replayable proof binding immutable evidence to the proposed write arguments.",
+  "non_claims": [
+    "not an LLM confidence or binary judge result",
+    "not proof-family name classification",
+    "not an AppWorld-specific API-rule library as the contribution",
+    "not a sealed confirmation result",
+    "not autonomous LLM witness synthesis yet"
+  ],
+  "mechanism": {
+    "parallel_agents": "propose candidate actions and proof sketches in parallel",
+    "immutable_snapshot": "all proofs are verified against the same pre-write snapshot",
+    "barrier": "deterministic verifier accepts, rejects, or marks competing proofs ambiguous",
+    "commit_rule": "commit iff exactly one candidate has a valid proof",
+    "recurrent_state": "proof failure modes route the next round: missing proof, competing proof, invalid proof, or missing read/effect relation"
+  },
+  "proof_obligations": [
+    "literal_intent_binding",
+    "derived_path_binding",
+    "prior_effect_binding",
+    "ordered_role_binding",
+    "relational_entity_binding",
+    "state_delta_binding"
+  ],
+  "primary_opened_evidence": {
+    "broad_pool": "results/recurrent_parallel_appworld_broad_schema_pool_v1/REPORT.md",
+    "baseline_audit": "results/recurrent_parallel_appworld_broad_proof_family_synthesis_v1/BASELINE_AUDIT.md",
+    "safe_ledger_v5": "results/recurrent_parallel_appworld_broad_safe_derivation_ledger_v5/REPORT.md",
+    "real_signal_anchor": "results/recurrent_parallel_real_signal_anchor/RESULTS.md"
+  },
+  "current_safe_lower_bound": {
+    "instances": 1266,
+    "commit_live": 334,
+    "ambiguous_both_valid": 231,
+    "abstain_no_valid": 701,
+    "unsafe_unique_wrong": 0,
+    "fresh_confirmation_sealed": true,
+    "headline_eligible": false
+  },
+  "baseline_ladder": [
+    {"name": "Qwen binary correction judge", "status": "negative", "finding": "pooled balanced accuracy 0.566, calibration failed"},
+    {"name": "typed max-tier provenance", "status": "unsafe", "finding": "45 correct / 3 wrong over 71 strict pairs"},
+    {"name": "exclusive scalar provenance", "status": "safe_abstention", "finding": "45 correct / 0 wrong over 71 strict pairs"},
+    {"name": "active-read and full-record ceilings", "status": "negative", "finding": "0/26 resolved under scalar evidence"},
+    {"name": "API-aware proof-family mapper", "status": "saturated", "finding": "45/45, so proof-family labels are not a research target"},
+    {"name": "value-bound occurrence verifier", "status": "unsafe", "finding": "386 unsafe unique-wrong over 1266 instances"},
+    {"name": "safe derivation ledger v5", "status": "safe_lower_bound", "finding": "334 commit-live / 0 unsafe over 1266 instances"}
+  ],
+  "next_protocol_requirements": {
+    "llm_role": "synthesize proof sketches only; never act as final judge",
+    "verifier_role": "deterministically validates proof sketches against immutable reads/effects",
+    "baselines_required": [
+      "direct action without proof",
+      "citation/provenance count",
+      "occurrence verifier",
+      "API-aware proof-family mapper",
+      "hand-coded template witness synthesizer",
+      "best-of-N self-consistency under matched token budget",
+      "sequential single-agent matched-budget witness synthesis"
+    ],
+    "safety_gate": "unsafe_unique_wrong must remain zero before any confirmation claim",
+    "confirmation_rule": "variations 10-12 remain sealed until prompt/parser/budget/verifier/adversarial gates are frozen"
+  }
+}

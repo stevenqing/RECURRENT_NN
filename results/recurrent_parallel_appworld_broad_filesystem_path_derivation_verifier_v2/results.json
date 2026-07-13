@@ -1,0 +1,127 @@
+{
+  "action_correctness_claim": false,
+  "argument_values_exported": false,
+  "contract_sha256": "15110169bd1fba71fbc05a632b53afd90a583a4e7578eb4468fccfa1494095be",
+  "decision_counts": {
+    "abstain_no_valid": 241,
+    "ambiguous_both_valid": 231,
+    "commit_live": 75
+  },
+  "external_process_actions": false,
+  "fresh_confirmation_sealed": true,
+  "headline_eligible": false,
+  "model_gpu_docker_used": false,
+  "protected_content_exported": false,
+  "protocol_checks": {
+    "contract_frozen": true,
+    "decision_labels": true,
+    "instance_manifest_binding": true,
+    "parent_negative_preserved": true,
+    "preflight_ready": true,
+    "row_count": true,
+    "schema_counts": true,
+    "scope": true,
+    "target_instance_count": true,
+    "trace_execution": true
+  },
+  "response_values_exported": false,
+  "rows_sha256": "60dd45088b8bcc787414143183708e0541b1f8d19b90f146abca50488de5871f",
+  "safety_checks": {
+    "no_unsafe_unique_wrong": true
+  },
+  "schema": "appworld_broad_filesystem_path_derivation_verifier_v2",
+  "schema_decision_counts": {
+    "post.file_system.compress_directory.compressed_file_path": {
+      "abstain_no_valid": 9
+    },
+    "post.file_system.compress_directory.directory_path": {
+      "abstain_no_valid": 9
+    },
+    "post.file_system.create_file.file_path": {
+      "abstain_no_valid": 67
+    },
+    "post.file_system.move_file.destination_file_path": {
+      "abstain_no_valid": 156,
+      "commit_live": 75
+    },
+    "post.file_system.move_file.source_file_path": {
+      "ambiguous_both_valid": 231
+    }
+  },
+  "status": "RPD_APPWORLD_BROAD_FILESYSTEM_PATH_DERIVATION_VERIFIER_SAFE",
+  "target_instances": 547,
+  "task_summaries": [
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 77,
+      "target_instances": 72,
+      "task_id": "34d9492_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 83,
+      "target_instances": 78,
+      "task_id": "34d9492_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 210,
+      "target_instances": 1,
+      "task_id": "6104387_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 206,
+      "target_instances": 1,
+      "task_id": "6104387_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 165,
+      "target_instances": 160,
+      "task_id": "68ee2c9_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 157,
+      "target_instances": 152,
+      "task_id": "68ee2c9_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 79,
+      "target_instances": 32,
+      "task_id": "6c2c621_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 81,
+      "target_instances": 33,
+      "task_id": "6c2c621_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 10,
+      "target_instances": 10,
+      "task_id": "7d7fbf6_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 9,
+      "target_instances": 8,
+      "task_id": "7d7fbf6_2"
+    }
+  ],
+  "trace_failures": 0,
+  "value_hashes_exported": false
+}

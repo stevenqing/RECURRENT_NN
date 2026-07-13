@@ -1,0 +1,75 @@
+{
+  "contains_opened_task_context": true,
+  "rows": [
+    {
+      "context_sha256": "a0d1722d81d609c8c1b03c6f63ec22205dd52c47ab6af033364af6a2ddd62439",
+      "example_block_sha256": "87e2f70eaeae42cc9f98fb9ce843b6c945686c80dba2c79f25b4228e3abea117",
+      "expected_sketch": {
+        "derivation": "basename",
+        "obligation": "derived_path_binding",
+        "source_path_field": "response.22",
+        "source_read_id": "read_3",
+        "target_arg": "destination_file_path"
+      },
+      "generator_id": "34d9492",
+      "instance_id": "0102e82d8497e0999342",
+      "obligation": "derived_path_binding",
+      "target_schema": "post.file_system.move_file.destination_file_path",
+      "task_id": "34d9492_1",
+      "variation": 1
+    },
+    {
+      "context_sha256": "ac799b9080394413376a2d154645801b2dcaf34452badc01fae397851870a985",
+      "example_block_sha256": "2807cbc7cb165f80f88eea919aaf641772de8acd8fc0a1c8ad537410c48da6e0",
+      "expected_sketch": {
+        "obligation": "literal_intent_binding",
+        "target_arg": "comment",
+        "user_span": {
+          "end": 26,
+          "start": 16
+        }
+      },
+      "generator_id": "afc0fce",
+      "instance_id": "01ca5949827114b14bb5",
+      "obligation": "literal_intent_binding",
+      "target_schema": "post.venmo.create_transaction_comment.comment",
+      "task_id": "afc0fce_1",
+      "variation": 1
+    },
+    {
+      "context_sha256": "2eed58e05d2e33f902145d39c140761661b6d3aab20cb195c6dfb3ce63c51abe",
+      "example_block_sha256": "5861e5e4bfcaf3dccf901fcabe821a924203a5e3bb86f6db96c9009a43e810f0",
+      "expected_sketch": {
+        "index_expr": "same_rank",
+        "obligation": "ordered_role_binding",
+        "order_field": "song_id",
+        "order_source_read_id": "read_group_spotify_search_songs_before_30",
+        "target_arg": "song_id"
+      },
+      "generator_id": "57c3486",
+      "instance_id": "020155d9fe91086024c3",
+      "obligation": "ordered_role_binding",
+      "target_schema": "post.spotify.like_song.song_id",
+      "task_id": "57c3486_2",
+      "variation": 2
+    },
+    {
+      "context_sha256": "9c142fcf240adffa11faff7ebf9c3e991b13acb2d65ee34c98683a7542262a19",
+      "example_block_sha256": "5ab33eb673823bdbc039a4021edd28c9fe617a3a722f888f4624bd00bf66b265",
+      "expected_sketch": {
+        "effect_field": "playlist_id",
+        "effect_step_id": "effect_13",
+        "obligation": "prior_effect_binding",
+        "target_arg": "playlist_id"
+      },
+      "generator_id": "6171bbc",
+      "instance_id": "09a4f1b2a3e3e95be5d7",
+      "obligation": "prior_effect_binding",
+      "target_schema": "post.spotify.add_song_to_playlist.playlist_id",
+      "task_id": "6171bbc_2",
+      "variation": 2
+    }
+  ],
+  "schema": "ebw_track_a_few_shot_examples_v1",
+  "sealed_variations_opened": false
+}

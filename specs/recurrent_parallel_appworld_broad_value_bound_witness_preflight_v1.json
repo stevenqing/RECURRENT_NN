@@ -1,0 +1,53 @@
+{
+  "schema": "recurrent_parallel_appworld_broad_value_bound_witness_preflight_contract_v1",
+  "status": "FROZEN_BEFORE_BROAD_VALUE_BOUND_WITNESS_OUTCOMES",
+  "frozen_date": "2026-07-13",
+  "phase": "OPENED_BROAD_SCHEMA_VALUE_BOUND_WITNESS_INSTANCE_PREFLIGHT",
+  "pool_manifest": "results/recurrent_parallel_appworld_broad_schema_pool_v1/task_manifest.json",
+  "generated_root": "external_repos/appworld_generated_broad_schema_v1",
+  "witness_sketch_preflight": "results/recurrent_parallel_appworld_broad_witness_sketch_v1/preflight.json",
+  "sketch_manifest": "results/recurrent_parallel_appworld_broad_witness_sketch_v1/sketch_manifest.json",
+  "template_baseline": "results/recurrent_parallel_appworld_broad_witness_template_baseline_v1/results.json",
+  "fresh_pool_certification": "results/recurrent_parallel_appworld_fresh_variations_10_12_semantic_v2/certification.json",
+  "expected_statuses": {
+    "pool_manifest": "RPD_APPWORLD_BROAD_SCHEMA_POOL_PASS",
+    "witness_sketch_preflight": "RPD_APPWORLD_BROAD_WITNESS_SKETCH_PREFLIGHT_READY",
+    "template_baseline": "RPD_APPWORLD_BROAD_WITNESS_TEMPLATE_BASELINE_PASS",
+    "fresh_pool": "RPD_APPWORLD_FRESH_VARIATIONS_10_12_SEMANTIC_PASS"
+  },
+  "expected_counts": {
+    "target_instances": 1266,
+    "tasks_with_target_instances": 70,
+    "family_instance_counts": {
+      "filesystem_path_derivation_proof": 547,
+      "literal_text_derivation_proof": 124,
+      "state_transition_membership_proof": 595
+    },
+    "no_pre_read_by_family": {},
+    "no_same_app_pre_read_by_family": {
+      "filesystem_path_derivation_proof": 67,
+      "literal_text_derivation_proof": 75
+    },
+    "max_pre_reads_before_target": 290,
+    "max_same_app_pre_reads_before_target": 290
+  },
+  "instance_manifest_policy": {
+    "value_free": true,
+    "include_task_ids": true,
+    "include_call_indices": true,
+    "include_argument_values": false,
+    "include_response_values": false,
+    "include_value_hashes": false,
+    "include_pre_read_counts_only": true
+  },
+  "fresh_confirmation_sealed": true,
+  "protected_content_export": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "headline_eligible": false,
+  "verdicts": {
+    "ready": "RPD_APPWORLD_BROAD_VALUE_BOUND_WITNESS_PREFLIGHT_READY",
+    "blocked": "RPD_APPWORLD_BROAD_VALUE_BOUND_WITNESS_PREFLIGHT_BLOCKED",
+    "protocol_fail": "RPD_APPWORLD_BROAD_VALUE_BOUND_WITNESS_PROTOCOL_FAIL"
+  }
+}

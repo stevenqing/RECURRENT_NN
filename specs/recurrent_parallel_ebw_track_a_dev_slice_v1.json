@@ -1,0 +1,36 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_dev_slice_contract_v1",
+  "status": "FROZEN_DEV_SLICE_IDS_BEFORE_TRACK_A_TAG",
+  "frozen_date": "2026-07-13",
+  "source_ledger": "results/recurrent_parallel_appworld_broad_safe_derivation_ledger_v5/rows.json",
+  "source_ledger_result": "results/recurrent_parallel_appworld_broad_safe_derivation_ledger_v5/results.json",
+  "max_dev_instances": 40,
+  "per_obligation_instances": 10,
+  "obligation_mapping": {
+    "derived_path_binding": "proof_family == filesystem_path_derivation_proof and decision == commit_live",
+    "literal_intent_binding": "proof_family == literal_text_derivation_proof and decision == commit_live",
+    "prior_effect_binding": "ledger_source == state_transition_created_playlist_verifier_v1 and decision == commit_live",
+    "ordered_role_binding": "ledger_source == state_transition_like_song_verifier_v1 and decision == commit_live"
+  },
+  "expected_counts": {
+    "derived_path_binding": 10,
+    "literal_intent_binding": 10,
+    "prior_effect_binding": 10,
+    "ordered_role_binding": 10
+  },
+  "selection_rule": "sort eligible rows by instance_id within obligation and take first N",
+  "example_rule": "first selected row per obligation is the few-shot example id",
+  "main_report_exclusion": true,
+  "protected_content_export": false,
+  "argument_values_export": false,
+  "response_values_export": false,
+  "value_hashes_export": false,
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_DEV_SLICE_READY",
+    "blocked": "RPD_EBW_TRACK_A_DEV_SLICE_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_DEV_SLICE_PROTOCOL_FAIL"
+  }
+}

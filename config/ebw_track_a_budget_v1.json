@@ -1,0 +1,14 @@
+{
+  "schema": "ebw_track_a_budget_v1",
+  "status": "FROZEN_BUDGET_VALUES_BEFORE_TRACK_A_TAG",
+  "model": "Qwen3-4B-Instruct-2507",
+  "primary_temperature": 0,
+  "self_consistency_temperature": 0.7,
+  "self_consistency_n": 8,
+  "max_model_calls_per_candidate": 2,
+  "max_repair_rounds": 1,
+  "max_output_tokens_per_call": 512,
+  "parser": "strict_json_no_regex_repair",
+  "retry_policy": "one_retry_on_non_json_only",
+  "commit_rule": "unique_validity_only"
+}

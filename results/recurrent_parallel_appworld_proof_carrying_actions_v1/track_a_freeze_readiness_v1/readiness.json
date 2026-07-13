@@ -1,0 +1,42 @@
+{
+  "baseline_arms": [
+    "agent_sentry_l1_l2_taint",
+    "api_aware_mapper_to_template",
+    "direct_action_no_gate",
+    "hand_coded_ledger_v5_templates",
+    "occurrence_verifier",
+    "parallel_role_synthesis",
+    "self_consistency_n8_vote",
+    "sequential_matched_budget_synthesis"
+  ],
+  "checks": {
+    "baseline_arms_present": true,
+    "budget_caps": true,
+    "budget_frozen": true,
+    "config_frozen": true,
+    "dev_slice_exclusion": true,
+    "dev_slice_manifest_binding": true,
+    "dev_slice_ready": true,
+    "dev_slice_size": true,
+    "freeze_spec_status": true,
+    "ga_dev_asserts": true,
+    "ga_main_asserts": true,
+    "no_model_or_external": true,
+    "opened_manifest_count": true,
+    "parser_exists": true,
+    "parser_tests_exist": true,
+    "prompt_freeze_ready": true,
+    "prompt_hash": true,
+    "safe_ledger_denominator": true,
+    "sealed_closed": true
+  },
+  "dev_slice_instances": 40,
+  "execution_lock_sha256": "5b441a97ccb61d8fcea7de781020d9429f909a0cd6525d78ec82c7d3eb3a1c98",
+  "external_process_actions": false,
+  "git_tag_created": false,
+  "model_gpu_docker_used": false,
+  "prompt_sha256": "6d1904dae3fc0b7b2273a754afcd6be2c89a754aaf1cddf5ddcef0e3806ea218",
+  "schema": "ebw_track_a_freeze_readiness_v1",
+  "sealed_variations_opened": false,
+  "status": "RPD_EBW_TRACK_A_FREEZE_READINESS_READY_NOT_TAGGED"
+}

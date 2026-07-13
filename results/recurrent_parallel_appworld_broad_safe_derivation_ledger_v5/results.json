@@ -1,0 +1,56 @@
+{
+  "action_correctness_claim": false,
+  "argument_values_exported": false,
+  "checks": {
+    "contract_frozen": true,
+    "created_playlist_binding": true,
+    "created_playlist_verifier_safe": true,
+    "decision_counts": true,
+    "family_counts": true,
+    "like_song_binding": true,
+    "like_song_verifier_safe": true,
+    "literal_binding": true,
+    "literal_verifier_safe": true,
+    "ordered_entity_binding": true,
+    "ordered_entity_verifier_recorded": true,
+    "parent_ledger": true,
+    "path_binding": true,
+    "path_verifier_safe": true,
+    "row_count": true,
+    "scope": true,
+    "unique_instance_ids": true
+  },
+  "contract_sha256": "0f655bb28ae63ec471ce6a384f0760edb3e9ed97c25b23aa04a769918c8605f7",
+  "decision_counts": {
+    "abstain_no_valid": 701,
+    "ambiguous_both_valid": 231,
+    "commit_live": 334,
+    "unsafe_unique_wrong": 0
+  },
+  "external_process_actions": false,
+  "family_decision_counts": {
+    "filesystem_path_derivation_proof": {
+      "abstain_no_valid": 241,
+      "ambiguous_both_valid": 231,
+      "commit_live": 75
+    },
+    "literal_text_derivation_proof": {
+      "abstain_no_valid": 78,
+      "commit_live": 46
+    },
+    "state_transition_membership_proof": {
+      "abstain_no_valid": 382,
+      "commit_live": 213
+    }
+  },
+  "fresh_confirmation_sealed": true,
+  "headline_eligible": false,
+  "model_gpu_docker_used": false,
+  "protected_content_exported": false,
+  "response_values_exported": false,
+  "rows_sha256": "60c8fc92c3e3a5afd60f4e89f11d04ce467e32dc2988a1cf4b8be91d6d81f092",
+  "schema": "appworld_broad_safe_derivation_ledger_v5",
+  "status": "RPD_APPWORLD_BROAD_SAFE_DERIVATION_LEDGER_V5_PASS",
+  "target_instances": 1266,
+  "value_hashes_exported": false
+}

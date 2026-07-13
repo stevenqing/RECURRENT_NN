@@ -1,0 +1,58 @@
+{
+  "schema": "recurrent_parallel_appworld_broad_safe_derivation_ledger_contract_v5",
+  "status": "FROZEN_BEFORE_SAFE_DERIVATION_LEDGER_OUTCOMES",
+  "frozen_date": "2026-07-13",
+  "phase": "OPENED_BROAD_SCHEMA_SAFE_DERIVATION_VERIFIER_LEDGER_V5_LIKE_SONG",
+  "parent_ledger": "results/recurrent_parallel_appworld_broad_safe_derivation_ledger_v4/results.json",
+  "instance_manifest": "results/recurrent_parallel_appworld_broad_value_bound_witness_preflight_v1/instance_manifest.json",
+  "path_verifier": "results/recurrent_parallel_appworld_broad_filesystem_path_derivation_verifier_v2/results.json",
+  "path_rows": "results/recurrent_parallel_appworld_broad_filesystem_path_derivation_verifier_v2/rows.json",
+  "literal_verifier": "results/recurrent_parallel_appworld_broad_literal_text_derivation_verifier_v1/results.json",
+  "literal_rows": "results/recurrent_parallel_appworld_broad_literal_text_derivation_verifier_v1/rows.json",
+  "created_playlist_verifier": "results/recurrent_parallel_appworld_broad_state_transition_created_playlist_verifier_v1/results.json",
+  "created_playlist_rows": "results/recurrent_parallel_appworld_broad_state_transition_created_playlist_verifier_v1/rows.json",
+  "ordered_entity_verifier": "results/recurrent_parallel_appworld_broad_state_transition_ordered_entity_verifier_v1/results.json",
+  "ordered_entity_rows": "results/recurrent_parallel_appworld_broad_state_transition_ordered_entity_verifier_v1/rows.json",
+  "like_song_verifier": "results/recurrent_parallel_appworld_broad_state_transition_like_song_verifier_v1/results.json",
+  "like_song_rows": "results/recurrent_parallel_appworld_broad_state_transition_like_song_verifier_v1/rows.json",
+  "expected_statuses": {
+    "parent_ledger": "RPD_APPWORLD_BROAD_SAFE_DERIVATION_LEDGER_V4_PASS",
+    "path_verifier": "RPD_APPWORLD_BROAD_FILESYSTEM_PATH_DERIVATION_VERIFIER_SAFE",
+    "literal_verifier": "RPD_APPWORLD_BROAD_LITERAL_TEXT_DERIVATION_VERIFIER_SAFE",
+    "created_playlist_verifier": "RPD_APPWORLD_BROAD_STATE_TRANSITION_CREATED_PLAYLIST_VERIFIER_SAFE",
+    "ordered_entity_verifier": "RPD_APPWORLD_BROAD_STATE_TRANSITION_ORDERED_ENTITY_VERIFIER_UNSAFE",
+    "like_song_verifier": "RPD_APPWORLD_BROAD_STATE_TRANSITION_LIKE_SONG_VERIFIER_SAFE"
+  },
+  "policy": {
+    "filesystem_path_derivation_proof": "use_path_verifier_v2",
+    "literal_text_derivation_proof": "use_literal_text_verifier_v1",
+    "state_transition_membership_proof": "use_created_playlist_verifier; use_like_song_verifier; use ordered_entity only for schemas with zero unsafe; else fail closed"
+  },
+  "expected_counts": {
+    "total_instances": 1266,
+    "decision_counts": {
+      "commit_live": 334,
+      "ambiguous_both_valid": 231,
+      "abstain_no_valid": 701,
+      "unsafe_unique_wrong": 0
+    },
+    "family_counts": {
+      "filesystem_path_derivation_proof": 547,
+      "literal_text_derivation_proof": 124,
+      "state_transition_membership_proof": 595
+    }
+  },
+  "fresh_confirmation_sealed": true,
+  "protected_content_export": false,
+  "argument_values_export": false,
+  "response_values_export": false,
+  "value_hashes_export": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "headline_eligible": false,
+  "verdicts": {
+    "pass": "RPD_APPWORLD_BROAD_SAFE_DERIVATION_LEDGER_V5_PASS",
+    "fail": "RPD_APPWORLD_BROAD_SAFE_DERIVATION_LEDGER_V5_FAIL",
+    "protocol_fail": "RPD_APPWORLD_BROAD_SAFE_DERIVATION_LEDGER_V5_PROTOCOL_FAIL"
+  }
+}

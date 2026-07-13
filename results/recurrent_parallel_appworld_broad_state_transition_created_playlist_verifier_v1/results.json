@@ -1,0 +1,67 @@
+{
+  "action_correctness_claim": false,
+  "adversarial_sources": {
+    "prior_spotify_scalar": 18
+  },
+  "argument_values_exported": false,
+  "contract_sha256": "35989653ef67b7d2d4c86a1c2c3e29b03e969a8df26d434c8e388c29edfe7a9d",
+  "decision_counts": {
+    "commit_live": 18
+  },
+  "external_process_actions": false,
+  "fresh_confirmation_sealed": true,
+  "headline_eligible": false,
+  "model_gpu_docker_used": false,
+  "protected_content_exported": false,
+  "protocol_checks": {
+    "contract_frozen": true,
+    "decision_labels": true,
+    "instance_manifest_binding": true,
+    "parent_negative_preserved": true,
+    "preflight_ready": true,
+    "row_count": true,
+    "scope": true,
+    "target_instance_count": true,
+    "trace_execution": true
+  },
+  "response_values_exported": false,
+  "rows_sha256": "58a5e454b0716cc4ad2063424a518058744b12a110be96a326b21bf8186ffcb6",
+  "safety_checks": {
+    "no_unsafe_unique_wrong": true
+  },
+  "schema": "appworld_broad_state_transition_created_playlist_verifier_v1",
+  "status": "RPD_APPWORLD_BROAD_STATE_TRANSITION_CREATED_PLAYLIST_VERIFIER_SAFE",
+  "target_instances": 18,
+  "task_summaries": [
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 46,
+      "target_instances": 5,
+      "task_id": "6171bbc_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 81,
+      "target_instances": 6,
+      "task_id": "6171bbc_2"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 40,
+      "target_instances": 2,
+      "task_id": "e3d6c94_1"
+    },
+    {
+      "baseline_pass": true,
+      "error_type": null,
+      "live_calls": 43,
+      "target_instances": 5,
+      "task_id": "e3d6c94_2"
+    }
+  ],
+  "trace_failures": 0,
+  "value_hashes_exported": false
+}

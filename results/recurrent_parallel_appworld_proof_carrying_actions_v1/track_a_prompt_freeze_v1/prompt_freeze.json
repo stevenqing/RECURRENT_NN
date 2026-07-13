@@ -1,0 +1,18 @@
+{
+  "contains_opened_task_context": true,
+  "dev_slice_manifest_sha256": "f8aeb771733a24e704d96c021ad6d43a1035282562551328c742dc8805d3ad30",
+  "example_ids": {
+    "derived_path_binding": "0102e82d8497e0999342",
+    "literal_intent_binding": "01ca5949827114b14bb5",
+    "ordered_role_binding": "020155d9fe91086024c3",
+    "prior_effect_binding": "09a4f1b2a3e3e95be5d7"
+  },
+  "external_process_actions": false,
+  "few_shot_examples_sha256": "8089d7757a2735313978cc9a760e69d8ccf2c06db74daeec58a707ad35bc2205",
+  "model_gpu_docker_used": false,
+  "prompt_template_sha256": "6d1904dae3fc0b7b2273a754afcd6be2c89a754aaf1cddf5ddcef0e3806ea218",
+  "schema": "ebw_track_a_prompt_freeze_v1",
+  "sealed_variations_opened": false,
+  "source_template_sha256": "28e5d705a0046944fca19df23a80d520d7a4ec6b45023f9fa45912d6d8e9725c",
+  "status": "RPD_EBW_TRACK_A_PROMPT_EXAMPLES_READY_NOT_TAGGED"
+}

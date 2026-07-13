@@ -1,0 +1,70 @@
+{
+  "schema": "recurrent_parallel_appworld_broad_state_transition_ordered_entity_verifier_contract_v1",
+  "status": "FROZEN_BEFORE_STATE_TRANSITION_ORDERED_ENTITY_VERIFIER_OUTCOMES",
+  "frozen_date": "2026-07-13",
+  "phase": "OPENED_BROAD_SCHEMA_STATE_TRANSITION_ORDERED_ENTITY_VERIFIER",
+  "value_bound_preflight": "results/recurrent_parallel_appworld_broad_value_bound_witness_preflight_v1/preflight.json",
+  "instance_manifest": "results/recurrent_parallel_appworld_broad_value_bound_witness_preflight_v1/instance_manifest.json",
+  "generated_root": "external_repos/appworld_generated_broad_schema_v1",
+  "parent_negative_baseline": "results/recurrent_parallel_appworld_broad_value_bound_template_verifier_v1/results.json",
+  "created_playlist_verifier": "results/recurrent_parallel_appworld_broad_state_transition_created_playlist_verifier_v1/results.json",
+  "expected_statuses": {
+    "value_bound_preflight": "RPD_APPWORLD_BROAD_VALUE_BOUND_WITNESS_PREFLIGHT_READY",
+    "parent_negative_baseline": "RPD_APPWORLD_BROAD_VALUE_BOUND_TEMPLATE_VERIFIER_BASELINE_UNSAFE",
+    "created_playlist_verifier": "RPD_APPWORLD_BROAD_STATE_TRANSITION_CREATED_PLAYLIST_VERIFIER_SAFE"
+  },
+  "excluded_schema": "post.spotify.add_song_to_playlist.playlist_id",
+  "target_proof_family": "state_transition_membership_proof",
+  "expected_instances": 577,
+  "expected_schema_counts": {
+    "delete.phone.delete_text_message.text_message_id": 18,
+    "delete.phone.delete_voice_message.voice_message_id": 22,
+    "delete.spotify.remove_album_from_library.album_id": 8,
+    "delete.spotify.remove_song_from_library.song_id": 32,
+    "delete.spotify.remove_song_from_playlist.playlist_id": 28,
+    "delete.spotify.remove_song_from_playlist.song_id": 28,
+    "delete.spotify.unfollow_artist.artist_id": 5,
+    "patch.phone.update_alarm.alarm_id": 7,
+    "patch.simple_note.update_note.note_id": 2,
+    "patch.spotify.update_song_review.review_id": 5,
+    "post.spotify.add_song_to_playlist.song_id": 18,
+    "post.spotify.add_to_queue.song_id": 3,
+    "post.spotify.download_song.song_id": 25,
+    "post.spotify.follow_artist.artist_id": 68,
+    "post.spotify.like_song.song_id": 155,
+    "post.spotify.play_music.playlist_id": 2,
+    "post.spotify.play_music.song_id": 2,
+    "post.spotify.review_song.song_id": 31,
+    "post.venmo.approve_payment_request.payment_request_id": 9,
+    "post.venmo.deny_payment_request.payment_request_id": 19,
+    "post.venmo.like_transaction.transaction_id": 67,
+    "post.venmo.remind_payment_request.payment_request_id": 23
+  },
+  "verifier_rules": {
+    "ordered_same_app_entity": "candidate is valid only if it equals the write_ordinal-th unique value for the same field name found in same-app pre-write read responses",
+    "missing_sequence_item": "fail closed with no valid witness"
+  },
+  "adversarial_candidate_policy": "first unequal same-field entity from the same ordered sequence, otherwise deterministic type mutation",
+  "decision_labels": [
+    "commit_live",
+    "ambiguous_both_valid",
+    "abstain_no_valid",
+    "unsafe_unique_wrong"
+  ],
+  "safety_gate": {
+    "unsafe_unique_wrong_required": 0
+  },
+  "fresh_confirmation_sealed": true,
+  "protected_content_export": false,
+  "argument_values_export": false,
+  "response_values_export": false,
+  "value_hashes_export": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "headline_eligible": false,
+  "verdicts": {
+    "safe": "RPD_APPWORLD_BROAD_STATE_TRANSITION_ORDERED_ENTITY_VERIFIER_SAFE",
+    "unsafe": "RPD_APPWORLD_BROAD_STATE_TRANSITION_ORDERED_ENTITY_VERIFIER_UNSAFE",
+    "protocol_fail": "RPD_APPWORLD_BROAD_STATE_TRANSITION_ORDERED_ENTITY_VERIFIER_PROTOCOL_FAIL"
+  }
+}

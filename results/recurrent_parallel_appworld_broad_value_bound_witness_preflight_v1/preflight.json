@@ -1,0 +1,46 @@
+{
+  "action_correctness_claim": false,
+  "argument_values_exported": false,
+  "checks": {
+    "contract_frozen": true,
+    "family_instance_counts": true,
+    "fresh_sealed": true,
+    "max_pre_read_counts": true,
+    "pool_manifest": true,
+    "pre_read_availability": true,
+    "row_value_free": true,
+    "same_app_pre_read_availability": true,
+    "scope": true,
+    "sketch_manifest_binding": true,
+    "sketch_preflight_ready": true,
+    "target_instance_count": true,
+    "tasks_with_target_instances": true,
+    "template_baseline_pass": true,
+    "unique_instance_ids": true
+  },
+  "contract_sha256": "30980d7fd67c7683aed9eb08353cdabd44d67797d0898aef3b05e5450f9fa739",
+  "external_process_actions": false,
+  "family_instance_counts": {
+    "filesystem_path_derivation_proof": 547,
+    "literal_text_derivation_proof": 124,
+    "state_transition_membership_proof": 595
+  },
+  "fresh_confirmation_sealed": true,
+  "headline_eligible": false,
+  "instance_manifest_sha256": "30b4d7f67e52c5538fb6c5f298c78e4c5522de944e08ebbe7171676717eae7a7",
+  "max_pre_reads_before_target": 290,
+  "max_same_app_pre_reads_before_target": 290,
+  "model_gpu_docker_used": false,
+  "no_pre_read_by_family": {},
+  "no_same_app_pre_read_by_family": {
+    "filesystem_path_derivation_proof": 67,
+    "literal_text_derivation_proof": 75
+  },
+  "protected_content_exported": false,
+  "response_values_exported": false,
+  "schema": "appworld_broad_value_bound_witness_preflight_v1",
+  "status": "RPD_APPWORLD_BROAD_VALUE_BOUND_WITNESS_PREFLIGHT_READY",
+  "target_instances": 1266,
+  "tasks_with_target_instances": 70,
+  "value_hashes_exported": false
+}
