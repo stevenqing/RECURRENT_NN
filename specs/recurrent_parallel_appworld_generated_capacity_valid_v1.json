@@ -1,0 +1,37 @@
+{
+  "schema": "recurrent_appworld_generated_capacity_valid_v1",
+  "frozen_date": "2026-07-12",
+  "frozen_before_guard_outcomes": true,
+  "parent_spec": "specs/recurrent_parallel_appworld_generated_tasks_v2.json",
+  "parent_manifest": "results/recurrent_parallel_appworld_generated_tasks_v2/task_manifest.json",
+  "parent_status_required": "RPD_APPWORLD_GENERATED_TASKS_FAIL",
+  "selection_basis": "operational_generation_completeness_only",
+  "eligibility_rule": {
+    "required_variations": [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "all_tasks_must_exist": true,
+    "generator_must_be_in_parent_passed_generators": true,
+    "partial_generators_excluded_entirely": true
+  },
+  "split_rule": {
+    "calibration": [1, 2, 3],
+    "development": [4, 5, 6],
+    "confirmation": [7, 8, 9]
+  },
+  "expected": {
+    "complete_generators": 8,
+    "tasks": 72,
+    "calibration_tasks": 24,
+    "development_tasks": 24,
+    "confirmation_tasks": 24
+  },
+  "forbidden": [
+    "changing_parent_v2_fail_status",
+    "selecting_on_mutation_or_guard_outcomes",
+    "including_partial_generators",
+    "regenerating_replacements",
+    "moving_tasks_between_splits",
+    "treating_capacity_validity_as_model_success"
+  ],
+  "pass_status": "RPD_APPWORLD_GENERATED_CAPACITY_VALID_PASS",
+  "fail_status": "RPD_APPWORLD_GENERATED_CAPACITY_VALID_FAIL"
+}

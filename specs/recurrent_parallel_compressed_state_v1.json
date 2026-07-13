@@ -1,0 +1,37 @@
+{
+  "schema": "recurrent_parallel_compressed_state_contract_v1",
+  "status": "FROZEN_BEFORE_COMPRESSED_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "prerequisites": [
+    "results/recurrent_parallel_engine_p0/results.json",
+    "results/recurrent_parallel_fixed_budget/results.json"
+  ],
+  "source_manifest": "results/recurrent_signal_phase_v7_preflight/instance_manifest.json",
+  "n_agents": 17,
+  "round_budgets": [1, 2, 4, 8, 16, 32],
+  "fragment_facts_per_message": 1,
+  "message_cache_capacity_facts": 2,
+  "modes": [
+    "full_message",
+    "compressed_persistent",
+    "compressed_cache_reset",
+    "compressed_all_reset",
+    "compressed_shuffled",
+    "no_message"
+  ],
+  "gates": {
+    "S0": "replay>=8, Jacobi semantics, age1, one-fact fragments, cache<=2, no hidden full access, validity",
+    "S1": "T32 persistent solve>=0.90, within0.10 full, delivered facts<=0.60 full equivalent",
+    "S2": "persistent minus cache_reset solve>=0.15, lower conflicts, direction in >=2 diameters",
+    "S3": "persistent minus all_reset solve>=0.15",
+    "S4": "persistent minus shuffled and no_message solve>=0.15",
+    "S5": "persistent solve nondecreasing and high diameter requires weakly more T"
+  },
+  "verdicts": {
+    "go": "RPD_COMPRESSED_STATE_NECESSITY_GO",
+    "message_only": "RPD_COMPRESSED_MESSAGE_RECURRENCE_ONLY",
+    "no_go": "RPD_COMPRESSED_STATE_NO_GO",
+    "semantics_fail": "RPD_COMPRESSED_STATE_SEMANTICS_FAIL"
+  },
+  "qwen_authorized": false
+}

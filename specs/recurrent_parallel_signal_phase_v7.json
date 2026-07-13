@@ -1,0 +1,59 @@
+{
+  "schema": "recurrent_parallel_signal_phase_v7_contract",
+  "status": "FROZEN_BEFORE_PREFLIGHT_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "headline_eligible": false,
+  "substrate": {
+    "development": "planted_long_diameter_graph_coloring",
+    "n_partitions": 17,
+    "vertices_per_partition": 4,
+    "k": 3,
+    "partition_tree_edges": 16,
+    "cross_variable_edges_per_tree_edge": 2,
+    "diameters": [2, 4, 8, 16],
+    "fixed_density_required": true,
+    "planted_solution_hidden": true
+  },
+  "signal": {
+    "eta_fp": [0.0, 0.05, 0.1, 0.2, 0.35, 0.5],
+    "eta_fn_primary": 0.0,
+    "eta_tgt_primary": 0.0,
+    "deterministic_state_hash_noise": true,
+    "coupled_across_systems": true
+  },
+  "systems": {
+    "R_exact": "one_positive_triggers_exact_pop",
+    "R_commit": "ignore_detector_and_use_irreversible_full_restart_on_hard_exhaustion",
+    "R_soft2": "two_independent_positives_on_unchanged_state_trigger_exact_pop",
+    "R_verify_optional": "positive_signal_followed_by_paid_truth_query"
+  },
+  "register": {
+    "shared_mechanism": "register.structured.StructuredRegister",
+    "exact_stack_shadow_required": true,
+    "push_pop_residual_tolerance": 1e-5
+  },
+  "preflight": {
+    "instances_per_diameter_target": 8,
+    "minimum_true_rollbacks_per_instance": 3,
+    "max_generation_candidates_per_diameter": 500,
+    "noise_calibration_states_per_label": 2000,
+    "development_only": true
+  },
+  "main_sweep": {
+    "instances_per_cell_minimum": 50,
+    "failure_penalty": 20000,
+    "fixed_B": [32, 64, 128],
+    "widths": [1, 2, 4, 8, 16]
+  },
+  "gates": {
+    "G_env": "exact diameter, fixed density, hidden valid planting, deterministic oracle, rollback engagement>=3, difficulty overlap",
+    "G0": "eta0 exact solve>=commit, rollback engaged, zero overrollback, exact register residual, official scoring",
+    "G1": "noise calibration and deterministic replay",
+    "G2": "at least one low-noise exact-favored and one higher-noise soft_or_commit-favored cell",
+    "G3": "recurrent beats state-reset, shuffled-message, and one-shot controls at matched B",
+    "G4": "new graph and SAT confirmation pools",
+    "G5": "real frozen-Qwen or PRM signal anchor"
+  },
+  "qwen_authorized": false,
+  "gpu_authorized_stage": "only_after_G0_through_G4_and_clean_gpu_availability"
+}

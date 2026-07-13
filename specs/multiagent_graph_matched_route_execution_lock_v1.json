@@ -1,0 +1,31 @@
+{
+  "schema": "multiagent_graph_matched_route_execution_lock_v1",
+  "status": "EXECUTION_LOCKED",
+  "frozen_date": "2026-07-12",
+  "study": "independent_graph_capacity_valid_route_confirmation",
+  "files": {
+    "contract_markdown": {"path": "specs/multiagent_graph_matched_route_confirmation_v1.md", "sha256": "365b16dd7e9487c70d2199779160eff2014ecbe5483c2eabb15e4777e673196e"},
+    "contract_json": {"path": "specs/multiagent_graph_matched_route_confirmation_v1.json", "sha256": "2c05a8819c15be4e97112378a401959baa08a2f26de1812f101775d27540d708"},
+    "development_contract": {"path": "specs/multiagent_graph_matched_route_development_v1.json", "sha256": "dbdc25d3e491dd60bffc320137f0abd0aa7c21a74acc68b37111de3741666810"},
+    "development_gate": {"path": "results/multiagent_graph_matched_route_development/results.json", "sha256": "5bdf82aa35ef2637dc68ab76db4b59984c7280b4db469e82a166a664b44b93db"},
+    "graph_generator": {"path": "experiments/multiagent_capacity_coupling.py", "sha256": "0f1f80f0273b165d52d58caadb1d55bbb04cd17fce38159e2104212ceff8efee"},
+    "frozen_mechanism": {"path": "experiments/multiagent_independent_local.py", "sha256": "946782f3abff7026a98593fb3f3374ff020159f21303ccc442157ac6354244ba"},
+    "frozen_controls": {"path": "experiments/multiagent_factorization_controls.py", "sha256": "18e47c83764d5471094b2c17ac1d4e1edcbea773a8cdf50b485d7c6e88515035"},
+    "matched_control": {"path": "experiments/multiagent_graph_route_controls.py", "sha256": "39062a0d10b954e6a95e8d8044430222a3cf6a50bfb514b587a489d4613ad895"},
+    "manifest_source": {"path": "analysis/multiagent_graph_matched_route_manifest.py", "sha256": "a4c98df47c5358c745f063bbb91ea1b97c9a4bc57f90f8b8549a8c100b9815b3"},
+    "graph_manifest": {"path": "results/multiagent_graph_matched_route_manifest/instance_manifest.json", "sha256": "fcc2ad5152527bfdd60b7b50f67e87ed4d19fdefc32d00c75d08b4f00d1f2bcb"},
+    "generation_metadata": {"path": "results/multiagent_graph_matched_route_manifest/generation.json", "sha256": "5f72f9e4d72a1ec0f8b7117181308dc17962a249bd9046d143d7fc3461cc6144"},
+    "prior_development_manifest": {"path": "results/multiagent_core_2x2_preflight/instance_manifest.json", "sha256": "151e8b2ed9976827bc0e6b1c7559c0cdeb29654527128ae20be311f23dd725ea"},
+    "prior_confirmation_manifest": {"path": "results/multiagent_structural_confirmatory_manifest/instance_manifest.json", "sha256": "c2f7290f29a72eb13d27b22b3c9fb1310e3e98ff1dfcca710d81cc3b6242b926"},
+    "raw_runner": {"path": "analysis/multiagent_graph_matched_route_run.py", "sha256": "2101a88aac4547e3bda398f587b497eb1f0d372ec475f5e5d6c32c6f94b28d2a"},
+    "frozen_analysis": {"path": "analysis/multiagent_graph_matched_route_analysis.py", "sha256": "68a04ab191fd8d396db9e2618152c8e3e58667d363bfb4f30fa28a09f4a47786"}
+  },
+  "execution": {
+    "instances": 200,
+    "arms": 5,
+    "rows": 1000,
+    "one_shot": true,
+    "gpu_or_llm": false,
+    "qwen_authorized": false
+  }
+}

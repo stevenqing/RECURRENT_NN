@@ -1,0 +1,41 @@
+{
+  "schema": "multiagent_independent_factorization_development_v1",
+  "frozen_date": "2026-07-11",
+  "stage": "symbolic_mechanism_development",
+  "headline_eligible": false,
+  "source_manifest": "results/multiagent_core_2x2_preflight/instance_manifest.json",
+  "config": {
+    "M": 4,
+    "R": 8,
+    "MR": 32,
+    "instances_per_cell": 16,
+    "aggregate_work_cap": 5000,
+    "scheduler": "deterministic_round_robin",
+    "random_route_seed": 17011
+  },
+  "arms": [
+    "monolith_R",
+    "monolith_MR",
+    "global_trail_team_cbj",
+    "centralized_sharded_MR",
+    "factorized_central_deepest",
+    "independent_local_deepest",
+    "independent_local_random_valid",
+    "independent_local_no_cross"
+  ],
+  "gates": {
+    "D0_correctness_reproducibility": "all scoring/invariant/capacity checks pass and duplicate runs are deterministic",
+    "D1_mechanism_engagement": "preserved unrelated assignments in >=25% of recovery episodes and non-equivalence to global-trail control",
+    "D2_equal_resource_solve_retention": "over_low independent_deepest >= monolith_MR - 0.10 and overall independent_deepest >= factorized_central_deepest - 0.10",
+    "D3_aggregate_work_factorization": "over_low mean cap-penalized independent_deepest work / monolith_MR work <= 0.85",
+    "D4_bounded_decentralization_tax": "jointly-solved independent_deepest/factorized_central_deepest work ratio <= 1.10 or compensating solve gain",
+    "D5_route_identifiability": "deepest vs random-valid differs by >=0.10 solve in an over cell or >=15% paired work",
+    "D6_coordination_necessity": "no-cross loses >=0.20 solve in an over cell or has a separated cross-recovery failure mode",
+    "D7_event_sparsity": "cross-route-requests/decision-work <=0.20 in both over cells"
+  },
+  "decision": {
+    "factorization_go": ["D0", "D1", "D2", "D3", "D4"],
+    "sparse_routing_go": ["D0", "D2", "D5", "D6", "D7"],
+    "full_research_go": "factorization_go and sparse_routing_go"
+  }
+}

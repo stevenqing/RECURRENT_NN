@@ -1,0 +1,48 @@
+{
+  "schema": "recurrent_parallel_appworld_environment_contract_v1",
+  "status": "FROZEN_BEFORE_INSTALLATION_AND_MODEL_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "environment": {
+    "name": "AppWorld",
+    "package": "appworld==0.1.3.post1",
+    "wheel_sha256": "db77f8003982502383a50fa2974983894bd1c54f64e2fd3f7e1540d5edd037eb",
+    "python": "3.11.15",
+    "uv_environment": "external_repos/appworld_runtime/.venv",
+    "root": "external_repos/appworld_runtime",
+    "docker": false,
+    "expected_apps": 9,
+    "expected_apis": 457
+  },
+  "splits": {
+    "train": "demonstrations and schema development",
+    "dev": "protocol development and error analysis",
+    "test_normal": "frozen aggregate evaluation only",
+    "test_challenge": "frozen aggregate evaluation only"
+  },
+  "architecture": {
+    "partition": "task-relevant app or app cluster",
+    "round_snapshot": "immutable",
+    "parallel_scope": ["reasoning", "documentation lookup", "read-only discovery"],
+    "write_semantics": "deterministic serialized barrier commit",
+    "message_delay_rounds": 1,
+    "budget": "B=M*T model calls plus separately reported tokens"
+  },
+  "safety": {
+    "initial_agent_interface": "schema-constrained function calls",
+    "arbitrary_model_python": false,
+    "unsafe_syntax_guard": true,
+    "unsafe_execution_guard": true,
+    "ground_truth_visible": false,
+    "online_evaluator_visible": false
+  },
+  "gates": {
+    "A0": "pinned isolated uv install and official no-Docker verification",
+    "A1": "deterministic gold-blinded multi-app train/dev census",
+    "A2": "no-LLM recurrent/barrier/message/write/replay integrity",
+    "A3": "frozen Qwen signal on blinded dev states",
+    "A4": "matched-budget recurrent development value on dev",
+    "A5": "single frozen aggregate test confirmation"
+  },
+  "deferred_hard_environment": "ByteDance-Seed/Multi-SWE-bench-flash",
+  "headline_eligible": false
+}

@@ -1,0 +1,76 @@
+{
+  "schema": "multiagent_sat_matched_route_confirmation_contract_v1",
+  "status": "PREREGISTERED_BEFORE_MANIFEST_AND_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "study_role": "independent_capacity_valid_route_tail_control_confirmation",
+  "headline_eligible": false,
+  "development_gate": "results/multiagent_sat_matched_route_development/results.json",
+  "substrate": {
+    "name": "planted_fixed_density_community_3sat",
+    "n_vars": 48,
+    "communities": 4,
+    "variables_per_community": 12,
+    "n_clauses": 192,
+    "clause_size": 3,
+    "coupling": "high",
+    "cross_clause_count": 77,
+    "capacity": "over_local_fit"
+  },
+  "manifest": {
+    "split": "matched_route_confirmation",
+    "base_seed": 510000,
+    "max_candidates": 20000,
+    "instances": 200,
+    "selection": "ascending_candidate_index_reference_recovery_stratum_only_no_arm_outcomes",
+    "required_zero_overlap": [
+      "results/multiagent_community_sat_development/instance_manifest.json",
+      "results/multiagent_community_sat_manifest/instance_manifest.json",
+      "results/multiagent_sat_route_manifest/instance_manifest.json"
+    ]
+  },
+  "resources": {
+    "M": 4,
+    "R": 8,
+    "MR": 32,
+    "activation_cap": 20000,
+    "channel_cap": 16,
+    "reference_cap": 100000,
+    "route_seed": 20260712,
+    "failure_penalty": 20000,
+    "oracle_or_model_fallback": false
+  },
+  "arms": [
+    "independent_local_deepest_window_valid_sat",
+    "independent_local_random_valid_sat",
+    "independent_local_cbj_sat",
+    "independent_local_no_cross_sat",
+    "monolith_MR_sat"
+  ],
+  "statistics": {
+    "bootstrap_replicates": 100000,
+    "bootstrap_seed_base": 2026071210,
+    "alpha": 0.05
+  },
+  "gates": {
+    "C0": "all lock, cardinality, shadow, protocol, memory, conservation, and official checks pass",
+    "C1": "proposed_minus_random_solve>=0.10 and one_sided_mcnemar<=0.05",
+    "C2": "proposed_over_random_penalized_ratio<=0.90 and bootstrap_upper95<1.00",
+    "C3": "mean_nacks<=1.0, mean_window_rejections<=1.0, zero_out_of_window, matched_resources",
+    "C4": "proposed_minus_monolith_solve>=-0.05 and monolith_only_CP_upper95<=0.05",
+    "C5": "proposed_over_monolith_penalized_ratio<=0.80 and bootstrap_upper95<1.00",
+    "C6": "proposed_over_frozen_deepest_penalized_ratio<=0.50 and bootstrap_upper95<0.75"
+  },
+  "verdicts": {
+    "strong": "SAT_MATCHED_ROUTE_STRONG_CONFIRMATION",
+    "route_only": "SAT_MATCHED_ROUTE_CONFIRMATION_ONLY",
+    "no_go": "SAT_MATCHED_ROUTE_CONFIRMATION_NO_GO",
+    "protocol_fail": "SAT_MATCHED_ROUTE_PROTOCOL_FAIL"
+  },
+  "qwen_authorized": false,
+  "claims_forbidden": [
+    "algorithm_novelty",
+    "llm_or_qwen_gain",
+    "generalization_beyond_frozen_sat_regime",
+    "wall_clock_or_hardware_efficiency"
+  ]
+}

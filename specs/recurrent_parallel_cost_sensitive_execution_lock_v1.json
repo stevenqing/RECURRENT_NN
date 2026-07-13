@@ -1,0 +1,17 @@
+{
+ "schema":"recurrent_parallel_cost_sensitive_execution_lock_v1","status":"EXECUTION_LOCKED","frozen_date":"2026-07-12","files":{
+ "contract_md":{"path":"specs/recurrent_parallel_cost_sensitive_confirmation_v1.md","sha256":"560c51765e44878a142737fc0be5ddc5123c4393ab14d6c5b0470ab657d55742"},
+ "contract_json":{"path":"specs/recurrent_parallel_cost_sensitive_confirmation_v1.json","sha256":"400db62a0b7b58046be8033ed904427b7b06f352d6785f6d63d2f36808f74c63"},
+ "development_gate":{"path":"results/recurrent_parallel_cost_sensitive_guard/results.json","sha256":"b4b0e647b7c49458765eeed708f3627f6c3a88d1c7ce2ee95bc1e9cd14c52738"},
+ "graph_manifest":{"path":"results/recurrent_parallel_cost_sensitive_manifest/graph_manifest.json","sha256":"353fe4fdcd2ef037dbe7a7d0d7f434fcd2d74f6ac3c37d3c359a01e0e0728322"},
+ "sat_manifest":{"path":"results/recurrent_parallel_cost_sensitive_manifest/sat_manifest.json","sha256":"c553075c5dd30d188c4318289a5bc166ecb17ba1d921409910bbcbbbbb95b01c"},
+ "generation":{"path":"results/recurrent_parallel_cost_sensitive_manifest/generation.json","sha256":"c7d4579b19a40d14c98ae21f28c64c17e9acaaffe482f9990d6dcab7664e453b"},
+ "graph_generator":{"path":"experiments/signal/long_diameter_graph.py","sha256":"313dfcfe780dc65452c30dcc5010df0cbca8669809c864d8007f50da64f95b2e"},
+ "sat_generator":{"path":"experiments/signal/long_diameter_sat.py","sha256":"e3b4500946cc60973f4870aac46c301aea3f5ac54057813a9a731b988212e22c"},
+ "graph_engine":{"path":"experiments/recurrent_parallel_core.py","sha256":"f1a92c19683e8d1105be9f96e8905eb5fa368375d506e70492b5a2f33b4f2ace"},
+ "sat_engine":{"path":"experiments/recurrent_parallel_sat_core.py","sha256":"e106daf634d28715bd389dfd9db62707759000a2fbd97746a40e6e82136261f2"},
+ "manifest_source":{"path":"analysis/recurrent_parallel_cost_sensitive_manifest.py","sha256":"d1a4a30fb770fc2262edd98f4749b5ce1aacd637f5c4fd4a12672dbc9ad68638"},
+ "raw_runner":{"path":"analysis/recurrent_parallel_cost_sensitive_run.py","sha256":"605b63a9df4a4052ad37c8e66a2fe595d6c112f3b383db3f0b1709ea4dd6398f"},
+ "frozen_analysis":{"path":"analysis/recurrent_parallel_cost_sensitive_analysis.py","sha256":"dc33d03b25cc9c35a5d7c2e65635d714eaf0a1d8a4e8cf0f8d8c255dcc9ec8fe"}
+ },"execution":{"graph_instances":200,"sat_instances":200,"rows":9600,"one_shot":true,"gpu_or_llm":false}
+}

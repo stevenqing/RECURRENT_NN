@@ -1,0 +1,12 @@
+{
+  "schema":"recurrent_parallel_cost_sensitive_guard_contract_v1","status":"FROZEN_BEFORE_COST_OUTCOMES","frozen_date":"2026-07-12",
+  "graph_calibration":"results/recurrent_parallel_signal_graph_confirmation/raw_results.json",
+  "sat_calibration":"results/recurrent_parallel_adaptive_guard_sat_confirmation/raw_results.json",
+  "graph_manifest":"results/recurrent_parallel_signal_graph_manifest/instance_manifest.json",
+  "sat_manifest":"results/recurrent_parallel_adaptive_guard_sat_manifest/instance_manifest.json",
+  "graph_adaptive_controls":"results/recurrent_parallel_adaptive_guard_graph/results.json",
+  "sat_adaptive_controls":"results/recurrent_parallel_adaptive_guard_sat_confirmation/raw_results.json",
+  "eta_fp":[0.0,0.01,0.02,0.05,0.1,0.2],"k_candidates":[1,2,3,4,5,6,7,8],"failure_cost":5000,"round_cap":32,"noise_seed":20260712,"expected_new_rows":2400,
+  "gates":{"K0":"integrity","K1":"solve>=.95 every graph/SAT cell","K2":"graph d16 eta.2 solve/work/over vs soft2","K3":"SAT d8/16 eta.2 solve/work vs soft2","K4":"selected k<8 all cells and k<=5 for eta<=.10; query overhead reported","K5":"eta0 exact equivalence","K6":"selected k exact objective argmin"},
+  "verdicts":{"go":"RPD_COST_SENSITIVE_GUARD_DEV_GO_CONFIRMATION","robust_no_value":"RPD_COST_SENSITIVE_GUARD_ROBUST_NO_VALUE","no_go":"RPD_COST_SENSITIVE_GUARD_NO_GO","protocol":"RPD_COST_SENSITIVE_GUARD_PROTOCOL_FAIL"},"qwen_authorized":false
+}

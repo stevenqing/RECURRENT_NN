@@ -1,0 +1,34 @@
+{
+  "schema": "recurrent_parallel_signal_noise_contract_v1",
+  "status": "FROZEN_BEFORE_RECURRENT_NOISE_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "prerequisites": [
+    "results/recurrent_signal_phase_v7_preflight/preflight.json",
+    "results/recurrent_parallel_engine_p0/results.json",
+    "results/recurrent_parallel_fixed_budget/results.json"
+  ],
+  "source_manifest": "results/recurrent_signal_phase_v7_preflight/instance_manifest.json",
+  "systems": ["R_exact", "R_soft2", "R_commit"],
+  "eta_fp": [0.0, 0.01, 0.02, 0.05, 0.1, 0.2],
+  "eta_fn": 0.0,
+  "round_budgets": [2, 4, 8, 16, 32],
+  "n_agents": 17,
+  "message_mode": "full_one_round_delayed",
+  "failure_penalty": 5000,
+  "work": "agent_updates + detector_queries + candidate_corrections",
+  "gates": {
+    "N0": "eta0 exact reproduces P0 full-message matrix, zero overcorrections/FP, semantics/official pass",
+    "N1": "low-noise exact work advantage, high-noise soft advantage, crossing in >=3 diameter/round groups",
+    "N2": "exact overcorrections nondecreasing eta, high-noise solve<=eta0, delta16 exposure>delta2 at T32",
+    "N3": "T32 eta_star16<=eta_star2 and common nonzero eta solve16<=solve2",
+    "N4": "eta>=0.05 pooled soft solve>=exact and overcorrections lower; queries reported",
+    "N5": "T32 eta0 exact minus commit solve>=0.15 for delta>=4"
+  },
+  "verdicts": {
+    "diameter": "RPD_SIGNAL_PHASE_DIAMETER_CANDIDATE",
+    "no_diameter": "RPD_SIGNAL_PHASE_NO_DIAMETER_SHIFT",
+    "no_crossing": "RPD_SIGNAL_PHASE_NO_CROSSING",
+    "harness_fail": "RPD_SIGNAL_PHASE_HARNESS_FAIL"
+  },
+  "qwen_authorized": false
+}

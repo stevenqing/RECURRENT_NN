@@ -1,0 +1,41 @@
+{
+  "schema": "multiagent_sat_matched_route_development_contract_v1",
+  "status": "FROZEN_BEFORE_NEW_ARM_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "study_role": "exposed_pool_control_repair_development",
+  "source_manifest": "results/multiagent_sat_route_manifest/instance_manifest.json",
+  "source_controls": "results/multiagent_sat_route_confirmation/raw_results.json",
+  "new_arm": "independent_local_deepest_window_valid_sat",
+  "comparison_arm": "independent_local_random_valid_sat",
+  "implementation": "frozen_queued_random_valid_engine_with_deterministic_last_index_rng",
+  "instances": 200,
+  "resources": {
+    "M": 4,
+    "R": 8,
+    "MR": 32,
+    "activation_cap": 20000,
+    "channel_cap": 16,
+    "route_seed": 20260712,
+    "oracle_or_model_fallback": false
+  },
+  "statistics": {
+    "bootstrap_replicates": 100000,
+    "bootstrap_seed": 2026071205,
+    "alpha": 0.05,
+    "failure_penalty": 20000
+  },
+  "gates": {
+    "D0": "200 rows, 16-row deterministic replay, and all protocol checks pass",
+    "D1": "mean_nacks<=1.0 and mean_window_rejections<=1.0 with matched resources",
+    "D2": "solve_difference_vs_random_valid>=0.10",
+    "D3": "one_sided_exact_mcnemar<=0.05",
+    "D4": "penalized_work_ratio<=0.90 and bootstrap_upper95<1.00"
+  },
+  "verdicts": {
+    "go": "SAT_MATCHED_ROUTE_DEV_GO_CONFIRMATION",
+    "no_go": "SAT_MATCHED_ROUTE_DEV_NO_GO",
+    "protocol_fail": "SAT_MATCHED_ROUTE_DEV_PROTOCOL_FAIL"
+  },
+  "qwen_authorized": false,
+  "future_confirmation_required": true
+}

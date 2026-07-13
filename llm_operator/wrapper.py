@@ -19,6 +19,7 @@ class OperatorStep:
     prompt: str
     hidden_state: torch.Tensor
     logits: Optional[torch.Tensor] = None
+    past_key_values: Optional[Any] = None
 
 
 class FrozenQwenOperator(torch.nn.Module):
@@ -45,5 +46,5 @@ class FrozenQwenOperator(torch.nn.Module):
             hidden = torch.zeros(1, self.hidden_size)
             return OperatorStep(prompt=prompt, hidden_state=hidden)
         inputs = self.tokenizer(prompt, return_tensors="pt", truncation=True).to(self.model.device)
-        outputs = self.model(**inputs, output_hidden_states=True, return_dict=True)
-        return OperatorStep(prompt=prompt, hidden_state=outputs.hidden_states[-1][:, -1, :], logits=outputs.logits[:, -1, :])
+        outputs = self.model(**inputs, output_hidden_states=True, return_dict=True, use_cache=True)
+        return OperatorStep(prompt=prompt, hidden_state=outputs.hidden_states[-1][:, -1, :], logits=outputs.logits[:, -1, :], past_key_values=outputs.past_key_values)

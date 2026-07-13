@@ -1,0 +1,29 @@
+{
+  "schema": "recurrent_parallel_fixed_budget_contract_v1",
+  "status": "FROZEN_BEFORE_WIDTH_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "prerequisite": "results/recurrent_parallel_engine_p0/results.json",
+  "source_manifest": "results/recurrent_signal_phase_v7_preflight/instance_manifest.json",
+  "base_partitions": 17,
+  "widths": [1, 2, 4, 8, 17],
+  "budgets": [136, 272],
+  "grouping": "contiguous_balanced_chunks_of_rooted_BFS_partition_order",
+  "primitive_update": "one_base_partition_per_execution_agent_call",
+  "same_round_cross_agent_reads": false,
+  "message_delay": 1,
+  "gates": {
+    "W0": "accounting, deterministic replay>=10, Jacobi semantics, official validity",
+    "W1": "B136 interior M solve within 0.05 of better endpoint, <=0.5 M1 critical path, Pareto",
+    "W2": "B136 M17 solve >=0.10 below best interior or longer realized path",
+    "W3": "B272 solve nondecreasing for every width and full frontier reported",
+    "W4": "group/context/message/call/primitive/critical-path conservation"
+  },
+  "verdicts": {
+    "interior": "RPD_FIXED_B_INTERIOR_OPTIMUM_CANDIDATE",
+    "pareto_no_failure": "RPD_FIXED_B_PARETO_NO_WIDTH_FAILURE",
+    "no_value": "RPD_FIXED_B_NO_INTERIOR_VALUE",
+    "accounting_fail": "RPD_FIXED_B_ACCOUNTING_FAIL"
+  },
+  "qwen_authorized": false,
+  "wall_clock_claim": false
+}

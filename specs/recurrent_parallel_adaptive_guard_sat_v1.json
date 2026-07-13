@@ -1,0 +1,35 @@
+{
+  "schema": "recurrent_parallel_adaptive_guard_sat_contract_v1",
+  "status": "FROZEN_BEFORE_ADAPTIVE_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "parent_results": "results/recurrent_parallel_signal_sat_development/results.json",
+  "source_manifest": "results/recurrent_parallel_signal_sat_development/instance_manifest.json",
+  "p0": 0.95,
+  "exposure_proxy": "16*(partition_diameter+1)",
+  "round_cap": 32,
+  "eta_fp": [0.0, 0.01, 0.02, 0.05, 0.1, 0.2],
+  "noise_seed": 20260712,
+  "failure_penalty": 5000,
+  "expected_new_rows": 192,
+  "schedule": {
+    "2": {"0.0": 1, "0.01": 2, "0.02": 2, "0.05": 3, "0.1": 3, "0.2": 5},
+    "4": {"0.0": 1, "0.01": 2, "0.02": 2, "0.05": 3, "0.1": 4, "0.2": 5},
+    "8": {"0.0": 1, "0.01": 2, "0.02": 3, "0.05": 3, "0.1": 4, "0.2": 5},
+    "16": {"0.0": 1, "0.01": 2, "0.02": 3, "0.05": 3, "0.1": 4, "0.2": 6}
+  },
+  "gates": {
+    "A0": "schedule, replay, Jacobi/message/local/official/query accounting integrity",
+    "A1": "adaptive solve>=0.90 every diameter/eta",
+    "A2": "eta.2 adaptive-soft solve>=.10 delta8 and >=.50 delta16",
+    "A3": "adaptive over<=soft every cell and <=1 delta16 eta.2",
+    "A4": "eta0 adaptive identical exact",
+    "A5": "delta8/16 eta.2 adaptive higher solve and lower penalized work than soft2"
+  },
+  "verdicts": {
+    "go": "RPD_ADAPTIVE_GUARD_SAT_DEV_GO_CONFIRMATION",
+    "robust_no_value": "RPD_ADAPTIVE_GUARD_ROBUST_NO_VALUE",
+    "no_go": "RPD_ADAPTIVE_GUARD_SAT_NO_GO",
+    "protocol": "RPD_ADAPTIVE_GUARD_PROTOCOL_FAIL"
+  },
+  "qwen_authorized": false
+}

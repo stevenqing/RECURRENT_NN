@@ -1,0 +1,28 @@
+{
+  "schema": "recurrent_parallel_appworld_exclusive_provenance_development_contract_v1",
+  "phase": "POST_NO_GO_DEVELOPMENT_SELECTION",
+  "date": "2026-07-12",
+  "generated_results": "results/recurrent_parallel_appworld_generated_typed_provenance_development_v6/results.json",
+  "generated_binding": "results/recurrent_parallel_appworld_generated_typed_provenance_development_v6/result_binding.json",
+  "generated_certification": "results/recurrent_parallel_appworld_generated_typed_provenance_development_v6/certification.json",
+  "generated_required_status": "RPD_APPWORLD_GENERATED_TYPED_PROVENANCE_DEVELOPMENT_NO_GO",
+  "historical_results": "results/recurrent_parallel_appworld_typed_provenance_development/results.json",
+  "rule": "choose iff exactly one candidate has max_tier > 0; otherwise abstain",
+  "gates": {
+    "D0": "generated result certification and bindings pass",
+    "D1": "generated coverage >= 0.50",
+    "D2": "generated wrong = 0",
+    "D3": "generated correct commits >= typed max-tier correct commits",
+    "D4": "historical development wrong = 0",
+    "D5": "confirmation sealed; public summaries only; no model/GPU/Docker/external process actions"
+  },
+  "verdicts": {
+    "go": "RPD_APPWORLD_EXCLUSIVE_PROVENANCE_DEVELOPMENT_GO",
+    "no_go": "RPD_APPWORLD_EXCLUSIVE_PROVENANCE_DEVELOPMENT_NO_GO",
+    "protocol_fail": "RPD_APPWORLD_EXCLUSIVE_PROVENANCE_PROTOCOL_FAIL"
+  },
+  "confirmation_outcomes_sealed": true,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "headline_eligible": false
+}

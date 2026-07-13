@@ -1,0 +1,30 @@
+{
+  "schema": "recurrent_parallel_appworld_controller_contract_v1",
+  "status": "FROZEN_BEFORE_CONTROLLER_AND_MODEL_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "prerequisite": "results/recurrent_parallel_appworld_preflight_v2/preflight.json",
+  "candidate_manifest": "results/recurrent_parallel_appworld_preflight_v2/candidate_manifest.json",
+  "adjudication_manifest": "results/recurrent_parallel_appworld_preflight_v2/adjudication_manifest.json",
+  "appworld_root": "external_repos/appworld_runtime",
+  "appworld_python": "external_repos/appworld_runtime/.venv/bin/python",
+  "selection": {"split": "train", "three_app_types": 2, "two_app_types": 4, "variation_per_type": 1, "order": "lowest selection_key"},
+  "semantics": {
+    "immutable_snapshot": true,
+    "parallel_proposals": true,
+    "barrier_before_environment": true,
+    "commit_order": ["all reads", "serialized writes by agent_id/proposal_id"],
+    "message_delay_rounds": 1,
+    "rollback_on_failure": true
+  },
+  "real_schedule": {
+    "round_0": "per-required-app API documentation reads",
+    "round_1": "coordinator reads active task then writes fail status",
+    "round_2": "specialists read changed active task",
+    "restore_and_replay": true,
+    "solve_task": false
+  },
+  "forbidden_exports": ["required_app_names", "response_content", "instruction", "solution", "api_calls", "evaluation_content", "ground_truth"],
+  "gates": ["C0_integrity", "C1_snapshot_parallel", "C2_barrier_serial_write", "C3_message_delay", "C4_rollback_replay", "C5_real_appworld_replay", "C6_protected_content"],
+  "verdicts": {"pass": "RPD_APPWORLD_A2_CONTROLLER_PASS", "fail": "RPD_APPWORLD_A2_CONTROLLER_FAIL", "protocol": "RPD_APPWORLD_A2_PROTOCOL_FAIL"},
+  "headline_eligible": false
+}

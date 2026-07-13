@@ -1,0 +1,72 @@
+{
+  "schema": "multiagent_structural_confirmatory_preregistration_v1",
+  "frozen_date": "2026-07-11",
+  "stage": "independent_symbolic_confirmation",
+  "headline_eligible": false,
+  "frozen_inputs": {
+    "mechanism_path": "experiments/multiagent_independent_local.py",
+    "mechanism_sha256": "946782f3abff7026a98593fb3f3374ff020159f21303ccc442157ac6354244ba",
+    "development_contract_sha256": "c51fa8fdd2ccdab7489870a80f12e8ac19824db9543337cb6ae122c55b1ccc3e",
+    "development_manifest_sha256": "151e8b2ed9976827bc0e6b1c7559c0cdeb29654527128ae20be311f23dd725ea"
+  },
+  "manifest_generation": {
+    "base_seed": 106000,
+    "instances_per_cell": 50,
+    "candidate_batch_size": 96,
+    "max_batches": 30,
+    "M": 4,
+    "R": 8,
+    "MR": 32,
+    "n_per_block": 12,
+    "n_vertices": 48,
+    "k": 4,
+    "edge_budget": 96,
+    "low_b": 2,
+    "high_b": 8,
+    "under_depth": 4,
+    "over_depth": 12,
+    "d_local": 5,
+    "d_boundary": 2,
+    "reference_node_cap": 20000,
+    "selection": "reference_structure_only_no_evaluated_arm_outcomes"
+  },
+  "resources": {
+    "activation_cap": 20000,
+    "request_channel_cap": 16,
+    "random_route_seed": 20260711,
+    "failed_work_penalty": "max(observed_work, 20000)"
+  },
+  "arms": [
+    "independent_local_cbj_v1_exact",
+    "factorized_central_cbj",
+    "independent_local_random_valid",
+    "independent_local_no_cross",
+    "global_trail_cbj",
+    "centralized_sharded_MR",
+    "monolith_MR",
+    "monolith_R"
+  ],
+  "primary_gates": {
+    "C1_equal_memory_solve_noninferiority": "over_low proposed-control solve difference >= -0.10 and one-sided CP upper control-only discordance <= 0.10 versus both monolith_MR and centralized_sharded_MR",
+    "C2_penalized_work_advantage": "over_low proposed/equal-memory ratio <= 0.80 and paired-bootstrap upper95 <= 0.80 versus both controls",
+    "C3_same_order_factorization": "central-factorized is solve-noninferior and work ratio upper95 <=0.80 versus monolith_MR; proposed is within 0.10 solve and <=1.15 work versus central-factorized",
+    "C4_coupling_boundary": "proposed over_high/over_low penalized-work ratio >=1.20 and over_high solve <= over_low solve"
+  },
+  "secondary_gates": {
+    "S1_route_identifiability": "deepest vs random-valid differs by solve >=0.10 or work >=20% at noninferior solve in an over cell",
+    "S2_coordination_necessity": "deepest beats no-cross solve by >=0.20 or NO_CROSS_RECOVERY >=25% in an over cell",
+    "S3_unrelated_work_preservation": ">=25% of proposed recovery episodes preserve unrelated current assignments"
+  },
+  "statistics": {
+    "alpha": 0.05,
+    "bootstrap_replicates": 100000,
+    "multiplicity": "Holm over four directional supporting tests",
+    "confirmatory_instances_per_cell": 50
+  },
+  "verdicts": [
+    "SYMBOLIC_STRUCTURAL_CONFIRMATION_PASS",
+    "FACTORIZATION_CONFIRMED_ROUTING_UNRESOLVED",
+    "STRUCTURAL_CONFIRMATION_FAIL",
+    "CONFIRMATORY_PROTOCOL_FAIL"
+  ]
+}

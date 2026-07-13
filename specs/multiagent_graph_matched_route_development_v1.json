@@ -1,0 +1,39 @@
+{
+  "schema": "multiagent_graph_matched_route_development_contract_v1",
+  "status": "FROZEN_BEFORE_NEW_ARM_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "source_manifest": "results/multiagent_structural_confirmatory_manifest/instance_manifest.json",
+  "source_controls": "results/multiagent_structural_confirmatory/raw_results.json",
+  "new_arm": "independent_local_deepest_window_valid_graph",
+  "comparison_arms": [
+    "independent_local_random_valid",
+    "independent_local_cbj_v1_exact"
+  ],
+  "resources": {
+    "M": 4,
+    "R": 8,
+    "MR": 32,
+    "activation_cap": 20000,
+    "channel_cap": 16,
+    "route_seed": 20260711
+  },
+  "statistics": {
+    "bootstrap_replicates": 100000,
+    "bootstrap_seed_base": 2026071220,
+    "alpha": 0.05
+  },
+  "gates": {
+    "D0": "200 rows, deterministic replay 16, protocol/scoring pass",
+    "D1": "mean_nacks<=1.0, mean_window_rejections<=2.0, resources matched",
+    "D2": "pooled_over solve_difference_vs_random>=0.10 and one_sided_mcnemar<=0.05",
+    "D3": "solve_difference_vs_random>=-0.05 in each over cell",
+    "D4": "pooled_over penalized_ratio_vs_random<=0.80 and bootstrap_upper95<1.00",
+    "D5": "pooled_over penalized_ratio_vs_frozen_deepest<=0.80 and bootstrap_upper95<1.00"
+  },
+  "verdicts": {
+    "go": "GRAPH_MATCHED_ROUTE_DEV_GO_CONFIRMATION",
+    "no_go": "GRAPH_MATCHED_ROUTE_DEV_NO_GO",
+    "protocol_fail": "GRAPH_MATCHED_ROUTE_DEV_PROTOCOL_FAIL"
+  },
+  "qwen_authorized": false
+}

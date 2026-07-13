@@ -1,0 +1,60 @@
+{
+  "schema": "multiagent_sat_route_confirmation_execution_lock_v1",
+  "status": "EXECUTION_LOCKED",
+  "frozen_date": "2026-07-12",
+  "study": "independent_symbolic_sat_route_identifiability_confirmation",
+  "files": {
+    "contract_markdown": {
+      "path": "specs/multiagent_sat_route_confirmation_v1.md",
+      "sha256": "34cc4584d9c22004698ae20b75f9ff8bc4bbe10c775f7b4db5e1de1c7a01f6d5"
+    },
+    "contract_json": {
+      "path": "specs/multiagent_sat_route_confirmation_v1.json",
+      "sha256": "59d2cc6ef68fe3e0a924a64527fc786fe364fea46ffd8f525f11465bb66e94f7"
+    },
+    "sat_generator": {
+      "path": "tasks/sat/community.py",
+      "sha256": "c7caeb96fdface65a35abfce5f6cbf2903aef2d72f76b240068fff72289a71a6"
+    },
+    "sat_solver": {
+      "path": "experiments/multiagent_community_sat.py",
+      "sha256": "d8232bb433a613cf673b7ddca4b9ed62c800cdf4af88b3933086addbdad552d3"
+    },
+    "manifest_source": {
+      "path": "analysis/multiagent_sat_route_manifest.py",
+      "sha256": "5436897206a2dc47df67256629bd50d1be56eea86e3d68e0eec437f56e63304d"
+    },
+    "route_manifest": {
+      "path": "results/multiagent_sat_route_manifest/instance_manifest.json",
+      "sha256": "3e4f513773ca3331defa20c2120256487968706ece485c48c9732d46ed6bfb51"
+    },
+    "generation_metadata": {
+      "path": "results/multiagent_sat_route_manifest/generation.json",
+      "sha256": "0b59ecb494f713886034a4fd8cee9b11571801fd2c34b8a218c49ff56a0127b4"
+    },
+    "development_manifest": {
+      "path": "results/multiagent_community_sat_development/instance_manifest.json",
+      "sha256": "a8dc15492f711a77213e4a99295a13584f370e54265d96f99ccd36dcbfb1d588"
+    },
+    "prior_independent_manifest": {
+      "path": "results/multiagent_community_sat_manifest/instance_manifest.json",
+      "sha256": "279f6f7c52d5d180194ca12aefa01388cbebb70903b23c11605bd714b9636de6"
+    },
+    "raw_runner": {
+      "path": "analysis/multiagent_sat_route_run.py",
+      "sha256": "304f84eda13776dd9e48b37599c7644868426e86b1a67c72d39322e366b5f7ec"
+    },
+    "frozen_analysis": {
+      "path": "analysis/multiagent_sat_route_analysis.py",
+      "sha256": "bf4184c6ae089facf1ba2e850832c86e254612696cfe720cd16d1f7891ee11af"
+    }
+  },
+  "execution": {
+    "instances": 200,
+    "arms": 5,
+    "rows": 1000,
+    "gpu_or_llm": false,
+    "one_shot": true,
+    "qwen_authorization_from_analysis_only": true
+  }
+}

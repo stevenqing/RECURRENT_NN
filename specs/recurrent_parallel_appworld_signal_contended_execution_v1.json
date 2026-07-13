@@ -1,0 +1,23 @@
+{
+  "schema": "recurrent_parallel_appworld_signal_contended_execution_contract_v1",
+  "status": "FROZEN_BEFORE_MODEL_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "parent_contract": "specs/recurrent_parallel_appworld_signal_anchor_v1.json",
+  "parent_execution_lock": "results/recurrent_parallel_appworld_signal_anchor/execution_lock.json",
+  "user_authorized_shared_gpu": true,
+  "physical_gpu": 2,
+  "logical_device": "cuda:0",
+  "minimum_free_memory_mib": 35000,
+  "memory_fraction_cap": 0.25,
+  "require_preexisting_compute_process": true,
+  "verify_preexisting_pid_survival": true,
+  "batch_size": 8,
+  "quality_metrics_authoritative": true,
+  "token_counts_authoritative": true,
+  "latency_authoritative": false,
+  "throughput_authoritative": false,
+  "gpu_speedup_authorized": false,
+  "cpu_fallback": false,
+  "external_process_actions_forbidden": ["signal", "stop", "kill", "renice", "reconfigure"],
+  "headline_eligible": false
+}

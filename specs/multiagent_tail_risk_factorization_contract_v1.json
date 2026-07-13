@@ -1,0 +1,69 @@
+{
+  "schema": "multiagent_tail_risk_factorization_contract_v1",
+  "date": "2026-07-11",
+  "status": "RESEARCH_CANDIDATE_DEVELOPMENT_NOT_RUN",
+  "headline_eligible": false,
+  "development_inputs": [
+    "results/multiagent_core_2x2_preflight/instance_manifest.json",
+    "results/multiagent_structural_confirmatory_manifest/instance_manifest.json",
+    "results/multiagent_structural_confirmatory/raw_results.json"
+  ],
+  "break_even": {
+    "formula": "q_star = (W_monolith - W_factorized_success) / (failure_cost - W_factorized_success)",
+    "observed_over_low": {
+      "W_factorized_success": 354.3,
+      "W_monolith": 1242.1,
+      "failure_cost": 20000,
+      "q_star_approx": 0.045,
+      "observed_q": 0.08
+    }
+  },
+  "permitted_features": {
+    "static": [
+      "graph_partition_sizes",
+      "within_cross_edge_counts",
+      "separator_degree_statistics",
+      "domain_order_summaries",
+      "local_imbalance",
+      "boundary_concentration"
+    ],
+    "online_before_frozen_horizon": [
+      "assignment_progress",
+      "branch_retraction_rates",
+      "request_nack_window_rejection_rates",
+      "repeated_target_state_counts",
+      "window_occupancy",
+      "per_agent_progress_imbalance"
+    ]
+  },
+  "forbidden_features": [
+    "unlimited_reference_steps_or_recovery_distances_at_deployment",
+    "post_horizon_events",
+    "final_arm_outcome",
+    "monolith_outcome_for_evaluated_instance",
+    "oracle_route_or_planted_solution"
+  ],
+  "arms": [
+    "always_monolith_MR",
+    "always_factorized_cbj",
+    "risk_aware_static",
+    "risk_aware_early_abort",
+    "random_selector",
+    "budget_matched_restart",
+    "oracle_selector_development_only"
+  ],
+  "development_gates": {
+    "D0": "feature leakage, protocol, memory, work, and replay audits pass",
+    "D1": "grouped-CV AUROC >=0.80, Brier beats prevalence, calibration error <=0.05",
+    "D2": "solve within 0.05 of monolith and penalized work >=10% lower; beats matched random and restart",
+    "D3": "direction stable across coupling and at least two generator seed groups"
+  },
+  "future_confirmatory_targets": {
+    "solve_noninferiority_margin": 0.05,
+    "penalized_work_ratio_max": 0.90,
+    "tail_rate_below_frozen_q_star": true,
+    "equal_total_recovery_memory": 32,
+    "second_substrate_required_for_general_claim": true
+  },
+  "qwen_authorized": false
+}

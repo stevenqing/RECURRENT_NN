@@ -1,0 +1,90 @@
+{
+  "schema": "recurrent_parallel_appworld_generated_typed_provenance_development_contract_v3",
+  "status": "FROZEN_BEFORE_V3_CALIBRATION_AND_DEVELOPMENT_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "parent_contract": "specs/recurrent_parallel_appworld_generated_typed_provenance_development_v2.json",
+  "v1_results": "results/recurrent_parallel_appworld_generated_typed_provenance_development_v1/results.json",
+  "v1_required_status": "RPD_APPWORLD_GENERATED_TYPED_PROVENANCE_PROTOCOL_FAIL",
+  "v2_calibration_failure": "results/recurrent_parallel_appworld_generated_typed_provenance_calibration_v2/failure.json",
+  "v2_calibration_binding": "results/recurrent_parallel_appworld_generated_typed_provenance_calibration_v2/result_binding.json",
+  "v2_required_status": "RPD_APPWORLD_GENERATED_TYPED_PROVENANCE_V2_CALIBRATION_FAIL",
+  "repair_scope": {
+    "constructor_adapter": "null_patch_unsafe_execution=True maps to raise_on_unsafe_execution=True",
+    "lifecycle_adapter": "call each local world's safety_guard.disable() immediately before AppWorld.close_all()",
+    "external_process_actions": 0,
+    "other_method_changes": 0
+  },
+  "calibration_task_id": "29caf6f_2",
+  "calibration_split": "calibration",
+  "calibration_gate": "baseline pass; live calls >= 1; write checkpoints >= 1; no harness exception; post-task immutable hashes pass",
+  "capacity_status": "results/recurrent_parallel_appworld_generated_capacity_valid_v1/status.json",
+  "capacity_manifest": "results/recurrent_parallel_appworld_generated_capacity_valid_v1/task_manifest.json",
+  "capacity_lock": "results/recurrent_parallel_appworld_generated_capacity_valid_v1/execution_lock.json",
+  "capacity_binding": "results/recurrent_parallel_appworld_generated_capacity_valid_v1/result_binding.json",
+  "capacity_required_status": "RPD_APPWORLD_GENERATED_CAPACITY_VALID_PASS",
+  "source_root": "external_repos/appworld_source",
+  "source_commit": "a072b7a86e7c1d5b1d7175659d750ebb9b79f10a",
+  "appworld_root": "external_repos/appworld_generated",
+  "data_version": "0.2.0",
+  "open_split": "development",
+  "open_variations": [4, 5, 6],
+  "expected_open_tasks": 24,
+  "expected_generators": 8,
+  "sealed_split": "confirmation",
+  "sealed_variations": [7, 8, 9],
+  "expected_sealed_tasks": 24,
+  "mutation_protocol": {
+    "max_mutations_per_task": 12,
+    "max_mutations_per_call": 4,
+    "one_mutation_per_call_site": true,
+    "max_pairs_per_task": 3,
+    "strict_pair": "mutated target write succeeds; full original suffix succeeds; official evaluator fails",
+    "pair_order": "sha256(generated-typed-v1|task_id|call_index|mutation_id)",
+    "candidate_order": "pair_sha256 parity"
+  },
+  "guards": {
+    "old": "citation support count; equal counts abstain",
+    "typed": "compare maximum tier only; equal tiers abstain; repeated records cannot change tier",
+    "typed_tiers": ["none", "direct_field", "unused_tier_2", "joint_record", "task_goal_literal"]
+  },
+  "gates": {
+    "T0": "all 24 live baseline validation solutions and evaluators pass",
+    "T1": "strict pairs >= 20, source tasks >= 12, source generators >= 6",
+    "T2": "typed coverage >= 0.50",
+    "T3": "typed covered accuracy >= 0.80 and typed wrong = 0",
+    "T4": "typed wrong <= old wrong",
+    "T5": "all immutable and selected task hashes match",
+    "T6": "development only; confirmation sealed; no protected exports/model/GPU/Docker/external process actions"
+  },
+  "output_allowlist": [
+    "task identifiers",
+    "generator identifiers",
+    "call indices",
+    "mutation and pair hashes",
+    "counts",
+    "guard choices",
+    "evidence tiers",
+    "aggregate metrics"
+  ],
+  "output_forbidden_keys": [
+    "instruction",
+    "task_goal",
+    "solution",
+    "solution_code",
+    "evaluation",
+    "evidence",
+    "arguments",
+    "response",
+    "private_data",
+    "public_data"
+  ],
+  "verdicts": {
+    "go": "RPD_APPWORLD_GENERATED_TYPED_PROVENANCE_DEVELOPMENT_GO",
+    "no_go": "RPD_APPWORLD_GENERATED_TYPED_PROVENANCE_DEVELOPMENT_NO_GO",
+    "protocol_fail": "RPD_APPWORLD_GENERATED_TYPED_PROVENANCE_PROTOCOL_FAIL"
+  },
+  "confirmation_outcomes_sealed": true,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "headline_eligible": false
+}

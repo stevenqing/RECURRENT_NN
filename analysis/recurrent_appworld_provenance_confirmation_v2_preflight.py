@@ -1,0 +1,13 @@
+"""Pre-outcome lock for AppWorld provenance confirmation v2 token-rebinding repair."""
+from __future__ import annotations
+import argparse,hashlib,json
+from pathlib import Path
+REPO_ROOT=Path(__file__).resolve().parents[1]
+def R(p):
+ p=Path(p);return p if p.is_absolute() else REPO_ROOT/p
+def H(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--contract',type=Path,default=Path('specs/recurrent_parallel_appworld_provenance_confirmation_v2.json'));ap.add_argument('--output-dir',type=Path,default=Path('results/recurrent_parallel_appworld_provenance_confirmation_v2'));a=ap.parse_args();cp=R(a.contract);c=json.loads(cp.read_text());dev=json.loads(R(c['development_result']).read_text());failure=json.loads(R(c['v1_failure']).read_text());out=R(a.output_dir);out.mkdir(parents=True,exist_ok=True);files=['specs/recurrent_parallel_appworld_provenance_confirmation_v2.md','specs/recurrent_parallel_appworld_provenance_confirmation_v2.json','experiments/appworld_provenance.py','experiments/appworld_trace_replay.py','analysis/recurrent_appworld_provenance_confirmation_v2_preflight.py','analysis/recurrent_appworld_provenance_confirmation_v2.py',c['v1_contract'],c['v1_failure'],c['development_result'],c['candidate_manifest'],c['adjudication_manifest']];checks={'contract_frozen':c['status']=='FROZEN_BEFORE_DEV_GUARD_OUTCOMES','v1_failure_preserved':failure['status']=='RPD_APPWORLD_A5_V1_REPLAY_PROTOCOL_FAIL' and failure['guard_outcomes_observed']==0,'repair_scope':c['runtime_token_rebinding'] is True,'development_go':dev['status']=='RPD_APPWORLD_A4_DETERMINISTIC_PROVENANCE_GO','files_exist':all(R(p).exists() for p in files),'results_absent':not (out/'results.json').exists()}
+ if not all(checks.values()):raise RuntimeError(checks)
+ lock={'schema':'recurrent_appworld_a5_v2_execution_lock','status':'LOCKED_BEFORE_DEV_GUARD_OUTCOMES','files':{p:H(R(p)) for p in files},'contract_sha256':H(cp),'split':c['split'],'expected_source_task_types':c['expected_source_task_types']};lp=out/'execution_lock.json';lp.write_text(json.dumps(lock,indent=2,sort_keys=True)+'\n');payload={'schema':'recurrent_appworld_a5_v2_preflight','status':'RPD_APPWORLD_A5_V2_EXECUTION_READY','checks':checks,'execution_lock_sha256':H(lp),'guard_outcomes_observed':False};(out/'preflight.json').write_text(json.dumps(payload,indent=2,sort_keys=True)+'\n');(out/'PREFLIGHT.md').write_text('\n'.join(['# AppWorld A5 v2 — Provenance Confirmation Preflight','',f"## Status: **`{payload['status']}`**",'']+[f"- `{k}`: **{'PASS' if v else 'FAIL'}**" for k,v in checks.items()])+'\n');print(json.dumps({'status':payload['status'],'lock':str(lp.relative_to(REPO_ROOT))}))
+if __name__=='__main__':main()

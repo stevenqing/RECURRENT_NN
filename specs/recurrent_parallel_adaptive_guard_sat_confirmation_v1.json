@@ -1,0 +1,14 @@
+{
+  "schema": "recurrent_parallel_adaptive_guard_sat_confirmation_contract_v1",
+  "status": "FROZEN_BEFORE_MANIFEST_AND_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "development_gate": "results/recurrent_parallel_adaptive_guard_sat/results.json",
+  "development_manifest": "results/recurrent_parallel_signal_sat_development/instance_manifest.json",
+  "manifest": {"split": "adaptive_sat_confirmation", "base_seed": 740000, "diameters": [2,4,8,16], "instances_per_diameter": 50},
+  "policy": {"p0": 0.95, "exposure_proxy": "16*(delta+1)", "round_cap": 32, "eta_fp": [0.0,0.01,0.02,0.05,0.1,0.2], "noise_seed": 20260712, "failure_penalty": 5000},
+  "systems": ["R_adaptive","R_exact","R_soft2","R_commit"],
+  "expected_rows": 4800,
+  "gates": {"C0":"integrity","C1":"eta0 adaptive exact equivalence and solve>=.95","C2":"adaptive solve>=.95 every cell","C3":"eta.2 repair soft by >=.05 d8 and >=.50 d16","C4":"adaptive over<=soft every cell and <=1 d16 eta.2","C5":"d8/16 eta.2 adaptive higher solve lower work","C6":"eta0 correction necessity and exact hazard increases"},
+  "verdicts": {"pass":"RPD_ADAPTIVE_GUARD_SAT_CONFIRMATION_PASS","robust_no_value":"RPD_ADAPTIVE_GUARD_SAT_ROBUST_NO_VALUE","fail":"RPD_ADAPTIVE_GUARD_SAT_CONFIRMATION_FAIL","protocol":"RPD_ADAPTIVE_GUARD_SAT_PROTOCOL_FAIL"},
+  "qwen_authorized": false
+}

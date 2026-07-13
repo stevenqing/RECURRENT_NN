@@ -1,0 +1,21 @@
+{
+  "schema": "recurrent_parallel_appworld_provenance_confirmation_contract_v1",
+  "status": "FROZEN_BEFORE_DEV_MUTATION_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "development_result": "results/recurrent_parallel_appworld_comparative_development/analysis.json",
+  "execution_lock": "results/recurrent_parallel_appworld_provenance_confirmation/execution_lock.json",
+  "candidate_manifest": "results/recurrent_parallel_appworld_preflight_v2/candidate_manifest.json",
+  "adjudication_manifest": "results/recurrent_parallel_appworld_preflight_v2/adjudication_manifest.json",
+  "appworld_root": "external_repos/appworld_runtime",
+  "split": "dev",
+  "expected_source_task_types": 7,
+  "variation_per_type": 1,
+  "max_mutations_per_task": 24,
+  "one_mutation_per_call_site": true,
+  "max_pairs_per_task_type": 3,
+  "provenance": {"max_citations_per_field_candidate": 3, "max_dict_items": 8, "max_list_items": 3, "max_string_chars": 120, "sensitive_terms": ["password","token","card","cvv"]},
+  "guard": "choose larger support_count; equal count abstains",
+  "gates": {"V0":"integrity and all baselines pass","V1":"pairs>=10 and task_types>=5","V2":"coverage>=.50","V3":"incorrect covered choices=0","V4":"covered_accuracy>=.80 and one-sided exact binomial p<.05 vs .5","V5":"dev-only no protected exports/model/GPU/Docker"},
+  "verdicts": {"pass":"RPD_APPWORLD_A5_PROVENANCE_CONFIRMATION_PASS","no_go":"RPD_APPWORLD_A5_PROVENANCE_NO_GO","protocol":"RPD_APPWORLD_A5_PROTOCOL_FAIL"},
+  "headline_eligible": false
+}

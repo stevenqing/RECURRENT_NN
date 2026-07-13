@@ -1,0 +1,18 @@
+{
+  "schema":"recurrent_parallel_appworld_typed_provenance_development_contract_v1",
+  "status":"FROZEN_BEFORE_RESERVED_VARIATION_OUTCOMES",
+  "frozen_date":"2026-07-12",
+  "a1_candidate_manifest":"results/recurrent_parallel_appworld_preflight_v2/candidate_manifest.json",
+  "a1_adjudication_manifest":"results/recurrent_parallel_appworld_preflight_v2/adjudication_manifest.json",
+  "a3_development":"results/recurrent_parallel_appworld_semantic_mutation_development/results.json",
+  "appworld_root":"external_repos/appworld_runtime",
+  "split":"train",
+  "expected_task_types":10,
+  "selection":"lowest selection_key variation not used by A3 per type",
+  "max_mutations_per_task":12,
+  "max_pairs_per_task_type":3,
+  "typed_guard":"compare max_tier only; equal abstains; repeated records do not change tier",
+  "gates":{"T0":"all live validation solutions/evaluators pass","T1":"pairs>=10 types>=5","T2":"typed coverage>=.50","T3":"typed covered accuracy>=.80 and wrong=0","T4":"typed wrong<=old wrong","T5":"train-only no protected exports/model/GPU/Docker"},
+  "verdicts":{"go":"RPD_APPWORLD_TYPED_PROVENANCE_DEVELOPMENT_GO","no_go":"RPD_APPWORLD_TYPED_PROVENANCE_DEVELOPMENT_NO_GO","protocol":"RPD_APPWORLD_TYPED_PROVENANCE_PROTOCOL_FAIL"},
+  "headline_eligible":false
+}

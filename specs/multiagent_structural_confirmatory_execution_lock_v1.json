@@ -1,0 +1,77 @@
+{
+  "schema": "multiagent_structural_confirmatory_execution_lock_v1",
+  "locked_date": "2026-07-11",
+  "status": "EXECUTION_LOCKED",
+  "headline_eligible": false,
+  "execution": {
+    "one_shot": true,
+    "instances": 200,
+    "instances_per_cell": 50,
+    "arms": 8,
+    "expected_rows": 1600,
+    "M": 4,
+    "R": 8,
+    "MR": 32,
+    "activation_cap": 20000,
+    "request_channel_cap": 16,
+    "random_route_seed": 20260711,
+    "bootstrap_replicates": 100000,
+    "alpha": 0.05
+  },
+  "files": {
+    "frozen_mechanism": {
+      "path": "experiments/multiagent_independent_local.py",
+      "sha256": "946782f3abff7026a98593fb3f3374ff020159f21303ccc442157ac6354244ba"
+    },
+    "factorization_controls": {
+      "path": "experiments/multiagent_factorization_controls.py",
+      "sha256": "18e47c83764d5471094b2c17ac1d4e1edcbea773a8cdf50b485d7c6e88515035"
+    },
+    "preregistration": {
+      "path": "specs/multiagent_structural_confirmatory_preregistration_v1.json",
+      "sha256": "4a3d2376389b3c934fe3bfb3e774b1c7eb1c82b0ca66321dc856fe8b2057869d"
+    },
+    "control_preflight": {
+      "path": "results/multiagent_structural_confirmatory_preflight/preflight.json",
+      "sha256": "6d2b10a1f7d31a0b9a333f8572dafabb006a916bdfc485a4911899fe9004971f"
+    },
+    "confirmatory_manifest": {
+      "path": "results/multiagent_structural_confirmatory_manifest/instance_manifest.json",
+      "sha256": "c2f7290f29a72eb13d27b22b3c9fb1310e3e98ff1dfcca710d81cc3b6242b926"
+    },
+    "generation_metadata": {
+      "path": "results/multiagent_structural_confirmatory_manifest/generation.json",
+      "sha256": "9e75bc1e6ab1af0df183d15871165b5e5198ef7500f0047535e71b7373f93e72"
+    },
+    "preflight_source": {
+      "path": "analysis/multiagent_structural_confirmatory_preflight.py",
+      "sha256": "47db586e7f2d6da25409c6a1e6e0ade07bc9164a8ad2be29ebcb80b4b7c08b74"
+    },
+    "manifest_generator": {
+      "path": "analysis/multiagent_structural_confirmatory_manifest.py",
+      "sha256": "2061efed44a5a689f34f796b970fb270d2d4e3c11aab1db09f789dd0a8c609b4"
+    },
+    "raw_runner": {
+      "path": "analysis/multiagent_structural_confirmatory_run.py",
+      "sha256": "cfab8c54766fe6e98e7d240bb2291ff52d4580f1ed4ea12ab98b2ed59401248d"
+    },
+    "frozen_analysis": {
+      "path": "analysis/multiagent_structural_confirmatory_analysis.py",
+      "sha256": "37911b1f81c60c9fc68cf4704c81bfaf3afdff224bffe92b817e56df1ca77823"
+    }
+  },
+  "power_note": {
+    "one_sided_cp_upper_control_only_discordance_n50": {
+      "zero_losses": 0.058155079116972326,
+      "one_loss": 0.09139813071969745,
+      "two_losses": 0.12061415542204419
+    },
+    "interpretation": "At most one control-only loss among 50 pairs can satisfy the frozen 0.10 conservative non-inferiority bound."
+  },
+  "honesty": {
+    "confirmatory_manifest_used_for_smoke": false,
+    "outcomes_seen_before_lock": false,
+    "no_llm_or_gpu": true,
+    "does_not_establish": "A passing symbolic confirmation still requires literature scoping and a second substrate before any general or novelty headline."
+  }
+}

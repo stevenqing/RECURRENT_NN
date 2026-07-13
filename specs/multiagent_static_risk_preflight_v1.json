@@ -1,0 +1,66 @@
+{
+  "schema": "multiagent_static_risk_preflight_v1",
+  "frozen_date": "2026-07-11",
+  "stage": "development_only_static_kill_gate",
+  "headline_eligible": false,
+  "inputs": {
+    "development_manifest": "results/multiagent_core_2x2_preflight/instance_manifest.json",
+    "development_results": "results/multiagent_structural_free_lunch/results.json",
+    "confirmation_manifest": "results/multiagent_structural_confirmatory_manifest/instance_manifest.json",
+    "confirmation_results": "results/multiagent_structural_confirmatory/raw_results.json",
+    "n_expected": 264,
+    "unsafe_expected": 93,
+    "groups_expected": 23
+  },
+  "label": "factorized arm unsolved at activation_cap_20000",
+  "forbidden_feature_families": [
+    "cell_capacity_coupling_generator_parameters",
+    "seed_group_source_instance_identifiers",
+    "target_or_unlimited_reference_metrics",
+    "solutions_or_oracles",
+    "arm_outcomes_work_status_or_trace"
+  ],
+  "feature_families": [
+    "degree_distributions",
+    "boundary_concentration",
+    "sorted_partition_edge_profiles",
+    "ordered_edge_spans",
+    "boundary_order_positions",
+    "partition_switch_runs",
+    "prefix_cutwidth",
+    "degeneracy_triangles_transitivity",
+    "partition_load_imbalance",
+    "recomputed_basic_graph_sizes"
+  ],
+  "cross_validation": {
+    "folds": 5,
+    "group": "pool_name::manifest_seed",
+    "assignment": "uint32_be(sha256(group)[0:4]) mod 5",
+    "group_overlap_allowed": false
+  },
+  "model": {
+    "type": "standardized_l2_logistic_regression",
+    "optimizer": "irls_newton",
+    "max_iterations": 100,
+    "l2": 1.0,
+    "regularize_intercept": false,
+    "hyperparameter_search": false
+  },
+  "D1": {
+    "auroc_min": 0.8,
+    "brier_below_fold_prevalence": true,
+    "ece_10bin_max": 0.05,
+    "all_folds_both_labels": true
+  },
+  "D2_secondary": {
+    "solve_noninferiority_margin": 0.05,
+    "work_ratio_max": 0.9,
+    "beat_matched_random_selector": true,
+    "total_recovery_memory_max": 32
+  },
+  "decision": {
+    "pass": "STATIC_RISK_SIGNAL_PASS",
+    "fail": "STATIC_RISK_SIGNAL_FAIL",
+    "failure_blocks_online_trace_and_qwen_on_current_substrate": true
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "recurrent_parallel_engine_p0_contract_v1",
+  "status": "FROZEN_BEFORE_ENGINE_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "source_manifest": "results/recurrent_signal_phase_v7_preflight/instance_manifest.json",
+  "n_agents": 17,
+  "variables_per_agent": 4,
+  "round_budgets": [1, 2, 4, 8, 16, 32],
+  "modes": [
+    "recurrent_parallel",
+    "state_reset",
+    "shuffled_message",
+    "no_message",
+    "sequential_sharded"
+  ],
+  "root_agent": 0,
+  "message_delay_rounds": 1,
+  "candidate_enumeration": "lexicographic_all_locally_valid_3_colorings",
+  "same_round_cross_agent_reads_parallel": false,
+  "gates": {
+    "P0": "deterministic replay>=8, same_round_reads=0, message_age=1, local/official validity, no planted read",
+    "P1": "pooled_delta_ge4 T32_minus_T1_solve>=0.15, pooled solve nondecreasing, diameter round-depth direction",
+    "P2": "T32 recurrent solve exceeds no_message and shuffled_message by >=0.10",
+    "P3": "T32 recurrent solve exceeds state_reset by >=0.10",
+    "P4": "sequential control matched and critical paths separately reported"
+  },
+  "verdicts": {
+    "full": "RPD_P0_FULL_RECURRENCE_GO",
+    "message_only": "RPD_MESSAGE_RECURRENCE_ONLY",
+    "no_signal": "RPD_P0_NO_RECURRENCE_SIGNAL",
+    "semantics_fail": "RPD_P0_SEMANTICS_FAIL"
+  },
+  "qwen_authorized": false,
+  "gpu_or_wall_clock_claim": false
+}

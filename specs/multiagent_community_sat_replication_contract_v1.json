@@ -1,0 +1,72 @@
+{
+  "schema": "multiagent_community_sat_replication_contract_v1",
+  "frozen_date": "2026-07-12",
+  "stage": "symbolic_second_substrate_replication",
+  "headline_eligible": false,
+  "generator": {
+    "n_vars": 48,
+    "communities": 4,
+    "community_size": 12,
+    "n_clauses": 192,
+    "clause_size": 3,
+    "planted_true_literals_per_clause": 1,
+    "cross_clauses_low": 19,
+    "cross_clauses_high": 77,
+    "duplicate_clauses": false,
+    "order": "deterministic_random_permutation",
+    "value_order": [0, 1]
+  },
+  "resources": {
+    "M": 4,
+    "R": 8,
+    "MR": 32,
+    "reference_cap": 100000,
+    "evaluated_cap": 20000,
+    "request_channel_cap": 16,
+    "failure_penalty": 20000
+  },
+  "splits": {
+    "development": {
+      "base_seed": 210000,
+      "max_candidates_per_coupling": 20000,
+      "instances_per_cell": 16,
+      "smoke_per_cell": 4
+    },
+    "independent": {
+      "base_seed": 310000,
+      "max_candidates_per_coupling": 40000,
+      "instances_per_cell": 50,
+      "smoke": false
+    }
+  },
+  "strata": {
+    "under": "max_global_rollback_distance <= R",
+    "over_local_fit": "max_global_rollback_distance > R and max_local_rollback_distance <= R"
+  },
+  "arms": [
+    "independent_local_cbj_sat",
+    "factorized_central_cbj_sat",
+    "independent_local_random_valid_sat",
+    "independent_local_no_cross_sat",
+    "global_trail_cbj_sat",
+    "centralized_sharded_MR_sat",
+    "monolith_MR_sat",
+    "monolith_R_sat"
+  ],
+  "gates": {
+    "F1": "over_low jointly-solved raw-work ratio <=0.80 and >=35/50 paired wins",
+    "T1": "q > q_star, >=2 monolith-only solves, penalized-work ratio >=1.0",
+    "T2": "central/proposed solve difference <=0.05 and >=half proposed failures shared",
+    "C1": "over_high/over_low penalized ratio >=1.20 or solve decrease >=0.10",
+    "N1": "proposed-no-cross solve gain >=0.20 or no-cross failure >=0.25",
+    "R1": "deepest/random differs by solve >=0.10 or work >=20% at noninferior solve"
+  },
+  "verdicts": [
+    "SAT_TAIL_RISK_REPLICATION",
+    "SAT_STRONG_FACTORIZATION_POSITIVE",
+    "SAT_NO_FREQUENT_FACTOR_GAIN",
+    "SAT_MIXED_NO_REPLICATION",
+    "SAT_POOL_NO_GO",
+    "SAT_PROTOCOL_FAIL"
+  ]
+}

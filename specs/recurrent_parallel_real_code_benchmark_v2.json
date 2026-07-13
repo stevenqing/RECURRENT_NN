@@ -1,0 +1,48 @@
+{
+  "schema": "recurrent_parallel_real_code_benchmark_contract_v2",
+  "status": "FROZEN_BEFORE_MODEL_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "supersedes": {
+    "contract": "specs/recurrent_parallel_real_code_benchmark_v1.json",
+    "failed_preflight": "results/recurrent_parallel_real_code_benchmark_preflight/preflight.json",
+    "scope": "official per-test transition semantics only",
+    "model_outcomes_observed_before_repair": false
+  },
+  "primary_benchmark": {
+    "dataset": "ByteDance-Seed/Multi-SWE-bench-flash",
+    "revision": "b0485dbebaf8a1317ebf140e80e6fc6c02d3502b",
+    "path": "multi_swe_bench_flash.jsonl",
+    "file_oid": "8c9871de7ed977a8896f858294d7f0e83fe2534e",
+    "expected_rows": 300,
+    "expected_languages": {"c": 40, "c++": 40, "go": 45, "java": 40, "javascript": 45, "rust": 45, "typescript": 45},
+    "official_harness": "multi-swe-bench/multi-swe-bench",
+    "harness_revision": "24f493f8a103e72312ded4f6b9c89f081d69cb09"
+  },
+  "structural_filters": {
+    "min_code_files": 3,
+    "max_code_files": 6,
+    "min_code_directories": 2,
+    "max_patch_changed_lines": 300,
+    "maximum_binary_component_states": 64
+  },
+  "official_transitions": {
+    "f2p_tests": {"test": "FAIL", "fix": "PASS"},
+    "s2p_tests": {"test": "SKIP", "fix": "PASS"},
+    "n2p_tests": {"test": "NONE", "fix": "PASS"},
+    "p2p_tests": {"test": "PASS", "fix": "PASS"}
+  },
+  "code_suffixes": [".c", ".cc", ".cpp", ".cxx", ".h", ".hh", ".hpp", ".hxx", ".go", ".java", ".js", ".jsx", ".mjs", ".cjs", ".ts", ".tsx", ".rs", ".pony", ".vue", ".svelte"],
+  "test_path_pattern": "(^|/)(test|tests|testing|spec|specs)(/|_)|(^|/).*(_test|\\.test|\\.spec)\\.",
+  "minimum_structural_candidates": 30,
+  "minimum_languages": 4,
+  "gold_policy": {
+    "allowed": ["offline structural filtering", "component construction", "exact counterfactual labels", "official scoring"],
+    "forbidden": ["model prompt", "agent localization", "message content", "candidate ranking", "fallback repair"]
+  },
+  "verdicts": {
+    "structural_pass": "RPD_REAL_CODE_BENCHMARK_STRUCTURAL_PREFLIGHT_PASS",
+    "structural_fail": "RPD_REAL_CODE_BENCHMARK_STRUCTURAL_PREFLIGHT_FAIL",
+    "operational_pending": "RPD_REAL_CODE_BENCHMARK_DOCKER_PREFLIGHT_PENDING"
+  },
+  "headline_eligible": false
+}

@@ -1,0 +1,9 @@
+{
+  "schema":"recurrent_parallel_adaptive_guard_graph_contract_v1","status":"FROZEN_BEFORE_GRAPH_ADAPTIVE_OUTCOMES","frozen_date":"2026-07-12",
+  "sat_gate":"results/recurrent_parallel_adaptive_guard_sat_confirmation/analysis.json",
+  "graph_manifest":"results/recurrent_parallel_signal_graph_manifest/instance_manifest.json",
+  "graph_controls":"results/recurrent_parallel_signal_graph_confirmation/raw_results.json",
+  "p0":0.95,"exposure_proxy":"16*(delta+1)","round_cap":32,"eta_fp":[0.0,0.01,0.02,0.05,0.1,0.2],"noise_seed":20260712,"failure_penalty":5000,"expected_rows":1200,
+  "gates":{"G0":"integrity","G1":"adaptive solve>=.95 every cell","G2":"adaptive over<=soft every cell","G3":"eta0 identical exact","G4":"d16 eta.2 adaptive-soft solve>=.05 and lower work","G5":"overhead reported where soft solve1"},
+  "verdicts":{"go":"RPD_ADAPTIVE_GUARD_GRAPH_DEV_GO_CONFIRMATION","robust_no_value":"RPD_ADAPTIVE_GUARD_GRAPH_ROBUST_NO_VALUE","no_go":"RPD_ADAPTIVE_GUARD_GRAPH_NO_GO","protocol":"RPD_ADAPTIVE_GUARD_GRAPH_PROTOCOL_FAIL"},"qwen_authorized":false
+}

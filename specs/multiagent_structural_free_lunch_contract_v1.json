@@ -1,0 +1,40 @@
+{
+  "schema": "multiagent_structural_free_lunch_contract_v1",
+  "frozen_date": "2026-07-11",
+  "stage": "symbolic_mechanism_development",
+  "manifest": "results/multiagent_core_2x2_preflight/instance_manifest.json",
+  "config": {
+    "M": 4,
+    "R": 8,
+    "MR": 32,
+    "instances_per_cell": 16,
+    "node_activation_cap": 20000,
+    "request_channel_cap": 16
+  },
+  "arms": [
+    "independent_local_cbj",
+    "independent_local_chronological",
+    "global_trail_cbj",
+    "centralized_sharded_MR",
+    "monolith_MR",
+    "monolith_R"
+  ],
+  "protocol_invariants": [
+    "cross_agent_direct_mutations == 0",
+    "owner-only assignment and rollback",
+    "request-target-execution-acknowledgement lifecycle",
+    "target inside R window",
+    "no global trail in independent arms",
+    "independent local cursor/tried/conflict/trail state",
+    "global edge verification",
+    "no oracle or model fallback"
+  ],
+  "gates": {
+    "G1_solve_noninferiority": "over_low independent_cbj >= monolith_MR - 0.10 and >= centralized_sharded_MR - 0.10",
+    "G2_aggregate_work": "over_low independent/global_sharded <= 0.80 or independent/monolith_MR <= 0.80",
+    "G3_critical_path": "over_low independent rounds/centralized steps <= 0.60",
+    "G4_coupling_boundary": "independent over_high work/over_low work >= 1.20",
+    "G5_coordination": "CBJ solve gain >=0.10 or work reduction >=20% at noninferior solve in an over cell"
+  },
+  "headline_eligible": false
+}

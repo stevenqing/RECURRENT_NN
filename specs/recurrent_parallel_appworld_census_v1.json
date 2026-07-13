@@ -1,0 +1,42 @@
+{
+  "schema": "recurrent_parallel_appworld_census_contract_v1",
+  "status": "FROZEN_BEFORE_MODEL_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "parent_contract": "specs/recurrent_parallel_appworld_v1.json",
+  "runtime": {
+    "root": "external_repos/appworld_runtime",
+    "python": "external_repos/appworld_runtime/.venv/bin/python",
+    "cli": "external_repos/appworld_runtime/.venv/bin/appworld",
+    "package_version": "0.1.3.post1",
+    "python_version": "3.11.15",
+    "data_version": "0.1.0",
+    "docker": false
+  },
+  "verification": {
+    "app_tests": 1553,
+    "package_tests": 138,
+    "task_validation_passed": 147,
+    "task_validation_total": 147
+  },
+  "selection": {
+    "splits": ["train", "dev"],
+    "min_required_apps": 2,
+    "expected_source_episodes": {"train": 90, "dev": 57},
+    "expected_source_types": {"train": 30, "dev": 19},
+    "expected_candidate_episodes": {"train": 30, "dev": 21},
+    "expected_candidate_types": {"train": 10, "dev": 7},
+    "cluster_by_task_type": true
+  },
+  "protected_content_forbidden_in_exports": ["required_app_names", "api_calls", "solution", "instruction", "evaluation", "private_data", "test_data"],
+  "test_policy": {
+    "inspect_test_task_content": false,
+    "inspect_test_ground_truth": false,
+    "run_test_agents": false
+  },
+  "verdicts": {
+    "pass": "RPD_APPWORLD_A1_PREFLIGHT_PASS",
+    "fail": "RPD_APPWORLD_A1_PREFLIGHT_FAIL",
+    "next": "RPD_APPWORLD_A2_CONTROLLER_PENDING"
+  },
+  "headline_eligible": false
+}

@@ -1,0 +1,18 @@
+{
+  "schema":"recurrent_parallel_adaptive_guard_sat_execution_lock_v1","status":"EXECUTION_LOCKED","frozen_date":"2026-07-12",
+  "files":{
+    "contract_md":{"path":"specs/recurrent_parallel_adaptive_guard_sat_confirmation_v1.md","sha256":"a83b7290729ec1c93fa501c935d160f4a9cafa875fa7e59f7167bbf056bb0be2"},
+    "contract_json":{"path":"specs/recurrent_parallel_adaptive_guard_sat_confirmation_v1.json","sha256":"11da7babaf095f46817a5e4b7adb56ff844aeb8873e71da56c90383cf171bf46"},
+    "development_gate":{"path":"results/recurrent_parallel_adaptive_guard_sat/results.json","sha256":"e3e062ffd2b1b8455bf962392438e0f67c3b3105eadd98f8ec72709b4ea2ef3d"},
+    "development_manifest":{"path":"results/recurrent_parallel_signal_sat_development/instance_manifest.json","sha256":"68da7780b64a51b42cb4794761f116c3ffdd17095205e14ed1b92f6537c5a787"},
+    "sat_generator":{"path":"experiments/signal/long_diameter_sat.py","sha256":"e3b4500946cc60973f4870aac46c301aea3f5ac54057813a9a731b988212e22c"},
+    "sat_engine":{"path":"experiments/recurrent_parallel_sat_core.py","sha256":"e106daf634d28715bd389dfd9db62707759000a2fbd97746a40e6e82136261f2"},
+    "adaptive_formula":{"path":"analysis/recurrent_parallel_adaptive_guard_sat.py","sha256":"5b9e3be950b40308f1892106ecbce432c971f23c36ce69d41bb96fbc543b4b66"},
+    "manifest_source":{"path":"analysis/recurrent_parallel_adaptive_guard_sat_manifest.py","sha256":"1cdd89f63e4e6df0aad50a20c3ebaab3ac57f7dbeb9e3ba7e0ab78183ec2c293"},
+    "manifest":{"path":"results/recurrent_parallel_adaptive_guard_sat_manifest/instance_manifest.json","sha256":"ad0f06ddfb070f841e12b98745d1aefc3c83e93af059902dbd6349f7b4c32f71"},
+    "generation":{"path":"results/recurrent_parallel_adaptive_guard_sat_manifest/generation.json","sha256":"284ea422693e226c2cf552d05c3588cbd34170c8fc28cd704ffc3c36f1d136ef"},
+    "raw_runner":{"path":"analysis/recurrent_parallel_adaptive_guard_sat_run.py","sha256":"6ec3461f735908bbe94499ff0645685cccdc51201c3fda8125c28a4a92430c3c"},
+    "frozen_analysis":{"path":"analysis/recurrent_parallel_adaptive_guard_sat_analysis.py","sha256":"6ac9cc6bd5f7e582ae2440b129cf3a8db41b7fa957eba4752e37259d3ea6b105"}
+  },
+  "execution":{"instances":200,"rows":4800,"one_shot":true,"gpu_or_llm":false}
+}

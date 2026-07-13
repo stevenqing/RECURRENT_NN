@@ -1,0 +1,40 @@
+{
+  "schema": "recurrent_parallel_signal_graph_confirmation_contract_v1",
+  "status": "FROZEN_BEFORE_MANIFEST_AND_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "prerequisite": "results/recurrent_parallel_signal_noise/results.json",
+  "development_manifest": "results/recurrent_signal_phase_v7_preflight/instance_manifest.json",
+  "manifest": {
+    "split": "signal_graph_confirmation",
+    "base_seed": 720000,
+    "diameters": [2, 4, 8, 16],
+    "instances_per_diameter": 50,
+    "minimum_true_rollbacks": 3,
+    "max_candidates_per_diameter": 1000
+  },
+  "execution": {
+    "round_cap": 32,
+    "systems": ["R_exact", "R_soft2", "R_commit"],
+    "eta_fp": [0.0, 0.01, 0.02, 0.05, 0.1, 0.2],
+    "eta_fn": 0.0,
+    "noise_seed": 20260712,
+    "failure_penalty": 5000,
+    "expected_rows": 3600
+  },
+  "gates": {
+    "C0": "lock, manifest, signal, Jacobi, message, validity, scoring integrity",
+    "C1": "eta0 exact/soft solve>=0.95 each delta, zero exact FP/over, exact-commit>=0.80",
+    "C2": "eta_star16<=0.05, eta_star2>=0.05, eta_star16<=eta_star8<=eta_star2, eta0.1 solve2-solve16>=0.20",
+    "C3": "soft solve>=0.90 every delta/eta, high-noise pooled soft>=exact and lower overcorrections",
+    "C4": "pooled exact overcorrections nondecreasing eta and solve0.2<solve0",
+    "C5": "eta0 exact work<soft; eta0.1/0.2 soft work<exact; delta8/16 eta0.1 direction"
+  },
+  "verdicts": {
+    "pass": "RPD_SIGNAL_GRAPH_CONFIRMATION_PASS",
+    "no_diameter": "RPD_SIGNAL_GRAPH_NO_DIAMETER_CONFIRMATION",
+    "fail": "RPD_SIGNAL_GRAPH_CONFIRMATION_FAIL",
+    "protocol": "RPD_SIGNAL_GRAPH_PROTOCOL_FAIL"
+  },
+  "qwen_authorized": false,
+  "cross_substrate_claim": false
+}

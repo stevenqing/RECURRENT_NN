@@ -1,0 +1,27 @@
+{
+  "schema": "recurrent_parallel_appworld_census_contract_v2",
+  "status": "FROZEN_BEFORE_MODEL_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "v1_contract": "specs/recurrent_parallel_appworld_census_v1.json",
+  "v1_preflight": "results/recurrent_parallel_appworld_preflight/preflight.json",
+  "v1_candidate_manifest": "results/recurrent_parallel_appworld_preflight/candidate_manifest.json",
+  "v1_adjudication_manifest": "results/recurrent_parallel_appworld_preflight/adjudication_manifest.json",
+  "repair_scope": "non-TTY official verifier log parsing only",
+  "model_outcomes_observed_before_repair": false,
+  "runtime": {
+    "root": "external_repos/appworld_runtime",
+    "cli": "external_repos/appworld_runtime/.venv/bin/appworld"
+  },
+  "verifier_rules": {
+    "app_tests": ["returncode=0", "1553 passed"],
+    "package_tests": ["returncode=0", "collected 138 items", "test_appworld.py", "[100%]", "no failed/error summary"],
+    "task_validation": ["returncode=0", "147/147"]
+  },
+  "expected_v1_false_checks": ["package_tests", "task_validation"],
+  "verdicts": {
+    "pass": "RPD_APPWORLD_A1_PREFLIGHT_PASS",
+    "fail": "RPD_APPWORLD_A1_PREFLIGHT_FAIL",
+    "next": "RPD_APPWORLD_A2_CONTROLLER_PENDING"
+  },
+  "headline_eligible": false
+}

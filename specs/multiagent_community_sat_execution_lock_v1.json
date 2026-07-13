@@ -1,0 +1,76 @@
+{
+  "schema": "multiagent_community_sat_execution_lock_v1",
+  "locked_date": "2026-07-12",
+  "status": "EXECUTION_LOCKED",
+  "headline_eligible": false,
+  "execution": {
+    "one_shot": true,
+    "instances": 200,
+    "instances_per_cell": 50,
+    "arms": 8,
+    "expected_rows": 1600,
+    "M": 4,
+    "R": 8,
+    "MR": 32,
+    "activation_cap": 20000,
+    "request_channel_cap": 16,
+    "route_seed": 20260712,
+    "bootstrap_replicates": 100000
+  },
+  "files": {
+    "sat_generator": {
+      "path": "tasks/sat/community.py",
+      "sha256": "c7caeb96fdface65a35abfce5f6cbf2903aef2d72f76b240068fff72289a71a6"
+    },
+    "sat_solver": {
+      "path": "experiments/multiagent_community_sat.py",
+      "sha256": "d8232bb433a613cf673b7ddca4b9ed62c800cdf4af88b3933086addbdad552d3"
+    },
+    "replication_contract": {
+      "path": "specs/multiagent_community_sat_replication_contract_v1.json",
+      "sha256": "c866f564fa71e9710b6c159c6a2e3ce2ad4ab812fe247be1f75f2449d85db896"
+    },
+    "analysis_amendment": {
+      "path": "specs/multiagent_community_sat_analysis_amendment_v1.json",
+      "sha256": "25f8b3a016f8c5f357b2bebfb535ba56715b6eee4278b0a0604c64186d4e29c1"
+    },
+    "development_gate": {
+      "path": "results/multiagent_community_sat_development/smoke_results.json",
+      "sha256": "d83bb11c93e357444d1ef23427bf40aad14e6f8d52b83490150639c718086804"
+    },
+    "development_manifest": {
+      "path": "results/multiagent_community_sat_development/instance_manifest.json",
+      "sha256": "a8dc15492f711a77213e4a99295a13584f370e54265d96f99ccd36dcbfb1d588"
+    },
+    "independent_manifest": {
+      "path": "results/multiagent_community_sat_manifest/instance_manifest.json",
+      "sha256": "279f6f7c52d5d180194ca12aefa01388cbebb70903b23c11605bd714b9636de6"
+    },
+    "generation_metadata": {
+      "path": "results/multiagent_community_sat_manifest/generation.json",
+      "sha256": "02c31be10d4831987c4787752858a6b0f2e7fef823cb45b34c7e93fc69d01af3"
+    },
+    "development_source": {
+      "path": "analysis/multiagent_community_sat_development.py",
+      "sha256": "4e8c47a0533a5e0fcae8a068293d16179bc09fb62f2d3726e2e7b2f2fbc9a389"
+    },
+    "manifest_source": {
+      "path": "analysis/multiagent_community_sat_manifest.py",
+      "sha256": "28e734dadcb21cef5bca87dbd9ea3a3ef98093806f6531c66aefe51d6e873aa4"
+    },
+    "raw_runner": {
+      "path": "analysis/multiagent_community_sat_run.py",
+      "sha256": "e8ee80894c4372faa35d17aa0abac813194f73713fbb2b30137eb96161dd2b95"
+    },
+    "frozen_analysis": {
+      "path": "analysis/multiagent_community_sat_analysis.py",
+      "sha256": "b564e33a27e086894769e3140a3f1c3fd88a852835b41efe9ca268e8d3302f4f"
+    }
+  },
+  "honesty": {
+    "independent_manifest_used_for_smoke": false,
+    "independent_arm_outcomes_seen_before_lock": false,
+    "analysis_amendment_timing": "after_manifest_before_outcomes",
+    "no_gpu_or_llm": true
+  }
+}

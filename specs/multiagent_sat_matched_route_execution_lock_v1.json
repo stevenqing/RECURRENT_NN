@@ -1,0 +1,77 @@
+{
+  "schema": "multiagent_sat_matched_route_execution_lock_v1",
+  "status": "EXECUTION_LOCKED",
+  "frozen_date": "2026-07-12",
+  "study": "independent_capacity_valid_route_tail_control_confirmation",
+  "files": {
+    "contract_markdown": {
+      "path": "specs/multiagent_sat_matched_route_confirmation_v1.md",
+      "sha256": "9c38d6168732e41a496a060a69f86bcd70701ecc7dfaf86ae32c485effc50806"
+    },
+    "contract_json": {
+      "path": "specs/multiagent_sat_matched_route_confirmation_v1.json",
+      "sha256": "2a3e3afab5809d0ecccf32662dd889e3d934fe03785d554b4ca53513bf54263c"
+    },
+    "development_contract": {
+      "path": "specs/multiagent_sat_matched_route_development_v1.json",
+      "sha256": "2c724b391362afa4de8a18985884007fb53c1b74003d459b408d85e8147ff953"
+    },
+    "development_gate": {
+      "path": "results/multiagent_sat_matched_route_development/results.json",
+      "sha256": "be4feeb50fc463a4ca96162672c4d54ef3812e86eccf1a2f418b19919b69bdc2"
+    },
+    "sat_generator": {
+      "path": "tasks/sat/community.py",
+      "sha256": "c7caeb96fdface65a35abfce5f6cbf2903aef2d72f76b240068fff72289a71a6"
+    },
+    "frozen_sat_solver": {
+      "path": "experiments/multiagent_community_sat.py",
+      "sha256": "d8232bb433a613cf673b7ddca4b9ed62c800cdf4af88b3933086addbdad552d3"
+    },
+    "matched_route_control": {
+      "path": "experiments/multiagent_community_sat_route_controls.py",
+      "sha256": "224a585e23c04880936925691eb49ed217177d1c74ee3493b78af014d4f7372c"
+    },
+    "manifest_source": {
+      "path": "analysis/multiagent_sat_matched_route_manifest.py",
+      "sha256": "b18fdf26a7494146b3458b216d7cd43e36b638969c9bc0b1a4c9a94be086b823"
+    },
+    "matched_route_manifest": {
+      "path": "results/multiagent_sat_matched_route_manifest/instance_manifest.json",
+      "sha256": "48de678d8096942b249ebf2a9af42566377d72f022839dcef7b14b98b46a488b"
+    },
+    "generation_metadata": {
+      "path": "results/multiagent_sat_matched_route_manifest/generation.json",
+      "sha256": "f3bae093f626769d85cc03ca4f3c0d1ee3711a39c0ac540cd4ffe5ce4a50d8ca"
+    },
+    "prior_development_manifest": {
+      "path": "results/multiagent_community_sat_development/instance_manifest.json",
+      "sha256": "a8dc15492f711a77213e4a99295a13584f370e54265d96f99ccd36dcbfb1d588"
+    },
+    "prior_independent_manifest": {
+      "path": "results/multiagent_community_sat_manifest/instance_manifest.json",
+      "sha256": "279f6f7c52d5d180194ca12aefa01388cbebb70903b23c11605bd714b9636de6"
+    },
+    "prior_route_manifest": {
+      "path": "results/multiagent_sat_route_manifest/instance_manifest.json",
+      "sha256": "3e4f513773ca3331defa20c2120256487968706ece485c48c9732d46ed6bfb51"
+    },
+    "raw_runner": {
+      "path": "analysis/multiagent_sat_matched_route_run.py",
+      "sha256": "5eee6dc11864a1580787eea1685559742d888269e9a31be59fde3aa3b9a30b8f"
+    },
+    "frozen_analysis": {
+      "path": "analysis/multiagent_sat_matched_route_analysis.py",
+      "sha256": "ee57e5d5128b2519a288e593b100758bf37a7f0717d1ee64f3addbc71c9fe6cb"
+    }
+  },
+  "execution": {
+    "instances": 200,
+    "arms": 5,
+    "rows": 1000,
+    "one_shot": true,
+    "sequential_matched_route": true,
+    "gpu_or_llm": false,
+    "qwen_authorized": false
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "recurrent_parallel_signal_graph_execution_lock_v1",
+  "status": "EXECUTION_LOCKED",
+  "frozen_date": "2026-07-12",
+  "study": "independent_recurrent_graph_signal_noise_confirmation",
+  "files": {
+    "contract_markdown": {"path": "specs/recurrent_parallel_signal_graph_confirmation_v1.md", "sha256": "d73b2f9e554206cd900c861c50cf58fb85f50e2ec07a6c8fbbd61857dfa0b53a"},
+    "contract_json": {"path": "specs/recurrent_parallel_signal_graph_confirmation_v1.json", "sha256": "e5ef44973930b043370d69ad6a4ff6edd05d3ef91fc2f17e39a600080450fd3e"},
+    "development_gate": {"path": "results/recurrent_parallel_signal_noise/results.json", "sha256": "4b14ee04e7c4f2c1c87bea4b92da1e3e57a30ac951c3999921449adac3b4a71c"},
+    "development_manifest": {"path": "results/recurrent_signal_phase_v7_preflight/instance_manifest.json", "sha256": "9cd06f2d89b2a2ec21a2446fc7411c03b8094d55231bbf8cdeb82d4676d0ec3f"},
+    "graph_generator": {"path": "experiments/signal/long_diameter_graph.py", "sha256": "313dfcfe780dc65452c30dcc5010df0cbca8669809c864d8007f50da64f95b2e"},
+    "signal_detector": {"path": "experiments/signal/detector.py", "sha256": "5649f8dee759e4ad4c0fa7cdeb4397343666dbe0612e200cb019af5b1a082dae"},
+    "recurrent_engine": {"path": "experiments/recurrent_parallel_core.py", "sha256": "bf99c57b4953b6c53f7ee4f77517de2f6439ac5c9989bf4111c534036389c25f"},
+    "manifest_source": {"path": "analysis/recurrent_parallel_signal_graph_manifest.py", "sha256": "7471006f09c08f4e6d99e198a2652a0cbaebb17392eaeac73e3949a03b84db3c"},
+    "confirmatory_manifest": {"path": "results/recurrent_parallel_signal_graph_manifest/instance_manifest.json", "sha256": "a05b585dd435e145e5c0b1c3bcb1d1b940bc7e078849ca747d69a774308656ec"},
+    "generation_metadata": {"path": "results/recurrent_parallel_signal_graph_manifest/generation.json", "sha256": "5e325553fdbb400907136175cdb9fb546b2766b7f3e8b43dfd52adf89c0e6138"},
+    "raw_runner": {"path": "analysis/recurrent_parallel_signal_graph_run.py", "sha256": "e3f6d33b6786cc40acb8b53187490e2e757a81e7f7447f02eb37e5ec37122777"},
+    "development_analysis_dependency": {"path": "analysis/recurrent_parallel_signal_noise.py", "sha256": "6324e5495cf6b35f9b2181dd948c5b31e4a67035209640b42abc9dd07ce09360"},
+    "frozen_analysis": {"path": "analysis/recurrent_parallel_signal_graph_analysis.py", "sha256": "759a08edc6f95a4a6684f60c617085302ccbc2d13a57412738253fb8722d9fdb"}
+  },
+  "execution": {
+    "instances": 200,
+    "rows": 3600,
+    "round_cap": 32,
+    "one_shot": true,
+    "gpu_or_llm": false,
+    "cross_substrate_claim": false
+  }
+}

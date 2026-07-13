@@ -1,0 +1,65 @@
+{
+  "schema": "multiagent_graph_matched_route_confirmation_contract_v1",
+  "status": "PREREGISTERED_BEFORE_MANIFEST_AND_OUTCOMES",
+  "frozen_date": "2026-07-12",
+  "development_gate": "results/multiagent_graph_matched_route_development/results.json",
+  "manifest": {
+    "base_seed": 206000,
+    "instances_per_cell": 50,
+    "candidate_batch_size": 96,
+    "max_batches": 40,
+    "M": 4,
+    "R": 8,
+    "MR": 32,
+    "n_per_block": 12,
+    "n_vertices": 48,
+    "k": 4,
+    "edge_budget": 96,
+    "low_b": 2,
+    "high_b": 8,
+    "under_depth": 4,
+    "over_depth": 12,
+    "d_local": 5,
+    "d_boundary": 2,
+    "reference_node_cap": 20000,
+    "required_zero_overlap": [
+      "results/multiagent_core_2x2_preflight/instance_manifest.json",
+      "results/multiagent_structural_confirmatory_manifest/instance_manifest.json"
+    ]
+  },
+  "resources": {
+    "activation_cap": 20000,
+    "channel_cap": 16,
+    "route_seed": 20260711,
+    "failure_penalty": 20000
+  },
+  "arms": [
+    "independent_local_deepest_window_valid_graph",
+    "independent_local_random_valid",
+    "independent_local_cbj_v1_exact",
+    "independent_local_no_cross",
+    "monolith_MR"
+  ],
+  "statistics": {
+    "bootstrap_replicates": 100000,
+    "bootstrap_seed_base": 2026071230,
+    "alpha": 0.05
+  },
+  "gates": {
+    "C0": "integrity",
+    "C1": "pooled_over solve_difference_vs_random>=0.10 and one_sided_mcnemar<=0.05",
+    "C2": "pooled_over penalized_ratio_vs_random<=0.80 and upper95<1.00",
+    "C3": "each over-cell difference_vs_random>=-0.05 and proposed_solve>=0.95",
+    "C4": "mean_nacks<=1, mean_window_rejections<=2, zero_out_of_window, matched_resources",
+    "C5": "pooled_over penalized_ratio_vs_frozen<=0.80 and upper95<1.00",
+    "C6": "pooled proposed-minus-monolith>=-0.05, CP_upper<=0.05, each cell difference>=-0.10",
+    "C7": "pooled_over penalized_ratio_vs_monolith<=0.80 and upper95<1.00"
+  },
+  "verdicts": {
+    "strong": "GRAPH_MATCHED_ROUTE_STRONG_CONFIRMATION",
+    "route_only": "GRAPH_MATCHED_ROUTE_CONFIRMATION_ONLY",
+    "no_go": "GRAPH_MATCHED_ROUTE_CONFIRMATION_NO_GO",
+    "protocol_fail": "GRAPH_MATCHED_ROUTE_PROTOCOL_FAIL"
+  },
+  "qwen_authorized": false
+}

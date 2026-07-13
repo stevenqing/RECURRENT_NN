@@ -1,0 +1,8 @@
+{
+  "schema":"recurrent_parallel_real_signal_anchor_contract_v1","status":"FROZEN_BEFORE_MODEL_OUTCOMES","frozen_date":"2026-07-12","prerequisite_erratum":"results/recurrent_parallel_cost_sensitive_confirmation/analysis_erratum.json",
+  "graph_manifest":"results/recurrent_parallel_cost_sensitive_manifest/graph_manifest.json","sat_manifest":"results/recurrent_parallel_cost_sensitive_manifest/sat_manifest.json",
+  "model":"Qwen/Qwen3.5-4B","model_revision":"851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a","local_files_only":true,"enable_thinking":false,"temperature":0.0,"dtype":"bfloat16","batch_size":8,"approved_physical_gpus":[2,3],"require_empty_compute_process_list":true,"max_input_tokens":4096,"max_tokens":64,"samples_per_cell":16,"expected_prompts":256,"label_manifest_blinded":true,"confidence_bins":[0.0,0.2,0.4,0.6,0.8,1.0],
+  "schema_required":["needs_correction","confidence"],"forbidden_prompt_fields":["true_correction","planted_assignment","candidate_costs","oracle","future_outcome"],
+  "gates":{"A0":"manifest 256 unique 16/cell; prompt-only label replay; blinded labels; no forbidden fields; token cap; deterministic hashes","A1":"parse/valid>=.95 no fallback","A2":"pooled and per-substrate balanced accuracy>=.70 and eta_fp,eta_fn<.40","A3":"pooled Brier<.25 and ECE<=.15","A4":"empirical eta_fp inserted into frozen objective without retuning; eta_fn feasibility-gated; measured model costs reported separately"},
+  "verdicts":{"pass":"RPD_REAL_SIGNAL_ANCHOR_PASS","blocked":"RPD_REAL_SIGNAL_ANCHOR_READY_BLOCKED_GPU","model_fail":"RPD_REAL_SIGNAL_ANCHOR_MODEL_FAIL","protocol":"RPD_REAL_SIGNAL_ANCHOR_PROTOCOL_FAIL"},"headline_eligible":false
+}

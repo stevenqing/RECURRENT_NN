@@ -1,0 +1,20 @@
+{
+  "schema": "multiagent_community_sat_analysis_amendment_v1",
+  "frozen_date": "2026-07-12",
+  "timing": "after_manifest_before_independent_arm_outcomes",
+  "generator_or_arm_change": false,
+  "F1_paired_wins": "failure_penalized_work_on_all_50_over_low_pairs",
+  "F1_ratio": "raw_work_on_jointly_solved_over_low_pairs",
+  "strong_positive": {
+    "controls": ["monolith_MR_sat", "centralized_sharded_MR_sat"],
+    "solve_difference_min": -0.1,
+    "control_only_discordance_cp_upper95_max": 0.1,
+    "paired_penalized_work_ratio_bootstrap_upper95_max": 0.8,
+    "both_controls_required": true
+  },
+  "statistics": {
+    "bootstrap_replicates": 100000,
+    "alpha": 0.05,
+    "paired_bootstrap_for_same_instance_contrasts": true
+  }
+}

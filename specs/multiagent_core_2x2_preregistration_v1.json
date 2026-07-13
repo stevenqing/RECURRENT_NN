@@ -1,0 +1,53 @@
+{
+  "schema": "multiagent_core_2x2_preregistration_v1",
+  "frozen_date": "2026-07-11",
+  "stage": "symbolic_phase_map_preflight",
+  "config": {
+    "M": 4,
+    "R": 8,
+    "MR": 32,
+    "n_per_block": 12,
+    "n_vertices": 48,
+    "k": 4,
+    "edge_budget": 96,
+    "node_cap": 5000,
+    "low_coupling_b": 2,
+    "high_coupling_b": 8,
+    "under_target_depth": 4,
+    "over_target_depth": 12,
+    "preflight_instances_per_cell": 16
+  },
+  "capacity_strata": {
+    "under": "global_recovery_distance <= R",
+    "over_local_fit": "global_recovery_distance > R and local_recovery_distance <= R"
+  },
+  "arms": [
+    "team_cbj",
+    "team_chronological",
+    "monolith_R",
+    "monolith_MR",
+    "centralized_sharded_MR"
+  ],
+  "preflight_gates": {
+    "pool_complete": "16 accepted instances per cell",
+    "fixed_density": "all instances have exactly 96 edges",
+    "capacity_strata_exact": true,
+    "coupling_separated": "mean rho_high - mean rho_low >= 0.15",
+    "reference_solved": true,
+    "centralized_equivalence": "team_cbj and centralized_sharded_MR match rowwise",
+    "monolith_under_readable": "solve_rate >= 0.50",
+    "capacity_relief_signal": "over_low team_cbj - monolith_R >= 0.20",
+    "equal_memory_control": "abs(over_low team_cbj - monolith_MR) <= 0.10",
+    "coupling_interaction_signal": "gap_over_low - gap_over_high >= 0.05",
+    "coordination_signal": "team_cbj - team_chronological >= 0.10 in at least one over cell"
+  },
+  "real_qwen_primary_hypotheses": [
+    "team_cbj > monolith_R in over_low",
+    "team_cbj > monolith_MR in over_low",
+    "capacity by coupling interaction on team-minus-monolith_MR",
+    "team_cbj coordination cost < team_chronological"
+  ],
+  "real_qwen_confirmatory_instances_per_cell": 50,
+  "multiplicity": "Holm over four primary tests",
+  "headline_eligible": false
+}
