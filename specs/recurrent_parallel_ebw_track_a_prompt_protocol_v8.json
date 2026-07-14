@@ -1,0 +1,29 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_prompt_protocol_v8",
+  "status": "DEV_LITERAL_ORDERED_ROLE_REPAIR_AFTER_V7_OPENED_SHARD_BEFORE_NEW_TAG",
+  "frozen_date": "2026-07-13",
+  "parent_freeze_tag": "ebw-freeze-A",
+  "parent_prompt_freeze": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_freeze_v6/prompt_freeze_v6.json",
+  "reason_for_repair": "The v7 candidate-ready opened shard failed with 14 unsafe unique-wrong cases, mostly literal multi-write rows where the model selected the first quoted span instead of the row ordinal's quoted span, plus one ordered-role row using a source read that did not prove the live ordinal.",
+  "repair_scope": [
+    "keep v6 chat-template role-constrained protocol",
+    "keep v7 path-shaped derived adversary policy",
+    "for literal_intent_binding, expose ordered literal spans and a required_literal_span selected by write_ordinal_for_schema",
+    "for ordered_role_binding, expose only source candidates that prove the live value at write_ordinal_for_schema",
+    "fail closed if a generated sketch does not exactly match row-level candidates",
+    "keep strict parser unchanged",
+    "keep Track A grammar unchanged"
+  ],
+  "literal_span_selection_policy": "row_ordinal_required_span_v8",
+  "ordered_role_candidate_policy": "source_candidates_proving_live_ordinal_v8",
+  "parser_policy": "strict_json_no_regex_repair",
+  "primary_gate_policy": "strict_full_text_json_only",
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_PROMPT_V8_READY_NOT_TAGGED",
+    "blocked": "RPD_EBW_TRACK_A_PROMPT_V8_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_PROMPT_V8_PROTOCOL_FAIL"
+  }
+}

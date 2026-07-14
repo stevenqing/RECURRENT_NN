@@ -1,0 +1,34 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_prompt_protocol_v4",
+  "status": "DEV_ROLE_CONSTRAINED_REPAIR_AFTER_V3_SMOKE_BEFORE_NEW_TAG",
+  "frozen_date": "2026-07-13",
+  "parent_freeze_tag": "ebw-freeze-A",
+  "parent_prompt_freeze": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_freeze_v3/prompt_freeze_v3.json",
+  "reason_for_repair": "Track A Qwen v3 smoke restored strict parse rate to 1.0 but produced semantically dangerous sketches by choosing the wrong obligation role, especially prior_effect_binding over ordered role binding for state-transition membership instances.",
+  "repair_scope": [
+    "keep v3 chat-template messages",
+    "keep assistant opening-brace prefill",
+    "keep parser-based stop protocol",
+    "inject row-level required_obligation derived from the frozen value-free proof family metadata",
+    "filter allowed schemas and output examples to the required role",
+    "keep strict parser unchanged",
+    "keep Track A grammar unchanged"
+  ],
+  "role_constraint_policy": {
+    "filesystem_path_derivation_proof": "derived_path_binding",
+    "literal_text_derivation_proof": "literal_intent_binding",
+    "state_transition_created_playlist_playlist_id": "prior_effect_binding",
+    "state_transition_membership_default": "ordered_role_binding"
+  },
+  "parser_policy": "strict_json_no_regex_repair",
+  "primary_gate_policy": "strict_full_text_json_only",
+  "diagnostic_parser_policy": "tolerant_extraction_may_be_reported_only_as_baseline_compatibility_diagnostic",
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_PROMPT_V4_READY_NOT_TAGGED",
+    "blocked": "RPD_EBW_TRACK_A_PROMPT_V4_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_PROMPT_V4_PROTOCOL_FAIL"
+  }
+}

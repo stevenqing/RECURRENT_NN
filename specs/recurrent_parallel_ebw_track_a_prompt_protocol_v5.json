@@ -1,0 +1,29 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_prompt_protocol_v5",
+  "status": "DEV_LITERAL_SPAN_REPAIR_AFTER_V4_SMOKE_BEFORE_NEW_TAG",
+  "frozen_date": "2026-07-13",
+  "parent_freeze_tag": "ebw-freeze-A",
+  "parent_prompt_freeze": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_freeze_v4/prompt_freeze_v4.json",
+  "reason_for_repair": "Track A Qwen v4 ordinal-fixed smoke recovered ordered-role commits but left one unsafe literal_intent_binding due to free-form character offset synthesis selecting the wrong substring.",
+  "repair_scope": [
+    "keep v4 chat-template role-constrained protocol",
+    "keep assistant opening-brace prefill",
+    "keep parser-based stop protocol",
+    "for literal_intent_binding, expose deterministic quoted span candidates from task_text",
+    "require literal user_span to exactly match one candidate span",
+    "keep strict parser unchanged",
+    "keep Track A grammar unchanged"
+  ],
+  "literal_span_candidate_policy": "quoted_spans_from_task_text_inner_offsets",
+  "parser_policy": "strict_json_no_regex_repair",
+  "primary_gate_policy": "strict_full_text_json_only",
+  "diagnostic_parser_policy": "tolerant_extraction_may_be_reported_only_as_baseline_compatibility_diagnostic",
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_PROMPT_V5_READY_NOT_TAGGED",
+    "blocked": "RPD_EBW_TRACK_A_PROMPT_V5_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_PROMPT_V5_PROTOCOL_FAIL"
+  }
+}

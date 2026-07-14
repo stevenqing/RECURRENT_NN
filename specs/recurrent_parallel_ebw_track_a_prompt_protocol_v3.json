@@ -1,0 +1,28 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_prompt_protocol_v3",
+  "status": "DEV_CHAT_PROMPT_REPAIR_AFTER_V2_SMOKE_BEFORE_NEW_TAG",
+  "frozen_date": "2026-07-13",
+  "parent_freeze_tag": "ebw-freeze-A",
+  "parent_prompt_freeze": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_freeze_v2/prompt_freeze_v2.json",
+  "reason_for_repair": "Track A Qwen v1/v2 smoke showed 0.0 strict parse rate because the model emitted fenced JSON and then continued the Markdown prompt template.",
+  "repair_scope": [
+    "separate human-readable protocol docs from executable model prompt assets",
+    "use chat-template messages instead of raw Markdown completion",
+    "use output-only JSON examples rather than full Markdown few-shot blocks",
+    "seed the assistant response with an opening brace and stop generation once strict parser accepts the object",
+    "keep strict parser unchanged",
+    "keep Track A grammar unchanged",
+    "use same frozen dev-slice example ids"
+  ],
+  "parser_policy": "strict_json_no_regex_repair",
+  "primary_gate_policy": "strict_full_text_json_only",
+  "diagnostic_parser_policy": "tolerant_extraction_may_be_reported_only_as_baseline_compatibility_diagnostic",
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_PROMPT_V3_READY_NOT_TAGGED",
+    "blocked": "RPD_EBW_TRACK_A_PROMPT_V3_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_PROMPT_V3_PROTOCOL_FAIL"
+  }
+}

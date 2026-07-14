@@ -1,0 +1,35 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_runner_smoke_contract_v1",
+  "status": "FROZEN_SYNTHETIC_RUNNER_SMOKE_BEFORE_MODEL_OUTCOMES",
+  "frozen_date": "2026-07-13",
+  "execution_preflight": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_execution_preflight_v1/preflight.json",
+  "execution_lock": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_execution_preflight_v1/execution_lock.json",
+  "evaluation_manifest": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_execution_preflight_v1/evaluation_manifest.json",
+  "parser": "experiments/ebw_obligation_sketch.py",
+  "budget": "config/ebw_track_a_budget_v1.json",
+  "expected_statuses": {
+    "execution_preflight": "RPD_EBW_TRACK_A_EXECUTION_PREFLIGHT_READY"
+  },
+  "synthetic_cases": {
+    "total": 6,
+    "commit_live": 2,
+    "unsafe_unique_wrong": 1,
+    "abstain_no_valid": 2,
+    "abstain_competing_valid": 1,
+    "commit_after_repair": 1,
+    "parse_error_cases": 1
+  },
+  "ga_main_expected": {
+    "pass": false,
+    "unsafe_unique_wrong": 1,
+    "safe_commit_recovery_denominator": 334
+  },
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "verdicts": {
+    "pass": "RPD_EBW_TRACK_A_RUNNER_SMOKE_PASS",
+    "fail": "RPD_EBW_TRACK_A_RUNNER_SMOKE_FAIL",
+    "protocol_fail": "RPD_EBW_TRACK_A_RUNNER_SMOKE_PROTOCOL_FAIL"
+  }
+}

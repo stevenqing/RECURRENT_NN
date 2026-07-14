@@ -1,0 +1,35 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_model_launch_preflight_contract_v2",
+  "status": "FROZEN_AFTER_EXECUTION_PREFLIGHT_BEFORE_MODEL_LAUNCH",
+  "frozen_date": "2026-07-13",
+  "parent_contract": "specs/recurrent_parallel_ebw_track_a_model_launch_preflight_v1.json",
+  "repair_scope": "correct model download record to Qwen3-4B-Instruct-2507 and record user authorization to launch if GPU memory is actually available; no model process is started by preflight",
+  "execution_preflight": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_execution_preflight_v1/preflight.json",
+  "execution_lock": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_execution_preflight_v1/execution_lock.json",
+  "runner_smoke": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_runner_smoke_v1/smoke.json",
+  "model_download_record": "results/model_download/qwen3_4b_instruct_2507/qwen_download.json",
+  "expected_freeze_tag": "ebw-freeze-A",
+  "expected_tag_commit": "eba53babec790a9d3b3839fd45f2ee4627228427",
+  "expected_model": "Qwen3-4B-Instruct-2507",
+  "accepted_model_ids": ["Qwen/Qwen3-4B-Instruct-2507"],
+  "minimum_free_memory_mib": 24000,
+  "allowed_gpu_count": 1,
+  "authorized_physical_gpus": [0, 1],
+  "dpo_pause_probe": {
+    "target_pid": 3727989,
+    "target_start_ticks": 223344517,
+    "pre_state": "R",
+    "stopped_state": "T",
+    "post_state": "R",
+    "memory_released": false
+  },
+  "output_dir": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v1",
+  "sealed_variations_opened": false,
+  "model_launch_authorized": true,
+  "external_process_actions": false,
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_MODEL_LAUNCH_PREFLIGHT_READY",
+    "blocked": "RPD_EBW_TRACK_A_MODEL_LAUNCH_PREFLIGHT_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_MODEL_LAUNCH_PREFLIGHT_PROTOCOL_FAIL"
+  }
+}

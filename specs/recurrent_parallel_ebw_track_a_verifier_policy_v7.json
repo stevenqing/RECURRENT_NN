@@ -1,0 +1,27 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_verifier_policy_v7",
+  "status": "DEV_DERIVED_PATH_ADVERSARY_REPAIR_AFTER_V6_DEV40_BEFORE_NEW_TAG",
+  "frozen_date": "2026-07-13",
+  "parent_freeze_tag": "ebw-freeze-A",
+  "parent_prompt_freeze": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_freeze_v6/prompt_freeze_v6.json",
+  "reason_for_repair": "Track A v6 dev40 had 10 derived_path_binding rows marked ambiguous_both_valid because the adversarial candidate generator compared a full destination path against a bare basename from evidence. This is not an action-shaped competing candidate.",
+  "repair_scope": [
+    "keep v6 prompt assets unchanged",
+    "keep strict parser unchanged",
+    "keep Track A grammar unchanged",
+    "for derived_path_binding, adversarial candidate must preserve the target path shape and mutate only the basename",
+    "if evidence contains a non-live basename, use that basename in the live target directory to test unsafe unique-wrong",
+    "if evidence contains only the live basename, use a synthetic nonmatching basename in the live target directory"
+  ],
+  "derived_path_adversary_policy": "path_shape_preserving_basename_mutation",
+  "parser_policy": "strict_json_no_regex_repair",
+  "primary_gate_policy": "strict_full_text_json_only",
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_VERIFIER_POLICY_V7_READY_NOT_TAGGED",
+    "blocked": "RPD_EBW_TRACK_A_VERIFIER_POLICY_V7_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_VERIFIER_POLICY_V7_PROTOCOL_FAIL"
+  }
+}

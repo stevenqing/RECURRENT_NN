@@ -1,0 +1,24 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_prompt_template_v3",
+  "system_message": "You synthesize Evidence-Bound Writes Track A obligation sketches. You must return only one JSON object accepted by the strict Track A parser. Do not write Markdown, code fences, explanations, comments, arrays, or extra keys.",
+  "user_preamble": "Given instance_json, choose exactly one obligation schema that binds the candidate action target_arg to evidence in task_text, pre_write_reads, or prior_effects. Use only identifiers and fields present in instance_json. The assistant response is already prefilled with an opening brace, so continue the same JSON object with a quoted key and finish at the matching closing brace.",
+  "allowed_schemas": [
+    {"obligation": "derived_path_binding", "required_keys": ["obligation", "source_read_id", "source_path_field", "derivation", "target_arg"], "derivation_values": ["basename", "join"]},
+    {"obligation": "literal_intent_binding", "required_keys": ["obligation", "user_span", "target_arg"], "user_span": {"start": "integer", "end": "integer"}},
+    {"obligation": "prior_effect_binding", "required_keys": ["obligation", "effect_step_id", "effect_field", "target_arg"]},
+    {"obligation": "ordered_role_binding", "required_keys": ["obligation", "order_source_read_id", "order_field", "index_expr", "target_arg"], "index_expr_value": "same_rank"}
+  ],
+  "response_contract": [
+    "return exactly one JSON object",
+    "no prose before or after the object",
+    "no Markdown or code fences",
+    "no keys outside the selected schema",
+    "the object must parse with json.loads as the entire assistant message"
+  ],
+  "retry_user_message": "The previous response was rejected by the strict Track A parser. Return exactly one JSON object using one allowed schema. No Markdown, no code fences, no prose, no extra keys.",
+  "response_prefill": "{",
+  "stop_policy": "stop_generation_when_prefilled_text_is_accepted_by_parse_track_a_sketch",
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_prompt_protocol_v6",
+  "status": "DEV_DERIVED_PATH_REPAIR_AFTER_V5_DEV40_PATHFIX_BEFORE_NEW_TAG",
+  "frozen_date": "2026-07-13",
+  "parent_freeze_tag": "ebw-freeze-A",
+  "parent_prompt_freeze": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_freeze_v5/prompt_freeze_v5.json",
+  "reason_for_repair": "Track A v5 dev40 passed with conservative derived-path verification, but a dotted-path verifier rescore exposed one unsafe filesystem sketch. Derived path bindings need deterministic source-path candidates, analogous to v5 literal span candidates.",
+  "repair_scope": [
+    "keep v5 chat-template role-constrained protocol",
+    "keep assistant opening-brace prefill",
+    "keep parser-based stop protocol",
+    "for derived_path_binding, expose deterministic source path candidates found in pre_write_reads",
+    "require source_read_id and source_path_field to exactly match one derived_path_candidates item",
+    "keep strict parser unchanged",
+    "keep Track A grammar unchanged"
+  ],
+  "derived_path_candidate_policy": "exact_source_file_path_in_pre_write_reads_then_basename_fallback",
+  "parser_policy": "strict_json_no_regex_repair",
+  "primary_gate_policy": "strict_full_text_json_only",
+  "diagnostic_parser_policy": "tolerant_extraction_may_be_reported_only_as_baseline_compatibility_diagnostic",
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_PROMPT_V6_READY_NOT_TAGGED",
+    "blocked": "RPD_EBW_TRACK_A_PROMPT_V6_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_PROMPT_V6_PROTOCOL_FAIL"
+  }
+}

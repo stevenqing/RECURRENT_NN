@@ -1,0 +1,25 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_prompt_protocol_v2",
+  "status": "DEV_PROMPT_REPAIR_AFTER_FREEZE_A_BEFORE_NEW_TAG",
+  "frozen_date": "2026-07-13",
+  "parent_freeze_tag": "ebw-freeze-A",
+  "parent_prompt_freeze": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_freeze_v1/prompt_freeze.json",
+  "reason_for_repair": "Track A Qwen smoke on 4 opened instances produced 0.0 parse rate because v1 prompt encouraged fenced JSON, explanations, and prompt continuation.",
+  "repair_scope": [
+    "remove Markdown code fences from examples and final answer slot",
+    "make output contract the final instruction",
+    "require response begins with { and ends with }",
+    "keep strict parser unchanged",
+    "keep grammar unchanged",
+    "use same frozen dev-slice example ids"
+  ],
+  "parser_policy": "strict_json_no_regex_repair",
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_PROMPT_V2_READY_NOT_TAGGED",
+    "blocked": "RPD_EBW_TRACK_A_PROMPT_V2_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_PROMPT_V2_PROTOCOL_FAIL"
+  }
+}

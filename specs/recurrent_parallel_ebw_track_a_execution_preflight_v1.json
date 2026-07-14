@@ -1,0 +1,55 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_execution_preflight_contract_v1",
+  "status": "FROZEN_AFTER_EBW_FREEZE_A_TAG_BEFORE_MODEL_OUTCOMES",
+  "frozen_date": "2026-07-13",
+  "freeze_tag": "ebw-freeze-A",
+  "expected_tag_commit": "eba53babec790a9d3b3839fd45f2ee4627228427",
+  "runner_config": "config/ebw_track_a_runner_v1.json",
+  "freeze_readiness": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_freeze_readiness_v1/readiness.json",
+  "freeze_readiness_lock": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_freeze_readiness_v1/execution_lock.json",
+  "opened_instance_manifest": "results/recurrent_parallel_appworld_broad_value_bound_witness_preflight_v1/instance_manifest.json",
+  "dev_slice_manifest": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_dev_slice_v1/dev_slice_manifest.json",
+  "prompt_freeze": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_freeze_v1/prompt_freeze.json",
+  "prompt_template_filled": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_freeze_v1/track_a_prompt_template_filled.md",
+  "budget": "config/ebw_track_a_budget_v1.json",
+  "parser": "experiments/ebw_obligation_sketch.py",
+  "parser_tests": "analysis/test_ebw_obligation_sketch.py",
+  "safe_ledger_v5": "results/recurrent_parallel_appworld_broad_safe_derivation_ledger_v5/results.json",
+  "expected_counts": {
+    "opened_instances": 1266,
+    "dev_slice_instances": 40,
+    "reportable_instances": 1226,
+    "safe_ledger_denominator": 334
+  },
+  "expected_statuses": {
+    "freeze_readiness": "RPD_EBW_TRACK_A_FREEZE_READINESS_READY_NOT_TAGGED",
+    "dev_slice": "RPD_EBW_TRACK_A_DEV_SLICE_READY",
+    "prompt_freeze": "RPD_EBW_TRACK_A_PROMPT_EXAMPLES_READY_NOT_TAGGED",
+    "safe_ledger_v5": "RPD_APPWORLD_BROAD_SAFE_DERIVATION_LEDGER_V5_PASS"
+  },
+  "execution_policy": {
+    "exclude_dev_slice_ids": true,
+    "model_run": false,
+    "sealed_variations_opened": false,
+    "gpu_docker_external_process_actions": false,
+    "git_tag_required": true,
+    "parser_smoke_required_before_model": true
+  },
+  "gates": {
+    "GA_dev": {
+      "parse_rate_min": 0.95,
+      "verifier_valid_rate_min": 0.5
+    },
+    "GA_main": {
+      "unsafe_unique_wrong": 0,
+      "safe_commit_recovery_min": 0.5,
+      "absolute_safe_commits_min": 167,
+      "denominator": 334
+    }
+  },
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_EXECUTION_PREFLIGHT_READY",
+    "blocked": "RPD_EBW_TRACK_A_EXECUTION_PREFLIGHT_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_EXECUTION_PREFLIGHT_PROTOCOL_FAIL"
+  }
+}
