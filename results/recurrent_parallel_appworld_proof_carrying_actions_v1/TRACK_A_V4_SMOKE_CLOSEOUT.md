@@ -97,6 +97,8 @@ Date: 2026-07-13
 | v29 frontier selection eval | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v29_frontier_selection_model/REPORT.md` |
 | v29b frontier selection retry eval | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v29b_frontier_selection_retry/REPORT.md` |
 | v29b frontier selection merged eval | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v29b_frontier_selection_merged/REPORT.md` |
+| v30 test-time compute freeze | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_freeze/FREEZE.md` |
+| v30 retrospective TTC replay | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_replay/REPLAY.md` |
 | Raw JSON index and analysis | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/TRACK_A_RAW_JSON_INDEX_AND_ANALYSIS.md` |
 
 ## Results
@@ -146,6 +148,7 @@ Date: 2026-07-13
 | v29 frontier closure policy | deterministic compiler + MetaVerifier | v21-v28 residual packets | `4 accepted / 4 processed` | n/a | Four deterministic frontier repairs are represented as typed residual packets and primitive selections. |
 | v29 frontier selection eval | primitive selection + deterministic compiler | `chat_template_json_prefill_frontier_selection_v29` | `{'accepted': 3, 'processed': 4}` | 0.750 | Qwen selects three frontier repairs; source-path row uses invalid primitive ID alias. |
 | v29b frontier selection merged eval | primitive selection + deterministic compiler | `mixed_v29_frontier_selection_v29b_retry` | `{'accepted': 4, 'processed': 4}` | 1.000 | Targeted retry fixes the primitive-ID slot; unchanged compiler/MetaVerifier accept all v21-v28 residual packets. |
+| v30 retrospective TTC replay | frozen RepairAgent loop replay | opened-data v17 to v28 replay | `831/16/0 -> 847/0/0` | n/a | Mechanics check only: one retrospective repair round with 5 model calls closes opened executable rows; not a held-out TTC claim. |
 
 ## v6 Dev40 Breakdown
 
@@ -335,6 +338,9 @@ Date: 2026-07-13
 37. v29/v29b model-in-the-loop frontier primitive selection:
    The v21-v28 deterministic closure is converted into four answer-blinded residual packets and a primitive library. Qwen first accepts 3/4 under the unchanged deterministic compiler and MetaVerifier; the only miss is a primitive-ID alias (`parser_policy.strict_json_no_regex_repair` instead of `parser_policy.strict`) on source-path identity. A targeted v29b retry fixes that one slot, and the merged eval accepts 4/4: source-path identity, literal export path, ordered-note title identity, and prior-effect playlist.
 
+38. v30 test-time compute freeze and retrospective replay:
+   The test-time compute protocol is now frozen before prospective held-out outcomes. Allowed test-time actions are proof search, typed residual emission, primitive-ID selection from the frozen v29 library, deterministic compilation, MetaVerifier acceptance, and rerun/continue under accepted frontiers. The v30 retrospective replay validates mechanics on opened data: v17 starts at 831 commit / 16 abstain / 0 unsafe, and one parallel v29b repair round reaches v28's 847 commit / 0 abstain / 0 unsafe with 5 recorded model calls. This is explicitly not a held-out test-time-compute claim.
+
 ## External Process State
 
 - DPO equivalent workload was paused only to run Qwen smoke/dev-slice/target tests on GPU0/1.
@@ -379,7 +385,8 @@ Date: 2026-07-13
 - v22/v24/v26/v28 deterministic compiled-proof compositional rescores are CPU-only and improve the opened executable gate to 836/838/840/847 commit-live respectively with 0 unsafe.
 - Do not report v8 as a safe full-opened result. The safe full-executable claim belongs only to the v10/v11b/v17/v22/v24/v26/v28 compositional gates unless a fresh GPU full-run is separately launched.
 - Do not report v21-v28 as Qwen synthesis. They are deterministic recurrent proof-frontier repairs; v29b is the model-in-loop primitive-selection result over those v21-v28 residual packets.
+- Do not report v30 retrospective replay as held-out test-time compute. It validates the frozen loop mechanics only; the stronger claim requires a preregistered prospective held-out run.
 
 ## Next Step
 
-Next, package v29/v29b as the multi-family RepairAgent benchmark result and decide whether to run a broader robustness check: same v29 residual packets with multiple seeds/models, or a sealed-variation-safe benchmark extension that keeps AppWorld variations 10-12 closed until preregistered.
+Next, run the prospective held-out TTC stage under `specs/recurrent_parallel_ebw_test_time_compute_v1.md`: freeze first, then generate/open held-out tasks, run one-shot/no-repair and structured-with-MetaVerifier baselines, and report safe-commit/abstain/unsafe curves versus test-time model calls.

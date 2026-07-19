@@ -452,6 +452,20 @@ accepted: 4/4
 
 Research interpretation: v29b is the model-in-the-loop RepairAgent result for the full post-v20 residual closure. The model does not generate patch JSON; it selects primitive IDs from a fixed library. The deterministic compiler and unchanged MetaVerifier accept all four frontier repairs after a single slot-completeness retry, matching the earlier v16b pattern but now over four residual families.
 
+## v30 Test-Time Compute Freeze
+
+The test-time compute protocol is now frozen at `specs/recurrent_parallel_ebw_test_time_compute_v1.md`, with artifact hashes recorded at `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_freeze/FREEZE.md`.
+
+The v30 retrospective replay is recorded at `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_replay/REPLAY.md`:
+
+```text
+round0 no repair: 831 commit, 16 abstain, 0 unsafe
+round1 parallel v29b repair: 847 commit, 0 abstain, 0 unsafe
+repair model calls: 5
+```
+
+Research interpretation: this starts the test-time-compute line by freezing the allowed actions and replaying the loop mechanics. It is not a held-out result, because the proof frontiers were discovered on opened data. The actual TTC claim requires a prospective held-out split after this freeze.
+
 ## Multi-Agent Interpretation
 
 This remains a multi-agent/free-lunch result if we keep the division of labor clean:

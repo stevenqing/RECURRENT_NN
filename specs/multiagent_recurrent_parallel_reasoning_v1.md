@@ -450,6 +450,8 @@ v22-v28 deterministic frontier closure 已完成：v22 source-path identity 把 
 
 v29/v29b model-in-the-loop primitive selection 已完成：把 v21-v28 closure 编成 4 个 residual packets + primitive library 后，Qwen 首轮接受 3/4，唯一失败是把 `parser_policy.strict` 写成语义值 `parser_policy.strict_json_no_regex_repair`；v29b targeted retry 修复这个 slot，merged eval 4/4 被 deterministic compiler + unchanged MetaVerifier 接受。这是当前最强的 multi-family RepairAgent 结果。
 
+v30 test-time compute protocol 已冻结并开始执行：冻结 parser/verifier/rescorer/v29 primitive library/compiler/MetaVerifier 后，先做 opened-data retrospective replay，只验证 mechanics：round0 v17 是 831 commit / 16 abstain / 0 unsafe；round1 parallel v29b repair 用 5 个记录的 model calls 达到 847 commit / 0 abstain / 0 unsafe。这个结果不能写成 held-out test-time compute claim；真正的下一步是 prospective held-out TTC，在看到 held-out outcomes 之后不允许新增 primitives、proof families、parser edits 或人工 residual taxonomy。
+
 这组 benchmark 的 research value 在于：
 
 - residual 是 typed abstain frontier gap，不是模型随机错误；

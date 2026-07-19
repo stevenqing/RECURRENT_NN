@@ -107,6 +107,7 @@ Analysis: v14 proves free-form patch generation is too unconstrained. v15-v16b s
 | v21 source-path identity feasibility | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v21_source_path_identity_feasibility/feasibility.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v21_source_path_identity_feasibility/rows.json` | CPU proof gate for the 5 `move_file.source_file_path` residuals; 5 commit-live, 0 unsafe. |
 | v22-v28 deterministic closure | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v28_prior_effect_merged/results.json` | Final deterministic compiled-proof rescore: 847 commit-live, 0 abstain, 0 unsafe over opened executable rows. |
 | v29/v29b frontier RepairAgent selection | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v29_frontier_selection/raw_model_outputs.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v29b_frontier_selection_retry/raw_model_outputs.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v29b_frontier_selection_merged/results.json` | Model-in-the-loop primitive selection over the four v21-v28 residual packets; merged v29b accepts 4/4. |
+| v30 TTC freeze/replay | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_freeze/freeze.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_replay/replay.json` | Freezes the TTC protocol and records opened-data retrospective replay: 831/16/0 to 847/0/0 in one repair round. |
 
 Analysis: archive-path is a third proof family repaired by the same loop. It uses immutable directory-list evidence, extracts the source directory basename as `<vacation_spot>`, and fills the task literal archive path template and extension. v19 extends model-in-the-loop primitive selection beyond title-slug/output-contract to a new transform family.
 
@@ -187,6 +188,7 @@ Claim boundary:
 - The current strongest safe full-executable opened-scope claim belongs to v28 deterministic compositional closure.
 - v29b supports model-in-the-loop primitive selection under a fixed vocabulary and deterministic compiler for all four post-v20 residual families.
 - v21-v28 do not by themselves prove Qwen synthesis for those new residual packets; v29b is the corresponding primitive-selection model result.
+- v30 retrospective replay does not prove held-out test-time compute; it freezes the protocol and validates mechanics before prospective evaluation.
 - It does not yet prove fully open-ended autonomous repair.
 
 ## Push/Commit Guidance

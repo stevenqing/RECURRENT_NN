@@ -31,6 +31,7 @@ Inputs:
 - v25/v26 ordered note title identity feasibility/rescore: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v25_ordered_note_title_identity_feasibility/FEASIBILITY.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v26_ordered_note_merged/REPORT.md`
 - v27/v28 prior-effect playlist feasibility/rescore: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v27_prior_effect_playlist_feasibility/FEASIBILITY.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v28_prior_effect_merged/REPORT.md`
 - v29/v29b frontier RepairAgent selection: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v29_frontier_closure_repair_policy/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v29b_frontier_selection_merged/REPORT.md`
+- v30 test-time compute freeze/replay: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_freeze/FREEZE.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_replay/REPLAY.md`
 
 Sealed AppWorld variations 10-12 remain closed.
 
@@ -141,6 +142,7 @@ Required controls before any headline claim:
 17. **R10 ordered note title identity gate:** complete. New `ordered_note_title_identity_binding` covers 2/2 Bucket List note updates; full executable rescore reaches 840 commit, 7 abstain, 0 unsafe.
 18. **R11 prior-effect playlist gate:** complete. Candidate-bound `prior_effect_binding` covers 7/7 playlist writes from `create_playlist.response.playlist_id`; full executable rescore reaches 847 commit, 0 abstain, 0 unsafe.
 19. **R12 multi-family model-in-the-loop primitive selection:** complete after v29b retry. Qwen selects primitive IDs for the four v21-v28 residual packets. Initial v29 accepts 3/4 and uses an invalid parser-policy primitive alias for source-path identity; targeted v29b retry accepts 1/1. The merged v29b gate accepts 4/4 with parse and compile rate 1.0 under the unchanged deterministic compiler and MetaVerifier.
+20. **R13 test-time compute freeze/replay:** started. The TTC protocol is frozen before prospective held-out outcomes. Retrospective opened-data replay validates the loop mechanics, improving 831 commit / 16 abstain / 0 unsafe to 847 commit / 0 abstain / 0 unsafe in one parallel repair round with 5 recorded model calls. This is not yet the held-out TTC claim.
 
 R5c structured policy result:
 
@@ -202,3 +204,5 @@ Current R8 status: `CPU_FEASIBILITY_PASS`. The next gate is parser/prompt/runner
 Current R11 status: `DETERMINISTIC_FRONTIER_CLOSURE_PASS`. The opened executable scope is closed under deterministic compiled proofs. The next benchmark should not add more hand repairs; it should test model-in-the-loop primitive selection for the v21-v28 residual packets under an unchanged compiler and MetaVerifier.
 
 Current R12 status: `MODEL_PRIMITIVE_SELECTION_PASS after targeted retry`. This extends model-in-the-loop RepairAgent primitive selection to all four residual families that closed the opened executable scope. The next step should be robustness rather than more hand-designed frontier patches.
+
+Current R13 status: `RETROSPECTIVE_TTC_REPLAY_PASS`. The next gate is prospective held-out TTC under the frozen protocol; no new primitives, proof families, parser edits, or manual residual taxonomy are allowed after held-out outcomes are observed.

@@ -1,0 +1,59 @@
+{
+  "schema": "recurrent_parallel_ebw_test_time_compute_protocol_v1",
+  "status": "FROZEN_BEFORE_PROSPECTIVE_TEST_TIME_COMPUTE_OUTCOMES",
+  "research_question": "Can typed verifier residuals make test-time compute useful for multi-agent proof-carrying action systems by turning failed verifier checks into structured repair decisions selected by a RepairAgent under a fixed compiler and MetaVerifier?",
+  "frozen_components": {
+    "parser": "experiments/ebw_obligation_sketch.py",
+    "runner_verifier": "analysis/ebw_track_a_model_run_from_manifest.py",
+    "rescorer": "analysis/ebw_track_a_rescore_from_raw.py",
+    "frontier_library": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v29_frontier_closure_repair_policy/primitive_library.json",
+    "compiler_metaverifier": "analysis/ebw_track_a_v29_frontier_closure_repair_policy.py",
+    "selection_eval": "analysis/ebw_track_a_v29_frontier_selection_eval.py",
+    "prompt_builder": "analysis/ebw_track_a_v29_frontier_selection_prompt_manifest.py"
+  },
+  "allowed_test_time_actions": [
+    "run proof agents on a frozen prompt/proof schema",
+    "emit typed residual packets from verifier failures",
+    "ask RepairAgent to select primitive IDs from the frozen primitive library",
+    "compile selected primitives with the frozen deterministic compiler",
+    "accept only proposals accepted by the frozen MetaVerifier",
+    "rerun or continue proof search under accepted frozen frontiers"
+  ],
+  "forbidden_test_time_actions": [
+    "manual residual taxonomy after seeing held-out outcomes",
+    "adding new primitive IDs or proof families",
+    "editing parser, verifier, compiler, or MetaVerifier",
+    "relaxing strict JSON parsing",
+    "prompt-only repairs counted as frontier repairs",
+    "opening sealed AppWorld variations before this protocol is frozen"
+  ],
+  "retrospective_replay_scope": {
+    "purpose": "mechanics check only; not a held-out test-time compute claim",
+    "base_gate": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v17_merged/results.json",
+    "model_selection_gate": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v29b_frontier_selection_merged/results.json",
+    "final_gate": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v28_prior_effect_merged/results.json"
+  },
+  "prospective_heldout_scope": {
+    "purpose": "the actual test-time compute claim",
+    "split_policy": "freeze protocol and code before generating or opening fresh held-out task outcomes",
+    "preferred_source": "fresh AppWorld variations 10-12 generated after freeze, or another preregistered held-out split",
+    "minimum_reported_baselines": [
+      "one_shot_proof_agents_no_repair",
+      "best_of_n_proof_sketches_no_repair",
+      "free_form_repairagent_patch_json",
+      "structured_repairagent_without_metaverifier",
+      "structured_repairagent_with_metaverifier"
+    ]
+  },
+  "success_metrics": [
+    "safe_commit_count",
+    "abstain_count",
+    "unsafe_unique_wrong_count",
+    "parse_rate",
+    "compile_rate",
+    "metaverifier_accept_rate",
+    "test_time_model_calls",
+    "repair_rounds"
+  ],
+  "claim_boundary": "v30 retrospective replay can validate the frozen loop mechanics, but only a preregistered held-out run can support a test-time compute claim."
+}
