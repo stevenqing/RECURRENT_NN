@@ -103,6 +103,10 @@ Analysis: v14 proves free-form patch generation is too unconstrained. v15-v16b s
 | v17 full merged raw/results | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v17_full_merged_outputs/raw_model_outputs.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v17_merged/results.json` | Full executable compositional gate: 831 commit, 16 abstain, 0 unsafe. |
 | v18 archive primitive library/results | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v18_archive_structured_repair_policy/primitive_library.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v18_archive_structured_repair_policy/results.json` | CPU structured archive repair policy, positive accepted and six controls rejected. |
 | v19 archive selection raw/eval | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v19_archive_selection/raw_model_outputs.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v19_archive_selection_model/results.json` | Qwen selects archive primitives correctly; MetaVerifier accepts 1/1. |
+| v20 residual taxonomy | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v20_residual_taxonomy/taxonomy.json` | Rebuilds taxonomy over the 16 remaining safe abstentions after v17/v19. |
+| v21 source-path identity feasibility | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v21_source_path_identity_feasibility/feasibility.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v21_source_path_identity_feasibility/rows.json` | CPU proof gate for the 5 `move_file.source_file_path` residuals; 5 commit-live, 0 unsafe. |
+| v22-v28 deterministic closure | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v28_prior_effect_merged/results.json` | Final deterministic compiled-proof rescore: 847 commit-live, 0 abstain, 0 unsafe over opened executable rows. |
+| v29/v29b frontier RepairAgent selection | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v29_frontier_selection/raw_model_outputs.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v29b_frontier_selection_retry/raw_model_outputs.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v29b_frontier_selection_merged/results.json` | Model-in-the-loop primitive selection over the four v21-v28 residual packets; merged v29b accepts 4/4. |
 
 Analysis: archive-path is a third proof family repaired by the same loop. It uses immutable directory-list evidence, extracts the source directory basename as `<vacation_spot>`, and fills the task literal archive path template and extension. v19 extends model-in-the-loop primitive selection beyond title-slug/output-contract to a new transform family.
 
@@ -116,6 +120,7 @@ Analysis: archive-path is a third proof family repaired by the same loop. It use
 | v10 full compositional | 0 | Derived-path unsafe class repaired. |
 | v11b full compositional | 0 | Title-slug residual repaired without introducing unsafe. |
 | v17 full compositional | 0 | Archive-path residual repaired without introducing unsafe. |
+| v28 deterministic closure | 0 | All remaining opened executable residuals repaired by deterministic compiled proofs. |
 
 The core safety transition is from v8's 156 unsafe rows to v10/v11b/v17's 0 unsafe rows. No later repair reintroduces unsafe commits.
 
@@ -127,6 +132,10 @@ The core safety transition is from v8's 156 unsafe rows to v10/v11b/v17's 0 unsa
 | v10 full compositional | 757 | 90 | +156 | 0 |
 | v11b full compositional | 822 | 25 | +221 | -65 |
 | v17 full compositional | 831 | 16 | +230 | -9 |
+| v22 source identity compositional | 836 | 11 | +235 | -5 |
+| v24 literal export compositional | 838 | 9 | +237 | -2 |
+| v26 ordered note compositional | 840 | 7 | +239 | -2 |
+| v28 prior-effect compositional | 847 | 0 | +246 | -7 |
 
 The repair sequence converts unsafe or abstain rows into verified commits while preserving the unique-validity barrier. The v10 repair converts the 156 unsafe derived-path rows into commits. v11b converts 65 title-slug abstains into commits. v17 converts 9 archive-path abstains into commits.
 
@@ -140,7 +149,7 @@ After v17 full compositional rescore, the remaining 16 safe abstentions are:
 | `derived_path_binding` | 7 | `68ee2c9_1`, `68ee2c9_2`, `6104387_1`, `6104387_2` |
 | `ordered_role_binding` | 2 | `cf6abd2_1`, `cf6abd2_2` |
 
-The next CPU-first step should rebuild a v20 residual taxonomy over these 16 rows and choose one proof family before any additional Qwen run.
+The v20 taxonomy is recorded at `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v20_residual_taxonomy/TAXONOMY.md`. It selects `source_path_identity_binding` as the next CPU-first target, ahead of the larger but more complex prior-effect playlist residual. v21 then proves CPU feasibility for that target: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v21_source_path_identity_feasibility/FEASIBILITY.md` reports 5/5 commit-live and 0 unsafe. v22-v28 close the remaining opened executable residuals deterministically; the final v28 rescore reports 847/847 commit-live and 0 unsafe.
 
 ## Research Interpretation
 
@@ -155,10 +164,10 @@ The raw JSON supports a research method, not a prompt-tuning story:
 The strongest current result is:
 
 ```text
-v17 full executable compositional gate:
+v28 deterministic full executable compositional gate:
   847 executable opened rows
-  831 commit_live
-  16 abstain_no_valid
+  847 commit_live
+  0 abstain_no_valid
   0 unsafe_unique_wrong
 ```
 
@@ -168,14 +177,16 @@ The strongest current RepairAgent result is:
 model-in-the-loop primitive selection:
   title-slug/output-contract: v16b accepts 2/2
   archive-path: v19 accepts 1/1
+  v21-v28 frontier closure packets: v29b accepts 4/4
   unchanged MetaVerifier
 ```
 
 Claim boundary:
 
 - Safe full-opened v8 should not be claimed.
-- The current safe full-executable claim belongs to v10/v11b/v17 compositional gates.
-- v19 supports model-in-the-loop primitive selection under a fixed vocabulary and deterministic compiler.
+- The current strongest safe full-executable opened-scope claim belongs to v28 deterministic compositional closure.
+- v29b supports model-in-the-loop primitive selection under a fixed vocabulary and deterministic compiler for all four post-v20 residual families.
+- v21-v28 do not by themselves prove Qwen synthesis for those new residual packets; v29b is the corresponding primitive-selection model result.
 - It does not yet prove fully open-ended autonomous repair.
 
 ## Push/Commit Guidance

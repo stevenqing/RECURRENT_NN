@@ -24,6 +24,13 @@ Inputs:
 - v17 full executable compositional rescore: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v17_merged/REPORT.md`
 - v18 archive structured repair policy: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v18_archive_structured_repair_policy/REPORT.md`
 - v19 archive model-in-the-loop primitive selection: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v19_archive_selection_model/REPORT.md`
+- v20 residual taxonomy: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v20_residual_taxonomy/TAXONOMY.md`
+- v21 source-path identity feasibility: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v21_source_path_identity_feasibility/FEASIBILITY.md`
+- v22 source-path identity compositional rescore: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v22_source_identity_merged/REPORT.md`
+- v23/v24 literal export path feasibility/rescore: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v23_literal_export_path_feasibility/FEASIBILITY.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v24_literal_export_merged/REPORT.md`
+- v25/v26 ordered note title identity feasibility/rescore: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v25_ordered_note_title_identity_feasibility/FEASIBILITY.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v26_ordered_note_merged/REPORT.md`
+- v27/v28 prior-effect playlist feasibility/rescore: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v27_prior_effect_playlist_feasibility/FEASIBILITY.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v28_prior_effect_merged/REPORT.md`
+- v29/v29b frontier RepairAgent selection: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v29_frontier_closure_repair_policy/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v29b_frontier_selection_merged/REPORT.md`
 
 Sealed AppWorld variations 10-12 remain closed.
 
@@ -127,6 +134,13 @@ Required controls before any headline claim:
 10. **R6 next-family proof gate:** complete for `directory_basename_archive_path_binding`. Deterministic archive-path candidates cover 9/9 vacation-directory compression abstains with 0 unsafe; strict parser/prompt/runner integration passes; Qwen synthesizes archive-path sketches for 9/9 with parse rate 1.0; full executable compositional rescore reaches 831 commit-live, 16 abstain, and 0 unsafe.
 11. **R6b archive structured policy:** complete. The archive proof family is represented in the primitive-selection action space; the correct proposal is accepted and six shortcut controls are rejected.
 12. **R6c archive model-in-the-loop primitive selection:** complete. Qwen selects the full archive primitive set and the unchanged archive MetaVerifier accepts 1/1.
+13. **R7 residual taxonomy after archive repair:** complete. The remaining 16 safe abstentions split into 7 prior-effect playlist, 5 source-path identity, 2 literal export path, and 2 ordered note identity residuals. The next CPU-first target is `source_path_identity_binding`.
+14. **R8 source-path identity proof gate:** CPU feasibility complete. Deterministic source-path identity candidates cover 5/5 `move_file.source_file_path` abstains with 5 commit-live and 0 unsafe; exact `response.path` identity is ready for strict grammar integration.
+15. **R8b source-path identity compositional gate:** complete. Strict integration plus deterministic compiled sketches improves the full executable opened gate to 836 commit, 11 abstain, 0 unsafe.
+16. **R9 literal export path gate:** complete. The existing strict `literal_intent_binding` schema covers 2/2 quoted Spotify CSV file paths; full executable rescore reaches 838 commit, 9 abstain, 0 unsafe.
+17. **R10 ordered note title identity gate:** complete. New `ordered_note_title_identity_binding` covers 2/2 Bucket List note updates; full executable rescore reaches 840 commit, 7 abstain, 0 unsafe.
+18. **R11 prior-effect playlist gate:** complete. Candidate-bound `prior_effect_binding` covers 7/7 playlist writes from `create_playlist.response.playlist_id`; full executable rescore reaches 847 commit, 0 abstain, 0 unsafe.
+19. **R12 multi-family model-in-the-loop primitive selection:** complete after v29b retry. Qwen selects primitive IDs for the four v21-v28 residual packets. Initial v29 accepts 3/4 and uses an invalid parser-policy primitive alias for source-path identity; targeted v29b retry accepts 1/1. The merged v29b gate accepts 4/4 with parse and compile rate 1.0 under the unchanged deterministic compiler and MetaVerifier.
 
 R5c structured policy result:
 
@@ -180,3 +194,11 @@ Current R6 status: `MODEL_SYNTHESIS_PASS`. Do not claim autonomous RepairAgent s
 Current R6b status: `STRUCTURED_POLICY_PASS`. The next gate is model-in-the-loop primitive selection for the single archive residual packet.
 
 Current R6c status: `MODEL_PRIMITIVE_SELECTION_PASS`. The next gate is a fresh residual taxonomy over the remaining 16 abstentions.
+
+Current R7 status: `TAXONOMY_READY`. The next gate is CPU feasibility for `source_path_identity_binding`; do not start with Qwen.
+
+Current R8 status: `CPU_FEASIBILITY_PASS`. The next gate is parser/prompt/runner integration plus CPU compositional rescore; do not report it as a full executable improvement until the merged rescore is run.
+
+Current R11 status: `DETERMINISTIC_FRONTIER_CLOSURE_PASS`. The opened executable scope is closed under deterministic compiled proofs. The next benchmark should not add more hand repairs; it should test model-in-the-loop primitive selection for the v21-v28 residual packets under an unchanged compiler and MetaVerifier.
+
+Current R12 status: `MODEL_PRIMITIVE_SELECTION_PASS after targeted retry`. This extends model-in-the-loop RepairAgent primitive selection to all four residual families that closed the opened executable scope. The next step should be robustness rather than more hand-designed frontier patches.

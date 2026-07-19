@@ -13,6 +13,8 @@ TRACK_A_PATTERNS = {
     "path_pair_transform_binding",
     "title_slug_export_path_binding",
     "directory_basename_archive_path_binding",
+    "source_path_identity_binding",
+    "ordered_note_title_identity_binding",
 }
 
 TYPED_REASONS = {
@@ -30,6 +32,7 @@ TITLE_SLUG_TRANSFORMS = {"whitespace_to_underscore"}
 TITLE_SLUG_EXTENSIONS = {".md"}
 ARCHIVE_BASENAME_TRANSFORMS = {"directory_basename"}
 ARCHIVE_EXTENSIONS = {".zip", ".tar"}
+SOURCE_PATH_IDENTITY_TRANSFORMS = {"exact_path"}
 
 REQUIRED_KEYS: dict[str, set[str]] = {
     "derived_path_binding": {"obligation", "source_read_id", "source_path_field", "derivation", "target_arg"},
@@ -39,6 +42,8 @@ REQUIRED_KEYS: dict[str, set[str]] = {
     "path_pair_transform_binding": {"obligation", "source_read_id", "source_path_field", "date_read_id", "date_field", "destination_directory_rule_id", "transform", "target_arg"},
     "title_slug_export_path_binding": {"obligation", "source_read_id", "title_field", "content_field", "destination_directory_rule_id", "slug_transform", "extension", "target_arg"},
     "directory_basename_archive_path_binding": {"obligation", "source_read_id", "source_directory_field", "destination_template_rule_id", "basename_transform", "extension", "target_arg"},
+    "source_path_identity_binding": {"obligation", "source_read_id", "source_path_field", "identity_transform", "target_arg"},
+    "ordered_note_title_identity_binding": {"obligation", "source_read_id", "note_id_field", "title_field", "content_field", "task_item_span", "target_arg"},
 }
 
 
@@ -151,6 +156,24 @@ def parse_track_a_sketch(raw: str | Mapping[str, Any]) -> ParseOutcome:
             return ParseOutcome(False, None, "parse_error", "invalid archive basename transform")
         if value["extension"] not in ARCHIVE_EXTENSIONS:
             return ParseOutcome(False, None, "parse_error", "invalid archive extension")
+    elif obligation == "source_path_identity_binding":
+        if not _reference_id(value["source_read_id"]):
+            return ParseOutcome(False, None, "parse_error", "source_read_id must be reference id")
+        if not _nonempty_string(value["source_path_field"]):
+            return ParseOutcome(False, None, "parse_error", "source_path_field must be string")
+        if value["identity_transform"] not in SOURCE_PATH_IDENTITY_TRANSFORMS:
+            return ParseOutcome(False, None, "parse_error", "invalid source path identity transform")
+    elif obligation == "ordered_note_title_identity_binding":
+        if not _reference_id(value["source_read_id"]):
+            return ParseOutcome(False, None, "parse_error", "source_read_id must be reference id")
+        if not _nonempty_string(value["note_id_field"]):
+            return ParseOutcome(False, None, "parse_error", "note_id_field must be string")
+        if not _nonempty_string(value["title_field"]):
+            return ParseOutcome(False, None, "parse_error", "title_field must be string")
+        if not _nonempty_string(value["content_field"]):
+            return ParseOutcome(False, None, "parse_error", "content_field must be string")
+        if not _validate_user_span(value["task_item_span"]):
+            return ParseOutcome(False, None, "parse_error", "invalid task_item_span")
     return ParseOutcome(True, value, None, None)
 
 

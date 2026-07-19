@@ -442,6 +442,14 @@ v18 archive structured policy 已通过 CPU gate：archive-path 被纳入 primit
 
 v19 archive model-in-the-loop primitive selection 已通过：Qwen 在 answer-blinded archive residual packet 上选择完整 primitive set，deterministic compiler + unchanged archive MetaVerifier 接受 1/1。这把 model-in-loop RepairAgent 从 title-slug/output-contract 扩展到第三个 proof family。下一步应重新做剩余 16 个 safe abstentions 的 residual taxonomy。
 
+v20 residual taxonomy 已完成：剩余 16 个 safe abstentions 分为 7 个 prior-effect playlist、5 个 source-path identity、2 个 literal export path、2 个 ordered note identity。下一步 CPU-first target 是 `source_path_identity_binding`，因为它是 path-pair destination proof 的自然补全：证明 `move_file.source_file_path` 本身来自 immutable source path evidence。
+
+v21 source-path identity CPU feasibility 已通过：5 个 `move_file.source_file_path` residual 全部被 exact `response.path` identity proof 覆盖，5/5 commit-live，0 unsafe。下一步不是直接 Qwen，而是把 `source_path_identity_binding` 接进 strict parser、prompt manifest builder、runner/rescorer 和 tests，再做 CPU compositional rescore。
+
+v22-v28 deterministic frontier closure 已完成：v22 source-path identity 把 full executable gate 推到 836/11/0，v24 literal export path 到 838/9/0，v26 ordered note title identity 到 840/7/0，v28 prior-effect playlist 到 847/0/0。这里的 claim 是 recurrent typed residual -> deterministic proof-frontier closure，不是新的 Qwen synthesis。下一步应把这些 residual packets 编成 RepairAgent primitive-selection benchmark，让 Qwen 只选 primitives，由 deterministic compiler + unchanged MetaVerifier 验证。
+
+v29/v29b model-in-the-loop primitive selection 已完成：把 v21-v28 closure 编成 4 个 residual packets + primitive library 后，Qwen 首轮接受 3/4，唯一失败是把 `parser_policy.strict` 写成语义值 `parser_policy.strict_json_no_regex_repair`；v29b targeted retry 修复这个 slot，merged eval 4/4 被 deterministic compiler + unchanged MetaVerifier 接受。这是当前最强的 multi-family RepairAgent 结果。
+
 这组 benchmark 的 research value 在于：
 
 - residual 是 typed abstain frontier gap，不是模型随机错误；

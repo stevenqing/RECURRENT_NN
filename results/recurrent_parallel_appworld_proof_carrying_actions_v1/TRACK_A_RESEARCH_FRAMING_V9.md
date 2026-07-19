@@ -385,6 +385,73 @@ The deterministic compiler and unchanged MetaVerifier accept the proposal:
 
 Research interpretation: v19 extends the model-in-the-loop primitive selection result beyond title-slug/output-contract to a third proof family. The next step should be residual taxonomy over the remaining 16 safe abstentions, not another model run on an already solved family.
 
+## v20 Residual Taxonomy
+
+The v20 CPU-only taxonomy is recorded at `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v20_residual_taxonomy/TAXONOMY.md`.
+
+After the v17 full executable compositional gate, 16 safe abstentions remain:
+
+| Residual class | Rows |
+|---|---:|
+| `prior_effect_playlist_id_binding_abstain` | 7 |
+| `source_path_identity_binding_missing` | 5 |
+| `literal_export_path_binding_missing` | 2 |
+| `ordered_note_title_identity_binding_abstain` | 2 |
+
+The next CPU-first target should be `source_path_identity_binding`: it directly complements the path-pair destination proof by proving `move_file.source_file_path` from immutable source path evidence. The larger prior-effect playlist residual should wait until simpler identity/literal frontiers are exhausted.
+
+## v21 Source-Path Identity Feasibility
+
+The v21 CPU-only feasibility gate is recorded at `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v21_source_path_identity_feasibility/FEASIBILITY.md`.
+
+Result:
+
+```text
+target_rows: 5
+source_path_identity_candidate_matches_live: 5
+commit_live: 5
+unsafe_unique_wrong: 0
+```
+
+Research interpretation: this is a new proof-family frontier, not a prompt patch. The source path write argument can be proven from immutable pre-write `response.path` evidence by exact identity, while sibling source paths, destination paths, and mutated path-shaped alternatives fail the barrier. The next step is strict parser/prompt/runner integration and CPU compositional rescore before any Qwen run.
+
+## v22-v28 Deterministic Frontier Closure
+
+The post-v21 deterministic repair sequence is CPU-only and does not claim new Qwen synthesis. It tests whether typed residuals can drive proof-frontier expansion until the opened executable scope is closed under the strict parser and barrier.
+
+| Gate | Target | Rows Repaired | Full Executable Result |
+|---|---|---:|---|
+| v22 | `source_path_identity_binding` | 5 | 836 commit, 11 abstain, 0 unsafe |
+| v24 | quoted literal export path via `literal_intent_binding` | 2 | 838 commit, 9 abstain, 0 unsafe |
+| v26 | `ordered_note_title_identity_binding` | 2 | 840 commit, 7 abstain, 0 unsafe |
+| v28 | prior-effect playlist `create_playlist.playlist_id` | 7 | 847 commit, 0 abstain, 0 unsafe |
+
+Research interpretation: after v20 exposed typed residual classes, each remaining class admitted a deterministic proof-frontier repair with adversarial uniqueness checks. The strongest opened executable result is now v28: all 847 executable opened rows commit under the strict barrier with 0 unsafe. The model-in-the-loop claim remains separate: v16b/v19 show primitive selection under an unchanged compiler/MetaVerifier, while v21-v28 provide the deterministic target frontier that the next RepairAgent model gates should learn to select.
+
+## v29/v29b Frontier RepairAgent Selection
+
+The v29 CPU structured policy is recorded at `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v29_frontier_closure_repair_policy/REPORT.md`. It converts the v21-v28 deterministic closure into four typed residual packets and primitive selections.
+
+The first GPU model run is recorded at `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v29_frontier_selection/REPORT.md` and evaluated at `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v29_frontier_selection_model/REPORT.md`:
+
+```text
+processed: 4
+parse_rate: 0.750
+accepted: 3/4
+miss: source-path identity used parser_policy.strict_json_no_regex_repair instead of parser_policy.strict
+```
+
+The targeted v29b retry is recorded at `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v29b_frontier_selection_merged/REPORT.md`:
+
+```text
+processed: 4
+parse_rate: 1.000
+compile_rate: 1.000
+accepted: 4/4
+```
+
+Research interpretation: v29b is the model-in-the-loop RepairAgent result for the full post-v20 residual closure. The model does not generate patch JSON; it selects primitive IDs from a fixed library. The deterministic compiler and unchanged MetaVerifier accept all four frontier repairs after a single slot-completeness retry, matching the earlier v16b pattern but now over four residual families.
+
 ## Multi-Agent Interpretation
 
 This remains a multi-agent/free-lunch result if we keep the division of labor clean:

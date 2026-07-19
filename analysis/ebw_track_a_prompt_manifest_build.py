@@ -12,6 +12,9 @@ from typing import Any
 from analysis.ebw_track_a_prompt_freeze import compact_context, run_task_trace, sanitize
 from analysis.ebw_track_a_v11_title_slug_feasibility import title_slug_candidate
 from analysis.ebw_track_a_v17_archive_path_feasibility import archive_path_candidate
+from analysis.ebw_track_a_v21_source_path_identity_feasibility import source_path_identity_candidate
+from analysis.ebw_track_a_v25_ordered_note_title_identity_feasibility import ordered_note_title_identity_candidate
+from analysis.ebw_track_a_v27_prior_effect_playlist_feasibility import prior_effect_playlist_candidate
 from analysis.ebw_track_a_v9_path_pair_feasibility import path_pair_candidate
 from analysis.recurrent_appworld_generated_typed_provenance_development_v6 import install_v6_compatibility
 
@@ -234,6 +237,11 @@ def build_v3_messages(assets: dict[str, Any], row: dict[str, Any], context: dict
             if not candidates:
                 raise RuntimeError(("missing_ordered_role_candidate", row["instance_id"], ordinal))
             user_payload["ordered_role_candidates"] = candidates
+        if obligation == "prior_effect_binding" and "prior_effect_candidate_policy" in assets:
+            candidate = prior_effect_playlist_candidate({"context": context, "live_arguments": sanitize(context["candidate_action"]["arguments"])})
+            if candidate is None or not candidate["match"]:
+                raise RuntimeError(("missing_prior_effect_candidate", row["instance_id"], candidate))
+            user_payload["prior_effect_candidates"] = [candidate]
         if obligation == "path_pair_transform_binding" and "path_pair_candidate_policy" in assets:
             candidate = path_pair_candidate({"context": context, "live_arguments": sanitize(context["candidate_action"]["arguments"])})
             if candidate is None or not candidate["match"]:
@@ -249,6 +257,16 @@ def build_v3_messages(assets: dict[str, Any], row: dict[str, Any], context: dict
             if candidate is None or not candidate["match"]:
                 raise RuntimeError(("missing_archive_path_candidate", row["instance_id"], candidate))
             user_payload["directory_basename_archive_path_candidates"] = [candidate]
+        if obligation == "source_path_identity_binding" and "source_path_identity_candidate_policy" in assets:
+            candidate = source_path_identity_candidate({"context": context, "live_arguments": sanitize(context["candidate_action"]["arguments"])})
+            if candidate is None or not candidate["match"]:
+                raise RuntimeError(("missing_source_path_identity_candidate", row["instance_id"], candidate))
+            user_payload["source_path_identity_candidates"] = [candidate]
+        if obligation == "ordered_note_title_identity_binding" and "ordered_note_title_identity_candidate_policy" in assets:
+            candidate = ordered_note_title_identity_candidate({"context": context, "live_arguments": sanitize(context["candidate_action"]["arguments"])})
+            if candidate is None or not candidate["match"]:
+                raise RuntimeError(("missing_ordered_note_title_identity_candidate", row["instance_id"], candidate))
+            user_payload["ordered_note_title_identity_candidates"] = [candidate]
     user_content = assets["user_preamble"] + "\n" + json.dumps(user_payload, indent=2, sort_keys=True, ensure_ascii=False)
     messages = [
         {"role": "system", "content": assets["system_message"]},
@@ -263,12 +281,18 @@ def build_v3_messages(assets: dict[str, Any], row: dict[str, Any], context: dict
         "derived_path_candidates": user_payload.get("derived_path_candidates"),
         "ordered_role_candidates": user_payload.get("ordered_role_candidates"),
         "ordered_role_candidate_policy": assets.get("ordered_role_candidate_policy"),
+        "prior_effect_candidates": user_payload.get("prior_effect_candidates"),
+        "prior_effect_candidate_policy": assets.get("prior_effect_candidate_policy"),
         "path_pair_transform_candidates": user_payload.get("path_pair_transform_candidates"),
         "path_pair_candidate_policy": assets.get("path_pair_candidate_policy"),
         "title_slug_export_path_candidates": user_payload.get("title_slug_export_path_candidates"),
         "title_slug_candidate_policy": assets.get("title_slug_candidate_policy"),
         "directory_basename_archive_path_candidates": user_payload.get("directory_basename_archive_path_candidates"),
         "archive_path_candidate_policy": assets.get("archive_path_candidate_policy"),
+        "source_path_identity_candidates": user_payload.get("source_path_identity_candidates"),
+        "source_path_identity_candidate_policy": assets.get("source_path_identity_candidate_policy"),
+        "ordered_note_title_identity_candidates": user_payload.get("ordered_note_title_identity_candidates"),
+        "ordered_note_title_identity_candidate_policy": assets.get("ordered_note_title_identity_candidate_policy"),
     }
     return messages, assets["response_prefill"], {key: value for key, value in metadata.items() if value is not None}
 

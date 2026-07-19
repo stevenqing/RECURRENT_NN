@@ -83,6 +83,20 @@ Date: 2026-07-13
 | v19 archive selection prompt manifest | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v19_archive_selection_prompt_manifest/PROMPT_MANIFEST.md` |
 | v19 archive selection model run | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v19_archive_selection/REPORT.md` |
 | v19 archive selection eval | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v19_archive_selection_model/REPORT.md` |
+| v20 residual taxonomy | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v20_residual_taxonomy/TAXONOMY.md` |
+| v21 source-path identity feasibility | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v21_source_path_identity_feasibility/FEASIBILITY.md` |
+| v22 source-path identity merged rescore | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v22_source_identity_merged/REPORT.md` |
+| v23 literal export path feasibility | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v23_literal_export_path_feasibility/FEASIBILITY.md` |
+| v24 literal export path merged rescore | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v24_literal_export_merged/REPORT.md` |
+| v25 ordered note title identity feasibility | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v25_ordered_note_title_identity_feasibility/FEASIBILITY.md` |
+| v26 ordered note title identity merged rescore | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v26_ordered_note_merged/REPORT.md` |
+| v27 prior-effect playlist feasibility | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v27_prior_effect_playlist_feasibility/FEASIBILITY.md` |
+| v28 prior-effect playlist merged rescore | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_full_opened_v28_prior_effect_merged/REPORT.md` |
+| v29 frontier closure repair policy | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v29_frontier_closure_repair_policy/REPORT.md` |
+| v29 frontier selection model run | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v29_frontier_selection/REPORT.md` |
+| v29 frontier selection eval | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v29_frontier_selection_model/REPORT.md` |
+| v29b frontier selection retry eval | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v29b_frontier_selection_retry/REPORT.md` |
+| v29b frontier selection merged eval | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v29b_frontier_selection_merged/REPORT.md` |
 | Raw JSON index and analysis | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/TRACK_A_RAW_JSON_INDEX_AND_ANALYSIS.md` |
 
 ## Results
@@ -120,6 +134,18 @@ Date: 2026-07-13
 | v17 full merged rescore | strict full-text JSON | `mixed_v11b_full_archive_path_v17` | `{'abstain_no_valid': 16, 'commit_live': 831}` | 0.994 | CPU full-executable compositional gate after archive-path repair; 0 unsafe. |
 | v18 archive structured repair policy | deterministic compiler + MetaVerifier | archive primitive selection | `1 accepted, 6 rejected controls` | n/a | Archive proof family fits structured RepairAgent action space; CPU-only. |
 | v19 archive primitive-selection eval | primitive selection + deterministic compiler | `chat_template_json_prefill_archive_selection_v19` | `{'accepted': 1, 'processed': 1}` | 1.000 | Qwen selects archive primitives correctly; unchanged MetaVerifier accepts. |
+| v20 residual taxonomy | deterministic taxonomy | post-v17 abstain analysis | `{'abstain_no_valid': 16, 'commit_live': 831}` | n/a | Remaining abstains split into source identity, prior-effect playlist, literal export, and ordered note identity. |
+| v21 source-path identity feasibility | deterministic proof candidate + barrier | post-v17 source-path residuals | `{'commit_live': 5}` | n/a | Exact `response.path` identity covers all 5 `move_file.source_file_path` abstains; adversarial source paths fail. |
+| v22 source-path identity merged rescore | strict full-text JSON | `mixed_v17_full_source_path_identity_deterministic_v22` | `{'abstain_no_valid': 11, 'commit_live': 836}` | 1.000 | Deterministic source-path compiled sketches integrate with strict parser/rescorer; 0 unsafe. |
+| v23 literal export path feasibility | deterministic proof candidate + barrier | quoted task path literal | `{'commit_live': 2}` | n/a | Existing `literal_intent_binding` covers the two Spotify CSV export paths; header-string adversaries fail. |
+| v24 literal export path merged rescore | strict full-text JSON | `mixed_v22_source_identity_literal_export_path_deterministic_v24` | `{'abstain_no_valid': 9, 'commit_live': 838}` | 1.000 | Deterministic literal compiled sketches integrate with the full executable rescore; 0 unsafe. |
+| v25 ordered note title identity feasibility | deterministic proof candidate + barrier | `ordered_note_title_identity_binding` | `{'commit_live': 2}` | n/a | `show_note.response.note_id` plus Bucket List title/content and quoted item covers both note updates. |
+| v26 ordered note title identity merged rescore | strict full-text JSON | `mixed_v24_literal_export_ordered_note_title_identity_deterministic_v26` | `{'abstain_no_valid': 7, 'commit_live': 840}` | 1.000 | New ordered-note schema integrates with the full executable rescore; 0 unsafe. |
+| v27 prior-effect playlist feasibility | deterministic proof candidate + barrier | `prior_effect_binding` candidate policy | `{'commit_live': 7}` | n/a | `create_playlist.response.playlist_id` prior effects cover all remaining playlist writes; song/id adversaries fail. |
+| v28 prior-effect playlist merged rescore | strict full-text JSON | `mixed_v26_ordered_note_prior_effect_playlist_deterministic_v28` | `{'commit_live': 847}` | 1.000 | Deterministic recurrent proof-frontier closure of all 847 opened executable rows; 0 abstain, 0 unsafe. |
+| v29 frontier closure policy | deterministic compiler + MetaVerifier | v21-v28 residual packets | `4 accepted / 4 processed` | n/a | Four deterministic frontier repairs are represented as typed residual packets and primitive selections. |
+| v29 frontier selection eval | primitive selection + deterministic compiler | `chat_template_json_prefill_frontier_selection_v29` | `{'accepted': 3, 'processed': 4}` | 0.750 | Qwen selects three frontier repairs; source-path row uses invalid primitive ID alias. |
+| v29b frontier selection merged eval | primitive selection + deterministic compiler | `mixed_v29_frontier_selection_v29b_retry` | `{'accepted': 4, 'processed': 4}` | 1.000 | Targeted retry fixes the primitive-ID slot; unchanged compiler/MetaVerifier accept all v21-v28 residual packets. |
 
 ## v6 Dev40 Breakdown
 
@@ -288,6 +314,27 @@ Date: 2026-07-13
 30. v19 archive model-in-the-loop primitive selection:
    Qwen receives the v18 archive residual packet and primitive library, selects primitive IDs only, and the deterministic compiler plus unchanged archive MetaVerifier accept the proposal. The selected primitives are immutable directory-list source binding, directory-basename transform, task literal vacation archive template, task-template extension policy, and strict parser. This extends the v16/v16b primitive-selection success to a third proof family.
 
+31. v20 residual taxonomy:
+   A CPU-only taxonomy over the v17 full executable compositional gate confirms 16 remaining safe abstentions: 7 `prior_effect_playlist_id_binding_abstain`, 5 `source_path_identity_binding_missing`, 2 `literal_export_path_binding_missing`, and 2 `ordered_note_title_identity_binding_abstain`. The recommended next CPU-first proof family is `source_path_identity_binding`, because it directly complements the destination path-pair repair for `move_file.source_file_path`.
+
+32. v21 source-path identity feasibility:
+   The CPU-only source-path frontier covers all 5 `move_file.source_file_path` residuals. The proof candidate binds the write argument to immutable pre-write `response.path` evidence using exact path identity; sibling source paths, destination paths, and mutated path-shaped alternatives fail the unique-validity barrier. This makes `source_path_identity_binding` ready for parser/prompt/runner integration before any Qwen call.
+
+33. v22 source-path identity compositional closure:
+   The strict parser, prompt manifest builder, runner/rescorer, and tests now support `source_path_identity_binding`. A deterministic merged-output rescore replaces only the 5 v21-proven rows and improves the full executable opened gate to 836 `commit_live`, 11 `abstain_no_valid`, and 0 unsafe. This is deterministic compiled proof, not Qwen synthesis.
+
+34. v23/v24 literal export path repair:
+   The two Spotify CSV `create_file.file_path` residuals are proven by exact quoted task path spans using the existing strict `literal_intent_binding` schema. The v24 deterministic compositional rescore reaches 838 `commit_live`, 9 `abstain_no_valid`, and 0 unsafe.
+
+35. v25/v26 ordered note title/content identity repair:
+   A new `ordered_note_title_identity_binding` schema binds `update_note.note_id` to immutable `show_note.response.note_id`, requires the Bucket List title role, and requires the quoted task item to appear in pre-write note content. The v26 deterministic compositional rescore reaches 840 `commit_live`, 7 `abstain_no_valid`, and 0 unsafe.
+
+36. v27/v28 prior-effect playlist repair:
+   The remaining 7 `add_song_to_playlist.playlist_id` residuals are frontier/candidate gaps for the existing `prior_effect_binding` schema. Binding each write to the earlier `create_playlist.response.playlist_id` prior effect passes the CPU barrier, and the v28 deterministic compositional rescore reaches 847 `commit_live`, 0 `abstain_no_valid`, and 0 unsafe over the opened executable rows.
+
+37. v29/v29b model-in-the-loop frontier primitive selection:
+   The v21-v28 deterministic closure is converted into four answer-blinded residual packets and a primitive library. Qwen first accepts 3/4 under the unchanged deterministic compiler and MetaVerifier; the only miss is a primitive-ID alias (`parser_policy.strict_json_no_regex_repair` instead of `parser_policy.strict`) on source-path identity. A targeted v29b retry fixes that one slot, and the merged eval accepts 4/4: source-path identity, literal export path, ordered-note title identity, and prior-effect playlist.
+
 ## External Process State
 
 - DPO equivalent workload was paused only to run Qwen smoke/dev-slice/target tests on GPU0/1.
@@ -327,8 +374,12 @@ Date: 2026-07-13
 - v17 full executable compositional rescore passes on all 847 executable rows with 831 commit-live, 16 safe abstentions, and 0 unsafe.
 - v18 archive structured repair policy is CPU-only and passes: archive primitive selection is accepted and six shortcut controls are rejected.
 - v19 archive model-in-the-loop structured RepairAgent passes: Qwen-selected archive primitives compile and MetaVerifier accepts 1/1.
-- Do not report v8 as a safe full-opened result. The safe full-executable claim belongs only to the v10/v11b merged compositional gates unless a fresh GPU full-run is separately launched.
+- v20 residual taxonomy is CPU-only and selects `source_path_identity_binding` as the next proof-family target over the remaining 16 safe abstentions.
+- v21 source-path identity feasibility is CPU-only and passes on all 5 target rows with 5 commit-live and 0 unsafe.
+- v22/v24/v26/v28 deterministic compiled-proof compositional rescores are CPU-only and improve the opened executable gate to 836/838/840/847 commit-live respectively with 0 unsafe.
+- Do not report v8 as a safe full-opened result. The safe full-executable claim belongs only to the v10/v11b/v17/v22/v24/v26/v28 compositional gates unless a fresh GPU full-run is separately launched.
+- Do not report v21-v28 as Qwen synthesis. They are deterministic recurrent proof-frontier repairs; v29b is the model-in-loop primitive-selection result over those v21-v28 residual packets.
 
 ## Next Step
 
-Next, rebuild the residual taxonomy after v17/v19. The full executable gate now has 16 safe abstentions left; identify their residual classes and choose the next CPU-first proof family before any additional Qwen run.
+Next, package v29/v29b as the multi-family RepairAgent benchmark result and decide whether to run a broader robustness check: same v29 residual packets with multiple seeds/models, or a sealed-variation-safe benchmark extension that keeps AppWorld variations 10-12 closed until preregistered.

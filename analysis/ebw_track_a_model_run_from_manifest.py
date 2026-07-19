@@ -189,6 +189,26 @@ def candidate_values(sketch: dict[str, Any], context: dict[str, Any], ordinal: i
             return []
         basename = posixpath.basename(norm_path(str(source_values[0])))
         return [rule["template"].replace("<vacation_spot>", basename)]
+    if obligation == "source_path_identity_binding":
+        response = ref_response(context, str(sketch["source_read_id"]))
+        values = values_for_dotted_path(response, str(sketch["source_path_field"]))
+        if not values:
+            values = values_for_key(response, str(sketch["source_path_field"]).split(".")[-1])
+        return values
+    if obligation == "ordered_note_title_identity_binding":
+        response = ref_response(context, str(sketch["source_read_id"]))
+        note_id_values = values_for_dotted_path(response, str(sketch["note_id_field"]))
+        title_values = values_for_dotted_path(response, str(sketch["title_field"]))
+        content_values = values_for_dotted_path(response, str(sketch["content_field"]))
+        if not note_id_values or not title_values or not content_values:
+            return []
+        span = sketch["task_item_span"]
+        item_text = context["task_text"][int(span["start"]):int(span["end"])]
+        if not any(norm_text(item_text) in norm_text(content) for content in content_values):
+            return []
+        if "bucket list" in norm_text(context["task_text"]) and not any("bucket list" in norm_text(title) for title in title_values):
+            return []
+        return note_id_values
     return []
 
 
@@ -210,6 +230,14 @@ def _ordered_candidate_matches(sketch: dict[str, Any], candidate: dict[str, Any]
         str(sketch["order_source_read_id"]) == str(candidate["order_source_read_id"])
         and str(sketch["order_field"]) == str(candidate["order_field"])
         and str(sketch["index_expr"]) == str(candidate["index_expr"])
+        and str(sketch["target_arg"]) == str(candidate["target_arg"])
+    )
+
+
+def _prior_effect_candidate_matches(sketch: dict[str, Any], candidate: dict[str, Any]) -> bool:
+    return (
+        str(sketch["effect_step_id"]) == str(candidate["effect_step_id"])
+        and str(sketch["effect_field"]) == str(candidate["effect_field"])
         and str(sketch["target_arg"]) == str(candidate["target_arg"])
     )
 
@@ -249,6 +277,26 @@ def _archive_path_candidate_matches(sketch: dict[str, Any], candidate: dict[str,
     )
 
 
+def _source_path_identity_candidate_matches(sketch: dict[str, Any], candidate: dict[str, Any]) -> bool:
+    return (
+        str(sketch["source_read_id"]) == str(candidate["source_read_id"])
+        and str(sketch["source_path_field"]) == str(candidate["source_path_field"])
+        and str(sketch["identity_transform"]) == str(candidate["identity_transform"])
+        and str(sketch["target_arg"]) == str(candidate["target_arg"])
+    )
+
+
+def _ordered_note_title_candidate_matches(sketch: dict[str, Any], candidate: dict[str, Any]) -> bool:
+    return (
+        str(sketch["source_read_id"]) == str(candidate["source_read_id"])
+        and str(sketch["note_id_field"]) == str(candidate["note_id_field"])
+        and str(sketch["title_field"]) == str(candidate["title_field"])
+        and str(sketch["content_field"]) == str(candidate["content_field"])
+        and _span_matches(sketch["task_item_span"], candidate["task_item_span"])
+        and str(sketch["target_arg"]) == str(candidate["target_arg"])
+    )
+
+
 def sketch_policy_valid(sketch: dict[str, Any], row: dict[str, Any]) -> bool:
     obligation = sketch["obligation"]
     if obligation == "literal_intent_binding" and "required_literal_span" in row:
@@ -257,12 +305,18 @@ def sketch_policy_valid(sketch: dict[str, Any], row: dict[str, Any]) -> bool:
         return any(_derived_candidate_matches(sketch, candidate) for candidate in row["derived_path_candidates"])
     if obligation == "ordered_role_binding" and "ordered_role_candidates" in row:
         return any(_ordered_candidate_matches(sketch, candidate) for candidate in row["ordered_role_candidates"])
+    if obligation == "prior_effect_binding" and "prior_effect_candidates" in row:
+        return any(_prior_effect_candidate_matches(sketch, candidate) for candidate in row["prior_effect_candidates"])
     if obligation == "path_pair_transform_binding" and "path_pair_transform_candidates" in row:
         return any(_path_pair_candidate_matches(sketch, candidate) for candidate in row["path_pair_transform_candidates"])
     if obligation == "title_slug_export_path_binding" and "title_slug_export_path_candidates" in row:
         return any(_title_slug_candidate_matches(sketch, candidate) for candidate in row["title_slug_export_path_candidates"])
     if obligation == "directory_basename_archive_path_binding" and "directory_basename_archive_path_candidates" in row:
         return any(_archive_path_candidate_matches(sketch, candidate) for candidate in row["directory_basename_archive_path_candidates"])
+    if obligation == "source_path_identity_binding" and "source_path_identity_candidates" in row:
+        return any(_source_path_identity_candidate_matches(sketch, candidate) for candidate in row["source_path_identity_candidates"])
+    if obligation == "ordered_note_title_identity_binding" and "ordered_note_title_identity_candidates" in row:
+        return any(_ordered_note_title_candidate_matches(sketch, candidate) for candidate in row["ordered_note_title_identity_candidates"])
     return True
 
 
@@ -305,7 +359,7 @@ def replace_basename(live_value: Any, basename: str) -> str:
 
 
 def adversarial_candidate(sketch: dict[str, Any], live_value: Any, evidence_values: list[Any]) -> Any:
-    if sketch["obligation"] in {"derived_path_binding", "path_pair_transform_binding", "title_slug_export_path_binding", "directory_basename_archive_path_binding"}:
+    if sketch["obligation"] in {"derived_path_binding", "path_pair_transform_binding", "title_slug_export_path_binding", "directory_basename_archive_path_binding", "source_path_identity_binding"}:
         return replace_basename(live_value, mutate_basename(live_value, evidence_values))
     return next((value for value in evidence_values if not same_value(value, live_value)), type_mutation(live_value))
 
@@ -317,12 +371,22 @@ def row_evidence_values(sketch: dict[str, Any], row: dict[str, Any]) -> list[Any
         return [candidate["expected_file_path"] for candidate in row["title_slug_export_path_candidates"] if _title_slug_candidate_matches(sketch, candidate)]
     if sketch["obligation"] == "directory_basename_archive_path_binding" and "directory_basename_archive_path_candidates" in row:
         return [candidate["expected_archive_path"] for candidate in row["directory_basename_archive_path_candidates"] if _archive_path_candidate_matches(sketch, candidate)]
+    if sketch["obligation"] == "source_path_identity_binding" and "source_path_identity_candidates" in row:
+        return [candidate["expected_source_file_path"] for candidate in row["source_path_identity_candidates"] if _source_path_identity_candidate_matches(sketch, candidate)]
+    if sketch["obligation"] == "ordered_note_title_identity_binding" and "ordered_note_title_identity_candidates" in row:
+        return [candidate["expected_note_id"] for candidate in row["ordered_note_title_identity_candidates"] if _ordered_note_title_candidate_matches(sketch, candidate)]
+    if sketch["obligation"] == "prior_effect_binding" and "prior_effect_candidates" in row:
+        return [candidate["expected_effect_value"] for candidate in row["prior_effect_candidates"] if _prior_effect_candidate_matches(sketch, candidate)]
     return candidate_values(sketch, row["context"], int(row["write_ordinal_for_schema"]))
 
 
 def row_verify(sketch: dict[str, Any], value: Any, row: dict[str, Any], evidence_values: list[Any]) -> bool:
-    if sketch["obligation"] in {"path_pair_transform_binding", "title_slug_export_path_binding", "directory_basename_archive_path_binding"}:
+    if sketch["obligation"] in {"path_pair_transform_binding", "title_slug_export_path_binding", "directory_basename_archive_path_binding", "source_path_identity_binding"}:
         return any(norm_path(value) == norm_path(expected) for expected in evidence_values)
+    if sketch["obligation"] == "ordered_note_title_identity_binding":
+        return any(same_value(value, expected) for expected in evidence_values)
+    if sketch["obligation"] == "prior_effect_binding" and evidence_values:
+        return any(same_value(value, expected) for expected in evidence_values)
     return verify(sketch, value, row["context"], int(row["write_ordinal_for_schema"]))
 
 
