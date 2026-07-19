@@ -106,6 +106,7 @@ Date: 2026-07-13
 | v34 held-out best-of-N no-repair control | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v34_heldout_best_of_n_no_repair/REPORT.md` |
 | v35 held-out free-form RepairAgent control | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v35_heldout_freeform_repair/REPORT.md` |
 | v36 held-out no-MetaVerifier control | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v36_heldout_no_metaverifier_control/REPORT.md` |
+| v38 held-out no-typed-residual control | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v38_heldout_no_typed_residual/REPORT.md` |
 | v37 held-out control summary | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v37_heldout_control_summary/SUMMARY.md` |
 | Raw JSON index and analysis | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/TRACK_A_RAW_JSON_INDEX_AND_ANALYSIS.md` |
 
@@ -163,6 +164,7 @@ Date: 2026-07-13
 | v34 held-out best-of-N no-repair | sampled proof sketches, no RepairAgent | 8 samples on v32 abstains | `{'abstain_no_valid': 3}` | 0.125 sample parse | Extra proof-sketch compute alone does not close the held-out literal-export gap. |
 | v35 held-out free-form RepairAgent | free-form patch JSON + MetaVerifier | held-out literal export residual | `0 accepted / 1 processed` | 1.000 parse | Model writes parseable patch but wrong slot (`span_source=derived_path_binding`); MetaVerifier rejects. |
 | v36 held-out no-MetaVerifier | compiler-only structured selection | model + negative slot controls | `3 accepted without MetaVerifier; 2 bad controls accepted` | n/a | Compiler-only acceptance admits wrong span-source and parser-relaxation controls. |
+| v38 held-out no-typed-residual | primitive selection + MetaVerifier | typed fields withheld | `{'commit_live': 65}` | 1.000 | Model still infers the correct frozen literal-path primitive from untyped API/field failure metadata on this narrow slice. |
 | v37 held-out control summary | summary | v32-v36 | structured+MetaVerifier uniquely closes held-out gap | n/a | One-shot, best-of-N, free-form, and no-MetaVerifier controls do not support the same safety claim. |
 
 ## v6 Dev40 Breakdown
@@ -362,8 +364,9 @@ Date: 2026-07-13
 40. v34 held-out best-of-N no-repair control:
    To test whether generic extra proof-sketch compute explains v33, the 3 v32 held-out abstains are rerun with 8 sampled proof sketches each and no RepairAgent. All 24 samples remain `abstain_no_valid` and sample parse rate is 0.125. The control stays at 3/3 abstain, so the v33 gain is not reproduced by best-of-N proof sketch sampling without the frozen residual-to-primitive repair path.
 
-41. v35-v37 held-out controls:
+41. v35-v38 held-out controls:
    v35 tests free-form RepairAgent patch JSON on the same held-out residual. The model emits parseable patch JSON, but chooses the wrong slot (`span_source=derived_path_binding`), and the fixed MetaVerifier rejects it. v36 tests structured selection without MetaVerifier: compiler-only acceptance admits the correct model selection and two bad controls, including wrong span source and parser relaxation. v37 summarizes the held-out control table: only structured primitive selection with MetaVerifier closes the held-out gap safely.
+   v38 withholds `residual_class`, `typed_reason`, `failed_frontier`, and `counterexample_summary`, but keeps API/field failure metadata and the frozen primitive library visible. Qwen still selects the correct literal-path primitive and MetaVerifier accepts. Therefore this narrow held-out slice supports the need for structured MetaVerified repair, but does not by itself prove typed residual labels are necessary.
 
 ## External Process State
 
@@ -412,8 +415,8 @@ Date: 2026-07-13
 - Do not report v30 retrospective replay as held-out test-time compute. It validates the frozen loop mechanics only; the stronger claim requires a preregistered prospective held-out run.
 - v31-v33 are prospective held-out TTC under the v30 freeze: fresh variations 10-12 are opened after freeze; no new primitives/proof families/parser edits are introduced; the first held-out repair closes 3 abstains with one model repair call.
 - v34 best-of-N no-repair is a held-out negative control: 8 sampled proof sketches per v32 abstain do not recover any of the 3 abstains and introduce no unsafe commits.
-- v35-v37 complete the first held-out control suite: free-form patch JSON is rejected by MetaVerifier, and compiler-only structured repair accepts bad controls without MetaVerifier.
+- v35-v38 complete the first held-out control suite: free-form patch JSON is rejected by MetaVerifier, compiler-only structured repair accepts bad controls without MetaVerifier, and withholding typed residual labels does not break this narrow literal-path case.
 
 ## Next Step
 
-Next, scale the held-out TTC evidence: run the same frozen protocol on additional held-out families or seeds, and report robustness curves. Do not add new proof frontiers for this claim without a new preregistered protocol.
+Next, scale the held-out TTC evidence to harder/more diverse residual families. In particular, test whether withholding typed residual labels still works for non-literal residuals such as source-path identity, ordered-note identity, and prior-effect playlist binding.

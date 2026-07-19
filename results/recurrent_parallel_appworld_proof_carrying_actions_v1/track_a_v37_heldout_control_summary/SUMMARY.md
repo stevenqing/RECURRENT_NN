@@ -15,8 +15,9 @@
 | `best_of_n_no_repair` | 24 | 62 | 3 | 0 | 0 | extra proof-sketch sampling does not recover held-out residuals |
 | `freeform_repairagent_patch_json` | 1 | 62 | 3 | 0 | 0 | free-form patch parses but MetaVerifier rejects wrong slot |
 | `structured_without_metaverifier` | 0 | None | None | None | 3 | compiler-only accepts bad slot controls; not safety-valid |
+| `structured_no_typed_residual_with_metaverifier` | 1 | 65 | 0 | 0 | 1 | typed labels withheld; model still infers the right frozen primitive on this narrow held-out slice |
 | `structured_with_metaverifier` | 1 | 65 | 0 | 0 | 1 | frozen primitive selection plus MetaVerifier closes held-out residuals |
 
 ## Interpretation
 
-On the prospective held-out executable subset, generic proof-sketch test-time compute and free-form patch JSON do not recover the residuals. Structured primitive selection with the frozen MetaVerifier closes the held-out gap, while the no-MetaVerifier control shows that compiler-only acceptance would also admit bad slot choices.
+On the prospective held-out executable subset, generic proof-sketch test-time compute and free-form patch JSON do not recover the residuals. Structured primitive selection with the frozen MetaVerifier closes the held-out gap, while the no-MetaVerifier control shows that compiler-only acceptance would also admit bad slot choices. The no-typed-residual ablation also closes this narrow literal-path gap, so this slice supports structured MetaVerified repair more strongly than it proves typed labels are necessary.

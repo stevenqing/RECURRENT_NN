@@ -43,6 +43,8 @@ def main() -> None:
         "v34_best_of_n": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v34_heldout_best_of_n_no_repair/results.json",
         "v35_freeform": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v35_heldout_freeform_repair/results.json",
         "v36_no_meta": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v36_heldout_no_metaverifier_control/results.json",
+        "v38_no_typed_eval": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v38_heldout_no_typed_residual/results.json",
+        "v38_no_typed_rescore": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v38_heldout_no_typed_residual/results.json",
     }
     data = {key: load_json(path) for key, path in paths.items()}
     controls = [
@@ -86,6 +88,16 @@ def main() -> None:
             "accepted_repairs": data["v36_no_meta"]["accepted_without_metaverifier"],
             "bad_controls_accepted": data["v36_no_meta"]["bad_controls_accepted_without_metaverifier"],
             "interpretation": "compiler-only accepts bad slot controls; not safety-valid",
+        },
+        {
+            "control": "structured_no_typed_residual_with_metaverifier",
+            "source": "v38",
+            "model_calls": data["v38_no_typed_eval"]["processed"],
+            "commit_live": data["v38_no_typed_rescore"]["decision_counts"].get("commit_live", 0),
+            "abstain_no_valid": data["v38_no_typed_rescore"]["decision_counts"].get("abstain_no_valid", 0),
+            "unsafe_unique_wrong": data["v38_no_typed_rescore"]["decision_counts"].get("unsafe_unique_wrong", 0),
+            "accepted_repairs": data["v38_no_typed_eval"]["accepted_count"],
+            "interpretation": "typed labels withheld; model still infers the right frozen primitive on this narrow held-out slice",
         },
         {
             "control": "structured_with_metaverifier",
@@ -134,7 +146,7 @@ def main() -> None:
         "",
         "## Interpretation",
         "",
-        "On the prospective held-out executable subset, generic proof-sketch test-time compute and free-form patch JSON do not recover the residuals. Structured primitive selection with the frozen MetaVerifier closes the held-out gap, while the no-MetaVerifier control shows that compiler-only acceptance would also admit bad slot choices.",
+        "On the prospective held-out executable subset, generic proof-sketch test-time compute and free-form patch JSON do not recover the residuals. Structured primitive selection with the frozen MetaVerifier closes the held-out gap, while the no-MetaVerifier control shows that compiler-only acceptance would also admit bad slot choices. The no-typed-residual ablation also closes this narrow literal-path gap, so this slice supports structured MetaVerified repair more strongly than it proves typed labels are necessary.",
     ]
     (output_dir / "SUMMARY.md").write_text("\n".join(report) + "\n")
     print(json.dumps({"status": payload["status"], "report": str((output_dir / "SUMMARY.md").relative_to(REPO_ROOT))}))

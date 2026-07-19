@@ -34,7 +34,7 @@ Inputs:
 - v30 test-time compute freeze/replay: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_freeze/FREEZE.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_replay/REPLAY.md`
 - v31-v33 held-out TTC: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v31_heldout_instance_preflight/PREFLIGHT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v32_heldout_no_repair/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v33_heldout_ttc/REPORT.md`
 - v34 held-out best-of-N no-repair control: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v34_heldout_best_of_n_no_repair/REPORT.md`
-- v35-v37 held-out controls: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v35_heldout_freeform_repair/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v36_heldout_no_metaverifier_control/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v37_heldout_control_summary/SUMMARY.md`
+- v35-v38 held-out controls: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v35_heldout_freeform_repair/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v36_heldout_no_metaverifier_control/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v38_heldout_no_typed_residual/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v37_heldout_control_summary/SUMMARY.md`
 
 Sealed AppWorld variations 10-12 remain closed.
 
@@ -150,6 +150,7 @@ Required controls before any headline claim:
 22. **R14a held-out best-of-N no-repair control:** complete. On the 3 v32 held-out abstains, 8 sampled proof sketches per row produce 24/24 sample abstentions and recover 0 rows. This control does not reproduce the v33 gain.
 23. **R14b held-out free-form RepairAgent control:** complete. Free-form patch JSON parses but is rejected by MetaVerifier because the model selects the wrong slot.
 24. **R14c held-out no-MetaVerifier control:** complete. Compiler-only structured repair accepts the correct selection and two bad slot controls, showing why MetaVerifier is required.
+25. **R14d held-out no-typed-residual control:** complete. With typed residual labels withheld, Qwen still selects the correct literal-path primitive. This narrows the current held-out claim: MetaVerified structured repair is supported, but typed-label necessity is not established on this slice.
 
 R5c structured policy result:
 
@@ -214,4 +215,4 @@ Current R12 status: `MODEL_PRIMITIVE_SELECTION_PASS after targeted retry`. This 
 
 Current R13 status: `RETROSPECTIVE_TTC_REPLAY_PASS`. The next gate is prospective held-out TTC under the frozen protocol; no new primitives, proof families, parser edits, or manual residual taxonomy are allowed after held-out outcomes are observed.
 
-Current R14 status: `HELDOUT_TTC_CONTROL_SUITE_PASS`. The next gate is robustness and scale under the same frozen protocol, not more hand-designed frontier patches.
+Current R14 status: `HELDOUT_TTC_CONTROL_SUITE_PASS_WITH_TYPED_LABEL_CAVEAT`. The next gate is robustness and scale under the same frozen protocol, especially held-out residuals where API/field metadata alone is insufficient.

@@ -497,12 +497,13 @@ unsafe_unique_wrong: 0
 
 Research interpretation: v34 is the first held-out negative control for the TTC claim. Extra proof-sketch sampling alone does not recover the literal export path residuals; v33 succeeds because the residual is converted into a frozen primitive-selection repair accepted by MetaVerifier.
 
-## v35-v37 Held-Out Control Suite
+## v35-v38 Held-Out Control Suite
 
 The remaining held-out controls are recorded at:
 
 - `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v35_heldout_freeform_repair/REPORT.md`
 - `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v36_heldout_no_metaverifier_control/REPORT.md`
+- `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v38_heldout_no_typed_residual/REPORT.md`
 - `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v37_heldout_control_summary/SUMMARY.md`
 
 Control table:
@@ -513,9 +514,10 @@ Control table:
 | best-of-N no repair | 3/3 residual rows remain abstain | extra proof-sketch sampling does not recover the gap |
 | free-form RepairAgent patch JSON | 0/1 accepted | parseable patch uses wrong slot and is rejected |
 | structured without MetaVerifier | accepts 3/3 including 2 bad controls | compiler-only acceptance is not safety-valid |
+| structured without typed residual labels | 65 commit, 0 abstain, 0 unsafe | this narrow literal-path case is solvable from untyped API/field failure metadata plus the frozen library |
 | structured with MetaVerifier | 65 commit, 0 abstain, 0 unsafe | frozen primitive selection plus MetaVerifier closes the gap |
 
-Research interpretation: the held-out controls now isolate the mechanism. The gain is not from generic best-of-N test-time compute, not from unconstrained patch JSON, and not from compiler-only structured repair. It requires typed residuals, frozen primitive selection, deterministic compilation, and MetaVerifier acceptance.
+Research interpretation: the held-out controls now isolate the main mechanism more carefully. The gain is not from generic best-of-N test-time compute, not from unconstrained patch JSON, and not from compiler-only structured repair. It does require frozen primitive selection, deterministic compilation, and MetaVerifier acceptance. However, the v38 no-typed-residual ablation succeeds on this narrow literal-path slice, so this particular held-out result does not prove typed residual labels are necessary; that claim needs harder residual families.
 
 ## Multi-Agent Interpretation
 

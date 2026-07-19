@@ -458,6 +458,8 @@ v34 held-out best-of-N no-repair control 已完成：对 v32 的 3 个 held-out 
 
 v35-v37 held-out controls 已完成：free-form RepairAgent patch JSON 1/1 parse，但因为把 `span_source` 写成 `derived_path_binding` 被 MetaVerifier 拒绝；structured without MetaVerifier 的 compiler-only path 接受 3/3，其中 2 个是 bad controls（wrong span source 和 parser relaxation）。v37 control summary 因此支持当前机制 claim：held-out gain 需要 typed residual、frozen primitive selection、deterministic compiler 和 MetaVerifier，不能简化为多采样或无约束 patch。
 
+v38 no-typed-residual ablation 已完成并改变 claim 边界：隐藏 `residual_class`、`typed_reason`、`failed_frontier`、`counterexample_summary` 后，模型仍然能从 untyped API/field failure metadata 和 frozen primitive library 中选出 literal export path repair，merged rescore 仍为 65/0/0。因此当前 held-out slice 证明的是 structured primitive selection + MetaVerifier 的必要性，而不是 typed residual label 的必要性。typed residual 是否必要需要在更难的 source-path、ordered-note、prior-effect 等 held-out residual 上继续测。
+
 这组 benchmark 的 research value 在于：
 
 - residual 是 typed abstain frontier gap，不是模型随机错误；
