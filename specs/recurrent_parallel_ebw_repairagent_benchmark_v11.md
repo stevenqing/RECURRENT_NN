@@ -34,6 +34,7 @@ Inputs:
 - v30 test-time compute freeze/replay: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_freeze/FREEZE.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_replay/REPLAY.md`
 - v31-v33 held-out TTC: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v31_heldout_instance_preflight/PREFLIGHT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v32_heldout_no_repair/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v33_heldout_ttc/REPORT.md`
 - v34 held-out best-of-N no-repair control: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v34_heldout_best_of_n_no_repair/REPORT.md`
+- v35-v37 held-out controls: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v35_heldout_freeform_repair/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v36_heldout_no_metaverifier_control/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v37_heldout_control_summary/SUMMARY.md`
 
 Sealed AppWorld variations 10-12 remain closed.
 
@@ -147,6 +148,8 @@ Required controls before any headline claim:
 20. **R13 test-time compute freeze/replay:** started. The TTC protocol is frozen before prospective held-out outcomes. Retrospective opened-data replay validates the loop mechanics, improving 831 commit / 16 abstain / 0 unsafe to 847 commit / 0 abstain / 0 unsafe in one parallel repair round with 5 recorded model calls. This is not yet the held-out TTC claim.
 21. **R14 prospective held-out TTC:** first pass complete. On fresh variations 10-12, v32 no-repair commits 62/65 executable rows with 3 safe abstentions and 0 unsafe. v33 forms one frozen-library residual packet, Qwen selects primitive IDs, MetaVerifier accepts the literal export path repair, and the merged rescore reaches 65/65 commit-live with 0 unsafe.
 22. **R14a held-out best-of-N no-repair control:** complete. On the 3 v32 held-out abstains, 8 sampled proof sketches per row produce 24/24 sample abstentions and recover 0 rows. This control does not reproduce the v33 gain.
+23. **R14b held-out free-form RepairAgent control:** complete. Free-form patch JSON parses but is rejected by MetaVerifier because the model selects the wrong slot.
+24. **R14c held-out no-MetaVerifier control:** complete. Compiler-only structured repair accepts the correct selection and two bad slot controls, showing why MetaVerifier is required.
 
 R5c structured policy result:
 
@@ -211,4 +214,4 @@ Current R12 status: `MODEL_PRIMITIVE_SELECTION_PASS after targeted retry`. This 
 
 Current R13 status: `RETROSPECTIVE_TTC_REPLAY_PASS`. The next gate is prospective held-out TTC under the frozen protocol; no new primitives, proof families, parser edits, or manual residual taxonomy are allowed after held-out outcomes are observed.
 
-Current R14 status: `HELDOUT_TTC_FIRST_PASS_WITH_BEST_OF_N_CONTROL`. The next gate is not another frontier patch; it is remaining controls on the same held-out executable subset: free-form RepairAgent patch JSON and structured RepairAgent without MetaVerifier.
+Current R14 status: `HELDOUT_TTC_CONTROL_SUITE_PASS`. The next gate is robustness and scale under the same frozen protocol, not more hand-designed frontier patches.

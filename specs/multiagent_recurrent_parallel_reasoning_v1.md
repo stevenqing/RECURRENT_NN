@@ -456,6 +456,8 @@ v31-v33 prospective held-out TTC first pass 已完成：fresh variations 10-12 �
 
 v34 held-out best-of-N no-repair control 已完成：对 v32 的 3 个 held-out abstains，每个额外采样 8 个 proof sketches，不调用 RepairAgent，不新增 frontier。24/24 samples 仍为 abstain，row-level 仍是 3 abstain / 0 unsafe。这支持 v33 的解释：收益来自 typed residual -> frozen primitive selection -> MetaVerifier，而不是普通 test-time 多采样。
 
+v35-v37 held-out controls 已完成：free-form RepairAgent patch JSON 1/1 parse，但因为把 `span_source` 写成 `derived_path_binding` 被 MetaVerifier 拒绝；structured without MetaVerifier 的 compiler-only path 接受 3/3，其中 2 个是 bad controls（wrong span source 和 parser relaxation）。v37 control summary 因此支持当前机制 claim：held-out gain 需要 typed residual、frozen primitive selection、deterministic compiler 和 MetaVerifier，不能简化为多采样或无约束 patch。
+
 这组 benchmark 的 research value 在于：
 
 - residual 是 typed abstain frontier gap，不是模型随机错误；

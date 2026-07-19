@@ -110,6 +110,7 @@ Analysis: v14 proves free-form patch generation is too unconstrained. v15-v16b s
 | v30 TTC freeze/replay | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_freeze/freeze.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_replay/replay.json` | Freezes the TTC protocol and records opened-data retrospective replay: 831/16/0 to 847/0/0 in one repair round. |
 | v31-v33 held-out TTC | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v31_heldout_instance_preflight/preflight.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v32_heldout_no_repair/results.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v33_heldout_ttc/results.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v33_heldout_ttc/results.json` | Prospective held-out TTC first pass: no-repair 62/65, structured RepairAgent+MetaVerifier 65/65, 0 unsafe. |
 | v34 held-out best-of-N no-repair | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v34_heldout_best_of_n_no_repair/results.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v34_heldout_best_of_n_no_repair/raw_model_outputs.json` | Negative control: 8 sampled proof sketches per v32 abstain, 3/3 rows remain abstain, 0 unsafe. |
+| v35-v37 held-out controls | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v35_heldout_freeform_repair/results.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v36_heldout_no_metaverifier_control/results.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v37_heldout_control_summary/summary.json` | Free-form patch rejected; no-MetaVerifier compiler-only accepts bad controls; structured+MetaVerifier uniquely closes gap. |
 
 Analysis: archive-path is a third proof family repaired by the same loop. It uses immutable directory-list evidence, extracts the source directory basename as `<vacation_spot>`, and fills the task literal archive path template and extension. v19 extends model-in-the-loop primitive selection beyond title-slug/output-contract to a new transform family.
 
@@ -193,6 +194,7 @@ Claim boundary:
 - v30 retrospective replay does not prove held-out test-time compute; it freezes the protocol and validates mechanics before prospective evaluation.
 - v31-v33 provide the first prospective held-out TTC evidence, but required baselines remain before a headline claim.
 - v34 shows best-of-N proof-sketch sampling without RepairAgent does not close the held-out residuals.
+- v35-v37 complete the initial held-out control suite and isolate the mechanism to structured primitive selection with MetaVerifier.
 - It does not yet prove fully open-ended autonomous repair.
 
 ## Push/Commit Guidance

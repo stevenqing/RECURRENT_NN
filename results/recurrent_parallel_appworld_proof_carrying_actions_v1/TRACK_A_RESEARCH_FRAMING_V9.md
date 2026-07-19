@@ -497,6 +497,26 @@ unsafe_unique_wrong: 0
 
 Research interpretation: v34 is the first held-out negative control for the TTC claim. Extra proof-sketch sampling alone does not recover the literal export path residuals; v33 succeeds because the residual is converted into a frozen primitive-selection repair accepted by MetaVerifier.
 
+## v35-v37 Held-Out Control Suite
+
+The remaining held-out controls are recorded at:
+
+- `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v35_heldout_freeform_repair/REPORT.md`
+- `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v36_heldout_no_metaverifier_control/REPORT.md`
+- `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v37_heldout_control_summary/SUMMARY.md`
+
+Control table:
+
+| Control | Result | Interpretation |
+|---|---|---|
+| one-shot no repair | 62 commit, 3 abstain, 0 unsafe | baseline proof-agent pass |
+| best-of-N no repair | 3/3 residual rows remain abstain | extra proof-sketch sampling does not recover the gap |
+| free-form RepairAgent patch JSON | 0/1 accepted | parseable patch uses wrong slot and is rejected |
+| structured without MetaVerifier | accepts 3/3 including 2 bad controls | compiler-only acceptance is not safety-valid |
+| structured with MetaVerifier | 65 commit, 0 abstain, 0 unsafe | frozen primitive selection plus MetaVerifier closes the gap |
+
+Research interpretation: the held-out controls now isolate the mechanism. The gain is not from generic best-of-N test-time compute, not from unconstrained patch JSON, and not from compiler-only structured repair. It requires typed residuals, frozen primitive selection, deterministic compilation, and MetaVerifier acceptance.
+
 ## Multi-Agent Interpretation
 
 This remains a multi-agent/free-lunch result if we keep the division of labor clean:
