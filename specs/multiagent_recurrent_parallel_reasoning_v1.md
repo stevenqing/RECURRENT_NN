@@ -454,6 +454,8 @@ v30 test-time compute protocol 已冻结并开始执行：冻结 parser/verifier
 
 v31-v33 prospective held-out TTC first pass 已完成：fresh variations 10-12 在 v30 freeze 后打开，v31 value-free preflight 得到 24 个 fresh tasks / 169 target instances；v32 no-repair held-out baseline 在 65 个可执行 prompts 上得到 62 commit / 3 abstain / 0 unsafe；v33 只用 frozen v29 primitive library 形成 1 个 `literal_export_path_binding_missing` residual packet，Qwen 选中 quoted task path primitives，MetaVerifier 接受 3/3 target rows，merged rescore 到 65 commit / 0 abstain / 0 unsafe。下一步必须跑 controls，而不是继续加 frontier。
 
+v34 held-out best-of-N no-repair control 已完成：对 v32 的 3 个 held-out abstains，每个额外采样 8 个 proof sketches，不调用 RepairAgent，不新增 frontier。24/24 samples 仍为 abstain，row-level 仍是 3 abstain / 0 unsafe。这支持 v33 的解释：收益来自 typed residual -> frozen primitive selection -> MetaVerifier，而不是普通 test-time 多采样。
+
 这组 benchmark 的 research value 在于：
 
 - residual 是 typed abstain frontier gap，不是模型随机错误；

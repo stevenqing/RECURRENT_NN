@@ -480,6 +480,23 @@ The v33 residual packet is `literal_export_path_binding_missing`: the three held
 
 Research interpretation: unlike v30, v31-v33 are prospective held-out evidence under the frozen protocol. It is still a narrow held-out slice and needs the required baselines, but it directly addresses the test-time-compute concern: extra RepairAgent compute after an initial proof-agent pass converts safe abstentions into safe commits without changing the proof library.
 
+## v34 Held-Out Best-of-N No-Repair Control
+
+The v34 control is recorded at `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v34_heldout_best_of_n_no_repair/REPORT.md`.
+
+It reruns only the three v32 held-out abstain rows with eight sampled proof sketches per row and no RepairAgent. Result:
+
+```text
+target_rows: 3
+samples_per_row: 8
+sample_decision_counts: 24 abstain_no_valid
+row_decision_counts: 3 abstain_no_valid
+sample_parse_rate: 0.125
+unsafe_unique_wrong: 0
+```
+
+Research interpretation: v34 is the first held-out negative control for the TTC claim. Extra proof-sketch sampling alone does not recover the literal export path residuals; v33 succeeds because the residual is converted into a frozen primitive-selection repair accepted by MetaVerifier.
+
 ## Multi-Agent Interpretation
 
 This remains a multi-agent/free-lunch result if we keep the division of labor clean:

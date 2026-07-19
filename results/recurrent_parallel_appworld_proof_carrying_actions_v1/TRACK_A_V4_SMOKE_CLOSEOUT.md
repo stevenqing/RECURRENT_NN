@@ -103,6 +103,7 @@ Date: 2026-07-13
 | v32 held-out no-repair rescore | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v32_heldout_no_repair/REPORT.md` |
 | v33 held-out TTC eval | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v33_heldout_ttc/REPORT.md` |
 | v33 held-out TTC rescore | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v33_heldout_ttc/REPORT.md` |
+| v34 held-out best-of-N no-repair control | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v34_heldout_best_of_n_no_repair/REPORT.md` |
 | Raw JSON index and analysis | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/TRACK_A_RAW_JSON_INDEX_AND_ANALYSIS.md` |
 
 ## Results
@@ -156,6 +157,7 @@ Date: 2026-07-13
 | v31 held-out instance preflight | value-free manifest | fresh variations 10-12 | `169 target instances, 65 executable prompts` | n/a | Opens held-out structure after v30 freeze; no argument/response values exported at preflight. |
 | v32 held-out no-repair baseline | strict full-text JSON | `chat_template_json_prefill_archive_path_v17` | `{'abstain_no_valid': 3, 'commit_live': 62}` | 0.954 | First prospective held-out baseline over 65 executable rows; 0 unsafe. |
 | v33 held-out TTC repair | primitive selection + deterministic compiler | frozen v29 literal export primitive | `{'commit_live': 65}` | 1.000 | One held-out RepairAgent model call selects quoted-path primitive and closes the 3 v32 abstains; 0 unsafe. |
+| v34 held-out best-of-N no-repair | sampled proof sketches, no RepairAgent | 8 samples on v32 abstains | `{'abstain_no_valid': 3}` | 0.125 sample parse | Extra proof-sketch compute alone does not close the held-out literal-export gap. |
 
 ## v6 Dev40 Breakdown
 
@@ -351,6 +353,9 @@ Date: 2026-07-13
 39. v31-v33 prospective held-out TTC:
    After the v30 freeze, fresh AppWorld variations 10-12 are used as held-out structure. v31 builds a value-free manifest with 24 fresh tasks and 169 target field instances; v32 builds 65 executable no-repair prompts and the held-out proof-agent baseline commits 62/65 with 3 safe abstentions and 0 unsafe. v33 automatically forms one frozen-library residual packet (`literal_export_path_binding_missing`), Qwen selects the frozen quoted-path primitive IDs, the held-out MetaVerifier accepts 3/3 target rows, and the merged rescore reaches 65/65 commit-live with 0 unsafe. This is the first prospective held-out TTC evidence under the frozen protocol.
 
+40. v34 held-out best-of-N no-repair control:
+   To test whether generic extra proof-sketch compute explains v33, the 3 v32 held-out abstains are rerun with 8 sampled proof sketches each and no RepairAgent. All 24 samples remain `abstain_no_valid` and sample parse rate is 0.125. The control stays at 3/3 abstain, so the v33 gain is not reproduced by best-of-N proof sketch sampling without the frozen residual-to-primitive repair path.
+
 ## External Process State
 
 - DPO equivalent workload was paused only to run Qwen smoke/dev-slice/target tests on GPU0/1.
@@ -397,7 +402,8 @@ Date: 2026-07-13
 - Do not report v21-v28 as Qwen synthesis. They are deterministic recurrent proof-frontier repairs; v29b is the model-in-loop primitive-selection result over those v21-v28 residual packets.
 - Do not report v30 retrospective replay as held-out test-time compute. It validates the frozen loop mechanics only; the stronger claim requires a preregistered prospective held-out run.
 - v31-v33 are prospective held-out TTC under the v30 freeze: fresh variations 10-12 are opened after freeze; no new primitives/proof families/parser edits are introduced; the first held-out repair closes 3 abstains with one model repair call.
+- v34 best-of-N no-repair is a held-out negative control: 8 sampled proof sketches per v32 abstain do not recover any of the 3 abstains and introduce no unsafe commits.
 
 ## Next Step
 
-Next, add the required held-out baselines around v32/v33: best-of-N proof sketches without repair, free-form RepairAgent patch JSON, and structured RepairAgent without MetaVerifier. The current held-out evidence already covers one-shot/no-repair and structured RepairAgent with MetaVerifier.
+Next, add the remaining held-out controls around v32/v33: free-form RepairAgent patch JSON and structured RepairAgent without MetaVerifier. The current held-out evidence now covers one-shot/no-repair, best-of-N no-repair, and structured RepairAgent with MetaVerifier.
