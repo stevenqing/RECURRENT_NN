@@ -1,0 +1,47 @@
+{
+  "schema": "recurrent_parallel_ebw_test_time_compute_heldout_contract_v1",
+  "status": "FROZEN_AFTER_V30_BEFORE_HELDOUT_VALUE_OUTCOMES",
+  "phase": "EBW_TRACK_A_PROSPECTIVE_HELDOUT_TTC_INSTANCE_PREFLIGHT",
+  "ttc_protocol": "specs/recurrent_parallel_ebw_test_time_compute_v1.json",
+  "ttc_freeze": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v30_test_time_compute_freeze/freeze.json",
+  "fresh_semantic_certification": "results/recurrent_parallel_appworld_fresh_variations_10_12_semantic_v2/certification.json",
+  "fresh_manifest": "results/recurrent_parallel_appworld_fresh_variations_10_12_semantic_v2/fresh_manifest.json",
+  "fresh_generated_root": "external_repos/appworld_generated_v10_12",
+  "sketch_manifest": "results/recurrent_parallel_appworld_broad_witness_sketch_v1/sketch_manifest.json",
+  "included_proof_families": [
+    "filesystem_path_derivation_proof",
+    "literal_text_derivation_proof",
+    "state_transition_membership_proof"
+  ],
+  "instance_manifest_policy": {
+    "value_free": true,
+    "include_task_ids": true,
+    "include_call_indices": true,
+    "include_argument_values": false,
+    "include_response_values": false,
+    "include_value_hashes": false,
+    "include_pre_read_counts_only": true
+  },
+  "expected_statuses": {
+    "ttc_freeze": "RPD_EBW_TRACK_A_V30_TEST_TIME_COMPUTE_FREEZE_READY",
+    "fresh_semantic_certification": "RPD_APPWORLD_FRESH_VARIATIONS_10_12_SEMANTIC_PASS",
+    "fresh_manifest": "RPD_APPWORLD_FRESH_VARIATIONS_10_12_SEMANTIC_PASS",
+    "sketch_manifest": "RPD_APPWORLD_BROAD_WITNESS_SKETCH_PREFLIGHT_READY"
+  },
+  "fresh_variations": [10, 11, 12],
+  "expected_fresh_tasks": 24,
+  "sealed_variations_opened_after_freeze": true,
+  "protected_content_export": false,
+  "argument_values_export": false,
+  "response_values_export": false,
+  "value_hashes_export": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "headline_eligible": false,
+  "claim_boundary": "This preflight opens only held-out value-free structure after the v30 freeze. It is not yet a held-out TTC model result.",
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_V31_HELDOUT_INSTANCE_PREFLIGHT_READY",
+    "blocked": "RPD_EBW_TRACK_A_V31_HELDOUT_INSTANCE_PREFLIGHT_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_V31_HELDOUT_INSTANCE_PREFLIGHT_PROTOCOL_FAIL"
+  }
+}

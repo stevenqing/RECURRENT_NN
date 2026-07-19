@@ -466,6 +466,20 @@ repair model calls: 5
 
 Research interpretation: this starts the test-time-compute line by freezing the allowed actions and replaying the loop mechanics. It is not a held-out result, because the proof frontiers were discovered on opened data. The actual TTC claim requires a prospective held-out split after this freeze.
 
+## v31-v33 Prospective Held-Out TTC
+
+The prospective held-out TTC stage starts after the v30 freeze.
+
+| Stage | Scope | Result |
+|---|---|---|
+| v31 | value-free held-out instance preflight | 24 fresh tasks, 169 target field instances |
+| v32 | held-out no-repair proof-agent baseline | 65 executable rows, 62 commit, 3 abstain, 0 unsafe |
+| v33 | frozen RepairAgent primitive selection + MetaVerifier | 1 residual packet, 1 model repair call, 65 commit, 0 abstain, 0 unsafe |
+
+The v33 residual packet is `literal_export_path_binding_missing`: the three held-out abstains are Spotify CSV `create_file.file_path` rows where the file path is a quoted task literal. Qwen selects the frozen primitives `span_source.quoted_task_path_exact`, `target_arg.file_path`, and `parser_policy.strict`; the held-out MetaVerifier accepts all 3 target rows, and CPU rescore closes the held-out executable subset.
+
+Research interpretation: unlike v30, v31-v33 are prospective held-out evidence under the frozen protocol. It is still a narrow held-out slice and needs the required baselines, but it directly addresses the test-time-compute concern: extra RepairAgent compute after an initial proof-agent pass converts safe abstentions into safe commits without changing the proof library.
+
 ## Multi-Agent Interpretation
 
 This remains a multi-agent/free-lunch result if we keep the division of labor clean:

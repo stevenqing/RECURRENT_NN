@@ -308,6 +308,7 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, default=Path("results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_manifest_v1"))
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--skip-ineligible", action="store_true")
+    parser.add_argument("--sealed-variations-opened", action="store_true")
     args = parser.parse_args()
     output_dir = resolve(args.output_dir)
     if output_dir.exists():
@@ -384,16 +385,17 @@ def main() -> None:
         output_rows.append(output_row)
     output_dir.mkdir(parents=True)
     prompt_path = output_dir / "prompt_manifest.json"
-    manifest_payload = {"schema": "ebw_track_a_prompt_manifest_v1", "status": "RPD_EBW_TRACK_A_PROMPT_MANIFEST_READY", "rows": output_rows, "skipped_rows": skipped_rows, "source_manifest_sha256": file_hash(source_manifest_path), "ordinal_manifest_sha256": file_hash(ordinal_manifest_path), "sealed_variations_opened": False}
+    manifest_payload = {"schema": "ebw_track_a_prompt_manifest_v1", "status": "RPD_EBW_TRACK_A_PROMPT_MANIFEST_READY", "rows": output_rows, "skipped_rows": skipped_rows, "source_manifest_sha256": file_hash(source_manifest_path), "ordinal_manifest_sha256": file_hash(ordinal_manifest_path), "sealed_variations_opened": bool(args.sealed_variations_opened)}
     if preflight_path is not None:
         manifest_payload["source_preflight_sha256"] = file_hash(preflight_path)
     if prompt_assets:
         manifest_payload["prompt_assets_sha256"] = file_hash(resolve(args.prompt_assets))
         manifest_payload["prompt_protocol"] = prompt_assets["prompt_protocol"]
     write_json(prompt_path, manifest_payload)
-    payload = {"schema": "ebw_track_a_prompt_manifest_build_v1", "status": "RPD_EBW_TRACK_A_PROMPT_MANIFEST_READY", "rows": len(output_rows), "skipped_rows": len(skipped_rows), "limit": args.limit, "prompt_manifest_sha256": file_hash(prompt_path), "prompt_protocol": manifest_payload.get("prompt_protocol", "raw_completion_template"), "source_manifest_sha256": file_hash(source_manifest_path), "ordinal_manifest_sha256": file_hash(ordinal_manifest_path), "sealed_variations_opened": False, "model_gpu_docker_used": False}
+    payload = {"schema": "ebw_track_a_prompt_manifest_build_v1", "status": "RPD_EBW_TRACK_A_PROMPT_MANIFEST_READY", "rows": len(output_rows), "skipped_rows": len(skipped_rows), "limit": args.limit, "prompt_manifest_sha256": file_hash(prompt_path), "prompt_protocol": manifest_payload.get("prompt_protocol", "raw_completion_template"), "source_manifest_sha256": file_hash(source_manifest_path), "ordinal_manifest_sha256": file_hash(ordinal_manifest_path), "sealed_variations_opened": bool(args.sealed_variations_opened), "model_gpu_docker_used": False}
     write_json(output_dir / "manifest_build.json", payload)
-    (output_dir / "PROMPT_MANIFEST.md").write_text("\n".join(["# EBW Track A Prompt Manifest", "", f"## Status: **`{payload['status']}`**", "", f"- Rows: {len(output_rows)}", f"- Skipped rows: {len(skipped_rows)}", f"- Limit: {args.limit}", f"- Prompt protocol: `{payload['prompt_protocol']}`", "- Sealed variations 10-12 opened: No", "- Model/GPU/Docker actions: No"]) + "\n")
+    sealed_text = "Yes" if args.sealed_variations_opened else "No"
+    (output_dir / "PROMPT_MANIFEST.md").write_text("\n".join(["# EBW Track A Prompt Manifest", "", f"## Status: **`{payload['status']}`**", "", f"- Rows: {len(output_rows)}", f"- Skipped rows: {len(skipped_rows)}", f"- Limit: {args.limit}", f"- Prompt protocol: `{payload['prompt_protocol']}`", f"- Sealed variations 10-12 opened: {sealed_text}", "- Model/GPU/Docker actions: No"]) + "\n")
     print(json.dumps({"status": payload["status"], "rows": len(output_rows), "report": str((output_dir / "PROMPT_MANIFEST.md").relative_to(REPO_ROOT))}))
 
 

@@ -99,6 +99,7 @@ def main() -> None:
         rows.append({"residual_id": row["residual_id"], "residual_class": row["residual_class"], "output": text, "parse_ok": parsed.ok})
     raw_path = output_dir / "raw_model_outputs.json"
     write_json(raw_path, {"schema": "ebw_track_a_v29_frontier_selection_raw_outputs_v1", "rows": rows})
+    sealed_variations_opened = bool(manifest.get("sealed_variations_opened", False))
     payload = {
         "schema": "ebw_track_a_v29_frontier_selection_model_run_v1",
         "status": "RPD_EBW_TRACK_A_V29_FRONTIER_SELECTION_MODEL_RUN_COMPLETE",
@@ -111,18 +112,19 @@ def main() -> None:
         "prompt_manifest_sha256": file_hash(manifest_path),
         "raw_outputs_sha256": file_hash(raw_path),
         "prompt_protocol": manifest.get("prompt_protocol", "unknown"),
-        "sealed_variations_opened": False,
+        "sealed_variations_opened": sealed_variations_opened,
     }
     write_json(output_dir / "results.json", payload)
+    sealed_text = "Yes" if sealed_variations_opened else "No"
     report = [
-        "# EBW Track A v29 Frontier Selection Model Run",
+        "# EBW Track A Frontier Selection Model Run",
         "",
         f"## Status: **`{payload['status']}`**",
         "",
         f"- Processed: {len(rows)}",
         f"- Parse counts: {payload['parse_counts']}",
         f"- Parse rate: {payload['parse_rate']:.3f}",
-        "- Sealed variations 10-12 opened: No",
+        f"- Sealed variations 10-12 opened: {sealed_text}",
     ]
     (output_dir / "REPORT.md").write_text("\n".join(report) + "\n")
     print(json.dumps({"status": payload["status"], "processed": len(rows), "parse_counts": payload["parse_counts"], "report": str((output_dir / "REPORT.md").relative_to(REPO_ROOT))}))

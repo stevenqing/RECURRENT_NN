@@ -26,6 +26,11 @@ class TestEbwObligationSketch(unittest.TestCase):
         self.assertFalse(outcome.ok)
         self.assertEqual(outcome.typed_reason, "parse_error")
 
+    def test_parser_rejects_unhashable_obligation(self):
+        outcome = parse_track_a_sketch({"obligation": {"name": "literal_intent_binding"}, "user_span": {"start": 1, "end": 2}, "target_arg": "message"})
+        self.assertFalse(outcome.ok)
+        self.assertEqual(outcome.typed_reason, "parse_error")
+
     def test_parser_rejects_bad_bindings(self):
         self.assertFalse(parse_track_a_sketch({"obligation": "derived_path_binding", "source_read_id": "r1", "source_path_field": "p", "derivation": "parent", "target_arg": "x"}).ok)
         self.assertFalse(parse_track_a_sketch({"obligation": "literal_intent_binding", "user_span": {"start": 2, "end": 2}, "target_arg": "x"}).ok)

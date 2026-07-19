@@ -452,6 +452,8 @@ v29/v29b model-in-the-loop primitive selection 已完成：把 v21-v28 closure �
 
 v30 test-time compute protocol 已冻结并开始执行：冻结 parser/verifier/rescorer/v29 primitive library/compiler/MetaVerifier 后，先做 opened-data retrospective replay，只验证 mechanics：round0 v17 是 831 commit / 16 abstain / 0 unsafe；round1 parallel v29b repair 用 5 个记录的 model calls 达到 847 commit / 0 abstain / 0 unsafe。这个结果不能写成 held-out test-time compute claim；真正的下一步是 prospective held-out TTC，在看到 held-out outcomes 之后不允许新增 primitives、proof families、parser edits 或人工 residual taxonomy。
 
+v31-v33 prospective held-out TTC first pass 已完成：fresh variations 10-12 在 v30 freeze 后打开，v31 value-free preflight 得到 24 个 fresh tasks / 169 target instances；v32 no-repair held-out baseline 在 65 个可执行 prompts 上得到 62 commit / 3 abstain / 0 unsafe；v33 只用 frozen v29 primitive library 形成 1 个 `literal_export_path_binding_missing` residual packet，Qwen 选中 quoted task path primitives，MetaVerifier 接受 3/3 target rows，merged rescore 到 65 commit / 0 abstain / 0 unsafe。下一步必须跑 controls，而不是继续加 frontier。
+
 这组 benchmark 的 research value 在于：
 
 - residual 是 typed abstain frontier gap，不是模型随机错误；

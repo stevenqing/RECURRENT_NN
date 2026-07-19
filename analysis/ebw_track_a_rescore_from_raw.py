@@ -108,6 +108,7 @@ def main() -> None:
     write_json(output_dir / "rows.json", {"schema": "ebw_track_a_rescore_rows_v1", "rows": rows, "skipped_raw_rows": skipped_raw_rows})
     safe = int(counts.get("commit_live", 0))
     unsafe = int(counts.get("unsafe_unique_wrong", 0))
+    sealed_variations_opened = bool(manifest.get("sealed_variations_opened", False))
     payload = {
         "schema": "ebw_track_a_rescore_from_raw_v1",
         "status": "RPD_EBW_TRACK_A_RESCORE_COMPLETE",
@@ -123,11 +124,12 @@ def main() -> None:
         "verifier_policy_sha256": file_hash(verifier_policy_path) if verifier_policy_path else None,
         "derived_path_adversary_policy": DERIVED_PATH_ADVERSARY_POLICY,
         "prompt_protocol": manifest.get("prompt_protocol", "unknown"),
-        "sealed_variations_opened": False,
+        "sealed_variations_opened": sealed_variations_opened,
         "model_gpu_docker_used": False,
         "external_process_actions": False,
     }
     write_json(output_dir / "results.json", payload)
+    sealed_text = "Yes" if sealed_variations_opened else "No"
     report = [
         "# EBW Track A Raw Output Rescore",
         "",
@@ -141,7 +143,7 @@ def main() -> None:
         f"- Prompt protocol: `{payload['prompt_protocol']}`",
         f"- Derived path adversary policy: `{payload['derived_path_adversary_policy']}`",
         "- Model/GPU/Docker/external process actions: No",
-        "- Sealed variations 10-12 opened: No",
+        f"- Sealed variations 10-12 opened: {sealed_text}",
     ]
     (output_dir / "REPORT.md").write_text("\n".join(report) + "\n")
     print(json.dumps({"status": payload["status"], "processed": len(rows), "counts": payload["decision_counts"], "report": str((output_dir / "REPORT.md").relative_to(REPO_ROOT))}))

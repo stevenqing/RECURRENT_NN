@@ -89,7 +89,7 @@ def parse_track_a_sketch(raw: str | Mapping[str, Any]) -> ParseOutcome:
     if not isinstance(value, dict):
         return ParseOutcome(False, None, "parse_error", "sketch must be JSON object")
     obligation = value.get("obligation")
-    if obligation not in TRACK_A_PATTERNS:
+    if not isinstance(obligation, str) or obligation not in TRACK_A_PATTERNS:
         return ParseOutcome(False, None, "parse_error", "unknown obligation")
     required = REQUIRED_KEYS[obligation]
     if set(value) != required:
