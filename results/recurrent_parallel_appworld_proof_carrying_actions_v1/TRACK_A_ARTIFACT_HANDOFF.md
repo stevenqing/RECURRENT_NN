@@ -1,6 +1,6 @@
 # EBW Track A Artifact Handoff
 
-## Status: **`TRACK_A_FREEZE_READINESS_READY_NOT_TAGGED`**
+## Status: **`TRACK_A_EXECUTION_PREFLIGHT_AND_SMOKE_READY`**
 
 This step implements the first Track A artifacts for LLM obligation-sketch synthesis, freezes value-free dev slice IDs, fills four few-shot example bodies, and records the prompt hash. It does not create `ebw-freeze-A` and does not open sealed variations 10-12.
 
@@ -22,6 +22,9 @@ This step implements the first Track A artifacts for LLM obligation-sketch synth
 - Audited GA-dev and GA-main asserts against the freeze spec.
 - Audited baseline arms and call/token caps.
 - Wrote execution lock for pre-tag freeze readiness.
+- Created local `ebw-freeze-A` tag at commit `eba53ba`.
+- Built opened-pool Track A execution preflight: 1226 reportable instances after excluding 40 dev-slice IDs.
+- Ran synthetic runner smoke covering parse error, retry repair, competing validity, no validity, unsafe aggregation, and GA-main failure accounting.
 
 ## Validation
 
@@ -45,13 +48,17 @@ This step implements the first Track A artifacts for LLM obligation-sketch synth
 - Runner config: `config/ebw_track_a_runner_v1.json`
 - Freeze-readiness audit: `analysis/ebw_track_a_freeze_readiness.py`
 - Freeze-readiness report: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_freeze_readiness_v1/FREEZE_READINESS.md`
+- Execution preflight: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_execution_preflight_v1/PREFLIGHT.md`
+- Evaluation manifest: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_execution_preflight_v1/evaluation_manifest.json`
+- Runner smoke: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_runner_smoke_v1/SMOKE.md`
 
 ## Not Yet Frozen
 
-The following are still required before `ebw-freeze-A`:
+The following is still required before any real model run result can be claimed:
 
-- commit all freeze artifacts;
-- create the git tag `ebw-freeze-A` only after artifacts are committed.
+- schedule and run the frozen Track A opened-pool model job from `ebw-freeze-A` inputs;
+- report all baselines with matched call/token caps;
+- do not open sealed variations 10-12 unless GA-main passes and a confirmatory protocol is frozen.
 
 ## Safety Boundary
 

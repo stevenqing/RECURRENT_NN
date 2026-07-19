@@ -10,6 +10,9 @@ from pathlib import Path
 from typing import Any
 
 from analysis.ebw_track_a_prompt_freeze import compact_context, run_task_trace, sanitize
+from analysis.ebw_track_a_v11_title_slug_feasibility import title_slug_candidate
+from analysis.ebw_track_a_v17_archive_path_feasibility import archive_path_candidate
+from analysis.ebw_track_a_v9_path_pair_feasibility import path_pair_candidate
 from analysis.recurrent_appworld_generated_typed_provenance_development_v6 import install_v6_compatibility
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -63,6 +66,8 @@ def prompt_text_from_messages(messages: list[dict[str, str]], response_prefill: 
 
 
 def required_obligation(row: dict[str, Any]) -> str | None:
+    if row.get("required_obligation"):
+        return str(row["required_obligation"])
     if row["proof_family"] == "filesystem_path_derivation_proof":
         return "derived_path_binding"
     if row["proof_family"] == "literal_text_derivation_proof":
@@ -229,6 +234,21 @@ def build_v3_messages(assets: dict[str, Any], row: dict[str, Any], context: dict
             if not candidates:
                 raise RuntimeError(("missing_ordered_role_candidate", row["instance_id"], ordinal))
             user_payload["ordered_role_candidates"] = candidates
+        if obligation == "path_pair_transform_binding" and "path_pair_candidate_policy" in assets:
+            candidate = path_pair_candidate({"context": context, "live_arguments": sanitize(context["candidate_action"]["arguments"])})
+            if candidate is None or not candidate["match"]:
+                raise RuntimeError(("missing_path_pair_candidate", row["instance_id"], candidate))
+            user_payload["path_pair_transform_candidates"] = [candidate]
+        if obligation == "title_slug_export_path_binding" and "title_slug_candidate_policy" in assets:
+            candidate = title_slug_candidate({"context": context, "live_arguments": sanitize(context["candidate_action"]["arguments"])})
+            if candidate is None or not candidate["match"]:
+                raise RuntimeError(("missing_title_slug_candidate", row["instance_id"], candidate))
+            user_payload["title_slug_export_path_candidates"] = [candidate]
+        if obligation == "directory_basename_archive_path_binding" and "archive_path_candidate_policy" in assets:
+            candidate = archive_path_candidate({"context": context, "live_arguments": sanitize(context["candidate_action"]["arguments"])})
+            if candidate is None or not candidate["match"]:
+                raise RuntimeError(("missing_archive_path_candidate", row["instance_id"], candidate))
+            user_payload["directory_basename_archive_path_candidates"] = [candidate]
     user_content = assets["user_preamble"] + "\n" + json.dumps(user_payload, indent=2, sort_keys=True, ensure_ascii=False)
     messages = [
         {"role": "system", "content": assets["system_message"]},
@@ -243,6 +263,12 @@ def build_v3_messages(assets: dict[str, Any], row: dict[str, Any], context: dict
         "derived_path_candidates": user_payload.get("derived_path_candidates"),
         "ordered_role_candidates": user_payload.get("ordered_role_candidates"),
         "ordered_role_candidate_policy": assets.get("ordered_role_candidate_policy"),
+        "path_pair_transform_candidates": user_payload.get("path_pair_transform_candidates"),
+        "path_pair_candidate_policy": assets.get("path_pair_candidate_policy"),
+        "title_slug_export_path_candidates": user_payload.get("title_slug_export_path_candidates"),
+        "title_slug_candidate_policy": assets.get("title_slug_candidate_policy"),
+        "directory_basename_archive_path_candidates": user_payload.get("directory_basename_archive_path_candidates"),
+        "archive_path_candidate_policy": assets.get("archive_path_candidate_policy"),
     }
     return messages, assets["response_prefill"], {key: value for key, value in metadata.items() if value is not None}
 

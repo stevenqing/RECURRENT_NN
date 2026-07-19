@@ -1,0 +1,41 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_prompt_protocol_v17",
+  "status": "DEV_ARCHIVE_PATH_MODEL_SYNTHESIS_AFTER_V17_FEASIBILITY",
+  "frozen_date": "2026-07-15",
+  "parent_freeze_tag": "ebw-freeze-A",
+  "parent_prompt_freeze": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_freeze_v11b/prompt_freeze_v11b.json",
+  "reason_for_repair": "The v17 CPU feasibility gate converted 9 post-v11b directory archive abstains to commit_live with 0 unsafe by binding immutable directory-list evidence, extracting the source directory basename as vacation_spot, and filling the task literal archive template.",
+  "repair_scope": [
+    "keep v11b output contract and prior proof schemas",
+    "add directory_basename_archive_path_binding as a model-emitted proof sketch",
+    "require sketches to match deterministic directory_basename_archive_path_candidates exactly",
+    "keep strict JSON parser",
+    "do not open sealed variations"
+  ],
+  "archive_path_candidate_policy": "directory_list_basename_task_archive_template_v17",
+  "archive_path_schema": {
+    "obligation": "directory_basename_archive_path_binding",
+    "required_keys": ["obligation", "source_read_id", "source_directory_field", "destination_template_rule_id", "basename_transform", "extension", "target_arg"],
+    "basename_transform_value": "directory_basename",
+    "allowed_extension_values": [".zip", ".tar"]
+  },
+  "archive_path_example": {
+    "obligation": "directory_basename_archive_path_binding",
+    "source_read_id": "read_5",
+    "source_directory_field": "response.2",
+    "destination_template_rule_id": "task_literal_vacation_spot_archive_template",
+    "basename_transform": "directory_basename",
+    "extension": ".zip",
+    "target_arg": "compressed_file_path"
+  },
+  "parser_policy": "strict_json_no_regex_repair",
+  "primary_gate_policy": "strict_full_text_json_only",
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_PROMPT_V17_READY_NOT_TAGGED",
+    "blocked": "RPD_EBW_TRACK_A_PROMPT_V17_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_PROMPT_V17_PROTOCOL_FAIL"
+  }
+}

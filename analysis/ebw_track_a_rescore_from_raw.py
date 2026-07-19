@@ -8,7 +8,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from analysis.ebw_track_a_model_run_from_manifest import DERIVED_PATH_ADVERSARY_POLICY, adversarial_candidate, candidate_values, sketch_policy_valid, verify
+from analysis.ebw_track_a_model_run_from_manifest import DERIVED_PATH_ADVERSARY_POLICY, adversarial_candidate, row_evidence_values, row_verify, sketch_policy_valid
 from experiments.ebw_obligation_sketch import barrier_unique_validity, parse_track_a_sketch
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -83,10 +83,10 @@ def main() -> None:
                 continue
             live_value = row["live_arguments"][row["field_name"]]
             ordinal = int(row["write_ordinal_for_schema"])
-            vals = candidate_values(parsed.sketch, row["context"], ordinal)
+            vals = row_evidence_values(parsed.sketch, row)
             adversarial = adversarial_candidate(parsed.sketch, live_value, vals)
-            live_valid = verify(parsed.sketch, live_value, row["context"], ordinal)
-            adversarial_valid = verify(parsed.sketch, adversarial, row["context"], ordinal)
+            live_valid = row_verify(parsed.sketch, live_value, row, vals)
+            adversarial_valid = row_verify(parsed.sketch, adversarial, row, vals)
             barrier = barrier_unique_validity({"live": live_valid, "adversarial": adversarial_valid})
             if barrier["decision"] != "commit":
                 decision = "ambiguous_both_valid" if barrier["typed_reason"] == "competing_valid" else "abstain_no_valid"

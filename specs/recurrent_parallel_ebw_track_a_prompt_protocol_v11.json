@@ -1,0 +1,42 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_prompt_protocol_v11",
+  "status": "DEV_TITLE_SLUG_MODEL_SYNTHESIS_AFTER_R1_BEFORE_GPU",
+  "frozen_date": "2026-07-14",
+  "parent_freeze_tag": "ebw-freeze-A",
+  "parent_prompt_freeze": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_freeze_v9/prompt_freeze_v9.json",
+  "reason_for_repair": "The v11 R1 CPU feasibility gate converted 65 post-v10 title-slug abstain rows to commit_live with 0 unsafe by binding the latest matching pre-write show_note read and applying task-literal backup directory plus whitespace-to-underscore title slugging.",
+  "repair_scope": [
+    "keep v9 path-pair protocol for existing obligations",
+    "add title_slug_export_path_binding as a model-emitted proof sketch",
+    "require sketches to match deterministic title_slug_export_path_candidates exactly",
+    "keep strict JSON parser",
+    "do not open sealed variations"
+  ],
+  "title_slug_candidate_policy": "latest_show_note_title_whitespace_slug_task_directory_md_v11",
+  "title_slug_schema": {
+    "obligation": "title_slug_export_path_binding",
+    "required_keys": ["obligation", "source_read_id", "title_field", "content_field", "destination_directory_rule_id", "slug_transform", "extension", "target_arg"],
+    "slug_transform_value": "whitespace_to_underscore",
+    "extension_value": ".md"
+  },
+  "title_slug_example": {
+    "obligation": "title_slug_export_path_binding",
+    "source_read_id": "read_14",
+    "title_field": "response.title",
+    "content_field": "response.content",
+    "destination_directory_rule_id": "task_literal_backup_directory",
+    "slug_transform": "whitespace_to_underscore",
+    "extension": ".md",
+    "target_arg": "file_path"
+  },
+  "parser_policy": "strict_json_no_regex_repair",
+  "primary_gate_policy": "strict_full_text_json_only",
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_PROMPT_V11_READY_NOT_TAGGED",
+    "blocked": "RPD_EBW_TRACK_A_PROMPT_V11_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_PROMPT_V11_PROTOCOL_FAIL"
+  }
+}

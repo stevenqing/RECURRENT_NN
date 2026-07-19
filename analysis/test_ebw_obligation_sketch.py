@@ -10,6 +10,9 @@ class TestEbwObligationSketch(unittest.TestCase):
             {"obligation": "literal_intent_binding", "user_span": {"start": 10, "end": 15}, "target_arg": "message"},
             {"obligation": "prior_effect_binding", "effect_step_id": "w3", "effect_field": "playlist_id", "target_arg": "playlist_id"},
             {"obligation": "ordered_role_binding", "order_source_read_id": "r5", "order_field": "song_id", "index_expr": "same_rank", "target_arg": "song_id"},
+            {"obligation": "path_pair_transform_binding", "source_read_id": "r1", "source_path_field": "response.path", "date_read_id": "r1", "date_field": "response.created_at", "destination_directory_rule_id": "current_year_2023_else_trash", "transform": "date_prefix_basename_into_directory", "target_arg": "destination_file_path"},
+            {"obligation": "title_slug_export_path_binding", "source_read_id": "r7", "title_field": "response.title", "content_field": "response.content", "destination_directory_rule_id": "task_literal_backup_directory", "slug_transform": "whitespace_to_underscore", "extension": ".md", "target_arg": "file_path"},
+            {"obligation": "directory_basename_archive_path_binding", "source_read_id": "r9", "source_directory_field": "response.2", "destination_template_rule_id": "task_literal_vacation_spot_archive_template", "basename_transform": "directory_basename", "extension": ".zip", "target_arg": "compressed_file_path"},
         ]
         for example in examples:
             outcome = parse_track_a_sketch(example)
@@ -25,6 +28,11 @@ class TestEbwObligationSketch(unittest.TestCase):
         self.assertFalse(parse_track_a_sketch({"obligation": "derived_path_binding", "source_read_id": "r1", "source_path_field": "p", "derivation": "parent", "target_arg": "x"}).ok)
         self.assertFalse(parse_track_a_sketch({"obligation": "literal_intent_binding", "user_span": {"start": 2, "end": 2}, "target_arg": "x"}).ok)
         self.assertFalse(parse_track_a_sketch({"obligation": "ordered_role_binding", "order_source_read_id": "r1", "order_field": "song_id", "index_expr": "first", "target_arg": "song_id"}).ok)
+        self.assertFalse(parse_track_a_sketch({"obligation": "path_pair_transform_binding", "source_read_id": "r1", "source_path_field": "response.path", "date_read_id": "r1", "date_field": "response.created_at", "destination_directory_rule_id": "rule", "transform": "basename", "target_arg": "x"}).ok)
+        self.assertFalse(parse_track_a_sketch({"obligation": "title_slug_export_path_binding", "source_read_id": "r1", "title_field": "response.title", "content_field": "response.content", "destination_directory_rule_id": "task_literal_backup_directory", "slug_transform": "lowercase", "extension": ".md", "target_arg": "file_path"}).ok)
+        self.assertFalse(parse_track_a_sketch({"obligation": "title_slug_export_path_binding", "source_read_id": "r1", "title_field": "response.title", "content_field": "response.content", "destination_directory_rule_id": "task_literal_backup_directory", "slug_transform": "whitespace_to_underscore", "extension": ".txt", "target_arg": "file_path"}).ok)
+        self.assertFalse(parse_track_a_sketch({"obligation": "directory_basename_archive_path_binding", "source_read_id": "r1", "source_directory_field": "response.0", "destination_template_rule_id": "task_literal_vacation_spot_archive_template", "basename_transform": "parent_directory", "extension": ".zip", "target_arg": "compressed_file_path"}).ok)
+        self.assertFalse(parse_track_a_sketch({"obligation": "directory_basename_archive_path_binding", "source_read_id": "r1", "source_directory_field": "response.0", "destination_template_rule_id": "task_literal_vacation_spot_archive_template", "basename_transform": "directory_basename", "extension": ".rar", "target_arg": "compressed_file_path"}).ok)
 
     def test_barrier_unique_validity(self):
         self.assertEqual(barrier_unique_validity({"A": True, "B": False}), {"decision": "commit", "candidate_id": "A", "typed_reason": None})

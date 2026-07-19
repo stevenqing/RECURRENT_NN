@@ -15,6 +15,9 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, StoppingCriteria, 
 
 from experiments.ebw_obligation_sketch import barrier_unique_validity, parse_track_a_sketch
 from experiments.appworld_trace_replay import canonical
+from analysis.ebw_track_a_v17_archive_path_feasibility import parse_archive_rule
+from analysis.ebw_track_a_v11_title_slug_feasibility import slug_title
+from analysis.ebw_track_a_v9_path_pair_feasibility import format_prefix, tilde_dir_from_source
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DERIVED_PATH_ADVERSARY_POLICY = "path_shape_preserving_basename_mutation_v7"
@@ -143,6 +146,49 @@ def candidate_values(sketch: dict[str, Any], context: dict[str, Any], ordinal: i
                     vals.extend(values_for_key(read["response"], field))
             return unique(vals)
         return unique(values_for_key(ref_response(context, source), field))
+    if obligation == "path_pair_transform_binding":
+        source_response = ref_response(context, str(sketch["source_read_id"]))
+        date_response = ref_response(context, str(sketch["date_read_id"]))
+        source_values = values_for_dotted_path(source_response, str(sketch["source_path_field"]))
+        date_values = values_for_dotted_path(date_response, str(sketch["date_field"]))
+        if not source_values or not date_values:
+            return []
+        source_path = norm_path(source_values[0])
+        created_at = str(date_values[0])
+        rule_id = str(sketch["destination_directory_rule_id"])
+        match = re.fullmatch(r"current_year_(\d{4})_else_(.+)", rule_id)
+        if not match:
+            return []
+        current_year, trash_name = match.groups()
+        source_directory = tilde_dir_from_source(source_path)
+        trash_directory = "~/" + trash_name if not trash_name.startswith("~") else trash_name
+        destination_directory = source_directory if created_at[:4] == current_year else trash_directory
+        # The rule id fixes the year/destination rule; the transform fixes date prefix format by row candidates when present.
+        prefix = format_prefix("YYYY-MM-DD_", created_at)
+        return [posixpath.join(destination_directory, prefix + posixpath.basename(source_path))]
+    if obligation == "title_slug_export_path_binding":
+        response = ref_response(context, str(sketch["source_read_id"]))
+        title_values = values_for_dotted_path(response, str(sketch["title_field"]))
+        if not title_values:
+            return []
+        directory_rule = str(sketch["destination_directory_rule_id"])
+        if directory_rule != "task_literal_backup_directory":
+            return []
+        directory_match = re.search(r'to\s+"([^"]+)"\s+directory', context["task_text"])
+        if not directory_match:
+            return []
+        directory = directory_match.group(1).rstrip("/")
+        return [posixpath.join(directory, slug_title(str(title_values[0])) + str(sketch["extension"]))]
+    if obligation == "directory_basename_archive_path_binding":
+        response = ref_response(context, str(sketch["source_read_id"]))
+        source_values = values_for_dotted_path(response, str(sketch["source_directory_field"]))
+        if not source_values:
+            return []
+        rule = parse_archive_rule(context["task_text"])
+        if rule is None or str(sketch["destination_template_rule_id"]) != rule["template_rule_id"]:
+            return []
+        basename = posixpath.basename(norm_path(str(source_values[0])))
+        return [rule["template"].replace("<vacation_spot>", basename)]
     return []
 
 
@@ -168,6 +214,41 @@ def _ordered_candidate_matches(sketch: dict[str, Any], candidate: dict[str, Any]
     )
 
 
+def _path_pair_candidate_matches(sketch: dict[str, Any], candidate: dict[str, Any]) -> bool:
+    return (
+        str(sketch["source_read_id"]) == str(candidate["source_read_id"])
+        and str(sketch["source_path_field"]) == str(candidate["source_path_field"])
+        and str(sketch["date_read_id"]) == str(candidate["date_read_id"])
+        and str(sketch["date_field"]) == str(candidate["date_field"])
+        and str(sketch["destination_directory_rule_id"]) == str(candidate["destination_directory_rule_id"])
+        and str(sketch["transform"]) == str(candidate["transform"])
+        and str(sketch["target_arg"]) == str(candidate["target_arg"])
+    )
+
+
+def _title_slug_candidate_matches(sketch: dict[str, Any], candidate: dict[str, Any]) -> bool:
+    return (
+        str(sketch["source_read_id"]) == str(candidate["source_read_id"])
+        and str(sketch["title_field"]) == str(candidate["title_field"])
+        and str(sketch["content_field"]) == str(candidate["content_field"])
+        and str(sketch["destination_directory_rule_id"]) == str(candidate["destination_directory_rule_id"])
+        and str(sketch["slug_transform"]) == str(candidate["slug_transform"])
+        and str(sketch["extension"]) == str(candidate["extension"])
+        and str(sketch["target_arg"]) == str(candidate["target_arg"])
+    )
+
+
+def _archive_path_candidate_matches(sketch: dict[str, Any], candidate: dict[str, Any]) -> bool:
+    return (
+        str(sketch["source_read_id"]) == str(candidate["source_read_id"])
+        and str(sketch["source_directory_field"]) == str(candidate["source_directory_field"])
+        and str(sketch["destination_template_rule_id"]) == str(candidate["destination_template_rule_id"])
+        and str(sketch["basename_transform"]) == str(candidate["basename_transform"])
+        and str(sketch["extension"]) == str(candidate["extension"])
+        and str(sketch["target_arg"]) == str(candidate["target_arg"])
+    )
+
+
 def sketch_policy_valid(sketch: dict[str, Any], row: dict[str, Any]) -> bool:
     obligation = sketch["obligation"]
     if obligation == "literal_intent_binding" and "required_literal_span" in row:
@@ -176,6 +257,12 @@ def sketch_policy_valid(sketch: dict[str, Any], row: dict[str, Any]) -> bool:
         return any(_derived_candidate_matches(sketch, candidate) for candidate in row["derived_path_candidates"])
     if obligation == "ordered_role_binding" and "ordered_role_candidates" in row:
         return any(_ordered_candidate_matches(sketch, candidate) for candidate in row["ordered_role_candidates"])
+    if obligation == "path_pair_transform_binding" and "path_pair_transform_candidates" in row:
+        return any(_path_pair_candidate_matches(sketch, candidate) for candidate in row["path_pair_transform_candidates"])
+    if obligation == "title_slug_export_path_binding" and "title_slug_export_path_candidates" in row:
+        return any(_title_slug_candidate_matches(sketch, candidate) for candidate in row["title_slug_export_path_candidates"])
+    if obligation == "directory_basename_archive_path_binding" and "directory_basename_archive_path_candidates" in row:
+        return any(_archive_path_candidate_matches(sketch, candidate) for candidate in row["directory_basename_archive_path_candidates"])
     return True
 
 
@@ -218,9 +305,25 @@ def replace_basename(live_value: Any, basename: str) -> str:
 
 
 def adversarial_candidate(sketch: dict[str, Any], live_value: Any, evidence_values: list[Any]) -> Any:
-    if sketch["obligation"] == "derived_path_binding":
+    if sketch["obligation"] in {"derived_path_binding", "path_pair_transform_binding", "title_slug_export_path_binding", "directory_basename_archive_path_binding"}:
         return replace_basename(live_value, mutate_basename(live_value, evidence_values))
     return next((value for value in evidence_values if not same_value(value, live_value)), type_mutation(live_value))
+
+
+def row_evidence_values(sketch: dict[str, Any], row: dict[str, Any]) -> list[Any]:
+    if sketch["obligation"] == "path_pair_transform_binding" and "path_pair_transform_candidates" in row:
+        return [candidate["expected_destination_file_path"] for candidate in row["path_pair_transform_candidates"] if _path_pair_candidate_matches(sketch, candidate)]
+    if sketch["obligation"] == "title_slug_export_path_binding" and "title_slug_export_path_candidates" in row:
+        return [candidate["expected_file_path"] for candidate in row["title_slug_export_path_candidates"] if _title_slug_candidate_matches(sketch, candidate)]
+    if sketch["obligation"] == "directory_basename_archive_path_binding" and "directory_basename_archive_path_candidates" in row:
+        return [candidate["expected_archive_path"] for candidate in row["directory_basename_archive_path_candidates"] if _archive_path_candidate_matches(sketch, candidate)]
+    return candidate_values(sketch, row["context"], int(row["write_ordinal_for_schema"]))
+
+
+def row_verify(sketch: dict[str, Any], value: Any, row: dict[str, Any], evidence_values: list[Any]) -> bool:
+    if sketch["obligation"] in {"path_pair_transform_binding", "title_slug_export_path_binding", "directory_basename_archive_path_binding"}:
+        return any(norm_path(value) == norm_path(expected) for expected in evidence_values)
+    return verify(sketch, value, row["context"], int(row["write_ordinal_for_schema"]))
 
 
 class ParseableJsonStoppingCriteria(StoppingCriteria):
@@ -337,10 +440,10 @@ def main() -> None:
                 maybe_checkpoint(len(rows))
                 continue
             live_value = row["live_arguments"][row["field_name"]]
-            vals = candidate_values(parsed.sketch, row["context"], int(row["write_ordinal_for_schema"]))
+            vals = row_evidence_values(parsed.sketch, row)
             adv = adversarial_candidate(parsed.sketch, live_value, vals)
-            live_valid = verify(parsed.sketch, live_value, row["context"], int(row["write_ordinal_for_schema"]))
-            adv_valid = verify(parsed.sketch, adv, row["context"], int(row["write_ordinal_for_schema"]))
+            live_valid = row_verify(parsed.sketch, live_value, row, vals)
+            adv_valid = row_verify(parsed.sketch, adv, row, vals)
             barrier = barrier_unique_validity({"live": live_valid, "adversarial": adv_valid})
             if barrier["decision"] != "commit":
                 decision = "ambiguous_both_valid" if barrier["typed_reason"] == "competing_valid" else "abstain_no_valid"

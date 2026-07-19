@@ -10,6 +10,9 @@ TRACK_A_PATTERNS = {
     "literal_intent_binding",
     "prior_effect_binding",
     "ordered_role_binding",
+    "path_pair_transform_binding",
+    "title_slug_export_path_binding",
+    "directory_basename_archive_path_binding",
 }
 
 TYPED_REASONS = {
@@ -22,12 +25,20 @@ TYPED_REASONS = {
 }
 
 DERIVATIONS = {"basename", "join"}
+PATH_PAIR_TRANSFORMS = {"date_prefix_basename_into_directory"}
+TITLE_SLUG_TRANSFORMS = {"whitespace_to_underscore"}
+TITLE_SLUG_EXTENSIONS = {".md"}
+ARCHIVE_BASENAME_TRANSFORMS = {"directory_basename"}
+ARCHIVE_EXTENSIONS = {".zip", ".tar"}
 
 REQUIRED_KEYS: dict[str, set[str]] = {
     "derived_path_binding": {"obligation", "source_read_id", "source_path_field", "derivation", "target_arg"},
     "literal_intent_binding": {"obligation", "user_span", "target_arg"},
     "prior_effect_binding": {"obligation", "effect_step_id", "effect_field", "target_arg"},
     "ordered_role_binding": {"obligation", "order_source_read_id", "order_field", "index_expr", "target_arg"},
+    "path_pair_transform_binding": {"obligation", "source_read_id", "source_path_field", "date_read_id", "date_field", "destination_directory_rule_id", "transform", "target_arg"},
+    "title_slug_export_path_binding": {"obligation", "source_read_id", "title_field", "content_field", "destination_directory_rule_id", "slug_transform", "extension", "target_arg"},
+    "directory_basename_archive_path_binding": {"obligation", "source_read_id", "source_directory_field", "destination_template_rule_id", "basename_transform", "extension", "target_arg"},
 }
 
 
@@ -103,6 +114,43 @@ def parse_track_a_sketch(raw: str | Mapping[str, Any]) -> ParseOutcome:
             return ParseOutcome(False, None, "parse_error", "order_field must be string")
         if value["index_expr"] != "same_rank":
             return ParseOutcome(False, None, "parse_error", "index_expr must be same_rank")
+    elif obligation == "path_pair_transform_binding":
+        if not _reference_id(value["source_read_id"]):
+            return ParseOutcome(False, None, "parse_error", "source_read_id must be reference id")
+        if not _nonempty_string(value["source_path_field"]):
+            return ParseOutcome(False, None, "parse_error", "source_path_field must be string")
+        if not _reference_id(value["date_read_id"]):
+            return ParseOutcome(False, None, "parse_error", "date_read_id must be reference id")
+        if not _nonempty_string(value["date_field"]):
+            return ParseOutcome(False, None, "parse_error", "date_field must be string")
+        if not _nonempty_string(value["destination_directory_rule_id"]):
+            return ParseOutcome(False, None, "parse_error", "destination_directory_rule_id must be string")
+        if value["transform"] not in PATH_PAIR_TRANSFORMS:
+            return ParseOutcome(False, None, "parse_error", "invalid path-pair transform")
+    elif obligation == "title_slug_export_path_binding":
+        if not _reference_id(value["source_read_id"]):
+            return ParseOutcome(False, None, "parse_error", "source_read_id must be reference id")
+        if not _nonempty_string(value["title_field"]):
+            return ParseOutcome(False, None, "parse_error", "title_field must be string")
+        if not _nonempty_string(value["content_field"]):
+            return ParseOutcome(False, None, "parse_error", "content_field must be string")
+        if not _nonempty_string(value["destination_directory_rule_id"]):
+            return ParseOutcome(False, None, "parse_error", "destination_directory_rule_id must be string")
+        if value["slug_transform"] not in TITLE_SLUG_TRANSFORMS:
+            return ParseOutcome(False, None, "parse_error", "invalid title slug transform")
+        if value["extension"] not in TITLE_SLUG_EXTENSIONS:
+            return ParseOutcome(False, None, "parse_error", "invalid title slug extension")
+    elif obligation == "directory_basename_archive_path_binding":
+        if not _reference_id(value["source_read_id"]):
+            return ParseOutcome(False, None, "parse_error", "source_read_id must be reference id")
+        if not _nonempty_string(value["source_directory_field"]):
+            return ParseOutcome(False, None, "parse_error", "source_directory_field must be string")
+        if not _nonempty_string(value["destination_template_rule_id"]):
+            return ParseOutcome(False, None, "parse_error", "destination_template_rule_id must be string")
+        if value["basename_transform"] not in ARCHIVE_BASENAME_TRANSFORMS:
+            return ParseOutcome(False, None, "parse_error", "invalid archive basename transform")
+        if value["extension"] not in ARCHIVE_EXTENSIONS:
+            return ParseOutcome(False, None, "parse_error", "invalid archive extension")
     return ParseOutcome(True, value, None, None)
 
 

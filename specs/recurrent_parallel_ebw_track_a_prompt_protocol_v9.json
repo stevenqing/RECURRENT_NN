@@ -1,0 +1,41 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_prompt_protocol_v9",
+  "status": "DEV_PATH_PAIR_MODEL_SYNTHESIS_AFTER_V9_GATE_BEFORE_NEW_TAG",
+  "frozen_date": "2026-07-14",
+  "parent_freeze_tag": "ebw-freeze-A",
+  "parent_prompt_freeze": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_freeze_v8/prompt_freeze_v8.json",
+  "reason_for_repair": "The deterministic v9 path-pair gate converted 120 directly covered full-v8 derived unsafe rows to commit_live. v9 now tests model synthesis of the new path_pair_transform_binding sketch over the same covered class.",
+  "repair_scope": [
+    "keep v8 candidate-bound protocol for existing obligations",
+    "add path_pair_transform_binding as a model-emitted proof sketch",
+    "require sketches to match deterministic path_pair_transform_candidates exactly",
+    "keep strict JSON parser",
+    "do not open sealed variations"
+  ],
+  "path_pair_candidate_policy": "date_prefix_directory_rule_full_destination_path_v9",
+  "path_pair_schema": {
+    "obligation": "path_pair_transform_binding",
+    "required_keys": ["obligation", "source_read_id", "source_path_field", "date_read_id", "date_field", "destination_directory_rule_id", "transform", "target_arg"],
+    "transform_value": "date_prefix_basename_into_directory"
+  },
+  "path_pair_example": {
+    "obligation": "path_pair_transform_binding",
+    "source_read_id": "read_4",
+    "source_path_field": "response.path",
+    "date_read_id": "read_4",
+    "date_field": "response.created_at",
+    "destination_directory_rule_id": "current_year_2023_else_trash",
+    "transform": "date_prefix_basename_into_directory",
+    "target_arg": "destination_file_path"
+  },
+  "parser_policy": "strict_json_no_regex_repair",
+  "primary_gate_policy": "strict_full_text_json_only",
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_PROMPT_V9_READY_NOT_TAGGED",
+    "blocked": "RPD_EBW_TRACK_A_PROMPT_V9_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_PROMPT_V9_PROTOCOL_FAIL"
+  }
+}

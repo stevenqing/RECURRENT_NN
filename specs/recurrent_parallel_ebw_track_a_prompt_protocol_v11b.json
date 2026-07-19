@@ -1,0 +1,25 @@
+{
+  "schema": "recurrent_parallel_ebw_track_a_prompt_protocol_v11b",
+  "status": "DEV_TITLE_SLUG_OUTPUT_CONTRACT_REPAIR_AFTER_R3",
+  "frozen_date": "2026-07-14",
+  "parent_freeze_tag": "ebw-freeze-A",
+  "parent_prompt_freeze": "results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_prompt_freeze_v11/prompt_freeze_v11.json",
+  "reason_for_repair": "The v11 title-slug model gate semantically synthesized the proof family, but 5/65 outputs failed strict parsing because the model emitted required_obligation or omitted obligation. v11b strengthens only the output contract and keeps the strict parser unchanged.",
+  "repair_scope": [
+    "keep v11 title_slug_export_path_binding grammar unchanged",
+    "strengthen response contract: output key must be obligation, never required_obligation",
+    "rerun only the 5 strict parse/contract failures",
+    "keep strict JSON parser",
+    "do not open sealed variations"
+  ],
+  "prompt_protocol": "chat_template_json_prefill_title_slug_contract_v11b",
+  "output_contract_addendum": "The output object must use the key obligation exactly. Do not output required_obligation. Do not omit obligation. The first key should be obligation.",
+  "sealed_variations_opened": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "verdicts": {
+    "ready": "RPD_EBW_TRACK_A_PROMPT_V11B_READY_NOT_TAGGED",
+    "blocked": "RPD_EBW_TRACK_A_PROMPT_V11B_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_PROMPT_V11B_PROTOCOL_FAIL"
+  }
+}

@@ -376,9 +376,84 @@ $$
 
 > **给出并验证 reasoning compute 在空间宽度与时间递归深度之间的资源分配规律。**
 
+## 8. Real-Agent Instantiation: EBW / Proof-Carrying Actions
+
+AppWorld Evidence-Bound Writes (EBW) 是当前最贴近真实 agent 应用的 RPD 落点。这里的 agent 不是在玩抽象 voting game，而是在执行有副作用的工具写操作：移动文件、发消息、写数据库字段、使用 prior API effects。系统允许多个 agents 并行提出 action proof sketch，但 barrier 只在唯一候选被 deterministic verifier 证明时 commit。
+
+这条线把 RPD 的 recurrent state 从 hidden conversation 变成 typed verifier residual：
+
+$$
+e_i^t=(role,slot,predicate,counterexample,missing\ evidence,ambiguity,unsafe\ reason).
+$$
+
+下一轮不是让 agent “再想想”，而是把 residual 当作 text-gradient 编译回 proof frontier：
+
+1. `VerifierAgent` 对每个 proposal 产生 typed residual；
+2. `RepairAgent` 只允许基于 residual 修改 proof sketch 或申请新增 proof grammar；
+3. `MetaVerifier` 检查新增 grammar 是否只是 prompt shortcut，还是能在 adversarial candidates 下保持唯一有效性；
+4. 通过后，frontier 进入下一轮，并在 sealed/opened split 上重新 gate。
+
+EBW Track A v8/v9/v10 已经给出一个具体例子：full-v8 的 derived-path unsafe 不是模型随机错误，而是 `projection_loss` residual；v9 增加 `path_pair_transform_binding` 后，120 个直接覆盖的 unsafe rows 在 deterministic gate 与 model-facing Qwen gate 中都变成 `commit_live` 且 0 unsafe。v10 进一步把剩余 36 个 mismatch 归因到 path literal canonicalization residual，并在 CPU-only deterministic gate 中覆盖全部 156 个 full-v8 derived unsafe rows。v11 residual taxonomy 显示下一组 post-v10 residual 不是 safety failure，而是可分解的 abstain/coverage frontier gaps，其中最大 post-v10 类是 65 个 `title_slug_export_path_binding_missing`。这个结果应作为 RPD 的 real-agent proof-carrying action substrate，而不是孤立工程 patch。
+
+### 8.1 EBW 中的 parallel free lunch
+
+free lunch 不来自多数投票，而来自 proof search factorization：
+
+- filesystem path agent 只搜索 path/date/directory binding；
+- literal intent agent 只搜索 task-span binding；
+- ordered-role agent 只搜索 ordinal/source-read binding；
+- prior-effect agent 只搜索 previous-write membership；
+- barrier 把所有候选压成唯一有效性判定。
+
+在固定 wall-clock critical path 下，多个 proof-family agents 可以并行搜索不同 obligation；deterministic verifier 阻止错误写入；typed residual 把失败留下来作为下一轮 recurrent update 的可复用状态。
+
+### 8.2 Required EBW controls
+
+EBW 线必须报告：
+
+- `single_agent_all_obligations`：一个 agent 串行处理所有 proof families；
+- `parallel_family_agents`：每个 proof family 一个并行 agent；
+- `parallel_same_family_resampling`：同一 proof family 的独立重采样，排除普通 ensemble；
+- `repair_agent_without_metaverifier`：证明 grammar patch 需要 verifier gate；
+- `residual_shuffled`：打乱 typed residual 到错误 family，验证 recurrence signal 必须匹配；
+- `candidate_frontier_oracle` 与 deterministic frontier 分开报告。
+
+主要指标不是 raw task accuracy，而是：safe commit recovery、unsafe unique-wrong、parse rate、frontier coverage、residual-to-grammar repair yield、repair rounds、critical-path latency、sealed split safety。
+
+### 8.3 v11 RepairAgent benchmark
+
+下一步不应继续 chase v10 分数，而应把 v9/v10 人工 repair 过程变成可证伪 benchmark。当前 preregistered target 是 `title_slug_export_path_binding`：Simple Note title evidence 通过 whitespace-to-underscore transform、task literal backup directory、`.md` extension 证明 filesystem write path。
+
+R1 CPU feasibility 已通过：65/65 target rows 在 corrected frontier 下 `commit_live`，0 unsafe。关键细节是 source binding 必须使用 latest matching pre-write `show_note` read；content-only matching 会因为 habit tracker 内容重复而绑定错 title。这个失败再修复的过程本身就是 typed residual 作为 text-gradient 的例子。
+
+R3 model-facing gate 的第一版暴露了 output-contract residual：Qwen 在 60/65 rows 输出有效 `title_slug_export_path_binding`，另外 5 个把 output key 写成 `required_obligation` 或漏掉 `obligation`。v11b 不放宽 parser，只强化 response contract，并只 rerun 5 个失败行，得到 5/5 commit。合并后 title-slug target 65/65 commit、0 unsafe；full executable compositional rescore 提升到 822 commit、25 abstain、0 unsafe。这里的 lesson 是：MetaVerifier/strict parser 应继续把 contract leakage 作为 typed residual，而不是容忍解析。
+
+v12 CPU-only MetaVerifier preflight 已完成：两个正确 repair proposals 被接受（latest-`show_note` frontier、`obligation` output contract），四个 shortcut controls 被拒（content-only binding、residual-shuffled、parser relaxation、prompt-only）。这还不是 autonomous RepairAgent，但它把 evaluator 固定住了：下一步只替换 proposal source，让 model/agent 从 typed residual text 生成 patch JSON，MetaVerifier 保持不变。
+
+v14 answer-blinded RepairAgent attempt 是当前 autonomous proposal 的 no-go：Qwen 输出 2/2 parseable patch JSON，但 MetaVerifier 0/2 接受。失败原因正是我们希望 evaluator 抓住的 shortcut：title-slug repair 回到 content-only binding，contract repair 把 `required_obligation` 误当 required key。这个 negative result 支持方法论边界：MetaVerifier 已就绪，但 RepairAgent proposal policy 还不够强。
+
+v15 structured repair policy 通过 CPU gate：给定 typed residual packets、primitive library 和 deterministic compiler，系统能选择 latest-`show_note` frontier 与 strict `obligation` contract，MetaVerifier 接受 2/2；同一组 shortcut controls 继续被拒。下一步的模型贡献应收窄为 primitive selection，而不是 free-form patch JSON generation。
+
+v16/v16b model-in-the-loop primitive selection 已通过：Qwen 首轮正确选择 title-slug primitives，但在 output-contract residual 漏选 `parser_policy.strict`；v16b 只 retry 该 compile failure，并通过 slot-completeness instruction 补齐。合并后 Qwen-selected primitives 2/2 被 deterministic compiler + unchanged MetaVerifier 接受。这是当前第一个 agent-in-the-loop repair success，但 scope 仍限于已定义 primitive vocabulary。
+
+v17 已把下一类 post-v11b abstain `directory_basename_archive_path_binding_missing` 打开：9/9 vacation-directory compression rows 可由 immutable directory-list evidence 的 basename、task literal archive template 和 extension 证明，0 unsafe。随后 strict grammar/prompt/runner integration 与 9-row model-facing target 均通过，Qwen 9/9 commit、parse 1.0；full executable compositional rescore 提升到 831 commit、16 abstain、0 unsafe。下一步是把 archive-path 纳入 structured RepairAgent primitive selection，而不是继续人工扩 grammar。
+
+v18 archive structured policy 已通过 CPU gate：archive-path 被纳入 primitive selection action space，正确 primitives 被 MetaVerifier 接受，generic basename projection、wrong template、wrong transform、wrong extension、parser relaxation、prompt-only 六个 shortcut controls 被拒。下一步是单 residual packet 的 model-in-the-loop primitive selection。
+
+v19 archive model-in-the-loop primitive selection 已通过：Qwen 在 answer-blinded archive residual packet 上选择完整 primitive set，deterministic compiler + unchanged archive MetaVerifier 接受 1/1。这把 model-in-loop RepairAgent 从 title-slug/output-contract 扩展到第三个 proof family。下一步应重新做剩余 16 个 safe abstentions 的 residual taxonomy。
+
+这组 benchmark 的 research value 在于：
+
+- residual 是 typed abstain frontier gap，不是模型随机错误；
+- proof schema 必须通过 MetaVerifier adversarial uniqueness；
+- `prompt_only_repair`、`residual_shuffled`、`repairagent_without_metaverifier` 都能作为反证 control；
+- 成功后可以报告 residual-to-grammar repair yield，而不是只报告 commit 数。
+
+具体 gate ladder 见 [EBW RepairAgent Benchmark v11](recurrent_parallel_ebw_repairagent_benchmark_v11.md)。
+
 ---
 
-## 8. 必须使用的 controls
+## 9. 必须使用的 controls
 
 ### Architecture controls
 
@@ -412,7 +487,7 @@ $$
 
 ---
 
-## 9. 第一组关键实验：fixed $B=MT$
+## 10. 第一组关键实验：fixed $B=MT$
 
 选取固定 operator-update budgets：
 
@@ -449,7 +524,7 @@ $$
 
 ---
 
-## 10. 第二组实验：recurrence necessity
+## 11. 第二组实验：recurrence necessity
 
 冻结 $M$，比较：
 
@@ -469,7 +544,7 @@ $$
 
 ---
 
-## 11. 第三组实验：real parallelism
+## 12. 第三组实验：real parallelism
 
 只有 symbolic/lightweight gate 通过后才使用 GPU 2、3。
 
@@ -496,7 +571,7 @@ $$
 
 ---
 
-## 12. Preregistered gate ladder
+## 13. Preregistered gate ladder
 
 ### P0 — Symbolic recurrent semantics
 
@@ -554,7 +629,7 @@ $$
 
 ---
 
-## 13. 当前已有结果在新主线中的位置
+## 14. 当前已有结果在新主线中的位置
 
 当前 capacity-valid tail-control 结果不是被丢弃，而是变成：
 
@@ -574,7 +649,7 @@ $$
 
 ---
 
-## 14. 推荐标题
+## 15. 推荐标题
 
 ### 最强目标
 
@@ -590,7 +665,7 @@ $$
 
 ---
 
-## 15. 单一下一步
+## 16. 单一下一步
 
 不要直接启动 Qwen。
 
