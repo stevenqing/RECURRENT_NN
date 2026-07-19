@@ -1,0 +1,9 @@
+# EBW Track A Prompt Manifest
+
+## Status: **`RPD_EBW_TRACK_A_PROMPT_MANIFEST_READY`**
+
+- Rows: 4
+- Limit: 4
+- Prompt protocol: `chat_template_json_prefill_role_literal_span_v5`
+- Sealed variations 10-12 opened: No
+- Model/GPU/Docker actions: No

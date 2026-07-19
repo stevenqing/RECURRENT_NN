@@ -1,0 +1,13 @@
+# EBW Track A Raw Output Rescore
+
+## Status: **`RPD_EBW_TRACK_A_RESCORE_COMPLETE`**
+
+- Processed: 65
+- Decision counts: {'commit_live': 65}
+- Parse rate: 1.000
+- Safe commit recovery: 0.195
+- GA-main pass: False
+- Prompt protocol: `mixed_title_slug_v11_v11b_contract_retry`
+- Derived path adversary policy: `path_shape_preserving_basename_mutation_v7`
+- Model/GPU/Docker/external process actions: No
+- Sealed variations 10-12 opened: No
