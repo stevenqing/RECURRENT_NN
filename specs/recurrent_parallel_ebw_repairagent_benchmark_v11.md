@@ -35,6 +35,7 @@ Inputs:
 - v31-v33 held-out TTC: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v31_heldout_instance_preflight/PREFLIGHT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v32_heldout_no_repair/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v33_heldout_ttc/REPORT.md`
 - v34 held-out best-of-N no-repair control: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v34_heldout_best_of_n_no_repair/REPORT.md`
 - v35-v38 held-out controls: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v35_heldout_freeform_repair/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v36_heldout_no_metaverifier_control/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v38_heldout_no_typed_residual/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v37_heldout_control_summary/SUMMARY.md`
+- v39-v42 exploratory hard residuals: `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v39_hard_heldout_generation/REPORT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v42_hard_typed_vs_untyped/REPORT.md`
 
 Sealed AppWorld variations 10-12 remain closed.
 
@@ -151,6 +152,7 @@ Required controls before any headline claim:
 23. **R14b held-out free-form RepairAgent control:** complete. Free-form patch JSON parses but is rejected by MetaVerifier because the model selects the wrong slot.
 24. **R14c held-out no-MetaVerifier control:** complete. Compiler-only structured repair accepts the correct selection and two bad slot controls, showing why MetaVerifier is required.
 25. **R14d held-out no-typed-residual control:** complete. With typed residual labels withheld, Qwen still selects the correct literal-path primitive. This narrows the current held-out claim: MetaVerified structured repair is supported, but typed-label necessity is not established on this slice.
+26. **R15 exploratory hard residual typed-vs-untyped:** complete but not headline-eligible. v39 hard held-out protocol is blocked. On the generated pass-subset, v42 typed residual packets solve 3 ordered-note abstains while untyped packets fail by choosing output-content binding. This supports typed-label usefulness on a harder residual, but only as exploratory evidence.
 
 R5c structured policy result:
 
@@ -216,3 +218,5 @@ Current R12 status: `MODEL_PRIMITIVE_SELECTION_PASS after targeted retry`. This 
 Current R13 status: `RETROSPECTIVE_TTC_REPLAY_PASS`. The next gate is prospective held-out TTC under the frozen protocol; no new primitives, proof families, parser edits, or manual residual taxonomy are allowed after held-out outcomes are observed.
 
 Current R14 status: `HELDOUT_TTC_CONTROL_SUITE_PASS_WITH_TYPED_LABEL_CAVEAT`. The next gate is robustness and scale under the same frozen protocol, especially held-out residuals where API/field metadata alone is insufficient.
+
+Current R15 status: `EXPLORATORY_TYPED_LABEL_SIGNAL`. Do not headline v42 as prospective held-out because v39 was blocked. A clean hard-generator protocol must be preregistered and pass semantic audit before using this as headline evidence.

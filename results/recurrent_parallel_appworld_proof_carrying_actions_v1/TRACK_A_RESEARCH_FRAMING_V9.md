@@ -519,6 +519,24 @@ Control table:
 
 Research interpretation: the held-out controls now isolate the main mechanism more carefully. The gain is not from generic best-of-N test-time compute, not from unconstrained patch JSON, and not from compiler-only structured repair. It does require frozen primitive selection, deterministic compilation, and MetaVerifier acceptance. However, the v38 no-typed-residual ablation succeeds on this narrow literal-path slice, so this particular held-out result does not prove typed residual labels are necessary; that claim needs harder residual families.
 
+## v39-v42 Exploratory Hard Residual Test
+
+The hard residual protocol is recorded at `specs/recurrent_parallel_ebw_hard_residual_heldout_v1.md`.
+
+The preregistered v39 generation is blocked: `6171bbc` fails to generate variations 10-12 and audit variations do not semantically match the broad-schema parent. This means v39 is not headline-eligible.
+
+We still use the generated pass-subset as an exploratory diagnostic:
+
+| Stage | Scope | Result |
+|---|---|---|
+| v40 | generated pass-subset value-free preflight | 9 fresh tasks, 467 target instances |
+| v41 | balanced hard target | 15 rows: source-path 6, ordered-note 3, prior-effect 6 |
+| v41 no repair | proof-agent baseline | 12 commit, 3 ordered-note abstain, 0 unsafe |
+| v42 typed | typed residual packet | accepted, 15 commit, 0 abstain |
+| v42 untyped | typed labels withheld | rejected wrong content binding, 12 commit, 3 abstain |
+
+Research interpretation: v42 gives the missing typed-residual signal, but only as exploratory evidence because v39 was blocked. On ordered-note identity, typed residual text makes the model choose `content_binding.quoted_task_item_in_prewrite_content`; without typed labels, it chooses `content_binding.output_content_contains_item`, which MetaVerifier rejects.
+
 ## Multi-Agent Interpretation
 
 This remains a multi-agent/free-lunch result if we keep the division of labor clean:

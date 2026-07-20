@@ -1,0 +1,52 @@
+{
+  "schema": "recurrent_parallel_ebw_hard_residual_heldout_contract_v1",
+  "status": "FROZEN_BEFORE_HARD_RESIDUAL_HELDOUT_OUTCOMES",
+  "frozen_date": "2026-07-20",
+  "phase": "EBW_TARGETED_HARD_RESIDUAL_HELDOUT_GENERATION",
+  "source_root": "external_repos/appworld_source",
+  "source_commit": "a072b7a86e7c1d5b1d7175659d750ebb9b79f10a",
+  "base_source_root": "external_repos/appworld_generated",
+  "audit_parent_root": "external_repos/appworld_generated_broad_schema_v1",
+  "fresh_generated_root": "external_repos/appworld_generated_hard_v10_12",
+  "base_rebuild_status": "results/appworld_data_v02_rebuild/status.json",
+  "data_version": "0.2.0",
+  "generator_ids": [
+    "68ee2c9",
+    "cf6abd2",
+    "6171bbc",
+    "e3d6c94"
+  ],
+  "generator_num_tasks": 12,
+  "audit_variations": [1, 2],
+  "fresh_variations": [10, 11, 12],
+  "random_seed": 100,
+  "python_hash_seed": 0,
+  "use_environment": true,
+  "use_compiled_solution": true,
+  "selection_basis": "opened-data residual family coverage only: source_path_identity, ordered_note_identity, prior_effect_playlist",
+  "expected_fresh_tasks": 12,
+  "expected_generators": 4,
+  "semantic_audit": {
+    "ignored_metadata_path": "ground_truth/metadata.json",
+    "ignored_metadata_keys": [
+      "seconds_to_generate",
+      "seconds_to_solve",
+      "seconds_to_evaluate",
+      "seconds_to_validate"
+    ]
+  },
+  "protected_content_export": false,
+  "argument_values_export": false,
+  "response_values_export": false,
+  "value_hashes_export": false,
+  "model_gpu_docker_used": false,
+  "external_process_actions": false,
+  "guard_outcomes_observed": false,
+  "headline_eligible": false,
+  "verdicts": {
+    "preflight_ready": "RPD_EBW_TRACK_A_V39_HARD_HELDOUT_PREFLIGHT_READY",
+    "generation_pass": "RPD_EBW_TRACK_A_V39_HARD_HELDOUT_GENERATION_PASS",
+    "blocked": "RPD_EBW_TRACK_A_V39_HARD_HELDOUT_BLOCKED",
+    "protocol_fail": "RPD_EBW_TRACK_A_V39_HARD_HELDOUT_PROTOCOL_FAIL"
+  }
+}

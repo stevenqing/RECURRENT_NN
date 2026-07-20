@@ -460,6 +460,8 @@ v35-v37 held-out controls 已完成：free-form RepairAgent patch JSON 1/1 parse
 
 v38 no-typed-residual ablation 已完成并改变 claim 边界：隐藏 `residual_class`、`typed_reason`、`failed_frontier`、`counterexample_summary` 后，模型仍然能从 untyped API/field failure metadata 和 frozen primitive library 中选出 literal export path repair，merged rescore 仍为 65/0/0。因此当前 held-out slice 证明的是 structured primitive selection + MetaVerifier 的必要性，而不是 typed residual label 的必要性。typed residual 是否必要需要在更难的 source-path、ordered-note、prior-effect 等 held-out residual 上继续测。
 
+v39-v42 hard residual probe 已完成但必须标注为 exploratory：v39 预注册的 4-generator hard held-out protocol 被阻塞（`6171bbc` 没有生成 fresh 10-12，且 audit 1-2 semantic match 失败），因此不能作为 headline held-out。用生成成功的 pass-subset 做诊断时，v41 hard target 15 rows 中 no-repair 为 12/3/0；v42 typed residual 在 ordered-note identity 上选择正确 `quoted_task_item_in_prewrite_content` 并达到 15/0/0，v42 untyped 则选择 `output_content_contains_item` 被 MetaVerifier 拒绝，仍 12/3/0。这给 typed labels 有用性提供 exploratory evidence，但还需要 clean hard held-out protocol 才能写成主结果。
+
 这组 benchmark 的 research value 在于：
 
 - residual 是 typed abstain frontier gap，不是模型随机错误；

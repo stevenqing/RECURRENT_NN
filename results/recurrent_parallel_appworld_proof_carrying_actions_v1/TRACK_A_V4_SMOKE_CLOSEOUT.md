@@ -108,6 +108,9 @@ Date: 2026-07-13
 | v36 held-out no-MetaVerifier control | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v36_heldout_no_metaverifier_control/REPORT.md` |
 | v38 held-out no-typed-residual control | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v38_heldout_no_typed_residual/REPORT.md` |
 | v37 held-out control summary | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v37_heldout_control_summary/SUMMARY.md` |
+| v39 hard held-out preflight/generation | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v39_hard_heldout_preflight/PREFLIGHT.md`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v39_hard_heldout_generation/REPORT.md` |
+| v40 hard pass-subset preflight | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v40_hard_pass_subset_instance_preflight/PREFLIGHT.md` |
+| v42 hard typed-vs-untyped eval | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v42_hard_typed_vs_untyped/REPORT.md` |
 | Raw JSON index and analysis | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/TRACK_A_RAW_JSON_INDEX_AND_ANALYSIS.md` |
 
 ## Results
@@ -166,6 +169,8 @@ Date: 2026-07-13
 | v36 held-out no-MetaVerifier | compiler-only structured selection | model + negative slot controls | `3 accepted without MetaVerifier; 2 bad controls accepted` | n/a | Compiler-only acceptance admits wrong span-source and parser-relaxation controls. |
 | v38 held-out no-typed-residual | primitive selection + MetaVerifier | typed fields withheld | `{'commit_live': 65}` | 1.000 | Model still infers the correct frozen literal-path primitive from untyped API/field failure metadata on this narrow slice. |
 | v37 held-out control summary | summary | v32-v36 | structured+MetaVerifier uniquely closes held-out gap | n/a | One-shot, best-of-N, free-form, and no-MetaVerifier controls do not support the same safety claim. |
+| v39 hard held-out generation | preregistered hard generators | source/order/prior target families | `BLOCKED` | n/a | Four-generator hard held-out protocol is not headline eligible: `6171bbc` failed generation and audit did not match parent. |
+| v42 hard typed-vs-untyped | exploratory pass-subset | ordered-note residual | typed: `15/15`; untyped: `12/15` | 1.000 | On hard ordered-note pass-subset, typed residual selects pre-write content binding; untyped selects output-content binding and is rejected. |
 
 ## v6 Dev40 Breakdown
 
@@ -368,6 +373,9 @@ Date: 2026-07-13
    v35 tests free-form RepairAgent patch JSON on the same held-out residual. The model emits parseable patch JSON, but chooses the wrong slot (`span_source=derived_path_binding`), and the fixed MetaVerifier rejects it. v36 tests structured selection without MetaVerifier: compiler-only acceptance admits the correct model selection and two bad controls, including wrong span source and parser relaxation. v37 summarizes the held-out control table: only structured primitive selection with MetaVerifier closes the held-out gap safely.
    v38 withholds `residual_class`, `typed_reason`, `failed_frontier`, and `counterexample_summary`, but keeps API/field failure metadata and the frozen primitive library visible. Qwen still selects the correct literal-path primitive and MetaVerifier accepts. Therefore this narrow held-out slice supports the need for structured MetaVerified repair, but does not by itself prove typed residual labels are necessary.
 
+42. v39-v42 exploratory hard residual test:
+   A preregistered hard-residual held-out protocol targets source-path identity (`68ee2c9`), ordered-note identity (`cf6abd2`), and prior-effect playlist (`6171bbc`, `e3d6c94`). The formal v39 four-generator generation is blocked, because `6171bbc` does not generate variations 10-12 and audit variations do not semantically match the broad-schema parent. As an explicitly non-headline exploratory pass-subset, v40 uses the generated `68ee2c9`, `cf6abd2`, and `e3d6c94` fresh tasks. v41 selects a balanced 15-row hard target; no-repair commits 12/15 and leaves 3 ordered-note abstains. v42 shows typed residual packets solve those 3 rows, reaching 15/15, while no-typed residual packets select `content_binding.output_content_contains_item`, fail MetaVerifier, and remain 12/15. This supports typed residual usefulness on a harder ordered-note slice, but it is exploratory rather than headline-held-out.
+
 ## External Process State
 
 - DPO equivalent workload was paused only to run Qwen smoke/dev-slice/target tests on GPU0/1.
@@ -416,7 +424,8 @@ Date: 2026-07-13
 - v31-v33 are prospective held-out TTC under the v30 freeze: fresh variations 10-12 are opened after freeze; no new primitives/proof families/parser edits are introduced; the first held-out repair closes 3 abstains with one model repair call.
 - v34 best-of-N no-repair is a held-out negative control: 8 sampled proof sketches per v32 abstain do not recover any of the 3 abstains and introduce no unsafe commits.
 - v35-v38 complete the first held-out control suite: free-form patch JSON is rejected by MetaVerifier, compiler-only structured repair accepts bad controls without MetaVerifier, and withholding typed residual labels does not break this narrow literal-path case.
+- v39-v42 add an exploratory hard-residual pass-subset: typed labels help on ordered-note identity, but the preregistered hard-heldout protocol was blocked and should not be reported as headline held-out.
 
 ## Next Step
 
-Next, scale the held-out TTC evidence to harder/more diverse residual families. In particular, test whether withholding typed residual labels still works for non-literal residuals such as source-path identity, ordered-note identity, and prior-effect playlist binding.
+Next, either fix/preregister a clean hard held-out generator set that passes semantic audit, or report v42 only as exploratory evidence that typed residual labels help on ordered-note identity.

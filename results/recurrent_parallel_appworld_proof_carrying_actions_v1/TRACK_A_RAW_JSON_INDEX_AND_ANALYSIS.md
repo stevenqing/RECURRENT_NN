@@ -112,6 +112,7 @@ Analysis: v14 proves free-form patch generation is too unconstrained. v15-v16b s
 | v34 held-out best-of-N no-repair | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v34_heldout_best_of_n_no_repair/results.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_model_run_v34_heldout_best_of_n_no_repair/raw_model_outputs.json` | Negative control: 8 sampled proof sketches per v32 abstain, 3/3 rows remain abstain, 0 unsafe. |
 | v35-v37 held-out controls | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v35_heldout_freeform_repair/results.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v36_heldout_no_metaverifier_control/results.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v37_heldout_control_summary/summary.json` | Free-form patch rejected; no-MetaVerifier compiler-only accepts bad controls; structured+MetaVerifier uniquely closes gap. |
 | v38 held-out no-typed-residual | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v38_heldout_no_typed_residual/results.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v38_heldout_no_typed_residual/results.json` | With typed residual labels withheld, model still selects the correct literal-path primitive; current slice does not prove typed-label necessity. |
+| v39-v42 exploratory hard residuals | `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_v39_hard_heldout_generation/generation.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_eval_v42_hard_typed_vs_untyped/results.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v42_hard_typed/results.json`, `results/recurrent_parallel_appworld_proof_carrying_actions_v1/track_a_rescore_v42_hard_untyped/results.json` | v39 protocol blocked; exploratory pass-subset shows typed ordered-note residual succeeds and untyped fails. |
 
 Analysis: archive-path is a third proof family repaired by the same loop. It uses immutable directory-list evidence, extracts the source directory basename as `<vacation_spot>`, and fills the task literal archive path template and extension. v19 extends model-in-the-loop primitive selection beyond title-slug/output-contract to a new transform family.
 
@@ -196,6 +197,7 @@ Claim boundary:
 - v31-v33 provide the first prospective held-out TTC evidence, but required baselines remain before a headline claim.
 - v34 shows best-of-N proof-sketch sampling without RepairAgent does not close the held-out residuals.
 - v35-v38 complete the initial held-out control suite and isolate the mechanism to structured primitive selection with MetaVerifier; typed-label necessity remains an open robustness question on harder residual families.
+- v39-v42 provide exploratory evidence for typed-label usefulness on ordered-note identity, but are not headline-eligible because the hard held-out protocol was blocked.
 - It does not yet prove fully open-ended autonomous repair.
 
 ## Push/Commit Guidance
